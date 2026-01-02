@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 class CustomerReviewProps {
   customerName: string;
   reviewDate: string;
@@ -83,5 +85,58 @@ export default function CustomerReview() {
 function RatingStar() {
   return (
     <span style={{ color: "#FFFFF", fontSize: "32px" }}>⭐ ⭐ ⭐ ⭐ ⭐</span>
+  );
+}
+    return (
+        <div className="flex flex-col items-center justify-center py-[160px] bg-white">
+            <h1 className="text-4xl font-bold text-center">
+            <span className="text-black pb-4">Customer reviews</span>
+            </h1>
+            <h3 className="text-1.5xl font-regular text-center px-3 pt-2 pb-8">
+            <span className="text-black">See what others are saying about SmartQR</span>
+           </h3>
+           <div className="flex flex-row pt-[56px] gap-4 item-center justify-center">
+            {CustomerReviews.map((review, index) => (
+                <div key={index} className="h-auto w-[304px] bg-[#F5F6FA] rounded-lg p-[20px] flex flex-col justify-between pl-6 pr-6">
+                    <div className="mt-2">
+                        <RatingStar />
+                    </div>
+                    <div>
+                        <h4 className="text-sm font-bold text-black mb-2">{review.title}</h4>
+                        <p className="text-sm font-regular text-grey">{review.subTitle}</p>
+                    </div>
+                    <div className="flex flex-row item-center justify-start gap-[12px]">
+                        <div className="w-[30px] h-[30px] my-[8px] bg-[#BFD166] rounded-full flex items-center justify-center">
+                        <span className="text-white font-normal text-sm">
+                            {review.customerName.charAt(0).toUpperCase()}
+                        </span>
+                        </div>
+                        <div className="flex flex-col item-center justify-center">
+                        <p className="text-sm font-medium text-black">{review.customerName}</p>
+                        <p className="text-sm font-light text-grey">{review.reviewDate}</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+           </div>
+        </div>
+    );
+}
+
+function RatingStar() {
+  const stars = Array.from({ length: 5 });
+  return (
+    <div className="flex flex-row gap-[8px]">
+        {stars.map((_, i) => (
+            <Image
+              key={i}
+              src="/images/home/star.svg"
+              alt="star"
+              width={24}  // 4 * 4px = 16px
+              height={24}
+              className="mr-1"
+            />
+        ))}
+    </div>
   );
 }
