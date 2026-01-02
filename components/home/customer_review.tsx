@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 class CustomerReviewProps {
     customerName: string;
@@ -39,9 +40,16 @@ export default function CustomerReview() {
                         <h4 className="text-sm font-bold text-black mb-2">{review.title}</h4>
                         <p className="text-sm font-regular text-grey">{review.subTitle}</p>
                     </div>
-                    <div className="mt-4">
+                    <div className="flex flex-row item-center justify-start gap-[12px]">
+                        <div className="w-[30px] h-[30px] my-[8px] bg-[#BFD166] rounded-full flex items-center justify-center">
+                        <span className="text-white font-normal text-sm">
+                            {review.customerName.charAt(0).toUpperCase()}
+                        </span>
+                        </div>
+                        <div className="flex flex-col item-center justify-center">
                         <p className="text-sm font-medium text-black">{review.customerName}</p>
                         <p className="text-sm font-light text-grey">{review.reviewDate}</p>
+                        </div>
                     </div>
                 </div>
             ))}
@@ -51,7 +59,19 @@ export default function CustomerReview() {
 }
 
 function RatingStar() {
-  return <span style={{color: "#FFFFF", fontSize: "32px" }}>
-      ⭐ ⭐ ⭐ ⭐ ⭐
-    </span>;
+  const stars = Array.from({ length: 5 });
+  return (
+    <div className="flex flex-row gap-[8px]">
+        {stars.map((_, i) => (
+            <Image
+              key={i}
+              src="/images/home/star.svg"
+              alt="star"
+              width={24}  // 4 * 4px = 16px
+              height={24}
+              className="mr-1"
+            />
+        ))}
+    </div>
+  );
 }
