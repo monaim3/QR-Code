@@ -110,27 +110,22 @@ export default function Faq() {
         );
      })}
       </div>
-      <Accordion
-  type="single"
-  collapsible
-  defaultValue={`item-${FaqData[activeTab - 1].item[0].id}`} // opens first item
->
-  {FaqData[activeTab - 1].item.map((item) => (
-    <AccordionItem
-      key={item.question} // unique key for React
-      value={`item-${item.question}`} // unique value for Accordion
-      className="bg-white mb-4 rounded-lg w-[752px]"
-    >
-      <AccordionTrigger className="p-4 text-black font-sans font-bold">
-        {item.question}
-      </AccordionTrigger>
-      <AccordionContent className="p-4 text-gray-600 font-sans font-normal">
-        {item.answer}
-      </AccordionContent>
-    </AccordionItem>
-  ))}
-</Accordion>
-
+      <div> 
+        {FaqData[activeTab - 1].item.map((item) => {
+                return (
+                <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1"
+                        className="bg-white mb-4 rounded-lg w-[752px]"
+                        >
+                         <AccordionTrigger className="p-4 text-black font-sans font-bold ">{item.question}</AccordionTrigger>
+                        <AccordionContent className="p-4 text-gray-600 font sans font-re">
+                             {item.answer}
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+                );
+            })}
+      </div>
   </div>
 );
 }
