@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import Container from "../common/parent-container";
 
 class QrType {
   id: number;
@@ -117,74 +118,122 @@ export default function QrTypes() {
   const [activeTab, setActiveTab] = React.useState(QrTypeData[0].id);
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
+  ///change tab using arrows
+  const changeTab = (direction: "left" | "right") => {
+  const currentIndex = QrTypeData.findIndex((tab) => tab.id === activeTab);
+
+  let newIndex = currentIndex;
+  if (direction === "left") {
+    newIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+  } else if (direction === "right") {
+    newIndex = currentIndex < QrTypeData.length - 1 ? currentIndex + 1 : QrTypeData.length - 1;
+  }
+
+  const newTabId = QrTypeData[newIndex].id;
+  setActiveTab(newTabId);
+
+  // Scroll the new tab into view smoothly
+  if (scrollContainerRef.current) {
+    const container = scrollContainerRef.current;
+    const activeButton = container.querySelector(
+      `button[data-id="${newTabId}"]`
+    ) as HTMLElement;
+    if (activeButton) {
+      activeButton.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",  // horizontally center the tab
+        block: "nearest",  // don't scroll vertically
+      });
+    }
+  }
+};
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen desktop:px-8 px-5 desktop:py-20 py-16 bg-[radial-gradient(circle,#334A56,#2F3E46)]">
-      <h1 className="desktop:text-4xl text-2xl font-bold text-center">
+    <div className="bg-[radial-gradient(circle,#334A56,#2F3E46)]">
+    <Container>
+     <div className="flex flex-col items-center justify-center min-h-screen desktop:py-20 py-16">
+      <h1 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] leading-[40px]">
         <span className="text-white pb-4">QR codes for every use</span>
       </h1>
-      <h3 className="desktop:text-1.5xl text-sm font-regular text-center px-3 pt-2 pb-8">
+      <h3 className="text-[14px] leading-[22px] font-regular text-center px-3 pt-2 pb-8">
         <span className="text-white/60">
           Whatever content you want to share, there’s a QR code for it. Click
           the icons below to explore options and see examples.
         </span>
       </h3>
       <div className="w-full max-w-6xl mx-auto desktop:px-4">
-        <div
-          ref={scrollContainerRef}
-          className="flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
-            const container = scrollContainerRef.current;
-            if (!container) return;
+       <div
+        ref={scrollContainerRef}
+        className="flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
+          const container = scrollContainerRef.current;
+          if (!container) return;
 
-            const startX = e.pageX - container.offsetLeft;
-            const scrollLeft = container.scrollLeft;
+          const startX = e.pageX - container.offsetLeft;
+          const scrollLeft = container.scrollLeft;
 
-            const onMouseMove = (moveEvent: MouseEvent) => {
-              const x = moveEvent.pageX - container.offsetLeft;
-              const walk = (x - startX) * 2;
-              container.scrollLeft = scrollLeft - walk;
-            };
+          const onMouseMove = (moveEvent: MouseEvent) => {
+            const x = moveEvent.pageX - container.offsetLeft;
+            const walk = (x - startX) * 2;
+            container.scrollLeft = scrollLeft - walk;
+          };
 
-            const onMouseUp = () => {
-              document.removeEventListener("mousemove", onMouseMove);
-              document.removeEventListener("mouseup", onMouseUp);
-            };
+          const onMouseUp = () => {
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+          };
 
-            document.addEventListener("mousemove", onMouseMove);
-            document.addEventListener("mouseup", onMouseUp);
-          }}>
-          {QrTypeData.map((qr) => {
-            const isActive = activeTab === qr.id;
-            return (
-              <button
-                key={qr.id}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => setActiveTab(qr.id)}
-                className={`
+          document.addEventListener("mousemove", onMouseMove);
+          document.addEventListener("mouseup", onMouseUp);
+        }} >
+        {QrTypeData.map((qr) => {
+          const isActive = activeTab === qr.id;
+          const tabRef = React.createRef<HTMLButtonElement>();
+
+          const handleClick = () => {
+            setActiveTab(qr.id);
+
+            // Scroll tab into view smoothly
+            if (tabRef.current && scrollContainerRef.current) {
+              tabRef.current.scrollIntoView({
+                behavior: "smooth",
+                inline: "center", // scrolls horizontally to center the tab
+                block: "nearest", // vertically do nothing
+              });
+            }
+          };
+
+          return (
+            <button
+              key={qr.id}
+              data-id={qr.id}
+              ref={tabRef}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={handleClick}
+              className={`
                 flex items-center gap-2 desktop:px-5 px-2 desktop:py-3 py-2 rounded-lg font-medium
                 transition-all duration-200
                 whitespace-nowrap
                 ${
                   isActive
                     ? "bg-[#01A56D] text-white shadow-lg"
-                    : "bg-white/10 text-slate-200 hover:bg-slate-500"
+                    : "bg-white/10 text-slate-200 hover:bg-[#01A56D]"
                 }
-            `}>
-                <Image
-                  src={qr.tabImagePath}
-                  alt={qr.title}
-                  width={36}
-                  height={26}
-                  className="flex-shrink-0"
-                />
-                <span className="font-sans font-normal whitespace-nowrap">
-                  {qr.title}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+              `}
+            >
+              <Image
+                src={qr.tabImagePath}
+                alt={qr.title}
+                width={36}
+                height={26}
+                className="flex-shrink-0"
+              />
+              <span className="text-[14px] leading-[22px]font-sans font-normal whitespace-nowrap">{qr.title}</span>
+            </button>
+          );
+        })}
+      </div>
         <div className="flex flex-col desktop:flex-row justify-center items-center desktop:items-start desktop:pt-[56px] pt-6 gap-[48px]">
           {/* Left: Image */}
           <div className="rounded-t-lg bg-white/10 px-[40px] pt-[40px] desktop:px-[80px] desktop:pt-[80px] shadow-lg w-full max-w-[438px] desktop:w-[438px] h-auto desktop:h-[330px] flex justify-center">
@@ -206,26 +255,34 @@ export default function QrTypes() {
 
           {/* Right: Text */}
           <div className="flex flex-col justify-center items-center desktop:items-start w-full max-w-[438px] desktop:w-[438px] h-auto desktop:h-[330px]">
-            <h2 className="text-2xl font-bold text-center desktop:text-left text-white pb-2">
+            <h2 className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] leading-[32px]">
               {QrTypeData.find((qr) => qr.id === activeTab)?.title}
             </h2>
-            <h1 className="text-sm font-normal text-center desktop:text-start text-white pb-4">
+            <h1 className="text-[14px] leading-[22px] font-normal text-center desktop:text-start text-white pb-4">
               {QrTypeData.find((qr) => qr.id === activeTab)?.contentDescription}
             </h1>
-            <Button className="w-full desktop:w-auto text-white bg-[#01A56D] hover:bg-[#018f5f]">
-              Create QR Code
+            <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
+              <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
+                Create QR code
+              </span>
             </Button>
             <div className="flex flex-row justify-center desktop:justify-start items-center pt-8 gap-4">
-              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer">
+              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
+               onClick={() => changeTab("left")}
+              >
                 <SlArrowLeft className="text-white w-4 h-4" />
               </div>
-              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer">
+              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
+               onClick={() => changeTab("right")}
+              >
                 <SlArrowRight className="text-white w-4 h-4" />
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    </Container>
     </div>
   );
 }

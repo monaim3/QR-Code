@@ -5,10 +5,16 @@ interface ContainerProps {
   bgColor?: string;
 }
 
-export default function Container({ children, bgColor = "transparent" }: ContainerProps) {
+export default function Container({
+  children,
+  bgColor = "transparent",
+}: ContainerProps) {
   return (
-   <div className="w-[1220px]" style={{ backgroundColor: bgColor }}>
+    <div
+      className="max-w-[350px] desktop:max-w-[1220px] mx-auto px-[16px]"
+      style={{ backgroundColor: bgColor }}
+    >
       {children}
-  </div>
+    </div>
   );
 }

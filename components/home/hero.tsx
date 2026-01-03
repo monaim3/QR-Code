@@ -1,22 +1,27 @@
 import { Button } from "@/components/ui/button";
+import Container from "../common/parent-container";
 
 export default function Hero() {
   return (
-    <main className="flex flex-col gap-4 items-center justify-center min-w-screen desktop:pt-[120px] pt-20 bg-[#F5F6FA]">
-      <h1 className="text-4xl font-bold text-center px-5">
+    <div className="bg-[#F5F6FA] pt-20 desktop:pt-[120px]">
+      <Container>
+        <div className="flex flex-col gap-4 items-center justify-center">
+      <h1 className="text-[40px] font-bold text-center px-5 leading-[48px] desktop:text-[48px] desktop:leading-[56px]">
         <span className="text-gray-900">Generate your QR code in </span>
         <span className="text-[#01A56D]">just seconds</span>
       </h1>
 
-      <h3 className="text-1.5xl font-regular text-center px-3">
+      <h3 className="text-[18px] font-regular text-center px-3 leading-[26px] pb-[16px]">
         <span className="text-gray-900">
           Quickly generate and fully personalize your QR code in just a few
           simple clicks.
         </span>
       </h3>
 
-      <Button className="text-white bg-[#01A56D] hover:bg-[#018f5f]">
-        Generate QR
+       <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
+        <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
+          Create QR code
+        </span>
       </Button>
 
       {/* image stack */}
@@ -54,41 +59,46 @@ export default function Hero() {
       </div>
 
       {/* Gray Border */}
-      <div className="h-px bg-gray-300 mt-[-16px] w-full md:w-[calc(100%-230px)] mx-auto"></div>
+      <div className="h-px bg-gray-300 mt-[-16px] w-full md:w-[calc(100%)] mx-auto"></div>
 
       {/* Brand Icons */}
-      <div className="grid grid-cols-2 gap-x-12 gap-y-12 desktop:flex desktop:flex-wrap desktop:justify-center desktop:gap-28 px-5 desktop:py-16 py-10 items-center justify-items-center">
+      <div className="grid grid-cols-2 gap-x-12 gap-y-12
+  desktop:flex desktop:flex-nowrap desktop:justify-start desktop:gap-x-28 desktop:gap-y-28
+  w-full max-w-[1220px] mx-auto
+  py-[40px] desktop:py-[64px]">
         <img
           src="/images/brand/nestle.svg"
           alt="Nestle"
-          className="w-24 h-auto desktop:w-29 desktop:h-8"
+          className="w-[116px] h-auto desktop:w-[115px] desktop:h-8"
         />
         <img
           src="/images/brand/addidas.svg"
           alt="Adidas"
-          className="w-12 h-auto desktop:w-[46px] desktop:h-8"
+          className="w-[46px] h-auto desktop:w-[46px] desktop:h-8"
         />
         <img
           src="/images/brand/marriott.svg"
           alt="Marriott"
-          className="w-24 h-auto desktop:w-[101px] desktop:h-8"
+          className="w-[101px] h-auto desktop:w-[101px] desktop:h-8"
         />
         <img
           src="/images/brand/loreal.svg"
           alt="Loreal"
-          className="w-28 h-auto desktop:w-[133px] desktop:h-6"
+          className="w-[133px] h-auto desktop:w-[133px] desktop:h-6"
         />
         <img
           src="/images/brand/dhl.svg"
           alt="DHL"
-          className="w-32 h-auto desktop:w-[170px] desktop:h-8"
+          className="w-[170px] h-auto desktop:w-[170px] desktop:h-8"
         />
         <img
           src="/images/brand/hilton.svg"
           alt="Hilton"
-          className="w-20 h-auto desktop:w-[86px] desktop:h-8"
+          className="w-[86px] h-auto desktop:w-[86px] desktop:h-8"
         />
       </div>
-    </main>
+    </div>
+      </Container>
+    </div>
   );
 }
