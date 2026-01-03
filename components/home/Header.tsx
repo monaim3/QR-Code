@@ -23,7 +23,7 @@ export default function Header() {
                 aria-label="Select language"
               >
                 <Globe className="w-4 h-4" />
-                <span>EN</span>
+                <span className="text-[14px] leading-[22px] font-regular">EN</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
               
@@ -59,7 +59,7 @@ export default function Header() {
 
             {/* Log in Button */}
             <Link href="/login"
-            className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg border border-gray-300 transition-colors font-poppins">
+            className="px-4 py-2 text-[14px] leading-[22px] font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg border border-gray-300 transition-colors font-poppins">
             Log in
           </Link>
           </div>

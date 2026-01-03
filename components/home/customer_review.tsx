@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Container from "@/components/common/parent-container";
 
 class CustomerReviewProps {
   customerName: string;
@@ -42,43 +43,54 @@ const CustomerReviews: CustomerReviewProps[] = [
 
 export default function CustomerReview() {
   return (
-    <div className="desktop:flex flex-col items-center justify-center py-[160px] bg-white hidden">
-      <h1 className="text-4xl font-bold text-center">
+    <Container> 
+     <div className="desktop:flex flex-col items-center justify-center py-[160px] bg-white">
+      <h1 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px]">
         <span className="text-black pb-4">Customer reviews</span>
       </h1>
-      <h3 className="text-1.5xl font-regular text-center px-3 pt-2 pb-8">
+      <h3 className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8">
         <span className="text-black">
           See what others are saying about SmartQR
         </span>
       </h3>
-      <div className="flex flex-row pt-[56px] gap-4 item-center justify-center">
+      <div className="flex flex-col desktop:flex-row pt-[56px] gap-[32px] item-center justify-center">
         {CustomerReviews.map((review, index) => (
           <div
             key={index}
-            className="h-auto w-[304px] bg-[#F5F6FA] rounded-lg p-[20px] flex flex-col justify-between pl-6 pr-6">
+            className="h-auto bg-[#F5F6FA] desktop:w-[350px] rounded-[12px] p-[20px] flex flex-col justify-between">
             <div className="mt-2">
               <RatingStar />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-black mb-2">
+              <h4 className="text-[18px] leading-[26px] font-bold text-black pt-[16px]">
                 {review.title}
               </h4>
-              <p className="text-sm font-regular text-grey">
+              <p className="text-[16px] leading-[24px] font-regular text-grey pt-[8px]">
                 {review.subTitle}
               </p>
             </div>
-            <div className="mt-4">
-              <p className="text-sm font-medium text-black">
+            <div className="flex flex-row justify-start items-center gap-[12px] pt-[24px]">
+            <div className="w-[46px] h-[46px] rounded-full bg-[#BFD166] flex items-center justify-center">
+              <span className="text-white font-bold text-[16px] leading-[24px]">
+                {review.customerName.charAt(0)}
+              </span>
+            </div>
+
+            <div className="flex flex-col justify-center items-start">
+              <p className="text-[16px] leading-[24px] font-medium text-black">
                 {review.customerName}
               </p>
-              <p className="text-sm font-light text-grey">
+              <p className="text-[14px] leading-[22px] font-light text-grey">
                 {review.reviewDate}
               </p>
             </div>
           </div>
+
+          </div>
         ))}
       </div>
     </div>
+    </Container>
   );
 }
 

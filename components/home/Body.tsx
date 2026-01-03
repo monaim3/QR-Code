@@ -6,12 +6,12 @@ import CustomerReview from "./customer_review";
 
 export default function Body() {
   return (
-   <>
+   <main>
    <Hero />
    <QrInstraction />
    <QrTypes/>
     <Faq/>
     <CustomerReview/>
-   </>
+   </main>
   );
 }

@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
+import Container from "../common/parent-container";
 
 class FaqTabItem {
   id: number;
@@ -83,11 +84,13 @@ export default function Faq() {
   const activeTabItem = FaqData.find((tab) => tab.id === activeTab);
 
   return (
-    <div className="flex flex-col items-center justify-center desktop:py-[160px] py-16 px-5 bg-[#F5F6FA]">
-      <h1 className="text-4xl font-bold text-center">
+    <div className="bg-[#F5F6FA]">
+      <Container>
+        <div className="flex flex-col items-center justify-center desktop:py-[160px] py-16 px-5">
+      <h1 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px]">
         <span className="text-black pb-4">Frequently asked questions</span>
       </h1>
-      <h3 className="text-1xl font-regular text-center px-3 pt-2 pb-8">
+      <h3 className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8">
         <span className="text-grey">
           Looking for answers? Check if you can find them here or{" "}
         </span>
@@ -168,12 +171,12 @@ export default function Faq() {
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => setActiveTab(faq.id)}
               className={`
-                      flex items-center gap-2 px-5 py-3 rounded-lg font-medium
+                      flex items-center gap-2 px-5 py-3 rounded-[10px] font-medium
                       transition-all duration-200
                       whitespace-nowrap
                       ${
                         isActive
-                          ? "bg-[#01A56D] text-white shadow-lg"
+                          ? "bg-[#01A56D] text-white"
                           : "bg-white text-slate-200"
                       }
                   `}>
@@ -211,6 +214,8 @@ export default function Faq() {
           );
         })}
       </div>
+    </div>
+      </Container>
     </div>
   );
 }
