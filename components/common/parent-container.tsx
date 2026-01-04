@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface ContainerProps {
   children: ReactNode;
@@ -11,9 +11,8 @@ export default function Container({
 }: ContainerProps) {
   return (
     <div
-      className="max-w-[350px] desktop:max-w-[1220px] mx-auto px-[16px]"
-      style={{ backgroundColor: bgColor }}
-    >
+      className="max-w-[1220px] mx-auto px-5 "
+      style={{ backgroundColor: bgColor }}>
       {children}
     </div>
   );
