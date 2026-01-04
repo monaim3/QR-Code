@@ -5,12 +5,16 @@ import Container from "../common/parent-container";
 export default function QrInstruction() {
   return (
     <Container>
-      <div className="flex flex-col items-center justify-center px-[20px] py-[40px] desktop:py-[160px] gap-[16px]">
-        <h2 className="font-bold text-center text-gray-900 text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px]">How to create your custom QR code?</h2>
-        <p className="font-regular text-center px-[12px] text-gray-900 text-[16px] leading-[24px]">Turn ordinary links into powerful visual connections</p>
+      <div className="flex flex-col items-center justify-center py-10 lg:py-40 gap-[16px]">
+        <h2 className="font-bold text-center text-gray-900 text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px]">
+          How to create your custom QR code?
+        </h2>
+        <p className="font-regular text-center px-[12px] text-gray-900 text-base leading-6">
+          Turn ordinary links into powerful visual connections
+        </p>
 
         {/* Step Cards */}
-        <div className="flex flex-wrap justify-center gap-y-[40px] desktop:flex-nowrap desktop:justify-start desktop:gap-x-[112px] desktop:gap-y-[40px] desktop:pt-[80px] pt-[40px] pb-[48px]">
+        <div className="grid grid-cols-1 sm:px-20 lg:px-0 lg:grid-cols-3 gap-6 ">
           <StepCard
             imagePath="/images/steps/pick.svg"
             title="Pick your QR code content"
@@ -28,11 +32,13 @@ export default function QrInstruction() {
           />
         </div>
 
-         <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
-        <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
-          Create QR code
-        </span>
-      </Button>
+        <div className="mt-12 hidden lg:block">
+          <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
+            <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
+              Create QR code
+            </span>
+          </Button>
+        </div>
       </div>
     </Container>
   );
@@ -48,7 +54,7 @@ function StepCard({
   subtitle1: string;
 }) {
   return (
-    <div className="flex-shrink-0 w-[321px] flex flex-col items-center">
+    <div className="flex-shrink-0 flex flex-col items-center">
       <Image
         src={imagePath}
         alt={title}
@@ -56,13 +62,14 @@ function StepCard({
         height={80}
         className="object-contain"
       />
-      <h3 className="text-[18px] leading-[26px] font-bold text-center pt-[24px]">{title}</h3>
+      <h3 className="text-[18px] leading-[26px] font-bold text-center pt-[24px]">
+        {title}
+      </h3>
 
       {/* Subtitles */}
-      <p className="flex flex-col pt-[8px] w-full items-center desktop:items-center text-[16px] leading-[22px] text-gray-600 text-center">{subtitle1}</p>
+      <p className="flex flex-col pt-[8px] w-full items-center desktop:items-center text-[16px] leading-[22px] text-gray-600 text-center">
+        {subtitle1}
+      </p>
     </div>
   );
 }
-
-
-
