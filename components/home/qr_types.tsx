@@ -152,15 +152,8 @@ export default function QrTypes() {
     <div className="bg-[radial-gradient(circle,#334A56,#2F3E46)]">
     <Container>
      <div className="flex flex-col items-center justify-center min-h-screen desktop:py-20 py-16">
-      <h1 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] leading-[40px]">
-        <span className="text-white pb-4">QR codes for every use</span>
-      </h1>
-      <h3 className="text-[14px] leading-[22px] font-regular text-center px-3 pt-2 pb-8">
-        <span className="text-white/60">
-          Whatever content you want to share, there’s a QR code for it. Click
-          the icons below to explore options and see examples.
-        </span>
-      </h3>
+      <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] leading-[40px] text-white pb-4">QR codes for every use</h2>
+      <p className="text-[14px] leading-[22px] font-regular text-center px-3 pt-2 pb-8 text-white/60">Whatever content you want to share, there’s a QR code for it. Click the icons below to explore options and see examples.</p>
       <div className="w-full max-w-6xl mx-auto desktop:px-4">
        <div
         ref={scrollContainerRef}
@@ -236,7 +229,7 @@ export default function QrTypes() {
       </div>
         <div className="flex flex-col desktop:flex-row justify-center items-center desktop:items-start desktop:pt-[56px] pt-6 gap-[48px]">
           {/* Left: Image */}
-          <div className="rounded-t-lg bg-white/10 px-[40px] pt-[40px] desktop:px-[80px] desktop:pt-[80px] shadow-lg w-full max-w-[438px] desktop:w-[438px] h-auto desktop:h-[330px] flex justify-center">
+          <div className="rounded-lg bg-white/10 px-[40px] pt-[40px] desktop:px-[80px] desktop:pt-[80px] w-full max-w-[438px] desktop:w-[438px] h-auto desktop:h-[330px] flex justify-center">
             <Image
               src={
                 QrTypeData.find((qr) => qr.id === activeTab)
@@ -255,12 +248,12 @@ export default function QrTypes() {
 
           {/* Right: Text */}
           <div className="flex flex-col justify-center items-center desktop:items-start w-full max-w-[438px] desktop:w-[438px] h-auto desktop:h-[330px]">
-            <h2 className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] leading-[32px]">
+            <h3 className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] leading-[32px]">
               {QrTypeData.find((qr) => qr.id === activeTab)?.title}
-            </h2>
-            <h1 className="text-[14px] leading-[22px] font-normal text-center desktop:text-start text-white pb-4">
+            </h3>
+            <p className="text-[14px] leading-[22px] font-normal text-center desktop:text-start text-white pb-4">
               {QrTypeData.find((qr) => qr.id === activeTab)?.contentDescription}
-            </h1>
+            </p>
             <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
               <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
                 Create QR code

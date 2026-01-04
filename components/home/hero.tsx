@@ -6,17 +6,9 @@ export default function Hero() {
     <div className="bg-[#F5F6FA] pt-20 desktop:pt-[120px]">
       <Container>
         <div className="flex flex-col gap-4 items-center justify-center">
-      <h1 className="text-[40px] font-bold text-center px-5 leading-[48px] desktop:text-[48px] desktop:leading-[56px]">
-        <span className="text-gray-900">Generate your QR code in </span>
-        <span className="text-[#01A56D]">just seconds</span>
-      </h1>
+      <h1 className="text-[40px] font-bold text-center px-5 leading-[48px] desktop:text-[48px] desktop:leading-[56px] text-gray-900">Generate your QR code in <span className="text-[#01A56D]">just seconds</span></h1>
 
-      <h3 className="text-[18px] font-regular text-center px-3 leading-[26px] pb-[16px]">
-        <span className="text-gray-900">
-          Quickly generate and fully personalize your QR code in just a few
-          simple clicks.
-        </span>
-      </h3>
+      <p className="text-[18px] font-regular text-center px-3 leading-[26px] pb-[16px] text-gray-900">Quickly generate and fully personalize your QR code in just a few simple clicks.</p>
 
        <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
         <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
