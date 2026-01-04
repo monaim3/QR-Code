@@ -14,6 +14,7 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-poppins)', 'sans-serif'],
+        body_text: ['var(--font-HelveticaNeue)', 'sans-serif'],
       },
       screens: {
         desktop: '740px',

@@ -4,6 +4,7 @@ import Container from "../common/parent-container";
 
 export default function QrInstruction() {
   return (
+    <section>
     <Container>
       <div className="flex flex-col items-center justify-center py-10 lg:py-40 gap-[16px]">
         <h2 className="font-bold text-center text-gray-900 text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px]">
@@ -33,14 +34,12 @@ export default function QrInstruction() {
         </div>
 
         <div className="mt-12 hidden lg:block">
-          <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
-            <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
-              Create QR code
-            </span>
-          </Button>
+          <a href="#" className="bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
+">Create QR code</a>
         </div>
       </div>
     </Container>
+    </section>
   );
 }
 
@@ -67,7 +66,7 @@ function StepCard({
       </h3>
 
       {/* Subtitles */}
-      <p className="flex flex-col pt-[8px] w-full items-center desktop:items-center text-[16px] leading-[22px] text-gray-600 text-center">
+      <p className="flex flex-col pt-[8px] w-full items-center desktop:items-center text-[16px] leading-[24px] text-gray-600 text-center">
         {subtitle1}
       </p>
     </div>

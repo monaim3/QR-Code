@@ -4,64 +4,54 @@ import Container from "../common/parent-container";
 
 export default function Hero() {
   return (
-    <div className="bg-[#F5F6FA] pt-20 desktop:pt-[120px]">
+    <section className="bg-[#F5F6FA] pt-20 desktop:pt-[120px]">
       <Container>
-        <div className="flex flex-col gap-4 items-center justify-center">
-          <h1 className="text-[40px] font-bold text-center   desktop:text-[48px] desktop:leading-[56px] text-gray-900">
-            Generate your QR code in{" "}
-            <span className="text-[#01A56D]">just seconds</span>
-          </h1>
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col gap-4 items-center justify-center mb-8">
+            <h1 className="text-[40px] font-bold text-center desktop:text-[48px] desktop:leading-[56px] text-gray-900">
+              Generate your QR code in{" "}
+              <span className="text-[#01A56D]">just seconds</span>
+            </h1>
+            <p className="text-lg font-regular text-center text-gray-900">
+              Quickly generate and fully personalize your QR code in just a few
+              simple clicks.
+            </p>
+          </div>
 
-          <p className="text-lg font-regular text-center px-3 leading-[26px] pb-[16px] text-gray-900">
-            Quickly generate and fully personalize your QR code in just a few
-            simple clicks.
-          </p>
-
-          <Button className="w-[198px] h-12 bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
-            <span className="text-white text-lg font-regular py-[11px] px-8 inline-block">
-              Create QR code
-            </span>
-          </Button>
+          <a href="#" className=" bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+">Create QR code</a>
 
           {/* image stack */}
-          <div className="h-auto pt-12 px-4">
-            <div className="max-w-7xl mx-auto">
+          <div className="pt-28 w-full">
               <div className="relative w-full">
-                <div className="relative w-full flex justify-center">
-                  {/* Graph Image */}
-                  <img
+                <div className="relative flex justify-center">
+                 <img
                     src="/images/home/dashboard.svg"
                     alt="Analytics Graph"
-                    className="w-full max-w-5xl h-auto object-contain"
+                    className="w-[900]"
                   />
 
-                  {/* QR Scan Image */}
-                  <div className=" absolute bottom-[-1] -left-4 sm:-left-8   xl:left-[-185px]">
+                  <div className=" absolute bottom-7 xl:left-5 sm:-left-8">
                     <img
                       src="/images/home/scan.svg"
                       alt="QR Scan"
-                      className="w-32 sm:w-40 md:w-48 lg:w-56 xl:w-64 h-auto object-contain drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
+                      className="w-45 sm:w-29 md:w-45 lg:w-45 xl:w-45 drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
                     />
                   </div>
 
-                  {/* Customize Image (desktop only) */}
-                  <div className="hidden xl:block absolute top-[-60px] right-[-170px]">
+                  <div className="xl:block absolute bottom-28 right-2 hidden">
                     <img
                       src="/images/home/qr.svg"
                       alt="Customize"
-                      className="w-40 sm:w-48 md:w-56 lg:w-64 xl:w-80 h-auto object-contain shadow-[0_1.761px_28.179px_0_rgba(63,72,103,0.08)]"
+                      className="w-70 xl:w-70 shadow-[0_1.761px_28.179px_0_rgba(63,72,103,0.08)]"
                     />
                   </div>
                 </div>
               </div>
-            </div>
           </div>
 
-          {/* Gray Border */}
-          <div className="h-px bg-gray-300 mt-[-16px] w-full md:w-[calc(100%)] mx-auto"></div>
-
           {/* Brand Icons */}
-          <section className="w-full py-10 desktop:py-16">
+          <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB]">
             <div
               className="xl:flex items-center xl:gap-[108px] grid grid-cols-2 gap-12 md:grid-cols-3 justify-items-center
     ">
@@ -113,9 +103,9 @@ export default function Hero() {
                 className="w-[86px] h-auto"
               />
             </div>
-          </section>
+          </div>
         </div>
       </Container>
-    </div>
+    </section>
   );
 }

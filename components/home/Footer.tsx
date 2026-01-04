@@ -1,6 +1,6 @@
 "use client";
 import Container from "@/components/common/parent-container";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { ChevronDown, Globe } from "lucide-react";
 import { useState } from "react";
 
@@ -8,34 +8,27 @@ export default function Footer() {
   const [isLangOpen, setIsLangOpen] = useState(false);
 
   return (
-    <footer className="w-full pt-16 pb-6 bg-[radial-gradient(circle,#334A56,#2F3E46)]">
+    <footer className="w-full pt-16 bg-[radial-gradient(circle,#334A56,#2F3E46)]">
       <Container>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-16">
           {/* Top Section: Logo + Button */}
           <div className="bg-white/10 rounded-xl p-6 md:p-10">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center text-center lg:text-left">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-center text-center lg:text-left">
               {/* Left: Logo + Text */}
-              <div className="flex flex-col gap-4 max-w-[898px]">
+              <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-center lg:justify-start gap-3">
                   <img src="/images/qr.svg" alt="Logo" className="w-11 h-11" />
-                  <span className="text-2xl md:text-[34px] font-bold text-white">
-                    SmartQR
-                  </span>
+                  <span className="text-2xl md:text-[34px] font-bold text-white">SmartQR</span>
                 </div>
-                <p className="text-white text-base leading-6">
-                  Create personalized dynamic QR codes with ease. Boost their
-                  effectiveness using advanced analytics and branding tools, and
-                  modify your QR codes at any time.
+                <p className="text-white/60 text-1">
+                  Create personalized dynamic QR codes with ease. Boost their effectiveness using advanced analytics and branding tools, and modify your QR codes at any time.
                 </p>
               </div>
 
               {/* Right: Button */}
               <div className="flex justify-center lg:justify-end">
-                <Button className="h-12 bg-[#01A56D] hover:bg-[#018f5f] rounded-lg px-8">
-                  <span className="text-white text-lg font-medium">
-                    Create QR code
-                  </span>
-                </Button>
+                <Link href="#" className=" bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+">Create QR code</Link>
               </div>
             </div>
           </div>
@@ -43,96 +36,93 @@ export default function Footer() {
           {/* Links Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 desktop:grid-cols-4 gap-10 text-center desktop:text-left">
             <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold">Help</h3>
-              <ul className="flex flex-col gap-2">
+              <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
+              <ul className="flex flex-col gap-4">
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     Cancel subscription
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold">Help</h3>
-              <ul className="flex flex-col gap-2">
+              <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
+              <ul className="flex flex-col gap-4">
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     Create QR code
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     FAQ
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold">Company</h3>
-              <ul className="flex flex-col gap-2">
+              <h3 className="text-white text-lg font-bold leading-[26px]">Company</h3>
+              <ul className="flex flex-col gap-4">
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     Prices
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     About us
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold">Company</h3>
-              <ul className="flex flex-col gap-2">
+              <h3 className="text-white text-lg font-bold leading-[26px]">Company</h3>
+              <ul className="flex flex-col gap-4">
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     Terms and conditions
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="#"
-                    className="text-white text-sm hover:text-[#01A56D] transition-colors">
+                    className="text-white/60 text-sm hover:text-[#01A56D] transition-colors leading-[22px]">
                     Privacy policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="w-full h-px bg-white/10" />
-
           {/* Bottom Section: Language + Copyright */}
-          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-6 items-center text-center desktop:text-left">
+          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-6 items-center text-center desktop:text-left border-t border-white/20 py-4">
             <div className="relative flex justify-center desktop:justify-start">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white  "
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white leading-[22px]"
                 aria-label="Select language">
-                <Globe className="w-4 h-4" />
+                <Globe className="size-6" />
                 <span className="text-sm">English</span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="size-5" />
               </button>
 
               {isLangOpen && (
@@ -162,7 +152,7 @@ export default function Footer() {
               )}
             </div>
             <div className="desktop:text-right">
-              <span className="text-white text-sm ">
+              <span className="text-white text-sm leading-[22px]">
                 2025 © SmartQR.com™ All rights reserved
               </span>
             </div>
