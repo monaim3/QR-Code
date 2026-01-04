@@ -63,7 +63,7 @@ export default function Header() {
             {/* Log in Button */}
             <Link
               href="/login"
-              className="px-4 py-2 text-[14px] leading-[22px] font-semibold text-gray-700  hover:bg-[#01A56D] rounded-lg border duration-300 hover:border-[#01A56D]  hover:text-white transition-colors font-poppins">
+              className="px-4 py-2 text-sm leading-[22px] font-medium text-[#3F3E3E]  hover:bg-[#01A56D] rounded-lg border duration-300 hover:border-[#01A56D]  hover:text-white transition-colors font-poppins">
               Log in
             </Link>
           </div>

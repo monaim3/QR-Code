@@ -14,7 +14,7 @@ export default function QrInstruction() {
         </p>
 
         {/* Step Cards */}
-        <div className="grid grid-cols-1 sm:px-20 lg:px-0 lg:grid-cols-3 gap-6 ">
+        <div className="grid grid-cols-1 sm:px-20 lg:px-0 lg:grid-cols-3 gap-8 ">
           <StepCard
             imagePath="/images/steps/pick.svg"
             title="Pick your QR code content"
