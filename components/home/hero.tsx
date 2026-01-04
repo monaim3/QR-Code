@@ -30,7 +30,7 @@ export default function Hero() {
                 <div className="relative w-full flex justify-center">
                   {/* Graph Image */}
                   <img
-                    src="/images/home/graph.svg"
+                    src="/images/home/dashboard.svg"
                     alt="Analytics Graph"
                     className="w-full max-w-5xl h-auto object-contain"
                   />
@@ -38,18 +38,18 @@ export default function Hero() {
                   {/* QR Scan Image */}
                   <div className=" absolute bottom-[-1] -left-4 sm:-left-8   xl:left-[-185px]">
                     <img
-                      src="/images/home/qrscan.svg"
+                      src="/images/home/scan.svg"
                       alt="QR Scan"
-                      className="w-32 sm:w-40 md:w-48 lg:w-56 xl:w-64 h-auto object-contain drop-shadow-2xl"
+                      className="w-32 sm:w-40 md:w-48 lg:w-56 xl:w-64 h-auto object-contain drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
                     />
                   </div>
 
                   {/* Customize Image (desktop only) */}
                   <div className="hidden xl:block absolute top-[-60px] right-[-170px]">
                     <img
-                      src="/images/home/customize.svg"
+                      src="/images/home/qr.svg"
                       alt="Customize"
-                      className="w-40 sm:w-48 md:w-56 lg:w-64 xl:w-80 h-auto object-contain drop-shadow-2xl"
+                      className="w-40 sm:w-48 md:w-56 lg:w-64 xl:w-80 h-auto object-contain shadow-[0_1.761px_28.179px_0_rgba(63,72,103,0.08)]"
                     />
                   </div>
                 </div>
