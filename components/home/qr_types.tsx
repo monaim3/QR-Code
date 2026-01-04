@@ -152,16 +152,16 @@ export default function QrTypes() {
   };
 
   return (
-    <section className="bg-[radial-gradient(circle,#334A56,#2F3E46)]">
+    <section className="bg-[radial-gradient(circle,#334A56,#2F3E46)] desktop:py-40 py-16">
       <Container>
-        <div className="flex flex-col items-center justify-center min-h-screen desktop:py-40 py-16">
-          <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] leading-[40px] text-white pb-2">
-            QR codes for every use
-          </h2>
-          <p className="text-[14px] leading-[22px] font-regular text-center  pb-8 text-white/60">
-            Whatever content you want to share, there’s a QR code for it. Click the icons below to explore options and see examples.
-          </p>
-          <div className="w-full desktop:px-4">
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <div className="flex flex-col items-center justify-center gap-2 mb-8">
+            <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px] text-white">QR codes for every use</h2>
+            <p className="text-[14px] leading-[22px] font-regular text-center text-white/60">
+              Whatever content you want to share, there’s a QR code for it. Click the icons below to explore options and see examples.
+            </p>
+        </div>
+          <div className="w-full">
             <div
               ref={scrollContainerRef}
               className="flex gap-2  overflow-x-auto  scrollbar-hide cursor-grab active:cursor-grabbing"
@@ -217,8 +217,8 @@ export default function QrTypes() {
                 whitespace-nowrap
                 ${
                   isActive
-                    ? "bg-[#01A56D] text-white shadow-lg"
-                    : "bg-white/10 text-white hover:bg-[#01A56D]"
+                    ? "bg-[var(--Blue)] text-white shadow-lg"
+                    : "bg-white/10 text-white hover:bg-[var(--Blue)]"
                 }
               `}>
                     <Image
@@ -266,7 +266,7 @@ export default function QrTypes() {
                       ?.contentDescription
                   }
                 </p>
-                <a href="#"className="bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
+                <a href="#"className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
 ">Create QR code</a>
                 <div className="flex flex-row justify-center desktop:justify-start items-center pt-8 gap-4">
                   <div

@@ -8,17 +8,16 @@ export default function Hero() {
       <Container>
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col gap-4 items-center justify-center mb-8">
-            <h1 className="text-[40px] font-bold text-center desktop:text-[48px] desktop:leading-[56px] text-gray-900">
-              Generate your QR code in{" "}
-              <span className="text-[#01A56D]">just seconds</span>
+            <h1 className="text-[40px] font-bold text-center desktop:text-[48px] desktop:leading-[56px] text-[var(--Black)]">
+              Generate your QR code in{" "}<span className="text-[var(--Blue)]">just seconds</span>
             </h1>
-            <p className="text-lg font-regular text-center text-gray-900">
+            <p className="text-lg font-regular text-center text-[var(--Dark-gray)]">
               Quickly generate and fully personalize your QR code in just a few
               simple clicks.
             </p>
           </div>
 
-          <a href="#" className=" bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+          <a href="#" className=" bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
 ">Create QR code</a>
 
           {/* image stack */}
@@ -53,8 +52,7 @@ export default function Hero() {
           {/* Brand Icons */}
           <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB]">
             <div
-              className="xl:flex items-center xl:gap-[108px] grid grid-cols-2 gap-12 md:grid-cols-3 justify-items-center
-    ">
+              className="xl:flex items-center grid grid-cols-2 gap-12 md:grid-cols-3 justify-items-center justify-between">
               <Image
                 src="/images/brand/nestle.svg"
                 alt="Nestle"

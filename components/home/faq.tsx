@@ -56,10 +56,6 @@ const FaqData: FaqTabItem[] = [
   ]),
   new FaqTabItem(2, "Generating", [
     new FaqItem(
-      "What is a QR code generator?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
-    ),
-    new FaqItem(
       "Can anyone generate a QR code?",
       "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
@@ -73,11 +69,19 @@ const FaqData: FaqTabItem[] = [
     ),
     new FaqItem(
       "How do I get a QR code for my business?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
+      "What is a QR code generator?",
       "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
   new FaqTabItem(3, "Printing", [
     new FaqItem(
+      "How do I get a QR code for my business?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
       "What is a QR code generator?",
       "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
@@ -91,10 +95,6 @@ const FaqData: FaqTabItem[] = [
     ),
     new FaqItem(
       "Can I use My QR Code QR code generator for commercial purposes?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
-    ),
-    new FaqItem(
-      "How do I get a QR code for my business?",
       "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
@@ -108,13 +108,13 @@ export default function Faq() {
   const activeTabItem = FaqData.find((tab) => tab.id === activeTab);
 
   return (
-    <section className="bg-[#F5F6FA]">
+    <section className="bg-[#F5F6FA] desktop:py-40 py-16 ">
       <Container>
-        <div className="flex flex-col items-center justify-center desktop:py-40 py-16 max-w-[800] m-auto">
+        <div className="flex flex-col items-center justify-center max-w-[800] m-auto">
           <div className="flex flex-col items-center justify-center gap-2 mb-10">
             <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-black">Frequently asked questions</h2>
             <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or{" "}
-              <span className="text-[#01A56D] underline">contact us</span>
+              <span className="text-[var(--Blue)] underline">contact us</span>
             </p>
           </div>
           {/* Mobile Dropdown */}
@@ -146,7 +146,7 @@ export default function Faq() {
                       }}
                       className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors ${
                         activeTab === tab.id
-                          ? "bg-[#01A56D] text-white"
+                          ? "bg-[var(--Blue)] text-white"
                           : "text-gray-700 hover:bg-gray-50"
                       }`}>
                       {tab.tabName}
@@ -196,8 +196,8 @@ export default function Faq() {
                   transition-colors duration-300 ease-linear
                   ${
                     isActive
-                      ? "bg-[#01A56D] text-white"
-                      : "bg-white text-slate-300 hover:bg-[#01A56D]/10"
+                      ? "bg-[var(--Blue)] text-white"
+                      : "bg-white text-slate-300 hover:bg-[var(--Blue)]/10"
                   }
                 `}
               >
@@ -208,7 +208,7 @@ export default function Faq() {
                     ${
                       isActive
                         ? "text-white"
-                        : "text-[#79809A] hover:text-[#01A56D]"
+                        : "text-[#79809A] hover:text-[var(--Blue)]"
                     }
                   `}
                 >
