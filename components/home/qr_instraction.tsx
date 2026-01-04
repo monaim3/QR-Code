@@ -9,12 +9,12 @@ export default function QrInstruction() {
         <h2 className="font-bold text-center text-gray-900 text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px]">
           How to create your custom QR code?
         </h2>
-        <p className="font-regular text-center px-[12px] text-gray-900 text-base leading-6">
+        <p className="font-regular text-center px-[12px] text-gray-900 text-base leading-6 mb-10 desktop:mb-20">
           Turn ordinary links into powerful visual connections
         </p>
 
         {/* Step Cards */}
-        <div className="grid grid-cols-1 sm:px-20 lg:px-0 lg:grid-cols-3 gap-6 ">
+        <div className="grid grid-cols-1 sm:px-20 lg:px-0 lg:grid-cols-3 gap-8 ">
           <StepCard
             imagePath="/images/steps/pick.svg"
             title="Pick your QR code content"
