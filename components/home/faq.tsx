@@ -34,44 +34,68 @@ class FaqItem {
 const FaqData: FaqTabItem[] = [
   new FaqTabItem(1, "Basics", [
     new FaqItem(
-      "What is a QR code?",
-      "A QR code (Quick Response code) is a type of matrix barcode that can store various types of information, such as URLs, text, or contact details. It can be scanned using a smartphone or QR code reader to quickly access the encoded information."
+      "What is a QR code generator?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "How do I create a QR code?",
-      "To create a QR code, you can use online QR code generators or software applications. Simply input the desired information, customize the design if needed, and generate the QR code. You can then download or print it for use."
+      "Can anyone generate a QR code?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "Are QR codes free to use?",
-      "Yes, generating and using QR codes is generally free. Many online QR code generators offer free services, although some may have premium features or paid options for advanced customization or tracking."
+      "Is My QR Code QR code generator free?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
+      "Can I use My QR Code QR code generator for commercial purposes?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
+      "How do I get a QR code for my business?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
   new FaqTabItem(2, "Generating", [
     new FaqItem(
-      "Can I customize the design of my QR code?",
-      "Yes, many QR code generators allow you to customize the design of your QR code. You can change colors, add logos or images, and modify the shape of the code to match your branding or personal preferences."
+      "Can anyone generate a QR code?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "What types of information can I encode in a QR code?",
-      "You can encode various types of information in a QR code, including URLs, text, contact details (vCard), email addresses, phone numbers, Wi-Fi credentials, event details, and more. The type of information you choose will depend on your intended use."
+      "Is My QR Code QR code generator free?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "How do I test if my QR code works?",
-      "To test if your QR code works, simply use a smartphone or QR code reader app to scan the code. Ensure that the encoded information is correctly displayed or that the intended action (e.g., opening a URL) is performed."
+      "Can I use My QR Code QR code generator for commercial purposes?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
+      "How do I get a QR code for my business?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
+      "What is a QR code generator?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
   new FaqTabItem(3, "Printing", [
     new FaqItem(
-      "What is the best size for printing a QR code?",
-      "The optimal size for printing a QR code depends on the scanning distance. As a general guideline, a QR code should be at least 2 x 2 cm (0.8 x 0.8 inches) for close-range scanning. For larger distances, increase the size accordingly to ensure readability."
+      "How do I get a QR code for my business?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "What file format should I use for printing QR codes?",
-      "For printing QR codes, it is recommended to use vector file formats such as SVG or EPS. These formats allow for scalability without loss of quality, ensuring that the QR code remains sharp and clear when printed at different sizes."
+      "What is a QR code generator?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "How do I ensure my printed QR code is scannable?",
-      "To ensure your printed QR code is scannable, make sure to use high contrast colors (e.g., black on white), maintain a quiet zone (margin) around the code, and avoid distortion or damage to the code. Test the printed code with multiple devices to confirm its readability."
+      "Can anyone generate a QR code?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
+      "Is My QR Code QR code generator free?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+    ),
+    new FaqItem(
+      "Can I use My QR Code QR code generator for commercial purposes?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. My QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
 ];
@@ -84,16 +108,15 @@ export default function Faq() {
   const activeTabItem = FaqData.find((tab) => tab.id === activeTab);
 
   return (
-    <div className="bg-[#F5F6FA]">
+    <section className="bg-[#F5F6FA] desktop:py-40 py-16 ">
       <Container>
-        <div className="flex flex-col items-center justify-center desktop:py-40 py-16 px-5">
-          <h2 className="font-bold text-center text-2xl leading-8 desktop:leading-10 text-black pb-4">
-            Frequently asked questions
-          </h2>
-          <p className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8 text-grey">
-            Looking for answers? Check if you can find them here or{" "}
-            <span className="text-[#01A56D] underline">contact us</span>
-          </p>
+        <div className="flex flex-col items-center justify-center max-w-[800] m-auto">
+          <div className="flex flex-col items-center justify-center gap-2 mb-10">
+            <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-black">Frequently asked questions</h2>
+            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or{" "}
+              <span className="text-[var(--Blue)] underline">contact us</span>
+            </p>
+          </div>
           {/* Mobile Dropdown */}
           <div className="relative w-full max-w-[752px] mb-8 desktop:hidden">
             <button
@@ -123,7 +146,7 @@ export default function Faq() {
                       }}
                       className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors ${
                         activeTab === tab.id
-                          ? "bg-[#01A56D] text-white"
+                          ? "bg-[var(--Blue)] text-white"
                           : "text-gray-700 hover:bg-gray-50"
                       }`}>
                       {tab.tabName}
@@ -137,7 +160,7 @@ export default function Faq() {
           {/* Desktop Tabs */}
           <div
             ref={scrollContainerRef}
-            className="hidden desktop:flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing w-full justify-center"
+            className="hidden desktop:flex gap-4 mb-14 overflow-x-auto scrollbar-hide w-full justify-center"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
               const container = scrollContainerRef.current;
@@ -163,56 +186,65 @@ export default function Faq() {
             {FaqData.map((faq) => {
               const isActive = activeTab === faq.id;
               return (
-                <button
-                  key={faq.id}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => setActiveTab(faq.id)}
+              <button
+                key={faq.id}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => setActiveTab(faq.id)}
+                className={`
+                  flex items-center px-6 py-2 rounded-[10px]
+                  font-medium whitespace-nowrap
+                  transition-colors duration-300 ease-linear
+                  ${
+                    isActive
+                      ? "bg-[var(--Blue)] text-white"
+                      : "bg-white text-slate-300 hover:bg-[var(--Blue)]/10"
+                  }
+                `}
+              >
+                <span
                   className={`
-                      flex items-center gap-2 px-5 py-3 rounded-[10px] font-medium
-                      transition-all duration-200
-                      whitespace-nowrap
-                      ${
-                        isActive
-                          ? "bg-[#01A56D] text-white"
-                          : "bg-white text-slate-200"
-                      }
-                  `}>
-                  <span
-                    className={`${
+                    font-sans font-normal
+                    transition-colors duration-300 ease-linear
+                    ${
                       isActive
                         ? "text-white"
-                        : "text-[#79809A]  hover:text-[#01A56D]"
-                    } font-sans font-normal`}>
-                    {faq.tabName}
-                  </span>
-                </button>
+                        : "text-[#79809A] hover:text-[var(--Blue)]"
+                    }
+                  `}
+                >
+                  {faq.tabName}
+                </span>
+              </button>
+
               );
             })}
           </div>
-          <div className="w-full flex flex-col items-center">
-            {FaqData[activeTab - 1].item.map((item, index) => {
-              return (
-                <Accordion
+          <div className="w-full flex flex-col items-center gap-4">
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full flex flex-col gap-4"
+            >
+              {FaqData[activeTab - 1].item.map((item, index) => (
+                <AccordionItem
                   key={index}
-                  type="single"
-                  collapsible
-                  className="w-full flex justify-center">
-                  <AccordionItem
-                    value="item-1"
-                    className="bg-white mb-4 rounded-lg w-full max-w-[752px]">
-                    <AccordionTrigger className="p-4 text-black font-sans font-bold text-left">
-                      {item.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 text-gray-600">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              );
-            })}
+                  value={`item-${index}`}
+                  className="bg-white rounded-lg w-full"
+                >
+                  <AccordionTrigger className="p-6 text-[#0A0909] text-[18px] leading-[26px] font-sans font-bold items-center rounded-[12px]">
+                    {item.question}
+                  </AccordionTrigger>
+
+                  <AccordionContent className="px-6 pt-0 text-gray-600 text-[16px] leading-[24px]">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
+
         </div>
       </Container>
-    </div>
+    </section>
   );
 }

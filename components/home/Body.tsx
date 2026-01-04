@@ -10,8 +10,8 @@ export default function Body() {
    <Hero />
    <QrInstraction />
    <QrTypes/>
-    <Faq/>
-    <CustomerReview/>
+   <Faq/>
+   <CustomerReview/>
    </main>
   );
 }

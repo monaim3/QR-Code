@@ -46,7 +46,7 @@ export function MobileDrawer({ isOpen, setIsOpen }: Props) {
           <div className="relative">
             <button
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className="flex items-center gap-2 px-3 py-2 text-lg font-medium text-gray-700 hover:text-[#01A56D] transition-colors">
+              className="flex items-center gap-2 px-3 py-2 text-lg font-medium text-gray-700 hover:text-[var(--Blue)] transition-colors">
               <Globe className="w-5 h-5" />
               <span>English</span>
               <ChevronDown
@@ -59,13 +59,13 @@ export function MobileDrawer({ isOpen, setIsOpen }: Props) {
 
             {isLangOpen && (
               <div className="mt-1 ml-9 flex flex-col gap-1 bg-gray-100/50 rounded-lg py-2">
-                <button className="text-left px-4 py-2 text-base text-gray-600 hover:text-[#01A56D] hover:bg-gray-200/50 transition-colors">
+                <button className="text-left px-4 py-2 text-base text-gray-600 hover:text-[var(--Blue)] hover:bg-gray-200/50 transition-colors">
                   English
                 </button>
-                <button className="text-left px-4 py-2 text-base text-gray-600 hover:text-[#01A56D] hover:bg-gray-200/50 transition-colors">
+                <button className="text-left px-4 py-2 text-base text-gray-600 hover:text-[var(--Blue)] hover:bg-gray-200/50 transition-colors">
                   Español
                 </button>
-                <button className="text-left px-4 py-2 text-base text-gray-600 hover:text-[#01A56D] hover:bg-gray-200/50 transition-colors">
+                <button className="text-left px-4 py-2 text-base text-gray-600 hover:text-[var(--Blue)] hover:bg-gray-200/50 transition-colors">
                   Français
                 </button>
               </div>
@@ -75,7 +75,7 @@ export function MobileDrawer({ isOpen, setIsOpen }: Props) {
           <div className="h-px bg-gray-200 w-full my-2" />
 
           <Link
-            href="/login"
+            href="/"
             onClick={() => setIsOpen(false)}
             className="w-full px-4 py-2 text-center text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg border border-gray-300 transition-colors font-poppins">
             Log in

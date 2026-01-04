@@ -13,11 +13,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const poppinsFont = localFont({
+const HelveticaNeue = localFont({
+  src: [
+    { path: '../public/fonts/HelveticaNeue-Regular.ttf', weight: '400', style: 'normal' },
+    { path: '../public/fonts/HelveticaNeue-Medium.ttf', weight: '500', style: 'normal' },
+  ],
+  variable: '--font-HelveticaNeue',
+});
+
+const Poppins = localFont({
   src: [
     { path: '../public/fonts/Poppins-Regular.ttf', weight: '400', style: 'normal' },
+    { path: '../public/fonts/Poppins-Medium.ttf', weight: '500', style: 'normal' },
+    { path: '../public/fonts/Poppins-SemiBold.ttf', weight: '600', style: 'normal' },
     { path: '../public/fonts/Poppins-Bold.ttf', weight: '700', style: 'normal' },
-    { path: '../public/fonts/Poppins-SemiBold.ttf', weight: '500', style: 'normal' },
   ],
   variable: '--font-poppins',
 });
@@ -31,7 +40,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${poppinsFont.variable} ${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${Poppins.variable} ${HelveticaNeue.variable} ${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">
         {children}
       </body>

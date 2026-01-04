@@ -152,20 +152,19 @@ export default function QrTypes() {
   };
 
   return (
-    <div className="bg-[radial-gradient(circle,#334A56,#2F3E46)]">
+    <section className="bg-[radial-gradient(circle,#334A56,#2F3E46)] desktop:py-40 py-16">
       <Container>
-        <div className="flex flex-col items-center justify-center min-h-screen desktop:py-20 py-16">
-          <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] leading-[40px] text-white pb-2">
-            QR codes for every use
-          </h2>
-          <p className="text-[14px] leading-[22px] font-regular text-center  pb-8 text-white/60">
-            Whatever content you want to share, there’s a QR code for it. Click
-            the icons below to explore options and see examples.
-          </p>
-          <div className="w-full max-w-6xl mx-auto desktop:px-4">
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <div className="flex flex-col items-center justify-center gap-2 mb-8">
+            <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px] text-white">QR codes for every use</h2>
+            <p className="text-[14px] leading-[22px] font-regular text-center text-white/60">
+              Whatever content you want to share, there’s a QR code for it. Click the icons below to explore options and see examples.
+            </p>
+        </div>
+          <div className="w-full">
             <div
               ref={scrollContainerRef}
-              className="flex gap-3  overflow-x-auto  scrollbar-hide cursor-grab active:cursor-grabbing"
+              className="flex gap-2  overflow-x-auto  scrollbar-hide cursor-grab active:cursor-grabbing"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
                 const container = scrollContainerRef.current;
@@ -213,13 +212,13 @@ export default function QrTypes() {
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={handleClick}
                     className={`
-                flex items-center gap-2 desktop:px-5 px-2 desktop:py-3 py-2 rounded-lg font-medium
+                flex items-center gap-2 desktop:pl-2 desktop:pr-4 px-2 desktop:py-2 py-2 rounded-lg font-medium
                 transition-all duration-200
                 whitespace-nowrap
                 ${
                   isActive
-                    ? "bg-[#01A56D] text-white shadow-lg"
-                    : "bg-white/10 text-slate-200 hover:bg-[#01A56D]"
+                    ? "bg-[var(--Blue)] text-white shadow-lg"
+                    : "bg-white/10 text-white hover:bg-[var(--Blue)]"
                 }
               `}>
                     <Image
@@ -229,16 +228,16 @@ export default function QrTypes() {
                       height={26}
                       className="flex-shrink-0"
                     />
-                    <span className="text-[14px] leading-[22px]font-sans font-normal whitespace-nowrap">
+                    <span className="text-[14px] leading-[22px] font-sans font-normal whitespace-nowrap">
                       {qr.title}
                     </span>
                   </button>
                 );
               })}
             </div>
-            <div className="flex flex-col desktop:flex-row justify-center items-center desktop:items-start desktop:pt-[96px] pt-6 gap-[48px]">
+            <div className="flex flex-col items-center justify-center pt-6 max-w-[1100px] mx-auto desktop:flex-row desktop:pt-[96px]">
               {/* Left: Image */}
-              <div className="rounded-lg bg-white/10 px-[40px] pt-[40px] desktop:px-[80px] desktop:pt-[80px] w-full max-w-[438px] desktop:w-[438px] h-auto desktop:h-[330px] flex justify-center">
+              <div className="rounded-lg bg-white/10 px-[40px] pt-[40px] desktop:px-[80px] desktop:pt-[80px] w-full max-w-1/2 desktop:w-1/2 h-auto desktop:h-[440px] flex justify-center">
                 <Image
                   src={
                     QrTypeData.find((qr) => qr.id === activeTab)
@@ -250,13 +249,14 @@ export default function QrTypes() {
                     "QR Code Example"
                   }
                   width={350}
-                  height={350}
-                  className="object-contain"
+                  height={340}
+                  priority
+                  className="object-contain object-bottom"
                 />
               </div>
 
               {/* Right: Text */}
-              <div className="flex flex-col justify-center items-center desktop:items-start w-full max-w-[438px] desktop:w-[438px] h-auto desktop:h-[330px]">
+              <div className="flex flex-col justify-center items-center desktop:items-start w-full max-w-1/2 desktop:w-1/2 h-auto px-12">
                 <h3 className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] desktop:leading-[32px]">
                   {QrTypeData.find((qr) => qr.id === activeTab)?.title}
                 </h3>
@@ -266,19 +266,16 @@ export default function QrTypes() {
                       ?.contentDescription
                   }
                 </p>
-                <Button className="w-[198px] h-[48px] bg-[#01A56D] hover:bg-[#018f5f] rounded-[10px]">
-                  <span className="text-white text-[18px] font-regular py-[11px] px-[32px] inline-block">
-                    Create QR code
-                  </span>
-                </Button>
+                <a href="#"className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
+">Create QR code</a>
                 <div className="flex flex-row justify-center desktop:justify-start items-center pt-8 gap-4">
                   <div
-                    className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
                     onClick={() => changeTab("left")}>
                     <SlArrowLeft className="text-white w-4 h-4" />
                   </div>
                   <div
-                    className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
+                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
                     onClick={() => changeTab("right")}>
                     <SlArrowRight className="text-white w-4 h-4" />
                   </div>
@@ -288,6 +285,6 @@ export default function QrTypes() {
           </div>
         </div>
       </Container>
-    </div>
+    </section>
   );
 }

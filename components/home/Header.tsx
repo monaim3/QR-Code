@@ -23,7 +23,10 @@ export default function Header() {
       <Container>
         <div className="flex items-center justify-between desktop:h-[72px] h-16">
           {/* Logo */}
-          <img src="/images/Logo.svg" alt="Logo" className="w-32 h-8" />
+          <Link href="/">
+          <img src="/images/Logo.svg" alt="Logo" className="w-38" />
+          
+          </Link>
 
           {/* Desktop Right side actions */}
           <div className="hidden desktop:flex items-center gap-4">
@@ -62,8 +65,9 @@ export default function Header() {
 
             {/* Log in Button */}
             <Link
-              href="/login"
-              className="px-4 py-2 text-sm leading-[22px] font-medium text-[#3F3E3E]  hover:bg-[#01A56D] rounded-lg border duration-300 hover:border-[#01A56D]  hover:text-white transition-colors font-poppins">
+              href="#"
+              className="px-4 py-2 text-sm leading-[22px] font-medium text-[#3F3E3E]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white font-poppins transition-all duration-300 ease-linear
+">
               Log in
             </Link>
           </div>
@@ -124,11 +128,11 @@ export default function Header() {
                       setIsDrawerOpen(false);
                     }}
                     className="flex items-center justify-between px-4 py-3.5 rounded-xl hover:bg-gray-50 text-gray-700 transition-all group active:scale-[0.98]">
-                    <span className="text-[16px] font-medium group-hover:text-[#01A56D]">
+                    <span className="text-[16px] font-medium group-hover:text-[var(--Blue)]">
                       {lang.name}
                     </span>
                     {lang.code === "EN" && (
-                      <div className="w-2 h-2 rounded-full bg-[#01A56D] shadow-[0_0_8px_rgba(1,165,109,0.4)]" />
+                      <div className="w-2 h-2 rounded-full bg-[var(--Blue)] shadow-[0_0_8px_rgba(1,165,109,0.4)]" />
                     )}
                   </button>
                 ))}
@@ -142,7 +146,7 @@ export default function Header() {
               <Link
                 href="/login"
                 onClick={() => setIsDrawerOpen(false)}
-                className="w-full py-4 flex items-center justify-center text-[16px] font-bold text-white bg-[#01A56D] hover: rounded-2xl shadow-[0_10px_20px_-5px_rgba(1,165,109,0.3)] active:scale-[0.97] transition-all">
+                className="w-full py-4 flex items-center justify-center text-[16px] font-bold text-white bg-[var(--Blue)] hover: rounded-2xl shadow-[0_10px_20px_-5px_rgba(1,165,109,0.3)] active:scale-[0.97] transition-all">
                 Log in
               </Link>
             </div>

@@ -22,86 +22,84 @@ class CustomerReviewProps {
 
 const CustomerReviews: CustomerReviewProps[] = [
   new CustomerReviewProps(
-    "John Doe",
-    "March 15, 2024",
-    "Excellent QR Code Generator",
+    "James Lawson",
+    "23/12/25",
+    "Perfect QR code converter!",
     "Using My QR Code has been a smooth experience. The whole process of converting and personalizing QR codes was quick and easy. I used them to get feedback at my event. It worked perfectly for what I wanted!"
   ),
   new CustomerReviewProps(
-    "Jane Smith",
-    "April 2, 2024",
-    "Very Useful Tool",
+    "Emma Thompson",
+    "23/12/25",
+    "Perfect QR code converter!",
     "“My QR Code definitely met my expectations. Ran into a few bumps customizing my code, but a quick call and they steered me right. Appreciated their prompt assistance!“"
   ),
   new CustomerReviewProps(
-    "Mike Johnson",
-    "May 10, 2024",
-    "Great Features",
+    "Lily Brown",
+    "23/12/25",
+    "Perfect QR code converter!",
     "“After a long search for the perfect QR code converter, I landed on My QR Code. This platform totally met my expectations. Big shoutout to the team for their work.”"
   ),
 ];
 
 export default function CustomerReview() {
   return (
-    <Container>
-      <div className="desktop:py-40 py-16 bg-white">
-        <h2 className="text-2xl leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-10 text-black pb-4">
-          Customer reviews
-        </h2>
-        <p className="text-base leading-6 font-regular text-center px-3 pt-2 pb-8 text-black">
-          See what others are saying about SmartQR
-        </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {CustomerReviews.map((review, index) => (
-            <div
-              key={index}
-              className="h-auto bg-[#F5F6FA] desktop:w-[350px] rounded-[12px] p-[20px] flex flex-col justify-between">
-              <div className="mt-2">
-                <RatingStar />
-              </div>
-              <p className="text-[16px] leading-[24px] font-regular text-grey pt-[8px]">
-                <span className="text-[18px] leading-[26px] font-bold text-black pt-[16px] block">
-                  {review.title}
-                </span>
-                {review.subTitle}
-              </p>
-              <div className="flex flex-row justify-start items-center gap-[12px] pt-[24px]">
-                <div className="w-[46px] h-[46px] rounded-full bg-[#BFD166] flex items-center justify-center">
-                  <span className="text-white font-bold text-[16px] leading-[24px]">
-                    {review.customerName.charAt(0)}
-                  </span>
+    <section className="desktop:py-40 py-16 bg-white">
+      <Container>
+          <div className="flex flex-col items-center justify-center gap-2 mb-14">
+            <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-black">Customer reviews</h2>
+            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">See what others are saying about SmartQR</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {CustomerReviews.map((review, index) => (
+              <div
+                key={index}
+                className="bg-[#F5F6FA] rounded-[12px] p-10 flex flex-col justify-between gap-8">
+                <div className="flex flex-col gap-6">
+                  <RatingStar />
+                  <p className="text-[16px] leading-[24px] font-regular text-grey">
+                    <span className="text-[18px] leading-[26px] font-bold text-black block mb-2">
+                      {review.title}
+                    </span>
+                    {review.subTitle}
+                  </p>
                 </div>
+                <div className="flex flex-row justify-start items-center gap-3">
+                  <div className="w-[46px] h-[46px] rounded-full bg-[#BFD166] flex items-center justify-center">
+                    <span className="text-white font-bold text-[16px] leading-[24px]">
+                      {review.customerName.charAt(0)}
+                    </span>
+                  </div>
 
-                <div className="flex flex-col justify-center items-start">
-                  <div className="text-[16px] leading-[24px] font-medium text-black">
-                    {review.customerName}
-                  </div>
-                  <div className="text-[14px] leading-[22px] font-light text-grey">
-                    {review.reviewDate}
+                  <div className="flex flex-col justify-center items-start">
+                    <div className="text-[16px] leading-[24px] font-medium text-black">
+                      {review.customerName}
+                    </div>
+                    <div className="text-[14px] leading-[22px] font-light text-grey">
+                      {review.reviewDate}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Container>
+            ))}
+          </div>
+      </Container>
+    </section>
   );
 }
 
 function RatingStar() {
   const stars = Array.from({ length: 5 });
   return (
-    <div className="flex flex-row gap-[8px]">
+    <div className="flex flex-row gap-[9px]">
       {stars.map((_, i) => (
-        <Image
+          <svg
           key={i}
-          src="/images/home/star.svg"
-          alt="star"
-          width={24} // 4 * 4px = 16px
-          height={24}
-          className="mr-1"
-        />
+          width="21"
+          height="20"
+          viewBox="0 0 21 20"
+          fill="none">
+          <path d="M4.6585 19.455C4.3985 19.455 4.1435 19.375 3.9235 19.215C3.5335 18.935 3.3435 18.465 3.4235 17.99L4.3635 12.5L0.3785 8.615C0.0334997 8.28 -0.0865004 7.79 0.0634996 7.335C0.2135 6.88 0.5985 6.555 1.0735 6.485L6.5835 5.685L9.0485 0.695C9.2585 0.265 9.6885 0 10.1685 0C10.6485 0 11.0785 0.265 11.2885 0.695L13.7535 5.685L19.2635 6.485C19.7385 6.555 20.1235 6.88 20.2735 7.335C20.4235 7.79 20.2985 8.28 19.9585 8.615L15.9735 12.5L16.9135 17.985C16.9935 18.46 16.8035 18.925 16.4135 19.21C16.0235 19.49 15.5235 19.525 15.0985 19.305L10.1685 16.715L5.2385 19.305C5.0535 19.4 4.8535 19.45 4.6535 19.45L4.6585 19.455Z" fill="#FEBE4F"/>
+        </svg>
       ))}
     </div>
   );
