@@ -1,19 +1,21 @@
-import React, { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
 
 interface ContainerProps {
   children: ReactNode;
   bgColor?: string;
+  className?: string;
 }
 
 export default function Container({
   children,
   bgColor = "transparent",
+  className,
 }: ContainerProps) {
   return (
     <div
-      className="max-w-[350px] desktop:max-w-[1220px] mx-auto px-[16px]"
-      style={{ backgroundColor: bgColor }}
-    >
+      className={cn("max-w-[1240px] mx-auto px-5", className)}
+      style={{ backgroundColor: bgColor }}>
       {children}
     </div>
   );
