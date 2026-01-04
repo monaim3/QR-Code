@@ -11,7 +11,7 @@ export default function Container({
 }: ContainerProps) {
   return (
     <div
-      className="max-w-[1220px] mx-auto px-5 "
+      className="max-w-[1240px] mx-auto px-5 "
       style={{ backgroundColor: bgColor }}>
       {children}
     </div>

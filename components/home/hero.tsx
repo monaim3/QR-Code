@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Container from "../common/parent-container";
 
 export default function Hero() {
@@ -35,7 +36,7 @@ export default function Hero() {
                   />
 
                   {/* QR Scan Image */}
-                  <div className=" absolute bottom-[-1] -left-4 sm:-left-8 md:left-[-185px] lg:left-[-185px] xl:left-[-185px]">
+                  <div className=" absolute bottom-[-1] -left-4 sm:-left-8   xl:left-[-185px]">
                     <img
                       src="/images/home/qrscan.svg"
                       alt="QR Scan"
@@ -60,42 +61,59 @@ export default function Hero() {
           <div className="h-px bg-gray-300 mt-[-16px] w-full md:w-[calc(100%)] mx-auto"></div>
 
           {/* Brand Icons */}
-          <div
-            className="grid grid-cols-2 gap-x-12 gap-y-12
-  desktop:flex desktop:flex-nowrap desktop:justify-start desktop:gap-x-28 desktop:gap-y-28
-  w-full max-w-[1220px] mx-auto
-  py-[40px] desktop:py-[64px]">
-            <img
-              src="/images/brand/nestle.svg"
-              alt="Nestle"
-              className="w-[116px] h-auto desktop:w-[115px] desktop:h-8"
-            />
-            <img
-              src="/images/brand/addidas.svg"
-              alt="Adidas"
-              className="w-[46px] h-auto desktop:w-[46px] desktop:h-8"
-            />
-            <img
-              src="/images/brand/marriott.svg"
-              alt="Marriott"
-              className="w-[101px] h-auto desktop:w-[101px] desktop:h-8"
-            />
-            <img
-              src="/images/brand/loreal.svg"
-              alt="Loreal"
-              className="w-[133px] h-auto desktop:w-[133px] desktop:h-6"
-            />
-            <img
-              src="/images/brand/dhl.svg"
-              alt="DHL"
-              className="w-[170px] h-auto desktop:w-[170px] desktop:h-8"
-            />
-            <img
-              src="/images/brand/hilton.svg"
-              alt="Hilton"
-              className="w-[86px] h-auto desktop:w-[86px] desktop:h-8"
-            />
-          </div>
+          <section className="w-full py-10 desktop:py-16">
+            <div
+              className="xl:flex items-center xl:gap-[108px] grid grid-cols-2 gap-12 md:grid-cols-3 justify-items-center
+    ">
+              <Image
+                src="/images/brand/nestle.svg"
+                alt="Nestle"
+                width={116}
+                height={32}
+                className="w-[116px] h-auto"
+              />
+
+              <Image
+                src="/images/brand/addidas.svg"
+                alt="Adidas"
+                width={46}
+                height={32}
+                className="w-[46px] h-auto"
+              />
+
+              <Image
+                src="/images/brand/marriott.svg"
+                alt="Marriott"
+                width={101}
+                height={32}
+                className="w-[101px] h-auto"
+              />
+
+              <Image
+                src="/images/brand/loreal.svg"
+                alt="L'Oreal"
+                width={133}
+                height={24}
+                className="w-[133px] h-auto"
+              />
+
+              <Image
+                src="/images/brand/dhl.svg"
+                alt="DHL"
+                width={170}
+                height={32}
+                className="w-[170px] h-auto"
+              />
+
+              <Image
+                src="/images/brand/hilton.svg"
+                alt="Hilton"
+                width={86}
+                height={32}
+                className="w-[86px] h-auto"
+              />
+            </div>
+          </section>
         </div>
       </Container>
     </div>
