@@ -45,14 +45,8 @@ export default function CustomerReview() {
   return (
     <Container> 
      <div className="desktop:flex flex-col items-center justify-center py-[160px] bg-white">
-      <h1 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px]">
-        <span className="text-black pb-4">Customer reviews</span>
-      </h1>
-      <h3 className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8">
-        <span className="text-black">
-          See what others are saying about SmartQR
-        </span>
-      </h3>
+      <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px] text-black pb-4">Customer reviews</h2>
+      <p className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8 text-black">See what others are saying about SmartQR</p>
       <div className="flex flex-col desktop:flex-row pt-[56px] gap-[32px] item-center justify-center">
         {CustomerReviews.map((review, index) => (
           <div
@@ -61,14 +55,9 @@ export default function CustomerReview() {
             <div className="mt-2">
               <RatingStar />
             </div>
-            <div>
-              <h4 className="text-[18px] leading-[26px] font-bold text-black pt-[16px]">
-                {review.title}
-              </h4>
-              <p className="text-[16px] leading-[24px] font-regular text-grey pt-[8px]">
-                {review.subTitle}
-              </p>
-            </div>
+            <p className="text-[16px] leading-[24px] font-regular text-grey pt-[8px]">
+              <span className="text-[18px] leading-[26px] font-bold text-black pt-[16px] block">{review.title}</span>{review.subTitle}
+            </p>
             <div className="flex flex-row justify-start items-center gap-[12px] pt-[24px]">
             <div className="w-[46px] h-[46px] rounded-full bg-[#BFD166] flex items-center justify-center">
               <span className="text-white font-bold text-[16px] leading-[24px]">
@@ -77,12 +66,12 @@ export default function CustomerReview() {
             </div>
 
             <div className="flex flex-col justify-center items-start">
-              <p className="text-[16px] leading-[24px] font-medium text-black">
+              <div className="text-[16px] leading-[24px] font-medium text-black">
                 {review.customerName}
-              </p>
-              <p className="text-[14px] leading-[22px] font-light text-grey">
+              </div>
+              <div className="text-[14px] leading-[22px] font-light text-grey">
                 {review.reviewDate}
-              </p>
+              </div>
             </div>
           </div>
 

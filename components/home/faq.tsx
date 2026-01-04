@@ -87,16 +87,8 @@ export default function Faq() {
     <div className="bg-[#F5F6FA]">
       <Container>
         <div className="flex flex-col items-center justify-center desktop:py-[160px] py-16 px-5">
-      <h1 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px]">
-        <span className="text-black pb-4">Frequently asked questions</span>
-      </h1>
-      <h3 className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8">
-        <span className="text-grey">
-          Looking for answers? Check if you can find them here or{" "}
-        </span>
-        <span className="text-[#01A56D] underline">contact us</span>
-      </h3>
-
+      <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px] text-black pb-4">Frequently asked questions</h2>
+      <p className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8 text-grey">Looking for answers? Check if you can find them here or{" "}<span className="text-[#01A56D] underline">contact us</span></p>
       {/* Mobile Dropdown */}
       <div className="relative w-full max-w-[752px] mb-8 desktop:hidden">
         <button

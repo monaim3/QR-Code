@@ -18,13 +18,13 @@ export default function Footer() {
           <div className="flex flex-col items-center desktop:items-start w-full desktop:w-[898px]">
             <div className="flex items-center gap-[12px]">
               <img src="/images/qr.svg" alt="Logo" className="w-[45px] h-[45px]" />
-              <h1 className="text-[28px] leading-[39px] desktop:text-[34px] desktop:leading-[45px] font-sans font-bold text-white text-center desktop:text-left">
+              <span className="text-[28px] leading-[39px] desktop:text-[34px] desktop:leading-[45px] font-sans font-bold text-white text-center desktop:text-left">
                 SmartQR
-              </h1>
+              </span>
             </div>
-            <span className="font-sans text-white text-[16px] leading-[24px] pt-[16px] text-center desktop:text-left">
+            <p className="font-sans text-white text-[16px] leading-[24px] pt-[16px] text-center desktop:text-left">
               Create personalized dynamic QR codes with ease. Boost their effectiveness using advanced analytics and branding tools, and modify your QR codes at any time.
-            </span>
+            </p>
           </div>
 
           {/* Right: Button */}
@@ -37,24 +37,32 @@ export default function Footer() {
         </div>
         <div className="flex flex-col desktop:flex-row items-center justify-between gap-[32px] desktop:gap-[170px]">
           <div className="flex flex-col items-center desktop:items-start pt-[40px] gap-[16px]">
-            <span className="font-sans text-white text-[18px] leading-[26px] font-bold">Help</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">Contact Us</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">Cancel subscription</span>
+            <h3 className="font-sans text-white text-[18px] leading-[26px] font-bold">Help</h3>
+            <ul>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">Contact Us</a></li>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">Cancel subscription</a></li>
+            </ul>
           </div>
           <div className="flex flex-col items-center desktop:items-start pt-[40px] gap-[16px]">
-            <span className="font-sans text-white text-[18px] leading-[26px] font-bold">Help</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">Create QR code</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">FAQ</span>
+            <h3 className="font-sans text-white text-[18px] leading-[26px] font-bold">Help</h3>
+            <ul>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">Create QR code</a></li>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">FAQ</a></li>
+            </ul>
           </div>
           <div className="flex flex-col items-center desktop:items-start pt-[40px] gap-[16px]">
-            <span className="font-sans text-white text-[18px] leading-[26px] font-bold">Company</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">Prices</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">About us</span>
+            <h3 className="font-sans text-white text-[18px] leading-[26px] font-bold">Company</h3>
+            <ul>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">Prices</a></li>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">About us</a></li>
+            </ul>
           </div>
           <div className="flex flex-col items-center desktop:items-start pt-[40px] gap-[16px]">
-            <span className="font-sans text-white text-[18px] leading-[26px] font-bold">Company</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">Terms and conditions</span>
-            <span className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer hover:underline">Privacy policy</span>
+            <h3 className="font-sans text-white text-[18px] leading-[26px] font-bold">Company</h3>
+            <ul>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">Terms and conditions</a></li>
+              <li><a href="#" className="font-sans font-regular text-white text-[14px] leading-[22px] cursor-pointer">Privacy policy</a></li>
+            </ul>
           </div>
         </div>
         <div className="mt-[60px] w-full h-px bg-white/10"></div>
