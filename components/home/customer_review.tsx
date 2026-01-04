@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Container from "@/components/common/parent-container";
+import Image from "next/image";
 
 class CustomerReviewProps {
   customerName: string;
@@ -43,42 +43,48 @@ const CustomerReviews: CustomerReviewProps[] = [
 
 export default function CustomerReview() {
   return (
-    <Container> 
-     <div className="desktop:flex flex-col items-center justify-center py-[160px] bg-white">
-      <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px] text-black pb-4">Customer reviews</h2>
-      <p className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8 text-black">See what others are saying about SmartQR</p>
-      <div className="flex flex-col desktop:flex-row pt-[56px] gap-[32px] item-center justify-center">
-        {CustomerReviews.map((review, index) => (
-          <div
-            key={index}
-            className="h-auto bg-[#F5F6FA] desktop:w-[350px] rounded-[12px] p-[20px] flex flex-col justify-between">
-            <div className="mt-2">
-              <RatingStar />
-            </div>
-            <p className="text-[16px] leading-[24px] font-regular text-grey pt-[8px]">
-              <span className="text-[18px] leading-[26px] font-bold text-black pt-[16px] block">{review.title}</span>{review.subTitle}
-            </p>
-            <div className="flex flex-row justify-start items-center gap-[12px] pt-[24px]">
-            <div className="w-[46px] h-[46px] rounded-full bg-[#BFD166] flex items-center justify-center">
-              <span className="text-white font-bold text-[16px] leading-[24px]">
-                {review.customerName.charAt(0)}
-              </span>
-            </div>
-
-            <div className="flex flex-col justify-center items-start">
-              <div className="text-[16px] leading-[24px] font-medium text-black">
-                {review.customerName}
+    <Container>
+      <div className="desktop:py-40 py-16 bg-white">
+        <h2 className="text-2xl leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-10 text-black pb-4">
+          Customer reviews
+        </h2>
+        <p className="text-base leading-6 font-regular text-center px-3 pt-2 pb-8 text-black">
+          See what others are saying about SmartQR
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {CustomerReviews.map((review, index) => (
+            <div
+              key={index}
+              className="h-auto bg-[#F5F6FA] desktop:w-[350px] rounded-[12px] p-[20px] flex flex-col justify-between">
+              <div className="mt-2">
+                <RatingStar />
               </div>
-              <div className="text-[14px] leading-[22px] font-light text-grey">
-                {review.reviewDate}
+              <p className="text-[16px] leading-[24px] font-regular text-grey pt-[8px]">
+                <span className="text-[18px] leading-[26px] font-bold text-black pt-[16px] block">
+                  {review.title}
+                </span>
+                {review.subTitle}
+              </p>
+              <div className="flex flex-row justify-start items-center gap-[12px] pt-[24px]">
+                <div className="w-[46px] h-[46px] rounded-full bg-[#BFD166] flex items-center justify-center">
+                  <span className="text-white font-bold text-[16px] leading-[24px]">
+                    {review.customerName.charAt(0)}
+                  </span>
+                </div>
+
+                <div className="flex flex-col justify-center items-start">
+                  <div className="text-[16px] leading-[24px] font-medium text-black">
+                    {review.customerName}
+                  </div>
+                  <div className="text-[14px] leading-[22px] font-light text-grey">
+                    {review.reviewDate}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </Container>
   );
 }
@@ -87,16 +93,16 @@ function RatingStar() {
   const stars = Array.from({ length: 5 });
   return (
     <div className="flex flex-row gap-[8px]">
-        {stars.map((_, i) => (
-            <Image
-              key={i}
-              src="/images/home/star.svg"
-              alt="star"
-              width={24}  // 4 * 4px = 16px
-              height={24}
-              className="mr-1"
-            />
-        ))}
+      {stars.map((_, i) => (
+        <Image
+          key={i}
+          src="/images/home/star.svg"
+          alt="star"
+          width={24} // 4 * 4px = 16px
+          height={24}
+          className="mr-1"
+        />
+      ))}
     </div>
   );
 }

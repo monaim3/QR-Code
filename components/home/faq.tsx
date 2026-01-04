@@ -86,83 +86,88 @@ export default function Faq() {
   return (
     <div className="bg-[#F5F6FA]">
       <Container>
-        <div className="flex flex-col items-center justify-center desktop:py-[160px] py-16 px-5">
-      <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px] text-black pb-4">Frequently asked questions</h2>
-      <p className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8 text-grey">Looking for answers? Check if you can find them here or{" "}<span className="text-[#01A56D] underline">contact us</span></p>
-      {/* Mobile Dropdown */}
-      <div className="relative w-full max-w-[752px] mb-8 desktop:hidden">
-        <button
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-700 font-medium shadow-sm">
-          <span>{activeTabItem?.tabName}</span>
-          <ChevronDown
-            className={`w-5 h-5 transition-transform ${
-              isDropdownOpen ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-
-        {isDropdownOpen && (
-          <>
-            <div
-              className="fixed inset-0 z-10"
-              onClick={() => setIsDropdownOpen(false)}
-            />
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1">
-              {FaqData.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => {
-                    setActiveTab(tab.id);
-                    setIsDropdownOpen(false);
-                  }}
-                  className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors ${
-                    activeTab === tab.id
-                      ? "bg-[#01A56D] text-white"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}>
-                  {tab.tabName}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Desktop Tabs */}
-      <div
-        ref={scrollContainerRef}
-        className="hidden desktop:flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing w-full justify-center"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
-          const container = scrollContainerRef.current;
-          if (!container) return;
-
-          const startX = e.pageX - container.offsetLeft;
-          const scrollLeft = container.scrollLeft;
-
-          const onMouseMove = (moveEvent: MouseEvent) => {
-            const x = moveEvent.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2;
-            container.scrollLeft = scrollLeft - walk;
-          };
-
-          const onMouseUp = () => {
-            document.removeEventListener("mousemove", onMouseMove);
-            document.removeEventListener("mouseup", onMouseUp);
-          };
-
-          document.addEventListener("mousemove", onMouseMove);
-          document.addEventListener("mouseup", onMouseUp);
-        }}>
-        {FaqData.map((faq) => {
-          const isActive = activeTab === faq.id;
-          return (
+        <div className="flex flex-col items-center justify-center desktop:py-40 py-16 px-5">
+          <h2 className="font-bold text-center text-2xl leading-8 desktop:leading-10 text-black pb-4">
+            Frequently asked questions
+          </h2>
+          <p className="text-[16px] leading-[24px] font-regular text-center px-3 pt-2 pb-8 text-grey">
+            Looking for answers? Check if you can find them here or{" "}
+            <span className="text-[#01A56D] underline">contact us</span>
+          </p>
+          {/* Mobile Dropdown */}
+          <div className="relative w-full max-w-[752px] mb-8 desktop:hidden">
             <button
-              key={faq.id}
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => setActiveTab(faq.id)}
-              className={`
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-700 font-medium shadow-sm">
+              <span>{activeTabItem?.tabName}</span>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  isDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {isDropdownOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-10"
+                  onClick={() => setIsDropdownOpen(false)}
+                />
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1">
+                  {FaqData.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        setActiveTab(tab.id);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors ${
+                        activeTab === tab.id
+                          ? "bg-[#01A56D] text-white"
+                          : "text-gray-700 hover:bg-gray-50"
+                      }`}>
+                      {tab.tabName}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Desktop Tabs */}
+          <div
+            ref={scrollContainerRef}
+            className="hidden desktop:flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing w-full justify-center"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
+              const container = scrollContainerRef.current;
+              if (!container) return;
+
+              const startX = e.pageX - container.offsetLeft;
+              const scrollLeft = container.scrollLeft;
+
+              const onMouseMove = (moveEvent: MouseEvent) => {
+                const x = moveEvent.pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+              };
+
+              const onMouseUp = () => {
+                document.removeEventListener("mousemove", onMouseMove);
+                document.removeEventListener("mouseup", onMouseUp);
+              };
+
+              document.addEventListener("mousemove", onMouseMove);
+              document.addEventListener("mouseup", onMouseUp);
+            }}>
+            {FaqData.map((faq) => {
+              const isActive = activeTab === faq.id;
+              return (
+                <button
+                  key={faq.id}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setActiveTab(faq.id)}
+                  className={`
                       flex items-center gap-2 px-5 py-3 rounded-[10px] font-medium
                       transition-all duration-200
                       whitespace-nowrap
@@ -172,41 +177,41 @@ export default function Faq() {
                           : "bg-white text-slate-200"
                       }
                   `}>
-              <span
-                className={`${
-                  isActive
-                    ? "text-white"
-                    : "text-[#79809A]  hover:text-[#01A56D]"
-                } font-sans font-normal`}>
-                {faq.tabName}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      <div className="w-full flex flex-col items-center">
-        {FaqData[activeTab - 1].item.map((item, index) => {
-          return (
-            <Accordion
-              key={index}
-              type="single"
-              collapsible
-              className="w-full flex justify-center">
-              <AccordionItem
-                value="item-1"
-                className="bg-white mb-4 rounded-lg w-full max-w-[752px]">
-                <AccordionTrigger className="p-4 text-black font-sans font-bold text-left">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="p-4 text-gray-600 font sans font-re">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          );
-        })}
-      </div>
-    </div>
+                  <span
+                    className={`${
+                      isActive
+                        ? "text-white"
+                        : "text-[#79809A]  hover:text-[#01A56D]"
+                    } font-sans font-normal`}>
+                    {faq.tabName}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <div className="w-full flex flex-col items-center">
+            {FaqData[activeTab - 1].item.map((item, index) => {
+              return (
+                <Accordion
+                  key={index}
+                  type="single"
+                  collapsible
+                  className="w-full flex justify-center">
+                  <AccordionItem
+                    value="item-1"
+                    className="bg-white mb-4 rounded-lg w-full max-w-[752px]">
+                    <AccordionTrigger className="p-4 text-black font-sans font-bold text-left">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 text-gray-600">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              );
+            })}
+          </div>
+        </div>
       </Container>
     </div>
   );
