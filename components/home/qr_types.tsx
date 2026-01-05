@@ -1,9 +1,9 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import Container from "../common/parent-container";
+import { motion, AnimatePresence } from "framer-motion";
 
 class QrType {
   id: number;
@@ -163,122 +163,187 @@ export default function QrTypes() {
         </div>
           <div className="w-full">
             <div
-              ref={scrollContainerRef}
-              className="flex gap-2  overflow-x-auto  scrollbar-hide cursor-grab active:cursor-grabbing"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
-                const container = scrollContainerRef.current;
-                if (!container) return;
+                ref={scrollContainerRef}
+                className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-2"
+                style={{ scrollSnapType: "x mandatory" }}
+                onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
+                  const container = scrollContainerRef.current;
+                  if (!container) return;
 
-                const startX = e.pageX - container.offsetLeft;
-                const scrollLeft = container.scrollLeft;
+                  const startX = e.pageX - container.offsetLeft;
+                  const scrollLeft = container.scrollLeft;
 
-                const onMouseMove = (moveEvent: MouseEvent) => {
-                  const x = moveEvent.pageX - container.offsetLeft;
-                  const walk = (x - startX) * 2;
-                  container.scrollLeft = scrollLeft - walk;
-                };
+                  let isDragging = false;
 
-                const onMouseUp = () => {
-                  document.removeEventListener("mousemove", onMouseMove);
-                  document.removeEventListener("mouseup", onMouseUp);
-                };
+                  const onMouseMove = (moveEvent: MouseEvent) => {
+                    isDragging = true;
+                    const x = moveEvent.pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    container.scrollLeft = scrollLeft - walk;
+                  };
 
-                document.addEventListener("mousemove", onMouseMove);
-                document.addEventListener("mouseup", onMouseUp);
-              }}>
-              {QrTypeData.map((qr) => {
-                const isActive = activeTab === qr.id;
-                const tabRef = React.createRef<HTMLButtonElement>();
+                  const onMouseUp = () => {
+                    document.removeEventListener("mousemove", onMouseMove);
+                    document.removeEventListener("mouseup", onMouseUp);
+                    setTimeout(() => (isDragging = false), 0);
+                  };
 
-                const handleClick = () => {
-                  setActiveTab(qr.id);
+                  document.addEventListener("mousemove", onMouseMove);
+                  document.addEventListener("mouseup", onMouseUp);
+                }}
+              >
+                {QrTypeData.map((qr) => {
+                  const isActive = activeTab === qr.id;
+                  const tabRefs = React.useRef<Record<number, HTMLButtonElement | null>>({});
+                  // Use ref map instead of createRef each render
+                  if (!tabRefs.current[qr.id]) tabRefs.current[qr.id] = null;
 
-                  // Scroll tab into view smoothly
-                  if (tabRef.current && scrollContainerRef.current) {
-                    tabRef.current.scrollIntoView({
-                      behavior: "smooth",
-                      inline: "center", // scrolls horizontally to center the tab
-                      block: "nearest", // vertically do nothing
-                    });
-                  }
-                };
+                  const handleClick = () => {
+                    if (tabRefs.current[qr.id]) {
+                      setActiveTab(qr.id);
 
-                return (
-                  <button
-                    key={qr.id}
-                    data-id={qr.id}
-                    ref={tabRef}
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={handleClick}
-                    className={`
-                    flex items-center gap-2 px-2 pr-4 py-2 rounded-lg font-medium transition-all duration-300 ease-linear whitespace-nowrap
-                    ${
-                      isActive
-                        ? "bg-[var(--Blue)] text-white"
-                        : "bg-white/10 text-white hover:bg-[var(--Blue)]"
+                      // Smooth scroll active tab into view
+                      tabRefs.current[qr.id]?.scrollIntoView({
+                        behavior: "smooth",
+                        inline: "center",
+                        block: "nearest",
+                      });
                     }
-                  `}>
-                    <Image
-                      src={qr.tabImagePath}
-                      alt={qr.title}
-                      width={36}
-                      height={26}
-                      className="flex-shrink-0"
-                    />
-                    <span className="text-[14px] leading-[22px] font-sans font-normal whitespace-nowrap">
-                      {qr.title}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+                  };
+
+                  return (
+                    <button
+                      key={qr.id}
+                      data-id={qr.id}
+                      ref={(el) => {
+                          tabRefs.current[qr.id] = el; // assign only
+                        }}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={handleClick}
+                      className={`
+                        flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ease-linear
+                        flex-shrink-0
+                        ${isActive
+                          ? "bg-[var(--Blue)] text-white"
+                          : "bg-white/10 text-white hover:bg-[var(--Blue)]"}
+                      `}
+                      style={{ scrollSnapAlign: "center" }}
+                    >
+                      {/* Fixed-size icon wrapper */}
+                      <div
+                        className="flex-shrink-0 w-9 h-7 flex items-center justify-center"
+                        style={{ minWidth: 36, minHeight: 26 }}
+                      >
+                        <Image
+                          src={qr.tabImagePath}
+                          alt={qr.title}
+                          width={36}
+                          height={26}
+                        />
+                      </div>
+
+                      {/* Full text */}
+                      <span className="text-[14px] leading-[22px] font-sans font-normal flex-shrink-0">
+                        {qr.title}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             <div className="flex flex-col items-center justify-center pt-6 max-w-[1100px] mx-auto desktop:flex-row desktop:pt-[96px] gap-10 desktop:gap-0">
               {/* Left: Image */}
-              <div className="rounded-lg bg-white/10 px-[25px] pt-[56px] desktop:pt-[100px] w-full max-w-1/2 desktop:w-1/2 flex justify-center">
-                <Image
-                  src={
-                    QrTypeData.find((qr) => qr.id === activeTab)
-                      ?.contentImagePath ||
-                    "/images/qr_types/website_url_example.png"
-                  }
-                  alt={
-                    QrTypeData.find((qr) => qr.id === activeTab)?.title ||
-                    "QR Code Example"
-                  }
-                  width={350}
-                  height={340}
-                  priority
-                  className="object-contain object-bottom"
-                />
-              </div>
-
+             <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="relative overflow-hidden rounded-lg bg-white/10 px-[25px] pt-[56px] desktop:pt-[100px] w-full desktop:w-1/2 flex justify-center"
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 80 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 40 }}
+                  transition={{ duration: 0.60, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex justify-center"
+                >
+                  <Image
+                    src={
+                      QrTypeData.find((qr) => qr.id === activeTab)
+                        ?.contentImagePath ||
+                      "/images/qr_types/website_url_example.png"
+                    }
+                    alt={
+                      QrTypeData.find((qr) => qr.id === activeTab)?.title ||
+                      "QR Code Example"
+                    }
+                    width={350}
+                    height={340}
+                    priority
+                    className="object-contain object-bottom"
+                  />
+                </motion.div>
+              </motion.div>
+             </AnimatePresence>
               {/* Right: Text */}
-              <div className="flex flex-col justify-center items-center desktop:items-start w-full max-w-1/2 desktop:w-1/2 px-0 desktop:px-12">
-                <h3 className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] desktop:leading-[32px]">
+              <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-col justify-center items-center desktop:items-start w-full max-w-1/2 desktop:w-1/2 px-0 desktop:px-12"
+              >
+                <motion.h3
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] desktop:leading-[32px]"
+                >
                   {QrTypeData.find((qr) => qr.id === activeTab)?.title}
-                </h3>
-                <p className="text-[14px] leading-[22px] font-normal text-center desktop:text-start text-white pb-4">
-                  {
-                    QrTypeData.find((qr) => qr.id === activeTab)
-                      ?.contentDescription
-                  }
-                </p>
-                <a href="#"className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
-">Create QR code</a>
+                </motion.h3>
+
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.45, ease: "easeOut", delay: 0.05 }}
+                  className="text-[14px] leading-[22px] font-normal text-center desktop:text-start text-white pb-4"
+                >
+                  {QrTypeData.find((qr) => qr.id === activeTab)?.contentDescription}
+                </motion.p>
+
+                <motion.a
+                  href="#"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                  className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear"
+                >
+                  Create QR code
+                </motion.a>
+
+                {/* Arrow buttons */}
                 <div className="flex flex-row justify-center desktop:justify-start items-center pt-8 gap-4">
                   <div
                     className="size-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-[var(--Black)] transition-all cursor-pointer duration-300 ease-linear"
-                    onClick={() => changeTab("left")}>
+                    onClick={() => changeTab("left")}
+                  >
                     <SlArrowLeft className="text-white w-4 h-4" />
                   </div>
                   <div
                     className="size-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-[var(--Black)] transition-all cursor-pointer duration-300 ease-linear"
-                    onClick={() => changeTab("right")}>
+                    onClick={() => changeTab("right")}
+                  >
                     <SlArrowRight className="text-white w-4 h-4" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
+            </AnimatePresence>
             </div>
           </div>
         </div>
@@ -286,3 +351,5 @@ export default function QrTypes() {
     </section>
   );
 }
+
+//const tabRef = React.createRef<HTMLButtonElement>();

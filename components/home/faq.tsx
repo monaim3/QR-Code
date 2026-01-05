@@ -8,6 +8,7 @@ import {
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 import Container from "../common/parent-container";
+import { motion, AnimatePresence } from "framer-motion";
 
 class FaqTabItem {
   id: number;
@@ -104,8 +105,22 @@ export default function Faq() {
   const [activeTab, setActiveTab] = useState(FaqData[0].id);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const activeTabItem = FaqData.find(tab => tab.id === activeTab);
 
-  const activeTabItem = FaqData.find((tab) => tab.id === activeTab);
+  const [openItem, setOpenItem] = useState<string | undefined>(
+    activeTab === 1 ? "item-0" : undefined
+  );
+
+// Tab change handler
+const handleTabChange = (tabId: number) => {
+  setActiveTab(tabId);
+  setOpenItem(undefined); // collapses all FAQs in new tab
+};
+
+const handleItemClick = (index: number) => {
+  setOpenItem(openItem === `item-${index}` ? undefined : `item-${index}`);
+};
+
 
   return (
     <section className="bg-[#F5F6FA] desktop:py-40 py-16 ">
@@ -188,7 +203,7 @@ export default function Faq() {
               <button
                 key={faq.id}
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={() => setActiveTab(faq.id)}
+                onClick={() => handleTabChange(faq.id)}
                 className={`
                   flex items-center px-6 py-2 rounded-[10px]
                   font-medium whitespace-nowrap
@@ -220,28 +235,44 @@ export default function Faq() {
           </div>
           <div className="w-full flex flex-col items-center gap-4">
             <Accordion
-              type="single"
-              collapsible
-              className="w-full flex flex-col gap-4"
-            >
-              {FaqData[activeTab - 1].item.map((item, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="bg-white rounded-lg w-full"
+            type="single"
+            collapsible
+            value={openItem} // controlled state
+            onValueChange={(val) => setOpenItem(val)}
+            className="w-full flex flex-col gap-4"
+          >
+            {activeTabItem?.item.map((item, index) => {
+            const isOpen = openItem === `item-${index}`;
+            return (
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg w-full">
+                <AccordionTrigger
+                onClick={() => handleItemClick(index)}
+                className="p-6 text-[var(--Black)] text-[18px] leading-[26px] font-sans font-bold items-center rounded-[12px]"
                 >
-                  <AccordionTrigger className="p-6 text-[var(--Black)] text-[18px] leading-[26px] font-sans font-bold items-center rounded-[12px]">
-                    {item.question}
-                  </AccordionTrigger>
+                  {item.question}
+                </AccordionTrigger>
 
-                  <AccordionContent className="px-6 pt-0 text-[var(--Dark-gray)] text-[16px] leading-[24px]">
-                    {item.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key={`faq-${activeTab}-${index}`} // unique key per tab + item
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pt-4 text-[var(--Dark-gray)] text-[16px] leading-[24px]">
+                        {item.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </AccordionItem>
+            );
+          })}
+          </Accordion>
           </div>
-
         </div>
       </Container>
     </section>
