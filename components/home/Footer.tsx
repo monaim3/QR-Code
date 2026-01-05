@@ -41,14 +41,14 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Contact Us
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Cancel subscription
                   </Link>
                 </li>
@@ -60,14 +60,14 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Create QR code
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     FAQ
                   </Link>
                 </li>
@@ -79,14 +79,14 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Prices
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     About us
                   </Link>
                 </li>
@@ -98,14 +98,14 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Terms and conditions
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="#"
-                    className="text-white/60 text-sm hover:text-[var(--Blue)] transition-colors leading-[22px]">
+                    className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Privacy policy
                   </Link>
                 </li>
