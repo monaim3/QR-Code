@@ -1,6 +1,8 @@
-import { Button } from "@/components/ui/button";
+"use client";
 import Image from "next/image";
+import Link from "next/link";
 import Container from "../common/parent-container";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Hero() {
   return (
@@ -16,9 +18,8 @@ export default function Hero() {
               simple clicks.
             </p>
           </div>
-
-          <a href="#" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
-">Create QR code</a>
+          <Link href="#" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+">Create QR code</Link>
 
           {/* image stack */}
           <div className="pt-24 desktop:pt-28 w-full">
@@ -39,11 +40,18 @@ export default function Hero() {
                   </div>
 
                   <div className="xl:block absolute bottom-28 right-2 hidden">
-                    <img
-                      src="/images/home/qr.svg"
-                      alt="Customize"
-                      className="w-70 xl:w-70 shadow-[0_1.761px_28.179px_0_rgba(63,72,103,0.08)]"
-                    />
+                  <motion.img
+                    src="/images/home/qr.svg"
+                    alt="Customize"
+                    className="w-70 xl:w-70 shadow-[0_1.761px_28.179px_0_rgba(63,72,103,0.08)]"
+                    animate={{ y: [0, -20, 0] }}
+                    transition={{
+                      duration: 5,
+                      ease: [0.4, 0, 0.6, 1],
+                      repeat: Infinity,
+                    }}
+                  />
+
                   </div>
                 </div>
               </div>
