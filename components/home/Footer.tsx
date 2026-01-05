@@ -8,12 +8,12 @@ export default function Footer() {
   const [isLangOpen, setIsLangOpen] = useState(false);
 
   return (
-    <footer className="w-full pt-16 bg-[radial-gradient(circle,#334A56,#2F3E46)]">
+    <footer className="w-full pt-5 desktop:pt-16 pb-5 desktop:pb-0 bg-[radial-gradient(circle,#334A56,#2F3E46)]">
       <Container>
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-8 desktop:gap-16">
           {/* Top Section: Logo + Button */}
-          <div className="bg-white/10 rounded-xl p-6 md:p-10">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-center text-center lg:text-left">
+          <div className="bg-white/10 rounded-xl p-6 px-4 md:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 desktop:gap-10 items-center text-center lg:text-left">
               {/* Left: Logo + Text */}
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-center lg:justify-start gap-3">
@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
 
           {/* Links Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 desktop:grid-cols-4 gap-10 text-center desktop:text-left">
+          <div className="grid grid-cols-1 desktop:grid-cols-4 gap-8 desktop:gap-10 text-center desktop:text-left">
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
               <ul className="flex flex-col gap-4">
@@ -114,7 +114,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom Section: Language + Copyright */}
-          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-6 items-center text-center desktop:text-left border-t border-white/20 py-4">
+          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-1 items-center text-center desktop:text-left border-t border-white/20 py-4">
             <div className="relative flex justify-center desktop:justify-start">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}

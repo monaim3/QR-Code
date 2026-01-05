@@ -144,7 +144,7 @@ export default function Header() {
             {/* Mobile Login Button */}
             <div className="flex flex-col gap-4">
               <Link
-                href="/login"
+                href="#"
                 onClick={() => setIsDrawerOpen(false)}
                 className="w-full py-4 flex items-center justify-center text-[16px] font-bold text-white bg-[var(--Blue)] hover: rounded-2xl shadow-[0_10px_20px_-5px_rgba(1,165,109,0.3)] active:scale-[0.97] transition-all">
                 Log in

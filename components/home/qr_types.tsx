@@ -212,12 +212,10 @@ export default function QrTypes() {
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={handleClick}
                     className={`
-                    flex items-center gap-2 desktop:pl-2 desktop:pr-4 px-2 desktop:py-2 py-2 rounded-lg font-medium
-                    transition-all duration-300 ease-linear
-                    whitespace-nowrap
+                    flex items-center gap-2 px-2 pr-4 py-2 rounded-lg font-medium transition-all duration-300 ease-linear whitespace-nowrap
                     ${
                       isActive
-                        ? "bg-[var(--Blue)] text-white shadow-lg"
+                        ? "bg-[var(--Blue)] text-white"
                         : "bg-white/10 text-white hover:bg-[var(--Blue)]"
                     }
                   `}>
@@ -235,9 +233,9 @@ export default function QrTypes() {
                 );
               })}
             </div>
-            <div className="flex flex-col items-center justify-center pt-6 max-w-[1100px] mx-auto desktop:flex-row desktop:pt-[96px]">
+            <div className="flex flex-col items-center justify-center pt-6 max-w-[1100px] mx-auto desktop:flex-row desktop:pt-[96px] gap-10 desktop:gap-0">
               {/* Left: Image */}
-              <div className="rounded-lg bg-white/10 px-[40px] pt-[40px] desktop:px-[80px] desktop:pt-[80px] w-full max-w-1/2 desktop:w-1/2 h-auto desktop:h-[440px] flex justify-center">
+              <div className="rounded-lg bg-white/10 px-[25px] pt-[56px] desktop:pt-[100px] w-full max-w-1/2 desktop:w-1/2 flex justify-center">
                 <Image
                   src={
                     QrTypeData.find((qr) => qr.id === activeTab)
@@ -256,7 +254,7 @@ export default function QrTypes() {
               </div>
 
               {/* Right: Text */}
-              <div className="flex flex-col justify-center items-center desktop:items-start w-full max-w-1/2 desktop:w-1/2 h-auto px-12">
+              <div className="flex flex-col justify-center items-center desktop:items-start w-full max-w-1/2 desktop:w-1/2 px-0 desktop:px-12">
                 <h3 className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] desktop:leading-[32px]">
                   {QrTypeData.find((qr) => qr.id === activeTab)?.title}
                 </h3>

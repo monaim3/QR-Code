@@ -4,10 +4,10 @@ import Container from "../common/parent-container";
 
 export default function QrInstruction() {
   return (
-    <section className="bg-white py-10 lg:py-40">
+    <section className="bg-white py-16 lg:py-40">
     <Container>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-2 mb-20">
+        <div className="flex flex-col items-center justify-center gap-2 mb-10 desktop:mb-20">
           <h2 className="font-bold text-center text-[var(--Black)] text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px]">
             How to create your custom QR code?
           </h2>

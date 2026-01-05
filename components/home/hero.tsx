@@ -4,11 +4,11 @@ import Container from "../common/parent-container";
 
 export default function Hero() {
   return (
-    <section className="bg-[#F5F6FA] pt-20 desktop:pt-[120px]">
+    <section className="bg-[#F5F6FA] pt-14 desktop:pt-[120px]">
       <Container>
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col gap-4 items-center justify-center mb-8">
-            <h1 className="text-[40px] font-bold text-center desktop:text-[48px] desktop:leading-[56px] text-[var(--Black)]">
+            <h1 className="text-[40px] leading-[48px] font-bold text-center desktop:text-[48px] desktop:leading-[56px] text-[var(--Black)]">
               Generate your QR code in{" "}<span className="text-[var(--Blue)]">just seconds</span>
             </h1>
             <p className="text-lg font-regular text-center text-[var(--Dark-gray)]">
@@ -21,7 +21,7 @@ export default function Hero() {
 ">Create QR code</a>
 
           {/* image stack */}
-          <div className="pt-28 w-full">
+          <div className="pt-24 desktop:pt-28 w-full">
               <div className="relative w-full">
                 <div className="relative flex justify-center">
                  <img
@@ -34,7 +34,7 @@ export default function Hero() {
                     <img
                       src="/images/home/scan.svg"
                       alt="QR Scan"
-                      className="w-45 sm:w-29 md:w-45 lg:w-45 xl:w-45 drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
+                      className="w-[118px] desktop:w-[180px] drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
                     />
                   </div>
 
@@ -52,7 +52,7 @@ export default function Hero() {
           {/* Brand Icons */}
           <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB]">
             <div
-              className="xl:flex items-center grid grid-cols-2 gap-12 md:grid-cols-3 justify-items-center justify-between">
+              className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-12">
               <Image
                 src="/images/brand/nestle.svg"
                 alt="Nestle"

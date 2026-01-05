@@ -112,13 +112,12 @@ export default function Faq() {
       <Container>
         <div className="flex flex-col items-center justify-center max-w-[800] m-auto">
           <div className="flex flex-col items-center justify-center gap-2 mb-10">
-            <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-[var(--Black)]">Frequently asked questions</h2>
-            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or{" "}
-              <span className="text-[var(--Blue)] underline">contact us</span>
+            <h2 className="font-bold text-center text-[24px] leading-8 desktop:text-[32px] desktop:leading-10 text-[var(--Black)]">Frequently asked questions</h2>
+            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or <a href="#" className="text-[var(--Blue)] underline">contact us</a>
             </p>
           </div>
           {/* Mobile Dropdown */}
-          <div className="relative w-full max-w-[752px] mb-8 desktop:hidden">
+          <div className="relative w-full mb-10 desktop:hidden">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg text-[var(--Dark-gray)] font-medium shadow-sm">

@@ -45,16 +45,16 @@ export default function CustomerReview() {
   return (
     <section className="bg-white desktop:py-40 py-16">
       <Container>
-          <div className="flex flex-col items-center justify-center gap-2 mb-14">
-            <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-[var(--Black)]">Customer reviews</h2>
+          <div className="flex flex-col items-center justify-center gap-1 default:gap-2 mb-10 desktop:mb-14">
+            <h2 className="font-bold text-center text-[24px] leading-8 desktop:text-[32px] desktop:leading-10 text-[var(--Black)]">Customer reviews</h2>
             <p className="text-[16px] leading-[24px] font-regular text-center text-[var(--Dark-gray)]">See what others are saying about SmartQR</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 desktop:grid-cols-3 gap-8">
             {CustomerReviews.map((review, index) => (
               <div
                 key={index}
-                className="bg-[#F5F6FA] rounded-[12px] p-10 flex flex-col justify-between gap-8">
-                <div className="flex flex-col gap-6">
+                className="bg-[#F5F6FA] rounded-[12px] p-6 desktop:p-10 flex flex-col justify-between gap-6 desktop:gap-8">
+                <div className="flex flex-col gap-4 desktop:gap-6">
                   <RatingStar />
                   <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)]">
                     <span className="text-[18px] leading-[26px] font-bold text-[var(--Black)] block mb-2">
