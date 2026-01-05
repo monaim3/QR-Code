@@ -5,9 +5,9 @@ import Container from "../common/parent-container";
 export default function Hero() {
   return (
     <section className="bg-[#F5F6FA] pt-14 desktop:pt-[120px]">
-      <Container>
+      <Container className="px-0 desktop:px-5">
         <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-col gap-4 items-center justify-center mb-8">
+          <div className="flex flex-col gap-4 items-center justify-center mb-8 px-5">
             <h1 className="text-[40px] leading-[48px] font-bold text-center desktop:text-[48px] desktop:leading-[56px] text-[var(--Black)]">
               Generate your QR code in{" "}<span className="text-[var(--Blue)]">just seconds</span>
             </h1>
@@ -23,14 +23,14 @@ export default function Hero() {
           {/* image stack */}
           <div className="pt-24 desktop:pt-28 w-full">
               <div className="relative w-full">
-                <div className="relative flex justify-center">
+                <div className="relative flex justify-center pl-[120px] desktop:pl-0">
                  <img
                     src="/images/home/dashboard.svg"
                     alt="Analytics Graph"
-                    className="w-[900]"
+                    className="w-[590] desktop:w-[900] object-cover object-left-top h-[280px] desktop:h-auto"
                   />
 
-                  <div className=" absolute bottom-7 xl:left-5 sm:-left-8">
+                  <div className="absolute bottom-7 left-8 desktop:left-5">
                     <img
                       src="/images/home/scan.svg"
                       alt="QR Scan"
@@ -50,7 +50,7 @@ export default function Hero() {
           </div>
 
           {/* Brand Icons */}
-          <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB]">
+          <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB] px-4 desktop:px-0">
             <div
               className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-12">
               <Image
