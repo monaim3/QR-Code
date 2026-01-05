@@ -262,7 +262,7 @@ const handleItemClick = (index: number) => {
                       transition={{ duration: 0.35, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pt-4 text-[var(--Dark-gray)] text-[16px] leading-[24px]">
+                      <div className="px-6 pb-4 text-[var(--Dark-gray)] text-[16px] leading-[24px]">
                         {item.answer}
                       </div>
                     </motion.div>

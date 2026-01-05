@@ -1,14 +1,14 @@
 import Header from "../components/home/Header";
 import Body from "../components/home/Body";
 import Footer from "../components/home/Footer";
-import { Fragment } from "react";
+// import { Fragment } from "react";
 
 export default function Home() {
   return (
-    <Fragment>
+    <div>
       <Header />
       <Body />
       <Footer />
-    </Fragment>
+    </div>
   );
 }

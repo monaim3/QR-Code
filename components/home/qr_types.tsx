@@ -255,17 +255,20 @@ export default function QrTypes() {
              <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
+                exit={{ opacity: 1 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 className="relative overflow-hidden rounded-lg bg-white/10 px-[25px] pt-[56px] desktop:pt-[100px] w-full desktop:w-1/2 flex justify-center"
               >
                 <motion.div
-                  initial={{ opacity: 0, y: 80 }}
+                  initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 40 }}
-                  transition={{ duration: 0.60, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "linear"
+                  }}
                   className="flex justify-center"
                 >
                   <Image
@@ -290,17 +293,17 @@ export default function QrTypes() {
               <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, y: 2 }}
+                animate={{ opacity: 1, y: 2 }}
+                exit={{ opacity: 0, y: 2 }}
+                transition={{duration: 0.3, ease: "linear" }}
                 className="flex flex-col justify-center items-center desktop:items-start w-full max-w-1/2 desktop:w-1/2 px-0 desktop:px-12"
               >
                 <motion.h3
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  transition={{ duration: 0.4, ease: "linear" }}
                   className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] desktop:leading-[32px]"
                 >
                   {QrTypeData.find((qr) => qr.id === activeTab)?.title}
@@ -310,7 +313,7 @@ export default function QrTypes() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.45, ease: "easeOut", delay: 0.05 }}
+                  transition={{ duration: 0.4, ease: "linear" }}
                   className="text-[14px] leading-[22px] font-normal text-center desktop:text-start text-white pb-4"
                 >
                   {QrTypeData.find((qr) => qr.id === activeTab)?.contentDescription}
@@ -318,10 +321,10 @@ export default function QrTypes() {
 
                 <motion.a
                   href="#"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 1, y: 2 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                  exit={{ opacity: 1, y: 2 }}
+                  transition={{ duration: 0.3, ease: "linear" }}
                   className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear"
                 >
                   Create QR code
