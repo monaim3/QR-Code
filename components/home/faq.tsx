@@ -112,7 +112,7 @@ export default function Faq() {
       <Container>
         <div className="flex flex-col items-center justify-center max-w-[800] m-auto">
           <div className="flex flex-col items-center justify-center gap-2 mb-10">
-            <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-black">Frequently asked questions</h2>
+            <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-[var(--Black)]">Frequently asked questions</h2>
             <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or{" "}
               <span className="text-[var(--Blue)] underline">contact us</span>
             </p>
@@ -121,7 +121,7 @@ export default function Faq() {
           <div className="relative w-full max-w-[752px] mb-8 desktop:hidden">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-700 font-medium shadow-sm">
+              className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg text-[var(--Dark-gray)] font-medium shadow-sm">
               <span>{activeTabItem?.tabName}</span>
               <ChevronDown
                 className={`w-5 h-5 transition-transform ${
@@ -147,7 +147,7 @@ export default function Faq() {
                       className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors ${
                         activeTab === tab.id
                           ? "bg-[var(--Blue)] text-white"
-                          : "text-gray-700 hover:bg-gray-50"
+                          : "text-[var(--Dark-gray)] hover:bg-gray-50"
                       }`}>
                       {tab.tabName}
                     </button>
@@ -231,11 +231,11 @@ export default function Faq() {
                   value={`item-${index}`}
                   className="bg-white rounded-lg w-full"
                 >
-                  <AccordionTrigger className="p-6 text-[#0A0909] text-[18px] leading-[26px] font-sans font-bold items-center rounded-[12px]">
+                  <AccordionTrigger className="p-6 text-[var(--Black)] text-[18px] leading-[26px] font-sans font-bold items-center rounded-[12px]">
                     {item.question}
                   </AccordionTrigger>
 
-                  <AccordionContent className="px-6 pt-0 text-gray-600 text-[16px] leading-[24px]">
+                  <AccordionContent className="px-6 pt-0 text-[var(--Dark-gray)] text-[16px] leading-[24px]">
                     {item.answer}
                   </AccordionContent>
                 </AccordionItem>

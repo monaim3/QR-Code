@@ -35,9 +35,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --Black: #0A0909;
-  --Blue: #01A56D;
-  --Dark-gray: #3F3E3E;
+  --Black: oklab(14.11% 0.00172 0.00052);
+  --Blue: oklab(63.726000000000006% -0.13486 0.04811);
+  --Dark-gray: oklab(36.484% 0.00131 0.00036);
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
   --font-poppins: "Poppins", sans-serif;
