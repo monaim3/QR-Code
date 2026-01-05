@@ -154,7 +154,7 @@ export default function QrTypes() {
   return (
     <section className="bg-[radial-gradient(circle,#334A56,#2F3E46)] desktop:py-40 py-16">
       <Container>
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-2 mb-8">
             <h2 className="text-[24px] leading-[32px] font-bold text-center desktop:text-[32px] desktop:leading-[40px] text-white">QR codes for every use</h2>
             <p className="text-[14px] leading-[22px] font-regular text-center text-white/60">
@@ -212,15 +212,15 @@ export default function QrTypes() {
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={handleClick}
                     className={`
-                flex items-center gap-2 desktop:pl-2 desktop:pr-4 px-2 desktop:py-2 py-2 rounded-lg font-medium
-                transition-all duration-200
-                whitespace-nowrap
-                ${
-                  isActive
-                    ? "bg-[var(--Blue)] text-white shadow-lg"
-                    : "bg-white/10 text-white hover:bg-[var(--Blue)]"
-                }
-              `}>
+                    flex items-center gap-2 desktop:pl-2 desktop:pr-4 px-2 desktop:py-2 py-2 rounded-lg font-medium
+                    transition-all duration-300 ease-linear
+                    whitespace-nowrap
+                    ${
+                      isActive
+                        ? "bg-[var(--Blue)] text-white shadow-lg"
+                        : "bg-white/10 text-white hover:bg-[var(--Blue)]"
+                    }
+                  `}>
                     <Image
                       src={qr.tabImagePath}
                       alt={qr.title}
@@ -270,12 +270,12 @@ export default function QrTypes() {
 ">Create QR code</a>
                 <div className="flex flex-row justify-center desktop:justify-start items-center pt-8 gap-4">
                   <div
-                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
+                    className="size-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-[var(--Black)] transition-all cursor-pointer duration-300 ease-linear"
                     onClick={() => changeTab("left")}>
                     <SlArrowLeft className="text-white w-4 h-4" />
                   </div>
                   <div
-                    className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
+                    className="size-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-[var(--Black)] transition-all cursor-pointer duration-300 ease-linear"
                     onClick={() => changeTab("right")}>
                     <SlArrowRight className="text-white w-4 h-4" />
                   </div>

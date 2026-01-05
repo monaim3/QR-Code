@@ -4,7 +4,7 @@ import Container from "../common/parent-container";
 
 export default function QrInstruction() {
   return (
-    <section className="py-10 lg:py-40">
+    <section className="bg-white py-10 lg:py-40">
     <Container>
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-2 mb-20">

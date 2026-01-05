@@ -43,7 +43,7 @@ const CustomerReviews: CustomerReviewProps[] = [
 
 export default function CustomerReview() {
   return (
-    <section className="desktop:py-40 py-16 bg-white">
+    <section className="bg-white desktop:py-40 py-16">
       <Container>
           <div className="flex flex-col items-center justify-center gap-2 mb-14">
             <h2 className="font-bold text-center text-[32px] leading-8 desktop:leading-10 text-black">Customer reviews</h2>
