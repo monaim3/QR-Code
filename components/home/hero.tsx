@@ -17,7 +17,7 @@ export default function Hero() {
             </p>
           </div>
 
-          <a href="#" className=" bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+          <a href="#" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
 ">Create QR code</a>
 
           {/* image stack */}

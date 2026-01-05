@@ -35,7 +35,7 @@ export default function QrInstruction() {
         </div>
 
         <div className="hidden lg:block">
-          <a href="#" className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
+          <a href="#" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
 ">Create QR code</a>
         </div>
       </div>

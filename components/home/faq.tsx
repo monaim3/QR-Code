@@ -120,10 +120,10 @@ export default function Faq() {
           <div className="relative w-full mb-10 desktop:hidden">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-lg text-[var(--Dark-gray)] font-medium shadow-sm">
+              className="w-full flex items-center justify-between px-4 py-2 h-[48px] bg-white border border-[var(--Boarder-Grey)] rounded-lg text-[var(--Dark-gray)] font-medium">
               <span>{activeTabItem?.tabName}</span>
               <ChevronDown
-                className={`w-5 h-5 transition-transform ${
+                className={`size-5 stroke-[var(--Dark-gray)] transition-transform ${
                   isDropdownOpen ? "rotate-180" : ""
                 }`}
               />
