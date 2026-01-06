@@ -54,7 +54,7 @@ const QrTypeData = [
     "Images",
     "/images/qr_types/Images.svg",
     "If you're in an industry that relies heavily on images to promote your brand, why not use a QR code to link to an image gallery in a snap? Showcase real estate, consumer goods, food and furniture with ease.",
-    "/images/qr_types/half_device_image.svg"
+    "/images/qr_types/half_device_image.webp"
   ),
   new QrType(
     5,
@@ -272,7 +272,7 @@ export default function QrTypes() {
                   className="flex justify-center"
                 >
                   <div className="w-[350px] h-[340px] relative">
-  <Image
+  <img
     src={
       QrTypeData.find((qr) => qr.id === activeTab)?.contentImagePath ||
       "/images/qr_types/website_url_example.png"
@@ -284,7 +284,6 @@ export default function QrTypes() {
     width={700}      // original image size
     height={680}     // original image size
     className="object-contain object-bottom"
-    priority
   />
 </div>
 
