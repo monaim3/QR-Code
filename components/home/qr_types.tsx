@@ -33,21 +33,21 @@ const QrTypeData = [
     "Website Url",
     "/images/qr_types/website_url.svg",
     "Your QR code will open any URL, website or webpage you link it to. By simply scanning your unique QR code with a smartphone, users will conveniently open the webpage you chose. Easy, fast, professional!",
-    "/images/qr_types/half_device_website.svg"
+    "/images/qr_types/half_device_website.webp"
   ),
   new QrType(
     2,
     "Vcard",
     "/images/qr_types/vcard.svg",
     "Enhance the value of your electronic business card by adding a QR code. This gives viewers an easy way to access more information about you or your company. An added bonus: you can edit the QR content whenever you like.",
-    "/images/qr_types/half_device_vcard.svg"
+    "/images/qr_types/half_device_vcard.webp"
   ),
   new QrType(
     3,
     "PDF",
     "/images/qr_types/pdf.svg",
     "Put all the information that matters at your clients' and customers' fingertips. With a customizable QR code, they can access PDF files rich with content. And after a quick download, they can easily share or save.",
-    "/images/qr_types/half_device_pdf.svg"
+    "/images/qr_types/half_device_pdf.webp"
   ),
   new QrType(
     4,
@@ -61,56 +61,56 @@ const QrTypeData = [
     "Social Media",
     "/images/qr_types/social_media.svg",
     "One QR code can open the door to all of your social media channels. Make it simple for users to follow you on Facebook, Instagram, Twitter or wherever they like to hang out online.",
-    "/images/qr_types/half_device_socialmedia.svg"
+    "/images/qr_types/half_device_socialmedia.webp"
   ),
   new QrType(
     6,
     "Video",
     "/images/qr_types/video.svg",
     "Add a QR code to a brochure, poster, mailer or any other platform to unlock instant access to video content. Make your print media more dynamic, capture attention and boost your brand appeal.",
-    "/images/qr_types/half_device_video.svg"
+    "/images/qr_types/half_device_video.webp"
   ),
   new QrType(
     7,
     "Simple Text",
     "/images/qr_types/simple_text.svg",
     "From product descriptions to serial numbers to information cards, any text can be accessed immediately with a custom QR code. Make your product more engaging and change the content in real time.",
-    "/images/qr_types/half_device_text.svg"
+    "/images/qr_types/half_device_text.webp"
   ),
   new QrType(
     8,
     "Business Pages",
     "/images/qr_types/business_page.svg",
     "Showcase your company information with a business page QR code. This simple, streamlined landing page can include your business details, opening hours and any other key info. Add a button to make booking an appointment effortless.",
-    "/images/qr_types/half_device_business.svg"
+    "/images/qr_types/half_device_business.webp"
   ),
   new QrType(
     9,
     "Facebook",
     "/images/qr_types/facebook.svg",
     "Want more likes and shares? Boost the impact of your print media by adding a QR code that links to your Facebook page. It's all about new ways to build your audience.",
-    "/images/qr_types/half_device_facebook.svg"
+    "/images/qr_types/half_device_facebook.webp"
   ),
   new QrType(
     10,
     "WiFi",
     "/images/qr_types/wi_fi.svg",
     "Avoid password problems by using a QR code to unlock Wi-Fi access. With a quick scan, customers can easily get on to your network. Fewer interruptions and super-fast connections will keep everyone happy.",
-    "/images/qr_types/half_device_wifi.svg"
+    "/images/qr_types/half_device_wifi.webp"
   ),
   new QrType(
     11,
     "App",
     "/images/qr_types/app.svg",
     "By scanning a single QR code, anyone can install your app instantly from the App Store or Google Play. Full customization lets you match your code's appearance to your brand so you stand out from the competition.",
-    "/images/qr_types/half_device_app.svg"
+    "/images/qr_types/half_device_app.webp"
   ),
   new QrType(
     12,
     "Menu",
     "/images/qr_types/menu.svg",
     "Own a restaurant or bar? Use a QR code to link to a digital menu and make it easy to access your food and drink offering. You can make menu changes at any time, so it's always up to date.",
-    "/images/qr_types/half_device_menue.svg"
+    "/images/qr_types/half_device_menue.webp"
   ),
 ];
 
