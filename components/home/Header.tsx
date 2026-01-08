@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
+import LanguageSelector from "../common/language_dropdown"
 
 export default function Header() {
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function Header() {
           {/* Desktop Right side actions */}
           <div className="hidden desktop:flex items-center gap-4">
             {/* Language Selector */}
-            <div className="relative">
+            {/* {<div className="relative">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
@@ -61,13 +62,14 @@ export default function Header() {
                   </div>
                 </>
               )}
-            </div>
+            </div>} */}
+
+             <LanguageSelector/>
 
             {/* Log in Button */}
             <Link
               href="#"
-              className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear
-">
+              className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear">
               Log in
             </Link>
           </div>
