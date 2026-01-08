@@ -40,9 +40,19 @@
   --Blue-hover: #008b5b;
   --Dark-gray: #3f3e3e;
   --Boarder-Grey: #d3d8eb;
+  --Generator-Background: #f5f6fa;
+  --boarder-grey-50: rgba(205, 208, 219, 0.5);
+  --Light-blue: #f7f9fc;
+
+  --Corner-Radius-10: 10px;
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
   --font-poppins: "Poppins", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-rubik: "Rubik", sans-serif;
+
+  --Typeface-Size-Headings-Heading-3: 24px;
+  --Typeface-Line-height-Heading-3: 32px;
 }
 
 .dark {

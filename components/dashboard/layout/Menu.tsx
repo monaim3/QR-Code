@@ -1,0 +1,88 @@
+"use client";
+
+import ChevronLeftSmall from "@/components/icons/chevron-left-small";
+import { Button } from "@/components/ui/button";
+import Logo from "./Logo";
+import ChartBarSquare from "@/components/icons/chart-bar-square";
+import QrCode5 from "@/components/icons/qr-code-5";
+import User from "@/components/icons/user";
+import CreditCards from "@/components/icons/credit-cards";
+import MenuItem from "./MenuItem";
+import Support from "@/components/icons/support";
+import LogOut from "@/components/icons/log-out";
+import { useState } from "react";
+import DashboardMenuIcon from "@/components/icons/menu";
+
+export default function Menu() {
+  const [collapsed, setCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setCollapsed(!collapsed);
+  };
+
+  const navItems = [
+    { icon: ChartBarSquare, label: "Analytics", href: "/analytics" },
+    { icon: QrCode5, label: "QR Codes", href: "/qr-codes" },
+    { icon: User, label: "Account", href: "/account" },
+    { icon: CreditCards, label: "Billing", href: "/billing" },
+  ];
+
+  const utilityLinks = [
+    { icon: Support, label: "Help", href: "/help-center", onClick: () => {} },
+    { icon: LogOut, label: "Log out", href: "#", onClick: () => {} },
+  ];
+
+  return (
+    <nav
+      className={`bg-white h-full py-6 px-4 border-right border-[var(--boarder-grey-50)] flex flex-col gap-10 transition-[width] duration-300 ${
+        collapsed ? "w-[72px] items-center" : "w-[214px]"
+      }`}
+    >
+      {/* Logo */}
+      {collapsed ? (
+        <div onClick={toggleCollapse} className="cursor-pointer py-1">
+          <DashboardMenuIcon />
+        </div>
+      ) : (
+        <div className="flex items-center gap-2 h-8 overflow-hidden transition-all duration-300">
+          <Logo />
+
+          <Button
+            size={"icon"}
+            onClick={toggleCollapse}
+            className="p-1 rounded-[8px] bg-[var(--Light-blue)] w-6 h-6"
+          >
+            <ChevronLeftSmall />
+          </Button>
+        </div>
+      )}
+
+      {/* Navigation Items */}
+      <ul className="flex flex-col gap-2">
+        {navItems.map((item, index) => (
+          <MenuItem
+            key={index}
+            icon={item.icon}
+            label={item.label}
+            href={item.href}
+            collapsed={collapsed}
+          />
+        ))}
+      </ul>
+
+      {/* Support Links */}
+      <ul className="mt-auto flex flex-col gap-2">
+        {utilityLinks.map((item, index) => (
+          <MenuItem
+            key={index}
+            icon={item.icon}
+            label={item.label}
+            href={item.href}
+            onClick={item.onClick}
+            collapsed={collapsed}
+          />
+        ))}
+      </ul>
+    </nav>
+  );
+}
