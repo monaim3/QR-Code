@@ -8,7 +8,6 @@ import {
   Command,
   CommandGroup,
   CommandItem,
-  CommandInput,
   CommandList,
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -23,18 +22,20 @@ const languages = [
 ];
 
 interface LanguageSelectorProps {
-  textClass?: string;  // Tailwind class for the text
+  textClass?: string;
   iconClass?: string;
   globalIconColor?: string;
-  arrowUp?: boolean;       // Tailwind class for the icons
+  arrowUp?: boolean;
+  layout?: "start" | "gapBetween"; // NEW prop for controlling gap
 }
 
-export default function LanguageSelector({  
-    textClass = "text-black",
-    iconClass = "text-black",
-    globalIconColor = "#000000",
-    arrowUp = false,
- }: LanguageSelectorProps): React.JSX.Element {
+export default function LanguageSelector({
+  textClass = "text-black",
+  iconClass = "text-black",
+  globalIconColor = "#000000",
+  arrowUp = false,
+  layout = "start", // default stick together
+}: LanguageSelectorProps): React.JSX.Element {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("en");
   const [search, setSearch] = React.useState("");
@@ -43,42 +44,45 @@ export default function LanguageSelector({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <div className="relative">
-          <Button
-            variant="ghost"
-            role="combobox"
-            aria-expanded={open}
-            className="gap-2 text-base font-normal hover:bg-transparent px-2"
-          >
-            <Globe className="w-6 h-6"
-             style={{ color: globalIconColor }}/>
+         <Button
+          variant="ghost"
+          role="combobox"
+          aria-expanded={open}
+          className={cn(
+            "flex items-center text-base font-normal hover:bg-transparent px-2 w-full",
+            layout === "gapBetween" ? "justify-between" : "justify-start",
+            "gap-2",
+            layout === "gapBetween" ? "mx-[-6px]" : ""
+          )}
+        >
+          {/* Left side: Globe + Text */}
+          <div className="flex items-center gap-2">
+            <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
             <span className={cn("font-regular", textClass)}>
               {languages.find((lang) => lang.value === value)?.value.toUpperCase()}
             </span>
-            <ChevronUp
-              className=
-              {cn("w-5 h-5 transition-transform", arrowUp ? open ? "rotate-180" : "" : open ? "" : "rotate-180")}
-              style={{ color: globalIconColor }}
-            />
-          </Button>
+          </div>
+
+          {/* Arrow on right */}
+          <ChevronUp
+            className={cn(
+              "w-5 h-5 transition-transform",
+              arrowUp ? (open ? "rotate-180" : "") : open ? "" : "rotate-180"
+            )}
+            style={{ color: globalIconColor }}
+          />
+        </Button>
         </div>
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-[144px] p-2 rounded-xl shadow-sm border-[0.5px] border-black/5 bg-white z-50"
+        className="w-[144px] h-[180px] p-2 rounded-xl shadow-sm
+           border-[0.5px] border-black/5 bg-white z-50
+           overflow-y-scroll always-visible-scrollbar"
         align="start"
-        sideOffset={10} // 10px gap from top
+        sideOffset={10}
       >
         <Command>
-          {/* Search Input */}
-         {/* { <div className="relative mb-2">
-            <CommandInput
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="font-normal text-[14px] h-10 pl-3 pr-10 text-left border border-gray-300 rounded-[8px] focus:border-green-500 outline-none"
-            />
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          </div>} */}
           <CommandList className="overflow-y-scroll scrollbar-green always-visible-scrollbar">
             <CommandGroup className="py-1">
               {languages
