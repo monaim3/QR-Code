@@ -3,6 +3,7 @@ import Container from "@/components/common/parent-container";
 import Link from "next/link";
 import { ChevronDown, Globe } from "lucide-react";
 import { useState } from "react";
+import LanguageSelector from "../common/language_dropdown"
 
 export default function Footer() {
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -115,7 +116,7 @@ export default function Footer() {
 
           {/* Bottom Section: Language + Copyright */}
           <div className="grid grid-cols-1 desktop:grid-cols-2 gap-1 items-center text-center desktop:text-left border-t border-white/20 py-4">
-            <div className="relative flex justify-center desktop:justify-start">
+            {/* {<div className="relative flex justify-center desktop:justify-start">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white leading-[22px]"
@@ -150,7 +151,8 @@ export default function Footer() {
                   </div>
                 </>
               )}
-            </div>
+            </div>} */}
+             <LanguageSelector textClass="text-white" iconClass="#FFFFFF" globalIconColor="#ffffff" arrowUp={true}/>
             <div className="desktop:text-right">
               <span className="text-white text-sm leading-[22px]">
                 2025 © SmartQR.com™ All rights reserved

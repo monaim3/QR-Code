@@ -272,21 +272,20 @@ export default function QrTypes() {
                   className="flex justify-center"
                 >
                   <div className="w-[350px] h-[340px] relative">
-  <img
-    src={
-      QrTypeData.find((qr) => qr.id === activeTab)?.contentImagePath ||
-      "/images/qr_types/website_url_example.png"
-    }
-    alt={
-      QrTypeData.find((qr) => qr.id === activeTab)?.title ||
-      "QR Code Example"
-    }
-    width={700}      // original image size
-    height={680}     // original image size
-    className="object-contain object-bottom"
-  />
-</div>
-
+                  <img
+                    src={
+                      QrTypeData.find((qr) => qr.id === activeTab)?.contentImagePath ||
+                      "/images/qr_types/website_url_example.png"
+                    }
+                    alt={
+                      QrTypeData.find((qr) => qr.id === activeTab)?.title ||
+                      "QR Code Example"
+                    }
+                    width={700}      // original image size
+                    height={680}     // original image size
+                    className="object-contain"             // optional if using container div
+                  />
+                  </div>
                 </motion.div>
               </motion.div>
              </AnimatePresence>
