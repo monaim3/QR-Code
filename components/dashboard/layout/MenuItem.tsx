@@ -31,9 +31,7 @@ export default function MenuItem({
           transition-colors
           ${
             active
-              ? collapsed
-                ? "text-[var(--Blue)]"
-                : "bg-[var(--Light-blue)] text-[var(--Blue)]"
+              ? "bg-[var(--Light-blue)] text-[var(--Blue)]"
               : "text-[var(--Dark-gray)]"
           }
         `}

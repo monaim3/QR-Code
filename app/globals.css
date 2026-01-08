@@ -50,6 +50,9 @@
   --font-poppins: "Poppins", sans-serif;
   --font-roboto: "Roboto", sans-serif;
   --font-rubik: "Rubik", sans-serif;
+
+  --Typeface-Size-Headings-Heading-3: 24px;
+  --Typeface-Line-height-Heading-3: 32px;
 }
 
 .dark {

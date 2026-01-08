@@ -1,8 +1,11 @@
 export default function QrCodes() {
   return (
-    <div>
-      <h2>QR Codes Management</h2>
-      <p>Here you can manage your QR codes.</p>
-    </div>
+    <>
+      <div className="flex items-center justify-between gap-8">
+        <h2 className="font-roboto font-bold text-[var(--Black)] text-[24px] leading-[var(--Typeface-Line-height-Heading-3)]">
+          QR Codes
+        </h2>
+      </div>
+    </>
   );
 }
