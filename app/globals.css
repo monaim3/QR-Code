@@ -43,7 +43,7 @@
   --Generator-Background: #f5f6fa;
   --boarder-grey-50: rgba(205, 208, 219, 0.5);
   --Light-blue: #f7f9fc;
-
+  --breadcrumb: #79809a;
   --Corner-Radius-10: 10px;
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
@@ -53,6 +53,8 @@
 
   --Typeface-Size-Headings-Heading-3: 24px;
   --Typeface-Line-height-Heading-3: 32px;
+  --Typeface-Size-Body-Small: 14px;
+  --Corner-Radius-12: 12px;
 }
 
 .dark {
