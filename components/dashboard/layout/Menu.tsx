@@ -34,7 +34,7 @@ export default function Menu() {
 
   return (
     <nav
-      className={`bg-white h-full py-6 px-4 border-right border-[var(--boarder-grey-50)] flex flex-col gap-10 ${
+      className={`bg-white h-full py-6 px-4 border-right border-[var(--boarder-grey-50)] flex flex-col gap-10 transition-[width] duration-300 ${
         collapsed ? "w-[72px] items-center" : "w-[214px]"
       }`}
     >
@@ -44,7 +44,7 @@ export default function Menu() {
           <DashboardMenuIcon />
         </div>
       ) : (
-        <div className="flex items-center gap-2 h-8">
+        <div className="flex items-center gap-2 h-8 overflow-hidden transition-all duration-300">
           <Logo />
 
           <Button

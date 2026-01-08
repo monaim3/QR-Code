@@ -40,7 +40,7 @@ export default function MenuItem({
       >
         <Icon />
         {!collapsed && (
-          <span className="font-rubik text-base font-normal leading-6">
+          <span className="font-rubik text-base font-normal leading-6 overflow-hidden transition-all duration-300">
             {label}
           </span>
         )}
