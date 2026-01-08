@@ -43,8 +43,13 @@
   --Generator-Background: #f5f6fa;
   --boarder-grey-50: rgba(205, 208, 219, 0.5);
   --Light-blue: #f7f9fc;
+  --Grey: #79809a;
 
   --Corner-Radius-10: 10px;
+  --Corner-Radius-6: 6px;
+  --Corner-Radius-8: 8px;
+  --Corner-Radius-4: 4px;
+  --Corner-Radius-Full: 256px;
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
   --font-poppins: "Poppins", sans-serif;
