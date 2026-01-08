@@ -19,6 +19,7 @@ const languages = [
   { value: "fil", label: "Filipino" },
   { value: "it", label: "Italiano" },
   { value: "es", label: "Español" },
+  { value: "ar", label: "Arabic" },
 ];
 
 interface LanguageSelectorProps {
@@ -76,44 +77,43 @@ export default function LanguageSelector({
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-[144px] h-[180px] p-2 rounded-xl shadow-sm
-           border-[0.5px] border-black/5 bg-white z-50
-           overflow-y-scroll always-visible-scrollbar"
+        className="w-[160px] p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-9"
         align="start"
         sideOffset={10}
       >
-        <Command>
-          <CommandList className="overflow-y-scroll scrollbar-green always-visible-scrollbar">
-            <CommandGroup className="py-1">
-              {languages
-                .filter((lang) =>
-                  lang.label.toLowerCase().includes(search.toLowerCase())
-                )
-                .map((lang) => (
-                  <CommandItem
-                    key={lang.value}
-                    value={lang.value}
-                    onSelect={(currentValue) => {
-                      setValue(currentValue);
-                      setOpen(false);
-                    }}
-                    className="px-3 py-2 text-[14px] cursor-pointer aria-selected:bg-[#9BA2FB]/10 rounded-[8px]"
-                  >
-                    <span
-                      className={cn(
-                        "leading-[22px]",
-                        value === lang.value
-                          ? "font-medium text-black"
-                          : "font-normal text-gray-600 hover:text-[var(--Blue)]"
-                      )}
+        <div className="h-[188px] overflow-y-scroll always-visible-scrollbar">
+          <Command>
+            <CommandList>
+              <CommandGroup className="pr-2">
+                {languages
+                  .filter((lang) =>
+                    lang.label.toLowerCase().includes(search.toLowerCase())
+                  )
+                  .map((lang) => (
+                    <CommandItem
+                      key={lang.value}
+                      value={lang.value}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue);
+                        setOpen(false);
+                      }}
+                      className="px-4 py-1 text-[14px] leading-[22px] cursor-pointer aria-selected:bg-[#9BA2FB]/10 rounded-[8px] mb-1"
                     >
-                      {lang.label}
-                    </span>
-                  </CommandItem>
-                ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
+                      <span
+                        className={cn(
+                          value === lang.value
+                            ? "font-medium text-black"
+                            : "font-normal text-gray-600 hover:text-[var(--Blue)]"
+                        )}
+                      >
+                        {lang.label}
+                      </span>
+                    </CommandItem>
+                  ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </div>
       </PopoverContent>
     </Popover>
   );

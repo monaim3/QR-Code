@@ -78,6 +78,15 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: var(--ring);
+  }
+
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -86,43 +95,34 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
-
-@layer base {
-  * {
-    border-color: var(--border);
-    outline-color: var(--ring);
-  }
   body {
     background-color: var(--background);
     color: var(--foreground);
   }
- /* Container must force scroll mode */
-.always-visible-scrollbar {
-  /* Force the scroll area to always exist */
-  overflow-y: scroll !important; 
-  /* Firefox: thumb color | track color */
-  scrollbar-width: thin;
-  scrollbar-color: #3DA174 rgba(0, 0, 0, 0.05); 
-}
 
-/* Chrome, Safari, and Edge */
-.always-visible-scrollbar::-webkit-scrollbar {
-  width: 4px; /* Thin width as seen in the image */
-  display: block;
-}
+  .always-visible-scrollbar {
+    overflow-y: scroll !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--Blue) #F5F6FB;
+    transition: linear .3s;
+  }
 
-.always-visible-scrollbar::-webkit-scrollbar-track {
-  /* This creates the faint vertical line that stays visible */
-  background: rgba(0, 0, 0, 0.05); 
-  border-radius: 10px;
-  /* margin creates the gap at the top and bottom of the white box */
-  margin: 8px 0; 
-}
+  .always-visible-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    display: block;
+  }
 
-.always-visible-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #3DA174; /* The green color */
-  border-radius: 10px;
-  /* Ensures the green part is tall enough to see */
-  min-height: 24px; 
-}
+  .always-visible-scrollbar::-webkit-scrollbar-track {
+    background: #F5F6FB;
+    border-radius: 10px;
+    margin: 0;
+  }
+
+  .always-visible-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--Blue);
+    border-radius: 10px;
+    min-height: 24px;
+  }
+
+
 }

@@ -155,7 +155,7 @@ export default function Footer() {
              <LanguageSelector textClass="text-white" iconClass="#FFFFFF" globalIconColor="#ffffff" arrowUp={true}/>
             <div className="desktop:text-right">
               <span className="text-white text-sm leading-[22px]">
-                2025 © SmartQR.com™ All rights reserved
+                {new Date().getFullYear()} © SmartQR.com™ All rights reserved
               </span>
             </div>
           </div>
