@@ -68,7 +68,7 @@ export default function Header() {
 
             {/* Log in Button */}
             <Link
-              href="#"
+              href="/login"
               className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear">
               Log in
             </Link>
