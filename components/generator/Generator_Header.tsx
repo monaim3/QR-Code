@@ -5,21 +5,27 @@ import HelpIcon from "./HelpIcon";
 
 export default function GeneratorHeader() {
   return (
-    <header className="w-full border-b border-[var(--Boarder-Grey)] bg-white">
-      <Container>
-        <div className="py-4">
-          <div className="flex items-center justify-between">
-            <Logo />
-            <div className="hidden md:flex flex-1 justify-center">
-              <Breadcrumb />
+    <header>
+      <div className="w-full border-b border-[var(--Boarder-Grey)] bg-white">
+        <Container>
+          <div className="py-4">
+            <div className="flex items-center justify-between">
+              <Logo />
+              <div className="hidden md:flex flex-1 justify-center">
+                <Breadcrumb />
+              </div>
+              <HelpIcon />
             </div>
-            <HelpIcon />
           </div>
-          <div className="md:hidden mt-4">
+        </Container>
+      </div>
+      <div className="bg-[var(--Generator-Background)]">
+        <Container>
+          <div className="md:hidden ">
             <Breadcrumb />
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </header>
   );
 }

@@ -17,17 +17,23 @@ export default function QRTypeCard({
   return (
     <Link href={href}>
       <Card
-        className="rounded-xl gap-4 py-0 bg-white border border-transparent 
+        className="rounded-xl gap-4 py-0 bg-white border-2 border-transparent 
         hover:border-[var(--Blue)] transition-all duration-200 cursor-pointer group
         shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]"
       >
         <div className="flex items-start gap-2 p-4">
-          <div
+          {/* <div
             className="flex-shrink-0 flex items-center justify-center 
           w-[58px] h-12 rounded-lg 
           group-hover:bg-[var(--Blue)] transition-colors
           [&_svg_path]:group-hover:fill-white [&_svg_rect]:group-hover:stroke-white
           [&_svg_path]:transition-colors [&_svg_rect]:transition-colors"
+          >
+            {icon}
+          </div> */}
+          <div
+            className="flex-shrink-0 flex items-center justify-center 
+          w-[58px] h-12 rounded-lg"
           >
             {icon}
           </div>
