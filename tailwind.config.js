@@ -13,8 +13,8 @@ export default {
         ring: 'var(--ring)',
       },
       fontFamily: {
-        sans: ['var(--font-poppins)', 'sans-serif'],
-        body_text: ['var(--font-HelveticaNeue)', 'sans-serif'],
+        sans: ['var(--font-Roboto)', 'sans-serif'],
+        heading: ['var(--font-poppins)', 'sans-serif'],
       },
       screens: {
         desktop: '740px',

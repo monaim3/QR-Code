@@ -87,18 +87,27 @@
     outline-color: var(--ring);
   }
 
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
   body {
+    font-family: var(--font-Roboto);
     background-color: var(--background);
     color: var(--foreground);
   }
+  button, input, select, textarea {
+    font-family: var(--font-Roboto);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-poppins);
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
 
   .always-visible-scrollbar {
     overflow-y: scroll !important;
@@ -123,6 +132,4 @@
     border-radius: 10px;
     min-height: 24px;
   }
-
-
 }

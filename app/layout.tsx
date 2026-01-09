@@ -13,12 +13,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const HelveticaNeue = localFont({
+const Roboto = localFont({
   src: [
-    { path: '../public/fonts/HelveticaNeue-Regular.ttf', weight: '400', style: 'normal' },
-    { path: '../public/fonts/HelveticaNeue-Medium.ttf', weight: '500', style: 'normal' },
+    { path: '../public/fonts/Roboto-Regular.ttf', weight: '400', style: 'normal' },
+    { path: '../public/fonts/Roboto-Medium.ttf', weight: '500', style: 'normal' },
+    { path: '../public/fonts/Roboto-SemiBold.ttf', weight: '600', style: 'normal' },
+    { path: '../public/fonts/Roboto-Bold.ttf', weight: '700', style: 'normal' },
   ],
-  variable: '--font-HelveticaNeue',
+  variable: '--font-Roboto',
 });
 
 const Poppins = localFont({
@@ -40,7 +42,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${Poppins.variable} ${HelveticaNeue.variable} ${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${Poppins.variable} ${Roboto.variable} ${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">
         {children}
       </body>

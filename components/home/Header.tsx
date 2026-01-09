@@ -61,61 +61,62 @@ export default function Header() {
   <div
     onClick={() => setIsDrawerOpen(false)}
     className={cn(
-      "absolute inset-0 bg-black/40 transition-opacity duration-300 ease-in-out",
-      "backdrop-blur transition-[backdrop-filter] duration-300",
-      isDrawerOpen ? "opacity-100 backdrop-blur-sm" : "opacity-0 backdrop-blur-0"
+      "absolute inset-0 bg-[#212023] transition-opacity duration-300 ease-linear",
+      "transition duration-300",
+      isDrawerOpen ? "opacity-80" : "opacity-0"
     )}
   />
 
   {/* Drawer Content - Anchored to Left */}
   <div
     className={cn(
-      "absolute top-0 left-0 h-full w-[320px] bg-white shadow-2xl flex flex-col p-6",
+      "absolute top-0 left-0 h-full w-[320px] bg-white flex flex-col justify-between p-5",
       "transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform",
       isDrawerOpen ? "translate-x-0" : "-translate-x-full"
     )}
   >
-    {/* Header */}
-    <div className="flex items-center justify-between mb-8">
-      <div className="flex items-center gap-2">
-        <img src="/images/Logo.svg" alt="SmartQR" className="w-auto h-8" />
+    <div className="flex flex-col gap-9">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <img src="/images/Logo.svg" alt="SmartQR" className="w-auto h-8" />
+        </div>
+        <button
+          onClick={() => setIsDrawerOpen(false)}
+          className="stroke-[#202023]">
+          <X className="size-6" />
+        </button>
       </div>
-      <button
-        onClick={() => setIsDrawerOpen(false)}
-        className="p-1 text-gray-500 hover:text-gray-900 transition-colors"
-      >
-        <X className="w-7 h-7 font-light" />
-      </button>
+
+      {/* Menu Links */}
+      <nav className="flex flex-col">
+        {[
+          "Contact us",
+          "FAQ",
+          "Prices",
+          "Terms & conditions",
+          "Privacy policy",
+        ].map((item) => (
+          <Link
+            key={item}
+            href="#"
+            onClick={() => setIsDrawerOpen(false)}
+            className="py-5 text-[16px] leading-[24px] font-medium text-[var(--Black)] border-b border-[#cdd0db80)]"
+          >
+            {item}
+          </Link>
+        ))}
+        
+        <LanguageSelector layout="gapBetween"/>
+        </nav>
     </div>
 
-    {/* Menu Links */}
-    <nav className="flex flex-col">
-      {[
-        "Contact us",
-        "FAQ",
-        "Prices",
-        "Terms & conditions",
-        "Privacy policy",
-      ].map((item) => (
-        <Link
-          key={item}
-          href="#"
-          onClick={() => setIsDrawerOpen(false)}
-          className="py-5 text-[16px] font-semibold leading-[24px] text-gray-900 border-b border-gray-100 last:border-0 active:bg-gray-50 transition-colors"
-        >
-          {item}
-        </Link>
-      ))}
-       
-      <LanguageSelector layout="gapBetween"/>
-      </nav>
-
     {/* Footer Login Button */}
-    <div className="mt-auto pb-[20px]">
+    <div>
       <Link
         href="/login"
         onClick={() => setIsDrawerOpen(false)}
-        className="w-full py-[9px] flex items-center justify-center text-[14px] font-medium leading-[22px] text-gray-900 bg-white border border-gray-200 rounded-[15px] shadow-sm active:scale-[0.98] transition-all"
+        className="w-full py-2 px-6  flex items-center justify-center text-[14px] font-medium leading-[22px] text-[var(--Dark-gray)] bg-white border border-[var(--Boarder-Grey)] rounded-[10px] transition-all"
       >
         Log in
       </Link>
