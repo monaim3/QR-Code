@@ -1,4 +1,4 @@
-const ChevronDownSmall = () => {
+const ChevronDownSmall = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,10 +6,11 @@ const ChevronDownSmall = () => {
       height="16"
       viewBox="0 0 16 16"
       fill="none"
+      {...props}
     >
       <path
         d="M7.99998 10.6932C7.78665 10.6932 7.57331 10.6132 7.40998 10.4499L3.47998 6.5199L4.18665 5.81323L7.99998 9.62657L11.8133 5.81323L12.52 6.5199L8.58998 10.4499C8.42665 10.6132 8.21331 10.6932 7.99998 10.6932Z"
-        fill="#79809A"
+        fill="currentColor"
       />
     </svg>
   );

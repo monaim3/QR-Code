@@ -63,7 +63,11 @@ export default function SortBy() {
             </span>
           </span>
         </div>
-        {isOpen ? <ChevronUpSmall /> : <ChevronDownSmall />}
+        {isOpen ? (
+          <ChevronUpSmall className="text-[var(--Grey)]" />
+        ) : (
+          <ChevronDownSmall className="text-[var(--Grey)]" />
+        )}
       </button>
 
       {/* Dropdown Menu */}

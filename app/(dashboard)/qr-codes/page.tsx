@@ -1,5 +1,6 @@
 import CreateQrCodeBtn from "@/components/dashboard/qr-codes/CreateQrCodeBtn";
 import Filters from "@/components/dashboard/qr-codes/filters/Filters";
+import Pagination from "@/components/dashboard/qr-codes/table/Pagination";
 import QrCodesTable from "@/components/dashboard/qr-codes/table/QrCodesTable";
 
 export default function QrCodes() {
@@ -19,6 +20,9 @@ export default function QrCodes() {
 
         {/* Table */}
         <QrCodesTable />
+
+        {/* Pagination */}
+        <Pagination />
       </div>
     </>
   );

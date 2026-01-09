@@ -23,7 +23,7 @@ export default function QrCodesTableItem() {
       {/* Line */}
       <div className="w-[1px] h-[88px] bg-[var(--boarder-grey-50)]" />
 
-      {/* Total Scans */}
+      {/* Scans */}
       <div className="flex flex-col items-center w-[64px] h-[54px]">
         <h3 className="text-[var(--Black)] text-[24px] font-bold leading-[var(--Typeface-Line-height-Heading-3)] text-center">
           256
