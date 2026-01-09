@@ -109,7 +109,7 @@ export default function GeneratorPage() {
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">
               <h1
-                className="text-2xl font-bold text-[var(--Black)] mb-4"
+                className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2"
                 style={{ fontFamily: "var(--font-poppins)" }}
               >
                 Choose QR code type
