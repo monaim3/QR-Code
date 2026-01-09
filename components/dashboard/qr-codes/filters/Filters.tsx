@@ -9,7 +9,7 @@ import ClearFilter from "./ClearFilter";
 
 export default function Filters() {
   return (
-    <div className="flex items-center gap-4 px-4 h-10">
+    <div className="flex items-center gap-4 px-4 h-10 w-full">
       <CheckBox />
 
       <SearchBar />

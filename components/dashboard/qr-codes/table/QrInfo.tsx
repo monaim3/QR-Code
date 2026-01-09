@@ -30,7 +30,7 @@ export default function QrInfo() {
               Italian Restaurant
             </h4>
             <button onClick={() => setIsNameEditing(true)}>
-              <Edit />
+              <Edit className="text-[var(--Grey)]" />
             </button>
           </>
         )}
@@ -42,7 +42,7 @@ export default function QrInfo() {
         <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
           myqrcode.com/erTwESsq
         </p>
-        <Copy />
+        <Copy className="cursor-pointer text-[var(--Grey)]" />
       </div>
 
       {/* Type */}
@@ -69,7 +69,7 @@ export default function QrInfo() {
               www.italian-restaurant.com
             </p>
             <button onClick={() => setIsUrlEditing(true)}>
-              <Edit />
+              <Edit className="text-[var(--Grey)]" />
             </button>
           </div>
         </div>

@@ -6,7 +6,7 @@ interface Props {
 
 export default function ClearFilter({ disabled = false }: Props) {
   return (
-    <div className="flex flex-col items-end flex-1">
+    <div className="flex flex-col items-end flex-1 ml-auto">
       <button
         className={`inline-flex justify-end items-center gap-2 ${
           disabled

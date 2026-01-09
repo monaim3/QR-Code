@@ -77,7 +77,7 @@ export default function QrCodesTableItem({ status = "Active" }: Props) {
       <div className="flex items-center justify-center gap-2 p-2">
         {status === "Paused" ? (
           <>
-            <PauseCircle />
+            <PauseCircle className="text-[var(--Grey)]" />
             <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
               Paused
             </span>

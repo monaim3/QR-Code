@@ -5,8 +5,8 @@ import ChartBarSquare from "@/components/icons/chart-bar-square";
 import PauseCircle from "@/components/icons/pause-circle";
 import Copy from "@/components/icons/copy";
 import RefreshCw from "@/components/icons/refresh-cw";
-import QrCode4 from "@/components/icons/qr-code-4";
 import TrashAlt from "@/components/icons/trash-alt";
+import QrCode5 from "@/components/icons/qr-code-5";
 
 export default function MoreAction() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function MoreAction() {
       label: "Reset scans",
     },
     {
-      icon: QrCode4,
+      icon: QrCode5,
       label: "Change QR type",
     },
     {
@@ -72,7 +72,7 @@ export default function MoreAction() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 z-10 flex flex-col items-start gap-1 w-[181px] p-4 mt-2 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
+        <div className="absolute right-0 z-10 flex flex-col items-start gap-1 w-[181px] p-4 mt-[15px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
           {options.map((option, i) => {
             const Icon = option.icon;
             return (
@@ -81,8 +81,14 @@ export default function MoreAction() {
                 onClick={() => handleSelect()}
                 className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
               >
-                <Icon className="text-[var(--Dark-gray)]" />
-                <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px] font-rubik">
+                <Icon className="text-[var(--Dark-gray)] w-4 h-4" />
+                <span
+                  className={`text-[14px] leading-[16px] font-rubik ${
+                    option.label === "Delete"
+                      ? "text-[var(--error)]"
+                      : "text-[var(--Dark-gray)]"
+                  }`}
+                >
                   {option.label}
                 </span>
               </div>
