@@ -7,13 +7,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { QRCodeItem } from "@/types/qr-code";
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  item?: QRCodeItem | null;
 }
 
-export default function ShareQRModal({ open, onClose }: Props) {
+export default function ShareQRModal({ open, onClose, item }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
@@ -33,7 +35,7 @@ export default function ShareQRModal({ open, onClose }: Props) {
         <div className="flex flex-row items-center gap-2">
           <Input
             readOnly
-            value="https://myqrcode.com/qr-download/9efef527"
+            value={item?.shortUrl || ""}
             className="py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] font-roboto text-[14px] leading-[22px]"
           />
 

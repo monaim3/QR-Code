@@ -5,6 +5,7 @@ import { QRCodeItem } from "@/types/qr-code";
 import QrCodesTableItem from "./QrCodesTableItem";
 import NameEditModal from "./NameEditModal";
 import UrlEditModal from "./UrlEditModal";
+import ShareQRModal from "./ShareQRModal";
 
 interface Props {
   qrData: QRCodeItem[];
@@ -22,6 +23,8 @@ export default function QrCodesTable({
   const [editingItem, setEditingItem] = useState<QRCodeItem | null>(null);
   const [isUrlEditing, setIsUrlEditing] = useState(false);
   const [isNameEditing, setIsNameEditing] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingItem, setSharingItem] = useState<QRCodeItem | null>(null);
 
   // Handle save
   const handleSave = useCallback(() => {
@@ -47,6 +50,18 @@ export default function QrCodesTable({
     setIsUrlEditing(true);
   }, []);
 
+  // Handle share modal request from child
+  const handleShareModal = useCallback((item: QRCodeItem) => {
+    setSharingItem(item);
+    setIsShareModalOpen(true);
+  }, []);
+
+  // Handle close share modal
+  const handleCloseShareModal = useCallback(() => {
+    setIsShareModalOpen(false);
+    setSharingItem(null);
+  }, []);
+
   return (
     <>
       <div className="flex flex-col items-start gap-2 self-stretch">
@@ -58,6 +73,7 @@ export default function QrCodesTable({
             onToggleSelection={onToggleSelection}
             onEditName={handleEditName}
             onEditUrl={handleEditUrl}
+            onShareModal={handleShareModal}
           />
         ))}
       </div>
@@ -76,6 +92,13 @@ export default function QrCodesTable({
         onClose={handleCancel}
         onSave={handleSave}
         item={editingItem}
+      />
+
+      {/* Share Modal */}
+      <ShareQRModal
+        open={isShareModalOpen}
+        onClose={handleCloseShareModal}
+        item={sharingItem}
       />
     </>
   );
