@@ -5,14 +5,15 @@ import QrCode from "./QrCode";
 import QrInfo from "./QrInfo";
 import PauseCircle from "@/components/icons/pause-circle";
 import Actions from "./Actions";
+import { QRCodeItem } from "@/types/qr-code";
 
 interface Props {
-  status?: string;
+  item: QRCodeItem;
 }
 
-export default function QrCodesTableItem({ status = "Active" }: Props) {
+export default function QrCodesTableItem({ item }: Props) {
   const getStatusStyles = () => {
-    switch (status) {
+    switch (item.status) {
       case "Active":
         return "text-[var(--Green)]";
       case "Paused":
@@ -36,9 +37,9 @@ export default function QrCodesTableItem({ status = "Active" }: Props) {
       <div className="flex items-center gap-4 flex-1">
         <CheckBox />
         <Tooltip text="Click to scan">
-          <QrCode />
+          <QrCode thumbnail={item.thumbnail} />
         </Tooltip>
-        <QrInfo />
+        <QrInfo item={item} />
       </div>
 
       {/* Line */}
@@ -47,7 +48,7 @@ export default function QrCodesTableItem({ status = "Active" }: Props) {
       {/* Scans */}
       <div className="flex flex-col items-center w-[64px] h-[54px]">
         <h3 className="text-[var(--Black)] text-[24px] font-bold leading-[var(--Typeface-Line-height-Heading-3)] text-center">
-          256
+          {item.scans}
         </h3>
         <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px]">
           Scans
@@ -60,14 +61,18 @@ export default function QrCodesTableItem({ status = "Active" }: Props) {
       {/* Info */}
       <div className="flex flex-col justify-center items-start gap-1 h-[72px]">
         <p className="text-[var(--Black)] text-[14px] leading-[22px]">
-          Created: Jun 27, 2023
+          Created: {item.createdAt}
         </p>
-        <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-          Last modified: Feb 12, 2024
-        </p>
-        <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-          RECENTLY MODIFIED
-        </p>
+        {item.lastModified && (
+          <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
+            Last modified: {item.lastModified}
+          </p>
+        )}
+        {item.lastModified && (
+          <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
+            RECENTLY MODIFIED
+          </p>
+        )}
       </div>
 
       {/* Line */}
@@ -75,7 +80,7 @@ export default function QrCodesTableItem({ status = "Active" }: Props) {
 
       {/* Status */}
       <div className="flex items-center justify-center gap-2 p-2">
-        {status === "Paused" ? (
+        {item.status === "Paused" ? (
           <>
             <PauseCircle className="text-[var(--Grey)]" />
             <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
@@ -88,7 +93,7 @@ export default function QrCodesTableItem({ status = "Active" }: Props) {
             <span
               className={`text-[14px] leading-[22px] font-medium ${getStatusStyles()}`}
             >
-              {status}
+              {item.status}
             </span>
           </>
         )}
