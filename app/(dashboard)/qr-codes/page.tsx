@@ -8,7 +8,7 @@ import Pagination from "@/components/dashboard/qr-codes/table/Pagination";
 import QrCodesTable from "@/components/dashboard/qr-codes/table/QrCodesTable";
 import { QRCodeItem } from "@/types/qr-code";
 
-const qrData: QRCodeItem[] = [
+const initialQrData: QRCodeItem[] = [
   {
     id: "1",
     title: "Italian Restaurant",
@@ -57,6 +57,7 @@ const qrData: QRCodeItem[] = [
 ];
 
 export default function QrCodes() {
+  const [qrData, setQrData] = useState<QRCodeItem[]>(initialQrData);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   const handleToggleSelection = useCallback((id: string) => {
@@ -84,7 +85,28 @@ export default function QrCodes() {
       // Otherwise, select all
       return new Set(qrData.map((item) => item.id));
     });
-  }, []);
+  }, [qrData]);
+
+  const handleUpdateQrCode = useCallback(
+    (id: string, updates: Partial<QRCodeItem>) => {
+      setQrData((prev) =>
+        prev.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                ...updates,
+                lastModified: new Date().toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                }),
+              }
+            : item
+        )
+      );
+    },
+    []
+  );
 
   const selectedCount = selectedIds.size;
   const hasSelection = selectedCount > 0;
@@ -109,6 +131,7 @@ export default function QrCodes() {
           qrData={qrData}
           selectedIds={selectedIds}
           onToggleSelection={handleToggleSelection}
+          onUpdateQrCode={handleUpdateQrCode}
         />
 
         {/* Pagination */}

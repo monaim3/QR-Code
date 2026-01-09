@@ -11,12 +11,16 @@ interface Props {
   item: QRCodeItem;
   isSelected: boolean;
   onToggleSelection: (id: string) => void;
+  onEditName: (item: QRCodeItem) => void;
+  onEditUrl: (item: QRCodeItem) => void;
 }
 
 export default function QrCodesTableItem({
   item,
   isSelected,
   onToggleSelection,
+  onEditName,
+  onEditUrl,
 }: Props) {
   const getStatusStyles = () => {
     switch (item.status) {
@@ -49,7 +53,7 @@ export default function QrCodesTableItem({
         <Tooltip text="Click to scan">
           <QrCode thumbnail={item.thumbnail} />
         </Tooltip>
-        <QrInfo item={item} />
+        <QrInfo item={item} onEditName={onEditName} onEditUrl={onEditUrl} />
       </div>
 
       {/* Line */}
