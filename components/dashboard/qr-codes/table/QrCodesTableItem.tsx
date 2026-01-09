@@ -6,8 +6,29 @@ import QrInfo from "./QrInfo";
 import PauseCircle from "@/components/icons/pause-circle";
 import Actions from "./Actions";
 
-export default function QrCodesTableItem() {
-  const status = "Active"; // test purpose
+interface Props {
+  status?: string;
+}
+
+export default function QrCodesTableItem({ status = "Active" }: Props) {
+  const getStatusStyles = () => {
+    switch (status) {
+      case "Active":
+        return "text-[var(--Green)]";
+      case "Paused":
+        return "text-[var(--Grey)]";
+      case "Paid":
+        return "text-[var(--Green)]";
+      case "Failed":
+        return "text-[var(--error)]";
+      case "Cancelled":
+        return "text-[var(--Orange)]";
+      case "Expired":
+        return "text-[var(--error)]";
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className="flex items-center gap-[64px] p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[var(--Generator-Shadow)] w-full">
@@ -54,18 +75,20 @@ export default function QrCodesTableItem() {
 
       {/* Status */}
       <div className="flex items-center justify-center gap-2 p-2">
-        {status === "Active" ? (
-          <>
-            <Circle />
-            <span className="text-[var(--Green)] text-[14px] leading-[22px] font-medium">
-              Active
-            </span>
-          </>
-        ) : (
+        {status === "Paused" ? (
           <>
             <PauseCircle />
             <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
               Paused
+            </span>
+          </>
+        ) : (
+          <>
+            <Circle className={getStatusStyles()} />
+            <span
+              className={`text-[14px] leading-[22px] font-medium ${getStatusStyles()}`}
+            >
+              {status}
             </span>
           </>
         )}
