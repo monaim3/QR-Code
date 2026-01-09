@@ -1,6 +1,6 @@
-import MoreHorizontal from "@/components/icons/more-horizontal";
 import ShareAndroid from "@/components/icons/share-android";
 import DownloadAction from "./DownloadAction";
+import MoreAction from "./MoreAction";
 
 export default function Actions() {
   return (
@@ -17,9 +17,7 @@ export default function Actions() {
       </div>
 
       {/* More */}
-      <button className="w-6 h-4 flex items-center justify-center">
-        <MoreHorizontal />
-      </button>
+      <MoreAction />
     </div>
   );
 }
