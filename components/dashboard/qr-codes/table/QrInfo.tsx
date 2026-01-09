@@ -1,17 +1,39 @@
+import { useState } from "react";
 import Copy from "@/components/icons/copy";
 import Edit from "@/components/icons/edit";
 import Eye from "@/components/icons/eye";
 import LinkAlt01 from "@/components/icons/link-alt-01";
+import EditInput from "./EditInput";
+import EditButton from "./EditButton";
 
 export default function QrInfo() {
+  const [isNameEditing, setIsNameEditing] = useState(false);
+  const [isUrlEditing, setIsUrlEditing] = useState(false);
+
   return (
     <div className="inline-flex flex-col items-start gap-1">
       {/* Name */}
       <div className="flex items-center gap-2">
-        <h4 className="text-[var(--Black)] text-[18px] font-bold leading-[var(--Typeface-Line-height-Heading-4)]">
-          Italian Restaurant
-        </h4>
-        <Edit />
+        {isNameEditing ? (
+          <>
+            <EditInput />
+            <EditButton
+              text="Cancel"
+              variant="outline"
+              onClick={() => setIsNameEditing(false)}
+            />
+            <EditButton text="Save" onClick={() => setIsNameEditing(false)} />
+          </>
+        ) : (
+          <>
+            <h4 className="text-[var(--Black)] text-[18px] font-bold leading-[var(--Typeface-Line-height-Heading-4)]">
+              Italian Restaurant
+            </h4>
+            <button onClick={() => setIsNameEditing(true)}>
+              <Edit />
+            </button>
+          </>
+        )}
       </div>
 
       {/* Preview link */}
@@ -29,15 +51,29 @@ export default function QrInfo() {
       </p>
 
       {/* Website link */}
-      <div className="flex items-center gap-1">
-        <LinkAlt01 />
+      {isUrlEditing ? (
         <div className="flex items-center gap-2">
-          <p className="text-[var(--Dark-Grey)] text-[14px] leading-[22px]">
-            www.italian-restaurant.com
-          </p>
-          <Edit />
+          <EditInput />
+          <EditButton
+            text="Cancel"
+            variant="outline"
+            onClick={() => setIsUrlEditing(false)}
+          />
+          <EditButton text="Save" onClick={() => setIsUrlEditing(false)} />
         </div>
-      </div>
+      ) : (
+        <div className="flex items-center gap-1">
+          <LinkAlt01 />
+          <div className="flex items-center gap-2">
+            <p className="text-[var(--Dark-Grey)] text-[14px] leading-[22px]">
+              www.italian-restaurant.com
+            </p>
+            <button onClick={() => setIsUrlEditing(true)}>
+              <Edit />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
