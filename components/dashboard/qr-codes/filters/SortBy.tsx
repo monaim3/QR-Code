@@ -51,7 +51,7 @@ export default function SortBy() {
           {selected.length > 0 && (
             <Tooltip text="Clear filter">
               <div onClick={() => setSelected("")}>
-                <CloseCircle />
+                <CloseCircle className="text-[var(--Grey)] hover:text-[var(--Black)]" />
               </div>
             </Tooltip>
           )}

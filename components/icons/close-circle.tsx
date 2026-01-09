@@ -1,4 +1,4 @@
-const CloseCircle = () => {
+const CloseCircle = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +6,7 @@ const CloseCircle = () => {
       height="16"
       viewBox="0 0 16 16"
       fill="none"
-      className="text-[var(--Grey)] hover:text-[var(--Black)]"
+      {...props}
     >
       <path
         d="M8.00001 7.29323L10.1467 5.14657L10.8533 5.85323L8.70668 7.9999L10.8533 10.1466L10.1467 10.8532L8.00001 8.70657L5.85334 10.8532L5.14668 10.1466L7.29334 7.9999L5.14668 5.85323L5.85334 5.14657L8.00001 7.29323Z"

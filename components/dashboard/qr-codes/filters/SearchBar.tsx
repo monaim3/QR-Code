@@ -41,7 +41,7 @@ export default function SearchBar() {
               onClick={() => setQuery("")}
               className="-ml-2 flex items-center justify-center"
             >
-              <CloseCircle />
+              <CloseCircle className="text-[var(--Grey)] hover:text-[var(--Black)]" />
             </button>
           </Tooltip>
         )}
