@@ -13,7 +13,7 @@ export default function DashboardLayout({
       </aside>
 
       {/* Page Content */}
-      <main className="py-8 px-6 flex flex-col items-start gap-10 self-stretch flex-1 relative">
+      <main className="py-8 px-6 flex flex-col items-start gap-10 self-stretch flex-1 relative overflow-hidden">
         {children}
       </main>
     </div>

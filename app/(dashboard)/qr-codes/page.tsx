@@ -7,6 +7,7 @@ import Filters from "@/components/dashboard/qr-codes/filters/Filters";
 import Pagination from "@/components/dashboard/qr-codes/table/Pagination";
 import QrCodesTable from "@/components/dashboard/qr-codes/table/QrCodesTable";
 import { QRCodeItem } from "@/types/qr-code";
+import NoResults from "@/components/dashboard/qr-codes/table/NoResults";
 
 const initialQrData: QRCodeItem[] = [
   {
@@ -126,16 +127,21 @@ export default function QrCodes() {
         {/* Filters */}
         <Filters allSelected={allSelected} onSelectAll={handleSelectAll} />
 
-        {/* Table */}
-        <QrCodesTable
-          qrData={qrData}
-          selectedIds={selectedIds}
-          onToggleSelection={handleToggleSelection}
-          onUpdateQrCode={handleUpdateQrCode}
-        />
-
-        {/* Pagination */}
-        <Pagination />
+        {qrData.length > 0 ? (
+          <>
+            {/* Table */}
+            <QrCodesTable
+              qrData={qrData}
+              selectedIds={selectedIds}
+              onToggleSelection={handleToggleSelection}
+              onUpdateQrCode={handleUpdateQrCode}
+            />
+            {/* Pagination */}
+            <Pagination />
+          </>
+        ) : (
+          <NoResults />
+        )}
       </div>
 
       {hasSelection && (
