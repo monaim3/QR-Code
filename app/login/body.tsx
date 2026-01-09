@@ -20,9 +20,9 @@ export default function LoginBody() {
         <div className="min-h-screen flex items-center justify-center p-4"
          style={{ fontFamily: "var(--font-poppins)" }}
         >
-        <div className="w-[400px] max-w-md bg-white rounded-2xl shadow-lg p-[32px]">
+        <div className="w-[350px] desktop:w-[400px] max-w-md bg-white rounded-2xl shadow-lg p-[16px] desktop:p-[32px]">
         {/* Title */}
-        <h1 className="text-[24px] font-bold leading-[32px] text-center text-gray-900 mb-[24px]">
+        <h1 className="text-[20px] desktop:text-[24px] font-bold leading-[28px] desktop:leading-[32px] text-center text-gray-900 mb-[24px]">
           Welcome back!
         </h1>
 
@@ -57,7 +57,7 @@ export default function LoginBody() {
           {/* Log In Button */}
           <button
             onClick={handleSubmit}
-            className="w-[336px] h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium py-3.5 rounded-[10px] transition-colors duration-200"
+            className="w-[318px] desktop:w-[336px] h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium py-3.5 rounded-[10px] transition-colors duration-200"
           >
             Log in
           </button>
@@ -85,7 +85,7 @@ export default function LoginBody() {
           {/* Google */}
           <button
             onClick={() => alert("Google sign in clicked")}
-            className="flex items-center justify-center w-[101px] h-[48px] py-[12px] px-[39px] border border-gray-200 rounded-[10px] hover:shadow-lg transition-colors duration-200"
+            className="flex items-center justify-center w-[95px] desktop:w-[101px] h-[48px] py-[12px] px-[39px] border border-gray-200 rounded-[10px] hover:shadow-lg transition-colors duration-200"
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24">
               <path
