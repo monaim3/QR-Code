@@ -8,6 +8,7 @@ import Pagination from "@/components/dashboard/qr-codes/table/Pagination";
 import QrCodesTable from "@/components/dashboard/qr-codes/table/QrCodesTable";
 import { QRCodeItem } from "@/types/qr-code";
 import NoResults from "@/components/dashboard/qr-codes/table/NoResults";
+import SubscribeBanner from "@/components/dashboard/qr-codes/SubscribeBanner";
 
 const initialQrData: QRCodeItem[] = [
   {
@@ -121,6 +122,11 @@ export default function QrCodes() {
           QR Codes
         </h2>
         <CreateQrCodeBtn />
+      </div>
+
+      {/* Notification Banner */}
+      <div className="flex flex-col items-start self-stretch gap-2">
+        <SubscribeBanner />
       </div>
 
       <div className="font-roboto w-full flex flex-col items-start gap-6 self-stretch">
