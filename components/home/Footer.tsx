@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
 
           {/* Links Section */}
-          <div className="grid grid-cols-1 desktop:grid-cols-4 gap-8 desktop:gap-10 text-center desktop:text-left">
+          <div className="grid grid-cols-1 desktop:grid-cols-4 gap-4 desktop:gap-10 text-center desktop:text-left">
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
               <ul className="flex flex-col gap-4">
@@ -55,8 +55,8 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
+            <div className="flex flex-col gap-4 mb-4 desktop:mb-0">
+              <h3 className="text-white text-lg font-bold leading-[26px] hidden desktop:inline-block">Help</h3>
               <ul className="flex flex-col gap-4">
                 <li>
                   <Link
@@ -94,7 +94,7 @@ export default function Footer() {
               </ul>
             </div>
             <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold leading-[26px]">Company</h3>
+              <h3 className="text-white text-lg font-bold leading-[26px] hidden desktop:inline-block">Company</h3>
               <ul className="flex flex-col gap-4">
                 <li>
                   <Link
@@ -115,7 +115,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom Section: Language + Copyright */}
-          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-1 items-center text-center desktop:text-left border-t border-white/20 py-4">
+          <div className="flex flex-col desktop:flex-row flex items-center justify-between text-center desktop:text-left border-t border-white/20 py-4">
             {/* {<div className="relative flex justify-center desktop:justify-start">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
