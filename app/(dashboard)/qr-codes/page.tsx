@@ -9,6 +9,7 @@ import QrCodesTable from "@/components/dashboard/qr-codes/table/QrCodesTable";
 import { QRCodeItem } from "@/types/qr-code";
 import NoResults from "@/components/dashboard/qr-codes/table/NoResults";
 import SubscribeBanner from "@/components/dashboard/qr-codes/SubscribeBanner";
+import ReviewBanner from "@/components/dashboard/qr-codes/ReviewBanner";
 
 const initialQrData: QRCodeItem[] = [
   {
@@ -127,6 +128,7 @@ export default function QrCodes() {
       {/* Notification Banner */}
       <div className="flex flex-col items-start self-stretch gap-2">
         <SubscribeBanner />
+        <ReviewBanner />
       </div>
 
       <div className="font-roboto w-full flex flex-col items-start gap-6 self-stretch">

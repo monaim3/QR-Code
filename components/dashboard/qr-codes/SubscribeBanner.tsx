@@ -6,7 +6,7 @@ export default function SubscribeBanner() {
     <div className="flex items-center self-stretch gap-6 p-4 rounded-[var(--Corner-Radius-10)] bg-[#E7E8EE]">
       <div className="flex items-center gap-2 flex-1">
         <AlertCircle />
-        <p className="text-[var(--Dark-gray)] font-bold text-[16px] leading-[24px]">
+        <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
           You have 20 out of 20 free scans left. Subscribe to get unlimited
           scans.
         </p>
