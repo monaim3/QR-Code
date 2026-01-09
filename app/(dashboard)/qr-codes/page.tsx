@@ -1,5 +1,6 @@
 import CreateQrCodeBtn from "@/components/dashboard/qr-codes/CreateQrCodeBtn";
 import Filters from "@/components/dashboard/qr-codes/filters/Filters";
+import QrCodesTable from "@/components/dashboard/qr-codes/table/QrCodesTable";
 
 export default function QrCodes() {
   return (
@@ -12,9 +13,12 @@ export default function QrCodes() {
         <CreateQrCodeBtn />
       </div>
 
-      <div className="font-roboto w-full">
+      <div className="font-roboto w-full flex flex-col items-start gap-6 self-stretch">
         {/* Filters */}
         <Filters />
+
+        {/* Table */}
+        <QrCodesTable />
       </div>
     </>
   );

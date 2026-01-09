@@ -45,6 +45,8 @@
   --Light-blue: #f7f9fc;
   --Grey: #79809a;
 
+  --Generator-Shadow: 0 1px 8px 0 rgba(63, 72, 103, 0.16);
+
   --Corner-Radius-10: 10px;
   --Corner-Radius-6: 6px;
   --Corner-Radius-8: 8px;
@@ -58,6 +60,7 @@
 
   --Typeface-Size-Headings-Heading-3: 24px;
   --Typeface-Line-height-Heading-3: 32px;
+  --Typeface-Line-height-Heading-4: 26px;
 }
 
 .dark {
