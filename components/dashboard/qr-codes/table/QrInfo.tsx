@@ -11,6 +11,13 @@ interface Props {
 }
 
 export default function QrInfo({ item, onEditName, onEditUrl }: Props) {
+  const normalizeUrl = (url: string) => {
+    if (!/^https?:\/\//i.test(url)) {
+      return `https://${url}`;
+    }
+    return url;
+  };
+
   return (
     <div className="inline-flex flex-col items-start gap-1">
       {/* Name */}
@@ -40,7 +47,13 @@ export default function QrInfo({ item, onEditName, onEditUrl }: Props) {
       {/* Website link */}
       {item.destinationUrl && (
         <div className="flex items-center gap-1">
-          <LinkAlt01 />
+          <a
+            href={normalizeUrl(item.destinationUrl)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LinkAlt01 />
+          </a>
           <div className="flex items-center gap-2">
             <p className="text-[var(--Dark-Grey)] text-[14px] leading-[22px]">
               {item.destinationUrl}
