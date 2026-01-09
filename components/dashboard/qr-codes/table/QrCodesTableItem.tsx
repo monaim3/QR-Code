@@ -9,9 +9,15 @@ import { QRCodeItem } from "@/types/qr-code";
 
 interface Props {
   item: QRCodeItem;
+  isSelected: boolean;
+  onToggleSelection: (id: string) => void;
 }
 
-export default function QrCodesTableItem({ item }: Props) {
+export default function QrCodesTableItem({
+  item,
+  isSelected,
+  onToggleSelection,
+}: Props) {
   const getStatusStyles = () => {
     switch (item.status) {
       case "Active":
@@ -31,11 +37,15 @@ export default function QrCodesTableItem({ item }: Props) {
     }
   };
 
+  const handleCheckboxChange = () => {
+    onToggleSelection(item.id);
+  };
+
   return (
     <div className="flex items-center gap-[64px] p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
       {/* Qr Code */}
       <div className="flex items-center gap-4 flex-1">
-        <CheckBox />
+        <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
         <Tooltip text="Click to scan">
           <QrCode thumbnail={item.thumbnail} />
         </Tooltip>

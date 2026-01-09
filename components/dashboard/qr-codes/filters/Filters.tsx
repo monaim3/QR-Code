@@ -7,10 +7,15 @@ import SortBy from "./SortBy";
 import CheckBox from "./CheckBox";
 import ClearFilter from "./ClearFilter";
 
-export default function Filters() {
+interface Props {
+  allSelected: boolean;
+  onSelectAll: () => void;
+}
+
+export default function Filters({ allSelected, onSelectAll }: Props) {
   return (
     <div className="flex items-center gap-4 px-4 h-10 w-full">
-      <CheckBox />
+      <CheckBox checked={allSelected} onChange={onSelectAll} />
 
       <SearchBar />
 

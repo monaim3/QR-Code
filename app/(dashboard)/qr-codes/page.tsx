@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useCallback } from "react";
 import CheckboxBar from "@/components/dashboard/qr-codes/checkbox-bar/CheckboxBar";
 import CreateQrCodeBtn from "@/components/dashboard/qr-codes/CreateQrCodeBtn";
 import Filters from "@/components/dashboard/qr-codes/filters/Filters";
@@ -54,6 +57,39 @@ const qrData: QRCodeItem[] = [
 ];
 
 export default function QrCodes() {
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+
+  const handleToggleSelection = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
+
+  const handleClearSelection = useCallback(() => {
+    setSelectedIds(new Set());
+  }, []);
+
+  const handleSelectAll = useCallback(() => {
+    setSelectedIds((prev) => {
+      // If all items are selected, deselect all
+      if (prev.size === qrData.length) {
+        return new Set();
+      }
+      // Otherwise, select all
+      return new Set(qrData.map((item) => item.id));
+    });
+  }, []);
+
+  const selectedCount = selectedIds.size;
+  const hasSelection = selectedCount > 0;
+  const allSelected = selectedCount === qrData.length && qrData.length > 0;
+
   return (
     <>
       {/* Header */}
@@ -66,16 +102,25 @@ export default function QrCodes() {
 
       <div className="font-roboto w-full flex flex-col items-start gap-6 self-stretch">
         {/* Filters */}
-        <Filters />
+        <Filters allSelected={allSelected} onSelectAll={handleSelectAll} />
 
         {/* Table */}
-        <QrCodesTable qrData={qrData} />
+        <QrCodesTable
+          qrData={qrData}
+          selectedIds={selectedIds}
+          onToggleSelection={handleToggleSelection}
+        />
 
         {/* Pagination */}
         <Pagination />
       </div>
 
-      <CheckboxBar />
+      {hasSelection && (
+        <CheckboxBar
+          selectedCount={selectedCount}
+          onClose={handleClearSelection}
+        />
+      )}
     </>
   );
 }

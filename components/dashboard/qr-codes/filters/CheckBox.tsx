@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 
 interface Props {
   checked?: boolean;
+  onChange?: () => void;
 }
 
-export default function CheckBox({ checked = false }: Props) {
+export default function CheckBox({ checked = false, onChange }: Props) {
   const [isSelected, setIsSelected] = useState(checked);
-  const onChange = () => {
+
+  const handleChange = () => {
     setIsSelected(!isSelected);
+    onChange?.();
   };
 
   useEffect(() => {
@@ -16,7 +19,7 @@ export default function CheckBox({ checked = false }: Props) {
 
   return (
     <button
-      onClick={onChange}
+      onClick={handleChange}
       className={`w-6 h-6 border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-6)] p-1 cursor-pointer flex items-center
         ${
           isSelected
