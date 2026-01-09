@@ -114,7 +114,7 @@ export default function Faq() {
 // Tab change handler
 const handleTabChange = (tabId: number) => {
   setActiveTab(tabId);
-  setOpenItem(undefined); // collapses all FAQs in new tab
+  setOpenItem("item-0");// collapses all FAQs in new tab
 };
 
 const handleItemClick = (index: number) => {
@@ -155,7 +155,7 @@ const handleItemClick = (index: number) => {
                     <button
                       key={tab.id}
                       onClick={() => {
-                        setActiveTab(tab.id);
+                         handleTabChange(tab.id);
                         setIsDropdownOpen(false);
                       }}
                       className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors ${
