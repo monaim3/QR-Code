@@ -113,7 +113,7 @@ export default function Header() {
     {/* Footer Login Button */}
     <div className="mt-auto pb-[20px]">
       <Link
-        href="#"
+        href="/login"
         onClick={() => setIsDrawerOpen(false)}
         className="w-full py-[9px] flex items-center justify-center text-[14px] font-medium leading-[22px] text-gray-900 bg-white border border-gray-200 rounded-[15px] shadow-sm active:scale-[0.98] transition-all"
       >
