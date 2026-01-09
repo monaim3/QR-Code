@@ -6,6 +6,7 @@ import LinkAlt01 from "@/components/icons/link-alt-01";
 import EditInput from "./EditInput";
 import EditButton from "./EditButton";
 import { QRCodeItem } from "@/types/qr-code";
+import NameEditModal from "./NameEditModal";
 
 interface Props {
   item: QRCodeItem;
@@ -19,26 +20,12 @@ export default function QrInfo({ item }: Props) {
     <div className="inline-flex flex-col items-start gap-1">
       {/* Name */}
       <div className="flex items-center gap-2">
-        {isNameEditing ? (
-          <>
-            <EditInput />
-            <EditButton
-              text="Cancel"
-              variant="outline"
-              onClick={() => setIsNameEditing(false)}
-            />
-            <EditButton text="Save" onClick={() => setIsNameEditing(false)} />
-          </>
-        ) : (
-          <>
-            <h4 className="text-[var(--Black)] text-[18px] font-bold leading-[var(--Typeface-Line-height-Heading-4)]">
-              {item.title}
-            </h4>
-            <button onClick={() => setIsNameEditing(true)}>
-              <Edit className="text-[var(--Grey)]" />
-            </button>
-          </>
-        )}
+        <h4 className="text-[var(--Black)] text-[18px] font-bold leading-[var(--Typeface-Line-height-Heading-4)]">
+          {item.title}
+        </h4>
+        <button onClick={() => setIsNameEditing(true)}>
+          <Edit className="text-[var(--Grey)]" />
+        </button>
       </div>
 
       {/* Preview link */}
@@ -81,6 +68,12 @@ export default function QrInfo({ item }: Props) {
           </div>
         )
       )}
+
+      {/* Modals */}
+      <NameEditModal
+        open={isNameEditing}
+        onClose={() => setIsNameEditing(false)}
+      />
     </div>
   );
 }
