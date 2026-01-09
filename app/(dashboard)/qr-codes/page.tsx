@@ -1,3 +1,4 @@
+import CheckboxBar from "@/components/dashboard/qr-codes/checkbox-bar/CheckboxBar";
 import CreateQrCodeBtn from "@/components/dashboard/qr-codes/CreateQrCodeBtn";
 import Filters from "@/components/dashboard/qr-codes/filters/Filters";
 import Pagination from "@/components/dashboard/qr-codes/table/Pagination";
@@ -24,6 +25,8 @@ export default function QrCodes() {
         {/* Pagination */}
         <Pagination />
       </div>
+
+      <CheckboxBar />
     </>
   );
 }

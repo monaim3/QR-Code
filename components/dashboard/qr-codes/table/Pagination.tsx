@@ -94,7 +94,7 @@ export default function Pagination() {
                 <div
                   key={option}
                   onClick={() => handleSelect(option)}
-                  className={`flex items-center self-stretch p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white`}
+                  className={`flex items-center self-stretch p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
                 >
                   <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px] font-rubik">
                     {option}

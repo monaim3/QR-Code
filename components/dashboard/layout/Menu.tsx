@@ -34,7 +34,7 @@ export default function Menu() {
 
   return (
     <nav
-      className={`bg-white h-full py-6 px-4 border-right border-[var(--boarder-grey-50)] flex flex-col gap-10 transition-[width] duration-300 ${
+      className={`bg-white h-full py-6 px-4 border-r border-[var(--boarder-grey-50)] flex flex-col gap-10 transition-[width] duration-300 ${
         collapsed ? "w-[72px] items-center" : "w-[214px]"
       }`}
     >
