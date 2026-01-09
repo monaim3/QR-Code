@@ -52,7 +52,7 @@ export default function QrInfo() {
 
       {/* Website link */}
       {isUrlEditing ? (
-        <div className="flex items-center gap-2">
+        <div className="flex items-start gap-2">
           <EditInput />
           <EditButton
             text="Cancel"

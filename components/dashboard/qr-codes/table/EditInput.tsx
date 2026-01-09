@@ -1,8 +1,23 @@
-export default function EditInput() {
+interface Props {
+  error?: string;
+}
+
+export default function EditInput({ error }: Props) {
   return (
-    <input
-      type="text"
-      className="py-1 px-2 border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-4)] w-[220px] focus:ring-2 focus:ring-[var(--Blue)] focus:border-[var(--Blue)] focus:outline-0 text-[14px] leading-[22px]"
-    />
+    <div>
+      <input
+        type="text"
+        className={`py-1 px-2 border rounded-[var(--Corner-Radius-4)] w-[220px]  focus:outline-0 text-[14px] leading-[22px] ${
+          error
+            ? "border-[var(--error)]"
+            : "border-[var(--Boarder-Grey)] focus:ring-2 focus:ring-[var(--Blue)] focus:border-[var(--Blue)] "
+        }`}
+      />
+      {error && (
+        <p className="text-[var(--Error)] text-[12px] leading-[20px] mt-[2px]">
+          {error}
+        </p>
+      )}
+    </div>
   );
 }
