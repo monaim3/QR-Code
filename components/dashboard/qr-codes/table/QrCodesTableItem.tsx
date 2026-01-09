@@ -31,7 +31,7 @@ export default function QrCodesTableItem({ status = "Active" }: Props) {
   };
 
   return (
-    <div className="flex items-center gap-[64px] p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[var(--Generator-Shadow)] w-full">
+    <div className="flex items-center gap-[64px] p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
       {/* Qr Code */}
       <div className="flex items-center gap-4 flex-1">
         <CheckBox />
