@@ -18,54 +18,18 @@ export default function Header() {
   ];
 
   return (
-    <header
-      className="w-full desktop:bg-[#F5F6FA] bg-white relative z-50"
+    <header className="w-full desktop:bg-[#F5F6FA] bg-white relative z-50"
       style={{ fontFamily: "var(--font-poppins)" }}>
       <Container>
         <div className="flex items-center justify-between desktop:h-[72px] h-16">
           {/* Logo */}
           <Link href="/">
           <img src="/images/Logo.svg" alt="Logo" className="w-38" />
-          
           </Link>
 
           {/* Desktop Right side actions */}
           <div className="hidden desktop:flex items-center gap-4">
-            {/* Language Selector */}
-            {/* {<div className="relative">
-              <button
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
-                aria-label="Select language">
-                <Globe className="w-4 h-4" />
-                <span className="text-[14px] leading-[22px] font-regular">
-                  EN
-                </span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
-
-              {isLangOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-10"
-                    onClick={() => setIsLangOpen(false)}
-                  />
-                  <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => setIsLangOpen(false)}
-                        className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">
-                        {lang.name}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>} */}
-
              <LanguageSelector/>
-
             {/* Log in Button */}
             <Link
               href="/login"
