@@ -25,7 +25,7 @@ export default function MenuItem({
         href={href}
         onClick={onClick}
         className={`
-          p-2 flex items-center gap-4 
+          p-2 flex items-center gap-x-4 
           rounded-[var(--Corner-Radius-10)]
           hover:bg-[var(--Light-blue)]
           transition-colors
@@ -36,12 +36,17 @@ export default function MenuItem({
           }
         `}
       >
-        <Icon />
-        {!collapsed && (
-          <span className="font-rubik text-base font-normal leading-6 overflow-hidden transition-all duration-300">
-            {label}
-          </span>
-        )}
+        <span className="flex-shrink-0">
+          <Icon />
+        </span>
+
+        <span
+          className={`font-rubik text-base font-normal leading-6 whitespace-nowrap duration-200 ${
+            collapsed ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          {label}
+        </span>
       </Link>
     </li>
   );
