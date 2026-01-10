@@ -1,7 +1,5 @@
 "use client";
 
-import { div } from "framer-motion/client";
-
 export default function HelpIcon() {
   return (
     <div className="flex items-center gap-10 ml-10">
@@ -15,12 +13,12 @@ export default function HelpIcon() {
           <path
             d="M0.5 0.5L0.499999 18.5"
             stroke="#D3D8EB"
-            stroke-linecap="round"
+            strokeLinecap="round"
           />
         </svg>
       </button>
       <button
-        className="flex items-center justify-center w-6 h-6 rounded-full  border-[var(--Boarder-Grey)]  transition-colors"
+        className="flex items-center justify-center w-6 h-6 rounded-full border-[var(--Boarder-Grey)] transition-colors"
         aria-label="Help"
       >
         <svg
@@ -32,9 +30,9 @@ export default function HelpIcon() {
           <path
             d="M10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9C14 9.39815 13.8837 9.76913 13.6831 10.0808C13.0854 11.0097 12 11.8954 12 13V13.5M11.992 17H12.001M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
             stroke="#79809A"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </button>

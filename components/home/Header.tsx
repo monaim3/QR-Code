@@ -107,7 +107,7 @@ export default function Header() {
         </Link>
       ))}
        
-      <LanguageSelector layout="gapBetween"/>
+      <LanguageSelector layout="gapBetween" mobileDrawer={true}/>
       </nav>
 
     {/* Footer Login Button */}

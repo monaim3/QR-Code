@@ -28,6 +28,7 @@ interface LanguageSelectorProps {
   globalIconColor?: string;
   arrowUp?: boolean;
   layout?: "start" | "gapBetween";
+  mobileDrawer?: boolean;
 }
 
 export default function LanguageSelector({
@@ -36,6 +37,7 @@ export default function LanguageSelector({
   globalIconColor = "#000000",
   arrowUp = false,
   layout = "start",
+  mobileDrawer = false,
 }: LanguageSelectorProps): React.JSX.Element {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("en");
@@ -75,7 +77,10 @@ export default function LanguageSelector({
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-[160px] p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-9"
+        className={cn(
+          "p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-9 transition-all",
+           mobileDrawer ? "w-screen w-[280px] left-[10px] right-[20px]" : "w-[160px]"
+        )}
         align="start"
         sideOffset={10}
       >
