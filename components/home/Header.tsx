@@ -12,9 +12,13 @@ export default function Header() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const languages = [
-    { name: "English", code: "EN" },
-    { name: "Español", code: "ES" },
-    { name: "Français", code: "FR" },
+    { value: "en", label: "English" },
+     { value: "da", label: "Dansk" }, 
+     { value: "et", label: "Eesti" }, 
+     { value: "fil", label: "Filipino" }, 
+     { value: "it", label: "Italiano" }, 
+     { value: "es", label: "Español" }, 
+     { value: "ar", label: "Arabic" },
   ];
 
   return (
@@ -107,7 +111,7 @@ export default function Header() {
           </Link>
         ))}
         
-        <LanguageSelector layout="gapBetween"/>
+        <LanguageSelector layout="gapBetween" mobileDrawer={true}/>
         </nav>
     </div>
 
