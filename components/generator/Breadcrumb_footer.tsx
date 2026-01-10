@@ -64,7 +64,7 @@ export default function BreadcrumbFooter({ previewContent }: FooterProps) {
             {currentStep === 2 && (
               <button
                 onClick={handleNext}
-                className="flex items-center gap-2 px-6 py-3  font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg font-medium transition-colors"
+                className="flex items-center gap-2 px-12 py-2  font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg font-medium transition-colors"
               >
                 <span>Next</span>
                 <ArrowRight className="w-5 h-5" />

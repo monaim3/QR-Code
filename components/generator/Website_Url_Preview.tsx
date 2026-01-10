@@ -1,55 +1,57 @@
-import Image from "next/image";
+import Globe from "../icons/globe";
 
 interface WebsiteUrlPreviewProps {
   url: string;
-  WebsiteUrlMobileFramBg: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
-export default function WebsiteUrlPreview({
-  url,
-  WebsiteUrlMobileFramBg,
-}: WebsiteUrlPreviewProps) {
+export default function WebsiteUrlPreview({ url }: WebsiteUrlPreviewProps) {
   const displayUrl = url || "www.mywebsite.com";
 
   return (
-    <div className="w-full h-full flex flex-col bg-white rounded-t-3xl overflow-hidden">
-      <div className="w-full bg-[#C8E6C9] px-3 py-2 flex items-center gap-2 rounded-t-2xl">
-        <div className="flex items-center gap-1">
-          <div className="w-2 h-2 rounded-full bg-white/50" />
-          <div className="w-2 h-2 rounded-full bg-white/50" />
-          <div className="w-2 h-2 rounded-full bg-white/50" />
-        </div>
-        <div className="flex-1 bg-white rounded-full px-3 py-1 flex items-center gap-2">
-          <span className="text-xs text-[var(--Dark-gray)] truncate font-roboto">
-            {displayUrl}
-          </span>
+    <div className="w-full h-full flex flex-col rounded-[32px] overflow-hidden">
+      <div className="px-4 py-4 var(--bg-blue) bg-[#A3C358]">
+        <div className="bg-white opacity-80 rounded-full px-4 py-2.5 flex items-center gap-2 mt-6 ">
+          <Globe />
+          <span className="text-sm text-gray-700 truncate">{displayUrl}</span>
         </div>
       </div>
-      <div className="flex-1 relative">
-        <Image
-          src="/website-preview-bg.png"
-          alt="Website Preview"
-          fill
-          className="object-cover"
-          unoptimized
-        />
-        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
-          <div className="w-16 h-16 relative opacity-20">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 3H3C1.9 3 1 3.9 1 5V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3ZM21 19H3V5H21V19Z"
-                fill="currentColor"
-              />
-              <path d="M5 7H19V9H5V7Z" fill="currentColor" />
-              <path d="M5 11H19V13H5V11Z" fill="currentColor" />
-              <path d="M5 15H14V17H5V15Z" fill="currentColor" />
-            </svg>
+      <div className="flex-1 px-4 bg-[#A3C358]">
+        <div className="bg-gray-200 rounded-lg aspect-[4/3] flex items-center justify-center relative">
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <path
+              d="M15 15L45 45M45 15L15 45"
+              stroke="white"
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
+        <div className="mt-4 space-y-2">
+          <div className="h-3 bg-white/40 rounded"></div>
+          <div className="h-3 bg-white/40 rounded"></div>
+          <div className="h-3 bg-white/40 rounded w-3/5"></div>
+        </div>
+      </div>
+
+      <div className="bg-white px-4 pb-4 pt-3 flex-1">
+        <div className="flex gap-3 mb-4">
+          <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0"></div>
+          <div className="flex-1 space-y-2 pt-1">
+            <div className="h-2.5 bg-gray-200 rounded w-full"></div>
+            <div className="h-2.5 bg-gray-200 rounded w-4/5"></div>
           </div>
         </div>
+
+        <div className="flex gap-3 mb-4">
+          <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0"></div>
+          <div className="flex-1 space-y-2 pt-1">
+            <div className="h-2.5 bg-gray-200 rounded w-full"></div>
+            <div className="h-2.5 bg-gray-200 rounded w-3/5"></div>
+          </div>
+        </div>
+
+        {/* Bottom Button */}
+        <div className="h-10 rounded-lg mt-4  bg-[#A3C358]"></div>
       </div>
     </div>
   );

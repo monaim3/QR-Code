@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 interface MobileFrameProps {
   children: ReactNode;
-  size?: "desktop" | "mobile";
+  size?: "desktop" | "desktopDashboard";
 }
 
 export default function MobileFrame({
@@ -12,7 +12,7 @@ export default function MobileFrame({
   const dimensions =
     size === "desktop"
       ? { width: "w-[280px]", height: "h-[560px]", marginTop: "mt-6" }
-      : { width: "w-[235px]", height: "h-[483px]" };
+      : { width: "w-[235px]", height: "h-[483px]", marginTop: "mt-0" };
 
   return (
     <div
@@ -44,7 +44,7 @@ export default function MobileFrame({
         <div className="absolute -left-[12px] top-[150px] w-[6px] h-[40px] bg-black rounded-l-md" />
         <div className="absolute -left-[12px] top-[200px] w-[6px] h-[40px] bg-black rounded-l-md" />
 
-        <div className="w-full h-full pt-6 pb-2">{children}</div>
+        <div className="w-full h-full  pb-2">{children}</div>
       </div>
     </div>
   );

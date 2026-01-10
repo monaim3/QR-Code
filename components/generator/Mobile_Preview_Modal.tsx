@@ -32,7 +32,7 @@ export default function MobilePreviewModal({
         </button>
         <div className="flex flex-col items-center gap-6 p-6 pt-16">
           <PreviewQRButtons activeTab={activeTab} onTabChange={setActiveTab} />
-          <MobileFrame size="mobile">{children}</MobileFrame>
+          <MobileFrame size="desktop">{children}</MobileFrame>
         </div>
       </div>
     </div>
