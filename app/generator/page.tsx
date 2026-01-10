@@ -106,15 +106,14 @@ export default function GeneratorPage() {
     <div className="bg-[var(--Generator-Background)] pb-28">
       <Container>
         <div className=" desktopDashboard:py-12">
+          <h1
+            className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2 hidden desktop:block"
+          >
+            Choose QR code type
+          </h1>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">
-              <h1
-                className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2"
-                style={{ fontFamily: "var(--font-poppins)" }}
-              >
-                Choose QR code type
-              </h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5 generator-items-create">
                 {qrTypes.map((type) => (
                   <QRTypeCard
                     key={type.id}

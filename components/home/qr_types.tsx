@@ -320,7 +320,7 @@ export default function QrTypes() {
                 </motion.p>
 
                 <motion.a
-                  href="/generator"
+                  href="#"
                   initial={{ opacity: 1, y: 2 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 1, y: 2 }}

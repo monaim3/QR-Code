@@ -40,6 +40,7 @@
   --Blue-hover: #008b5b;
   --Dark-gray: #3f3e3e;
   --Boarder-Grey: #d3d8eb;
+  --Generator-Background: #F5F6FA;
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
   --font-poppins: "Poppins", sans-serif;
@@ -131,5 +132,26 @@
     background-color: var(--Blue);
     border-radius: 10px;
     min-height: 24px;
+  }
+  @media screen and (min-width: 739px) {
+      .generator-create-page {
+        background: var(--Generator-Background, #F5F6FA);
+      }
+
+      .generator-create-page .generator-items-create {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 24px !important;
+        align-items: stretch;
+        justify-items: stretch;
+      }
+
+      .generator-create-page .generator-items-create .generator-item-create {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center !important;
+        gap: 8px !important;
+        text-align: center;
+        padding: 22px 14px !important;
+      }
   }
 }

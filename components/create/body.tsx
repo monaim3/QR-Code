@@ -8,7 +8,9 @@ export default function Body() {
   return (
    <main>
    {/* {<Hero />} */}
-   <GeneratorPage/>
+   <section className="generator-create-page">
+    <GeneratorPage/>
+   </section>
    <QrInstraction />
    <QrTypes/>
    <Faq/>

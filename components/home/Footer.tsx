@@ -35,10 +35,10 @@ export default function Footer() {
           </div>
 
           {/* Links Section */}
-          <div className="grid grid-cols-1 desktop:grid-cols-4 gap-4 desktop:gap-10 text-center desktop:text-left">
+          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-8 desktop:gap-20 text-center desktop:text-left">
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
                     href="#"
@@ -53,11 +53,6 @@ export default function Footer() {
                     Cancel subscription
                   </Link>
                 </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4 mb-4 desktop:mb-0">
-              <h3 className="text-white text-lg font-bold leading-[26px] hidden desktop:inline-block">Help</h3>
-              <ul className="flex flex-col gap-4">
                 <li>
                   <Link
                     href="#"
@@ -76,7 +71,7 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">Company</h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
                     href="#"
@@ -91,11 +86,6 @@ export default function Footer() {
                     About us
                   </Link>
                 </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold leading-[26px] hidden desktop:inline-block">Company</h3>
-              <ul className="flex flex-col gap-4">
                 <li>
                   <Link
                     href="#"
