@@ -1,7 +1,3 @@
-"use client";
-
-import { div } from "framer-motion/client";
-
 export default function HelpIcon() {
   return (
     <div className="flex items-center gap-10 ml-10">
