@@ -1,0 +1,63 @@
+const AppQr = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="44"
+      height="35"
+      viewBox="0 0 44 35"
+      fill="none"
+    >
+      <rect
+        x="9.30078"
+        y="1.375"
+        width="24.52"
+        height="32.25"
+        rx="4.5"
+        stroke="#01A56D"
+      />
+      <rect
+        x="13.7012"
+        y="7.5"
+        width="6.54286"
+        height="6.5"
+        rx="2.5"
+        fill="#01A56D"
+        stroke="#01A56D"
+      />
+      <rect
+        x="13.7012"
+        y="16.75"
+        width="6.54286"
+        height="6.5"
+        rx="2.5"
+        stroke="#01A56D"
+      />
+      <rect
+        x="23.0039"
+        y="7.5"
+        width="6.54286"
+        height="6.5"
+        rx="2.5"
+        stroke="#01A56D"
+      />
+      <rect
+        x="23.0039"
+        y="16.75"
+        width="6.54286"
+        height="6.5"
+        rx="2.5"
+        stroke="#01A56D"
+      />
+      <rect
+        x="18.4805"
+        y="27.125"
+        width="7.04"
+        height="1.75"
+        rx="0.875"
+        fill="#01A56D"
+      />
+    </svg>
+  );
+};
+
+export default AppQr;

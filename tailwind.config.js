@@ -7,17 +7,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        border: 'var(--border)',
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-        ring: 'var(--ring)',
+        border: "var(--border)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        ring: "var(--ring)",
       },
       fontFamily: {
         sans: ['var(--font-Roboto)', 'sans-serif'],
         heading: ['var(--font-poppins)', 'sans-serif'],
+        sans: ["var(--font-poppins)", "sans-serif"],
+        body_text: ["var(--font-HelveticaNeue)", "sans-serif"],
+        roboto: ["var(--font-roboto)", "sans-serif"],
+        rubik: ["var(--font-rubik)", "sans-serif"],
       },
       screens: {
-        desktop: '740px',
+        desktop: "740px",
+        mobile: { max: "739px" },
+        tablet: { min: "740px", max: "1219px" },
+        desktopDashboard: "1220px",
       },
     },
   },
