@@ -1,5 +1,6 @@
 import MobileFrame from "@/components/common/MobileFrame";
 import Container from "@/components/common/parent-container";
+import InitialQR from "@/components/generator/InitialQR";
 import QRTypeCard from "@/components/generator/QRTypeCard";
 import AppQr from "@/components/icons/app-qr";
 import BusinessQr from "@/components/icons/business-qr";
@@ -11,16 +12,16 @@ import SimpleTextQr from "@/components/icons/simple-text-qr";
 import SocialQr from "@/components/icons/social-qr";
 import VcardQr from "@/components/icons/vcard-qr";
 import VideoQr from "@/components/icons/video-qr";
-import WebsiteUrl from "@/components/icons/website-url-qr";
+import WebsiteUrlQr from "@/components/icons/website-url-qr";
+
 import WifiQr from "@/components/icons/wifi-qr";
-import App from "next/app";
 const qrTypes = [
   {
     id: "website-url",
     title: "Website URL",
     description: "Link to a website of your choice",
     href: "/generator/website-url",
-    icon: <WebsiteUrl />,
+    icon: <WebsiteUrlQr />,
   },
   {
     id: "vcard",
@@ -108,10 +109,7 @@ export default function GeneratorPage() {
         <div className=" desktopDashboard:py-12">
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">
-              <h1
-                className="text-2xl font-bold text-[var(--Black)] mb-4"
-                style={{ fontFamily: "var(--font-poppins)" }}
-              >
+              <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) mb-4 pt-2">
                 Choose QR code type
               </h1>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5">
@@ -127,7 +125,9 @@ export default function GeneratorPage() {
               </div>
             </div>
             <div className="hidden lg:flex lg:items-center lg:justify-center lg:sticky desktopDashboard:top-12">
-              <MobileFrame />
+              <MobileFrame>
+                <InitialQR />
+              </MobileFrame>
             </div>
           </div>
         </div>

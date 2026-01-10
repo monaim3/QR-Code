@@ -55,6 +55,7 @@
   --Typeface-Line-height-Heading-3: 32px;
   --Typeface-Size-Body-Small: 14px;
   --Corner-Radius-12: 12px;
+  --Corner-Radius-Full: 256px;
 }
 
 .dark {

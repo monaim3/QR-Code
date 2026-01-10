@@ -59,12 +59,11 @@ export default function Breadcrumb() {
               {step.number}
             </div>
             <span
-              className={`text-[14px] hidden desktopDashboard:block font-normal leading-[22px] ${
+              className={`text-[14px] hidden desktopDashboard:block font-normal leading-[22px] font-roboto ${
                 step.number <= currentStep
                   ? "text-[var(--Black)]"
                   : "text-gray-400"
               }`}
-              style={{ fontFamily: "var(--font-roboto)" }}
             >
               {step.label}
             </span>

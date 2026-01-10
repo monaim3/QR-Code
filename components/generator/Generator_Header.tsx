@@ -8,7 +8,7 @@ export default function GeneratorHeader() {
     <header>
       <div className="w-full border-b border-[var(--Boarder-Grey)] bg-white">
         <Container>
-          <div className="py-4">
+          <div className="py-5">
             <div className="flex items-center justify-between">
               <Logo />
               <div className="hidden md:flex flex-1 justify-center">

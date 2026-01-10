@@ -1,18 +1,24 @@
-import Image from "next/image";
-import InitialQrCode from "@/components/icons/initial-qr-code";
+import { ReactNode } from "react";
 
 interface MobileFrameProps {
-  qrCodeSrc?: string;
-  message?: string;
+  children: ReactNode;
+  size?: "desktop" | "mobile";
 }
 
 export default function MobileFrame({
-  qrCodeSrc,
-  message = "Select a type of QR Code from the left column",
+  children,
+  size = "desktop",
 }: MobileFrameProps) {
+  const dimensions =
+    size === "desktop"
+      ? { width: "w-[280px]", height: "h-[560px]", marginTop: "mt-6" }
+      : { width: "w-[235px]", height: "h-[483px]" };
+
   return (
-    <div className="relative w-[280px] h-[560px] mx-auto">
-      <div className="absolute inset-0 rounded-[40px] border-[8px] border-black bg-white">
+    <div
+      className={`relative ${dimensions.width} ${dimensions.height} ${dimensions.marginTop} mx-auto`}
+    >
+      <div className="absolute inset-0 rounded-[40px] border-[8px] border-black bg-white ">
         <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,32 +40,11 @@ export default function MobileFrame({
         </div>
 
         <div className="absolute -right-[12px] top-[162px] w-[6px] h-[60px] bg-black rounded-r-md" />
-
         <div className="absolute -left-[12px] top-[100px] w-[6px] h-[25px] bg-black rounded-l-md" />
         <div className="absolute -left-[12px] top-[150px] w-[6px] h-[40px] bg-black rounded-l-md" />
         <div className="absolute -left-[12px] top-[200px] w-[6px] h-[40px] bg-black rounded-l-md" />
 
-        <div className="flex flex-col items-center justify-center h-full px-8 py-12">
-          <div className="w-40 h-40 mb-6 bg-gray-100 rounded-lg flex items-center justify-center">
-            {qrCodeSrc ? (
-              <Image
-                src={qrCodeSrc}
-                alt="QR Code"
-                width={160}
-                height={160}
-                className="object-contain"
-              />
-            ) : (
-              <InitialQrCode />
-            )}
-          </div>
-          <p
-            className="text-center text-sm text-[var(--breadcrumb)] leading-[22px]"
-            style={{ fontFamily: "var(--font-roboto)" }}
-          >
-            {message}
-          </p>
-        </div>
+        <div className="w-full h-full pt-6 pb-2">{children}</div>
       </div>
     </div>
   );

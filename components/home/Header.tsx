@@ -17,15 +17,12 @@ export default function Header() {
   ];
 
   return (
-    <header
-      className="w-full desktop:bg-[#F5F6FA] bg-white relative z-50"
-      style={{ fontFamily: "var(--font-poppins)" }}>
+    <header className="w-full desktop:bg-[#F5F6FA] bg-white relative z-50 var(--font-poppins)">
       <Container>
         <div className="flex items-center justify-between desktop:h-[72px] h-16">
           {/* Logo */}
           <Link href="/">
-          <img src="/images/Logo.svg" alt="Logo" className="w-38" />
-          
+            <img src="/images/Logo.svg" alt="Logo" className="w-38" />
           </Link>
 
           {/* Desktop Right side actions */}
@@ -35,7 +32,8 @@ export default function Header() {
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
-                aria-label="Select language">
+                aria-label="Select language"
+              >
                 <Globe className="w-4 h-4" />
                 <span className="text-[14px] leading-[22px] font-regular">
                   EN
@@ -54,7 +52,8 @@ export default function Header() {
                       <button
                         key={lang.code}
                         onClick={() => setIsLangOpen(false)}
-                        className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">
+                        className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+                      >
                         {lang.name}
                       </button>
                     ))}
@@ -67,7 +66,8 @@ export default function Header() {
             <Link
               href="#"
               className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear
-">
+"
+            >
               Log in
             </Link>
           </div>
@@ -77,7 +77,8 @@ export default function Header() {
             <button
               onClick={() => setIsDrawerOpen(true)}
               className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              aria-label="Open menu">
+              aria-label="Open menu"
+            >
               <MenuIcon className="w-6 h-6" />
             </button>
           </div>
@@ -91,7 +92,8 @@ export default function Header() {
           isDrawerOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
-        )}>
+        )}
+      >
         {/* Backdrop */}
         <div
           className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
@@ -103,13 +105,15 @@ export default function Header() {
           className={cn(
             "absolute top-0 right-0 h-full w-[300px] bg-white shadow-2xl flex flex-col p-6 transition-transform duration-500 ease-in-out",
             isDrawerOpen ? "translate-x-0" : "translate-x-full"
-          )}>
+          )}
+        >
           <div className="flex items-center justify-between mb-10">
             <img src="/images/Logo.svg" alt="Logo" className="w-32 h-8" />
             <button
               onClick={() => setIsDrawerOpen(false)}
               className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="Close menu">
+              aria-label="Close menu"
+            >
               <X className="w-6 h-6" />
             </button>
           </div>
@@ -127,7 +131,8 @@ export default function Header() {
                     onClick={() => {
                       setIsDrawerOpen(false);
                     }}
-                    className="flex items-center justify-between px-4 py-3.5 rounded-xl hover:bg-gray-50 text-gray-700 transition-all group active:scale-[0.98]">
+                    className="flex items-center justify-between px-4 py-3.5 rounded-xl hover:bg-gray-50 text-gray-700 transition-all group active:scale-[0.98]"
+                  >
                     <span className="text-[16px] font-medium group-hover:text-[var(--Blue)]">
                       {lang.name}
                     </span>
@@ -146,7 +151,8 @@ export default function Header() {
               <Link
                 href="#"
                 onClick={() => setIsDrawerOpen(false)}
-                className="w-full py-4 flex items-center justify-center text-[16px] font-bold text-white bg-[var(--Blue)] hover: rounded-2xl shadow-[0_10px_20px_-5px_rgba(1,165,109,0.3)] active:scale-[0.97] transition-all">
+                className="w-full py-4 flex items-center justify-center text-[16px] font-bold text-white bg-[var(--Blue)] hover: rounded-2xl shadow-[0_10px_20px_-5px_rgba(1,165,109,0.3)] active:scale-[0.97] transition-all"
+              >
                 Log in
               </Link>
             </div>
