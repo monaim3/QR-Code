@@ -8,6 +8,7 @@ interface InputFieldProps {
   type?: string;
   leading?: ReactNode; // icon at the start
   trailing?: ReactNode; // icon/button at the end
+  desktopWidth?: number;
 }
 
 export default function InputField({
@@ -17,6 +18,7 @@ export default function InputField({
   type = "text",
   leading,
   trailing,
+  desktopWidth = 336,
 }: InputFieldProps) {
   const [show, setShow] = useState(false);
 
@@ -39,8 +41,13 @@ export default function InputField({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-[318px] desktop:w-[336px] h-[48px] pl-[68px] pr-${trailing ? "12" : "4"} text-[16px] font-medium leading-[22px] py-3.5 border border-gray-200 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-gray-900 placeholder:text-gray-400`}
-         style={{ fontFamily: "var(--font-poppins)" }}
+        className={`h-[48px] pl-[68px] pr-${trailing ? "12" : "4"} text-[16px] font-medium leading-[22px] py-3.5 border border-gray-200 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-gray-900 placeholder:text-gray-400`}
+         style={{
+          fontFamily: "var(--font-poppins)",
+          width: "318px", // default mobile
+          ...(typeof window !== "undefined" &&
+            window.innerWidth >= 1024 && { width: `${desktopWidth}px` }), // desktop
+        }}
       />
 
       {/* Trailing icon/button */}
