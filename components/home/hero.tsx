@@ -18,7 +18,7 @@ export default function Hero() {
               simple clicks.
             </p>
           </div>
-          <Link href="#" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+          <Link href="/generator" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
            ">Create QR code</Link>
           {/* image stack */}
           <div className="pt-24 desktop:pt-28 w-full">
@@ -61,7 +61,7 @@ export default function Hero() {
             <div
               className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-12">
               <Image
-                src="/images/brand/nestle.svg"
+                src="/images/brand/toyota.svg"
                 alt="Nestle"
                 width={116}
                 height={32}
@@ -69,7 +69,7 @@ export default function Hero() {
               />
 
               <Image
-                src="/images/brand/addidas.svg"
+                src="/images/brand/netflix.svg"
                 alt="Adidas"
                 width={46}
                 height={32}
@@ -77,7 +77,7 @@ export default function Hero() {
               />
 
               <Image
-                src="/images/brand/marriott.svg"
+                src="/images/brand/disney.svg"
                 alt="Marriott"
                 width={101}
                 height={32}
@@ -85,7 +85,7 @@ export default function Hero() {
               />
 
               <Image
-                src="/images/brand/loreal.svg"
+                src="/images/brand/oracle.svg"
                 alt="L'Oreal"
                 width={133}
                 height={24}
@@ -93,7 +93,7 @@ export default function Hero() {
               />
 
               <Image
-                src="/images/brand/dhl.svg"
+                src="/images/brand/delta.svg"
                 alt="DHL"
                 width={170}
                 height={32}
@@ -101,7 +101,7 @@ export default function Hero() {
               />
 
               <Image
-                src="/images/brand/hilton.svg"
+                src="/images/brand/fedex_express.svg"
                 alt="Hilton"
                 width={86}
                 height={32}
