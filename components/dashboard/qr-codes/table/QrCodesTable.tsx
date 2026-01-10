@@ -6,6 +6,7 @@ import QrCodesTableItem from "./QrCodesTableItem";
 import NameEditModal from "./NameEditModal";
 import UrlEditModal from "./UrlEditModal";
 import ShareQRModal from "./ShareQRModal";
+import CustomDownloadModal from "./CustomDownloadModal";
 
 interface Props {
   qrData: QRCodeItem[];
@@ -25,6 +26,10 @@ export default function QrCodesTable({
   const [isNameEditing, setIsNameEditing] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [sharingItem, setSharingItem] = useState<QRCodeItem | null>(null);
+  const [isCustomDownloadModalOpen, setIsCustomDownloadModalOpen] =
+    useState(false);
+  const [customDownloadItem, setCustomDownloadItem] =
+    useState<QRCodeItem | null>(null);
 
   // Handle save
   const handleSave = useCallback(() => {
@@ -62,6 +67,18 @@ export default function QrCodesTable({
     setSharingItem(null);
   }, []);
 
+  // Handle custom download modal request from child
+  const handleCustomDownloadModal = useCallback((item: QRCodeItem) => {
+    setCustomDownloadItem(item);
+    setIsCustomDownloadModalOpen(true);
+  }, []);
+
+  // Handle close custom download modal
+  const handleCloseCustomDownloadModal = useCallback(() => {
+    setIsCustomDownloadModalOpen(false);
+    setCustomDownloadItem(null);
+  }, []);
+
   return (
     <>
       <div className="flex flex-col items-start gap-2 self-stretch">
@@ -74,6 +91,7 @@ export default function QrCodesTable({
             onEditName={handleEditName}
             onEditUrl={handleEditUrl}
             onShareModal={handleShareModal}
+            onCustomDownloadModal={handleCustomDownloadModal}
           />
         ))}
       </div>
@@ -99,6 +117,12 @@ export default function QrCodesTable({
         open={isShareModalOpen}
         onClose={handleCloseShareModal}
         item={sharingItem}
+      />
+
+      {/* Custom Download Modal */}
+      <CustomDownloadModal
+        open={isCustomDownloadModalOpen}
+        onClose={handleCloseCustomDownloadModal}
       />
     </>
   );

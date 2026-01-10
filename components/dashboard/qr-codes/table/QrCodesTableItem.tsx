@@ -14,6 +14,7 @@ interface Props {
   onEditName: (item: QRCodeItem) => void;
   onEditUrl: (item: QRCodeItem) => void;
   onShareModal: (item: QRCodeItem) => void;
+  onCustomDownloadModal: (item: QRCodeItem) => void;
 }
 
 export default function QrCodesTableItem({
@@ -23,6 +24,7 @@ export default function QrCodesTableItem({
   onEditName,
   onEditUrl,
   onShareModal,
+  onCustomDownloadModal,
 }: Props) {
   const getStatusStyles = () => {
     switch (item.status) {
@@ -119,7 +121,11 @@ export default function QrCodesTableItem({
       <div className="w-[1px] h-[88px] bg-[var(--boarder-grey-50)]" />
 
       {/* Actions */}
-      <Actions item={item} onShareModal={onShareModal} />
+      <Actions
+        item={item}
+        onShareModal={onShareModal}
+        onCustomDownloadModal={onCustomDownloadModal}
+      />
     </div>
   );
 }

@@ -6,9 +6,14 @@ import { QRCodeItem } from "@/types/qr-code";
 interface Props {
   item: QRCodeItem;
   onShareModal: (item: QRCodeItem) => void;
+  onCustomDownloadModal: (item: QRCodeItem) => void;
 }
 
-export default function Actions({ item, onShareModal }: Props) {
+export default function Actions({
+  item,
+  onShareModal,
+  onCustomDownloadModal,
+}: Props) {
   return (
     <div className="flex items-center gap-4">
       {/* Buttons */}
@@ -22,7 +27,9 @@ export default function Actions({ item, onShareModal }: Props) {
         </button>
 
         {/* Download */}
-        <DownloadAction />
+        <DownloadAction
+          onCustomDownloadModal={() => onCustomDownloadModal(item)}
+        />
       </div>
 
       {/* More */}

@@ -21,7 +21,10 @@ export default function CheckboxBar({ selectedCount, onClose }: Props) {
 
       {/* Buttons */}
       <div className="flex items-center justify-center gap-2 flex-1">
-        <IconButton icon={<Download />} text="Download" />
+        <IconButton
+          icon={<Download className="text-[var(--Dark-gray)]" />}
+          text="Download"
+        />
         <IconButton icon={<PauseCircle />} text="Pause" />
         <IconButton icon={<RefreshCw />} text="Reset scans" />
         <IconButton icon={<TrashAlt />} text="Delete" variant="error" />
