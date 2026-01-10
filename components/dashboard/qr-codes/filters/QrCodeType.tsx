@@ -3,7 +3,7 @@ import ChevronDownSmall from "@/components/icons/chevron-down-small";
 import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import CloseCircle from "@/components/icons/close-circle";
 import CheckBox from "./CheckBox";
-import Tooltip from "./Tooltip";
+import Tooltip from "@/components/dashboard/Tooltip";
 
 export default function QrCodeType() {
   const [isOpen, setIsOpen] = useState(false);

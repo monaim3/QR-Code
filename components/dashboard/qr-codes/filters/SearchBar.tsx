@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CloseCircle from "@/components/icons/close-circle";
 import Search from "@/components/icons/search";
-import Tooltip from "./Tooltip";
+import Tooltip from "@/components/dashboard/Tooltip";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");

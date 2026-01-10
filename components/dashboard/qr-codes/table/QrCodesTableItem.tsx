@@ -1,6 +1,6 @@
 import Circle from "@/components/icons/circle";
 import CheckBox from "../filters/CheckBox";
-import Tooltip from "../filters/Tooltip";
+import Tooltip from "@/components/dashboard/Tooltip";
 import QrCode from "./QrCode";
 import QrInfo from "./QrInfo";
 import PauseCircle from "@/components/icons/pause-circle";
