@@ -5,7 +5,7 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react"
 import InputField from "../../components/common/input_filed";
 import Link from "next/link";
 
-export default function LoginBody() {
+export default function SignupBody() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,10 +20,10 @@ export default function LoginBody() {
         <div className="min-h-screen flex items-center justify-center p-4"
          style={{ fontFamily: "var(--font-poppins)" }}
         >
-        <div className="w-[350px] desktop:w-[400px] max-w-md bg-white rounded-[10px] shadow-lg p-[16px] desktop:p-[32px]">
+        <div className="w-[350px] desktop:w-[400px] bg-white rounded-[10px] shadow-lg p-[16px] desktop:p-[32px]">
         {/* Title */}
         <h1 className="text-[20px] desktop:text-[24px] font-bold leading-[28px] desktop:leading-[32px] text-center text-gray-900 mb-[24px]">
-          Welcome back!
+          Create a FREE account to download, edit and manage your QR codes
         </h1>
 
         {/* Form */}
