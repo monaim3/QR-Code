@@ -40,9 +40,21 @@
   --Blue-hover: #008b5b;
   --Dark-gray: #3f3e3e;
   --Boarder-Grey: #d3d8eb;
+  --Generator-Background: #f5f6fa;
+  --boarder-grey-50: rgba(205, 208, 219, 0.5);
+  --Light-blue: #f7f9fc;
+  --breadcrumb: #79809a;
+  --Corner-Radius-10: 10px;
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
   --font-poppins: "Poppins", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-rubik: "Rubik", sans-serif;
+
+  --Typeface-Size-Headings-Heading-3: 24px;
+  --Typeface-Line-height-Heading-3: 32px;
+  --Typeface-Size-Body-Small: 14px;
+  --Corner-Radius-12: 12px;
 }
 
 .dark {
@@ -99,30 +111,4 @@
     background-color: var(--background);
     color: var(--foreground);
   }
-
-  .always-visible-scrollbar {
-    overflow-y: scroll !important;
-    scrollbar-width: thin;
-    scrollbar-color: var(--Blue) #F5F6FB;
-    transition: linear .3s;
-  }
-
-  .always-visible-scrollbar::-webkit-scrollbar {
-    width: 4px;
-    display: block;
-  }
-
-  .always-visible-scrollbar::-webkit-scrollbar-track {
-    background: #F5F6FB;
-    border-radius: 10px;
-    margin: 0;
-  }
-
-  .always-visible-scrollbar::-webkit-scrollbar-thumb {
-    background-color: var(--Blue);
-    border-radius: 10px;
-    min-height: 24px;
-  }
-
-
 }
