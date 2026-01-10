@@ -8,9 +8,15 @@ interface Props {
   item: QRCodeItem;
   onEditName: (item: QRCodeItem) => void;
   onEditUrl: (item: QRCodeItem) => void;
+  onQrPreviewModal: (item: QRCodeItem) => void;
 }
 
-export default function QrInfo({ item, onEditName, onEditUrl }: Props) {
+export default function QrInfo({
+  item,
+  onEditName,
+  onEditUrl,
+  onQrPreviewModal,
+}: Props) {
   const normalizeUrl = (url: string) => {
     if (!/^https?:\/\//i.test(url)) {
       return `https://${url}`;
@@ -32,7 +38,9 @@ export default function QrInfo({ item, onEditName, onEditUrl }: Props) {
 
       {/* Preview link */}
       <div className="flex items-center gap-1">
-        <Eye />
+        <button onClick={() => onQrPreviewModal(item)}>
+          <Eye />
+        </button>
         <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
           {item.shortUrl}
         </p>

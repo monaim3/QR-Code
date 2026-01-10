@@ -15,6 +15,7 @@ interface Props {
   onEditUrl: (item: QRCodeItem) => void;
   onShareModal: (item: QRCodeItem) => void;
   onCustomDownloadModal: (item: QRCodeItem) => void;
+  onQrPreviewModal: (item: QRCodeItem) => void;
 }
 
 export default function QrCodesTableItem({
@@ -25,6 +26,7 @@ export default function QrCodesTableItem({
   onEditUrl,
   onShareModal,
   onCustomDownloadModal,
+  onQrPreviewModal,
 }: Props) {
   const getStatusStyles = () => {
     switch (item.status) {
@@ -57,7 +59,12 @@ export default function QrCodesTableItem({
         <Tooltip text="Click to scan">
           <QrCode thumbnail={item.thumbnail} />
         </Tooltip>
-        <QrInfo item={item} onEditName={onEditName} onEditUrl={onEditUrl} />
+        <QrInfo
+          item={item}
+          onEditName={onEditName}
+          onEditUrl={onEditUrl}
+          onQrPreviewModal={onQrPreviewModal}
+        />
       </div>
 
       {/* Line */}

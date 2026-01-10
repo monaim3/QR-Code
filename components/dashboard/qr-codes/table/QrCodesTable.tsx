@@ -7,6 +7,7 @@ import NameEditModal from "./NameEditModal";
 import UrlEditModal from "./UrlEditModal";
 import ShareQRModal from "./ShareQRModal";
 import CustomDownloadModal from "./CustomDownloadModal";
+import QrPreviewModal from "./QrPreviewModal";
 
 interface Props {
   qrData: QRCodeItem[];
@@ -21,62 +22,72 @@ export default function QrCodesTable({
   onToggleSelection,
   onUpdateQrCode,
 }: Props) {
-  const [editingItem, setEditingItem] = useState<QRCodeItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<QRCodeItem | null>(null);
   const [isUrlEditing, setIsUrlEditing] = useState(false);
   const [isNameEditing, setIsNameEditing] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [sharingItem, setSharingItem] = useState<QRCodeItem | null>(null);
   const [isCustomDownloadModalOpen, setIsCustomDownloadModalOpen] =
     useState(false);
-  const [customDownloadItem, setCustomDownloadItem] =
-    useState<QRCodeItem | null>(null);
+  const [isQrPreviewModalOpen, setIsQrPreviewModalOpen] = useState(false);
 
   // Handle save
   const handleSave = useCallback(() => {
-    if (!editingItem) return;
-    onUpdateQrCode(editingItem.id, { title: "" });
-    setEditingItem(null);
-  }, [editingItem, onUpdateQrCode]);
+    if (!selectedItem) return;
+    onUpdateQrCode(selectedItem.id, { title: "" });
+    setSelectedItem(null);
+  }, [selectedItem, onUpdateQrCode]);
 
   // Handle cancel
   const handleCancel = useCallback(() => {
-    setEditingItem(null);
+    setSelectedItem(null);
   }, []);
 
   // Handle edit name request from child
   const handleEditName = useCallback((item: QRCodeItem) => {
-    setEditingItem(item);
+    setSelectedItem(item);
     setIsNameEditing(true);
   }, []);
 
   // Handle edit url request from child
   const handleEditUrl = useCallback((item: QRCodeItem) => {
-    setEditingItem(item);
+    setSelectedItem(item);
     setIsUrlEditing(true);
   }, []);
 
   // Handle share modal request from child
   const handleShareModal = useCallback((item: QRCodeItem) => {
-    setSharingItem(item);
+    setSelectedItem(item);
     setIsShareModalOpen(true);
   }, []);
 
   // Handle close share modal
   const handleCloseShareModal = useCallback(() => {
     setIsShareModalOpen(false);
-    setSharingItem(null);
+    setSelectedItem(null);
   }, []);
 
   // Handle custom download modal request from child
   const handleCustomDownloadModal = useCallback((item: QRCodeItem) => {
-    setCustomDownloadItem(item);
+    setSelectedItem(item);
     setIsCustomDownloadModalOpen(true);
   }, []);
 
   // Handle close custom download modal
   const handleCloseCustomDownloadModal = useCallback(() => {
     setIsCustomDownloadModalOpen(false);
-    setCustomDownloadItem(null);
+    setSelectedItem(null);
+  }, []);
+
+  // Handle close qr preview modal
+  const handleCloseQrPreviewModal = useCallback(() => {
+    setIsQrPreviewModalOpen(false);
+    setSelectedItem(null);
+  }, []);
+
+  // Handle qr preview modal request from child
+  const handleQrPreviewModal = useCallback((item: QRCodeItem) => {
+    setSelectedItem(item);
+    setIsQrPreviewModalOpen(true);
   }, []);
 
   return (
@@ -92,37 +103,45 @@ export default function QrCodesTable({
             onEditUrl={handleEditUrl}
             onShareModal={handleShareModal}
             onCustomDownloadModal={handleCustomDownloadModal}
+            onQrPreviewModal={handleQrPreviewModal}
           />
         ))}
       </div>
 
       {/* Name Edit Modal */}
       <NameEditModal
-        open={!!editingItem && isNameEditing}
+        open={!!selectedItem && isNameEditing}
         onClose={handleCancel}
         onSave={handleSave}
-        item={editingItem}
+        item={selectedItem}
       />
 
       {/* Url Edit Modal */}
       <UrlEditModal
-        open={!!editingItem && isUrlEditing}
+        open={!!selectedItem && isUrlEditing}
         onClose={handleCancel}
         onSave={handleSave}
-        item={editingItem}
+        item={selectedItem}
       />
 
       {/* Share Modal */}
       <ShareQRModal
         open={isShareModalOpen}
         onClose={handleCloseShareModal}
-        item={sharingItem}
+        item={selectedItem}
       />
 
       {/* Custom Download Modal */}
       <CustomDownloadModal
         open={isCustomDownloadModalOpen}
         onClose={handleCloseCustomDownloadModal}
+      />
+
+      {/* Qr Preview Modal */}
+      <QrPreviewModal
+        open={isQrPreviewModalOpen}
+        onClose={handleCloseQrPreviewModal}
+        item={selectedItem}
       />
     </>
   );
