@@ -9,13 +9,29 @@ import ChevronUpSmall from "@/components/icons/chevron-up-small";
 export default function Pagination() {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string>("10");
+  const [showAbove, setShowAbove] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const options = ["10", "25", "50", "All"];
 
   const handleSelect = (option: string) => {
     setSelected(option);
     setIsOpen(false);
+  };
+
+  const handleToggleDropdown = () => {
+    if (!isOpen && buttonRef.current) {
+      // Check position before opening
+      const rect = buttonRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const spaceBelow = viewportHeight - rect.bottom;
+      const dropdownHeight = 200; // Approximate height of dropdown (4 options + padding)
+
+      // If not enough space below, show above
+      setShowAbove(spaceBelow < dropdownHeight);
+    }
+    setIsOpen(!isOpen);
   };
 
   // Close dropdown when clicking outside
@@ -72,7 +88,8 @@ export default function Pagination() {
       {/* Pages */}
       <div className="relative" ref={dropdownRef}>
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          ref={buttonRef}
+          onClick={handleToggleDropdown}
           className="flex items-center justify-end gap-2"
         >
           <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
@@ -88,7 +105,11 @@ export default function Pagination() {
 
         {/* Dropdown Menu */}
         {isOpen && (
-          <div className="absolute z-10 flex flex-col items-start gap-2 w-[120px] p-4 mt-[13px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
+          <div
+            className={`absolute z-10 flex flex-col items-start gap-2 w-[120px] p-4 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150 ${
+              showAbove ? "bottom-full mb-[13px]" : "top-full mt-[13px]"
+            }`}
+          >
             {options.map((option) => {
               return (
                 <div
