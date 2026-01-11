@@ -1,5 +1,6 @@
 import AnalyticsFilter from "@/components/dashboard/analytics/Filter";
 import KPIs from "@/components/dashboard/analytics/KPIs";
+import ScanActivity from "@/components/dashboard/analytics/ScanActivity";
 
 export default function Analytics() {
   return (
@@ -17,6 +18,9 @@ export default function Analytics() {
 
         {/* KPIs */}
         <KPIs />
+
+        {/* Scan Activity */}
+        <ScanActivity />
       </div>
     </>
   );
