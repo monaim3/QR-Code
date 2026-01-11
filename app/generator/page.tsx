@@ -13,6 +13,7 @@ import VcardQr from "@/components/icons/vcard-qr";
 import VideoQr from "@/components/icons/video-qr";
 import WebsiteUrl from "@/components/icons/website-url-qr";
 import WifiQr from "@/components/icons/wifi-qr";
+import CreateArrow from "@/components/icons/create_arrow";
 import App from "next/app";
 const qrTypes = [
   {
@@ -101,14 +102,39 @@ const qrTypes = [
   },
 ];
 
-export default function GeneratorPage() {
+interface ArrowProps {
+  hideOnMobile?: boolean;
+}
+
+function cn(...classes: (string | undefined | false)[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+function Arrow({ hideOnMobile = false }: ArrowProps) {
+  return (
+    <div className={cn(
+      "pt-[70px] ml-[40px]",
+      hideOnMobile && "hidden lg:block" // hidden on mobile if prop is true
+    )}>
+      <CreateArrow />
+    </div>
+  );
+}
+
+interface GeneratorProps {
+  showArrow?: boolean;
+}
+
+export default function GeneratorPage({ showArrow = false }: GeneratorProps) {
   return (
     <div className="bg-[var(--Generator-Background)] pb-28">
-      <Container>
-        <div className=" desktopDashboard:py-12">
-          <h1
-            className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2 hidden desktop:block"
-          >
+      <div className="flex flex-row item-center justify-center ">
+        {/* Arrow: hide on mobile */}
+       { showArrow ? <Arrow hideOnMobile /> : <div></div>}
+         <Container px={ showArrow ? 0 : 20} 
+         className={( showArrow ? "ml-[20px] desktop:ml-[40px]" : "ml-[0px] desktop:ml-[90px]")}>
+         <div className="desktopDashboard:py-12">
+          <h1 className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2 hidden desktop:block">
             Choose QR code type
           </h1>
           <div className="flex flex-col lg:flex-row gap-10">
@@ -130,7 +156,8 @@ export default function GeneratorPage() {
             </div>
           </div>
         </div>
-      </Container>
+         </Container>
+      </div>
     </div>
   );
 }
