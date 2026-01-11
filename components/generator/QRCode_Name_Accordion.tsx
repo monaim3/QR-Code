@@ -18,10 +18,11 @@ export default function QRCodeNameAccordion({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="w-full bg-white rounded-xl border border-[var(--Boarder-Grey)] overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
+    <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-8 py-4  hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between px-4 md:px-8 py-4
+          hover:bg-gray-50 transition-colors"
       >
         <div className="flex flex-col items-start gap-1">
           <h3 className="text-lg leading-[26px] font-bold text-[var(--Black)] font-Poppins">
@@ -39,8 +40,8 @@ export default function QRCodeNameAccordion({
       </button>
       {isOpen && (
         <>
-          <hr className="ml-8 mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
-          <div className="p-8 ">
+          <hr className="ml-4 mr-4 md:ml-8 md:mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
+          <div className="py-6 px-4 md:p-8 ">
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="qr-code-name"

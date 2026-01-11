@@ -53,7 +53,7 @@ export default function WebsiteUrlPage() {
               <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
                 <button
                   onClick={() => setIsUrlAccordionOpen(!isUrlAccordionOpen)}
-                  className="w-full flex items-center justify-between px-8 py-4 hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between px-4 md:px-8 py-4 hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex flex-col items-start gap-1">
                     <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
@@ -71,9 +71,9 @@ export default function WebsiteUrlPage() {
                 </button>
                 {isUrlAccordionOpen && (
                   <>
-                    <hr className="ml-8 mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
+                    <hr className="ml-4 mr-4 md:ml-8 md:mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
 
-                    <div className="p-8 ">
+                    <div className="py-6 px-4 md:p-8 ">
                       <div className="flex flex-col gap-2">
                         <label
                           htmlFor="website-url"

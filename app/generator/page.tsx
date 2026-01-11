@@ -1,3 +1,4 @@
+"use client";
 import MobileFrame from "@/components/common/MobileFrame";
 import Container from "@/components/common/parent-container";
 import InitialQR from "@/components/generator/InitialQR";
@@ -13,8 +14,23 @@ import SocialQr from "@/components/icons/social-qr";
 import VcardQr from "@/components/icons/vcard-qr";
 import VideoQr from "@/components/icons/video-qr";
 import WebsiteUrlQr from "@/components/icons/website-url-qr";
-import WebsiteUrlMobileFramBg from "@/components/icons/website-url-mobile-fram-bg";
+import WebsiteUrlMobileFramBg from "@/public/images/generator_img/website url.webp";
+import BusinessPage from "@/public/images/generator_img/Business page.webp";
+import Facebook from "@/public/images/generator_img/Facebook.webp";
+import Vcard from "@/public/images/generator_img/vcard.webp";
+import Pdf from "@/public/images/generator_img/pdf.webp";
+import Images from "@/public/images/generator_img/Images.webp";
+import SocialMedia from "@/public/images/generator_img/Social media.webp";
+import Video from "@/public/images/generator_img/Video.webp";
+import SimpleText from "@/public/images/generator_img/Simple text.webp";
+import App from "@/public/images/generator_img/App.webp";
+import Menu from "@/public/images/generator_img/Menu.webp";
+import Wifi from "@/public/images/generator_img/wifi.webp";
+
+
 import WifiQr from "@/components/icons/wifi-qr";
+import { useRef, useState } from "react";
+import Image from "next/image";
 const qrTypes = [
   {
     id: "website-url",
@@ -22,6 +38,7 @@ const qrTypes = [
     description: "Link to a website of your choice",
     href: "/generator/website-url",
     icon: <WebsiteUrlQr />,
+    mobilePreview: WebsiteUrlMobileFramBg,
   },
   {
     id: "vcard",
@@ -29,6 +46,7 @@ const qrTypes = [
     description: "Share your electronic business card",
     href: "/generator/vcard",
     icon: <VcardQr />,
+    mobilePreview: Vcard,
   },
   {
     id: "pdf",
@@ -36,6 +54,7 @@ const qrTypes = [
     description: "Show a PDF",
     href: "/generator/pdf",
     icon: <PdfQr />,
+    mobilePreview: Pdf,
   },
   {
     id: "images",
@@ -43,6 +62,7 @@ const qrTypes = [
     description: "Display an image gallery",
     href: "/generator/images",
     icon: <ImagesQr />,
+    mobilePreview: Images,
   },
   {
     id: "social-media",
@@ -50,6 +70,7 @@ const qrTypes = [
     description: "Share your social media channels",
     href: "/generator/social-media",
     icon: <SocialQr />,
+    mobilePreview: SocialMedia,
   },
   {
     id: "video",
@@ -57,6 +78,7 @@ const qrTypes = [
     description: "Share one or multiple videos",
     href: "/generator/video",
     icon: <VideoQr />,
+    mobilePreview: Video,
   },
   {
     id: "simple-text",
@@ -64,6 +86,7 @@ const qrTypes = [
     description: "Display a body of text",
     href: "/generator/simple-text",
     icon: <SimpleTextQr />,
+      mobilePreview: SimpleText,
   },
   {
     id: "business-page",
@@ -71,6 +94,7 @@ const qrTypes = [
     description: "Share your business information",
     href: "/generator/business-page",
     icon: <BusinessQr />,
+      mobilePreview: BusinessPage,
   },
   {
     id: "facebook",
@@ -78,6 +102,7 @@ const qrTypes = [
     description: "Share your Facebook page",
     href: "/generator/facebook",
     icon: <FacebookQr />,
+    mobilePreview: Facebook,
   },
   {
     id: "wifi",
@@ -85,6 +110,7 @@ const qrTypes = [
     description: "Connect to a wireless network",
     href: "/generator/wifi",
     icon: <WifiQr />,
+    mobilePreview: Wifi,
   },
   {
     id: "app",
@@ -92,6 +118,7 @@ const qrTypes = [
     description: "Link to the iOS App Store/Google Play",
     href: "/generator/app",
     icon: <AppQr />,
+    mobilePreview: App,
   },
   {
     id: "menu",
@@ -99,10 +126,59 @@ const qrTypes = [
     description: "Create a digital restaurant menu",
     href: "/generator/menu",
     icon: <MenuQr />,
+    mobilePreview: Menu,
   },
 ];
 
 export default function GeneratorPage() {
+   const [hoveredType, setHoveredType] = useState<string | null>(null);
+    const [isLeaving, setIsLeaving] = useState(false);
+      const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+ const handleMouseEnter = (typeId: string) => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsLeaving(false);
+    setHoveredType(typeId);
+  };
+
+  const handleMouseLeave = () => {
+    setIsLeaving(true);
+    timeoutRef.current = setTimeout(() => {
+      setHoveredType(null);
+      setIsLeaving(false);
+    }, 1000);
+  };
+
+  const getCurrentPreview = () => {
+    return (
+      <>
+        <div className={`absolute inset-0 top-0.3 ${hoveredType || isLeaving ? 'opacity-0 z-0' : 'opacity-100 z-10'}`}>
+          <InitialQR />
+        </div>
+        
+        {qrTypes.map((type) => (
+          <div
+            key={type.id}
+            className={`absolute inset-0 top-0.3 transition-opacity duration-500 ease-in-out ${
+              hoveredType === type.id ? 'opacity-100 z-20' : 'opacity-0 z-0 pointer-events-none'
+            }`}
+          >
+            <Image
+              src={type.mobilePreview}
+              alt={type.title}
+              fill
+              className="object-cover object-top"
+              priority={hoveredType === type.id}
+            />
+          </div>
+        ))}
+      </>
+    );
+  };
   return (
     <div className="bg-[var(--Generator-Background)] pb-28">
       <Container>
@@ -114,19 +190,26 @@ export default function GeneratorPage() {
               </h1>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5">
                 {qrTypes.map((type) => (
-                  <QRTypeCard
+                    <div
                     key={type.id}
-                    icon={type.icon}
-                    title={type.title}
-                    description={type.description}
-                    href={type.href}
-                  />
+                     onMouseEnter={() => handleMouseEnter(type.id)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <QRTypeCard
+                      icon={type.icon}
+                      title={type.title}
+                      description={type.description}
+                      href={type.href}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
             <div className="hidden lg:flex lg:items-center lg:justify-center lg:sticky desktopDashboard:top-12">
               <MobileFrame>
-                <InitialQR />
+                 <div className="w-full h-full rounded-[32px] overflow-hidden relative pt-12">
+                  {getCurrentPreview()}
+                </div>
               </MobileFrame>
             </div>
           </div>
