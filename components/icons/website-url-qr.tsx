@@ -1,4 +1,4 @@
-const WebsiteUrl = (props: React.SVGProps<SVGSVGElement>) => {
+const WebsiteUrlQr = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="58"
@@ -95,4 +95,4 @@ const WebsiteUrl = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export default WebsiteUrl;
+export default WebsiteUrlQr;

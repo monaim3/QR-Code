@@ -51,22 +51,20 @@ export default function Breadcrumb() {
               className={`flex items-center justify-center w-7 h-7 rounded-full text-[14px] font-medium transition-colors ${
                 step.number === currentStep
                   ? "bg-[var(--Blue)] text-white"
-                  : step.number < currentStep
-                  ? "bg-[var(--Blue)] text-white group-hover:bg-[var(--Blue-hover)]"
                   : "border border-[var(--breadcrumb)] text-[var(--breadcrumb)]"
               }`}
             >
               {step.number}
             </div>
             <span
-              className={`text-[14px] hidden desktopDashboard:block font-normal leading-[22px] ${
-                step.number <= currentStep
+              className={`text-[14px] font-normal leading-[22px] font-roboto block ${
+                step.number === currentStep
                   ? "text-[var(--Black)]"
                   : "text-gray-400"
               }`}
-              style={{ fontFamily: "var(--font-roboto)" }}
             >
-              {step.label}
+              <span className="hidden md:inline">{step.label}</span>
+              <span className="md:hidden">{step.label.split(" ").pop()}</span>
             </span>
           </button>
 

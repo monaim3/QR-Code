@@ -22,8 +22,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="w-full desktop:bg-[#F5F6FA] bg-white relative z-50"
-      style={{ fontFamily: "var(--font-poppins)" }}>
+    <header className="w-full desktop:bg-[#F5F6FA] bg-white relative z-50 var(--font-poppins)">
       <Container>
         <div className="flex items-center justify-between desktop:h-[72px] h-16">
           {/* Logo */}
@@ -37,7 +36,8 @@ export default function Header() {
             {/* Log in Button */}
             <Link
               href="/login"
-              className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear">
+              className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear"
+            >
               Log in
             </Link>
           </div>
@@ -47,7 +47,8 @@ export default function Header() {
             <button
               onClick={() => setIsDrawerOpen(true)}
               className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              aria-label="Open menu">
+              aria-label="Open menu"
+            >
               <MenuIcon className="w-6 h-6" />
             </button>
           </div>
@@ -56,20 +57,18 @@ export default function Header() {
 
       {/* Mobile Drawer */}
       <div
-  className={cn(
-    "fixed inset-0 z-[100] desktop:hidden",
-    isDrawerOpen ? "pointer-events-auto" : "pointer-events-none"
-  )}
->
-  {/* Backdrop */}
-  <div
-    onClick={() => setIsDrawerOpen(false)}
-    className={cn(
-      "absolute inset-0 bg-[#212023] transition-opacity duration-300 ease-linear",
-      "transition duration-300",
-      isDrawerOpen ? "opacity-80" : "opacity-0"
-    )}
-  />
+        className={cn(
+          "fixed inset-0 z-[100] desktop:hidden transition-all duration-300 ease-in-out",
+          isDrawerOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        )}
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+          onClick={() => setIsDrawerOpen(false)}
+        />
 
   {/* Drawer Content - Anchored to Left */}
   <div
