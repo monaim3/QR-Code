@@ -1,3 +1,4 @@
+import DonutCharts from "@/components/dashboard/analytics/DonutCharts";
 import AnalyticsFilter from "@/components/dashboard/analytics/Filter";
 import KPIs from "@/components/dashboard/analytics/KPIs";
 import ScanActivity from "@/components/dashboard/analytics/ScanActivity";
@@ -21,6 +22,9 @@ export default function Analytics() {
 
         {/* Scan Activity */}
         <ScanActivity />
+
+        {/* Donut Charts */}
+        <DonutCharts />
       </div>
     </>
   );
