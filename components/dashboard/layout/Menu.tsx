@@ -34,7 +34,7 @@ export default function Menu() {
 
   return (
     <nav
-      className={`bg-white h-full py-6 px-4 border-r border-[var(--boarder-grey-50)] ${
+      className={`bg-white h-screen py-6 px-4 border-r border-[var(--boarder-grey-50)] ${
         collapsed ? "w-[72px]" : "w-[214px]"
       } transition-[width] duration-300`}
     >
