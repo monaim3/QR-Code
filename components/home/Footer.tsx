@@ -28,17 +28,17 @@ export default function Footer() {
 
               {/* Right: Button */}
               <div className="flex justify-center lg:justify-end">
-                <Link href="#" className=" bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
-">Create QR code</Link>
+                <Link href="/create" className=" bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+                 ">Create QR code</Link>
               </div>
             </div>
           </div>
 
           {/* Links Section */}
-          <div className="grid grid-cols-1 desktop:grid-cols-4 gap-8 desktop:gap-10 text-center desktop:text-left">
+          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-8 desktop:gap-20 text-center desktop:text-left">
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
                     href="#"
@@ -53,11 +53,6 @@ export default function Footer() {
                     Cancel subscription
                   </Link>
                 </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold leading-[26px]">Help</h3>
-              <ul className="flex flex-col gap-4">
                 <li>
                   <Link
                     href="#"
@@ -76,7 +71,7 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">Company</h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
                     href="#"
@@ -91,11 +86,6 @@ export default function Footer() {
                     About us
                   </Link>
                 </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h3 className="text-white text-lg font-bold leading-[26px]">Company</h3>
-              <ul className="flex flex-col gap-4">
                 <li>
                   <Link
                     href="#"
@@ -115,7 +105,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom Section: Language + Copyright */}
-          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-1 items-center text-center desktop:text-left border-t border-white/20 py-4">
+          <div className="flex flex-col desktop:flex-row flex items-center justify-between text-center desktop:text-left border-t border-white/20 py-4">
             {/* {<div className="relative flex justify-center desktop:justify-start">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}

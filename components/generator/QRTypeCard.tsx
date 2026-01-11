@@ -19,9 +19,9 @@ export default function QRTypeCard({
       <Card
         className="rounded-xl gap-4 py-0 bg-white border-2 border-transparent 
         hover:border-[var(--Blue)] transition-all duration-200 cursor-pointer group
-        shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]"
+        shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] h-full"
       >
-        <div className="flex items-start gap-2 p-3.5">
+        <div className="flex items-start gap-2 p-3.5 generator-item-create">
           {/* <div
             className="flex-shrink-0 flex items-center justify-center 
           w-[58px] h-12 rounded-lg 

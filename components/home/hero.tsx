@@ -18,7 +18,7 @@ export default function Hero() {
               simple clicks.
             </p>
           </div>
-          <Link href="/create" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+          <Link href="/generator" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
            ">Create QR code</Link>
           {/* image stack */}
           <div className="pt-24 desktop:pt-28 w-full">
@@ -59,53 +59,41 @@ export default function Hero() {
           {/* Brand Icons */}
           <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB] px-4 desktop:px-0">
             <div
-              className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-12">
-              <Image
-                src="/images/brand/nestle.svg"
-                alt="Nestle"
-                width={116}
-                height={32}
-                className="w-[116px] h-auto"
+              className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-8">
+              <img
+                src="/images/brand/toyota.svg"
+                alt="Toyota"
+                className="h-5 desktop:h-6"
               />
 
-              <Image
-                src="/images/brand/addidas.svg"
-                alt="Adidas"
-                width={46}
-                height={32}
-                className="w-[46px] h-auto"
+              <img
+                src="/images/brand/netflix.svg"
+                alt="Netflix"
+                className="h-5 desktop:h-6"
               />
 
-              <Image
-                src="/images/brand/marriott.svg"
-                alt="Marriott"
-                width={101}
-                height={32}
-                className="w-[101px] h-auto"
+              <img
+                src="/images/brand/disney.svg"
+                alt="Disney"
+                className="h-5 desktop:h-7"
               />
 
-              <Image
-                src="/images/brand/loreal.svg"
-                alt="L'Oreal"
-                width={133}
-                height={24}
-                className="w-[133px] h-auto"
+              <img
+                src="/images/brand/oracle.svg"
+                alt="Oracle"
+                className="h-5 desktop:h-6 w-full flex justify-center desktop:w-auto"
               />
 
-              <Image
-                src="/images/brand/dhl.svg"
-                alt="DHL"
-                width={170}
-                height={32}
-                className="w-[170px] h-auto"
+              <img
+                src="/images/brand/delta.svg"
+                alt="Delta"
+                className="h-5 desktop:h-6"
               />
 
-              <Image
-                src="/images/brand/hilton.svg"
-                alt="Hilton"
-                width={86}
-                height={32}
-                className="w-[86px] h-auto"
+              <img
+                src="/images/brand/fedex_express.svg"
+                alt="Fedex Express"
+                className="h-5 desktop:h-6"
               />
             </div>
           </div>

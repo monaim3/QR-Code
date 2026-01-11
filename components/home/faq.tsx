@@ -132,7 +132,7 @@ const handleItemClick = (index: number) => {
             </p>
           </div>
           {/* Mobile Dropdown */}
-          <div className="relative w-full mb-10 desktop:hidden">
+          <div className="relative w-full desktop:w-[350px] mb-10 desktop:mb-14">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="w-full flex items-center justify-between px-4 py-2 h-[48px] bg-white border border-[var(--Boarder-Grey)] rounded-lg text-[var(--Dark-gray)] font-medium">
@@ -174,7 +174,7 @@ const handleItemClick = (index: number) => {
           {/* Desktop Tabs */}
           <div
             ref={scrollContainerRef}
-            className="hidden desktop:flex gap-4 mb-14 overflow-x-auto scrollbar-hide w-full justify-center"
+            className="hidden gap-4 mb-14 overflow-x-auto scrollbar-hide w-full justify-center"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
               const container = scrollContainerRef.current;

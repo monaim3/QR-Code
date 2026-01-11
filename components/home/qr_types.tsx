@@ -164,7 +164,7 @@ export default function QrTypes() {
           <div className="w-full">
             <div
                 ref={scrollContainerRef}
-                className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-2"
+                className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth"
                 style={{ scrollSnapType: "x mandatory" }}
                 onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
                   const container = scrollContainerRef.current;
@@ -325,7 +325,7 @@ export default function QrTypes() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 1, y: 2 }}
                   transition={{ duration: 0.3, ease: "linear" }}
-                  className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear"
+                  className="bg-[var(--Blue)] hover:bg-[#018f5f] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] w-full text-center desktop:w-auto inline-block transition-all duration-300 ease-linear"
                 >
                   Create QR code
                 </motion.a>

@@ -18,13 +18,16 @@ export default function SignupBody() {
    return (
      <Container>
         <div className="min-h-screen flex items-center justify-center p-4"
-         style={{ fontFamily: "var(--font-poppins)" }}
-        >
-        <div className="w-[350px] desktop:w-[400px] bg-white rounded-[10px] shadow-lg p-[16px] desktop:p-[32px]">
+         style={{ fontFamily: "var(--font-poppins)" }}>
+          <div className="w-[350px] desktop:w-[488px] bg-white rounded-[10px] shadow-lg p-[16px] desktop:p-[32px]">
         {/* Title */}
-        <h1 className="text-[20px] desktop:text-[24px] font-bold leading-[28px] desktop:leading-[32px] text-center text-gray-900 mb-[24px]">
+       <p className="text-[20px] desktop:text-[24px] font-bold leading-[28px] desktop:leading-[32px] text-center desktop:text-start text-gray-900 mb-[8px]">
           Create a FREE account to download, edit and manage your QR codes
-        </h1>
+        </p>
+       
+        <p className="text-[16px] font-regular leading-[24px] text-center desktop:text-start text-[#3F3E3E] mb-[32px]">
+          Join millions of users already using the smartest QR Code Generator!
+        </p>
 
         {/* Form */}
         <div className="space-y-[24px]">
@@ -35,6 +38,7 @@ export default function SignupBody() {
             placeholder="Enter your email"
             type="email"
             leading={<Mail size={20} />}
+            desktopWidth={424}
             />
 
           {/* Password Input */}
@@ -53,24 +57,16 @@ export default function SignupBody() {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
             }
+            desktopWidth={424}
             />
-          {/* Log In Button */}
+          {/* Signup In Button */}
           <button
             onClick={handleSubmit}
-            className="w-[318px] desktop:w-[336px] h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium py-3.5 rounded-[10px] transition-colors duration-200"
+            className="w-[318px] desktop:w-[424px] h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium py-3.5 rounded-[10px] transition-colors duration-200"
           >
-            Log in
+           Create Account
           </button>
-
-          {/* Forgot Password */}
-          <div className="text-center text-[14px] leading-[22px] font-regular">
-            <span className="text-gray-600">Forgot your password? </span>
-             <Link href="/forget_password"
-              className="text-[14px] text-[#01A56D] leading-[22px] hover:text-[#01A56D] font-medium"
-            >
-              Click here
-            </Link>
-          </div>
+        
         </div>
 
         {/* Divider */}
@@ -137,7 +133,7 @@ export default function SignupBody() {
             Sign up
           </Link>
         </div>
-      </div>
+          </div> 
     </div>
     </Container>
    );

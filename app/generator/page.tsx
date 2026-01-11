@@ -13,6 +13,7 @@ import VcardQr from "@/components/icons/vcard-qr";
 import VideoQr from "@/components/icons/video-qr";
 import WebsiteUrl from "@/components/icons/website-url-qr";
 import WifiQr from "@/components/icons/wifi-qr";
+import CreateArrow from "@/components/icons/create_arrow";
 import App from "next/app";
 const qrTypes = [
   {
@@ -101,20 +102,44 @@ const qrTypes = [
   },
 ];
 
-export default function GeneratorPage() {
+interface ArrowProps {
+  hideOnMobile?: boolean;
+}
+
+function cn(...classes: (string | undefined | false)[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+function Arrow({ hideOnMobile = false }: ArrowProps) {
   return (
-    <div className="bg-[var(--Generator-Background)] pb-28">
-      <Container>
-        <div className=" desktopDashboard:py-12">
+    <div className={cn(
+      "absolute top-[78px] left-[-50px] arrow-create-page",
+      hideOnMobile && "hidden lg:block" // hidden on mobile if prop is true
+    )}>
+      <CreateArrow />
+    </div>
+  );
+}
+
+interface GeneratorProps {
+  title?: string,
+  showArrow?: boolean;
+}
+
+export default function GeneratorPage({ showArrow = false, title = 'Choose QR code type' }: GeneratorProps) {
+  return (
+    <div className="bg-[var(--Generator-Background)] pb-20 desktop:pb-28">
+      <div className="desktop:max-w-[1256px] desktop:mx-auto relative">
+        {/* Arrow: hide on mobile */}
+       { showArrow ? <Arrow hideOnMobile /> : <div></div>}
+         <Container>
+         <div className="desktopDashboard:py-12">
+          <h1 className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2 hidden desktop:block">
+            {title}
+          </h1>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">
-              <h1
-                className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2"
-                style={{ fontFamily: "var(--font-poppins)" }}
-              >
-                Choose QR code type
-              </h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5 generator-items-create">
                 {qrTypes.map((type) => (
                   <QRTypeCard
                     key={type.id}
@@ -131,7 +156,8 @@ export default function GeneratorPage() {
             </div>
           </div>
         </div>
-      </Container>
+         </Container>
+      </div>
     </div>
   );
 }

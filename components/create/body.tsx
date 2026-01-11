@@ -8,7 +8,9 @@ export default function Body() {
   return (
    <main>
    {/* {<Hero />} */}
-   <GeneratorPage/>
+   <section className="generator-create-page">
+   <GeneratorPage showArrow={true} title="Get your QR code instantly" />
+   </section>
    <QrInstraction />
    <QrTypes/>
    <Faq/>
