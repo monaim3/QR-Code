@@ -26,6 +26,7 @@ import SimpleText from "@/public/images/generator_img/Simple text.webp";
 import App from "@/public/images/generator_img/App.webp";
 import Menu from "@/public/images/generator_img/Menu.webp";
 import Wifi from "@/public/images/generator_img/wifi.webp";
+import Breadcrumb from "../../components/generator/Breadcrumb"
 
 
 import WifiQr from "@/components/icons/wifi-qr";
@@ -210,10 +211,18 @@ export default function GeneratorPage({ showArrow = false, title = 'Choose QR co
         {/* Arrow: hide on mobile */}
        { showArrow ? <Arrow hideOnMobile /> : <div></div>}
          <Container>
-         <div className="desktopDashboard:py-12">
-          <h1 className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2 hidden desktop:block">
-            {title}
-          </h1>
+         <div className="pt-[24px] desktopDashboard:py-12">
+          <h1
+          className={cn(
+            "text-[24px] desktop:text-[32px] font-bold text-[var(--Black)] leading-[32px] desktop:leading-[40px] desktop:mb-[32px]",
+            showArrow ? "block" : "hidden desktop:block"
+          )}
+        >
+          {title}
+        </h1>
+          <div className="block lg:hidden">
+           {showArrow ? <Breadcrumb /> : <div></div>}
+           </div>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5 generator-items-create">

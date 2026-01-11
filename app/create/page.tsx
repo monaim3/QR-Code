@@ -1,11 +1,19 @@
 import Body from "../../components/create/body";
 import Footer from "../../components/home/Footer";
 import GeneratorHeader from "@/components/generator/Generator_Header";
+import Header from "../../components/home/Header"
 
 export default function Home() {
   return (
     <div>
-      <GeneratorHeader />
+      {/* Desktop header */}
+       <div className="hidden md:block">
+        <GeneratorHeader />
+      </div>
+       {/* Mobile header */}
+      <div className="block md:hidden">
+        <Header />
+      </div>
       <Body />
       <Footer />
     </div>

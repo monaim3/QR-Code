@@ -9,10 +9,16 @@ interface BreadcrumbStep {
   path: string;
 }
 
+// const steps: BreadcrumbStep[] = [
+//   { number: 1, label: "Choose Type", path: "/generator" },
+//   { number: 2, label: "Add content", path: "/generator/content" },
+//   { number: 3, label: "Customize QR design", path: "/generator/customize" },
+// ];
+
 const steps: BreadcrumbStep[] = [
-  { number: 1, label: "Choose Type", path: "/generator" },
-  { number: 2, label: "Add content", path: "/generator/content" },
-  { number: 3, label: "Customize QR design", path: "/generator/customize" },
+  { number: 1, label: "Choose QR code Type", path: "/generator" },
+  { number: 2, label: "", path: "/generator/content" },
+  { number: 3, label: "", path: "/generator/customize" },
 ];
 
 export default function Breadcrumb() {
