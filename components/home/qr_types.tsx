@@ -271,7 +271,7 @@ export default function QrTypes() {
                   }}
                   className="flex justify-center"
                 >
-                  <div className="w-[350px] h-[340px] relative">
+                  <div className="w-[300px] desktop:w-[350px] relative">
                   <img
                     src={
                       QrTypeData.find((qr) => qr.id === activeTab)?.contentImagePath ||
@@ -281,9 +281,7 @@ export default function QrTypes() {
                       QrTypeData.find((qr) => qr.id === activeTab)?.title ||
                       "QR Code Example"
                     }
-                    width={700}      // original image size
-                    height={680}     // original image size
-                    className="object-contain"             // optional if using container div
+                    className=""             // optional if using container div
                   />
                   </div>
                 </motion.div>

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="bg-[#F5F6FA] pt-14 desktop:pt-[120px]">
+    <section className="bg-[#F5F6FA] pt-16 desktop:pt-[120px]">
       <Container className="px-0 desktop:px-5">
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col gap-4 items-center justify-center mb-8 px-5">

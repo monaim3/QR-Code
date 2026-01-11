@@ -133,12 +133,12 @@ const handleItemClick = (index: number) => {
             <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or <a href="#" className="text-[var(--Blue)] underline">contact us</a>
             </p>
           </div>
-          {/* Mobile Dropdown */}
-        <div className="relative w-[300px]">
+
+        <div className="relative w-full desktop:w-[350px]">
       {/* Dropdown button */}
       <button
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="w-full flex items-center justify-between px-4 py-2 h-[48px] bg-white border border-[var(--Boarder-Grey)] rounded-lg text-[var(--Dark-gray)] font-medium"
+        className="w-full flex items-center justify-between px-4 py-2 h-[48px] border border-[var(--Boarder-Grey)] rounded-lg text-[var(--Dark-gray)] font-medium"
       >
         <span>
           {activeTab
@@ -163,7 +163,7 @@ const handleItemClick = (index: number) => {
           />
 
           {/* Dropdown items */}
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-4 flex flex-col gap-2">
+          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 p-4 flex flex-col gap-2">
             {FaqData.map((tab) => {
               const isActive = activeTab === tab.id;
 
@@ -179,7 +179,7 @@ const handleItemClick = (index: number) => {
                   {/* Item wrapper with left/right padding and hover/selected background */}
                   <div
                     className={cn(
-                      "flex items-center justify-between w-full max-w-[calc(100%-32px)] px-4 h-[40px] rounded-md transition-colors",
+                      "flex items-center justify-between w-full px-4 h-[40px] rounded-md transition-colors",
                       isActive
                         ? "bg-[#9BA2FB]/10 text-[var(--Dark-gray)]"
                         : "text-[var(--Dark-gray)] hover:bg-[#9BA2FB]/10"
@@ -258,7 +258,7 @@ const handleItemClick = (index: number) => {
             })}
           </div>
           
-          <div className="w-full flex flex-col items-center pt-[56px] gap-4">
+          <div className="w-full flex flex-col items-center pt-[40px] desktop:pt-[56px] gap-4">
             <Accordion
             type="single"
             collapsible

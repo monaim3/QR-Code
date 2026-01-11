@@ -11,7 +11,7 @@ export default function MobileFrame({
 }: MobileFrameProps) {
   const dimensions =
     size === "desktop"
-      ? { width: "w-[280px]", height: "h-[560px]", marginTop: "mt-6" }
+      ? { width: "w-[280px]", height: "h-[560px]"}
       : { width: "w-[235px]", height: "h-[483px]", marginTop: "mt-0" };
 
   return (
