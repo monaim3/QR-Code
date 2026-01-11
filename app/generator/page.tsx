@@ -122,10 +122,11 @@ function Arrow({ hideOnMobile = false }: ArrowProps) {
 }
 
 interface GeneratorProps {
+  title?: string,
   showArrow?: boolean;
 }
 
-export default function GeneratorPage({ showArrow = false }: GeneratorProps) {
+export default function GeneratorPage({ showArrow = false, title = 'Choose QR code type' }: GeneratorProps) {
   return (
     <div className="bg-[var(--Generator-Background)] pb-20 desktop:pb-28">
       <div className="flex flex-row item-center justify-center desktop:w-[1256px] desktop:mx-auto desktop:px-5 relative">
@@ -135,7 +136,7 @@ export default function GeneratorPage({ showArrow = false }: GeneratorProps) {
          className={( showArrow ? "" : "m-x-auto")}>
          <div className="desktopDashboard:py-12">
           <h1 className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2 hidden desktop:block">
-            Choose QR code type
+            {title}
           </h1>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">
