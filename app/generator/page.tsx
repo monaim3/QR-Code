@@ -211,7 +211,7 @@ export default function GeneratorPage({ showArrow = false, title = 'Choose QR co
         {/* Arrow: hide on mobile */}
        { showArrow ? <Arrow hideOnMobile /> : <div></div>}
          <Container>
-         <div className="pt-[24px] desktopDashboard:py-12">
+         <div className="desktopDashboard:py-12">
           <h1
           className={cn(
             "text-[24px] desktop:text-[32px] font-bold text-[var(--Black)] leading-[32px] desktop:leading-[40px] desktop:mb-[32px]",

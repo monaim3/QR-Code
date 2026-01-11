@@ -44,7 +44,7 @@ export default function MobileFrame({
         <div className="absolute -left-[12px] top-[150px] w-[6px] h-[40px] bg-black rounded-l-md" />
         <div className="absolute -left-[12px] top-[200px] w-[6px] h-[40px] bg-black rounded-l-md" />
 
-        <div className="w-full h-full  pb-2">{children}</div>
+        <div className="w-full h-full">{children}</div>
       </div>
     </div>
   );
