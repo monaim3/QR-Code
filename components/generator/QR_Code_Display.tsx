@@ -1,5 +1,5 @@
 import Image from "next/image";
-import InitialQrCode from "@/components/icons/initial-qr-code";
+import WebsiteQr from "../icons/website-qr";
 
 interface QRCodeDisplayProps {
   qrCodeSrc?: string;
@@ -18,7 +18,7 @@ export default function QRCodeDisplay({ qrCodeSrc }: QRCodeDisplayProps) {
             className="object-contain"
           />
         ) : (
-          <InitialQrCode />
+          <WebsiteQr />
         )}
       </div>
     </div>

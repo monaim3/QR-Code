@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { store } from "@/store/index";
+import ReduxProvider from "@/store/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -78,7 +80,10 @@ export default function RootLayout({
       lang="en"
       className={`${Poppins.variable} ${HelveticaNeue.variable} ${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${rubik.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {" "}
+        <ReduxProvider>{children}</ReduxProvider>
+      </body>
     </html>
   );
 }

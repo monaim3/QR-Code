@@ -5,8 +5,8 @@ import HelpIcon from "./HelpIcon";
 
 export default function GeneratorHeader() {
   return (
-    <header>
-      <div className="w-full border-b border-[var(--Boarder-Grey)] bg-white">
+    <header className="sticky top-0 z-50">
+      <div className="w-full border-b border-[var(--Boarder-Grey)] bg-white  ">
         <Container>
           <div className="py-5">
             <div className="flex items-center justify-between">
