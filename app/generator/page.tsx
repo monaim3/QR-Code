@@ -13,7 +13,7 @@ import SocialQr from "@/components/icons/social-qr";
 import VcardQr from "@/components/icons/vcard-qr";
 import VideoQr from "@/components/icons/video-qr";
 import WebsiteUrlQr from "@/components/icons/website-url-qr";
-
+import WebsiteUrlMobileFramBg from "@/components/icons/website-url-mobile-fram-bg";
 import WifiQr from "@/components/icons/wifi-qr";
 const qrTypes = [
   {

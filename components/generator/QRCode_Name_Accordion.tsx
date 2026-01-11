@@ -39,7 +39,7 @@ export default function QRCodeNameAccordion({
       </button>
       {isOpen && (
         <>
-          <hr className="ml-8 mr-8 border border-[var(--Boarder-Grey)]" />
+          <hr className="ml-8 mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
           <div className="p-8 ">
             <div className="flex flex-col gap-2">
               <label

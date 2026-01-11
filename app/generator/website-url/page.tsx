@@ -9,7 +9,6 @@ import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
 import PreviewQRButtons from "@/components/generator/Preview_QR_Buttons";
 import MobileFrame from "@/components/common/MobileFrame";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
-import WebsiteUrlMobileFramBg from "@/components/icons/website-url-mobile-fram-bg";
 import Container from "@/components/common/parent-container";
 
 const urlSchema = z.string().url("Please enter a valid URL");
@@ -43,12 +42,12 @@ export default function WebsiteUrlPage() {
   };
 
   return (
-    <div className=" bg-[var(--Generator-Background)] pb-32">
+    <div className="bg-[var(--Generator-Background)] min-h-[100dvh] ">
       <Container>
-        <div className=" py-8 desktopDashboard:py-12 ">
+        <div className=" py-0 desktopDashboard:py-12 ">
           <div className="flex flex-col desktop:flex-row gap-8">
             <div className="flex-1 flex flex-col gap-4">
-              <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) mb-6">
+              <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block ">
                 Add content to the Website URL QR code
               </h1>
               <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
@@ -72,7 +71,8 @@ export default function WebsiteUrlPage() {
                 </button>
                 {isUrlAccordionOpen && (
                   <>
-                    <hr className="ml-8 mr-8 border border-[var(--Boarder-Grey)]" />
+                    <hr className="ml-8 mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
+
                     <div className="p-8 ">
                       <div className="flex flex-col gap-2">
                         <label
@@ -118,13 +118,15 @@ export default function WebsiteUrlPage() {
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
               />
-              <MobileFrame>
+              <div className="-mt-6">
+                 <MobileFrame>
                 {activeTab === "preview" ? (
                   <WebsiteUrlPreview url={websiteUrl} />
                 ) : (
                   <QRCodeDisplay />
                 )}
               </MobileFrame>
+              </div>
             </div>
           </div>
         </div>
