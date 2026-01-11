@@ -94,24 +94,27 @@ export default function LanguageSelector({
                   )
                   .map((lang) => (
                     <CommandItem
-                      key={lang.value}
-                      value={lang.value}
-                      onSelect={(currentValue) => {
-                        setValue(currentValue);
-                        setOpen(false);
-                      }}
-                      className="px-4 py-1 text-[14px] leading-[22px] cursor-pointer aria-selected:bg-[#9BA2FB]/10 rounded-[8px] mb-1"
+                    key={lang.value}
+                    value={lang.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue);
+                      setOpen(false);
+                    }}
+                    className="group px-4 py-1 text-[14px] leading-[22px] cursor-pointer
+                              aria-selected:bg-[#9BA2FB]/10 rounded-[8px] mb-1"
+                  >
+                    <span
+                      className={cn(
+                        "transition-colors",
+                        value === lang.value
+                          ? "font-medium text-black"
+                          : "font-normal text-gray-600",
+                        "group-hover:text-[var(--Blue)]"
+                      )}
                     >
-                      <span
-                        className={cn(
-                          value === lang.value
-                            ? "font-medium text-black"
-                            : "font-normal text-gray-600 hover:text-[var(--Blue)]"
-                        )}
-                      >
-                        {lang.label}
-                      </span>
-                    </CommandItem>
+                      {lang.label}
+                    </span>
+                  </CommandItem>
                   ))}
               </CommandGroup>
             </CommandList>
