@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/lib/utils";
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +10,7 @@ import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 import Container from "../common/parent-container";
 import { motion, AnimatePresence } from "framer-motion";
+import { Check } from "lucide-react";
 
 class FaqTabItem {
   id: number;
@@ -132,45 +134,67 @@ const handleItemClick = (index: number) => {
             </p>
           </div>
           {/* Mobile Dropdown */}
-          <div className="relative w-full desktop:w-[350px] mb-10 desktop:mb-14">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-full flex items-center justify-between px-4 py-2 h-[48px] bg-white border border-[var(--Boarder-Grey)] rounded-lg text-[var(--Dark-gray)] font-medium">
-              <span>{activeTabItem?.tabName}</span>
-              <ChevronDown
-                className={`size-5 stroke-[var(--Dark-gray)] transition-transform ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+        <div className="relative w-[300px]">
+      {/* Dropdown button */}
+      <button
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className="w-full flex items-center justify-between px-4 py-2 h-[48px] bg-white border border-[var(--Boarder-Grey)] rounded-lg text-[var(--Dark-gray)] font-medium"
+      >
+        <span>
+          {activeTab
+            ? FaqData.find((tab) => tab.id === activeTab)?.tabName
+            : "Select Tab"}
+        </span>
+        <ChevronDown
+          className={cn(
+            "size-5 stroke-[var(--Dark-gray)] transition-transform",
+            isDropdownOpen ? "rotate-180" : ""
+          )}
+        />
+      </button>
 
-            {isDropdownOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => setIsDropdownOpen(false)}
-                />
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1">
-                  {FaqData.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => {
-                         handleTabChange(tab.id);
-                        setIsDropdownOpen(false);
-                      }}
-                      className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors ${
-                        activeTab === tab.id
-                          ? "bg-[var(--Blue)] text-white"
-                          : "text-[var(--Dark-gray)] hover:bg-gray-50"
-                      }`}>
-                      {tab.tabName}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
+      {/* Dropdown list */}
+      {isDropdownOpen && (
+        <>
+          {/* Click outside overlay */}
+          <div
+            className="fixed inset-0 z-10"
+            onClick={() => setIsDropdownOpen(false)}
+          />
+
+          {/* Dropdown items */}
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-4 flex flex-col gap-2">
+            {FaqData.map((tab) => {
+              const isActive = activeTab === tab.id;
+
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    handleTabChange(tab.id);
+                    setIsDropdownOpen(false);
+                  }}
+                  className="w-full flex justify-center"
+                >
+                  {/* Item wrapper with left/right padding and hover/selected background */}
+                  <div
+                    className={cn(
+                      "flex items-center justify-between w-full max-w-[calc(100%-32px)] px-4 h-[40px] rounded-md transition-colors",
+                      isActive
+                        ? "bg-[#9BA2FB]/10 text-[var(--Dark-gray)]"
+                        : "text-[var(--Dark-gray)] hover:bg-[#9BA2FB]/10"
+                    )}
+                  >
+                    <span>{tab.tabName}</span>
+                    {isActive && <Check className="size-4 text-[var(--Blue)]" />}
+                  </div>
+                </button>
+              );
+            })}
           </div>
-
+        </>
+      )}
+        </div>
           {/* Desktop Tabs */}
           <div
             ref={scrollContainerRef}
@@ -233,7 +257,8 @@ const handleItemClick = (index: number) => {
               );
             })}
           </div>
-          <div className="w-full flex flex-col items-center gap-4">
+          
+          <div className="w-full flex flex-col items-center pt-[56px] gap-4">
             <Accordion
             type="single"
             collapsible
