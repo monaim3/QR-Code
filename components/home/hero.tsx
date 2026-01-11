@@ -60,52 +60,40 @@ export default function Hero() {
           <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB] px-4 desktop:px-0">
             <div
               className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-12">
-              <Image
+              <img
                 src="/images/brand/toyota.svg"
-                alt="Nestle"
-                width={116}
-                height={32}
-                className="w-[116px] h-auto"
+                alt="Toyota"
+                className="h-6"
               />
 
-              <Image
+              <img
                 src="/images/brand/netflix.svg"
-                alt="Adidas"
-                width={46}
-                height={32}
-                className="w-[46px] h-auto"
+                alt="Netflix"
+                className="h-6"
               />
 
-              <Image
+              <img
                 src="/images/brand/disney.svg"
-                alt="Marriott"
-                width={101}
-                height={32}
-                className="w-[101px] h-auto"
+                alt="Disney"
+                className="h-7"
               />
 
-              <Image
+              <img
                 src="/images/brand/oracle.svg"
-                alt="L'Oreal"
-                width={133}
-                height={24}
-                className="w-[133px] h-auto"
+                alt="Oracle"
+                className="h-6"
               />
 
-              <Image
+              <img
                 src="/images/brand/delta.svg"
-                alt="DHL"
-                width={170}
-                height={32}
-                className="w-[170px] h-auto"
+                alt="Delta"
+                className="h-6"
               />
 
-              <Image
+              <img
                 src="/images/brand/fedex_express.svg"
-                alt="Hilton"
-                width={86}
-                height={32}
-                className="w-[86px] h-auto"
+                alt="Fedex Express"
+                className="h-7"
               />
             </div>
           </div>

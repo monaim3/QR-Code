@@ -133,6 +133,7 @@
     border-radius: 10px;
     min-height: 24px;
   }
+
   @media screen and (min-width: 739px) {
       .generator-create-page {
         background: var(--Generator-Background, #F5F6FA);
@@ -152,6 +153,9 @@
         gap: 8px !important;
         text-align: center;
         padding: 22px 14px !important;
+      }
+
+      .generator-create-page .arrow-create-page {
       }
   }
 }

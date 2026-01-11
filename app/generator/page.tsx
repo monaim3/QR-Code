@@ -113,7 +113,7 @@ function cn(...classes: (string | undefined | false)[]) {
 function Arrow({ hideOnMobile = false }: ArrowProps) {
   return (
     <div className={cn(
-      "pt-[70px] ml-[40px]",
+      "absolute top-[78px] left-[-50px] arrow-create-page",
       hideOnMobile && "hidden lg:block" // hidden on mobile if prop is true
     )}>
       <CreateArrow />
@@ -127,12 +127,12 @@ interface GeneratorProps {
 
 export default function GeneratorPage({ showArrow = false }: GeneratorProps) {
   return (
-    <div className="bg-[var(--Generator-Background)] pb-28">
-      <div className="flex flex-row item-center justify-center ">
+    <div className="bg-[var(--Generator-Background)] pb-20 desktop:pb-28">
+      <div className="flex flex-row item-center justify-center desktop:w-[1256px] desktop:mx-auto desktop:px-5 relative">
         {/* Arrow: hide on mobile */}
        { showArrow ? <Arrow hideOnMobile /> : <div></div>}
          <Container px={ showArrow ? 0 : 20} 
-         className={( showArrow ? "ml-[20px] desktop:ml-[40px]" : "ml-[0px] desktop:ml-[90px]")}>
+         className={( showArrow ? "" : "m-x-auto")}>
          <div className="desktopDashboard:py-12">
           <h1 className="text-2xl font-bold text-[var(--Black)] mb-4 pt-2 hidden desktop:block">
             Choose QR code type

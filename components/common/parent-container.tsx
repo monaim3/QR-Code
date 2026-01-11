@@ -15,7 +15,7 @@ export default function Container({
   px = 20,
 }: ContainerProps) {
   return (
-    <div className={cn("max-w-[1256px] mx-auto", className)}
+    <div className={cn("w-100% desktop:w-[1256px] mx-auto relative", className)}
       style={{ 
         backgroundColor: bgColor,
         paddingLeft: px,
