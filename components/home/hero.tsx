@@ -59,41 +59,41 @@ export default function Hero() {
           {/* Brand Icons */}
           <div className="w-full py-10 desktop:py-16 border-t border-[#D3D8EB] px-4 desktop:px-0">
             <div
-              className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-12">
+              className="flex flex-wrap items-center justify-items-center justify-center desktop:justify-between gap-8">
               <img
                 src="/images/brand/toyota.svg"
                 alt="Toyota"
-                className="h-6"
+                className="h-5 desktop:h-6"
               />
 
               <img
                 src="/images/brand/netflix.svg"
                 alt="Netflix"
-                className="h-6"
+                className="h-5 desktop:h-6"
               />
 
               <img
                 src="/images/brand/disney.svg"
                 alt="Disney"
-                className="h-7"
+                className="h-5 desktop:h-7"
               />
 
               <img
                 src="/images/brand/oracle.svg"
                 alt="Oracle"
-                className="h-6"
+                className="h-5 desktop:h-6 w-full flex justify-center desktop:w-auto"
               />
 
               <img
                 src="/images/brand/delta.svg"
                 alt="Delta"
-                className="h-6"
+                className="h-5 desktop:h-6"
               />
 
               <img
                 src="/images/brand/fedex_express.svg"
                 alt="Fedex Express"
-                className="h-7"
+                className="h-5 desktop:h-6"
               />
             </div>
           </div>
