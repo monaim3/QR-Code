@@ -1,4 +1,3 @@
-import Container from "@/components/common/parent-container";
 import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import GeneratorHeader from "@/components/generator/Generator_Header";
 
