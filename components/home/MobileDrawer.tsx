@@ -23,7 +23,7 @@ export function MobileDrawer({ isOpen, setIsOpen }: Props) {
       )}>
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        className="absolute inset-0 bg-[#212023] opacity-80 transition-opacity duration-300 ease-linear"
         onClick={() => setIsOpen(false)}
       />
 

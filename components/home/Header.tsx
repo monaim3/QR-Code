@@ -66,7 +66,7 @@ export default function Header() {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+          className="absolute inset-0 bg-[#212023] opacity-80 transition-opacity duration-300 ease-linear"
           onClick={() => setIsDrawerOpen(false)}
         />
 
@@ -109,11 +109,10 @@ export default function Header() {
             {item}
           </Link>
         ))}
-        
-        <LanguageSelector layout="gapBetween" mobileDrawer={true}/>
-        </nav>
-    </div>
 
+       <LanguageSelector layout="gapBetween" mobileDrawer={true}/>
+        </nav>
+      </div>
     {/* Footer Login Button */}
     <div>
       <Link
