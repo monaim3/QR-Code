@@ -57,10 +57,11 @@ export default function Breadcrumb() {
               {step.number}
             </div>
             <span
-              className={`text-[14px] font-normal leading-[22px] font-roboto block ${
+              className={`text-[14px] font-normal leading-[22px] font-roboto ${
                 step.number === currentStep
-                  ? "text-[var(--Black)]"
-                  : "text-gray-400"
+                  ? "text-[var(--Black)] block"
+                  : "text-gray-400 " +
+                    (currentStep === 1 ? "hidden md:block" : "block")
               }`}
             >
               <span className="hidden md:inline">{step.label}</span>
