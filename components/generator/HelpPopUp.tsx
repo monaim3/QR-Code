@@ -38,16 +38,29 @@ export default function HelpPopUp({ open, onClose }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[500px] p-0 gap-0">
-        <div className="w-full h-[300px]">
+      <DialogContent className="max-w-[500px] w-[calc(100%-40px)] p-0 gap-0">
+        {/* Image */}
+        <div className="w-full desktop:h-[300px] h-[210px] relative">
+          {/* Desktop Image */}
           <Image
             src={helpSteps[activeStep - 1].image}
             alt={helpSteps[activeStep - 1].title}
-            height={300}
-            width={500}
-            className="w-full h-full object-cover"
+            fill
+            sizes="100vw"
+            className="hidden desktop:block object-cover rounded-t-[var(--Corner-Radius-10)]"
+          />
+
+          {/* Mobile Image */}
+          <Image
+            src={helpSteps[activeStep - 1].mobileImage}
+            alt={helpSteps[activeStep - 1].title}
+            fill
+            sizes="100vw"
+            className="block desktop:hidden object-cover rounded-t-[var(--Corner-Radius-10)]"
           />
         </div>
+
+        {/* Progress Bar */}
         <div className="w-full h-1 relative p-0">
           <div className="w-full h-full bg-[var(--Boarder-Grey)]"></div>
           <div
@@ -55,7 +68,9 @@ export default function HelpPopUp({ open, onClose }: Props) {
             style={{ width: progressWidth }}
           ></div>
         </div>
-        <div className="flex flex-col items-start gap-6 self-stretch p-8">
+
+        {/* Content */}
+        <div className="flex flex-col items-start gap-6 self-stretch desktop:p-8 p-6">
           <div className="flex flex-col items-start gap-2 self-stretch">
             <p
               className="text-[var(--Blue)] text-[16px] font-medium leading-[24px] self-stretch
