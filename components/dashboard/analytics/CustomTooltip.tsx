@@ -2,9 +2,10 @@ interface Props {
   active?: boolean;
   payload?: { value: number }[];
   label?: string;
+  isHeatmap?: boolean;
 }
 
-interface TooltipPayload {
+export interface TooltipPayload {
   name: string;
   value: number;
   fill: string;
@@ -13,7 +14,12 @@ interface TooltipPayload {
   };
 }
 
-export default function CustomTooltip({ active, payload, label }: Props) {
+export default function CustomTooltip({
+  active,
+  payload,
+  label,
+  isHeatmap,
+}: Props) {
   if (active && payload && payload.length) {
     const data = payload[0] as TooltipPayload;
     const scanCount = data.payload.scans || 0;
@@ -27,12 +33,14 @@ export default function CustomTooltip({ active, payload, label }: Props) {
           {label || data.name}
         </p>
         <p className="text-[var(--Dark-gray)] text-center text-[14px] leading-[22px] font-semibold">
-          {label
+          {isHeatmap
+            ? `${scanCount} scans`
+            : label
             ? `${payload[0].value} total scans`
             : `${scanCount} scans (${data.value}%)`}
         </p>
 
-        <div className="w-3 h-3 rotate-45 absolute right-[51.515px] bottom-[-5.971px] bg-white"></div>
+        <div className="w-3 h-3 rotate-45 absolute right-[51.515px] bottom-[-5.971px] bg-white left-1/2 -translate-x-1/2"></div>
       </div>
     );
   }

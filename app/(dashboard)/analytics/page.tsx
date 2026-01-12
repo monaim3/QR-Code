@@ -2,6 +2,7 @@ import DonutCharts from "@/components/dashboard/analytics/DonutCharts";
 import AnalyticsFilter from "@/components/dashboard/analytics/Filter";
 import KPIs from "@/components/dashboard/analytics/KPIs";
 import ScanActivity from "@/components/dashboard/analytics/ScanActivity";
+import ScanHeatmap from "@/components/dashboard/analytics/ScanHeatmap";
 
 export default function Analytics() {
   return (
@@ -25,6 +26,9 @@ export default function Analytics() {
 
         {/* Donut Charts */}
         <DonutCharts />
+
+        {/* Scans Heatmap */}
+        <ScanHeatmap />
       </div>
     </>
   );
