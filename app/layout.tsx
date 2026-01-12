@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Rubik, Roboto as GoogleRoboto } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { store } from "@/store/index";
+import ReduxProvider from "@/store/ReduxProvider";
 
 // Google Fonts
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -32,7 +34,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${Poppins.variable} ${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${rubik.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {" "}
+        <ReduxProvider>{children}</ReduxProvider>
+      </body>
     </html>
   );
 }
