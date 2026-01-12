@@ -221,7 +221,7 @@ export default function GeneratorPage({ showArrow = false, title = 'Choose QR co
         {title}
         </h1>
           <div className="block lg:hidden">
-           {showArrow ? <Breadcrumb useMobileSteps={true} /> : <div></div>}
+           {<Breadcrumb useMobileSteps={true} />}
            </div>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">

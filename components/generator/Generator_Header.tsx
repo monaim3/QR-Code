@@ -19,13 +19,13 @@ export default function GeneratorHeader() {
           </div>
         </Container>
       </div>
-      <div className="bg-[var(--Generator-Background)]">
+      {/* {<div className="bg-[var(--Generator-Background)]">
         <Container>
           <div className="md:hidden ">
             <Breadcrumb />
           </div>
         </Container>
-      </div>
+      </div>} */}
     </header>
   );
 }

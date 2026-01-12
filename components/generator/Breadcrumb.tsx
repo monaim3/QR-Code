@@ -62,7 +62,7 @@ export default function Breadcrumb({ useMobileSteps = false }: BreadcrumbProps) 
               className={`flex items-center justify-center w-7 h-7 rounded-full text-[14px] font-medium transition-colors ${
                 step.number === currentStep
                   ? "bg-[var(--Blue)] text-white"
-                  : "border border-[var(--breadcrumb)] text-[var(--breadcrumb)]"
+                  : "border border-[#D3D8EB] text-[#79809A]"
               }`}
             >
               {step.number}
@@ -72,7 +72,7 @@ export default function Breadcrumb({ useMobileSteps = false }: BreadcrumbProps) 
               className={`text-[14px] font-normal leading-[22px] font-roboto block ${
                 step.number === currentStep
                   ? "text-[var(--Black)]"
-                  : "text-gray-400"
+                  : "text-[#79809A]"
               }`}
             >
               <span className="hidden md:inline">{step.label}</span>
@@ -91,7 +91,7 @@ export default function Breadcrumb({ useMobileSteps = false }: BreadcrumbProps) 
           </button>
 
           {index < data.length - 1 && (
-            <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
+            <ChevronRight className={`w-4 h-4 text-[#79809A]`} />
           )}
         </div>
       ))}
