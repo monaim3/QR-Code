@@ -214,14 +214,14 @@ export default function GeneratorPage({ showArrow = false, title = 'Choose QR co
          <div className="desktopDashboard:py-12">
           <h1
           className={cn(
-            "text-[24px] desktop:text-[32px] font-bold text-[var(--Black)] leading-[32px] desktop:leading-[40px] desktop:mb-[32px]",
+            "pt-6 desktop:pt-0 text-[24px] desktop:text-[32px] font-bold text-[var(--Black)] leading-[32px] desktop:leading-[40px] desktop:mb-[32px]",
             showArrow ? "block" : "hidden desktop:block"
           )}
         >
-          {title}
+        {title}
         </h1>
           <div className="block lg:hidden">
-           {showArrow ? <Breadcrumb /> : <div></div>}
+           {showArrow ? <Breadcrumb useMobileSteps={true} /> : <div></div>}
            </div>
           <div className="flex flex-col lg:flex-row gap-10">
             <div className="flex-1">

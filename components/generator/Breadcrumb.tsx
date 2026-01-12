@@ -9,19 +9,23 @@ interface BreadcrumbStep {
   path: string;
 }
 
-// const steps: BreadcrumbStep[] = [
-//   { number: 1, label: "Choose Type", path: "/generator" },
-//   { number: 2, label: "Add content", path: "/generator/content" },
-//   { number: 3, label: "Customize QR design", path: "/generator/customize" },
-// ];
+interface BreadcrumbProps {
+  useMobileSteps?: boolean;
+}
 
 const steps: BreadcrumbStep[] = [
-  { number: 1, label: "Choose QR code Type", path: "/generator" },
+  { number: 1, label: "Choose Type", path: "/generator" },
+  { number: 2, label: "Add content", path: "/generator/content" },
+  { number: 3, label: "Customize QR design", path: "/generator/customize" },
+];
+
+const mobileSteps: BreadcrumbStep[] = [
+  { number: 1, label: "Choose QR code type", path: "/generator" },
   { number: 2, label: "", path: "/generator/content" },
   { number: 3, label: "", path: "/generator/customize" },
 ];
 
-export default function Breadcrumb() {
+export default function Breadcrumb({ useMobileSteps = false }: BreadcrumbProps) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -34,6 +38,7 @@ export default function Breadcrumb() {
   };
 
   const currentStep = getCurrentStep();
+  const data = useMobileSteps ? mobileSteps : steps;
 
   const handleStepClick = (step: BreadcrumbStep) => {
     if (step.number <= currentStep) {
@@ -43,7 +48,7 @@ export default function Breadcrumb() {
 
   return (
     <div className="flex items-center py-6 desktopDashboard:py-0 gap-2 desktopDashboard:gap-6">
-      {steps.map((step, index) => (
+      {data.map((step, index) => (
         <div
           key={step.number}
           className="flex items-center gap-2 desktopDashboard:gap-6"
@@ -62,6 +67,7 @@ export default function Breadcrumb() {
             >
               {step.number}
             </div>
+
             <span
               className={`text-[14px] font-normal leading-[22px] font-roboto block ${
                 step.number === currentStep
@@ -70,16 +76,25 @@ export default function Breadcrumb() {
               }`}
             >
               <span className="hidden md:inline">{step.label}</span>
-              <span className="md:hidden">{step.label.split(" ").pop()}</span>
+
+              {/* Mobile view */}
+              <span className="md:hidden">
+                {useMobileSteps
+                  ? step.number === currentStep
+                    ? step.label
+                    : "" // hide others
+                  : step.label.split(" ").pop() // fallback for normal mobileSteps
+                }
+              </span>
+
             </span>
           </button>
 
-          {index < steps.length - 1 && (
+          {index < data.length - 1 && (
             <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
           )}
         </div>
       ))}
     </div>
-
   );
 }
