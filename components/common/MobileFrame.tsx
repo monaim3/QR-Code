@@ -11,12 +11,12 @@ export default function MobileFrame({
 }: MobileFrameProps) {
   const dimensions =
     size === "desktop"
-      ? { width: "w-[280px]", height: "h-[560px]", marginTop: "mt-6" }
-      : { width: "w-[235px]", height: "h-[483px]", marginTop: "mt-0" };
+      ? { width: "w-[280px]", height: "h-[560px]" }
+      : { width: "w-[235px]", height: "h-[483px]" };
 
   return (
     <div
-      className={`relative ${dimensions.width} ${dimensions.height} ${dimensions.marginTop} mx-auto`}
+      className={`relative ${dimensions.width} ${dimensions.height} mx-auto`}
     >
       <div className="absolute inset-0 rounded-[40px] border-[8px] border-black bg-white ">
         <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-10">
