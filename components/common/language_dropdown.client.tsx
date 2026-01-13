@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
-import { Globe, ChevronUp } from "lucide-react";
-
+import { Globe, ChevronUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,8 +41,10 @@ export default function LanguageSelector({
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("en");
   const [search, setSearch] = React.useState("");
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
+    !mobileDrawer ?
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <div className="relative">
@@ -75,7 +76,6 @@ export default function LanguageSelector({
           </Button>
         </div>
       </PopoverTrigger>
-
       <PopoverContent
         className={cn(
           "p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-9 transition-all",
@@ -121,6 +121,63 @@ export default function LanguageSelector({
           </Command>
         </div>
       </PopoverContent>
-    </Popover>
+    </Popover> 
+    : 
+    <div className="w-full max-w-md p-4">
+      <div>
+        {/* Selected Language Button */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full bg-white p-0 flex items-center justify-between transition-all duration-300"
+        >
+          <div className="flex items-center gap-2">
+              <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
+              <span className={cn("font-regular", textClass)}>
+                {languages.find((lang) => lang.value === value)?.value.toUpperCase()}
+              </span>
+            </div>
+
+          <ChevronDown
+            className={`text-black transition-transform duration-300 ${
+              isExpanded ? 'rotate-180' : 'rotate-0'
+            }`}
+            size={24}
+          />
+        </button>
+
+        {/* Expandable Language List */}
+        <div
+          className={`bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 shadow-xl ${
+            isExpanded ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'
+          }`}
+        >
+          <div className="overflow-y-auto max-h-96">
+            {languages.map((language, index) => (
+              <button
+                key={language.value}
+                onClick={() => setValue(language.value)}
+                className={`w-full p-4 flex items-center justify-between hover:bg-gray-100 transition-all duration-200 ${
+                  value === language.value ? 'bg-gray-50' : ''
+                } ${
+                  isExpanded
+                    ? 'translate-y-0 opacity-100'
+                    : 'translate-y-2 opacity-0'
+                }`}
+                style={{
+                  transitionDelay: isExpanded ? `${index * 30}ms` : '0ms',
+                }}
+              >
+                <span className="text-black font-medium">
+                  {language.label}
+                </span>
+                {value === language.value && (
+                  <span className="text-green-500">✓</span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
