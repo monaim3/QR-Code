@@ -1,9 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import Container from "../common/parent-container";
 import Logo from "../dashboard/layout/Logo";
 import Breadcrumb from "./Breadcrumb";
 import HelpIcon from "./HelpIcon";
+import HelpPopUp from "./HelpPopUp";
 
 export default function GeneratorHeader() {
+  const [helpPopUpOpen, setHelpPopUpOpen] = useState(false);
+
+  const handleOpenHelpPopUp = () => {
+    setHelpPopUpOpen(true);
+  };
+
+  const handleCloseHelpPopUp = () => {
+    setHelpPopUpOpen(false);
+  };
+
   return (
     <header className="sticky top-0 z-50">
       <div className="w-full border-b border-[var(--Boarder-Grey)] bg-white  ">
@@ -14,7 +28,7 @@ export default function GeneratorHeader() {
               <div className="hidden md:flex flex-1 justify-center">
                 <Breadcrumb />
               </div>
-              <HelpIcon />
+              <HelpIcon onClick={handleOpenHelpPopUp} />
             </div>
           </div>
         </Container>
@@ -26,6 +40,9 @@ export default function GeneratorHeader() {
           </div>
         </Container>
       </div>
+
+      {/* Help Pop Up */}
+      <HelpPopUp open={helpPopUpOpen} onClose={handleCloseHelpPopUp} />
     </header>
   );
 }
