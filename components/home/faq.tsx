@@ -262,7 +262,7 @@ const handleItemClick = (index: number) => {
             <Accordion
             type="single"
             collapsible
-            value={openItem} // controlled state
+            value={openItem}
             onValueChange={(val) => setOpenItem(val)}
             className="w-full flex flex-col gap-4"
           >
