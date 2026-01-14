@@ -122,62 +122,67 @@ export default function LanguageSelector({
         </div>
       </PopoverContent>
     </Popover> 
-    : 
-    <div className="w-full max-w-md p-4">
+    :
+   <div className="w-full max-w-md">
       <div>
         {/* Selected Language Button */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full bg-white p-0 flex items-center justify-between transition-all duration-300"
+          className="w-full bg-white flex items-center justify-between transition-all duration-300 py-[20px]"
         >
           <div className="flex items-center gap-2">
-              <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
-              <span className={cn("font-regular", textClass)}>
-                {languages.find((lang) => lang.value === value)?.value.toUpperCase()}
-              </span>
-            </div>
+            <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
+            <span className={cn("font-regular", textClass)}>
+              {languages.find((lang) => lang.value === value)?.label.toUpperCase()}
+            </span>
+          </div>
 
           <ChevronDown
             className={`text-black transition-transform duration-300 ${
-              isExpanded ? 'rotate-180' : 'rotate-0'
+              isExpanded ? "rotate-180" : "rotate-0"
             }`}
             size={24}
           />
         </button>
-
         {/* Expandable Language List */}
         <div
-          className={`bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 shadow-xl ${
-            isExpanded ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'
-          }`}
+          className={`bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)]
+            ${isExpanded ? "max-h-[220px] opacity-100" : "max-h-0 opacity-0"}
+          `}
         >
-          <div className="overflow-y-auto max-h-96">
-            {languages.map((language, index) => (
-              <button
+          {/* Scrollable list with green scrollbar */}
+          <div className="overflow-y-auto max-h-[196px] always-visible-scrollbar px-[8px] py-[8px]">
+         {languages.map((language, index) => {
+            const isSelected = value === language.value;
+            console.log(value,isSelected);
+            return (
+                <button
                 key={language.value}
-                onClick={() => setValue(language.value)}
-                className={`w-full p-4 flex items-center justify-between hover:bg-gray-100 transition-all duration-200 ${
-                  value === language.value ? 'bg-gray-50' : ''
-                } ${
-                  isExpanded
-                    ? 'translate-y-0 opacity-100'
-                    : 'translate-y-2 opacity-0'
-                }`}
+                onClick={() => {
+                  setValue(language.value);
+                  setIsExpanded(false);
+                }}
+                className={cn("w-full p-4 flex items-center justify-between rounded-[8px] mb-1 transform transition-all duration-200 group",
+                  isSelected ? "bg-[#9BA2FB]/10" : "",
+                  !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
+                )}
                 style={{
-                  transitionDelay: isExpanded ? `${index * 30}ms` : '0ms',
+                  transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
                 }}
               >
-                <span className="text-black font-medium">
+                <span
+                  className={`transition-colors duration-200 font-medium ${isSelected ? "text-black" : "text-black hover:text-[var(--Blue)]"}`}>
+
                   {language.label}
-                </span>
-                {value === language.value && (
-                  <span className="text-green-500">✓</span>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
+            </span>
+          </button>
+        );
+      })}
       </div>
-    </div>
+       </div>
+      </div>
+  {/* Divider */}
+  <div className={`border-b border-[#cdd0db80] ${isExpanded ? 'pt-[16px]' : ''}`} />
+  </div>
   );
 }

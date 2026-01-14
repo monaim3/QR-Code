@@ -36,20 +36,16 @@ export default function InputField({
       )}
 
       {/* Input */}
-      <input
+     <input
         type={inputType}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`h-[48px] pl-[68px] pr-${trailing ? "12" : "4"} text-[16px] font-medium leading-[22px] py-3.5 border border-gray-200 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-gray-900 placeholder:text-gray-400`}
-         style={{
+        className={`h-[48px] pl-[68px] pr-${trailing ? "12" : "4"} text-[16px] font-medium leading-[22px] border border-gray-200 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-gray-900 placeholder:text-gray-400 w-[318px] desktop:w-[${desktopWidth}px]`}
+        style={{
           fontFamily: "var(--font-poppins)",
-          width: "318px", // default mobile
-          ...(typeof window !== "undefined" &&
-            window.innerWidth >= 1024 && { width: `${desktopWidth}px` }), // desktop
         }}
       />
-
       {/* Trailing icon/button */}
       {trailing && (
         <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400">
