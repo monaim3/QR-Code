@@ -197,7 +197,7 @@ export default function SignupBody() {
           </div>
             <div className="mt-[64px] gap-[16px]">
               {authFeatureList.map((featre) => {
-                return (<div className="flex gap-[8px] mb-[16px]">
+                return (<div key={featre.id} className="flex gap-[8px] mb-[16px]">
                   <Check className="w-5 h-5 text-gray" />
                   <p className="text-[14px] text-regular leading-[24px]">{featre.label}</p>
                 </div>);

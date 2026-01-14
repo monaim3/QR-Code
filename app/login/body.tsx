@@ -65,7 +65,7 @@ export default function LoginBody() {
           {/* Forgot Password */}
           <div className="text-center text-[14px] leading-[22px] font-regular">
             <span className="text-gray-600">Forgot your password? </span>
-             <Link href="/forget_password"
+             <Link href="/forget-password"
               className="text-[14px] text-[#01A56D] leading-[22px] hover:text-[#01A56D] font-medium"
             >
               Click here
