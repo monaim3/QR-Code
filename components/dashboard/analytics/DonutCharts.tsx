@@ -16,12 +16,8 @@ export default function DonutCharts() {
         data={operatingSystemData}
       />
       <DonutChartCard title={"Scans by QR code name"} data={qrCodeData} />
-      <DonutChartCard
-        title={"Scans by country"}
-        data={countryData}
-        hasMore={true}
-      />
-      <DonutChartCard title={"Scans by city"} data={cityData} hasMore={true} />
+      <DonutChartCard title={"Scans by country"} data={countryData} />
+      <DonutChartCard title={"Scans by city"} data={cityData} />
     </div>
   );
 }

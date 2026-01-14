@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
+import LineChart1 from "@/components/icons/line-chart 1";
 
 export default function ScanActivity() {
   const [selectedPeriod, setSelectedPeriod] = useState("day");
@@ -41,7 +42,7 @@ export default function ScanActivity() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] p-6 font-roboto">
+    <div className="flex flex-col items-center justify-center gap-8 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] p-6 font-roboto relative">
       {/* Heading */}
       <div className="w-full flex items-start gap-4 self-stretch">
         <div className="flex flex-col items-start gap-1 flex-1">
@@ -83,53 +84,68 @@ export default function ScanActivity() {
 
       {/* Chart */}
       <div className="h-[304px] w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={data}
-            margin={{ top: 10, right: 10, left: -36, bottom: 0 }}
-          >
-            <CartesianGrid
-              vertical={false}
-              stroke="rgba(205, 208, 219, 0.50)"
-            />
-            <XAxis
-              dataKey="date"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: "#79809A", fontSize: 12 }}
-              dy={10}
-            />
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: "#79809A", fontSize: 12 }}
-              ticks={[0, 20, 40, 60, 80]}
-            />
-            <Tooltip
-              content={<CustomTooltip />}
-              cursor={false}
-              position={{ y: undefined }}
-              offset={-87}
-              allowEscapeViewBox={{ x: true, y: true }}
-            />
-            <Area
-              type="monotone"
-              dataKey="scans"
-              stroke="#01A56D"
-              strokeWidth={3}
-              fillOpacity={1}
-              fill="url(#colorScans)"
-              activeDot={{
-                r: 6,
-                fill: "#3D75F3",
-                stroke: "white",
-                strokeWidth: 4,
-                width: 12,
-                height: 12,
-              }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+        {data.length > 0 ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={data}
+              margin={{ top: 10, right: 10, left: -36, bottom: 0 }}
+            >
+              <CartesianGrid
+                vertical={false}
+                stroke="rgba(205, 208, 219, 0.50)"
+              />
+              <XAxis
+                dataKey="date"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#79809A", fontSize: 12 }}
+                dy={10}
+              />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#79809A", fontSize: 12 }}
+                ticks={[0, 20, 40, 60, 80]}
+              />
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={false}
+                position={{ y: undefined }}
+                offset={-87}
+                allowEscapeViewBox={{ x: true, y: true }}
+              />
+              <Area
+                type="monotone"
+                dataKey="scans"
+                stroke="#01A56D"
+                strokeWidth={3}
+                fillOpacity={1}
+                fill="url(#colorScans)"
+                activeDot={{
+                  r: 6,
+                  fill: "#3D75F3",
+                  stroke: "white",
+                  strokeWidth: 4,
+                  width: 12,
+                  height: 12,
+                }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <LineChart1 />
+
+            <div className="flex flex-col items-center gap-1">
+              <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
+                No data to display
+              </h4>
+              <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
+                Not enough data to show statistics
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
