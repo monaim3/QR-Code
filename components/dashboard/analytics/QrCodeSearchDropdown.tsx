@@ -18,7 +18,7 @@ const options = [
 export default function QrCodeSearchDropdown() {
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
-  const [selected, setSelected] = React.useState<string[]>(["italian"]);
+  const [selected, setSelected] = React.useState<string[]>([]);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const filteredOptions = options.filter((opt) =>

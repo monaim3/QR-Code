@@ -12,7 +12,7 @@ import CalendarDate from "@/components/icons/calendar-date";
 
 export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 9, 26), // Matching your screenshot (Oct 26)
+    from: new Date(2025, 9, 26),
     to: new Date(2025, 9, 26),
   });
 
@@ -86,11 +86,11 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto h-auto p-6 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]"
+        className="w-auto p-6 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]"
         align="start"
       >
         {/* Sidebar Presets */}
-        <div className="flex flex-col justify-center items-start gap-4 w-[221px] h-[267px]">
+        <div className="flex flex-col justify-center items-start gap-4 w-[221px]">
           {presets.map((preset) => (
             <Button
               key={preset.label}

@@ -2,11 +2,6 @@
 
 import * as React from "react";
 import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "lucide-react";
-import {
   DayPicker,
   getDefaultClassNames,
   type DayButton,
@@ -14,6 +9,9 @@ import {
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
+import ArrowLeft from "../icons/arrow-left";
+import ArrowRight from "../icons/arrow-right";
+import ChevronDownSmall from "../icons/chevron-down-small";
 
 function Calendar({
   className,
@@ -142,25 +140,16 @@ function Calendar({
             />
           );
         },
-        Chevron: ({ className, orientation, ...props }) => {
+        Chevron: ({ orientation }) => {
           if (orientation === "left") {
-            return (
-              <ChevronLeftIcon className={cn("size-4", className)} {...props} />
-            );
+            return <ArrowLeft className="text-[var(--Grey)]" />;
           }
 
           if (orientation === "right") {
-            return (
-              <ChevronRightIcon
-                className={cn("size-4", className)}
-                {...props}
-              />
-            );
+            return <ArrowRight className="text-[var(--Grey)]" />;
           }
 
-          return (
-            <ChevronDownIcon className={cn("size-4", className)} {...props} />
-          );
+          return <ChevronDownSmall className="text-[var(--Grey)]" />;
         },
         DayButton: CalendarDayButton,
         WeekNumber: ({ children, ...props }) => {
