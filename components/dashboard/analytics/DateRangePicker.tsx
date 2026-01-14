@@ -1,6 +1,38 @@
 import * as React from "react";
-import { format, subDays, startOfToday, endOfToday, subMonths } from "date-fns";
+import {
+  format,
+  subDays,
+  startOfToday,
+  endOfToday,
+  subMonths,
+  addMonths,
+  setMonth,
+  setYear,
+  getMonth,
+  getYear,
+} from "date-fns";
 import { DateRange } from "react-day-picker";
+
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+] as const;
+
+const currentYear = new Date().getFullYear();
+const YEARS = Array.from(
+  { length: 6 },
+  (_, i) => currentYear - 5 + i
+).reverse();
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -9,12 +41,56 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import CalendarDate from "@/components/icons/calendar-date";
+import ArrowLeft from "@/components/icons/arrow-left";
+import ArrowRight from "@/components/icons/arrow-right";
+import {
+  Select,
+  SelectValue,
+  SelectContent,
+  SelectTrigger,
+  SelectItem,
+} from "@/components/ui/select";
 
 export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 9, 26),
-    to: new Date(2025, 9, 26),
+    from: startOfToday(),
+    to: endOfToday(),
   });
+
+  const [currentMonth, setCurrentMonth] = React.useState<Date>(
+    date?.from || new Date()
+  );
+
+  // Update currentMonth when date changes
+  React.useEffect(() => {
+    if (date?.from) {
+      setCurrentMonth(date.from);
+    }
+  }, [date?.from]);
+
+  // Navigation handlers
+  const handlePreviousMonth = () => {
+    setCurrentMonth((prev) => subMonths(prev, 1));
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth((prev) => addMonths(prev, 1));
+  };
+
+  // Month and year change handlers
+  const handleMonthChange = (monthIndex: string) => {
+    const month = parseInt(monthIndex, 10);
+    setCurrentMonth((prev) => setMonth(prev, month));
+  };
+
+  const handleYearChange = (year: string) => {
+    const yearNum = parseInt(year, 10);
+    setCurrentMonth((prev) => setYear(prev, yearNum));
+  };
+
+  // Get current month and year values for the selects
+  const currentMonthIndex = getMonth(currentMonth);
+  const currentYearValue = getYear(currentMonth);
 
   const presets = [
     {
@@ -104,15 +180,75 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
         </div>
 
         {/* Dual Calendar */}
-        <div className="flex flex-col items-start gap-2 w-[466px]">
+        <div className="flex flex-col items-start gap-2 w-auto">
+          {/* Header */}
+          <div className="flex items-center gap-6 self-stretch">
+            <div className="flex justify-between items-center flex-1">
+              <button onClick={handlePreviousMonth}>
+                <ArrowLeft className="text-[var(--Grey)]" />
+              </button>
+
+              <Select
+                value={String(currentMonthIndex)}
+                onValueChange={handleMonthChange}
+              >
+                <SelectTrigger className="bg-white border-none shadow-none text-[var(--Black)] text-[14px] leading-[22px] font-semibold">
+                  <SelectValue placeholder="Select a month" />
+                </SelectTrigger>
+                <SelectContent className="bg-white mt-[38px]">
+                  {MONTHS.map((month, index) => (
+                    <SelectItem
+                      key={month}
+                      value={String(index)}
+                      className="text-[var(--Black)] text-[14px] leading-[22px]"
+                    >
+                      {month}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex justify-between items-center flex-1">
+              <Select
+                value={String(currentYearValue)}
+                onValueChange={handleYearChange}
+              >
+                <SelectTrigger className="bg-white border-none shadow-none text-[var(--Black)] text-[14px] leading-[22px] font-semibold">
+                  <SelectValue placeholder="Select a year" />
+                </SelectTrigger>
+                <SelectContent className="bg-white mt-[38px]">
+                  {YEARS.map((year) => (
+                    <SelectItem
+                      key={year}
+                      value={String(year)}
+                      className="text-[var(--Black)] text-[14px] leading-[22px]"
+                    >
+                      {year}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <button onClick={handleNextMonth}>
+                <ArrowRight className="text-[var(--Grey)]" />
+              </button>
+            </div>
+          </div>
+
+          {/* Calendar */}
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date?.from}
+            month={currentMonth}
+            onMonthChange={setCurrentMonth}
             selected={date}
             onSelect={setDate}
             numberOfMonths={2}
-            className="w-full"
+            className="w-full p-0"
+            classNames={{
+              button_previous: "hidden",
+              button_next: "hidden",
+            }}
           />
         </div>
       </PopoverContent>
