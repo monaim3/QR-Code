@@ -95,7 +95,7 @@ function ColorPicker({
         </div>
 
         {showPicker && (
-          <div className="absolute top-full mt-2 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-[60] w-80">
+          <div className="absolute top-full mt-2 bg-white rounded-lg shadow-xl border border-gray-200 p-4  w-80">
             <div className="flex gap-2 mb-4 border-b pb-3">
               <button
                 onClick={() => setMode("solid")}
