@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
-import { Globe, ChevronUp } from "lucide-react";
-
+import { Globe, ChevronUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,8 +41,10 @@ export default function LanguageSelector({
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("en");
   const [search, setSearch] = React.useState("");
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
+    !mobileDrawer ?
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <div className="relative">
@@ -75,7 +76,6 @@ export default function LanguageSelector({
           </Button>
         </div>
       </PopoverTrigger>
-
       <PopoverContent
         className={cn(
           "p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-9 transition-all",
@@ -121,6 +121,68 @@ export default function LanguageSelector({
           </Command>
         </div>
       </PopoverContent>
-    </Popover>
+    </Popover> 
+    :
+   <div className="w-full max-w-md">
+      <div>
+        {/* Selected Language Button */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full bg-white flex items-center justify-between transition-all duration-300 py-[20px]"
+        >
+          <div className="flex items-center gap-2">
+            <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
+            <span className={cn("font-regular", textClass)}>
+              {languages.find((lang) => lang.value === value)?.label.toUpperCase()}
+            </span>
+          </div>
+
+          <ChevronDown
+            className={`text-black transition-transform duration-300 ${
+              isExpanded ? "rotate-180" : "rotate-0"
+            }`}
+            size={24}
+          />
+        </button>
+        {/* Expandable Language List */}
+        <div
+          className={`bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)]
+            ${isExpanded ? "max-h-[220px] opacity-100" : "max-h-0 opacity-0"}
+          `}
+        >
+          {/* Scrollable list with green scrollbar */}
+          <div className="overflow-y-auto max-h-[196px] always-visible-scrollbar px-[8px] py-[8px]">
+         {languages.map((language, index) => {
+            const isSelected = value === language.value;
+            console.log(value,isSelected);
+            return (
+                <button
+                key={language.value}
+                onClick={() => {
+                  setValue(language.value);
+                  setIsExpanded(false);
+                }}
+                className={cn("w-full p-4 flex items-center justify-between rounded-[8px] mb-1 transform transition-all duration-200 group",
+                  isSelected ? "bg-[#9BA2FB]/10" : "",
+                  !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
+                )}
+                style={{
+                  transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
+                }}
+              >
+                <span
+                  className={`transition-colors duration-200 font-medium ${isSelected ? "text-black" : "text-black hover:text-[var(--Blue)]"}`}>
+
+                  {language.label}
+            </span>
+          </button>
+        );
+      })}
+      </div>
+       </div>
+      </div>
+  {/* Divider */}
+  <div className={`border-b border-[#cdd0db80] ${isExpanded ? 'pt-[16px]' : ''}`} />
+  </div>
   );
 }

@@ -65,7 +65,7 @@ export default function LoginBody() {
           {/* Forgot Password */}
           <div className="text-center text-[14px] leading-[22px] font-regular">
             <span className="text-gray-600">Forgot your password? </span>
-             <Link href="/forget_password"
+             <Link href="/forget-password"
               className="text-[14px] text-[#01A56D] leading-[22px] hover:text-[#01A56D] font-medium"
             >
               Click here
@@ -131,7 +131,7 @@ export default function LoginBody() {
         {/* Sign Up Link */}
         <div className="text-center mt-[32px] text-sm">
           <span className="text-[14px] font-regular leading-[22px] text-gray-600">Don't have an account? </span>
-          <Link href="/signup"
+          <Link href="#"
             className="text-[14px] text-[#01A56D] leading-[22px] hover:text-[#01A56D] font-medium"
           >
             Sign up

@@ -1,0 +1,11 @@
+import LogoHeader from "../../components/common/logo_header";
+import ForgetPasswordBody from "../forget-password/body"
+
+export default function ForgetPassword(){
+    return (
+        <div>
+        <LogoHeader/>
+        <ForgetPasswordBody/>
+        </div>
+    );
+}
