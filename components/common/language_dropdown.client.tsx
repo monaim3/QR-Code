@@ -132,7 +132,7 @@ export default function LanguageSelector({
         >
           <div className="flex items-center gap-2">
             <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
-            <span className={cn("font-regular", textClass)}>
+            <span className={cn("font-medium pl-[8px]", textClass)}>
               {languages.find((lang) => lang.value === value)?.label.toUpperCase()}
             </span>
           </div>
@@ -151,31 +151,37 @@ export default function LanguageSelector({
           `}
         >
           {/* Scrollable list with green scrollbar */}
-          <div className="overflow-y-auto max-h-[196px] always-visible-scrollbar px-[8px] py-[8px]">
+          <div className="overflow-y-auto max-h-[196px] always-visible-scrollbar p-[8px]">
          {languages.map((language, index) => {
             const isSelected = value === language.value;
-            console.log(value,isSelected);
+
             return (
                 <button
-                key={language.value}
-                onClick={() => {
-                  setValue(language.value);
-                  setIsExpanded(false);
-                }}
-                className={cn("w-full p-4 flex items-center justify-between rounded-[8px] mb-1 transform transition-all duration-200 group",
-                  isSelected ? "bg-[#9BA2FB]/10" : "",
-                  !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
-                )}
-                style={{
-                  transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
-                }}
-              >
-                <span
-                  className={`transition-colors duration-200 font-medium ${isSelected ? "text-black" : "text-black hover:text-[var(--Blue)]"}`}>
+                  key={language.value}
+                  onClick={() => {
+                    setValue(language.value);
+                    setIsExpanded(false);
+                  }}
+                  className={cn(
+                    "w-full py-[8px] px-[16px] flex items-center justify-between rounded-[8px] mb-2 transform transition-all duration-200 group",
+                    isSelected ? "bg-[#9BA2FB]/10" : "",
+                    !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
+                  )}
+                  style={{
+                    transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
+                  }}
+                >
+                  <span
+                    className={`transition-colors px-[16px] duration-200 font-regular ${
+                      isSelected
+                        ? "text-black"
+                        : "text-black group-hover:text-[var(--Blue)]"
+                    }`}
+                  >
+                    {language.label}
+                    </span>
+                    </button>
 
-                  {language.label}
-            </span>
-          </button>
         );
       })}
       </div>
