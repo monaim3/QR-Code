@@ -131,7 +131,7 @@ export default function LoginBody() {
         {/* Sign Up Link */}
         <div className="text-center mt-[32px] text-sm">
           <span className="text-[14px] font-regular leading-[22px] text-gray-600">Don't have an account? </span>
-          <Link href="/signup"
+          <Link href="#"
             className="text-[14px] text-[#01A56D] leading-[22px] hover:text-[#01A56D] font-medium"
           >
             Sign up

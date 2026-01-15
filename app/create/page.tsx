@@ -7,9 +7,7 @@ export default function Home() {
   return (
     <div>
       {/* Desktop header */}
-       <div className="hidden md:block">
-        <GeneratorHeader />
-      </div>
+        <GeneratorHeader className="hidden md:block"/>
        {/* Mobile header */}
       <div className="block md:hidden">
         <Header />

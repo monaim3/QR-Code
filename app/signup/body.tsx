@@ -37,16 +37,16 @@ export default function SignupBody() {
 
    return (
      <Container className="flex items-center justify-center min-h-screen">
-      <div className="w-[350px] desktop:w-[976px] h-[814px] desktop:h-[790px] bg-white rounded-[12px] shadow-lg px-[16px] py-[24px] desktop:px-[32px] desktop:py-[32px] flex items-start justify-between gap-8">
-          <div className="flex flex-col item-start justify-start w-full h-full bg-white">
+      <div className="w-[350px] desktop:w-[976px] h-[814px] bg-white rounded-[12px] px-[16px] desktop:px-[32px] pb-[24px] deesktop:pb-[32px] desktop:pt-[32px] shadow-lg flex items-start justify-between">
+          <div className="flex flex-col w-full item-start justify-start w-[456px] h-full bg-whit">
             <p className="text-[20px] desktop:text-[24px] font-bold leading-[28px] desktop:leading-[32px] text-center desktop:text-start var(--Black) tracking-[0%]">
             Create a FREE account to download, edit and manage your QR codes
            </p>
-            <h3 className="pt-[8px] text-[16px] font-regular leading-[24px] text-center desktop:text-start text-[#3F3E3E]">
+            <h3 className="mt-[8px] text-[16px] font-regular leading-[24px] text-center desktop:text-start text-[#3F3E3E]">
             Join millions of users already using the smartest QR Code Generator!
            </h3>
            {/* Form */}
-           <div className="pt-[32px]">
+           <div className="w-[318px] desktop:w-[424px] mt-[32px]">
               {/* Email Input */}
                 <InputField
                 value={email}
@@ -58,7 +58,7 @@ export default function SignupBody() {
                 />
 
               {/* Password Input */}
-              <div className="pt-[16px]">
+              <div className="mt-[16px]">
                 <InputField
                 value={password}
                 onChange={setPassword}
@@ -78,10 +78,10 @@ export default function SignupBody() {
               </div>
               
               {/* Signup In Button */}
-              <div className="pt-[24px]">
+              <div className="mt-[24px]">
                 <button
                 onClick={handleSubmit}
-                className="w-[318px] desktop:w-[424px] h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-200"
+                className="w-[318px] desktop:w-full h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-200"
               >
               Create Account
               </button>
@@ -89,13 +89,13 @@ export default function SignupBody() {
               
            </div>
             {/* Divider */}
-            <div className="flex items-center gap-4 pt-[44px]">
+            <div className="w-[318px] desktop:w-[424px] flex items-center gap-[16px] mt-[44px]">
               <div className="flex-1 h-px bg-gray-200"></div>
               <span className="text-gray-400 text-[16px] leading-[24px] font-regular">OR</span>
               <div className="flex-1 h-px bg-gray-200"></div>
             </div>
              {/* Social Login Buttons */}
-            <div className="flex flex-col gap-3 w-full pt-[44px]">
+            <div className="flex flex-col gap-3 w-[318px] desktop:w-[424px] mt-[44px]">
               {/* Google */}
               <button
                 onClick={() => alert("Google sign in clicked")}
@@ -145,7 +145,7 @@ export default function SignupBody() {
               </button>
             </div>
               {/* Sign Up Link */}
-            <div className="text-center desktop:text-start pt-[32px]">
+            <div className="text-center desktop:text-start mt-[32px]">
               <span className="text-[14px] font-regular leading-[22px] text-gray-600">Don't have an account? </span>
               <Link href="/login"
                 className="text-[14px] text-[#01A56D] leading-[22px] hover:text-[#01A56D] font-medium pl-[16px]"
@@ -154,7 +154,7 @@ export default function SignupBody() {
               </Link>
 
             </div>
-            <div className="text-center desktop:text-start pt-[32px]">
+            <div className="text-center desktop:text-start mt-[32px]">
           <span className="text-[12px] font-regular leading-[20px] text-gray-400">
             By clicking "Create account", you confirm that you have read and consent to
           </span>
@@ -162,7 +162,7 @@ export default function SignupBody() {
             our
           </span>
           <Link href="#"
-            className="text-[12px] text-[#01A56D] hover:text-[#01A56D] font-medium pl-[5px] underline"
+            className="text-[12px] text-[#01A56D] hover:text-[#01A56D] font-regular pl-[5px] underline"
           >
             Terms and condition
          </Link>
@@ -170,19 +170,20 @@ export default function SignupBody() {
             and
           </span>
            <Link href="#"
-            className="text-[12px] text-[#01A56D] hover:text-[#01A56D] font-medium pl-[5px] underline"
+            className="text-[12px] text-[#01A56D] hover:text-[#01A56D] font-regular pl-[5px] underline"
           >
             Privacy policy
          </Link>
             </div>
+
           </div>
-          <div className="desktop:flex desktop:flex-col items-center justify-start hidden desktop:block w-full bg-[#E7F4ED] desktop:pt-[32px] desktop:px-[56px] desktop:pb-[56px] rounded-[10px]">
+          <div className="w-[456px] desktop:flex desktop:flex-col items-center justify-start hidden desktop:block w-full bg-[#E7F4ED] desktop:pt-[32px] desktop:px-[56px] desktop:pb-[56px] rounded-[10px]">
             <div>
              <p className="text-[24px] font-bold leading-[32px] text-center var(--Black) tracking-[0%]">
               Your QR code is ready!
              </p>
             </div>
-            <div className="relative w-[260px] h-[260px] bg-white rounded-[10px] mt-[32px] flex items-center justify-center">
+            <div className="relative w-[260px] h-[260px] bg-white rounded-[10px] mt-[32px] flex items-start justify-center">
             {/* Centered FourCorner */}
             <div className="relative w-[220px] h-[220px]">
               <FourCorner className="absolute inset-0" />

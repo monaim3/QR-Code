@@ -3,12 +3,10 @@ import Container from "../../components/common/parent-container";
 import InputField from "../../components/common/input_filed";
 import { useState } from "react";
 import { Mail } from "lucide-react"
-import { useRouter } from "next/navigation";
-import ArrowLeft from "../../components/icons/arrow-left"
+import BackButtonWithText from "../../components/common/back_button_with_text"
 
 export default function ForgetPasswordBody(){
      const [email, setEmail] = useState("");
-     const router = useRouter();
 
     const handleSubmit = () => {
         alert(`Email: ${email}`);
@@ -42,13 +40,7 @@ export default function ForgetPasswordBody(){
                 </button>
             </div>
             <div className="mt-[24px]">
-            <button
-            onClick={() => router.back()}
-            className="bg-transparent p-2 rounded-[10px] hover:bg-gray-100 flex items-center justify-center gap-[8px]"
-            >
-            <ArrowLeft className="w-6 h-6 text-gray-700" />
-            <p className="text-[16px] text-regular leading-[24px]">Go Back</p>
-            </button>
+             <BackButtonWithText/>
             </div>
         </Container>
     );
