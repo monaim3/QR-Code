@@ -146,12 +146,12 @@ export default function LanguageSelector({
         </button>
         {/* Expandable Language List */}
         <div
-          className={`bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)]
+          className={`bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 p-2
             ${isExpanded ? "max-h-[220px] opacity-100" : "max-h-0 opacity-0"}
           `}
         >
           {/* Scrollable list with green scrollbar */}
-          <div className="overflow-y-auto max-h-[196px] always-visible-scrollbar p-[8px] gap-[4px]">
+          <div className="overflow-y-auto max-h-[174px] always-visible-scrollbar flex flex-col gap-1">
          {languages.map((language, index) => {
             const isSelected = value === language.value;
 
@@ -163,7 +163,7 @@ export default function LanguageSelector({
                     setIsExpanded(false);
                   }}
                   className={cn(
-                    "w-full py-[8px] px-[16px] flex items-center justify-between rounded-[8px] mb-1 transform transition-all duration-200 group",
+                    "w-full py-[5px] px-4 flex items-center justify-between rounded-[8px] transform transition-all duration-200 group",
                     isSelected ? "bg-[#9BA2FB]/10" : "",
                     !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
                   )}
