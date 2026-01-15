@@ -151,7 +151,7 @@ export default function LanguageSelector({
           `}
         >
           {/* Scrollable list with green scrollbar */}
-          <div className="overflow-y-auto max-h-[196px] always-visible-scrollbar p-[8px]">
+          <div className="overflow-y-auto max-h-[196px] always-visible-scrollbar p-[8px] gap-[4px]">
          {languages.map((language, index) => {
             const isSelected = value === language.value;
 
@@ -163,7 +163,7 @@ export default function LanguageSelector({
                     setIsExpanded(false);
                   }}
                   className={cn(
-                    "w-full py-[8px] px-[16px] flex items-center justify-between rounded-[8px] mb-2 transform transition-all duration-200 group",
+                    "w-full py-[8px] px-[16px] flex items-center justify-between rounded-[8px] mb-1 transform transition-all duration-200 group",
                     isSelected ? "bg-[#9BA2FB]/10" : "",
                     !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
                   )}
@@ -172,9 +172,9 @@ export default function LanguageSelector({
                   }}
                 >
                   <span
-                    className={`transition-colors px-[16px] duration-200 font-regular ${
+                    className={`transition-colors leading-[22px] duration-200 font-regular ${
                       isSelected
-                        ? "text-black"
+                        ? "text-[var(--black)]"
                         : "text-black group-hover:text-[var(--Blue)]"
                     }`}
                   >
