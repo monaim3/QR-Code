@@ -40,13 +40,7 @@ export default function SignupV2Body() {
     <Container
       className="flex items-center justify-center min-h-screen bg-[#F9FAFB] px-4">
       <div style={{ fontFamily: "var(--font-poppins)" }}>
-      {/* Outer Card */}
-      <div className="
-        w-full max-w-full
-        flex flex-col desktop:flex-row
-        items-center justify-between
-        overflow-hidden
-      ">
+    
         {/* Left Panel */}
         <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
           <p className="text-[24px] font-bold leading-[32px] text-center desktop:text-start text-[#0A0909] tracking-[0%]">
@@ -193,7 +187,6 @@ export default function SignupV2Body() {
             </div>
           ))}
         </div>
-      </div>
       </div>
       </div>
     </Container>
