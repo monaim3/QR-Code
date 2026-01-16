@@ -27,7 +27,7 @@ const authFeatureList = [
   new AuthFeatures(7, 'Create any type of QR code you need'),
 ];
 
-export default function SignupBody() {
+export default function SignupV2Body() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -43,14 +43,9 @@ export default function SignupBody() {
     >
       {/* Outer Card */}
       <div className="
-        w-full max-w-[976px]
-        bg-white
-        rounded-[12px]
-        px-[16px] desktop:px-[32px]
-        pt-[32px] pb-[24px] desktop:pb-[32px]
-        shadow-[0_4px_14px_rgba(54,66,140,0.16)]
+        w-full max-w-full
         flex flex-col desktop:flex-row
-        items-start justify-between
+        items-center justify-between
         overflow-hidden
       ">
         {/* Left Panel */}
