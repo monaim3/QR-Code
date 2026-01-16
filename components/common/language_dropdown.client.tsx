@@ -123,71 +123,73 @@ export default function LanguageSelector({
       </PopoverContent>
     </Popover> 
     :
-    <div className="w-full max-w-md">
-        <div>
-          {/* Selected Language Button */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="w-full bg-white flex items-center justify-between transition-all duration-300 py-[20px]"
-          >
-            <div className="flex items-center gap-2">
-              <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
-              <span className={cn("font-medium", textClass)}>
-                {languages.find((lang) => lang.value === value)?.label.toUpperCase()}
-              </span>
-            </div>
-
-            <ChevronDown
-              className={`text-black transition-transform duration-300 ${
-                isExpanded ? "rotate-180" : "rotate-0"
-              }`}
-              size={24}
-            />
-          </button>
-          {/* Expandable Language List */}
-            <div
-            className={`bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 p-0
-              ${isExpanded ? "max-h-[220px] opacity-100" : "max-h-0 opacity-0"}
-            `}
-          >
-            {/* Scrollable list with green scrollbar */}
-            <div className="overflow-y-auto max-h-[174px] always-visible-scrollbar flex flex-col gap-1">
-          {languages.map((language, index) => {
-              const isSelected = value === language.value;
-
-              return (
-                  <button
-                    key={language.value}
-                    onClick={() => {
-                      setValue(language.value);
-                      setIsExpanded(false);
-                    }}
-                    className={cn(
-                      "w-full py-[5px] px-4 flex items-center justify-between rounded-[8px] transform transition-all duration-200 group",
-                      isSelected ? "bg-[#9BA2FB]/10" : "",
-                      !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
-                    )}
-                    style={{
-                      transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
-                    }}
-                  >
-                    <span
-                      className={`transition-colors leading-[22px] duration-200 font-regular ${
-                        isSelected
-                          ? "text-[var(--black)]"
-                          : "text-black group-hover:text-[var(--Blue)]"
-                      }`}
-                    >
-                      {language.label}
-                      </span>
-                      </button>
-          );
-        })}
-            </div>
+   <div className="w-full max-w-md">
+      <div>
+        {/* Selected Language Button */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full bg-white flex items-center justify-between transition-all duration-300 py-[20px]"
+        >
+          <div className="flex items-center gap-2">
+            <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
+            <span className={cn("font-medium", textClass)}>
+              {languages.find((lang) => lang.value === value)?.label.toUpperCase()}
+            </span>
           </div>
-        </div>
-    {/* Divider */}
-    <div className={`border-b border-[#cdd0db80] ${isExpanded ? 'pt-[16px]' : ''}`} />
-    </div>
+
+          <ChevronDown
+            className={`text-black transition-transform duration-300 ${
+              isExpanded ? "rotate-180" : "rotate-0"
+            }`}
+            size={24}
+          />
+        </button>
+        {/* Expandable Language List */}
+        <div
+          className={`overflow-hidden transition-all duration-300
+            ${isExpanded ? "max-h-[220px] opacity-100" : "max-h-0 opacity-0"}
+          `}
+        >
+          <div className="bg-white rounded-xl border border-[var(--Boarder-Grey)] p-2">
+          {/* Scrollable list with green scrollbar */}
+            <div className="overflow-y-auto max-h-[174px] always-visible-scrollbar flex flex-col gap-1">
+         {languages.map((language, index) => {
+            const isSelected = value === language.value;
+
+            return (
+                <button
+                  key={language.value}
+                  onClick={() => {
+                    setValue(language.value);
+                    setIsExpanded(false);
+                  }}
+                  className={cn(
+                    "w-full py-[5px] px-4 flex items-center justify-between rounded-[8px] transform transition-all duration-200 group",
+                    isSelected ? "bg-[#9BA2FB]/10" : "",
+                    !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
+                  )}
+                  style={{
+                    transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
+                  }}
+                >
+                  <span
+                    className={`transition-colors leading-[22px] duration-200 font-regular ${
+                      isSelected
+                        ? "text-[var(--black)]"
+                        : "text-black group-hover:text-[var(--Blue)]"
+                    }`}
+                  >
+                    {language.label}
+                    </span>
+                    </button>
+        );
+      })}
+          </div>
+      </div>
+       </div>
+      </div>
+  {/* Divider */}
+  <div className={`border-b border-[#cdd0db80] ${isExpanded ? 'pt-[16px]' : ''}`} />
+  </div>
   );
 }

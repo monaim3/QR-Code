@@ -37,12 +37,10 @@ export default function SignupV2Body() {
   };
 
   return (
-    <Container
-      className="flex items-center justify-center min-h-screen bg-[#F9FAFB] px-4">
-      <div style={{ fontFamily: "var(--font-poppins)" }}>
-    
+    <Container className="font-heading">
+      <div className="flex flex-col desktop:flex-row items-start justify-start gap-[32px] desktop:gap-[80px] w-full max-w-full mx-auto">
         {/* Left Panel */}
-        <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
+        <div className="flex flex-col w-full desktop:w-[456px]">
           <p className="text-[24px] font-bold leading-[32px] text-center desktop:text-start text-[#0A0909] tracking-[0%]">
             Create a FREE account to download, edit and manage your QR codes
           </p>
@@ -155,7 +153,7 @@ export default function SignupV2Body() {
         </div>
 
        {/* Right Panel */}
-      <div className="hidden desktop:flex flex-col w-[456px] h-full max-h-[814px] items-center justify-start bg-[#E7F4ED] rounded-[10px] pt-[32px] px-[56px] pb-[56px] flex-shrink-0 overflow-hidden gap-[32px]">
+      <div className="hidden desktop:flex flex-col w-full h-full items-center justify-start bg-[#E7F4ED]">
 
         {/* Heading */}
         <p className="text-[24px] font-bold leading-[32px] text-center text-[#0A0909] tracking-[0%]">
