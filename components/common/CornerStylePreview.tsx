@@ -4,84 +4,104 @@ type CornerStylePreviewProps = {
   onClick: () => void;
   isFrame?: boolean;
 };
+
 const CornerStylePreview = ({
   type,
   isSelected,
   onClick,
   isFrame = true,
 }: CornerStylePreviewProps) => {
-  const size = 60;
+  const size = 28;
   const cornerSize = 20;
-  const dotSize = 8;
+  const dotSize = 20;
+  const strokeWidth = 2.5;
+
+  const baseClass =
+    "w-[60px] h-[60px] flex items-center justify-center rounded-[10px] border transition-all p-4";
+
+  const stateClass = isSelected
+    ? "border-[#01A56D] bg-[#F3FBF8]"
+    : "border-[#D6DDF0] hover:border-[#BFC8E8]";
 
   if (type === "none") {
     return (
-      <button
-        onClick={onClick}
-        className={`w-full aspect-square border-2 rounded-lg flex items-center justify-center transition-all ${
-          isSelected
-            ? "border-blue-500 bg-blue-50"
-            : "border-gray-300 hover:border-gray-400"
-        }`}
-      >
+      <button onClick={onClick} className={`${baseClass} ${stateClass}`}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-          <line x1="10" y1="10" x2="50" y2="50" stroke="#ccc" strokeWidth="2" />
-          <line x1="50" y1="10" x2="10" y2="50" stroke="#ccc" strokeWidth="2" />
+          <circle
+            cx="14"
+            cy="14"
+            r="10"
+            fill="none"
+            stroke="#000"
+            strokeWidth={strokeWidth}
+          />
+          <line
+            x1="6"
+            y1="22"
+            x2="22"
+            y2="6"
+            stroke="#000"
+            strokeWidth={strokeWidth}
+          />
         </svg>
       </button>
     );
   }
 
   return (
-    <button
-      onClick={onClick}
-      className={`w-full aspect-square border-2 rounded-lg flex items-center justify-center transition-all ${
-        isSelected
-          ? "border-blue-500 bg-blue-50"
-          : "border-gray-300 hover:border-gray-400"
-      }`}
-    >
+    <button onClick={onClick} className={`${baseClass} ${stateClass}`}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {isFrame ? (
-          // Corner Frame
           <>
             {type === "square" && (
               <rect
-                x="5"
-                y="5"
-                width={cornerSize}
-                height={cornerSize}
-                fill="black"
+                x="2"
+                y="2"
+                width={size - 4}
+                height={size - 4}
+                fill="none"
+                stroke="#000"
+                strokeWidth={strokeWidth}
               />
             )}
+
             {type === "dot" && (
-              <circle cx="15" cy="15" r={cornerSize / 2} fill="black" />
+              <circle
+                cx={size / 2}
+                cy={size / 2}
+                r={(size - 4) / 2}
+                fill="none"
+                stroke="#000"
+                strokeWidth={strokeWidth}
+              />
             )}
             {type === "extra-rounded" && (
               <rect
-                x="5"
-                y="5"
-                width={cornerSize}
-                height={cornerSize}
-                rx="5"
-                fill="black"
+                x="2"
+                y="2"
+                width={size - 4}
+                height={size - 4}
+                rx="6"
+                fill="none"
+                stroke="#000"
+                strokeWidth={strokeWidth}
               />
             )}
           </>
         ) : (
-          // Corner Dot
           <>
             {type === "square" && (
               <rect
-                x="11"
-                y="11"
+                x={(size - dotSize) / 2}
+                y={(size - dotSize) / 2}
                 width={dotSize}
                 height={dotSize}
-                fill="black"
+                fill="#000"
               />
             )}
+
             {type === "dot" && (
-              <circle cx="15" cy="15" r={dotSize / 2} fill="black" />
+              <circle cx={size / 2} cy={size / 2} r={dotSize / 2} fill="#000" />
             )}
           </>
         )}

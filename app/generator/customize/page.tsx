@@ -10,9 +10,26 @@ import QRPreview from "@/components/common/QRPreview";
 import ColorInput from "@/components/common/ColorInput";
 import Accordion from "@/components/common/Accordion";
 import Container from "@/components/common/parent-container";
-import LogoSelector from "@/components/common/LogoSelector";
 import PatternPreview from "@/components/common/PatternPreview";
 import CornerStylePreview from "@/components/common/CornerStylePreview";
+import { IoIosSwap } from "react-icons/io";
+import PreviewQRButtons from "@/components/generator/Preview_QR_Buttons";
+import LogoSelector from "@/components/common/LogoSelector";
+import { useAppSelector } from "@/store/hooks";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaPinterest,
+  FaTelegram,
+  FaTiktok,
+  FaTwitter,
+  FaWhatsapp,
+  FaYoutube,
+} from "react-icons/fa";
+import { PiMicrosoftOutlookLogoDuotone } from "react-icons/pi";
+import { BsApple } from "react-icons/bs";
+import { BiLogoGmail } from "react-icons/bi";
 
 export default function QRCodeCustomizer() {
   const [view, setView] = useState("preview");
@@ -32,6 +49,8 @@ export default function QRCodeCustomizer() {
   const [selectedLogo, setSelectedLogo] = useState(null);
   const [customLogo, setCustomLogo] = useState(null);
 
+  const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
+  console.log("websiteUrl", websiteUrl);
   const patternOptions = [
     "rounded",
     "dots",
@@ -44,15 +63,22 @@ export default function QRCodeCustomizer() {
   const cornerDotOptions = ["none", "dot", "square"];
 
   // Helper function to create icon image for QR code
-  const createIconImage = async (logoName) => {
+  const createIconImage = async (logoName: string) => {
     const socialLogos = {
-      Facebook: { Icon: FaFacebook, color: "#1877F2" },
-      Instagram: { Icon: FaInstagram, color: "#E4405F" },
       Twitter: { Icon: FaTwitter, color: "#1DA1F2" },
-      LinkedIn: { Icon: FaLinkedin, color: "#0A66C2" },
+      X: { Icon: X, color: "#1DA1F2" },
       YouTube: { Icon: FaYoutube, color: "#FF0000" },
+      Instagram: { Icon: FaInstagram, color: "#E4405F" },
       TikTok: { Icon: FaTiktok, color: "#000000" },
+      LinkedIn: { Icon: FaLinkedin, color: "#0A66C2" },
+
+      Pinterest: { Icon: FaPinterest, color: "#EB2239" },
+      Microsoft: { Icon: PiMicrosoftOutlookLogoDuotone, color: "#0078D4" },
+      Apple: { Icon: BsApple, color: "#000000" },
+      Gmail: { Icon: BiLogoGmail, color: "#EA4335" },
       WhatsApp: { Icon: FaWhatsapp, color: "#25D366" },
+      Facebook: { Icon: FaFacebook, color: "#1877F2" },
+
       Telegram: { Icon: FaTelegram, color: "#0088CC" },
     };
 
@@ -94,7 +120,7 @@ export default function QRCodeCustomizer() {
 
     const updateQRCode = async () => {
       const qrOptions = {
-        data: "https://www.linkedin.com/mynetwork/grow/",
+        data: websiteUrl || "https://www.linkedin.com/",
         width: 250,
         height: 250,
         margin: 10,
@@ -121,9 +147,7 @@ export default function QRCodeCustomizer() {
               },
       };
 
-      // Priority: Social media icon > Custom upload
       if (selectedLogo) {
-        // Use social media icon (first priority)
         const iconDataUrl = await createIconImage(selectedLogo);
         if (iconDataUrl) {
           qrOptions.image = iconDataUrl;
@@ -168,12 +192,12 @@ export default function QRCodeCustomizer() {
   ]);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className=" bg-gray-50 p-8">
       <Container>
-        <div className="flex flex-col desktop:flex-row gap-8">
-          <div className="flex-1 flex flex-col gap-4">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">
-              QR Code Customizer
+        <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32">
+          <div className="flex-1 flex flex-col  space-y-4">
+            <h1 className="text-2xl font-Poppins font-bold text-gray-900 ">
+              Customize design for the Website URL QR code
             </h1>
 
             <Accordion
@@ -182,10 +206,10 @@ export default function QRCodeCustomizer() {
               defaultOpen={true}
             >
               <div className="w-full">
-                <label className="block text-sm font-medium text-gray-900 mb-3">
+                <label className="block text-lg font-bold text-gray-900 ">
                   Pattern style
                 </label>
-                <div className="grid grid-cols-6 gap-3">
+                <div className="grid grid-cols-6 gap-4 py-8">
                   {patternOptions.map((pattern) => (
                     <PatternPreview
                       key={pattern}
@@ -197,37 +221,50 @@ export default function QRCodeCustomizer() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <ColorInput
-                  label="Dot color"
-                  value={dotColor}
-                  onChange={setDotColor}
-                  showColorIndicator={true}
-                  id="dot-color"
-                />
-                <ColorInput
-                  label="Background color"
-                  value={backgroundColor}
-                  onChange={setBackgroundColor}
-                  showColorIndicator={true}
-                  id="bg-color"
-                />
-              </div>
+              <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0  relative">
+                <div className="flex items-end justify-center  gap-6 px-6 pt-6 pb-8 relative z-10">
+                  <ColorInput
+                    label="Dot color"
+                    value={dotColor}
+                    onChange={setDotColor}
+                    showColorIndicator
+                    id="dot-color"
+                  />
 
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="transparent-bg"
-                  checked={transparentBg}
-                  onChange={(e) => setTransparentBg(e.target.checked)}
-                  className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                />
-                <label
-                  htmlFor="transparent-bg"
-                  className="text-sm text-gray-700"
-                >
-                  Transparent background
-                </label>
+                  <button
+                    type="button"
+                    className=" flex h-12 w-12 items-center justify-center  text-gray-500 "
+                    onClick={() => {
+                      setDotColor(backgroundColor);
+                      setBackgroundColor(dotColor);
+                    }}
+                  >
+                    <IoIosSwap className="text-2xl" />
+                  </button>
+
+                  <ColorInput
+                    label="Background color"
+                    value={backgroundColor}
+                    onChange={setBackgroundColor}
+                    showColorIndicator
+                    id="bg-color"
+                  />
+                </div>
+                <div className="flex items-center gap-2 px-6  pb-4 ">
+                  <input
+                    type="checkbox"
+                    id="transparent-bg"
+                    checked={transparentBg}
+                    onChange={(e) => setTransparentBg(e.target.checked)}
+                    className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
+                  />
+                  <label
+                    htmlFor="transparent-bg"
+                    className="text-sm text-gray-700 font-Popins"
+                  >
+                    Transparent background
+                  </label>
+                </div>
               </div>
             </Accordion>
 
@@ -236,55 +273,85 @@ export default function QRCodeCustomizer() {
               description="Choose your QR code corner style"
               defaultOpen={true}
             >
-              <div className="w-full">
-                <label className="block text-sm font-medium text-gray-900 mb-3">
-                  Corner frames style
-                </label>
-                <div className="grid grid-cols-6 gap-3">
-                  {cornerFrameOptions.map((style) => (
-                    <CornerStylePreview
-                      key={style}
-                      type={style}
-                      isSelected={cornerFrameStyle === style}
-                      onClick={() => setCornerFrameStyle(style)}
-                      isFrame={true}
-                    />
-                  ))}
+              <div className="flex gap-4">
+                <div className="">
+                  <label className="block text-lg font-bold text-gray-900">
+                    Corner frames style
+                  </label>
+                  <div className="grid grid-cols-6 gap-4  py-8">
+                    {cornerFrameOptions.map((style) => (
+                      <CornerStylePreview
+                        key={style}
+                        type={style}
+                        isSelected={cornerFrameStyle === style}
+                        onClick={() => setCornerFrameStyle(style)}
+                        isFrame={true}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="">
+                  <label className="block text-lg font-bold text-gray-900">
+                    Corner dots type
+                  </label>
+                  <div className="grid grid-cols-6 gap-4 py-8">
+                    {cornerDotOptions.map((style) => (
+                      <CornerStylePreview
+                        key={style}
+                        type={style}
+                        isSelected={cornerDotType === style}
+                        onClick={() => setCornerDotType(style)}
+                        isFrame={false}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
+              <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
+                <div className="flex items-end justify-center  gap-6 px-6 pt-6 pb-8 z-50 ">
+                  <ColorInput
+                    label="Corner frames color"
+                    value={cornerFrameColor}
+                    onChange={setCornerFrameColor}
+                    showColorIndicator={true}
+                    id="corner-frame-color"
+                  />
 
-              <div className="w-full">
-                <label className="block text-sm font-medium text-gray-900 mb-3">
-                  Corner dots type
-                </label>
-                <div className="grid grid-cols-6 gap-3">
-                  {cornerDotOptions.map((style) => (
-                    <CornerStylePreview
-                      key={style}
-                      type={style}
-                      isSelected={cornerDotType === style}
-                      onClick={() => setCornerDotType(style)}
-                      isFrame={false}
-                    />
-                  ))}
+                  <button
+                    type="button"
+                    className=" flex h-12 w-12 items-center justify-center  text-gray-500 "
+                    onClick={() => {
+                      setDotColor(backgroundColor);
+                      setBackgroundColor(dotColor);
+                    }}
+                  >
+                    <IoIosSwap className="text-2xl" />
+                  </button>
+
+                  <ColorInput
+                    label="Corner dots color"
+                    value={cornerDotColor}
+                    onChange={setCornerDotColor}
+                    showColorIndicator={true}
+                    id="corner-dot-color"
+                  />
                 </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <ColorInput
-                  label="Corner frames color"
-                  value={cornerFrameColor}
-                  onChange={setCornerFrameColor}
-                  showColorIndicator={true}
-                  id="corner-frame-color"
-                />
-                <ColorInput
-                  label="Corner dots color"
-                  value={cornerDotColor}
-                  onChange={setCornerDotColor}
-                  showColorIndicator={true}
-                  id="corner-dot-color"
-                />
+                <div className="flex items-center gap-2 px-6  pb-4 ">
+                  <input
+                    type="checkbox"
+                    id="transparent-bg"
+                    checked={transparentBg}
+                    onChange={(e) => setTransparentBg(e.target.checked)}
+                    className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
+                  />
+                  <label
+                    htmlFor="transparent-bg"
+                    className="text-sm text-gray-700 font-Popins"
+                  >
+                    Transparent background
+                  </label>
+                </div>
               </div>
             </Accordion>
 
@@ -302,34 +369,37 @@ export default function QRCodeCustomizer() {
             </Accordion>
           </div>
 
-          <div className="flex flex-col items-center justify-start space-y-6 sticky top-8">
-            <div className="flex gap-4">
+          <div className="flex flex-col items-center justify-start ">
+            <div className="flex gap-4 mb-4">
               <button
                 onClick={() => setView("preview")}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                className={` py-2 px-6 rounded-full font-medium font-roboto  transition-all duration-700 ease-in-out ${
                   view === "preview"
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-white text-gray-700 border border-gray-300 hover:border-gray-400"
+                    ? "bg-[var(--Blue)] text-white  hover:bg-[var(--Blue-hover)]"
+                    : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
                 }`}
               >
-                Preview
+                <span className="text-sm leading-[22px] font-medium font-roboto">
+                  Preview
+                </span>
               </button>
               <button
                 onClick={() => setView("qrcode")}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                className={` py-2 px-6 rounded-full font-medium font-roboto transition-all duration-700 ease-in-out ${
                   view === "qrcode"
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-white text-gray-700 border border-gray-300 hover:border-gray-400"
+                    ? " text-white  bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
+                    : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
                 }`}
               >
-                QR code
+                <span className="text-sm leading-[22px] font-medium font-roboto">
+                  QR code
+                </span>
               </button>
             </div>
-
             <div className="hidden desktop:flex desktop:flex-col desktop:gap-4 desktop:sticky h-[752px] ">
               <MobileFrame>
                 {view === "preview" ? (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg overflow-hidden">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-[32px] overflow-hidden">
                     <img
                       src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=800&fit=crop"
                       alt="Preview"

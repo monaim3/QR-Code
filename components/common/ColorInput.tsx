@@ -16,11 +16,15 @@ const ColorInput = ({
   id,
 }: Props) => {
   const [showPicker, setShowPicker] = useState(false);
-  const pickerRef = useRef(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+      if (
+        pickerRef.current &&
+        event.target instanceof Node &&
+        !pickerRef.current.contains(event.target)
+      ) {
         setShowPicker(false);
       }
     };
@@ -29,8 +33,8 @@ const ColorInput = ({
   }, []);
 
   return (
-    <div className="w-full ">
-      <label className="block text-sm font-medium text-gray-900 mb-2">
+    <div className="w-full z-50">
+      <label className="block text-base font-roboto font-medium text-gray-900 mb-2">
         {label}
       </label>
       <div className="relative">
@@ -54,7 +58,10 @@ const ColorInput = ({
           </div>
         )}
         {showPicker && (
-          <div ref={pickerRef} className="absolute right-0 top-full mt-2 z-50">
+          <div
+            ref={pickerRef}
+            className="absolute right-0 top-full mt-2 z-[9999]"
+          >
             <ChromePicker
               color={value}
               onChange={(color) => {

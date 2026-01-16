@@ -1,3 +1,4 @@
+"use client";
 import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef } from "react";
 
@@ -6,9 +7,10 @@ type PatternPreviewProps = {
   isSelected: boolean;
   onClick: () => void;
 };
+
 const PatternPreview = ({ type, isSelected, onClick }: PatternPreviewProps) => {
-  const previewRef = useRef(null);
-  const qrCodeRef = useRef(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const qrCodeRef = useRef<QRCodeStyling | null>(null);
 
   useEffect(() => {
     if (!previewRef.current) return;
@@ -20,7 +22,7 @@ const PatternPreview = ({ type, isSelected, onClick }: PatternPreviewProps) => {
       margin: 2,
       dotsOptions: {
         color: "#000000",
-        type: type,
+        type: type as any, // or cast to the specific type from qr-code-styling
       },
       backgroundOptions: {
         color: "#FFFFFF",
@@ -49,16 +51,13 @@ const PatternPreview = ({ type, isSelected, onClick }: PatternPreviewProps) => {
   return (
     <button
       onClick={onClick}
-      className={`w-full aspect-square border-2 rounded-lg flex items-center justify-center transition-all p-1 ${
+      className={`w-full aspect-square border-2 rounded-[10px] flex items-center justify-center transition-all p-1 ${
         isSelected
-          ? "border-blue-500 bg-blue-50"
+          ? "border-[#01A56D] bg-blue-50"
           : "border-gray-300 hover:border-gray-400"
       }`}
     >
-      <div
-        ref={previewRef}
-        className="w-full h-full flex items-center justify-center"
-      />
+      <div ref={previewRef} className=" flex items-center justify-center" />
     </button>
   );
 };
