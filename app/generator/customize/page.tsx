@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import QRCodeStyling from "qr-code-styling";
+import QRCodeStyling, { Options } from "qr-code-styling";
 import { ChromePicker } from "react-color";
 import { Upload, X } from "lucide-react";
 
@@ -30,13 +30,37 @@ import {
 import { PiMicrosoftOutlookLogoDuotone } from "react-icons/pi";
 import { BsApple } from "react-icons/bs";
 import { BiLogoGmail } from "react-icons/bi";
+import { IconType } from "react-icons";
+
+// Define types for social logos
+interface SocialLogo {
+  Icon: IconType;
+  color: string;
+}
+
+type SocialLogoName =
+  | "Twitter"
+  | "X"
+  | "YouTube"
+  | "Instagram"
+  | "TikTok"
+  | "LinkedIn"
+  | "Pinterest"
+  | "Microsoft"
+  | "Apple"
+  | "Gmail"
+  | "WhatsApp"
+  | "Facebook"
+  | "Telegram";
+
+type SocialLogosMap = Record<SocialLogoName, SocialLogo>;
 
 export default function QRCodeCustomizer() {
-  const [view, setView] = useState("preview");
-  const qrRef = useRef(null);
-  const mobileQrRef = useRef(null);
-  const qrCodeRef = useRef(null);
-  const mobileQrCodeRef = useRef(null);
+  const [view, setView] = useState<"preview" | "qrcode">("preview");
+  const qrRef = useRef<HTMLDivElement>(null);
+  const mobileQrRef = useRef<HTMLDivElement>(null);
+  const qrCodeRef = useRef<QRCodeStyling | null>(null);
+  const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
 
   const [dotColor, setDotColor] = useState("#000000");
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
@@ -46,11 +70,12 @@ export default function QRCodeCustomizer() {
   const [patternStyle, setPatternStyle] = useState("rounded");
   const [cornerFrameStyle, setCornerFrameStyle] = useState("extra-rounded");
   const [cornerDotType, setCornerDotType] = useState("dot");
-  const [selectedLogo, setSelectedLogo] = useState(null);
-  const [customLogo, setCustomLogo] = useState(null);
+  const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
+  const [customLogo, setCustomLogo] = useState<string | null>(null);
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   console.log("websiteUrl", websiteUrl);
+
   const patternOptions = [
     "rounded",
     "dots",
@@ -62,35 +87,33 @@ export default function QRCodeCustomizer() {
   const cornerFrameOptions = ["none", "square", "dot", "extra-rounded"];
   const cornerDotOptions = ["none", "dot", "square"];
 
-  // Helper function to create icon image for QR code
-  const createIconImage = async (logoName: string) => {
-    const socialLogos = {
+  const createIconImage = async (logoName: string): Promise<string | null> => {
+    const socialLogos: SocialLogosMap = {
       Twitter: { Icon: FaTwitter, color: "#1DA1F2" },
       X: { Icon: X, color: "#1DA1F2" },
       YouTube: { Icon: FaYoutube, color: "#FF0000" },
       Instagram: { Icon: FaInstagram, color: "#E4405F" },
       TikTok: { Icon: FaTiktok, color: "#000000" },
       LinkedIn: { Icon: FaLinkedin, color: "#0A66C2" },
-
       Pinterest: { Icon: FaPinterest, color: "#EB2239" },
       Microsoft: { Icon: PiMicrosoftOutlookLogoDuotone, color: "#0078D4" },
       Apple: { Icon: BsApple, color: "#000000" },
       Gmail: { Icon: BiLogoGmail, color: "#EA4335" },
       WhatsApp: { Icon: FaWhatsapp, color: "#25D366" },
       Facebook: { Icon: FaFacebook, color: "#1877F2" },
-
       Telegram: { Icon: FaTelegram, color: "#0088CC" },
     };
 
-    if (!socialLogos[logoName]) return null;
+    if (!(logoName in socialLogos)) return null;
 
-    const { color } = socialLogos[logoName];
+    const { color } = socialLogos[logoName as SocialLogoName];
 
-    // Create a simple colored circle with first letter as fallback
     const canvas = document.createElement("canvas");
     canvas.width = 100;
     canvas.height = 100;
     const ctx = canvas.getContext("2d");
+
+    if (!ctx) return null;
 
     // White background with rounded corners
     ctx.fillStyle = "white";
@@ -114,19 +137,18 @@ export default function QRCodeCustomizer() {
     return canvas.toDataURL();
   };
 
-  // Update QR codes when any option changes
   useEffect(() => {
-    if (!mobileQrRef.current) return;
-
     const updateQRCode = async () => {
-      const qrOptions = {
+      if (!mobileQrRef.current) return;
+
+      const qrOptions: Options = {
         data: websiteUrl || "https://www.linkedin.com/",
         width: 250,
         height: 250,
         margin: 10,
         dotsOptions: {
           color: dotColor,
-          type: patternStyle,
+          type: patternStyle as any,
         },
         backgroundOptions: {
           color: transparentBg ? "transparent" : backgroundColor,
@@ -136,14 +158,14 @@ export default function QRCodeCustomizer() {
             ? undefined
             : {
                 color: cornerFrameColor,
-                type: cornerFrameStyle,
+                type: cornerFrameStyle as any,
               },
         cornersDotOptions:
           cornerDotType === "none"
             ? undefined
             : {
                 color: cornerDotColor,
-                type: cornerDotType,
+                type: cornerDotType as any,
               },
       };
 
@@ -174,11 +196,14 @@ export default function QRCodeCustomizer() {
         mobileQrCodeRef.current = new QRCodeStyling(qrOptions);
       }
 
-      mobileQrCodeRef.current.append(mobileQrRef.current);
+      if (mobileQrRef.current && mobileQrCodeRef.current) {
+        mobileQrCodeRef.current.append(mobileQrRef.current);
+      }
     };
 
     updateQRCode();
   }, [
+    websiteUrl,
     dotColor,
     backgroundColor,
     transparentBg,
@@ -209,7 +234,7 @@ export default function QRCodeCustomizer() {
                 <label className="block text-lg font-bold text-gray-900 ">
                   Pattern style
                 </label>
-                <div className="grid grid-cols-6 gap-4 py-8">
+                <div className="grid grid-cols-10 gap-4 py-8">
                   {patternOptions.map((pattern) => (
                     <PatternPreview
                       key={pattern}
@@ -309,7 +334,7 @@ export default function QRCodeCustomizer() {
                 </div>
               </div>
               <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
-                <div className="flex items-end justify-center  gap-6 px-6 pt-6 pb-8 z-50 ">
+                <div className="flex items-end justify-center  gap-6 px-6 pt-6 pb-8 ">
                   <ColorInput
                     label="Corner frames color"
                     value={cornerFrameColor}
@@ -340,13 +365,13 @@ export default function QRCodeCustomizer() {
                 <div className="flex items-center gap-2 px-6  pb-4 ">
                   <input
                     type="checkbox"
-                    id="transparent-bg"
+                    id="transparent-bg-2"
                     checked={transparentBg}
                     onChange={(e) => setTransparentBg(e.target.checked)}
                     className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
                   />
                   <label
-                    htmlFor="transparent-bg"
+                    htmlFor="transparent-bg-2"
                     className="text-sm text-gray-700 font-Popins"
                   >
                     Transparent background

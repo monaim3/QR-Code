@@ -33,7 +33,7 @@ const ColorInput = ({
   }, []);
 
   return (
-    <div className="w-full z-50">
+    <div className="w-full ">
       <label className="block text-base font-roboto font-medium text-gray-900 mb-2">
         {label}
       </label>
