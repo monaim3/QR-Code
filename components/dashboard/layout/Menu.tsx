@@ -10,14 +10,16 @@ import CreditCards from "@/components/icons/credit-cards";
 import MenuItem from "./MenuItem";
 import Support from "@/components/icons/support";
 import LogOut from "@/components/icons/log-out";
-import { useState } from "react";
 import DashboardMenuIcon from "@/components/icons/menu";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { toggleCollapsed } from "@/store/slices/sidebarSlice";
 
 export default function Menu() {
-  const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useAppDispatch();
+  const collapsed = useAppSelector((state) => state.sidebar.collapsed);
 
   const toggleCollapse = () => {
-    setCollapsed(!collapsed);
+    dispatch(toggleCollapsed());
   };
 
   const navItems = [
