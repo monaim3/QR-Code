@@ -38,9 +38,8 @@ export default function SignupV2Body() {
 
   return (
     <Container
-      className="flex items-center justify-center min-h-screen bg-[#F9FAFB] px-4"
-      style={{ fontFamily: "var(--poppins)" }} // Apply Poppins globally to this page
-    >
+      className="flex items-center justify-center min-h-screen bg-[#F9FAFB] px-4">
+      <div style={{ fontFamily: "var(--font-poppins)" }}>
       {/* Outer Card */}
       <div className="
         w-full max-w-full
@@ -194,6 +193,7 @@ export default function SignupV2Body() {
             </div>
           ))}
         </div>
+      </div>
       </div>
       </div>
     </Container>
