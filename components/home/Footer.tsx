@@ -1,7 +1,6 @@
 "use client";
 import Container from "@/components/common/parent-container";
 import Link from "next/link";
-import { ChevronDown, Globe } from "lucide-react";
 import { useState } from "react";
 import LanguageSelector from "../common/language_dropdown"
 

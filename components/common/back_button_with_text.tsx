@@ -1,7 +1,12 @@
+import { Interface } from "readline";
 import ArrowLeft from "../../components/icons/arrow-left";
 import { useRouter } from "next/navigation";
 
-export default function BackButtonWithText() {
+interface LanguageSelectorProps {
+  title?: string;
+}
+
+export default function BackButtonWithText({title = 'Go Back'}: LanguageSelectorProps) {
     const router = useRouter();
     
     return (
@@ -10,7 +15,7 @@ export default function BackButtonWithText() {
             className="bg-transparent p-2 rounded-[10px] hover:bg-gray-100 flex items-center justify-center gap-[8px]"
             >
             <ArrowLeft className="w-6 h-6 text-gray-700" />
-            <p className="text-[16px] text-regular leading-[24px]">Go Back</p>
+            <p className="text-[16px] text-regular leading-[24px]">{title}</p>
         </button>
     );
 }

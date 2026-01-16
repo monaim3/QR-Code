@@ -152,38 +152,38 @@ export default function LanguageSelector({
         >
           <div className="bg-white rounded-xl border border-[var(--Boarder-Grey)] p-2">
           {/* Scrollable list with green scrollbar */}
-            <div className="overflow-y-auto max-h-[174px] always-visible-scrollbar flex flex-col gap-1">
-            {languages.map((language, index) => {
-                const isSelected = value === language.value;
+            <div className="overflow-y-auto overflow-x-hidden max-h-[174px] always-visible-scrollbar flex flex-col gap-1">
+         {languages.map((language, index) => {
+            const isSelected = value === language.value;
 
-                return (
-                    <button
-                      key={language.value}
-                      onClick={() => {
-                        setValue(language.value);
-                        setIsExpanded(false);
-                      }}
-                      className={cn(
-                        "w-full py-[5px] px-4 flex items-center justify-between rounded-[8px] transform transition-all duration-200 group",
-                        isSelected ? "bg-[#9BA2FB]/10" : "",
-                        !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
-                      )}
-                      style={{
-                        transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
-                      }}
-                    >
-                      <span
-                        className={`transition-colors leading-[22px] duration-200 font-regular ${
-                          isSelected
-                            ? "text-[var(--black)]"
-                            : "text-black group-hover:text-[var(--Blue)]"
-                        }`}
-                      >
-                        {language.label}
-                        </span>
-                        </button>
-            );
-          })}
+            return (
+                <button
+                  key={language.value}
+                  onClick={() => {
+                    setValue(language.value);
+                    setIsExpanded(false);
+                  }}
+                  className={cn(
+                    "w-full py-[5px] px-4 flex items-center justify-between rounded-[8px] transform transition-all duration-200 group",
+                    isSelected ? "bg-[#9BA2FB]/10" : "",
+                    !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
+                  )}
+                  style={{
+                    transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
+                  }}
+                >
+                  <span
+                    className={`transition-colors leading-[22px] duration-200 font-regular ${
+                      isSelected
+                        ? "text-[var(--black)]"
+                        : "text-black group-hover:text-[var(--Blue)]"
+                    }`}
+                  >
+                    {language.label}
+                    </span>
+                    </button>
+        );
+      })}
           </div>
       </div>
        </div>

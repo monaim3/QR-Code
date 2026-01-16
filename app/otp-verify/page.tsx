@@ -1,5 +1,6 @@
 import TwoFactorAuthPage from "../otp-verify/body";
 import LogoHeader from "../../components/common/logo_header";
+import Footer from "./footer";
 
 
 export default function OtpVerify() {
@@ -7,6 +8,7 @@ export default function OtpVerify() {
         <div className="bg-[#F5F6FA]">
         <LogoHeader/>
          <TwoFactorAuthPage/>
+         <Footer/>
         </div>
     );
 }

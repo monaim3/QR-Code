@@ -4,11 +4,13 @@ import { useRouter } from 'next/navigation';
 import Container from "../../components/common/parent-container";
 import BackButtonWithText from "../../components/common/back_button_with_text"
 import Link from "next/link";
+import CreatePasswordModal from "../../components/common/modal"
 
 export default function TwoFactorAuthPage() {
   const router = useRouter();
   const [code, setCode] = useState<string[]>(['', '', '', '', '', '']);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
@@ -92,11 +94,16 @@ export default function TwoFactorAuthPage() {
           </div>
             {/* Login Button */}
              <button
-              onClick={handleLogin}
+              onClick={()=> setIsModalOpen(true)}
               className="w-[318px] desktop:w-full h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-200 mt-[24px]"
             >
               Login
             </button>
+
+           <CreatePasswordModal
+            isOpen={isModalOpen} 
+            onClose={() => setIsModalOpen(false)} 
+           />
 
             {/* Help Text */}
             <p className="pt-[14px] text-[14px] leading-[22px] font-body_text text-gray-500 text-center">
@@ -113,7 +120,7 @@ export default function TwoFactorAuthPage() {
 
             {/* Back Button */}
             <div className="pt-[32px]">
-             <BackButtonWithText />
+             <BackButtonWithText title='Back'/>
             </div>
 
           </div>
