@@ -51,7 +51,7 @@ export default function DownloadAction({ onCustomDownloadModal }: Props) {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 z-10 flex flex-col items-start gap-1 w-[181px] p-4 mt-2 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
+        <div className="absolute right-0 z-10 flex flex-col items-start gap-1 w-[181px] p-4 top-[59px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
           {options.map((option) => {
             return (
               <div

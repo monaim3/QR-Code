@@ -2,9 +2,10 @@ import FilterAlt from "@/components/icons/filter-alt";
 
 interface Props {
   disabled?: boolean;
+  onClick: () => void;
 }
 
-export default function ClearFilter({ disabled = false }: Props) {
+export default function ClearFilter({ disabled = false, onClick }: Props) {
   return (
     <div className="flex flex-col items-end flex-1 ml-auto">
       <button
@@ -13,6 +14,7 @@ export default function ClearFilter({ disabled = false }: Props) {
             ? "text-[var(--Grey)] cursor-not-allowed"
             : "text-[var(--Dark-gray)]"
         }`}
+        onClick={onClick}
       >
         <span className="leading-[22px]">Clear filters</span>
 

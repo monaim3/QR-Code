@@ -12,7 +12,7 @@ interface Props {
 
 export default function CheckboxBar({ selectedCount, onClose }: Props) {
   return (
-    <div className="absolute bottom-0 left-0 flex items-center justify-center gap-10 py-4 px-6 bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full font-roboto">
+    <div className="sticky bottom-0 left-0 flex items-center justify-center gap-10 py-4 px-6 bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full font-roboto">
       {/* Portfolio */}
       <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
         <span className="text-[var(--Dark-gray)]">{selectedCount}</span> items

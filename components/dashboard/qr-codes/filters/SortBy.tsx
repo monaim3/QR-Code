@@ -5,9 +5,13 @@ import CloseCircle from "@/components/icons/close-circle";
 import RadioButton from "./RadioButton";
 import Tooltip from "@/components/dashboard/Tooltip";
 
-export default function SortBy() {
+interface Props {
+  selected: string;
+  setSelected: (selected: string) => void;
+}
+
+export default function SortBy({ selected, setSelected }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const options = [

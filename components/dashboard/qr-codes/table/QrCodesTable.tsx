@@ -44,18 +44,30 @@ export default function QrCodesTable({
 
   // Handle edit name request from child
   const handleEditName = useCallback((item: QRCodeItem) => {
+    setIsShareModalOpen(false);
+    setIsCustomDownloadModalOpen(false);
+    setIsQrPreviewModalOpen(false);
+    setIsUrlEditing(false);
     setSelectedItem(item);
     setIsNameEditing(true);
   }, []);
 
   // Handle edit url request from child
   const handleEditUrl = useCallback((item: QRCodeItem) => {
+    setIsNameEditing(false);
+    setIsShareModalOpen(false);
+    setIsCustomDownloadModalOpen(false);
+    setIsQrPreviewModalOpen(false);
     setSelectedItem(item);
     setIsUrlEditing(true);
   }, []);
 
   // Handle share modal request from child
   const handleShareModal = useCallback((item: QRCodeItem) => {
+    setIsNameEditing(false);
+    setIsUrlEditing(false);
+    setIsCustomDownloadModalOpen(false);
+    setIsQrPreviewModalOpen(false);
     setSelectedItem(item);
     setIsShareModalOpen(true);
   }, []);
@@ -68,6 +80,10 @@ export default function QrCodesTable({
 
   // Handle custom download modal request from child
   const handleCustomDownloadModal = useCallback((item: QRCodeItem) => {
+    setIsNameEditing(false);
+    setIsUrlEditing(false);
+    setIsShareModalOpen(false);
+    setIsQrPreviewModalOpen(false);
     setSelectedItem(item);
     setIsCustomDownloadModalOpen(true);
   }, []);
@@ -86,6 +102,10 @@ export default function QrCodesTable({
 
   // Handle qr preview modal request from child
   const handleQrPreviewModal = useCallback((item: QRCodeItem) => {
+    setIsNameEditing(false);
+    setIsUrlEditing(false);
+    setIsShareModalOpen(false);
+    setIsCustomDownloadModalOpen(false);
     setSelectedItem(item);
     setIsQrPreviewModalOpen(true);
   }, []);

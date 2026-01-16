@@ -5,9 +5,13 @@ import CloseCircle from "@/components/icons/close-circle";
 import CheckBox from "./CheckBox";
 import Tooltip from "@/components/dashboard/Tooltip";
 
-export default function QrCodeType() {
+interface Props {
+  selected: string[];
+  setSelected: (selected: string[]) => void;
+}
+
+export default function QrCodeType({ selected, setSelected }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const options = [

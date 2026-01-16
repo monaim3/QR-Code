@@ -30,7 +30,7 @@ export default function CustomDownloadModal({ open, onClose }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
-        className="max-w-[500px] gap-6"
+        className="!max-w-[500px] !h-[360px] gap-6"
         onOpenAutoFocus={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
       >
@@ -91,7 +91,7 @@ export default function CustomDownloadModal({ open, onClose }: Props) {
           >
             Cancel
           </Button>
-          <Button className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px]">
+          <Button className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear">
             <Download className="text-white" />
             Download
           </Button>

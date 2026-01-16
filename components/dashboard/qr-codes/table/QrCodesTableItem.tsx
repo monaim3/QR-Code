@@ -71,11 +71,11 @@ export default function QrCodesTableItem({
       <div className="w-[1px] h-[88px] bg-[var(--boarder-grey-50)]" />
 
       {/* Scans */}
-      <div className="flex flex-col items-center w-[64px] h-[54px]">
-        <h3 className="text-[var(--Black)] text-[24px] font-bold leading-[var(--Typeface-Line-height-Heading-3)] text-center">
+      <div className="flex flex-col items-start">
+        <h3 className="text-[var(--Black)] text-[24px] font-bold leading-[var(--Typeface-Line-height-Heading-3)] text-center w-[64px]">
           {item.scans}
         </h3>
-        <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px]">
+        <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px] w-[64px]">
           Scans
         </p>
       </div>
@@ -84,7 +84,7 @@ export default function QrCodesTableItem({
       <div className="w-[1px] h-[88px] bg-[var(--boarder-grey-50)]" />
 
       {/* Info */}
-      <div className="flex flex-col justify-center items-start gap-1 h-[72px]">
+      <div className="flex flex-col justify-center items-start gap-1 shrink-0 w-[180px]">
         <p className="text-[var(--Black)] text-[14px] leading-[22px]">
           Created: {item.createdAt}
         </p>
@@ -104,7 +104,7 @@ export default function QrCodesTableItem({
       <div className="w-[1px] h-[88px] bg-[var(--boarder-grey-50)]" />
 
       {/* Status */}
-      <div className="flex items-center justify-center gap-2 p-2">
+      <div className="flex items-center justify-center gap-2 p-2 w-[100px] shrink-0">
         {item.status === "Paused" ? (
           <>
             <PauseCircle className="text-[var(--Grey)]" />

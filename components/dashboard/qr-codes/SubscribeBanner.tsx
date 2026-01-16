@@ -12,7 +12,7 @@ export default function SubscribeBanner() {
         </p>
       </div>
 
-      <Button className="bg-[var(--Blue)] text-white rounded-[var(--Corner-Radius-10)] py-2 px-4 text-[14px] leading-[22px] h-10">
+      <Button className="bg-[var(--Blue)] text-white rounded-[var(--Corner-Radius-10)] py-2 px-4 text-[14px] leading-[22px] h-10 hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear">
         Subscribe
       </Button>
     </div>

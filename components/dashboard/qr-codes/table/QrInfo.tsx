@@ -23,6 +23,9 @@ export default function QrInfo({
     }
     return url;
   };
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(item.shortUrl);
+  };
 
   return (
     <div className="inline-flex flex-col items-start gap-1">
@@ -44,7 +47,9 @@ export default function QrInfo({
         <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
           {item.shortUrl}
         </p>
-        <Copy className="cursor-pointer text-[var(--Grey)]" />
+        <button onClick={handleCopy}>
+          <Copy className="text-[var(--Grey)]" />
+        </button>
       </div>
 
       {/* Type */}

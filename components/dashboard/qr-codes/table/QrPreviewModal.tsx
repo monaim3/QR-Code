@@ -20,7 +20,9 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
-        className="max-w-[500px] gap-10"
+        className={`!max-w-[500px] gap-10 ${
+          item?.status === "Paused" ? "!h-[482px]" : "!h-[470px]"
+        }`}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex flex-col justify-center items-center gap-2">
@@ -40,6 +42,7 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
               alt="QR Code"
               width={144}
               height={144}
+              className="h-[160px]"
             />
           )}
           <p className="text-[#3D75F3] text-[14px] leading-[22px] text-center font-roboto">
@@ -56,7 +59,7 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
               </p>
             </>
           ) : (
-            <Button className="h-10 w-[210px] flex items-center justify-center gap-2 py-2 px-4 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px]">
+            <Button className="h-10 w-[210px] flex items-center justify-center gap-2 py-2 px-4 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear">
               <Download className="text-white" />
               Download
             </Button>

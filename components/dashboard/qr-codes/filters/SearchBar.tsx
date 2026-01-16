@@ -3,8 +3,12 @@ import CloseCircle from "@/components/icons/close-circle";
 import Search from "@/components/icons/search";
 import Tooltip from "@/components/dashboard/Tooltip";
 
-export default function SearchBar() {
-  const [query, setQuery] = useState("");
+interface Props {
+  query: string;
+  setQuery: (query: string) => void;
+}
+
+export default function SearchBar({ query, setQuery }: Props) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
