@@ -56,7 +56,10 @@ type SocialLogoName =
   | "Facebook"
   | "Telegram";
 
-type SocialLogosMap = Record<SocialLogoName, SocialLogo>;
+type LogoType = {
+  name: string;
+  Icon: React.ComponentType;
+};
 
 export default function QRCodeCustomizer() {
   const [view, setView] = useState<"preview" | "qrcode">("preview");
@@ -83,7 +86,7 @@ export default function QRCodeCustomizer() {
   const [patternStyle, setPatternStyle] = useState("rounded");
   const [cornerFrameStyle, setCornerFrameStyle] = useState("extra-rounded");
   const [cornerDotType, setCornerDotType] = useState("dot");
-  const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
+  const [selectedLogo, setSelectedLogo] = useState<LogoType | null>(null);
   const [customLogo, setCustomLogo] = useState<string | null>(null);
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
@@ -99,51 +102,90 @@ export default function QRCodeCustomizer() {
   const cornerFrameOptions = ["none", "square", "dot", "extra-rounded"];
   const cornerDotOptions = ["none", "dot", "square"];
 
-  const createIconImage = async (logoName: string): Promise<string | null> => {
-    const socialLogos: SocialLogosMap = {
-      Twitter: { Icon: FaTwitter, color: "#1DA1F2" },
-      X: { Icon: X, color: "#1DA1F2" },
-      YouTube: { Icon: FaYoutube, color: "#FF0000" },
-      Instagram: { Icon: FaInstagram, color: "#E4405F" },
-      TikTok: { Icon: FaTiktok, color: "#000000" },
-      LinkedIn: { Icon: FaLinkedin, color: "#0A66C2" },
-      Pinterest: { Icon: FaPinterest, color: "#EB2239" },
-      Microsoft: { Icon: PiMicrosoftOutlookLogoDuotone, color: "#0078D4" },
-      Apple: { Icon: BsApple, color: "#000000" },
-      Gmail: { Icon: BiLogoGmail, color: "#EA4335" },
-      WhatsApp: { Icon: FaWhatsapp, color: "#25D366" },
-      Facebook: { Icon: FaFacebook, color: "#1877F2" },
-      Telegram: { Icon: FaTelegram, color: "#0088CC" },
-    };
+  const createIconImage = (logo: LogoType): Promise<string | null> => {
+    return new Promise((resolve) => {
+      try {
+        // Create a hidden div to render the component
+        const div = document.createElement("div");
+        div.style.cssText =
+          "position:absolute;left:-9999px;width:60px;height:60px;";
+        document.body.appendChild(div);
 
-    if (!(logoName in socialLogos)) return null;
+        // Use a temporary React root
+        import("react-dom/client").then(({ createRoot }) => {
+          const root = createRoot(div);
 
-    const { color } = socialLogos[logoName as SocialLogoName];
+          root.render(<logo.Icon />);
 
-    const canvas = document.createElement("canvas");
-    canvas.width = 100;
-    canvas.height = 100;
-    const ctx = canvas.getContext("2d");
+          // Wait for render then get SVG
+          requestAnimationFrame(() => {
+            const svg = div.querySelector("svg");
 
-    if (!ctx) return null;
+            if (!svg) {
+              root.unmount();
+              document.body.removeChild(div);
+              resolve(null);
+              return;
+            }
 
-    ctx.fillStyle = "white";
-    ctx.beginPath();
-    ctx.roundRect(0, 0, 100, 100, 15);
-    ctx.fill();
+            // Get SVG markup
+            const svgData = new XMLSerializer().serializeToString(svg);
 
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(50, 50, 35, 0, Math.PI * 2);
-    ctx.fill();
+            // Create canvas
+            const canvas = document.createElement("canvas");
+            canvas.width = 100;
+            canvas.height = 100;
+            const ctx = canvas.getContext("2d");
 
-    ctx.fillStyle = "white";
-    ctx.font = "bold 40px Arial";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(logoName[0], 50, 50);
+            if (!ctx) {
+              root.unmount();
+              document.body.removeChild(div);
+              resolve(null);
+              return;
+            }
 
-    return canvas.toDataURL();
+            // Draw white rounded background
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.roundRect(0, 0, 100, 100, 15);
+            ctx.fill();
+
+            // Create image from SVG
+            const img = new Image();
+            const svgBlob = new Blob([svgData], {
+              type: "image/svg+xml;charset=utf-8",
+            });
+            const url = URL.createObjectURL(svgBlob);
+
+            img.onload = () => {
+              // Draw centered icon
+              ctx.drawImage(img, 20, 20, 60, 60);
+              URL.revokeObjectURL(url);
+
+              const dataUrl = canvas.toDataURL("image/png");
+
+              // Cleanup
+              root.unmount();
+              document.body.removeChild(div);
+
+              resolve(dataUrl);
+            };
+
+            img.onerror = () => {
+              URL.revokeObjectURL(url);
+              root.unmount();
+              document.body.removeChild(div);
+              resolve(null);
+            };
+
+            img.src = url;
+          });
+        });
+      } catch (error) {
+        console.error("Error creating icon:", error);
+        resolve(null);
+      }
+    });
   };
   const SelectedFrameComponent = QRFrameArray[selectedFrameIndex];
   useEffect(() => {
@@ -257,12 +299,6 @@ export default function QRCodeCustomizer() {
 
     updateQRCode();
   }, [websiteUrl, dotColor, backgroundColor, transparentBg]);
-  // const QRFrameGallery = dynamic(
-  //   () => import("@/components/common/QRFrameGallery"),
-  //   {
-  //     ssr: false,
-  //   }
-  // );
 
   const handleSwapFrameColors = () => {
     const temp = frameBackgroundColor;
@@ -501,7 +537,7 @@ export default function QRCodeCustomizer() {
                 <MobileFrame>
                   {view === "preview" ? (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
-                      <SelectedFrameComponent
+                      {/* <SelectedFrameComponent
                         label={frameText}
                         backgroundColor={
                           transparentFrameBg
@@ -514,7 +550,7 @@ export default function QRCodeCustomizer() {
                         height={260}
                       >
                         <CommonFrameQr />
-                      </SelectedFrameComponent>
+                      </SelectedFrameComponent> */}
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
