@@ -35,6 +35,7 @@ import { useDragScroll } from "@/components/common/useDragScroll";
 import dynamic from "next/dynamic";
 import QrCodeFrameAllInput from "@/components/common/QrCodeFrameAllInput";
 import QRFrameGallery from "@/components/common/QRFrameGallery";
+import CommonFrameQr from "@/components/icons/common-frame-qr";
 interface SocialLogo {
   Icon: IconType;
   color: string;
@@ -151,9 +152,9 @@ export default function QRCodeCustomizer() {
 
       const qrOptions: Options = {
         data: websiteUrl || "https://www.linkedin.com/",
-        width: 250,
-        height: 250,
-        margin: 10,
+        width: 60,
+        height: 60,
+        margin: 0,
         dotsOptions: {
           color: dotColor,
           type: patternStyle as any,
@@ -184,7 +185,7 @@ export default function QRCodeCustomizer() {
           qrOptions.imageOptions = {
             hideBackgroundDots: true,
             imageSize: 0.3,
-            margin: 8,
+            margin: 0,
           };
         }
       } else if (customLogo) {
@@ -192,7 +193,7 @@ export default function QRCodeCustomizer() {
         qrOptions.imageOptions = {
           hideBackgroundDots: true,
           imageSize: 0.3,
-          margin: 8,
+          margin: 0,
         };
       }
 
@@ -269,10 +270,10 @@ export default function QRCodeCustomizer() {
     setFrameTextColor(temp);
   };
   return (
-    <div className="bg-gray-50 p-8">
+    <div className="bg-gray-50 p-8 min-h-screen">
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32">
-          <div className="flex-1 flex flex-col space-y-4">
+          <div className="flex-1 flex flex-col space-y-4 ">
             <h1 className="text-2xl font-Poppins font-bold text-gray-900">
               Customize design for the Website URL QR code
             </h1>
@@ -468,63 +469,78 @@ export default function QRCodeCustomizer() {
           </div>
 
           {/* Preview Section */}
-          <div className="flex flex-col items-center justify-start  ">
-            <div className="flex gap-4 mb-4 ">
-              <button
-                onClick={() => setView("preview")}
-                className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-700 ease-in-out ${
-                  view === "preview"
-                    ? "bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]"
-                    : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
-                }`}
-              >
-                <span className="text-sm leading-[22px] font-medium font-roboto">
-                  Preview
-                </span>
-              </button>
-              <button
-                onClick={() => setView("qrcode")}
-                className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-700 ease-in-out ${
-                  view === "qrcode"
-                    ? "text-white bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
-                    : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
-                }`}
-              >
-                <span className="text-sm leading-[22px] font-medium font-roboto">
-                  QR code
-                </span>
-              </button>
-            </div>
-            <div className="hidden desktop:flex desktop:flex-col desktop:gap-4 desktop:sticky h-[752px]">
-              <MobileFrame>
-                {view === "preview" ? (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded-[32px] overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=800&fit=crop"
-                      alt="Preview"
-                      className="w-full h-full object-cover"
-                    />
-                    {/* <SelectedFrameComponent
-                      label={frameText}
-                      backgroundColor={
-                        transparentFrameBg
-                          ? "transparent"
-                          : frameBackgroundColor
-                      }
-                      textColor={frameTextColor}
-                      frameColor={frameColor}
-                      width={200}
-                      height={260}
-                    >
-                      <foreignObject x="8" y="8" width="48" height="48">
-                        <div ref={mobileQrRef} className="w-full h-full" />
-                      </foreignObject>
-                    </SelectedFrameComponent>*/}
-                  </div>
-                ) : (
-                  <QRPreview mobileQrRef={mobileQrRef} />
-                )}
-              </MobileFrame>
+          <div className="desktop:sticky desktop:top-24 desktop:self-start desktop:h-fit">
+            <div className="flex flex-col items-center justify-start">
+              <div className="flex gap-4 mb-4">
+                <button
+                  onClick={() => setView("preview")}
+                  className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-700 ease-in-out ${
+                    view === "preview"
+                      ? "bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]"
+                      : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
+                  }`}
+                >
+                  <span className="text-sm leading-[22px] font-medium font-roboto">
+                    Preview
+                  </span>
+                </button>
+                <button
+                  onClick={() => setView("qrcode")}
+                  className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-700 ease-in-out ${
+                    view === "qrcode"
+                      ? "text-white bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
+                      : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
+                  }`}
+                >
+                  <span className="text-sm leading-[22px] font-medium font-roboto">
+                    QR code
+                  </span>
+                </button>
+              </div>
+              <div className="hidden desktop:flex desktop:flex-col desktop:gap-4 h-[752px]">
+                <MobileFrame>
+                  {view === "preview" ? (
+                    <div className="w-full h-full flex items-center justify-center rounded-[32px]">
+                      <SelectedFrameComponent
+                        label={frameText}
+                        backgroundColor={
+                          transparentFrameBg
+                            ? "transparent"
+                            : frameBackgroundColor
+                        }
+                        textColor={frameTextColor}
+                        frameColor={frameColor}
+                        width={200}
+                        height={260}
+                      >
+                        <CommonFrameQr />
+                      </SelectedFrameComponent>
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center rounded-[32px]">
+                      <SelectedFrameComponent
+                        label={frameText}
+                        backgroundColor={
+                          transparentFrameBg
+                            ? "transparent"
+                            : frameBackgroundColor
+                        }
+                        textColor={frameTextColor}
+                        frameColor={frameColor}
+                        width={260}
+                        height={260}
+                      >
+                        <foreignObject x="-10" y="-10" width="60" height="60">
+                          <div className="flex items-center justify-center">
+                            <CommonFrameQr />
+                            <div ref={mobileQrRef} />
+                          </div>
+                        </foreignObject>
+                      </SelectedFrameComponent>
+                    </div>
+                  )}
+                </MobileFrame>
+              </div>
             </div>
           </div>
         </div>

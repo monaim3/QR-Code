@@ -7,7 +7,7 @@ const X = (props: React.SVGProps<SVGSVGElement>) => {
       viewBox="0 0 34 34"
       fill="none"
     >
-      <g clip-path="url(#clip0_36259_16520)">
+      <g clip-path="url(#clip0_36377_16520)">
         <path
           d="M16.665 0C7.46149 0 0 7.46149 0 16.665C0 25.8685 7.46149 33.33 16.665 33.33C25.8685 33.33 33.33 25.8685 33.33 16.665C33.33 7.46149 25.8685 0 16.665 0Z"
           fill="black"
@@ -18,7 +18,7 @@ const X = (props: React.SVGProps<SVGSVGElement>) => {
         />
       </g>
       <defs>
-        <clipPath id="clip0_36259_16520">
+        <clipPath id="clip0_36377_16520">
           <rect width="33.33" height="33.33" fill="white" />
         </clipPath>
       </defs>

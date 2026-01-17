@@ -18,9 +18,6 @@ const QrCodeFrameAllInput = ({
   frameColor,
   setFrameColor,
   backgroundColor,
-  setBackgroundColor,
-  textColor,
-  setTextColor,
   transparentBg,
   setTransparentBg,
   handleSwapColors,
@@ -48,10 +45,9 @@ const QrCodeFrameAllInput = ({
           <div className="flex items-end justify-center gap-6 pt-6 pb-8 relative z-10">
             <ColorInput
               label="Background color"
-              value={backgroundColor}
-              onChange={setBackgroundColor}
-              showColorIndicator
-              id="bg-color"
+              value={frameBackgroundColor ?? ""}
+              onChange={setFrameBackgroundColor}
+              showColorIndicator={true}
             />
             <button
               type="button"
@@ -66,10 +62,9 @@ const QrCodeFrameAllInput = ({
 
             <ColorInput
               label="Text color"
-              value={textColor}
-              onChange={setTextColor}
-              showColorIndicator
-              id="text-color"
+              value={frameTextColor ?? ""}
+              onChange={setFrameTextColor}
+              showColorIndicator={true}
             />
           </div>
         </div>
