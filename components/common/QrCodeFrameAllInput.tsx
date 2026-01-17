@@ -6,17 +6,25 @@ import { TextInput } from "./TextInput";
 import { CheckboxInput } from "./CheckboxInput";
 import ColorInput from "./ColorInput";
 
-const QrCodeFrameAllInput = () => {
-  const [frameText, setFrameText] = useState("Scan me!");
-  const [frameColor, setFrameColor] = useState("#0A0909");
-  const [backgroundColor, setBackgroundColor] = useState("#0A0909");
-  const [textColor, setTextColor] = useState("#FFFFFF");
-  const [transparentBg, setTransparentBg] = useState(false);
-  const handleSwapColors = () => {
-    const temp = backgroundColor;
-    setBackgroundColor(textColor);
-    setTextColor(temp);
-  };
+const QrCodeFrameAllInput = ({
+  frameText,
+  setFrameText,
+  frameBackgroundColor,
+  setFrameBackgroundColor,
+  frameTextColor,
+  setFrameTextColor,
+  frameTransparent,
+  setFrameTransparent,
+  frameColor,
+  setFrameColor,
+  backgroundColor,
+  setBackgroundColor,
+  textColor,
+  setTextColor,
+  transparentBg,
+  setTransparentBg,
+  handleSwapColors,
+}: any) => {
   return (
     <div className=" ">
       <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4">
@@ -36,39 +44,34 @@ const QrCodeFrameAllInput = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[72px] mb-6 relative">
-          <ColorInput
-            label="Background color"
-            value={backgroundColor}
-            onChange={setBackgroundColor}
-            showColorIndicator={true}
-          />
-
-          <div className="absolute left-1/2 top-12 -translate-x-1/2 -translate-y-1/2 z-10 hidden md:block">
+        <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
+          <div className="flex items-end justify-center gap-6 pt-6 pb-8 relative z-10">
+            <ColorInput
+              label="Background color"
+              value={backgroundColor}
+              onChange={setBackgroundColor}
+              showColorIndicator
+              id="bg-color"
+            />
             <button
-              onClick={handleSwapColors}
-              className="p-2 "
-              aria-label="Swap colors"
+              type="button"
+              className="flex h-12 w-12 items-center justify-center text-gray-500"
+              onClick={() => {
+                backgroundColor;
+                setFrameColor(backgroundColor);
+              }}
             >
-              <IoIosSwap className="w-6 h-6 text-gray-400" />
+              <IoIosSwap className="text-2xl" onClick={handleSwapColors} />
             </button>
-          </div>
-          <ColorInput
-            label="Text color"
-            value={textColor}
-            onChange={setTextColor}
-            showColorIndicator={true}
-          />
-        </div>
 
-        <div className="flex justify-center mb-6 md:hidden">
-          <button
-            onClick={handleSwapColors}
-            className="p-2 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
-            aria-label="Swap colors"
-          >
-            <IoIosSwap className="w-5 h-5 text-gray-400" />
-          </button>
+            <ColorInput
+              label="Text color"
+              value={textColor}
+              onChange={setTextColor}
+              showColorIndicator
+              id="text-color"
+            />
+          </div>
         </div>
 
         <CheckboxInput

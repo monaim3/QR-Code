@@ -20,11 +20,11 @@ export default function Accordion({
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
     <>
-      <div className="bg-[var(--Generator-Background)]">
+      <div className="bg-[var(--Generator-Background)] ">
         <div className="">
           <div className="flex flex-col desktop:flex-row gap-8">
             <div className="flex-1 flex flex-col gap-4">
-              <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
+              <div className="w-full bg-white rounded-xl shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
                   className="w-full flex items-center justify-between px-4 md:px-8 py-4 hover:bg-gray-50 transition-colors"
@@ -79,11 +79,11 @@ export default function Accordion({
                           },
                         },
                       }}
-                      className="overflow-hidden"
+                      className=""
                     >
                       <hr className="ml-4 mr-4 md:ml-8 md:mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
                       {isOpen && (
-                        <div className="p-6 md:px-8 space-y-8">{children}</div>
+                        <div className="p-6 md:px-8 space-y-8 ">{children}</div>
                       )}
                     </motion.div>
                   )}
