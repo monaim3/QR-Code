@@ -3,7 +3,7 @@ import { Check, ChevronRight } from 'lucide-react';
 import Container from '@/components/common/parent-container';
 import CurrenctSelector from '@/components/common/currency_dropdown';
 import Link from "next/link";
-import CheckIcon from "../../components/icons/check-icon"
+import CheckIcon from "../../components/icons/check-icon";
 
 interface PricingFeature {
   text: string;

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from 'react';
-import { Mail, ArrowLeft, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { Mail, ChevronRight, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import Container from '@/components/common/parent-container';
+import InputField from "../../components/common/input_filed";
 
 // Types
 interface FormState {
@@ -12,12 +14,15 @@ interface FormState {
 
 // Main Component
 export default function CancelSubscriptionPage() {
+
   const [formState, setFormState] = useState<FormState>({
     email: '',
     isSubmitting: false,
     status: 'idle',
     message: ''
   });
+
+  const [email, setEmail] = useState("");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormState(prev => ({
@@ -92,73 +97,52 @@ export default function CancelSubscriptionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header Navigation - Fixed to left */}
-      <div className="px-4 pt-6 md:px-8 md:pt-8">
-        <div className="flex items-center gap-3 text-sm">
-          <button
+    <div className='bg-[#F5F6FA] font-[var(--font-poppins)]'>
+      <div className="bg-white h-[54px] flex items-center gap-3 text-[14px] leading-[22px] font-regular">
+        <Container className='flex flex-row gap-[8px]'>
+           <button
             onClick={handleGoBack}
             className="text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-1"
             aria-label="Go back"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>My QR Code</span>
+          <span className='text-[var(--Black)]'>My QR Code</span>
           </button>
-          <span className="text-gray-400">/</span>
-          <span className="text-teal-600 font-medium">Cancel subscription</span>
+          <ChevronRight size={20} className="text-gray-500" />
+          <span className="text-[var(--Blue)]">Cancel subscription</span>
+        </Container>
         </div>
-      </div>
-
+      <Container>
+       <div className="min-h-screen">
       {/* Main Card - Centered */}
-      <div className="flex items-center justify-center px-4 py-8 md:py-12">
-        <div className="w-full max-w-2xl">
-
+      <div className="flex items-center justify-center pt-[120px] pb-[192px]">
+        <div className="bg-white rounded-[10px] shadow-xl w-full max-w-[350px] desktop:max-w-[600px] p-[24px] desktop:p-[32px]">
         {/* Main Card */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="p-8 md:p-12">
-            {/* Header */}
-            <div className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        {/* Header */}
+            <div>
+              <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)]">
                 Cancel Your Subscription!
-              </h1>
-              <p className="text-gray-600 text-lg">
+              </h3>
+              <p className="text-[var(--Black)] font-regular text-[16px] leading-[24px] pt-[8px]">
                 Easily cancel your subscription by entering the email used to create your account.
               </p>
             </div>
-
+            <div className="h-px w-full bg-[#CDD0DB80] my-[24px] desktop:my-[32px]" />
             {/* Info Section */}
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
-              <p className="text-gray-700 leading-relaxed">
-                You may cancel your subscription at any time. Just provide the email address you
-                used when registering and click on the "Cancel Subscription" button below. It's that
-                easy!
+             <p className="text-[var(--Black)] text-[14px] leading-[22px]">
+                You may cancel your subscription at any time. Just provide the email address you used when registering and click on the "Cancel Subscription" button below. It's that easy!
               </p>
-            </div>
 
             {/* Input Section */}
-            <div className="space-y-6">
+            <div className="pt-[24px] desktop:pt-[32px]">
               {/* Email Input */}
-              <div>
-                <label htmlFor="email" className="sr-only">
-                  Email address
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                    <Mail className="w-5 h-5 text-gray-400" />
-                  </div>
-                  <input
-                    id="email"
-                    type="email"
-                    value={formState.email}
-                    onChange={handleEmailChange}
-                    onKeyPress={handleKeyPress}
-                    placeholder="Enter your email used for registration"
-                    disabled={formState.isSubmitting || formState.status === 'success'}
-                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
-                    autoComplete="email"
-                  />
-                </div>
-              </div>
+              <InputField
+                value={email}
+                onChange={setEmail}
+                placeholder="Enter your email used for registration"
+                type="email"
+                desktopWidth={536}
+                leading={<Mail size={20}/>}
+              />
 
               {/* Status Messages */}
               {formState.status === 'success' && (
@@ -216,18 +200,10 @@ export default function CancelSubscriptionPage() {
                 "Billing" tab and clicking "Cancel Subscription".
               </p>
             </div>
-          </div>
-        </div>
-
-          {/* Footer Note */}
-          <p className="text-center text-gray-500 text-sm mt-6">
-            Need help? Contact us at{' '}
-            <a href="mailto:support@example.com" className="text-teal-600 hover:underline">
-              support@example.com
-            </a>
-          </p>
         </div>
       </div>
+     </div>
+    </Container>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
-import LanguageSelector from "../common/language_dropdown"
+import LanguageSelector from "../common/language_dropdown";
 
 interface HeaderProps{
   className?: string 

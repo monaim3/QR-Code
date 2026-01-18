@@ -5,7 +5,7 @@ import CancelSubscriptionPage from "./body";
 export default function CancelSubscription() {
     return (
         <div>
-          <Header />
+          <Header className="bg-white desktop:bg-white"/>
           <CancelSubscriptionPage/>
           <Footer />
         </div>
