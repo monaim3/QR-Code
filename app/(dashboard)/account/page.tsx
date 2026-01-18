@@ -13,6 +13,9 @@ export default function Account() {
         </h2>
       </div>
 
+      {/* Notification Banner */}
+      <div className="my-[20px]"></div>
+
       <div className="flex flex-col items-start gap-6 self-stretch">
         <div className="flex items-center gap-2 self-stretch">
           <TabChip label="Billing Information" isActive={true} />

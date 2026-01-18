@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function SubscribeBanner() {
   return (
-    <div className="flex items-center self-stretch gap-6 p-4 rounded-[var(--Corner-Radius-10)] bg-[#E7E8EE]">
+    <div className="flex items-center self-stretch gap-6 p-4 rounded-[var(--Corner-Radius-10)] bg-[#E7E8EE] my-1">
       <div className="flex items-center gap-2 flex-1">
         <AlertCircle />
         <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
