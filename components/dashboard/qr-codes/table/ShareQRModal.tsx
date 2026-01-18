@@ -41,7 +41,7 @@ export default function ShareQRModal({ open, onClose, item }: Props) {
           <Input
             readOnly
             value={item?.shortUrl || ""}
-            className="py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[14px] !leading-[22px]"
+            className="py-2 px-4 h-10 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[14px] !leading-[22px]"
           />
 
           <Button

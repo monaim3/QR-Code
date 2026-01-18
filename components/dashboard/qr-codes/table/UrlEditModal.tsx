@@ -40,7 +40,7 @@ export default function UrlEditModal({ open, onClose, onSave, item }: Props) {
           <div className="flex flex-col gap-1 w-full">
             <Input
               type="text"
-              className={`h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[16px] !leading-[24px] ${
+              className={`h-12 py-2 px-4 rounded-[var(--Corner-Radius-8)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[16px] !leading-[24px] ${
                 error
                   ? "border-2 border-[var(--error)]"
                   : "border border-[var(--Boarder-Grey)]"

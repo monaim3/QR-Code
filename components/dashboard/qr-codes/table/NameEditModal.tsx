@@ -36,7 +36,7 @@ export default function NameEditModal({ open, onClose, onSave, item }: Props) {
           </Label>
           <Input
             type="text"
-            className="h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[16px] !leading-[24px]"
+            className="h-12 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[16px] !leading-[24px]"
             defaultValue={item?.title || ""}
           />
         </div>
