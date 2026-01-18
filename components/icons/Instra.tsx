@@ -34,13 +34,13 @@ const Instra = (props: React.SVGProps<SVGSVGElement>) => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(15.7204 36.6841) scale(41.5471 41.5471)"
         >
-          <stop stop-color="#FFDD55" />
-          <stop offset="0.328" stop-color="#FF543F" />
-          <stop offset="0.348" stop-color="#FC5245" />
-          <stop offset="0.504" stop-color="#E64771" />
-          <stop offset="0.643" stop-color="#D53E91" />
-          <stop offset="0.761" stop-color="#CC39A4" />
-          <stop offset="0.841" stop-color="#C837AB" />
+          <stop stopColor="#FFDD55" />
+          <stop offset="0.328" stopColor="#FF543F" />
+          <stop offset="0.348" stopColor="#FC5245" />
+          <stop offset="0.504" stopColor="#E64771" />
+          <stop offset="0.643" stopColor="#D53E91" />
+          <stop offset="0.761" stopColor="#CC39A4" />
+          <stop offset="0.841" stopColor="#C837AB" />
         </radialGradient>
       </defs>
     </svg>

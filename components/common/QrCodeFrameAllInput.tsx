@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosSwap } from "react-icons/io";
 import { TextInput } from "./TextInput";
 
@@ -22,6 +22,16 @@ const QrCodeFrameAllInput = ({
   setTransparentBg,
   handleSwapColors,
 }: any) => {
+  const prevBgRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (transparentBg) {
+      prevBgRef.current = frameBackgroundColor;
+      setFrameBackgroundColor("transparent");
+    } else if (prevBgRef.current) {
+      setFrameBackgroundColor(prevBgRef.current);
+    }
+  }, [transparentBg]);
   return (
     <div className=" ">
       <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4">
@@ -43,11 +53,19 @@ const QrCodeFrameAllInput = ({
 
         <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
           <div className="flex items-end justify-center gap-6 pt-6 pb-8 relative z-10">
-            <ColorInput
+            {/* <ColorInput
               label="Background color"
               value={frameBackgroundColor ?? ""}
               onChange={setFrameBackgroundColor}
               showColorIndicator={true}
+            /> */}
+            <ColorInput
+              label="Background color"
+              value={
+                transparentBg ? "Transparent" : (frameBackgroundColor ?? "")
+              }
+              onChange={transparentBg ? undefined : setFrameBackgroundColor}
+              showColorIndicator={!transparentBg}
             />
             <button
               type="button"

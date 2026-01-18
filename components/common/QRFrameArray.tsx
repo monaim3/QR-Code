@@ -1,3 +1,4 @@
+import QrCodeFrame0 from "../icons/AllQrFrame/QrCodeFrame0";
 import QrCodeFrame1 from "../icons/AllQrFrame/QrCodeFrame1";
 import QrCodeFrame10 from "../icons/AllQrFrame/QrCodeFrame10";
 import QrCodeFrame11 from "../icons/AllQrFrame/QrCodeFrame11";
@@ -32,7 +33,7 @@ import QrCodeFrame9 from "../icons/AllQrFrame/QrCodeFrame9";
 import QrFrame from "../icons/AllQrFrame/QrFrame";
 
 export const QRFrameArray = [
-  QrFrame,
+  QrCodeFrame0,
   QrCodeFrame1,
   QrCodeFrame2,
   QrCodeFrame3,

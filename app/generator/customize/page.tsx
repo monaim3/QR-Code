@@ -2,40 +2,23 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import { X } from "lucide-react";
 
 import MobileFrame from "@/components/common/MobileFrame";
-import QRPreview from "@/components/common/QRPreview";
 import ColorInput from "@/components/common/ColorInput";
 import Accordion from "@/components/common/Accordion";
 import Container from "@/components/common/parent-container";
 import PatternPreview from "@/components/common/PatternPreview";
 import CornerStylePreview from "@/components/common/CornerStylePreview";
 import { IoIosSwap } from "react-icons/io";
-import PreviewQRButtons from "@/components/generator/Preview_QR_Buttons";
 import LogoSelector from "@/components/common/LogoSelector";
 import { useAppSelector } from "@/store/hooks";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaPinterest,
-  FaTelegram,
-  FaTiktok,
-  FaTwitter,
-  FaWhatsapp,
-  FaYoutube,
-} from "react-icons/fa";
-import { PiMicrosoftOutlookLogoDuotone } from "react-icons/pi";
-import { BsApple } from "react-icons/bs";
-import { BiLogoGmail } from "react-icons/bi";
+
 import { IconType } from "react-icons";
 import { QRFrameArray } from "@/components/common/QRFrameArray";
-import { useDragScroll } from "@/components/common/useDragScroll";
-import dynamic from "next/dynamic";
 import QrCodeFrameAllInput from "@/components/common/QrCodeFrameAllInput";
 import QRFrameGallery from "@/components/common/QRFrameGallery";
 import CommonFrameQr from "@/components/icons/common-frame-qr";
+import ColorPicker from "@/components/common/ColorPicker";
 interface SocialLogo {
   Icon: IconType;
   color: string;
@@ -81,6 +64,7 @@ export default function QRCodeCustomizer() {
   const [dotColor, setDotColor] = useState("#000000");
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
   const [transparentBg, setTransparentBg] = useState(false);
+  const [patternTransparentBg, setPatternTransparentBg] = useState(false);
   const [cornerFrameColor, setCornerFrameColor] = useState("#000000");
   const [cornerDotColor, setCornerDotColor] = useState("#000000");
   const [patternStyle, setPatternStyle] = useState("rounded");
@@ -194,8 +178,8 @@ export default function QRCodeCustomizer() {
 
       const qrOptions: Options = {
         data: websiteUrl || "https://www.linkedin.com/",
-        width: 60,
-        height: 60,
+        width: 300,
+        height: 300,
         margin: 0,
         dotsOptions: {
           color: dotColor,
@@ -275,6 +259,7 @@ export default function QRCodeCustomizer() {
         width: 200,
         height: 200,
         margin: 10,
+        type: "svg",
         dotsOptions: {
           color: dotColor,
           type: "rounded" as any,
@@ -305,6 +290,16 @@ export default function QRCodeCustomizer() {
     setFrameBackgroundColor(frameTextColor);
     setFrameTextColor(temp);
   };
+  const handleTransparentChange = (checked: boolean) => {
+    setPatternTransparentBg(checked);
+
+    if (checked) {
+      setBackgroundColor("transparent");
+    } else {
+      setBackgroundColor("#ffffff"); // or last saved color
+    }
+  };
+
   return (
     <div className="bg-gray-50 p-8 min-h-screen">
       <Container>
@@ -365,7 +360,11 @@ export default function QRCodeCustomizer() {
                     showColorIndicator
                     id="dot-color"
                   />
-
+                  {/* <ColorPicker
+                    value={dotColor}
+                    onChange={setDotColor}
+                    label="Dot color"
+                  /> */}
                   <button
                     type="button"
                     className="flex h-12 w-12 items-center justify-center text-gray-500"
@@ -379,18 +378,22 @@ export default function QRCodeCustomizer() {
 
                   <ColorInput
                     label="Background color"
-                    value={backgroundColor}
-                    onChange={setBackgroundColor}
+                    value={
+                      backgroundColor === "transparent"
+                        ? "#ffffff"
+                        : backgroundColor
+                    }
+                    onChange={(value) => setBackgroundColor(value)}
                     showColorIndicator
-                    id="bg-color"
+                    // disabled={patternTransparentBg}
                   />
                 </div>
                 <div className="flex items-center gap-2 px-6 pb-4">
                   <input
                     type="checkbox"
                     id="transparent-bg"
-                    checked={transparentBg}
-                    onChange={(e) => setTransparentBg(e.target.checked)}
+                    checked={patternTransparentBg}
+                    onChange={(e) => handleTransparentChange(e.target.checked)}
                     className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
                   />
                   <label
@@ -472,21 +475,6 @@ export default function QRCodeCustomizer() {
                     id="corner-dot-color"
                   />
                 </div>
-                <div className="flex items-center gap-2 px-6 pb-4">
-                  <input
-                    type="checkbox"
-                    id="transparent-bg-2"
-                    checked={transparentBg}
-                    onChange={(e) => setTransparentBg(e.target.checked)}
-                    className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
-                  />
-                  <label
-                    htmlFor="transparent-bg-2"
-                    className="text-sm text-gray-700 font-Popins"
-                  >
-                    Transparent background
-                  </label>
-                </div>
               </div>
             </Accordion>
 
@@ -566,10 +554,29 @@ export default function QRCodeCustomizer() {
                         width={260}
                         height={260}
                       >
-                        <foreignObject x="-10" y="-10" width="60" height="60">
+                        {/* <foreignObject x="-10" y="-10" width="58" height="58">
                           <div className="flex items-center justify-center">
                             <CommonFrameQr />
                             <div ref={mobileQrRef} />
+                          </div>
+                        </foreignObject> */}
+                        <foreignObject x="-10" y="-10" width="58" height="58">
+                          <div
+                            className="flex items-center justify-center"
+                            style={{
+                              width: 58,
+                              height: 58,
+                              overflow: "hidden",
+                            }}
+                          >
+                            <CommonFrameQr />
+                            <div
+                              ref={mobileQrRef}
+                              style={{
+                                transform: "scale(0.193)", // 58 / 300
+                                // transformOrigin: "top left",
+                              }}
+                            />
                           </div>
                         </foreignObject>
                       </SelectedFrameComponent>
