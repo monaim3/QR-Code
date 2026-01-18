@@ -7,7 +7,11 @@ import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown"
 
-export default function Header() {
+interface HeaderProps{
+  className?: string 
+}
+
+export default function Header({ className = "" }: HeaderProps) {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -22,7 +26,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="w-full desktop:bg-[#F5F6FA] bg-white relative z-50 var(--font-poppins)">
+    <header className={cn("w-full desktop:bg-[#F5F6FA] bg-white relative z-50 var(--font-poppins)", className)}>
       <Container>
         <div className="flex items-center justify-between desktop:h-[72px] h-16">
           {/* Logo */}
