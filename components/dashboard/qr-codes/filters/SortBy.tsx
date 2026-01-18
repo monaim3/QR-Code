@@ -45,7 +45,10 @@ export default function SortBy({ selected, setSelected }: Props) {
   const displayLabel = selected;
 
   return (
-    <div className="relative min-w-[187px]" ref={dropdownRef}>
+    <div
+      className="relative min-w-[187px] hidden desktopDashboard:block"
+      ref={dropdownRef}
+    >
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}

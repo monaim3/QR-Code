@@ -38,7 +38,7 @@ export default function QrCodeStatus({ selected, setSelected }: Props) {
   const displayLabel = selected;
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative hidden desktopDashboard:block" ref={dropdownRef}>
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}

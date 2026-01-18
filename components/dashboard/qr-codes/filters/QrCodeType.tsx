@@ -60,7 +60,10 @@ export default function QrCodeType({ selected, setSelected }: Props) {
       : "";
 
   return (
-    <div className="relative min-w-[170px]" ref={dropdownRef}>
+    <div
+      className="relative min-w-[170px] hidden desktopDashboard:block"
+      ref={dropdownRef}
+    >
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}

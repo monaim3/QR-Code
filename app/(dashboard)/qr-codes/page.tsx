@@ -104,11 +104,11 @@ export default function QrCodes() {
                   year: "numeric",
                 }),
               }
-            : item
-        )
+            : item,
+        ),
       );
     },
-    []
+    [],
   );
 
   const selectedCount = selectedIds.size;
@@ -118,20 +118,20 @@ export default function QrCodes() {
   return (
     <>
       {/* Header */}
-      <div className="flex items-center justify-between gap-8 self-stretch font-roboto">
-        <h2 className="font-bold text-[var(--Black)] text-[24px] leading-[var(--Typeface-Line-height-Heading-3)]">
+      <div className="flex items-center justify-between desktopDashboard:gap-8 gap-4 self-stretch">
+        <h2 className="font-bold text-[var(--Black)] desktopDashboard:text-[24px] text-[20px] desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
           QR Codes
         </h2>
         <CreateQrCodeBtn />
       </div>
 
       {/* Notification Banner */}
-      <div className="flex flex-col items-start self-stretch my-[20px]">
-          <SubscribeBanner />
-          <ReviewBanner />
+      <div className="flex flex-col items-start self-stretch desktopDashboard:my-[20px] my-[12px]">
+        {/* <SubscribeBanner />
+        <ReviewBanner /> */}
       </div>
 
-      <div className="font-roboto w-full flex flex-col items-start gap-6 self-stretch">
+      <div className="w-full flex flex-col items-start desktopDashboard:gap-6 gap-4 self-stretch">
         {/* Filters */}
         <Filters allSelected={allSelected} onSelectAll={handleSelectAll} />
 

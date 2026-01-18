@@ -14,7 +14,7 @@ export default function SearchBar({ query, setQuery }: Props) {
   return (
     <div
       className={`
-        flex items-center w-[240px] h-10 px-4 py-2 rounded-[var(--Corner-Radius-8)]
+        flex items-center desktopDashboard:w-[240px] w-full h-10 px-4 py-2 rounded-[var(--Corner-Radius-8)]
         bg-white border
         ${
           isFocused

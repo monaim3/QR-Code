@@ -6,7 +6,7 @@ const MenuIcon = (props: SVGProps<SVGSVGElement>) => (
     fill="currentColor"
     {...props}>
     <path
-      stroke="#0A0909"
+      fill="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}

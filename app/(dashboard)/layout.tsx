@@ -1,3 +1,4 @@
+import DashboardHeader from "@/components/dashboard/layout/Header";
 import Menu from "@/components/dashboard/layout/Menu";
 
 export default function DashboardLayout({
@@ -13,9 +14,13 @@ export default function DashboardLayout({
       </aside>
 
       {/* Page Content */}
-      <main className="py-8 px-6 flex flex-col items-start self-stretch flex-1 relative overflow-y-auto">
-        {children}
-      </main>
+      <div className="self-stretch flex-1">
+        <DashboardHeader />
+
+        <main className="desktopDashboard:py-8 desktopDashboard:px-6 tablet:px-8 px-[20px] py-6 flex flex-col items-start relative overflow-y-auto self-stretch flex-1">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

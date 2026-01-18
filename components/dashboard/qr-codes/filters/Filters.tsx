@@ -7,6 +7,7 @@ import SortBy from "./SortBy";
 import CheckBox from "./CheckBox";
 import ClearFilter from "./ClearFilter";
 import { useState } from "react";
+import AdjustmentsHorizontal from "@/components/icons/adjustments-horizontal";
 
 interface Props {
   allSelected: boolean;
@@ -27,13 +28,13 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
   };
 
   return (
-    <div className="flex items-center gap-4 px-4 h-10 w-full">
+    <div className="flex items-center gap-4 px-4 py-4 desktopDashboard:py-0 desktopDashboard:h-10 h-[72px] w-full bg-white desktopDashboard:bg-transparent rounded-[var(--Corner-Radius-10)] desktopDashboard:rounded-none">
       <CheckBox checked={allSelected} onChange={onSelectAll} />
 
       <SearchBar query={query} setQuery={setQuery} />
 
       {/* Line */}
-      <div className="w-[1px] h-6 bg-[var(--boarder-grey-50)]" />
+      <div className="w-[1px] h-6 bg-[var(--boarder-grey-50)] hidden desktopDashboard:block" />
 
       <QrCodeStatus selected={selectedStatus} setSelected={setSelectedStatus} />
       <QrCodeType selected={selectedTypes} setSelected={setSelectedTypes} />
@@ -47,6 +48,9 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
         }
         onClick={handleClearFilter}
       />
+      <button className="desktopDashboard:hidden flex w-10 h-10 p-2 justify-center items-center gap-2 bg-white border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-8)]">
+        <AdjustmentsHorizontal />
+      </button>
     </div>
   );
 }

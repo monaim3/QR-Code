@@ -7,7 +7,7 @@ interface Props {
 
 export default function ClearFilter({ disabled = false, onClick }: Props) {
   return (
-    <div className="flex flex-col items-end flex-1 ml-auto">
+    <div className="desktopDashboard:flex flex-col items-end flex-1 ml-auto hidden">
       <button
         className={`inline-flex justify-end items-center gap-2 ${
           disabled
