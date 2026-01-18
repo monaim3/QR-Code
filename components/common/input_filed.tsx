@@ -36,12 +36,28 @@ export default function InputField({
       )}
 
       {/* Input */}
-     <input
+    <input
         type={inputType}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`h-[48px] pl-[68px] pr-${trailing ? "12" : "4"} text-[16px] font-medium leading-[22px] border border-gray-200 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-gray-900 placeholder:text-gray-400 w-[318px] desktop:w-[${desktopWidth}px]`}
+        className={`
+          h-[48px]
+          w-full                       /* ✅ full width */
+          pl-[68px]
+          ${trailing ? "pr-12" : "pr-4"}
+          text-[16px]
+          font-medium
+          leading-[22px]
+          border
+          border-gray-200
+          rounded-[12px]
+          focus:outline-none
+          focus:ring-2
+          focus:ring-emerald-500
+          text-gray-900
+          placeholder:text-gray-400
+        `}
         style={{
           fontFamily: "var(--font-poppins)",
         }}

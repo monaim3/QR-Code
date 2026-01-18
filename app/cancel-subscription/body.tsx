@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Mail, ChevronRight, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 import Container from '@/components/common/parent-container';
 import InputField from "../../components/common/input_filed";
+import EmailIcon from "../../components/icons/email"
 
 // Types
 interface FormState {
@@ -23,6 +24,7 @@ export default function CancelSubscriptionPage() {
   });
 
   const [email, setEmail] = useState("");
+  const [cancelClick, setCancelClick] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormState(prev => ({
@@ -39,6 +41,7 @@ export default function CancelSubscriptionPage() {
   };
 
   const handleSubmit = async () => {
+    setCancelClick(true);
     if (!formState.email) {
       setFormState(prev => ({
         ...prev,
@@ -115,8 +118,8 @@ export default function CancelSubscriptionPage() {
        <div className="min-h-screen">
       {/* Main Card - Centered */}
       <div className="flex items-center justify-center pt-[120px] pb-[192px]">
-        <div className="bg-white rounded-[10px] shadow-xl w-full max-w-[350px] desktop:max-w-[600px] p-[24px] desktop:p-[32px]">
-        {/* Main Card */}
+        { !cancelClick ?
+         <div className="bg-white rounded-[10px] shadow-xl w-full max-w-[350px] desktop:max-w-[600px] p-[24px] desktop:p-[32px]">
         {/* Header */}
             <div>
               <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)]">
@@ -133,7 +136,7 @@ export default function CancelSubscriptionPage() {
               </p>
 
             {/* Input Section */}
-            <div className="pt-[24px] desktop:pt-[32px]">
+            <div className="flex flex-col pt-[24px] desktop:pt-[32px] gap-[16px]">
               {/* Email Input */}
               <InputField
                 value={email}
@@ -144,26 +147,11 @@ export default function CancelSubscriptionPage() {
                 leading={<Mail size={20}/>}
               />
 
-              {/* Status Messages */}
-              {formState.status === 'success' && (
-                <div className="flex items-start gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-green-800 text-sm">{formState.message}</p>
-                </div>
-              )}
-
-              {formState.status === 'error' && (
-                <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-red-800 text-sm">{formState.message}</p>
-                </div>
-              )}
-
               {/* Submit Button */}
               <button
                 onClick={handleSubmit}
                 disabled={formState.isSubmitting || formState.status === 'success'}
-                className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {formState.isSubmitting ? (
                   <>
@@ -182,25 +170,54 @@ export default function CancelSubscriptionPage() {
             </div>
 
             {/* Help Text */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <p className="text-gray-600 text-sm leading-relaxed">
+            <div className="pt-[24px] desktop:pt-[32px]">
+              <p className="text-[var(--Black)] text-[14px] leading-[22px]">
                 If you don't remember which email you used to register, check your inbox for our
                 welcome mailer. Otherwise, contact our friendly customer support team{' '}
                 <a
                   href="#"
-                  className="text-teal-600 hover:text-teal-700 font-medium underline"
+                  className="text-[var(--Blue)] hover:text-[var(----Blue-hover)] font-regular"
                   onClick={(e) => e.preventDefault()}
                 >
                   here
                 </a>
                 .
               </p>
-              <p className="text-gray-600 text-sm leading-relaxed mt-3">
+              <p className="text-[var(--Black)] text-[14px] leading-[22px] pt-[16px]">
                 You can also cancel your subscription by logging into your account, going to the
                 "Billing" tab and clicking "Cancel Subscription".
               </p>
             </div>
-        </div>
+        </div> :  
+        <div className="bg-white rounded-[10px] shadow-xl w-full max-w-[350px] desktop:max-w-[600px] p-[24px] desktop:p-[32px] flex flex-col items-center">
+        <EmailIcon className='w-[40px] h-[32px] text-[var(--Blue)]'/>
+        <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)] pt-[16px] desktop:pt-[24px]">
+          Confirmation required
+          </h3>
+           <p className="text-[var(--Black)] font-regular text-[16px] leading-[24px] pt-[8px] text-center mb-[16px] desktop:mb-[24px]">
+              We have sent a confirmation request to your email address if you have an account with us.
+            </p>
+            <button
+                onClick={handleSubmit}
+                disabled={formState.isSubmitting || formState.status === 'success'}
+                className="w-[160px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+              >
+                {formState.isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Processing...</span>
+                  </>
+                ) : formState.status === 'success' ? (
+                  <>
+                    <CheckCircle2 className="w-5 h-5" />
+                    <span>Cancelled</span>
+                  </>
+                ) : (
+                  <span>Ok</span>
+                )}
+            </button>
+       </div>
+        }
       </div>
      </div>
     </Container>
