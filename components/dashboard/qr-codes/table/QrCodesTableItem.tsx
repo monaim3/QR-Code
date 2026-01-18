@@ -126,9 +126,9 @@ export default function QrCodesTableItem({
       <div className="desktopDashboard:hidden tablet:flex hidden items-center gap-4 p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
         <div className="flex items-center gap-4 flex-1">
           <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
-          <Tooltip text="Click to scan">
-            <QrCode thumbnail={item.thumbnail} />
-          </Tooltip>
+
+          <QrCode thumbnail={item.thumbnail} />
+
           <QrInfo
             item={item}
             onEditName={onEditName}
@@ -142,7 +142,7 @@ export default function QrCodesTableItem({
       </div>
 
       {/* Mobile */}
-      <div className="p-4 tablet:hidden flex flex-col items-start gap-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
+      <div className="p-4 desktopDashboard:hidden tablet:hidden flex flex-col items-start gap-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
         <div className="flex items-center gap-4 self-stretch">
           <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
 
@@ -160,9 +160,7 @@ export default function QrCodesTableItem({
         </div>
 
         <div className="flex items-center gap-4 self-stretch">
-          <Tooltip text="Click to scan">
-            <QrCode thumbnail={item.thumbnail} />
-          </Tooltip>
+          <QrCode thumbnail={item.thumbnail} />
 
           <div className="flex flex-col items-start gap-1 flex-1">
             {/* Type */}

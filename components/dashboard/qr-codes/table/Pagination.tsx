@@ -49,16 +49,30 @@ export default function Pagination() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center content-center gap-x-10 flex-wrap w-full">
+    <div className="flex justify-center items-center content-center desktopDashboard:gap-x-10 gap-x-2 flex-wrap w-full pt-2 desktopDashboard:pt-0">
       {/* Portfolio */}
-      <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-        Showing <span className="text-[var(--Dark-gray)]">1</span> to{" "}
+      <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px]">
+        <span className="hidden desktopDashboard:flex">Showing</span>{" "}
+        <span className="text-[var(--Dark-gray)]">1</span> to{" "}
         <span className="text-[var(--Dark-gray)]">10</span> of{" "}
         <span className="text-[var(--Dark-gray)]">125</span> entries
       </p>
 
-      {/* Numbers */}
-      <div className="flex items-center justify-center gap-4 flex-1">
+      {/* Mobile Numbers */}
+      <div className="flex items-center justify-center desktopDashboard:hidden gap-2 flex-1">
+        <button className="w-8 h-8 flex items-center justify-center">
+          <ChevronLeftSmall />
+        </button>
+        <button className="w-8 h-8 flex items-center justify-center text-[var(--Dark-gray)] text-[14px] leading-[22px] bg-[var(--Blue)] text-white rounded-[var(--Corner-Radius-4)]">
+          2
+        </button>
+        <button className="w-8 h-8 flex items-center justify-center">
+          <ChevronRightSmall />
+        </button>
+      </div>
+
+      {/* Desktop Numbers */}
+      <div className="desktopDashboard:flex hidden items-center justify-center gap-4 flex-1">
         <button className="w-8 h-8 flex items-center justify-center">
           <ChevronLeftSmall />
         </button>
@@ -92,9 +106,9 @@ export default function Pagination() {
           onClick={handleToggleDropdown}
           className="flex items-center justify-end gap-2"
         >
-          <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-            Show <span className="text-[var(--Dark-gray)]">{selected}</span> per
-            page
+          <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px]">
+            <span className="hidden desktopDashboard:flex">Show</span>{" "}
+            <span className="text-[var(--Dark-gray)]">{selected}</span> per page
           </p>
           {isOpen ? (
             <ChevronUpSmall className="text-[var(--Dark-gray)]" />

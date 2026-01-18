@@ -14,7 +14,7 @@ export default function DashboardLayout({
       </aside>
 
       {/* Page Content */}
-      <div className="self-stretch flex-1">
+      <div className="self-stretch flex-1 h-full relative overflow-y-auto">
         <DashboardHeader />
 
         <main className="desktopDashboard:py-8 desktopDashboard:px-6 tablet:px-8 px-[20px] py-6 flex flex-col items-start relative overflow-y-auto self-stretch flex-1">

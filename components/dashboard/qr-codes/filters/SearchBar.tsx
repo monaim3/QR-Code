@@ -14,7 +14,7 @@ export default function SearchBar({ query, setQuery }: Props) {
   return (
     <div
       className={`
-        flex items-center desktopDashboard:w-[240px] w-full h-10 px-4 py-2 rounded-[var(--Corner-Radius-8)]
+        flex items-center desktopDashboard:w-[240px] desktopDashboard:flex-none flex-1 h-10 px-4 py-2 rounded-[var(--Corner-Radius-8)]
         bg-white border
         ${
           isFocused
@@ -24,19 +24,22 @@ export default function SearchBar({ query, setQuery }: Props) {
       `}
     >
       <div className="flex items-center gap-2 flex-1">
-        <Search />
-
-        <input
-          type="text"
-          placeholder="Search by QR code name..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          className={`border-0 outline-0 text-[16px] leading-[24px] text-[var(--Black)] focus:ring-0 focus:outline-0 placeholder:text-[var(--Grey)] ${
-            query ? "w-[168px]" : "w-[184px]"
-          }`}
-        />
+        <div className="flex items-center gap-2 flex-1">
+          <Search />
+          <input
+            type="text"
+            placeholder="Search by QR code name..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            className={`border-0 outline-0 text-[16px] leading-[24px] text-[var(--Black)] focus:ring-0 focus:outline-0 placeholder:text-[var(--Grey)] ${
+              query
+                ? "desktopDashboard:w-[168px] w-full"
+                : "desktopDashboard:w-[184px] w-full"
+            }`}
+          />
+        </div>
 
         {/* Show clear button only when typing */}
         {query && (

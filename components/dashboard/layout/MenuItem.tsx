@@ -1,5 +1,6 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface Props {
   icon: React.ElementType;
@@ -7,6 +8,7 @@ interface Props {
   href: string;
   onClick?: () => void;
   collapsed: boolean;
+  isLastItems?: boolean;
 }
 
 export default function MenuItem({
@@ -15,12 +17,19 @@ export default function MenuItem({
   href,
   onClick,
   collapsed,
+  isLastItems = false,
 }: Props) {
   const pathname = usePathname();
   const active = pathname === href;
 
   return (
-    <li>
+    <li
+      className={cn(
+        "desktopDashboard:py-0 py-[20px] w-full",
+        !isLastItems &&
+          "border-b border-[var(--boarder-grey-50)] desktopDashboard:border-none",
+      )}
+    >
       <Link
         href={href}
         onClick={onClick}
@@ -31,7 +40,7 @@ export default function MenuItem({
           transition-colors
           ${
             active
-              ? "bg-[var(--Light-blue)] text-[var(--Blue)]"
+              ? "desktopDashboard:bg-[var(--Light-blue)] text-[var(--Blue)]"
               : "text-[var(--Dark-gray)]"
           }
         `}

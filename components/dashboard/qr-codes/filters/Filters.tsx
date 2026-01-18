@@ -8,6 +8,7 @@ import CheckBox from "./CheckBox";
 import ClearFilter from "./ClearFilter";
 import { useState } from "react";
 import AdjustmentsHorizontal from "@/components/icons/adjustments-horizontal";
+import MobileFilter from "./MobileFilter";
 
 interface Props {
   allSelected: boolean;
@@ -19,6 +20,7 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedSortBy, setSelectedSortBy] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleClearFilter = () => {
     setQuery("");
@@ -48,9 +50,25 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
         }
         onClick={handleClearFilter}
       />
-      <button className="desktopDashboard:hidden flex w-10 h-10 p-2 justify-center items-center gap-2 bg-white border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-8)]">
+      <button
+        onClick={() => setIsDrawerOpen(true)}
+        className="desktopDashboard:hidden flex w-10 h-10 p-2 justify-center items-center gap-2 bg-white border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-8)] relative"
+      >
         <AdjustmentsHorizontal />
+
+        <div className="text-[10px] leading-[10px] text-white bg-[var(--Blue)] w-4 h-4 p-[2px] rounded-full flex items-center justify-center absolute -top-2 -right-2">
+          3
+        </div>
       </button>
+
+      <MobileFilter
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+        selectedSortBy={selectedSortBy}
+        setSelectedSortBy={setSelectedSortBy}
+        selectedStatus={selectedStatus}
+        setSelectedStatus={setSelectedStatus}
+      />
     </div>
   );
 }

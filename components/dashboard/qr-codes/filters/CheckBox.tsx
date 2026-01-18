@@ -20,7 +20,7 @@ export default function CheckBox({ checked = false, onChange }: Props) {
   return (
     <button
       onClick={handleChange}
-      className={`w-6 h-6 border rounded-[var(--Corner-Radius-6)] p-1 cursor-pointer flex items-center
+      className={`!w-6 !h-6 border rounded-[var(--Corner-Radius-6)] p-1 cursor-pointer flex items-center
         ${
           isSelected
             ? "bg-[var(--Blue)] border-[var(--Blue)]"
