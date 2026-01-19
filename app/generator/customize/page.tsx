@@ -18,6 +18,7 @@ import { QRFrameArray } from "@/components/common/QRFrameArray";
 import QrCodeFrameAllInput from "@/components/common/QrCodeFrameAllInput";
 import QRFrameGallery from "@/components/common/QRFrameGallery";
 import CommonFrameQr from "@/components/icons/common-frame-qr";
+import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 interface SocialLogo {
   Icon: IconType;
   color: string;
@@ -156,7 +157,7 @@ export default function QRCodeCustomizer() {
     });
   };
   const SelectedFrameComponent = QRFrameArray[selectedFrameIndex];
-  const SelectedFrameComponent1 = QRFrameArray[0];
+  const isDefaultFrame = selectedFrameIndex === 0;
   console.log("selectedFrameIndex", selectedFrameIndex);
   useEffect(() => {
     const updateQRCode = async () => {
@@ -285,7 +286,39 @@ export default function QRCodeCustomizer() {
       setBackgroundColor("#ffffff");
     }
   };
+  const staticQrRef = useRef<HTMLDivElement>(null);
+  // for first frame
+  useEffect(() => {
+    const createQR = () => {
+      if (view !== "qrcode" || selectedFrameIndex !== 0) {
+        console.log("Wrong view or index");
+        return;
+      }
+      if (!staticQrRef.current) {
+        requestAnimationFrame(createQR);
+        return;
+      }
 
+      const qrOptions: Options = {
+        data: websiteUrl || "https://www.example.com/",
+        width: 300,
+        height: 300,
+        margin: 0,
+        dotsOptions: {
+          color: "#000000",
+          type: "rounded" as any,
+        },
+        backgroundOptions: {
+          color: "#FFFFFF",
+        },
+      };
+
+      staticQrRef.current.innerHTML = "";
+      const staticQr = new QRCodeStyling(qrOptions);
+      staticQr.append(staticQrRef.current);
+    };
+    createQR();
+  }, [websiteUrl, selectedFrameIndex, view]);
   return (
     <div className="bg-gray-50 p-8 min-h-screen">
       <Container>
@@ -300,7 +333,10 @@ export default function QRCodeCustomizer() {
               description="Frames improve your QR code visibility, leading to more scans"
               defaultOpen={true}
             >
-              <QRFrameGallery setSelectedFrameIndex={setSelectedFrameIndex} />
+              <QRFrameGallery
+                setSelectedFrameIndex={setSelectedFrameIndex}
+                selectedFrameIndex={selectedFrameIndex}
+              />
               <QrCodeFrameAllInput
                 setFrameText={setFrameText}
                 frameText={frameText}
@@ -511,61 +547,59 @@ export default function QRCodeCustomizer() {
                 <MobileFrame>
                   {view === "preview" ? (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
-                      {/* <SelectedFrameComponent
-                        label={frameText}
-                        backgroundColor={
-                          transparentFrameBg
-                            ? "transparent"
-                            : frameBackgroundColor
-                        }
-                        textColor={frameTextColor}
-                        frameColor={frameColor}
-                        width={200}
-                        height={260}
-                      >
-                        <CommonFrameQr />
-                      </SelectedFrameComponent> */}
+                      <WebsiteUrlPreview url={websiteUrl} />
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
-                      <SelectedFrameComponent
-                        label={frameText}
-                        backgroundColor={
-                          transparentFrameBg
-                            ? "transparent"
-                            : frameBackgroundColor
-                        }
-                        textColor={frameTextColor}
-                        frameColor={frameColor}
-                        width={260}
-                        height={260}
-                      >
-                        {/* <foreignObject x="-10" y="-10" width="58" height="58">
+                      {selectedFrameIndex === 0 ? (
+                        // Index 0 → Shudhu plain QR code, kono frame nai
+                        <div
+                          ref={staticQrRef}
+                          style={{
+                            transform: "scale(0.6)",
+                            transformOrigin: "center center",
+                          }}
+                        />
+                      ) : (
+                        <SelectedFrameComponent
+                          label={frameText}
+                          backgroundColor={
+                            transparentFrameBg
+                              ? "transparent"
+                              : frameBackgroundColor
+                          }
+                          textColor={frameTextColor}
+                          frameColor={frameColor}
+                          width={260}
+                          height={260}
+                        >
+                          {/* <foreignObject x="-10" y="-10" width="58" height="58">
                           <div className="flex items-center justify-center">
                             <CommonFrameQr />
                             <div ref={mobileQrRef} />
                           </div>
                         </foreignObject> */}
-                        <foreignObject x="-10" y="-10" width="58" height="58">
-                          <div
-                            className="flex items-center justify-center"
-                            style={{
-                              width: 58,
-                              height: 58,
-                              overflow: "hidden",
-                            }}
-                          >
-                            <CommonFrameQr />
+                          <foreignObject x="-10" y="-10" width="58" height="58">
                             <div
-                              ref={mobileQrRef}
+                              className="flex items-center justify-center"
                               style={{
-                                transform: "scale(0.193)", // 58 / 300
-                                // transformOrigin: "top left",
+                                width: 58,
+                                height: 58,
+                                overflow: "hidden",
                               }}
-                            />
-                          </div>
-                        </foreignObject>
-                      </SelectedFrameComponent>
+                            >
+                              <CommonFrameQr />
+                              <div
+                                ref={mobileQrRef}
+                                style={{
+                                  transform: "scale(0.193)", // 58 / 300
+                                  // transformOrigin: "top left",
+                                }}
+                              />
+                            </div>
+                          </foreignObject>
+                        </SelectedFrameComponent>
+                      )}
                     </div>
                   )}
                 </MobileFrame>

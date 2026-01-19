@@ -3,8 +3,10 @@ import { useDragScroll } from "./useDragScroll";
 import CommonFrameQr from "../icons/common-frame-qr";
 export default function QRFrameGallery({
   setSelectedFrameIndex,
+  selectedFrameIndex,
 }: {
   setSelectedFrameIndex: (index: number) => void;
+  selectedFrameIndex?: number;
 }) {
   const { ref, handlers } = useDragScroll();
 
@@ -31,18 +33,11 @@ export default function QRFrameGallery({
             {topRowFrames.map((Frame, index) => (
               <div
                 key={`top-${index}`}
-                className="
-                 w-[80px]
-                  h-[100px]
-                  shrink-0
-                  flex items-center justify-center
-                  border-2 border-gray-200 rounded-lg
-                  bg-white
-                  hover:border-blue-500
-                  transition-colors
-                  cursor-pointer
-                  p-2
-                "
+                className={`w-[80px] h-[100px] shrink-0 flex items-center justify-center border-2 rounded-lg bg-white hover:border-green-500 transition-colors cursor-pointer p-2 ${
+                  selectedFrameIndex === index
+                    ? "border-green-500"
+                    : "border-gray-200"
+                }`}
                 onClick={() => setSelectedFrameIndex(index)}
               >
                 <Frame></Frame>
@@ -54,18 +49,11 @@ export default function QRFrameGallery({
             {bottomRowFrames.map((Frame, index) => (
               <div
                 key={`bottom-${index}`}
-                className="
-                  w-[80px]
-                  h-[100px]
-                  shrink-0
-                  flex items-center justify-center
-                  border-2 border-gray-200 rounded-lg
-                  bg-white
-                  hover:border-blue-500
-                  transition-colors
-                  cursor-pointer
-                  p-2
-                "
+                className={`w-[80px] h-[100px] shrink-0 flex items-center justify-center border-2 rounded-lg bg-white hover:border-green-500 transition-colors cursor-pointer p-2 ${
+                  selectedFrameIndex === index + 16
+                    ? "border-green-500"
+                    : "border-gray-200"
+                }`}
                 onClick={() => setSelectedFrameIndex(index + 16)}
               >
                 <Frame />
