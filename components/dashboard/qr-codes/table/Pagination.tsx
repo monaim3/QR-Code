@@ -52,7 +52,7 @@ export default function Pagination() {
   return (
     <div className="flex justify-center items-center content-center desktopDashboard:gap-x-10 gap-x-2 flex-wrap w-full pt-2 desktopDashboard:pt-0">
       {/* Portfolio */}
-      <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px]">
+      <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px] flex gap-1">
         <span className="hidden desktopDashboard:flex">Showing</span>{" "}
         <span className="text-[var(--Dark-gray)]">1</span> to{" "}
         <span className="text-[var(--Dark-gray)]">10</span> of{" "}
@@ -107,7 +107,7 @@ export default function Pagination() {
           onClick={handleToggleDropdown}
           className="flex items-center justify-end gap-2"
         >
-          <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px]">
+          <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px] flex gap-1">
             <span className="hidden desktopDashboard:flex">Show</span>{" "}
             <span className="text-[var(--Dark-gray)]">{selected}</span> per page
           </p>
