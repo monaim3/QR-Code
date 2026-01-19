@@ -17,7 +17,7 @@ export default function Actions({
   return (
     <div className="flex items-center gap-4">
       {/* Buttons */}
-      <div className="flex items-start gap-2">
+      <div className="flex items-start gap-2 flex-wrap">
         {/* Share */}
         <button
           onClick={() => onShareModal(item)}

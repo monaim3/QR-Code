@@ -109,7 +109,9 @@ export default function QrCodeType({ selected, setSelected }: Props) {
                   }`}
                 >
                   {/* Checkbox */}
-                  <CheckBox checked={isSelected} />
+                  <div className="shrink-0">
+                    <CheckBox checked={isSelected} />
+                  </div>
 
                   <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
                     {option}

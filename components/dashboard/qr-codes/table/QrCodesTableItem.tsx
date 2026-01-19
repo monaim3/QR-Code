@@ -39,10 +39,12 @@ export default function QrCodesTableItem({
   return (
     <>
       {/* Desktop */}
-      <div className="desktopDashboard:flex hidden items-center gap-[64px] p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
+      <div className="desktopDashboard:flex hidden items-center desktopXl:gap-[64px] desktopLg:gap-6 desktopMd:gap-4 justify-between p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
         {/* Qr Code */}
         <div className="flex items-center gap-4 flex-1">
-          <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
+          <div className="shrink-0">
+            <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
+          </div>
           <Tooltip text="Click to scan">
             <QrCode
               thumbnail={item.thumbnail}
@@ -74,7 +76,7 @@ export default function QrCodesTableItem({
         <div className="w-[1px] h-[88px] bg-[var(--boarder-grey-50)]" />
 
         {/* Info */}
-        <div className="flex flex-col justify-center items-start gap-1 shrink-0 w-[180px]">
+        <div className="flex flex-col justify-center items-start font-roboto gap-1 shrink-0 w-[180px]">
           <p className="text-[var(--Black)] text-[14px] leading-[22px]">
             Created: {item.createdAt}
           </p>
@@ -94,7 +96,7 @@ export default function QrCodesTableItem({
         <div className="w-[1px] h-[88px] bg-[var(--boarder-grey-50)]" />
 
         {/* Status */}
-        <div className="flex items-center justify-center gap-2 p-2 w-[100px] shrink-0">
+        <div className="flex items-center justify-center gap-2 w-[80px] shrink-0">
           {item.status === "Paused" ? (
             <>
               <PauseCircle className="text-[var(--Grey)]" />

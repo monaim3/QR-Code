@@ -6,7 +6,7 @@ export default function Logo() {
     <Link href={"/"} className="flex h-8 items-center gap-2 flex-1">
       <QrCode4 />
 
-      <span className="text-[var(--Black)] font-roboto text-2xl font-bold leading-8">
+      <span className="text-[var(--Black)] text-2xl font-bold leading-8">
         SmartQR
       </span>
     </Link>

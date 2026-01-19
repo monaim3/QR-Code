@@ -46,7 +46,7 @@ export default function SortBy({ selected, setSelected }: Props) {
 
   return (
     <div
-      className="relative min-w-[187px] hidden desktopDashboard:block"
+      className="relative desktopLg:min-w-[187px] min-w-[160px] hidden desktopDashboard:block"
       ref={dropdownRef}
     >
       {/* Trigger Button */}
@@ -93,7 +93,9 @@ export default function SortBy({ selected, setSelected }: Props) {
                 }`}
               >
                 {/* Checkbox */}
-                <RadioButton checked={isSelected} />
+                <div className="shrink-0">
+                  <RadioButton checked={isSelected} />
+                </div>
 
                 <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
                   {option}

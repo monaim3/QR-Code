@@ -17,11 +17,11 @@ export default function NoResults({ filter }: Props) {
         </div>
       )}
       <div className="flex flex-col gap-2 items-center">
-        <h4 className="text-[var(--Black)] font-roboto text-[18px] leading-[26px] font-bold">
+        <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
           {filter ? "No matches found" : "Create your first QR code"}
         </h4>
         {filter && (
-          <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px] font-roboto">
+          <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
             Try another search
           </p>
         )}

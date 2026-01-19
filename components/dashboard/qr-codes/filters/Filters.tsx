@@ -33,7 +33,9 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
 
   return (
     <div className="flex items-center gap-4 px-4 py-4 desktopDashboard:py-0 desktopDashboard:h-10 h-[72px] w-full bg-white desktopDashboard:bg-transparent rounded-[var(--Corner-Radius-10)] desktopDashboard:rounded-none">
-      <CheckBox checked={allSelected} onChange={onSelectAll} />
+      <div className="shrink-0">
+        <CheckBox checked={allSelected} onChange={onSelectAll} />
+      </div>
 
       <SearchBar query={query} setQuery={setQuery} />
 

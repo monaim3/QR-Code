@@ -8,7 +8,7 @@ import DropDownFilter from "./DropDownFilter";
 
 export default function AnalyticsFilter() {
   return (
-    <div className="flex flex-col items-start gap-4 self-stretch font-roboto w-full">
+    <div className="flex flex-col items-start gap-4 self-stretch w-full">
       <div className="flex items-center justify-between self-stretch">
         <DateRangePicker />
 
@@ -38,7 +38,7 @@ export default function AnalyticsFilter() {
           />
         </div>
 
-        <ClearFilter />
+        <ClearFilter onClick={() => {}} />
       </div>
     </div>
   );

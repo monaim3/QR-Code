@@ -83,7 +83,9 @@ export default function QrCodeStatus({ selected, setSelected }: Props) {
                 }`}
               >
                 {/* Checkbox */}
-                <RadioButton checked={isSelected} />
+                <div className="shrink-0">
+                  <RadioButton checked={isSelected} />
+                </div>
 
                 <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
                   {option}

@@ -79,7 +79,7 @@ export default function RootLayout({
       lang="en"
       className={`${Poppins.variable} ${HelveticaNeue.variable} ${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${rubik.variable}`}
     >
-      <body className="antialiased">
+      <body className="antialiased font-sans">
         <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>

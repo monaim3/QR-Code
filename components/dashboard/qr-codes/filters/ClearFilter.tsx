@@ -16,9 +16,11 @@ export default function ClearFilter({ disabled = false, onClick }: Props) {
         }`}
         onClick={onClick}
       >
-        <span className="leading-[22px]">Clear filters</span>
+        <span className="leading-[22px] font-roboto">Clear filters</span>
 
-        <FilterAlt />
+        <div className="shrink-0">
+          <FilterAlt />
+        </div>
       </button>
     </div>
   );

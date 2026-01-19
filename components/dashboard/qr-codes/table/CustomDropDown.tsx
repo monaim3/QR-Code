@@ -40,7 +40,7 @@ export default function CustomDropDown({
     <div className="relative w-full" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] text-[var(--Black)] font-roboto text-[16px] leading-[24px] w-full bg-white flex items-center justify-between gap-2"
+        className="h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] text-[var(--Black)] text-[16px] leading-[24px] w-full bg-white flex items-center justify-between gap-2"
       >
         {selectedOption}
         {isOpen ? (

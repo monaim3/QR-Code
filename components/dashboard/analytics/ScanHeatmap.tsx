@@ -31,7 +31,7 @@ export default function ScanHeatmap() {
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
 
   return (
-    <div className="flex flex-col items-start gap-6 p-6 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] font-roboto">
+    <div className="flex flex-col items-start gap-6 p-6 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
       <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
         Scans by time of the day
       </h4>

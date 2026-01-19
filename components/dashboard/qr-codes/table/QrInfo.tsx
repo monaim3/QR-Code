@@ -94,7 +94,7 @@ export default function QrInfo({
         <div className="w-[1px] h-4 bg-[var(--boarder-grey-50)] desktopDashboard:hidden" />
 
         {/* Info */}
-        <p className="text-[var(--Black)] text-[14px] leading-[22px]">
+        <p className="text-[var(--Black)] text-[14px] leading-[22px] desktopDashboard:hidden">
           Created: {item.createdAt}
         </p>
       </div>
@@ -110,7 +110,7 @@ export default function QrInfo({
             <LinkAlt01 />
           </a>
           <div className="flex items-center gap-2">
-            <p className="text-[var(--Dark-Grey)] text-[14px] leading-[22px]">
+            <p className="text-[var(--Dark-Grey)] font-roboto text-[14px] leading-[22px]">
               {item.destinationUrl}
             </p>
             <button onClick={() => onEditUrl(item)}>

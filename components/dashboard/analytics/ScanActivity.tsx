@@ -42,7 +42,7 @@ export default function ScanActivity() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] p-6 font-roboto relative">
+    <div className="flex flex-col items-center justify-center gap-8 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] p-6 relative">
       {/* Heading */}
       <div className="w-full flex items-start gap-4 self-stretch">
         <div className="flex flex-col items-start gap-1 flex-1">

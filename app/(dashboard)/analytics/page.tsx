@@ -8,7 +8,7 @@ export default function Analytics() {
   return (
     <>
       {/* Header */}
-      <div className="flex items-center justify-between gap-8 self-stretch font-roboto">
+      <div className="flex items-center justify-between gap-8 self-stretch">
         <h2 className="font-bold text-[var(--Black)] text-[24px] leading-[var(--Typeface-Line-height-Heading-3)]">
           Analytics
         </h2>

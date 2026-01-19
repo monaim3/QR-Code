@@ -65,7 +65,7 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
             <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
               Download your QR Code
             </DialogTitle>
-            <p className="text-[var(--Dark-gray)] font-roboto text-[16px] leading-[24px]">
+            <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
               Select the type of file to download
             </p>
           </DialogHeader>
@@ -104,7 +104,7 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
 
           <div className="flex flex-col gap-2 self-stretch">
             <div className="flex items-center justify-between gap-2 py-2 px-4 flex-1 self-stretch rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]">
-              <p className="text-[var(--Black)] text-[14px] leading-[22px] font-roboto">
+              <p className="text-[var(--Black)] text-[14px] leading-[22px]">
                 {url}
               </p>
 

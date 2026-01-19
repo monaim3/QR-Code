@@ -31,7 +31,7 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
           <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
             Scan the QR code
           </DialogTitle>
-          <p className="text-[var(--Dark-gray)] font-roboto text-[16px] leading-[24px] text-center">
+          <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px] text-center">
             Scan this QR code in order to preview your content.
             <br /> You can also use the link below.
           </p>
@@ -47,7 +47,7 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
               className="h-[160px]"
             />
           )}
-          <p className="text-[#3D75F3] text-[14px] leading-[22px] text-center font-roboto">
+          <p className="text-[#3D75F3] text-[14px] leading-[22px] text-center">
             {item?.shortUrl}
           </p>
         </div>
@@ -56,7 +56,7 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
           {item?.status === "Paused" ? (
             <>
               <AlertTriangle className="text-[var(--error)]" />
-              <p className="text-center text-[var(--error)] text-[16px] leading-[24px] font-roboto">
+              <p className="text-center text-[var(--error)] text-[16px] leading-[24px]">
                 This QR code is paused
               </p>
             </>

@@ -38,7 +38,7 @@ export default function CustomDownloadModal({ open, onClose }: Props) {
           <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
             Custom download
           </DialogTitle>
-          <p className="text-[var(--Dark-gray)] font-roboto text-[16px] leading-[24px]">
+          <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
             Select the format to download
           </p>
         </DialogHeader>
