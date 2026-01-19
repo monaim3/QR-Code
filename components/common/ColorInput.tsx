@@ -652,7 +652,6 @@ export default function ColorInput({
                       {colorMode.toUpperCase()}
                       <ChevronDown size={16} />
                     </button>
-                    <span className="text-sm font-medium text-gray-700">:</span>
 
                     {colorMode === "hex" && (
                       <input

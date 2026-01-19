@@ -18,26 +18,10 @@ import { QRFrameArray } from "@/components/common/QRFrameArray";
 import QrCodeFrameAllInput from "@/components/common/QrCodeFrameAllInput";
 import QRFrameGallery from "@/components/common/QRFrameGallery";
 import CommonFrameQr from "@/components/icons/common-frame-qr";
-import ColorPicker from "@/components/common/ColorPicker";
 interface SocialLogo {
   Icon: IconType;
   color: string;
 }
-
-type SocialLogoName =
-  | "Twitter"
-  | "X"
-  | "YouTube"
-  | "Instagram"
-  | "TikTok"
-  | "LinkedIn"
-  | "Pinterest"
-  | "Microsoft"
-  | "Apple"
-  | "Gmail"
-  | "WhatsApp"
-  | "Facebook"
-  | "Telegram";
 
 type LogoType = {
   name: string;
@@ -172,6 +156,8 @@ export default function QRCodeCustomizer() {
     });
   };
   const SelectedFrameComponent = QRFrameArray[selectedFrameIndex];
+  const SelectedFrameComponent1 = QRFrameArray[0];
+  console.log("selectedFrameIndex", selectedFrameIndex);
   useEffect(() => {
     const updateQRCode = async () => {
       if (!mobileQrRef.current) return;
@@ -296,7 +282,7 @@ export default function QRCodeCustomizer() {
     if (checked) {
       setBackgroundColor("transparent");
     } else {
-      setBackgroundColor("#ffffff"); // or last saved color
+      setBackgroundColor("#ffffff");
     }
   };
 

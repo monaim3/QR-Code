@@ -1,7 +1,7 @@
 const UploadIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      className="w-12 h-12 mb-3"
+      className="w-8 h-8 "
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 29 29"
       fill="none"
