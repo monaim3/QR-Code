@@ -138,7 +138,7 @@ export default function QrCodesTableItem({
         </div>
 
         {/* More */}
-        <MoreAction />
+        <MoreAction onCustomDownloadModal={() => onCustomDownloadModal(item)} />
       </div>
 
       {/* Mobile */}
@@ -156,7 +156,9 @@ export default function QrCodesTableItem({
           </div>
 
           {/* More */}
-          <MoreAction />
+          <MoreAction
+            onCustomDownloadModal={() => onCustomDownloadModal(item)}
+          />
         </div>
 
         <div className="flex items-center gap-4 self-stretch">

@@ -51,7 +51,7 @@ export default function DownloadAction({ onCustomDownloadModal }: Props) {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 z-10 flex flex-col items-start gap-1 w-[181px] p-4 top-[55px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
+        <div className="absolute right-0 z-10 desktopDashboard:flex hidden flex-col items-start gap-1 w-[181px] p-4 top-[55px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
           {options.map((option) => {
             return (
               <div
@@ -59,7 +59,7 @@ export default function DownloadAction({ onCustomDownloadModal }: Props) {
                 onClick={() => handleSelect(option)}
                 className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
               >
-                <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px] font-rubik">
+                <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
                   {option}
                 </span>
               </div>

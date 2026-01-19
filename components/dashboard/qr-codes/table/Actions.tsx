@@ -33,7 +33,7 @@ export default function Actions({
       </div>
 
       {/* More */}
-      <MoreAction />
+      <MoreAction onCustomDownloadModal={() => onCustomDownloadModal(item)} />
     </div>
   );
 }
