@@ -5,6 +5,7 @@ import ChevronDownSmall from "@/components/icons/chevron-down-small";
 import ChevronLeftSmall from "@/components/icons/chevron-left-small";
 import ChevronRightSmall from "@/components/icons/chevron-right-small";
 import ChevronUpSmall from "@/components/icons/chevron-up-small";
+import Close from "@/components/icons/close";
 
 export default function Pagination() {
   const [isOpen, setIsOpen] = useState(false);
@@ -120,7 +121,7 @@ export default function Pagination() {
         {/* Dropdown Menu */}
         {isOpen && (
           <div
-            className={`absolute z-10 flex flex-col items-start gap-2 w-[120px] p-4 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150 ${
+            className={`absolute z-10 desktopDashboard:flex hidden flex-col items-start gap-2 w-[120px] p-4 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150 ${
               showAbove ? "bottom-full mb-[13px]" : "top-full mt-[13px]"
             }`}
           >
@@ -131,7 +132,7 @@ export default function Pagination() {
                   onClick={() => handleSelect(option)}
                   className={`flex items-center self-stretch p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
                 >
-                  <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px] font-rubik">
+                  <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
                     {option}
                   </span>
                 </div>
@@ -139,6 +140,50 @@ export default function Pagination() {
             })}
           </div>
         )}
+
+        {/* Drawer */}
+        <div
+          className={`fixed inset-0 desktopDashboard:hidden transition-all duration-300 ease-in-out z-50 ${
+            isOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-[var(--pop-up-color)] transition-opacity duration-300 z-50"
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Drawer Content */}
+          <div
+            className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+          >
+            <div className="flex items-center gap-4 py-4 px-5 border-b border-[var(--boarder-grey-50)]">
+              <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
+                Show {selected} per page
+              </h4>
+
+              <button onClick={() => setIsOpen(false)} aria-label="Close menu">
+                <Close className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="flex flex-col items-start gap-1 px-5 py-4">
+              {options.map((option, i) => (
+                <div
+                  key={i}
+                  onClick={() => handleSelect(option)}
+                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] ${selected === option ? "bg-[var(--Generator-Background)]" : "bg-white"}`}
+                >
+                  <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
+                    {option}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
