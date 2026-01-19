@@ -188,7 +188,7 @@ export default function MoreAction({
               onClick={() => handleSelect("Share")}
               className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
             >
-              <ShareAndroid />
+              <ShareAndroid className="text-[var(--Dark-gray)] w-4 h-4" />
               <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
                 Share
               </span>
@@ -199,7 +199,7 @@ export default function MoreAction({
               }}
               className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
             >
-              <Download className="text-[var(--Dark-gray)]" />
+              <Download className="text-[var(--Dark-gray)] w-4 h-4" />
               <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
                 Download
               </span>

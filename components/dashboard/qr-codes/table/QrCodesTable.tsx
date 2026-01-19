@@ -8,6 +8,7 @@ import UrlEditModal from "./UrlEditModal";
 import ShareQRModal from "./ShareQRModal";
 import CustomDownloadModal from "./CustomDownloadModal";
 import QrPreviewModal from "./QrPreviewModal";
+import DownloadQrCodeModal from "./DownloadQrCodeModal";
 
 interface Props {
   qrData: QRCodeItem[];
@@ -29,6 +30,7 @@ export default function QrCodesTable({
   const [isCustomDownloadModalOpen, setIsCustomDownloadModalOpen] =
     useState(false);
   const [isQrPreviewModalOpen, setIsQrPreviewModalOpen] = useState(false);
+  const [isDownloadModal, setIsDownloadModal] = useState(true);
 
   // Handle save
   const handleSave = useCallback(() => {
@@ -100,6 +102,12 @@ export default function QrCodesTable({
     setSelectedItem(null);
   }, []);
 
+  // Handle close download qr code modal
+  const handleCloseDownloadModal = useCallback(() => {
+    setIsDownloadModal(false);
+    setSelectedItem(null);
+  }, []);
+
   // Handle qr preview modal request from child
   const handleQrPreviewModal = useCallback((item: QRCodeItem) => {
     setIsNameEditing(false);
@@ -162,6 +170,12 @@ export default function QrCodesTable({
         open={isQrPreviewModalOpen}
         onClose={handleCloseQrPreviewModal}
         item={selectedItem}
+      />
+
+      {/* Download Qr Code Modal */}
+      <DownloadQrCodeModal
+        open={isDownloadModal}
+        onClose={handleCloseDownloadModal}
       />
     </>
   );
