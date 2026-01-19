@@ -78,7 +78,7 @@ export default function MobileFilter({
       <div
         className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out ${isDrawerOpen ? "translate-y-0" : "translate-y-full"}`}
       >
-        <div className="flex items-center gap-4 py-4 px-5 border-b border-[var(--boarder-grey-50)]">
+        <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
           <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
             Filters
           </h4>
@@ -93,7 +93,7 @@ export default function MobileFilter({
 
         <div className="flex flex-col items-start gap-4 py-4 self-stretch">
           {/* Sort By */}
-          <div className="flex flex-col items-start gap-4 px-5 self-stretch">
+          <div className="flex flex-col items-start gap-4 tablet:px-8 px-5 self-stretch">
             <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
               Sort by
             </p>
@@ -115,7 +115,7 @@ export default function MobileFilter({
           </div>
 
           {/* Code Status */}
-          <div className="flex flex-col items-start gap-4 px-5 self-stretch">
+          <div className="flex flex-col items-start gap-4 tablet:px-8 px-5 self-stretch">
             <div className="flex items-center gap-2 self-stretch">
               <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
                 QR code status
@@ -141,7 +141,7 @@ export default function MobileFilter({
           </div>
 
           {/* Code Type */}
-          <div className="flex flex-col items-start gap-4 px-5 self-stretch">
+          <div className="flex flex-col items-start gap-4 tablet:px-8 px-5 self-stretch">
             <div className="flex items-center gap-2 self-stretch">
               <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
                 QR code type
@@ -167,7 +167,7 @@ export default function MobileFilter({
           </div>
         </div>
 
-        <div className="flex px-5 py-4 justify-center items-center gap-4 self-stretch bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
+        <div className="flex tablet:px-8 px-5 py-4 justify-center items-center gap-4 self-stretch bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
           <Button
             onClick={handleClearFilter}
             variant="outline"

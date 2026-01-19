@@ -159,7 +159,7 @@ export default function Pagination() {
           <div
             className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out ${isOpen ? "translate-y-0" : "translate-y-full"}`}
           >
-            <div className="flex items-center gap-4 py-4 px-5 border-b border-[var(--boarder-grey-50)]">
+            <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
               <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
                 Show {selected} per page
               </h4>
@@ -169,7 +169,7 @@ export default function Pagination() {
               </button>
             </div>
 
-            <div className="flex flex-col items-start gap-1 px-5 py-4">
+            <div className="flex flex-col items-start gap-1 tablet:px-8 px-5 py-4">
               {options.map((option, i) => (
                 <div
                   key={i}
