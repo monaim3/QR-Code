@@ -15,7 +15,7 @@ export default function SignupDirectBody() {
         bg-white
         rounded-[12px]
         p-[16px] desktop:p-[32px]
-        shadow-[0_4px_14px_rgba(54,66,140,0.16)]
+        shadow-card
         flex flex-col desktop:flex-row
         items-start justify-between
         overflow-hidden

@@ -41,6 +41,7 @@
   --Dark-gray: #3f3e3e;
   --Boarder-Grey: #d3d8eb;
   --Generator-Background: #F5F6FA;
+  --Gray-custom: #79809A;
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
   --font-poppins: "Poppins", sans-serif;
@@ -52,6 +53,7 @@
   --Typeface-Size-Body-Small: 14px;
   --Corner-Radius-12: 12px;
   --Corner-Radius-Full: 256px;
+  --shadow-card: 0 4px 14px rgba(54, 66, 140, 0.16);
 }
 
 .dark {
@@ -86,6 +88,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
 }
 
 

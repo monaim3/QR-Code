@@ -4,7 +4,7 @@ import SignupDirectBody from "../signup_direct/body"
 
 export default function Signup() {
    return (
-          <div className="bg-[#F5F6FA]">
+          <div className="bg-[var(--Generator-Background)]">
            <LogoHeader/>
            <SignupDirectBody />
           </div>

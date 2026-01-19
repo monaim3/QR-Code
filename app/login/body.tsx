@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
@@ -25,12 +24,13 @@ export default function LoginBody() {
             w-[400px]
             bg-white
             rounded-[12px]
-            p-[32px]
+            p-[24px]
+            desktop:p-[32px]
             flex
             flex-col
             items-center
             gap-[32px]
-            shadow-[0_4px_14px_rgba(54,66,140,0.16)]
+            shadow-card
           "
         >
           {/* Title */}

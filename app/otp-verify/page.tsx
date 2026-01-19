@@ -5,7 +5,7 @@ import Footer from "./footer";
 
 export default function OtpVerify() {
     return (
-        <div className="bg-[#F5F6FA]">
+        <div className="bg-[var(--Generator-Background)]">
         <LogoHeader/>
          <TwoFactorAuthPage/>
          <Footer/>

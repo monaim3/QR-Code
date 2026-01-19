@@ -3,7 +3,7 @@ import LoginBody from "../login/body"
 
 export default function Login() {
     return (
-        <div className="bg-[#F5F6FA]">
+        <div className="bg-[var(--Generator-Background)]">
          <LogoHeader/>
          <LoginBody/>
         </div>

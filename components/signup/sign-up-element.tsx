@@ -28,7 +28,7 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
           </h3>
 
           {/* Form */}
-          <div className="w-[318px] desktop:w-[424px] mt-[32px] flex flex-col gap-[16px]">
+          <div className="w-full desktop:w-[424px] mt-[32px] flex flex-col gap-[16px]">
             <InputField
               value={email}
               onChange={setEmail}
@@ -57,14 +57,14 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
 
             <button
               onClick={handleSubmit}
-              className="w-[318px] desktop:w-full h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-200 mt-[24px]"
+              className="w-full desktop:w-full h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-200 mt-[24px]"
             >
               Create Account
             </button>
           </div>
 
           {/* Divider */}
-          <div className="w-[318px] desktop:w-[424px] flex items-center gap-[16px] mt-[44px]">
+          <div className="w-full desktop:w-[424px] flex items-center gap-[16px] mt-[32px]">
             <div className="flex-1 h-px bg-gray-200" />
             <span className="text-gray-400 text-[16px] leading-[24px] font-normal">OR</span>
             <div className="flex-1 h-px bg-gray-200" />
@@ -72,7 +72,7 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
 
           {/* Social Buttons */}
          { !socialRow ?
-          <div className="flex flex-col gap-3 w-[318px] desktop:w-[424px] mt-[44px]">
+          <div className="flex flex-col gap-3 w-full desktop:w-[424px] mt-[32px]">
             {/* Google */}
             <button
               onClick={() => alert("Google sign in clicked")}
@@ -109,7 +109,7 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
               <p className="text-[14px] leading-[22px] pl-[8px] font-medium">Continue with Apple</p>
             </button>
           </div> : 
-          <div className="w-full grid grid-cols-3 gap-[16px]">
+          <div className="w-full grid grid-cols-3 gap-[16px] mt-[32px]">
             {/* Google */}
             <button
               className="

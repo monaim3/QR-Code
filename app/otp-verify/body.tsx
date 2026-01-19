@@ -11,6 +11,7 @@ export default function TwoFactorAuthPage() {
   const [code, setCode] = useState<string[]>(['', '', '', '', '', '']);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
@@ -25,6 +26,11 @@ export default function TwoFactorAuthPage() {
     setCode(newCode);
 
     if (value && index < 5) inputRefs.current[index + 1]?.focus();
+    //for set error
+    const fullCode = code.join('');
+    if(fullCode === "000000"){
+      setError(true);
+    }
   };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -59,10 +65,10 @@ export default function TwoFactorAuthPage() {
 
   return (
    <Container>
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md">
           {/* Card with shadow, rounded corners, padding, but no white background */}
-          <div className="bg-white rounded-xl shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] flex flex-col items-center p-[32px]">
+          <div className="bg-white rounded-[12px] shadow-card flex flex-col items-center p-[24px] desktop:p-[32px]">
             
             {/* Title */}
             <h1 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-gray-900">Welcome back!</h1>

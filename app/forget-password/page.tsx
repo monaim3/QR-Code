@@ -3,7 +3,7 @@ import ForgetPasswordBody from "../forget-password/body"
 
 export default function ForgetPassword(){
     return (
-        <div>
+        <div className="bg-[var(--Generator-Background)]">
         <LogoHeader/>
         <ForgetPasswordBody/>
         </div>

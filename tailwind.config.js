@@ -26,6 +26,9 @@ export default {
         tablet: { min: "740px", max: "1219px" },
         desktopDashboard: "1220px",
       },
+      boxShadow: {
+        card: "var(--shadow-card)",
+      },
     },
   },
   plugins: [],
