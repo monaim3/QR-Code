@@ -1,5 +1,6 @@
 import Close from "@/components/icons/close";
 import RadioButton from "./RadioButton";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   isDrawerOpen: boolean;
@@ -8,6 +9,9 @@ interface Props {
   setSelectedSortBy: (selected: string) => void;
   selectedStatus: string;
   setSelectedStatus: (selected: string) => void;
+  selectedTypes: string[];
+  setSelectedTypes: (selected: string[]) => void;
+  handleClearFilter: () => void;
 }
 
 export default function MobileFilter({
@@ -17,6 +21,9 @@ export default function MobileFilter({
   setSelectedSortBy,
   selectedStatus,
   setSelectedStatus,
+  selectedTypes,
+  setSelectedTypes,
+  handleClearFilter,
 }: Props) {
   const sortOptions = [
     "Name",
@@ -28,6 +35,30 @@ export default function MobileFilter({
   ];
 
   const statusOptions = ["Active", "Paused"];
+
+  const typeOptions = [
+    "Website URL",
+    "vCard",
+    "PDF",
+    "Images",
+    "Social Media",
+    "Video",
+    "Simple Text",
+    "Business Page",
+    "Facebook",
+    "Wi-Fi",
+    "App",
+    "Menu",
+  ];
+
+  // Toggle selection logic
+  const toggleTypeOption = (option: string) => {
+    if (selectedTypes.includes(option)) {
+      setSelectedTypes(selectedTypes.filter((item) => item !== option));
+    } else {
+      setSelectedTypes([...selectedTypes, option]);
+    }
+  };
 
   return (
     <div
@@ -85,9 +116,16 @@ export default function MobileFilter({
 
           {/* Code Status */}
           <div className="flex flex-col items-start gap-4 px-5 self-stretch">
-            <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
-              QR code status
-            </p>
+            <div className="flex items-center gap-2 self-stretch">
+              <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
+                QR code status
+              </p>
+              {selectedStatus && (
+                <div className="flex w-4 h-4 p-0.5 flex-col justify-center items-center gap-2 bg-[var(--Blue)] rounded-full text-white text-[10px] leading-[10px]">
+                  1
+                </div>
+              )}
+            </div>
 
             <div className="flex items-center gap-2 flex-wrap self-stretch">
               {statusOptions.map((item, index) => (
@@ -101,6 +139,45 @@ export default function MobileFilter({
               ))}
             </div>
           </div>
+
+          {/* Code Type */}
+          <div className="flex flex-col items-start gap-4 px-5 self-stretch">
+            <div className="flex items-center gap-2 self-stretch">
+              <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
+                QR code type
+              </p>
+              {selectedTypes.length > 0 && (
+                <div className="flex w-4 h-4 p-0.5 flex-col justify-center items-center gap-2 bg-[var(--Blue)] rounded-full text-white text-[10px] leading-[10px]">
+                  {selectedTypes.length}
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap self-stretch">
+              {typeOptions.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => toggleTypeOption(item)}
+                  className={`flex py-2 px-4 items-center gap-2 rounded-full text-[14px] leading-[22px] border ${selectedTypes.includes(item) ? "text-[var(--Blue)] border-[var(--Blue)] " : "text-[var(--Dark-Gray)] border-[var(--Boarder-Grey)]"}`}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex px-5 py-4 justify-center items-center gap-4 self-stretch bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
+          <Button
+            onClick={handleClearFilter}
+            variant="outline"
+            className="flex h-10 px-4 py-2 justify-center items-center gap-2 flex-1 rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)] text-[var(--Blue)] text-[14px] leading-[22px]"
+          >
+            Clear all
+          </Button>
+          <Button className="flex h-10 px-4 py-2 justify-center items-center gap-2 flex-1 rounded-[var(--Corner-Radius-10)]  bg-[var(--Blue)] text-white text-[14px] leading-[22px]">
+            See results
+          </Button>
         </div>
       </div>
     </div>

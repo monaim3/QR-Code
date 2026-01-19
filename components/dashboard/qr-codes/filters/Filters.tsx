@@ -29,6 +29,8 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
     setSelectedSortBy("");
   };
 
+  const totalFilter = Number(Boolean(selectedStatus)) + selectedTypes.length;
+
   return (
     <div className="flex items-center gap-4 px-4 py-4 desktopDashboard:py-0 desktopDashboard:h-10 h-[72px] w-full bg-white desktopDashboard:bg-transparent rounded-[var(--Corner-Radius-10)] desktopDashboard:rounded-none">
       <CheckBox checked={allSelected} onChange={onSelectAll} />
@@ -56,8 +58,10 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
       >
         <AdjustmentsHorizontal />
 
-        <div className="text-[10px] leading-[10px] text-white bg-[var(--Blue)] w-4 h-4 p-[2px] rounded-full flex items-center justify-center absolute -top-2 -right-2">
-          3
+        <div
+          className={`text-[10px] leading-[10px] text-white bg-[var(--Blue)] w-4 h-4 p-[2px] rounded-full flex items-center justify-center absolute -top-2 -right-2 ${totalFilter > 0 ? "block" : "hidden"}`}
+        >
+          {totalFilter}
         </div>
       </button>
 
@@ -68,6 +72,9 @@ export default function Filters({ allSelected, onSelectAll }: Props) {
         setSelectedSortBy={setSelectedSortBy}
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}
+        selectedTypes={selectedTypes}
+        setSelectedTypes={setSelectedTypes}
+        handleClearFilter={handleClearFilter}
       />
     </div>
   );
