@@ -30,12 +30,12 @@ export default function CustomDownloadModal({ open, onClose }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
-        className="!max-w-[500px] !h-[360px] gap-6"
+        className="!max-w-[500px] desktopDashboard:!h-[360px] tablet:!h-[356px] !h-[340px] w-[calc(100%-40px)] tablet:!w-full desktopDashboard:!w-full gap-6 desktopDashboard:p-8 p-6"
         onOpenAutoFocus={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex flex-col justify-center items-center gap-2">
-          <DialogTitle className="text-[var(--Black)] font-rubik text-[24px] font-semibold leading-[var(--Typeface-Line-height-Heading-3)]">
+          <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
             Custom download
           </DialogTitle>
           <p className="text-[var(--Dark-gray)] font-roboto text-[16px] leading-[24px]">

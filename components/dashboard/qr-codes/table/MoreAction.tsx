@@ -13,9 +13,13 @@ import Download from "@/components/icons/download";
 
 interface Props {
   onCustomDownloadModal: () => void;
+  onShareModal: () => void;
 }
 
-export default function MoreAction({ onCustomDownloadModal }: Props) {
+export default function MoreAction({
+  onCustomDownloadModal,
+  onShareModal,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -52,8 +56,13 @@ export default function MoreAction({ onCustomDownloadModal }: Props) {
   ];
 
   const handleSelect = (option: string) => {
-    if (option === "Download") {
-      setIsDownloadOpen(true);
+    switch (option) {
+      case "Download":
+        setIsDownloadOpen(true);
+        break;
+      case "Share":
+        onShareModal();
+        break;
     }
     setIsOpen(false);
   };

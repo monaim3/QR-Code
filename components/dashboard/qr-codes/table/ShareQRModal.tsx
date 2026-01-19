@@ -24,14 +24,14 @@ export default function ShareQRModal({ open, onClose, item }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
-        className="!max-w-[500px] !h-[216px] gap-6"
+        className="!max-w-[500px] desktopDashboard:!h-[216px] tablet:!h-[216px] !h-[212px] w-[calc(100%-40px)] tablet:!w-full desktopDashboard:!w-full desktopDashboard:gap-6 tablet:gap-6 gap-4 p-6 tablet:p-8 desktopDashboard:p-8"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex flex-col gap-2">
-          <DialogTitle className="text-[var(--Black)] font-rubik text-[24px] font-semibold leading-[var(--Typeface-Line-height-Heading-3)]">
+          <DialogTitle className="text-[var(--Black)] text-left text-[20px] font-bold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
             Share QR code
           </DialogTitle>
-          <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
+          <p className="text-[var(--Dark-gray)] text-left text-[16px] leading-[24px]">
             Share the link below with others (e.g. a printing agency) to
             download and print the QR code
           </p>

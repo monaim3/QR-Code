@@ -44,7 +44,10 @@ export default function QrCodesTableItem({
         <div className="flex items-center gap-4 flex-1">
           <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
           <Tooltip text="Click to scan">
-            <QrCode thumbnail={item.thumbnail} />
+            <QrCode
+              thumbnail={item.thumbnail}
+              onQrPreviewModal={() => onQrPreviewModal(item)}
+            />
           </Tooltip>
           <QrInfo
             item={item}
@@ -127,7 +130,10 @@ export default function QrCodesTableItem({
         <div className="flex items-center gap-4 flex-1">
           <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
 
-          <QrCode thumbnail={item.thumbnail} />
+          <QrCode
+            thumbnail={item.thumbnail}
+            onQrPreviewModal={() => onQrPreviewModal(item)}
+          />
 
           <QrInfo
             item={item}
@@ -138,7 +144,10 @@ export default function QrCodesTableItem({
         </div>
 
         {/* More */}
-        <MoreAction onCustomDownloadModal={() => onCustomDownloadModal(item)} />
+        <MoreAction
+          onCustomDownloadModal={() => onCustomDownloadModal(item)}
+          onShareModal={() => onShareModal(item)}
+        />
       </div>
 
       {/* Mobile */}
@@ -158,11 +167,15 @@ export default function QrCodesTableItem({
           {/* More */}
           <MoreAction
             onCustomDownloadModal={() => onCustomDownloadModal(item)}
+            onShareModal={() => onShareModal(item)}
           />
         </div>
 
         <div className="flex items-center gap-4 self-stretch">
-          <QrCode thumbnail={item.thumbnail} />
+          <QrCode
+            thumbnail={item.thumbnail}
+            onQrPreviewModal={() => onQrPreviewModal(item)}
+          />
 
           <div className="flex flex-col items-start gap-1 flex-1">
             {/* Type */}

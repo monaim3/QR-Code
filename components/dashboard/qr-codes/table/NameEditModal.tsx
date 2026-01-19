@@ -20,12 +20,12 @@ export default function NameEditModal({ open, onClose, onSave, item }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose} key={item?.id || "new"}>
       <DialogContent
-        className="!max-w-[500px] !h-[258px] gap-6"
+        className="!max-w-[500px] desktopDashboard:!h-[258px] tablet:!h-[258px] !h-[242px] w-[calc(100%-40px)] tablet:!w-full desktopDashboard:!w-full gap-6 p-6 tablet:p-8 desktopDashboard:p-8"
         onOpenAutoFocus={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex flex-col gap-2">
-          <DialogTitle className="text-[var(--Black)] text-[20px] font-bold leading-[var(--Typeface-Line-height-Heading-3)]">
+          <DialogTitle className="text-[var(--Black)] text-left text-[20px] font-bold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px] h-[26px] desktopDashboard:h-auto">
             Edit QR code name
           </DialogTitle>
         </DialogHeader>

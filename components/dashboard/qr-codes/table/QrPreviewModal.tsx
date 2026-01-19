@@ -20,13 +20,15 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
-        className={`!max-w-[500px] gap-10 ${
-          item?.status === "Paused" ? "!h-[482px]" : "!h-[470px]"
+        className={`!max-w-[500px] desktopDashboard:gap-10 tablet:gap-10 gap-6 p-6 tablet:p-8 desktopDashboard:p-8 w-[calc(100%-40px)] tablet:!w-full desktopDashboard:!w-full ${
+          item?.status === "Paused"
+            ? "desktopDashboard:!h-[482px] tablet:!h-[478px] !h-[454px]"
+            : "desktopDashboard:!h-[470px] tablet:!h-[466px] !h-[442px]"
         }`}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex flex-col justify-center items-center gap-2">
-          <DialogTitle className="text-[var(--Black)] font-rubik text-[24px] font-semibold leading-[var(--Typeface-Line-height-Heading-3)]">
+          <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
             Scan the QR code
           </DialogTitle>
           <p className="text-[var(--Dark-gray)] font-roboto text-[16px] leading-[24px] text-center">
