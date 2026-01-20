@@ -19,6 +19,7 @@ import QrCodeFrameAllInput from "@/components/common/QrCodeFrameAllInput";
 import QRFrameGallery from "@/components/common/QRFrameGallery";
 import CommonFrameQr from "@/components/icons/common-frame-qr";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
+import Swap from "@/components/icons/swap";
 interface SocialLogo {
   Icon: IconType;
   color: string;
@@ -361,7 +362,20 @@ export default function QRCodeCustomizer() {
                 <label className="block text-lg font-bold text-gray-900">
                   Pattern style
                 </label>
-                <div className="grid grid-cols-10 gap-4 py-8">
+                {/* <div className="grid grid-cols-10 gap-4 py-8">
+                  {patternOptions.map((pattern) => (
+                    <PatternPreview
+                      key={pattern}
+                      type={pattern}
+                      isSelected={patternStyle === pattern}
+                      onClick={() => setPatternStyle(pattern)}
+                    />
+                  ))}
+                </div> */}
+                <div
+                  className="flex gap-4 py-4 overflow-x-auto
+  lg:grid lg:grid-cols-10 lg:overflow-visible"
+                >
                   {patternOptions.map((pattern) => (
                     <PatternPreview
                       key={pattern}
@@ -374,7 +388,7 @@ export default function QRCodeCustomizer() {
               </div>
 
               <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
-                <div className="flex items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
+                <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
                   <ColorInput
                     label="Dot color"
                     value={dotColor}
@@ -382,14 +396,9 @@ export default function QRCodeCustomizer() {
                     showColorIndicator
                     id="dot-color"
                   />
-                  {/* <ColorPicker
-                    value={dotColor}
-                    onChange={setDotColor}
-                    label="Dot color"
-                  /> */}
                   <button
                     type="button"
-                    className="flex h-12 w-12 items-center justify-center text-gray-500"
+                    className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
                     onClick={() => {
                       setDotColor(backgroundColor);
                       setBackgroundColor(dotColor);
@@ -397,7 +406,21 @@ export default function QRCodeCustomizer() {
                   >
                     <IoIosSwap className="text-2xl" />
                   </button>
-
+                  <button
+                    type="button"
+                    className="flex lg:hidden p-2   text-gray-500"
+                    onClick={() => {
+                      backgroundColor;
+                      setFrameColor(backgroundColor);
+                    }}
+                  >
+                    <p className="flex gap-2">
+                      <span className="text-[#79809A] text-sm leading-[22px] font-normal">
+                        Swap the colours
+                      </span>
+                      <Swap className="text-2xl" />
+                    </p>
+                  </button>
                   <ColorInput
                     label="Background color"
                     value={
@@ -433,12 +456,12 @@ export default function QRCodeCustomizer() {
               description="Choose your QR code corner style"
               defaultOpen={true}
             >
-              <div className="flex gap-4">
+              <div className="flex flex-col lg:flex-row gap-4">
                 <div className="">
                   <label className="block text-lg font-bold text-gray-900">
                     Corner frames style
                   </label>
-                  <div className="grid grid-cols-6 gap-4 py-8">
+                  <div className="grid grid-cols-4 lg:grid-cols-6 gap-4 py-8">
                     {cornerFrameOptions.map((style) => (
                       <CornerStylePreview
                         key={style}
@@ -455,7 +478,7 @@ export default function QRCodeCustomizer() {
                   <label className="block text-lg font-bold text-gray-900">
                     Corner dots type
                   </label>
-                  <div className="grid grid-cols-6 gap-4 py-8">
+                  <div className="grid grid-cols-4 lg:grid-cols-6 gap-4 py-8">
                     {cornerDotOptions.map((style) => (
                       <CornerStylePreview
                         key={style}
@@ -469,7 +492,7 @@ export default function QRCodeCustomizer() {
                 </div>
               </div>
               <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
-                <div className="flex items-end justify-center gap-6 px-6 pt-6 pb-8">
+                <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4  lg:pt-6 pb-4 lg:pb-8">
                   <ColorInput
                     label="Corner frames color"
                     value={cornerFrameColor}
@@ -480,7 +503,7 @@ export default function QRCodeCustomizer() {
 
                   <button
                     type="button"
-                    className="flex h-12 w-12 items-center justify-center text-gray-500"
+                    className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
                     onClick={() => {
                       setDotColor(backgroundColor);
                       setBackgroundColor(dotColor);
@@ -488,7 +511,21 @@ export default function QRCodeCustomizer() {
                   >
                     <IoIosSwap className="text-2xl" />
                   </button>
-
+                  <button
+                    type="button"
+                    className="flex lg:hidden p-2   text-gray-500"
+                    onClick={() => {
+                      backgroundColor;
+                      setFrameColor(backgroundColor);
+                    }}
+                  >
+                    <p className="flex gap-2">
+                      <span className="text-[#79809A] text-sm leading-[22px] font-normal">
+                        Swap the colours
+                      </span>
+                      <Swap className="text-2xl" />
+                    </p>
+                  </button>
                   <ColorInput
                     label="Corner dots color"
                     value={cornerDotColor}
