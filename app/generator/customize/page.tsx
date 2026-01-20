@@ -289,7 +289,7 @@ export default function QRCodeCustomizer() {
   };
 
   return (
-    <div className="bg-gray-50 p-0 lg:p-8 min-h-screen ">
+    <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
           <div className="flex-1 flex flex-col space-y-4">
@@ -526,7 +526,7 @@ export default function QRCodeCustomizer() {
           </div>
 
           {/* Preview Section */}
-          <div className="desktop:sticky desktop:top-20 desktop:self-start desktop:h-fit">
+          <div className="hidden lg:block desktop:sticky desktop:top-20 desktop:self-start desktop:h-fit">
             <div className="flex flex-col items-center justify-start">
               <div className="flex gap-2 mb-4">
                 <button
@@ -565,10 +565,11 @@ export default function QRCodeCustomizer() {
                       {selectedFrameIndex === 0 ? (
                         <div
                           ref={staticQrRef}
-                          style={{
-                            transform: "scale(0.6)",
-                            transformOrigin: "center center",
-                          }}
+                          className="scale-[0.6] origin-center"
+                          // style={{
+                          //   transform: "scale(0.6)",
+                          //   transformOrigin: "center center",
+                          // }}
                         />
                       ) : (
                         <SelectedFrameComponent
@@ -585,19 +586,20 @@ export default function QRCodeCustomizer() {
                         >
                           <foreignObject x="-10" y="-10" width="58" height="58">
                             <div
-                              className="flex items-center justify-center"
-                              style={{
-                                width: 58,
-                                height: 58,
-                                overflow: "hidden",
-                              }}
+                              className="flex items-center justify-center w-[58px] h-[58px] overflow-hidden"
+                              // style={{
+                              //   width: 58,
+                              //   height: 58,
+                              //   overflow: "hidden",
+                              // }}
                             >
                               <CommonFrameQr />
                               <div
+                                className="scale-[0.193]"
                                 ref={mobileQrRef}
-                                style={{
-                                  transform: "scale(0.193)",
-                                }}
+                                // style={{
+                                //   transform: "scale(0.193)",
+                                // }}
                               />
                             </div>
                           </foreignObject>

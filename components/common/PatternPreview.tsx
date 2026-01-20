@@ -252,14 +252,14 @@ export default function PatternPreview({
   return (
     <button
       onClick={onClick}
-      className={`flex-shrink-0 flex items-center justify-center rounded-xl border transition-all
+      className={`flex-shrink-0 flex items-center justify-center rounded-xl border transition-all w-[72px] h-[72px]
         ${
           isSelected
             ? "border-green-500 ring-2 ring-green-200"
             : "border-gray-200 hover:border-gray-400"
         }
       `}
-      style={{ width: 72, height: 72 }}
+      // style={{ width: 72, height: 72 }}
     >
       {PATTERN_SVGS[type]}
     </button>

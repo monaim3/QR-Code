@@ -222,10 +222,11 @@ export default function CustomizeQRDisplay() {
       {isDefaultFrame ? (
         <div
           ref={staticQrRef}
-          style={{
-            transform: "scale(0.6)",
-            transformOrigin: "center center",
-          }}
+          className="scale-[0.6] origin-center"
+          // style={{
+          //   transform: "scale(0.6)",
+          //   transformOrigin: "center center",
+          // }}
         />
       ) : (
         <SelectedFrameComponent
@@ -240,19 +241,20 @@ export default function CustomizeQRDisplay() {
         >
           <foreignObject x="-10" y="-10" width="58" height="58">
             <div
-              className="flex items-center justify-center"
-              style={{
-                width: 58,
-                height: 58,
-                overflow: "hidden",
-              }}
+              className="flex items-center justify-center w-[58px] h-[58px] overflow-hidden"
+              // style={{
+              //   width: 58,
+              //   height: 58,
+              //   overflow: "hidden",
+              // }}
             >
               <CommonFrameQr />
               <div
                 ref={frameQrRef}
-                style={{
-                  transform: "scale(0.193)",
-                }}
+                className="scale-[0.193]"
+                // style={{
+                //   transform: "scale(0.193)",
+                // }}
               />
             </div>
           </foreignObject>

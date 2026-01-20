@@ -436,11 +436,11 @@ export default function ColorInput({
                       className="w-full h-40 cursor-crosshair"
                     />
                     <div
-                      className="absolute w-5 h-5 rounded-full border-2 border-white shadow-lg pointer-events-none"
+                      className="absolute w-5 h-5 rounded-full border-2 border-white shadow-lg pointer-events-none -translate-x-1/2 -translate-y-1/2"
                       style={{
                         left: `${(saturation / 100) * 100}%`,
                         top: `${(1 - brightness / 100) * 100}%`,
-                        transform: "translate(-50%, -50%)",
+                        // transform: "translate(-50%, -50%)",
                       }}
                     />
                   </div>
