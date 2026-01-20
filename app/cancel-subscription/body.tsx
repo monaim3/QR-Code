@@ -117,9 +117,9 @@ export default function CancelSubscriptionPage() {
       <Container>
        <div className="min-h-screen">
       {/* Main Card - Centered */}
-      <div className="flex items-center justify-center pt-[120px] pb-[192px]">
+      <div className="flex items-center justify-center pt-[16px] desktop:pt-[120px] pb-[120px]">
         { !cancelClick ?
-         <div className="bg-white rounded-[10px] shadow-xl w-full max-w-[350px] desktop:max-w-[600px] p-[24px] desktop:p-[32px]">
+         <div className="bg-white rounded-[10px] shadow-card w-full desktop:max-w-[600px] p-[24px] desktop:p-[32px]">
         {/* Header */}
             <div>
               <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)]">
@@ -188,13 +188,14 @@ export default function CancelSubscriptionPage() {
                 "Billing" tab and clicking "Cancel Subscription".
               </p>
             </div>
-        </div> :  
-        <div className="bg-white rounded-[10px] shadow-xl w-full max-w-[350px] desktop:max-w-[600px] p-[24px] desktop:p-[32px] flex flex-col items-center">
+        </div> : 
+        <div className='pt-[143px]'>
+           <div className="bg-white rounded-[10px] shadow-xl w-full desktop:max-w-[600px] p-[24px] desktop:p-[32px] flex flex-col items-center">
         <EmailIcon className='w-[40px] h-[32px] text-[var(--Blue)]'/>
         <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)] pt-[16px] desktop:pt-[24px]">
           Confirmation required
-          </h3>
-           <p className="text-[var(--Black)] font-regular text-[16px] leading-[24px] pt-[8px] text-center mb-[16px] desktop:mb-[24px]">
+            </h3>
+            <p className="text-[var(--Black)] font-regular text-[16px] leading-[24px] pt-[8px] text-center mb-[16px] desktop:mb-[24px]">
               We have sent a confirmation request to your email address if you have an account with us.
             </p>
             <button
@@ -217,6 +218,7 @@ export default function CancelSubscriptionPage() {
                 )}
             </button>
        </div>
+        </div> 
         }
       </div>
      </div>
