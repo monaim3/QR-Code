@@ -3,7 +3,6 @@ import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-<<<<<<< HEAD
 }
 
 const MAX_FONT_SIZE = 9;
@@ -18,8 +17,6 @@ export function getFontSize(label: string) {
   const scale = length / MAX_TEXT_LENGTH;
 
   return MAX_FONT_SIZE - scale * (MAX_FONT_SIZE - MIN_FONT_SIZE);
-=======
->>>>>>> origin/qr-dashboard
 }
 
 export const getStatusStyles = (status: string) => {
