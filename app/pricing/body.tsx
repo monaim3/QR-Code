@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import Container from '@/components/common/parent-container';
 import CurrenctSelector from '@/components/common/currency_dropdown';
 import Link from "next/link";
@@ -144,6 +144,12 @@ const PricingPage: React.FC = () => {
             ))}
           </div>
           </div>
+          <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
+          <button className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
+            Continue
+            <ArrowRight className="w-5 h-5" />
+          </button>
+        </div>
         </Container>
       </div>
     </div>

@@ -2,12 +2,15 @@ import Container from "../common/parent-container";
 import Logo from "../dashboard/layout/Logo";
 import Breadcrumb from "./Breadcrumb";
 import HelpIcon from "./HelpIcon";
+import CurrencySelector from "../common/currency_dropdown";
+
 
 interface Props {
   className?: string;
+  priceAndPlan?: boolean;
 }
 
-export default function GeneratorHeader({ className }: Props) {
+export default function GeneratorHeader({ className, priceAndPlan = false}: Props) {
   return (
     <header className={`desktop:sticky top-0 z-50 w-full desktop:border-b border-[var(--Boarder-Grey)] bg-white/80 backdrop-blur-[20px] ${className}`}>
       <div className="border-b border-[var(--Boarder-Grey)] desktop:border-b-0">
@@ -16,9 +19,15 @@ export default function GeneratorHeader({ className }: Props) {
             <div className="flex items-center justify-between">
               <Logo />
               <div className="hidden md:flex flex-1 justify-center">
-                <Breadcrumb />
+                <Breadcrumb priceAndPlanSteps={priceAndPlan}/>
               </div>
-              <HelpIcon />
+              {priceAndPlan ?
+               <div className="block md:hidden">
+                <CurrencySelector/> 
+               </div>
+                :
+                <HelpIcon />
+               }
             </div>
           </div>
         </Container>

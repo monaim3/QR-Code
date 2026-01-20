@@ -193,10 +193,9 @@ export default function CurrencySelector({
         >
           <div className="bg-white rounded-xl border border-[var(--Boarder-Grey)] p-2">
           {/* Scrollable list with green scrollbar */}
-            <div className="overflow-y-auto overflow-x-hidden max-h-[174px] always-visible-scrollbar flex flex-col gap-1">
+          <div className="overflow-y-auto overflow-x-hidden max-h-[174px] always-visible-scrollbar flex flex-col gap-1">
          {languages.map((language, index) => {
             const isSelected = value === language.value;
-
             return (
                 <button
                   key={language.value}
@@ -229,8 +228,8 @@ export default function CurrencySelector({
       </div>
        </div>
       </div>
-  {/* Divider */}
-  <div className={`border-b border-[#cdd0db80] ${isExpanded ? 'pt-[16px]' : ''}`} />
+    {/* Divider */}
+    <div className={`border-b border-[#cdd0db80] ${isExpanded ? 'pt-[16px]' : ''}`} />
     </div>
   );
 }

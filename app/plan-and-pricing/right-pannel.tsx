@@ -1,26 +1,8 @@
 "use client";
 import { useState } from "react";
-import FourCorner from "../../components/icons/corner";
 import QuoatIcon from "../../components/icons/quoat";
-
-class AuthFeatures {
-  id: number;
-  label: string;
-  constructor(id: number, label: string) {
-    this.id = id;
-    this.label = label;
-  }
-}
-
-const authFeatureList = [
-  new AuthFeatures(1, "Unlimited QR codes"),
-  new AuthFeatures(2, "Unlimited QR code scans"),
-  new AuthFeatures(3, "Unrestricted customization options"),
-  new AuthFeatures(4, "Unlimited access to analytics"),
-  new AuthFeatures(5, "Unlimited downloads"),
-  new AuthFeatures(6, "Full access to all download formats"),
-  new AuthFeatures(7, "Create any type of QR code you need"),
-];
+import CheckIcon from '@/components/icons/check-icon';
+import Star from "../../components/icons/star"
 
 const testimonials = [
   {
@@ -45,40 +27,89 @@ const testimonials = [
   },
 ];
 
+const features = [
+    'Unlimited QR codes',
+    'Unlimited QR code scans',
+    'Unrestricted customization options',
+    'Unlimited access to analytics',
+    'Unlimited downloads',
+    'Full access to all download formats',
+    'Create any type of QR code you need'
+];
+
+const reviews = [
+  {
+    title: "Quick support!",
+    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    user: "Amanda Jones",
+    rating: 5,
+  },
+  {
+    title: "Quick support!",
+    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    user: "Amanda Jones",
+    rating: 5,
+  },
+  {
+    title: "Quick support!",
+    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    user: "Amanda Jones",
+    rating: 5,
+  },
+ {
+    title: "Quick support!",
+    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    user: "Amanda Jones",
+    rating: 5,
+  },
+];
+
 export default function PlanAndPricingRightPannelp() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   return (
-    <div className="w-full desktop:w-[456px] flex-shrink-0 flex flex-col items-center justify-start
-      bg-[#E7F4ED] rounded-[10px] px-[24px] desktop:px-[56px] py-[32px] desktop:py-[56px] gap-[32px]">
+    <div className="w-full desktop:w-[488px] flex-shrink-0 flex flex-col items-center justify-start
+      bg-[#E7F4ED] rounded-[10px] px-[24px] desktop:px-[56px] py-[32px] desktop:py-[56px] gap-[24px] desktop:gap-[32px]">
       
       {/* Heading */}
-      <p className="text-[20px] desktop:text-[24px] font-bold text-center text-[#0A0909] leading-[28px] desktop:leading-[32px]">
+      <p className="text-[20px] desktop:text-[24px] font-bold text-center text-[var(--Black)] leading-[28px] desktop:leading-[32px]">
         Your QR code is ready!
       </p>
 
       {/* QR Code Box */}
-      <div className="relative w-[200px] h-[200px] desktop:w-[260px] desktop:h-[260px] bg-white rounded-[10px] flex items-center justify-center">
-        <div className="relative w-[160px] h-[160px] desktop:w-[220px] desktop:h-[220px]">
-          <FourCorner className="absolute inset-0" />
-          <img
-            src="/images/scan-me.svg"
+      <div className="relative w-[254px] h-[270px] desktop:w-[260px] desktop:h-[260px] bg-white rounded-[10px] flex items-center justify-center">
+       <img
+          src="/images/scan-me.png"
             alt="QR Code"
-            className="absolute inset-0 m-auto w-[140px] h-[140px] desktop:w-[180px] desktop:h-[180px] object-contain"
+            className="absolute inset-0 m-auto w-[270px] h-[255px] desktop:w-[260px] desktop:h-[260px] object-cover"
           />
-        </div>
       </div>
 
       {/* Divider */}
       <div className="w-full">
-        <div className="w-full h-[1px] bg-[#CDD0DB80]"></div>
+        <div className="w-full h-[1px] bg-[var(--Boarder-Grey)]"></div>
       </div>
 
       {/* Quote Icon */}
-      <QuoatIcon className="w-8 h-8 desktop:w-10 desktop:h-10" />
+      <QuoatIcon className="hidden md:block w-8 h-8 desktop:w-10 desktop:h-10" />
+
+       {/* Features for mobile view */}
+        <div className="block md:hidden flex flex-col overflow-auto w-full">
+          {features.map((feature, index) => (
+            <div key={index} className={`flex items-center gap-[16px] h-[24px] ${index === features.length - 1 ? "mb-[0px]" : "mb-[12px]"}`}>
+            <CheckIcon fill="var(--Blue)"/>
+            <span className="text-gray-700 text-[16px] leading-[24px]">{feature}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <div className="block md:hidden w-full">
+          <div className="w-full h-[1px] bg-[var(--Boarder-Grey)]"></div>
+        </div>
 
       {/* Testimonials */}
-      <div className="relative flex flex-col items-center justify-center text-center w-full">
+      <div className="hidden md:block relative flex flex-col items-center justify-center text-center w-full">
         <div className="relative w-full">
           {testimonials.map((testimonial, index) => (
             <div
@@ -91,14 +122,14 @@ export default function PlanAndPricingRightPannelp() {
                   : "opacity-0 translate-x-full absolute top-0 left-0 right-0"
               } flex flex-col items-center`}
             >
-              <p className="text-[var(--Black)] text-[14px] desktop:text-[16px] leading-[20px] desktop:leading-[24px] font-regular mb-[16px] desktop:mb-[24px] max-w-[260px] desktop:max-w-[320px]">
+              <p className="text-[var(--Black)] text-[16px] font-regular leading-[24px]font-regular mb-[16px] desktop:mb-[24px] ">
                 "{testimonial.text}"
               </p>
               <div>
-                <div className="font-medium text-[var(--Black)] text-[14px] desktop:text-[16px] leading-[20px] desktop:leading-[24px]">
+                <div className="font-medium text-[var(--Black)] text-[14px] desktop:text-[16px] leading-[24px]">
                   {testimonial.author}
                 </div>
-                <div className="text-[12px] desktop:text-[14px] text-[var(--Black)] leading-[18px] desktop:leading-[22px] mt-1">
+                <div className="text-[12px] font-regular desktop:text-[14px] text-[var(--Black)] leading-[18px] desktop:leading-[22px] mt-1">
                   {testimonial.role}
                 </div>
               </div>
@@ -123,9 +154,59 @@ export default function PlanAndPricingRightPannelp() {
         </div>
       </div>
 
+       {/* Reviews for mobile views */}
+      <div className="block md:hidden relative flex flex-col items-center justify-center text-center w-full">
+        <div className="relative w-full">
+          {reviews.map((review, index) => (
+            <div
+              key={index}
+              className={`transition-all duration-500 ease-in-out w-full ${
+                index === currentTestimonial
+                  ? "opacity-100 translate-x-0 relative"
+                  : index < currentTestimonial
+                  ? "opacity-0 -translate-x-full absolute top-0 left-0 right-0"
+                  : "opacity-0 translate-x-full absolute top-0 left-0 right-0"
+              } flex flex-col items-center`}
+            >
+              <h3 className="text-[18px] leading-[24px] font-bold">{review.title}</h3>
+              <p className="text-[var(--Black)] text-[16px] font-regular leading-[24px]font-regular mb-[16px] desktop:mb-[24px] pt-[4px]">
+                "{review.text}"
+              </p>
+              <div>
+                <div className="font-medium text-[var(--Black)] text-[14px] desktop:text-[16px] leading-[24px]">
+                  {review.user}
+                </div>
+                 <div className="pt-[16px] flex items-center gap-1">
+                  {Array.from({ length: review.rating }).map((_, index) => (
+                    <Star key={index} width={24} height={24} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Testimonial Dots */}
+        <div className="flex justify-center space-x-2 mt-[32px] desktop:mt-6">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentTestimonial(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentTestimonial
+                  ? "bg-emerald-500 w-6 desktop:w-8"
+                  : "bg-gray-300 w-2 desktop:w-2 hover:bg-gray-400"
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+
       {/* Money-back Guarantee */}
-      <div className="border-2 border-gray-400 border-dotted px-[16px] desktop:px-[37px] py-[16px] desktop:py-[24px] rounded-[10px] text-[14px] desktop:text-[16px] font-bold leading-[20px] desktop:leading-[24px] text-center">
-        30-day money-back guarantee
+      <div className="w-full border-2 border-[var(--Boarder-Grey)] border-dotted p-[24px] rounded-[10px] text-[16px] leading-[24px] text-center item-center justify-center">
+        <p className="w-[270px] font-medium mx-auto"> 30-day money-back guarantee</p>
       </div>
     </div>
   );

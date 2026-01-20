@@ -6,7 +6,6 @@ import { useState } from "react";
 import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown";
-import { ReactNode } from "react";
 import CurrenctSelector from '@/components/common/currency_dropdown';
 
 interface HeaderProps{

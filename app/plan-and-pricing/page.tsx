@@ -4,8 +4,8 @@ import GeneratorHeader from "@/components/generator/Generator_Header";
 
 export default function PlanAndPricing() {
     return (
-        <div>
-         <GeneratorHeader/>
+        <div className="pb-[100px] desktop:pb-[0px]">
+         <GeneratorHeader priceAndPlan={true}/>
         <SmartQRPlanSelection/>
         <Footer/>
         </div>

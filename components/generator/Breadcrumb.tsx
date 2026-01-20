@@ -11,6 +11,7 @@ interface BreadcrumbStep {
 
 interface BreadcrumbProps {
   useMobileSteps?: boolean;
+  priceAndPlanSteps?: boolean;
 }
 
 const steps: BreadcrumbStep[] = [
@@ -25,7 +26,13 @@ const mobileSteps: BreadcrumbStep[] = [
   { number: 3, label: "", path: "/generator/customize" },
 ];
 
-export default function Breadcrumb({ useMobileSteps = false }: BreadcrumbProps) {
+const priceAndPlanData: BreadcrumbStep[] = [
+   { number: 1, label: "QR Ready", path: "#" },
+  { number: 2, label: "Plan Selection", path: "#" },
+  { number: 3, label: "Payment Details", path: "#" },
+]
+
+export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps = false }: BreadcrumbProps) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -38,7 +45,14 @@ export default function Breadcrumb({ useMobileSteps = false }: BreadcrumbProps) 
   };
 
   const currentStep = getCurrentStep();
-  const data = useMobileSteps ? mobileSteps : steps;
+  let data: BreadcrumbStep[];
+  if(useMobileSteps && !priceAndPlanSteps){
+    data = mobileSteps;
+  }else if(priceAndPlanSteps){
+    data = priceAndPlanData;
+  }else{
+    data = steps;
+  }
 
   const handleStepClick = (step: BreadcrumbStep) => {
     if (step.number <= currentStep) {
