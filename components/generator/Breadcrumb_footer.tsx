@@ -37,11 +37,7 @@ export default function BreadcrumbFooter() {
     if (currentStep === 2) {
       router.push("/generator");
     } else if (currentStep === 3) {
-      // Extract the type from the current pathname to go back to step 2
-      // pathname will be like "/generator/customize"
-      // We need to go back to the previous page which should be like "/generator/website-url"
       const pathSegments = pathname.split("/");
-      // Get the type from history or use router.back()
       router.back();
     }
   };

@@ -2,8 +2,8 @@ const CommonFrameQr = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="60"
-      height="60"
+      width="50"
+      height="50"
       viewBox="0 0 40 40"
       fill="none"
     >

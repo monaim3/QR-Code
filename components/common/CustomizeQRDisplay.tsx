@@ -5,6 +5,7 @@ import QRCodeStyling, { Options } from "qr-code-styling";
 import { useAppSelector } from "@/store/hooks";
 import { QRFrameArray } from "@/components/common/QRFrameArray";
 import CommonFrameQr from "@/components/icons/common-frame-qr";
+import { getLogoComponent } from "@/lib/logoRegistry";
 
 export default function CustomizeQRDisplay() {
   const staticQrRef = useRef<HTMLDivElement>(null);
@@ -30,13 +31,19 @@ export default function CustomizeQRDisplay() {
     selectedLogo,
     customLogo,
   } = useAppSelector((state) => state.qr);
-
+  console.log("selectedLogo", selectedLogo);
   const SelectedFrameComponent = QRFrameArray[selectedFrameIndex];
   const isDefaultFrame = selectedFrameIndex === 0;
 
-  const createIconImage = (logo: any): Promise<string | null> => {
+  const createIconImage = (logoId: string): Promise<string | null> => {
     return new Promise((resolve) => {
       try {
+        const LogoComponent = getLogoComponent(logoId);
+        if (!LogoComponent) {
+          resolve(null);
+          return;
+        }
+
         const div = document.createElement("div");
         div.style.cssText =
           "position:absolute;left:-9999px;width:60px;height:60px;";
@@ -44,7 +51,7 @@ export default function CustomizeQRDisplay() {
 
         import("react-dom/client").then(({ createRoot }) => {
           const root = createRoot(div);
-          root.render(<logo.Icon />);
+          root.render(<LogoComponent />);
 
           requestAnimationFrame(() => {
             const svg = div.querySelector("svg");
@@ -69,7 +76,6 @@ export default function CustomizeQRDisplay() {
               return;
             }
 
-            // White rounded background
             ctx.fillStyle = "white";
             ctx.beginPath();
             ctx.roundRect(0, 0, 100, 100, 15);
@@ -164,6 +170,7 @@ export default function CustomizeQRDisplay() {
       // Logo handling
       if (selectedLogo) {
         const iconDataUrl = await createIconImage(selectedLogo);
+        console.log("iconDataUrl", iconDataUrl);
         if (iconDataUrl) {
           qrOptions.image = iconDataUrl;
           qrOptions.imageOptions = {

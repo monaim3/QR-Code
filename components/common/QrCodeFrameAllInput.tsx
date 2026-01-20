@@ -55,12 +55,6 @@ const QrCodeFrameAllInput = ({
 
         <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
           <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-6  pt-4 lg:pt-6  pb-4 lg:pb-8 relative z-10">
-            {/* <ColorInput
-              label="Background color"
-              value={frameBackgroundColor ?? ""}
-              onChange={setFrameBackgroundColor}
-              showColorIndicator={true}
-            /> */}
             <ColorInput
               label="Background color"
               value={
@@ -69,6 +63,18 @@ const QrCodeFrameAllInput = ({
               onChange={transparentBg ? undefined : setFrameBackgroundColor}
               showColorIndicator={!transparentBg}
             />
+            {/* <div
+              className={`transparentBg ? "pointer-events-none opacity-50" : "" w-full `}
+            >
+              <ColorInput
+                label="Background color"
+                value={
+                  transparentBg ? "Transparent" : (frameBackgroundColor ?? "")
+                }
+                onChange={transparentBg ? undefined : setFrameBackgroundColor}
+                showColorIndicator={!transparentBg}
+              />
+            </div> */}
             <button
               type="button"
               className="hidden lg:flex  h-12 w-12 items-center justify-center text-gray-500"

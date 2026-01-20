@@ -1,7 +1,12 @@
 import { getFontSize } from "@/lib/utils";
 import QrFrame from "./QrFrame";
 import { SVGProps } from "react";
-
+import localFont from "next/font/local";
+const allison = localFont({
+  src: "../../../public/fonts/Allison-Regular.ttf",
+  display: "swap",
+  variable: "--font-allison",
+});
 interface Props extends SVGProps<SVGSVGElement> {
   label?: string;
   children?: React.ReactNode;
@@ -22,6 +27,7 @@ const QrCodeFrame16 = ({
       viewBox="0 0 64 84"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={allison.variable}
       {...props}
     >
       <rect
@@ -51,7 +57,7 @@ const QrCodeFrame16 = ({
         dominantBaseline="middle"
         fontSize={getFontSize(label)}
         fontWeight="400"
-        fontFamily="var(--font-frame-cursive), var(--font-frame-cursive-fallback)"
+        fontFamily="var(--font-allison)"
         fill={textColor}
         transform="rotate(-8.34 16.5 75.7)"
       >

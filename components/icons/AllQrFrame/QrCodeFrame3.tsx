@@ -48,6 +48,11 @@ const QrCodeFrame3 = ({
           strokeWidth="2"
         />
         <g transform="translate(12, 12)">{children || <QrFrame />}</g>
+        {/* <g transform="translate(10, 10)">
+          <g transform="scale(0.90)" style={{ transformOrigin: "center" }}>
+            {children || <QrFrame />}
+          </g>
+        </g> */}
         <text
           x="32"
           y="75.765"
