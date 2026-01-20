@@ -37,10 +37,11 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
   const router = useRouter();
 
   const getCurrentStep = (): number => {
-    if (pathname === "/generator") return 1;
+    // Check most specific paths first
+    if (pathname.includes("/customize")) return 3;
     if (pathname.includes("/content") || pathname.match(/\/generator\/[^/]+$/))
       return 2;
-    if (pathname.includes("/customize")) return 3;
+    if (pathname === "/generator") return 1;
     return 1;
   };
 
@@ -83,10 +84,11 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
             </div>
 
             <span
-              className={`text-[14px] font-normal leading-[22px] font-roboto block ${
+              className={`text-[14px] font-normal leading-[22px] font-roboto ${
                 step.number === currentStep
-                  ? "text-[var(--Black)]"
-                  : "text-[#79809A]"
+                  ? "text-[var(--Black)] block"
+                  : "text-[#79809A] " +
+                    (currentStep === 1 ? "hidden md:block" : "block")
               }`}
             >
               <span className="hidden md:inline">{step.label}</span>

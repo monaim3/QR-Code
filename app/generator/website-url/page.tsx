@@ -8,7 +8,7 @@ import {
   setQrCodeName,
   setActiveTab,
 } from "@/store/slices/previewSlice";
-
+import { motion, AnimatePresence } from "framer-motion";
 import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
@@ -61,7 +61,7 @@ export default function WebsiteUrlPage() {
 
   return (
     <>
-      <div className="bg-[var(--Generator-Background)] min-h-[100dvh]">
+      <div className="bg-[var(--Generator-Background)] min-h-screen h-full">
         <Container>
           <div className="py-0 desktopDashboard:py-12">
             <div className="flex flex-col desktop:flex-row gap-8">
@@ -82,49 +82,60 @@ export default function WebsiteUrlPage() {
                         Enter the URL to which the QR code will link
                       </p>
                     </div>
-                    {isUrlAccordionOpen ? (
-                      <ChevronUp size={20} color="black" />
-                    ) : (
+                    <motion.div
+                      animate={{ rotate: isUrlAccordionOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
                       <ChevronDown size={20} color="black" />
-                    )}
+                    </motion.div>
                   </button>
-                  {isUrlAccordionOpen && (
-                    <>
-                      <hr className="ml-4 mr-4 md:ml-8 md:mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
 
-                      <div className="py-6 px-4 md:p-8">
-                        <div className="flex flex-col gap-2">
-                          <label
-                            htmlFor="website-url"
-                            className="text-[16px] leading-[24px] font-medium font-roboto text-[var(--Black)]"
-                          >
-                            Website URL*
-                          </label>
-                          <input
-                            id="website-url"
-                            type="text"
-                            value={websiteUrl}
-                            onChange={(e) => handleUrlChange(e.target.value)}
-                            onFocus={() => setIsUrlFocused(true)}
-                            onBlur={handleUrlBlur}
-                            placeholder="e.g. www.mywebsite.com"
-                            className={`w-full px-2 py-3 placeholder:px-2 font-roboto rounded-lg border transition-colors outline-none ${
-                              urlError
-                                ? "border-red-500 focus:border-red-500"
-                                : isUrlFocused
-                                ? "border-[var(--Blue)]"
-                                : "border-[var(--Boarder-Grey)] hover:border-gray-300"
-                            }`}
-                          />
-                          {urlError && (
-                            <p className="text-sm text-red-500 font-roboto">
-                              {urlError}
-                            </p>
-                          )}
+                  <AnimatePresence initial={false}>
+                    {isUrlAccordionOpen && (
+                      <motion.div
+                        key="url-accordion-content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <hr className="ml-4 mr-4 md:ml-8 md:mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
+
+                        <div className="py-6 px-4 md:p-8">
+                          <div className="flex flex-col gap-2">
+                            <label
+                              htmlFor="website-url"
+                              className="text-[16px] leading-[24px] font-medium font-roboto text-[var(--Black)]"
+                            >
+                              Website URL*
+                            </label>
+                            <input
+                              id="website-url"
+                              type="text"
+                              value={websiteUrl}
+                              onChange={(e) => handleUrlChange(e.target.value)}
+                              onFocus={() => setIsUrlFocused(true)}
+                              onBlur={handleUrlBlur}
+                              placeholder="e.g. www.mywebsite.com"
+                              className={`w-full px-2 py-3 placeholder:px-2 font-roboto rounded-lg border transition-colors outline-none ${
+                                urlError
+                                  ? "border-red-500 focus:border-red-500"
+                                  : isUrlFocused
+                                  ? "border-[var(--Blue)]"
+                                  : "border-[var(--Boarder-Grey)] hover:border-gray-300"
+                              }`}
+                            />
+                            {urlError && (
+                              <p className="text-sm text-red-500 font-roboto">
+                                {urlError}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </>
-                  )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
                 <QRCodeNameAccordion
                   value={qrCodeName}
@@ -132,12 +143,12 @@ export default function WebsiteUrlPage() {
                   error={qrNameError}
                 />
               </div>
-              <div className="hidden desktop:flex desktop:flex-col desktop:gap-4 desktop:sticky">
+              <div className="hidden desktop:flex desktop:flex-col desktop:gap-4 desktop:sticky h-[752px] ">
                 <PreviewQRButtons
                   activeTab={activeTab}
                   onTabChange={handleTabChange}
                 />
-                <div className="-mt-6 pb-36">
+                <div>
                   <MobileFrame>
                     {activeTab === "preview" ? (
                       <WebsiteUrlPreview url={websiteUrl} />

@@ -1,6 +1,9 @@
 "use client";
+interface Props {
+  onClick: () => void;
+}
 
-export default function HelpIcon() {
+export default function HelpIcon({ onClick }: Props) {
   return (
     <div className="flex items-center gap-10 ml-10">
       <button className="hidden md:block">
@@ -13,6 +16,7 @@ export default function HelpIcon() {
         </svg>
       </button>
       <button
+        onClick={onClick}
         className="flex items-center justify-center w-6 h-6 rounded-full border-[var(--Boarder-Grey)] transition-colors"
         aria-label="Help"
       >

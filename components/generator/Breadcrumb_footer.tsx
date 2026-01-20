@@ -10,6 +10,7 @@ import MobilePreviewModal from "./Mobile_Preview_Modal";
 import Container from "../common/parent-container";
 import WebsiteUrlPreview from "./Website_Url_Preview";
 import QRCodeDisplay from "./QR_Code_Display";
+import CustomizeQRDisplay from "../common/CustomizeQRDisplay";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -21,10 +22,11 @@ export default function BreadcrumbFooter() {
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
 
   const getCurrentStep = (): number => {
-    if (pathname === "/generator") return 1;
+    // Check most specific paths first
+    if (pathname.includes("/customize")) return 3;
     if (pathname.includes("/content") || pathname.match(/\/generator\/[^/]+$/))
       return 2;
-    if (pathname.includes("/customize")) return 3;
+    if (pathname === "/generator") return 1;
     return 1;
   };
 
@@ -35,6 +37,7 @@ export default function BreadcrumbFooter() {
     if (currentStep === 2) {
       router.push("/generator");
     } else if (currentStep === 3) {
+      const pathSegments = pathname.split("/");
       router.back();
     }
   };
@@ -49,12 +52,16 @@ export default function BreadcrumbFooter() {
     dispatch(setActiveTab(tab));
   };
 
-  const previewContent =
-    activeTab === "preview" ? (
-      <WebsiteUrlPreview url={websiteUrl} />
-    ) : (
-      <QRCodeDisplay />
-    );
+  const getPreviewContent = () => {
+    if (activeTab === "preview") {
+      return <WebsiteUrlPreview url={websiteUrl} />;
+    }
+    if (pathname.includes("/customize")) {
+      return <CustomizeQRDisplay />;
+    }
+
+    return <QRCodeDisplay />;
+  };
 
   if (!showNavigation) return null;
 
@@ -95,7 +102,7 @@ export default function BreadcrumbFooter() {
         activeTab={activeTab}
         onTabChange={handleTabChange}
       >
-        {previewContent}
+        {getPreviewContent()}
       </MobilePreviewModal>
     </>
   );

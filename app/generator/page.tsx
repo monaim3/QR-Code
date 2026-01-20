@@ -28,7 +28,6 @@ import Menu from "@/public/images/generator_img/Menu.webp";
 import Wifi from "@/public/images/generator_img/wifi.webp";
 import Breadcrumb from "../../components/generator/Breadcrumb"
 
-
 import WifiQr from "@/components/icons/wifi-qr";
 import CreateArrow from "@/components/icons/create_arrow";
 import { useRef, useState } from "react";
@@ -88,7 +87,7 @@ const qrTypes = [
     description: "Display a body of text",
     href: "/generator/simple-text",
     icon: <SimpleTextQr />,
-      mobilePreview: SimpleText,
+    mobilePreview: SimpleText,
   },
   {
     id: "business-page",
@@ -96,7 +95,7 @@ const qrTypes = [
     description: "Share your business information",
     href: "/generator/business-page",
     icon: <BusinessQr />,
-      mobilePreview: BusinessPage,
+    mobilePreview: BusinessPage,
   },
   {
     id: "facebook",
@@ -157,11 +156,11 @@ interface GeneratorProps {
 }
 
 export default function GeneratorPage({ showArrow = false, title = 'Choose QR code type' }: GeneratorProps) {
-   const [hoveredType, setHoveredType] = useState<string | null>(null);
-    const [isLeaving, setIsLeaving] = useState(false);
-      const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [hoveredType, setHoveredType] = useState<string | null>(null);
+  const [isLeaving, setIsLeaving] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
- const handleMouseEnter = (typeId: string) => {
+  const handleMouseEnter = (typeId: string) => {
     // Clear any existing timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -182,15 +181,21 @@ export default function GeneratorPage({ showArrow = false, title = 'Choose QR co
   const getCurrentPreview = () => {
     return (
       <>
-        <div className={`absolute inset-0 top-0.3 ${hoveredType || isLeaving ? 'opacity-0 z-0' : 'opacity-100 z-10'}`}>
+        <div
+          className={`absolute inset-0 top-0.3 ${
+            hoveredType || isLeaving ? "opacity-0 z-0" : "opacity-100 z-10"
+          }`}
+        >
           <InitialQR />
         </div>
-        
+
         {qrTypes.map((type) => (
           <div
             key={type.id}
             className={`absolute inset-0 top-0.3 transition-opacity duration-500 ease-in-out ${
-              hoveredType === type.id ? 'opacity-100 z-20' : 'opacity-0 z-0 pointer-events-none'
+              hoveredType === type.id
+                ? "opacity-100 z-20"
+                : "opacity-0 z-0 pointer-events-none"
             }`}
           >
             <Image
@@ -227,9 +232,9 @@ export default function GeneratorPage({ showArrow = false, title = 'Choose QR co
             <div className="flex-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 desktopDashboard:gap-5 generator-items-create">
                 {qrTypes.map((type) => (
-                    <div
+                  <div
                     key={type.id}
-                     onMouseEnter={() => handleMouseEnter(type.id)}
+                    onMouseEnter={() => handleMouseEnter(type.id)}
                     onMouseLeave={handleMouseLeave}
                   >
                     <QRTypeCard
@@ -242,9 +247,9 @@ export default function GeneratorPage({ showArrow = false, title = 'Choose QR co
                 ))}
               </div>
             </div>
-            <div className="hidden lg:flex lg:items-center lg:justify-center lg:sticky desktopDashboard:top-12">
+            <div className="hidden mt-6 lg:flex lg:items-center lg:justify-center lg:sticky desktopDashboard:top-12">
               <MobileFrame>
-                 <div className="w-full h-full rounded-[32px] overflow-hidden relative pt-12">
+                <div className="w-full h-full rounded-[32px] overflow-hidden relative pt-12">
                   {getCurrentPreview()}
                 </div>
               </MobileFrame>

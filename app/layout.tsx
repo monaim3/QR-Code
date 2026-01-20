@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Rubik, Roboto as GoogleRoboto } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { store } from "@/store/index";
 import ReduxProvider from "@/store/ReduxProvider";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Google Fonts
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -37,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         {" "}
         <ReduxProvider>{children}</ReduxProvider>
+        <ToastContainer position="top-right" />
       </body>
     </html>
   );

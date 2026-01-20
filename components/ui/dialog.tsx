@@ -4,7 +4,7 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 import { cn } from "@/lib/utils";
-import CloseCircle from "../icons/CloseCircle";
+import CloseCircle from "../icons/close-circle";
 
 function Dialog({
   ...props

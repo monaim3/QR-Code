@@ -16,7 +16,7 @@ export default function MobileFrame({
 
   return (
     <div
-      className={`relative ${dimensions.width} ${dimensions.height} ${dimensions.marginTop} mx-auto`}
+      className={`relative ${dimensions.width} ${dimensions.height} mx-auto`}
     >
       <div className="absolute inset-0 rounded-[40px] border-[8px] border-black bg-white ">
         <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-10">
