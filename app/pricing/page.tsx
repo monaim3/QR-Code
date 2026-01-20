@@ -5,7 +5,7 @@ import PricingPage from "./body";
 export default function Pricing() {
     return (
         <div>
-          <Header className="bg-white desktop:bg-white"/>
+          <Header className="bg-white"/>
           <PricingPage/>
           <Footer />
         </div>

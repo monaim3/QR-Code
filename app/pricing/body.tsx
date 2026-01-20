@@ -64,6 +64,7 @@ const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
 };
 
 const PricingPage: React.FC = () => {
+
   const plans: PricingPlan[] = [
     {
       title: '7-Day Limited Access',
@@ -117,17 +118,18 @@ const PricingPage: React.FC = () => {
   ];
 
   return (
-    <div className='bg-[#F5F6FA]'>
+    <div className='bg-[var(--Generator-Background)]'>
     <Container>
-    <div className="min-h-screen pt-[16px]">
-      <div className="max-w-full mx-auto">
+    <div className="min-h-screen">
+      <div className="max-w-full">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-[8px] leading-[22px]">
+        <div className='h-[54px] w-full bg-white desktop:bg-transparent border-t-2 border-[var(--Boarder-Grey)]'>
+          <nav className="flex items-center gap-[8px] leading-[22px] py-[16px]">
           <span className="text-[14px] font-regular">My QR Code</span>
           <ChevronRight className={`w-5 h-5 text-[#79809A]`}/>
           <span className="text-[14px] font-regular text-[var(--Blue)]">Prices</span>
         </nav>
-
+        </div>
         {/* Header */}
         <div className="flex justify-between items-center pt-[100px]">
           <h1 className="text-[32px] leading-[40px] font-bold text-[var(--black)]">Plans & Pricing</h1>
