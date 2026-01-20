@@ -10,7 +10,7 @@ export default function PreviewQRButtons({
   onTabChange,
 }: PreviewQRButtonsProps) {
   return (
-    <div className="flex  items-center justify-center gap-2 ">
+    <div className="flex  items-center justify-center gap-2 mb-4 ">
       <button
         onClick={() => onTabChange("preview")}
         className={` py-3 px-6 rounded-full font-medium font-roboto  transition-all duration-700 ease-in-out ${

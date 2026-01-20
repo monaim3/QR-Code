@@ -20,10 +20,11 @@ export default function Breadcrumb() {
   const router = useRouter();
 
   const getCurrentStep = (): number => {
-    if (pathname === "/generator") return 1;
+    // Check most specific paths first
+    if (pathname.includes("/customize")) return 3;
     if (pathname.includes("/content") || pathname.match(/\/generator\/[^/]+$/))
       return 2;
-    if (pathname.includes("/customize")) return 3;
+    if (pathname === "/generator") return 1;
     return 1;
   };
 

@@ -3,6 +3,7 @@ type TextInputProps = {
   value: string;
   onChange?: (value: string) => void;
   placeholder?: string;
+  maxLength?: number;
 };
 
 export const TextInput = ({
@@ -10,6 +11,7 @@ export const TextInput = ({
   value,
   onChange,
   placeholder,
+  maxLength = 31,
 }: TextInputProps) => {
   return (
     <div className="w-full">
@@ -22,6 +24,7 @@ export const TextInput = ({
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
+        maxLength={maxLength}
         className="w-full px-4 py-3 border border-gray-300 rounded-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700"
       />
     </div>

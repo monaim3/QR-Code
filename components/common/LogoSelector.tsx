@@ -19,13 +19,14 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
 
 type LogoType = {
+  id: string;
   name: string;
   Icon: React.ComponentType;
 };
 
 type LogoSelectorProps = {
-  selectedLogo: LogoType | null;
-  onLogoChange: (logo: LogoType | null) => void;
+  selectedLogo: string | null; // Changed to string (logo ID)
+  onLogoChange: (logoId: string | null) => void; // Changed to accept logo ID
   customLogo: string | null;
   onCustomLogoUpload: (logo: string | null) => void;
 };
@@ -40,27 +41,27 @@ const LogoSelector = ({
   const [fileName, setFileName] = useState("MyLogo.svg");
 
   const socialLogos: LogoType[] = [
-    { name: "Twitter", Icon: Twitter },
-    { name: "X", Icon: X },
-    { name: "YouTube", Icon: Youtube },
-    { name: "Instagram", Icon: Instra },
-    { name: "TikTok", Icon: TikTok },
-    { name: "LinkedIn", Icon: LinkedIn },
-    { name: "Pinterest", Icon: Pinterest },
-    { name: "Microsoft", Icon: Microsoft },
-    { name: "Apple", Icon: Apple },
-    { name: "Gmail", Icon: Gmail },
-    { name: "WhatsApp", Icon: WhatsApp },
-    { name: "Facebook", Icon: Facebook },
-    { name: "Netlifix", Icon: Netlifix },
+    { id: "twitter", name: "Twitter", Icon: Twitter },
+    { id: "x", name: "X", Icon: X },
+    { id: "youtube", name: "YouTube", Icon: Youtube },
+    { id: "instagram", name: "Instagram", Icon: Instra },
+    { id: "tiktok", name: "TikTok", Icon: TikTok },
+    { id: "linkedin", name: "LinkedIn", Icon: LinkedIn },
+    { id: "pinterest", name: "Pinterest", Icon: Pinterest },
+    { id: "microsoft", name: "Microsoft", Icon: Microsoft },
+    { id: "apple", name: "Apple", Icon: Apple },
+    { id: "gmail", name: "Gmail", Icon: Gmail },
+    { id: "whatsapp", name: "WhatsApp", Icon: WhatsApp },
+    { id: "facebook", name: "Facebook", Icon: Facebook },
+    { id: "netflix", name: "Netflix", Icon: Netlifix },
   ];
 
   const handleLogoSelect = (logo: LogoType) => {
-    const isSelected = selectedLogo?.name === logo.name;
+    const isSelected = selectedLogo === logo.id;
     if (isSelected) {
       onLogoChange(null);
     } else {
-      onLogoChange(logo);
+      onLogoChange(logo.id); // Pass logo ID instead of entire object
     }
     onCustomLogoUpload(null);
     setUploadError("");
@@ -130,9 +131,9 @@ const LogoSelector = ({
       >
         {socialLogos.map((logo) => {
           const IconComponent = logo.Icon;
-          const isSelected = selectedLogo?.name === logo.name;
+          const isSelected = selectedLogo === logo.id;
           return (
-            <div key={logo.name} className="relative group">
+            <div key={logo.id} className="relative group">
               <button
                 onClick={() => handleLogoSelect(logo)}
                 className={`w-10 h-10 rounded-md flex items-center justify-center transition-all p-1 ${

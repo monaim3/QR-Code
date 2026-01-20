@@ -1,167 +1,115 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface QRState {
-  url: string;
-  frame: {
-    style: string;
-    text: string;
-    color: string;
-    bgColor: string;
-    textColor: string;
-    transparent: boolean;
-  };
-  pattern: {
-    style: string;
-    dotColor: string;
-    bgColor: string;
-    transparent: boolean;
-  };
-  corners: {
-    frameStyle: string;
-    dotType: string;
-    frameColor: string;
-    dotColor: string;
-  };
-  logo: {
-    type: "none" | "preset" | "custom";
-    preset?: string;
-    custom?: string;
-  };
+interface QRState {
+  selectedFrameIndex: number;
+  frameText: string;
+  frameColor: string;
+  frameBackgroundColor: string;
+  frameTextColor: string;
+  transparentFrameBg: boolean;
+  dotColor: string;
+  backgroundColor: string;
+  transparentBg: boolean;
+  patternStyle: string;
+  cornerFrameColor: string;
+  cornerDotColor: string;
+  cornerFrameStyle: string;
+  cornerDotType: string;
+  selectedLogo: string | null;
+  customLogo: string | null;
 }
 
 const initialState: QRState = {
-  url: "https://example.com",
-  frame: {
-    style: "none",
-    text: "Scan me!",
-    color: "#0A0909",
-    bgColor: "#FFFFFF",
-    textColor: "#000000",
-    transparent: false,
-  },
-  pattern: {
-    style: "square",
-    dotColor: "#000000",
-    bgColor: "#FFFFFF",
-    transparent: false,
-  },
-  corners: {
-    frameStyle: "square",
-    dotType: "square",
-    frameColor: "#000000",
-    dotColor: "#000000",
-  },
-  logo: {
-    type: "none",
-  },
+  selectedFrameIndex: 0,
+  frameText: "SCAN ME",
+  frameColor: "#000000",
+  frameBackgroundColor: "#ffffff",
+  frameTextColor: "#000000",
+  transparentFrameBg: false,
+  dotColor: "#000000",
+  backgroundColor: "#ffffff",
+  transparentBg: false,
+  patternStyle: "rounded",
+  cornerFrameColor: "#000000",
+  cornerDotColor: "#000000",
+  cornerFrameStyle: "square",
+  cornerDotType: "dot",
+  selectedLogo: null,
+  customLogo: null,
 };
 
 const qrSlice = createSlice({
   name: "qr",
   initialState,
   reducers: {
-    // URL
-    setUrl: (state, action: PayloadAction<string>) => {
-      state.url = action.payload;
-    },
-
-    // Frame
-    setFrameStyle: (state, action: PayloadAction<string>) => {
-      state.frame.style = action.payload;
+    setSelectedFrameIndex: (state, action: PayloadAction<number>) => {
+      state.selectedFrameIndex = action.payload;
     },
     setFrameText: (state, action: PayloadAction<string>) => {
-      state.frame.text = action.payload;
+      state.frameText = action.payload;
     },
     setFrameColor: (state, action: PayloadAction<string>) => {
-      state.frame.color = action.payload;
+      state.frameColor = action.payload;
     },
-    setFrameBgColor: (state, action: PayloadAction<string>) => {
-      state.frame.bgColor = action.payload;
+    setFrameBackgroundColor: (state, action: PayloadAction<string>) => {
+      state.frameBackgroundColor = action.payload;
     },
     setFrameTextColor: (state, action: PayloadAction<string>) => {
-      state.frame.textColor = action.payload;
+      state.frameTextColor = action.payload;
     },
-    setFrameTransparent: (state, action: PayloadAction<boolean>) => {
-      state.frame.transparent = action.payload;
+    setTransparentFrameBg: (state, action: PayloadAction<boolean>) => {
+      state.transparentFrameBg = action.payload;
     },
-
-    // Pattern
+    setDotColor: (state, action: PayloadAction<string>) => {
+      state.dotColor = action.payload;
+    },
+    setBackgroundColor: (state, action: PayloadAction<string>) => {
+      state.backgroundColor = action.payload;
+    },
+    setTransparentBg: (state, action: PayloadAction<boolean>) => {
+      state.transparentBg = action.payload;
+    },
     setPatternStyle: (state, action: PayloadAction<string>) => {
-      state.pattern.style = action.payload;
-    },
-    setPatternDotColor: (state, action: PayloadAction<string>) => {
-      state.pattern.dotColor = action.payload;
-    },
-    setPatternBgColor: (state, action: PayloadAction<string>) => {
-      state.pattern.bgColor = action.payload;
-    },
-    setPatternTransparent: (state, action: PayloadAction<boolean>) => {
-      state.pattern.transparent = action.payload;
-    },
-
-    // Corners
-    setCornerFrameStyle: (state, action: PayloadAction<string>) => {
-      state.corners.frameStyle = action.payload;
-    },
-    setCornerDotType: (state, action: PayloadAction<string>) => {
-      state.corners.dotType = action.payload;
+      state.patternStyle = action.payload;
     },
     setCornerFrameColor: (state, action: PayloadAction<string>) => {
-      state.corners.frameColor = action.payload;
+      state.cornerFrameColor = action.payload;
     },
     setCornerDotColor: (state, action: PayloadAction<string>) => {
-      state.corners.dotColor = action.payload;
+      state.cornerDotColor = action.payload;
     },
-
-    // Logo
-    setLogoPreset: (state, action: PayloadAction<string>) => {
-      state.logo.type = "preset";
-      state.logo.preset = action.payload;
-      state.logo.custom = undefined;
+    setCornerFrameStyle: (state, action: PayloadAction<string>) => {
+      state.cornerFrameStyle = action.payload;
     },
-    setLogoCustom: (state, action: PayloadAction<string>) => {
-      state.logo.type = "custom";
-      state.logo.custom = action.payload;
-      state.logo.preset = undefined;
+    setCornerDotType: (state, action: PayloadAction<string>) => {
+      state.cornerDotType = action.payload;
     },
-    clearLogo: (state) => {
-      state.logo.type = "none";
-      state.logo.preset = undefined;
-      state.logo.custom = undefined;
+    setSelectedLogo: (state, action: PayloadAction<string | null>) => {
+      state.selectedLogo = action.payload; // Now stores logo ID instead of component
     },
-
-    resetQRState: () => initialState,
+    setCustomLogo: (state, action: PayloadAction<string | null>) => {
+      state.customLogo = action.payload;
+    },
   },
 });
 
 export const {
-  setUrl,
-  setFrameStyle,
+  setSelectedFrameIndex,
   setFrameText,
   setFrameColor,
-  setFrameBgColor,
+  setFrameBackgroundColor,
   setFrameTextColor,
-  setFrameTransparent,
+  setTransparentFrameBg,
+  setDotColor,
+  setBackgroundColor,
+  setTransparentBg,
   setPatternStyle,
-  setPatternDotColor,
-  setPatternBgColor,
-  setPatternTransparent,
-  setCornerFrameStyle,
-  setCornerDotType,
   setCornerFrameColor,
   setCornerDotColor,
-  setLogoPreset,
-  setLogoCustom,
-  clearLogo,
-  resetQRState,
+  setCornerFrameStyle,
+  setCornerDotType,
+  setSelectedLogo,
+  setCustomLogo,
 } = qrSlice.actions;
 
 export default qrSlice.reducer;
-
-// Selectors
-export const selectQRState = (state: { qr: QRState }) => state.qr;
-export const selectQRUrl = (state: { qr: QRState }) => state.qr.url;
-export const selectQRFrame = (state: { qr: QRState }) => state.qr.frame;
-export const selectQRPattern = (state: { qr: QRState }) => state.qr.pattern;
-export const selectQRCorners = (state: { qr: QRState }) => state.qr.corners;
-export const selectQRLogo = (state: { qr: QRState }) => state.qr.logo;

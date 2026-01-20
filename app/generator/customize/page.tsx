@@ -11,7 +11,25 @@ import PatternPreview from "@/components/common/PatternPreview";
 import CornerStylePreview from "@/components/common/CornerStylePreview";
 import { IoIosSwap } from "react-icons/io";
 import LogoSelector from "@/components/common/LogoSelector";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import {
+  setSelectedFrameIndex,
+  setFrameText,
+  setFrameColor,
+  setFrameBackgroundColor,
+  setFrameTextColor,
+  setTransparentFrameBg,
+  setDotColor,
+  setBackgroundColor,
+  setTransparentBg,
+  setPatternStyle,
+  setCornerFrameColor,
+  setCornerDotColor,
+  setCornerFrameStyle,
+  setCornerDotType,
+  setSelectedLogo,
+  setCustomLogo,
+} from "@/store/slices/qrSlice";
 
 import { IconType } from "react-icons";
 import { QRFrameArray } from "@/components/common/QRFrameArray";
@@ -20,46 +38,41 @@ import QRFrameGallery from "@/components/common/QRFrameGallery";
 import CommonFrameQr from "@/components/icons/common-frame-qr";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Swap from "@/components/icons/swap";
+import { getLogoComponent } from "@/lib/logoRegistry";
+
 interface SocialLogo {
   Icon: IconType;
   color: string;
 }
 
-type LogoType = {
-  name: string;
-  Icon: React.ComponentType;
-};
-
 export default function QRCodeCustomizer() {
+  const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrcode">("preview");
-  const qrRef = useRef<HTMLDivElement>(null);
+  const [patternTransparentBg, setPatternTransparentBg] = useState(false);
+
   const mobileQrRef = useRef<HTMLDivElement>(null);
-  const qrCodeRef = useRef<QRCodeStyling | null>(null);
+  const staticQrRef = useRef<HTMLDivElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
 
-  // Frame selection state
-  const [selectedFrameIndex, setSelectedFrameIndex] = useState<number>(0);
-
-  // Frame customization states
-  const [frameText, setFrameText] = useState("Scan me!");
-  const [frameColor, setFrameColor] = useState("#0A0909");
-  const [frameBackgroundColor, setFrameBackgroundColor] = useState("#ffffff");
-  const [frameTextColor, setFrameTextColor] = useState("#000000");
-  const [transparentFrameBg, setTransparentFrameBg] = useState(false);
-
-  const [dotColor, setDotColor] = useState("#000000");
-  const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
-  const [transparentBg, setTransparentBg] = useState(false);
-  const [patternTransparentBg, setPatternTransparentBg] = useState(false);
-  const [cornerFrameColor, setCornerFrameColor] = useState("#000000");
-  const [cornerDotColor, setCornerDotColor] = useState("#000000");
-  const [patternStyle, setPatternStyle] = useState("rounded");
-  const [cornerFrameStyle, setCornerFrameStyle] = useState("extra-rounded");
-  const [cornerDotType, setCornerDotType] = useState("dot");
-  const [selectedLogo, setSelectedLogo] = useState<LogoType | null>(null);
-  const [customLogo, setCustomLogo] = useState<string | null>(null);
-
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
+  const {
+    selectedFrameIndex,
+    frameText,
+    frameColor,
+    frameBackgroundColor,
+    frameTextColor,
+    transparentFrameBg,
+    dotColor,
+    backgroundColor,
+    transparentBg,
+    patternStyle,
+    cornerFrameColor,
+    cornerDotColor,
+    cornerFrameStyle,
+    cornerDotType,
+    selectedLogo,
+    customLogo,
+  } = useAppSelector((state) => state.qr);
 
   const patternOptions = [
     "rounded",
@@ -72,22 +85,24 @@ export default function QRCodeCustomizer() {
   const cornerFrameOptions = ["none", "square", "dot", "extra-rounded"];
   const cornerDotOptions = ["none", "dot", "square"];
 
-  const createIconImage = (logo: LogoType): Promise<string | null> => {
+  const createIconImage = (logoId: string): Promise<string | null> => {
     return new Promise((resolve) => {
       try {
-        // Create a hidden div to render the component
+        const LogoComponent = getLogoComponent(logoId);
+        if (!LogoComponent) {
+          resolve(null);
+          return;
+        }
+
         const div = document.createElement("div");
         div.style.cssText =
           "position:absolute;left:-9999px;width:60px;height:60px;";
         document.body.appendChild(div);
 
-        // Use a temporary React root
         import("react-dom/client").then(({ createRoot }) => {
           const root = createRoot(div);
+          root.render(<LogoComponent />);
 
-          root.render(<logo.Icon />);
-
-          // Wait for render then get SVG
           requestAnimationFrame(() => {
             const svg = div.querySelector("svg");
 
@@ -98,10 +113,7 @@ export default function QRCodeCustomizer() {
               return;
             }
 
-            // Get SVG markup
             const svgData = new XMLSerializer().serializeToString(svg);
-
-            // Create canvas
             const canvas = document.createElement("canvas");
             canvas.width = 100;
             canvas.height = 100;
@@ -114,13 +126,11 @@ export default function QRCodeCustomizer() {
               return;
             }
 
-            // Draw white rounded background
             ctx.fillStyle = "white";
             ctx.beginPath();
             ctx.roundRect(0, 0, 100, 100, 15);
             ctx.fill();
 
-            // Create image from SVG
             const img = new Image();
             const svgBlob = new Blob([svgData], {
               type: "image/svg+xml;charset=utf-8",
@@ -128,16 +138,11 @@ export default function QRCodeCustomizer() {
             const url = URL.createObjectURL(svgBlob);
 
             img.onload = () => {
-              // Draw centered icon
               ctx.drawImage(img, 20, 20, 60, 60);
               URL.revokeObjectURL(url);
-
               const dataUrl = canvas.toDataURL("image/png");
-
-              // Cleanup
               root.unmount();
               document.body.removeChild(div);
-
               resolve(dataUrl);
             };
 
@@ -157,15 +162,17 @@ export default function QRCodeCustomizer() {
       }
     });
   };
+
   const SelectedFrameComponent = QRFrameArray[selectedFrameIndex];
   const isDefaultFrame = selectedFrameIndex === 0;
-  console.log("selectedFrameIndex", selectedFrameIndex);
-  useEffect(() => {
-    const updateQRCode = async () => {
-      if (!mobileQrRef.current) return;
 
+  // Desktop preview QR code update
+  useEffect(() => {
+    if (view !== "qrcode" || !mobileQrRef.current) return;
+
+    const updateQRCode = async () => {
       const qrOptions: Options = {
-        data: websiteUrl || "https://www.linkedin.com/",
+        data: websiteUrl || "https://www.example.com/",
         width: 300,
         height: 300,
         margin: 0,
@@ -211,21 +218,24 @@ export default function QRCodeCustomizer() {
         };
       }
 
-      mobileQrRef.current.innerHTML = "";
+      if (mobileQrRef.current) {
+        mobileQrRef.current.innerHTML = "";
 
-      if (mobileQrCodeRef.current) {
-        mobileQrCodeRef.current.update(qrOptions);
-      } else {
-        mobileQrCodeRef.current = new QRCodeStyling(qrOptions);
-      }
+        if (mobileQrCodeRef.current) {
+          mobileQrCodeRef.current.update(qrOptions);
+        } else {
+          mobileQrCodeRef.current = new QRCodeStyling(qrOptions);
+        }
 
-      if (mobileQrRef.current && mobileQrCodeRef.current) {
-        mobileQrCodeRef.current.append(mobileQrRef.current);
+        if (mobileQrCodeRef.current) {
+          mobileQrCodeRef.current.append(mobileQrRef.current);
+        }
       }
     };
 
     updateQRCode();
   }, [
+    view,
     websiteUrl,
     dotColor,
     backgroundColor,
@@ -238,93 +248,50 @@ export default function QRCodeCustomizer() {
     selectedLogo,
     customLogo,
   ]);
+
   useEffect(() => {
-    const updateQRCode = async () => {
-      if (!mobileQrRef.current) return;
+    if (view !== "qrcode" || selectedFrameIndex !== 0 || !staticQrRef.current)
+      return;
 
-      const qrOptions: Options = {
-        data: websiteUrl || "https://www.example.com/",
-        width: 200,
-        height: 200,
-        margin: 10,
-        type: "svg",
-        dotsOptions: {
-          color: dotColor,
-          type: "rounded" as any,
-        },
-        backgroundOptions: {
-          color: transparentBg ? "transparent" : backgroundColor,
-        },
-      };
-
-      mobileQrRef.current.innerHTML = "";
-
-      if (mobileQrCodeRef.current) {
-        mobileQrCodeRef.current.update(qrOptions);
-      } else {
-        mobileQrCodeRef.current = new QRCodeStyling(qrOptions);
-      }
-
-      if (mobileQrRef.current && mobileQrCodeRef.current) {
-        mobileQrCodeRef.current.append(mobileQrRef.current);
-      }
+    const qrOptions: Options = {
+      data: websiteUrl || "https://www.example.com/",
+      width: 300,
+      height: 300,
+      margin: 0,
+      dotsOptions: {
+        color: "#000000",
+        type: "rounded" as any,
+      },
+      backgroundOptions: {
+        color: "#FFFFFF",
+      },
     };
 
-    updateQRCode();
-  }, [websiteUrl, dotColor, backgroundColor, transparentBg]);
+    staticQrRef.current.innerHTML = "";
+    const staticQr = new QRCodeStyling(qrOptions);
+    staticQr.append(staticQrRef.current);
+  }, [websiteUrl, selectedFrameIndex, view]);
 
   const handleSwapFrameColors = () => {
     const temp = frameBackgroundColor;
-    setFrameBackgroundColor(frameTextColor);
-    setFrameTextColor(temp);
+    dispatch(setFrameBackgroundColor(frameTextColor));
+    dispatch(setFrameTextColor(temp));
   };
+
   const handleTransparentChange = (checked: boolean) => {
     setPatternTransparentBg(checked);
-
     if (checked) {
-      setBackgroundColor("transparent");
+      dispatch(setBackgroundColor("transparent"));
     } else {
-      setBackgroundColor("#ffffff");
+      dispatch(setBackgroundColor("#ffffff"));
     }
   };
-  const staticQrRef = useRef<HTMLDivElement>(null);
-  // for first frame
-  useEffect(() => {
-    const createQR = () => {
-      if (view !== "qrcode" || selectedFrameIndex !== 0) {
-        console.log("Wrong view or index");
-        return;
-      }
-      if (!staticQrRef.current) {
-        requestAnimationFrame(createQR);
-        return;
-      }
 
-      const qrOptions: Options = {
-        data: websiteUrl || "https://www.example.com/",
-        width: 300,
-        height: 300,
-        margin: 0,
-        dotsOptions: {
-          color: "#000000",
-          type: "rounded" as any,
-        },
-        backgroundOptions: {
-          color: "#FFFFFF",
-        },
-      };
-
-      staticQrRef.current.innerHTML = "";
-      const staticQr = new QRCodeStyling(qrOptions);
-      staticQr.append(staticQrRef.current);
-    };
-    createQR();
-  }, [websiteUrl, selectedFrameIndex, view]);
   return (
     <div className="bg-gray-50 p-0 lg:p-8 min-h-screen">
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32">
-          <div className="flex-1 flex flex-col space-y-4 ">
+          <div className="flex-1 flex flex-col space-y-4">
             <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900">
               Customize design for the Website URL QR code
             </h1>
@@ -335,20 +302,30 @@ export default function QRCodeCustomizer() {
               defaultOpen={true}
             >
               <QRFrameGallery
-                setSelectedFrameIndex={setSelectedFrameIndex}
+                setSelectedFrameIndex={(index: number) =>
+                  dispatch(setSelectedFrameIndex(index))
+                }
                 selectedFrameIndex={selectedFrameIndex}
               />
               <QrCodeFrameAllInput
-                setFrameText={setFrameText}
+                setFrameText={(text: string) => dispatch(setFrameText(text))}
                 frameText={frameText}
                 frameBackgroundColor={frameBackgroundColor}
-                setFrameBackgroundColor={setFrameBackgroundColor}
+                setFrameBackgroundColor={(color: string) =>
+                  dispatch(setFrameBackgroundColor(color))
+                }
                 frameTextColor={frameTextColor}
-                setFrameTextColor={setFrameTextColor}
+                setFrameTextColor={(color: string) =>
+                  dispatch(setFrameTextColor(color))
+                }
                 frameColor={frameColor}
-                setFrameColor={setFrameColor}
-                transparentBg={transparentBg}
-                setTransparentBg={setTransparentBg}
+                setFrameColor={(color: string) =>
+                  dispatch(setFrameColor(color))
+                }
+                transparentBg={transparentFrameBg}
+                setTransparentBg={(value: boolean) =>
+                  dispatch(setTransparentFrameBg(value))
+                }
                 handleSwapColors={handleSwapFrameColors}
               />
             </Accordion>
@@ -362,26 +339,13 @@ export default function QRCodeCustomizer() {
                 <label className="block text-lg font-bold text-gray-900">
                   Pattern style
                 </label>
-                {/* <div className="grid grid-cols-10 gap-4 py-8">
+                <div className="flex gap-4 py-4 overflow-x-auto lg:grid lg:grid-cols-10 lg:overflow-visible">
                   {patternOptions.map((pattern) => (
                     <PatternPreview
                       key={pattern}
                       type={pattern}
                       isSelected={patternStyle === pattern}
-                      onClick={() => setPatternStyle(pattern)}
-                    />
-                  ))}
-                </div> */}
-                <div
-                  className="flex gap-4 py-4 overflow-x-auto
-  lg:grid lg:grid-cols-10 lg:overflow-visible"
-                >
-                  {patternOptions.map((pattern) => (
-                    <PatternPreview
-                      key={pattern}
-                      type={pattern}
-                      isSelected={patternStyle === pattern}
-                      onClick={() => setPatternStyle(pattern)}
+                      onClick={() => dispatch(setPatternStyle(pattern))}
                     />
                   ))}
                 </div>
@@ -392,7 +356,7 @@ export default function QRCodeCustomizer() {
                   <ColorInput
                     label="Dot color"
                     value={dotColor}
-                    onChange={setDotColor}
+                    onChange={(color: string) => dispatch(setDotColor(color))}
                     showColorIndicator
                     id="dot-color"
                   />
@@ -400,18 +364,18 @@ export default function QRCodeCustomizer() {
                     type="button"
                     className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
                     onClick={() => {
-                      setDotColor(backgroundColor);
-                      setBackgroundColor(dotColor);
+                      dispatch(setDotColor(backgroundColor));
+                      dispatch(setBackgroundColor(dotColor));
                     }}
                   >
                     <IoIosSwap className="text-2xl" />
                   </button>
                   <button
                     type="button"
-                    className="flex lg:hidden p-2   text-gray-500"
+                    className="flex lg:hidden p-2 text-gray-500"
                     onClick={() => {
-                      backgroundColor;
-                      setFrameColor(backgroundColor);
+                      dispatch(setDotColor(backgroundColor));
+                      dispatch(setBackgroundColor(dotColor));
                     }}
                   >
                     <p className="flex gap-2">
@@ -428,9 +392,10 @@ export default function QRCodeCustomizer() {
                         ? "#ffffff"
                         : backgroundColor
                     }
-                    onChange={(value) => setBackgroundColor(value)}
+                    onChange={(color: string) =>
+                      dispatch(setBackgroundColor(color))
+                    }
                     showColorIndicator
-                    // disabled={patternTransparentBg}
                   />
                 </div>
                 <div className="flex items-center gap-2 px-6 pb-4">
@@ -467,7 +432,7 @@ export default function QRCodeCustomizer() {
                         key={style}
                         type={style}
                         isSelected={cornerFrameStyle === style}
-                        onClick={() => setCornerFrameStyle(style)}
+                        onClick={() => dispatch(setCornerFrameStyle(style))}
                         isFrame={true}
                       />
                     ))}
@@ -484,7 +449,7 @@ export default function QRCodeCustomizer() {
                         key={style}
                         type={style}
                         isSelected={cornerDotType === style}
-                        onClick={() => setCornerDotType(style)}
+                        onClick={() => dispatch(setCornerDotType(style))}
                         isFrame={false}
                       />
                     ))}
@@ -492,11 +457,13 @@ export default function QRCodeCustomizer() {
                 </div>
               </div>
               <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
-                <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4  lg:pt-6 pb-4 lg:pb-8">
+                <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
                   <ColorInput
                     label="Corner frames color"
                     value={cornerFrameColor}
-                    onChange={setCornerFrameColor}
+                    onChange={(color: string) =>
+                      dispatch(setCornerFrameColor(color))
+                    }
                     showColorIndicator={true}
                     id="corner-frame-color"
                   />
@@ -505,18 +472,18 @@ export default function QRCodeCustomizer() {
                     type="button"
                     className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
                     onClick={() => {
-                      setDotColor(backgroundColor);
-                      setBackgroundColor(dotColor);
+                      dispatch(setCornerFrameColor(cornerDotColor));
+                      dispatch(setCornerDotColor(cornerFrameColor));
                     }}
                   >
                     <IoIosSwap className="text-2xl" />
                   </button>
                   <button
                     type="button"
-                    className="flex lg:hidden p-2   text-gray-500"
+                    className="flex lg:hidden p-2 text-gray-500"
                     onClick={() => {
-                      backgroundColor;
-                      setFrameColor(backgroundColor);
+                      dispatch(setCornerFrameColor(cornerDotColor));
+                      dispatch(setCornerDotColor(cornerFrameColor));
                     }}
                   >
                     <p className="flex gap-2">
@@ -529,7 +496,9 @@ export default function QRCodeCustomizer() {
                   <ColorInput
                     label="Corner dots color"
                     value={cornerDotColor}
-                    onChange={setCornerDotColor}
+                    onChange={(color: string) =>
+                      dispatch(setCornerDotColor(color))
+                    }
                     showColorIndicator={true}
                     id="corner-dot-color"
                   />
@@ -544,9 +513,13 @@ export default function QRCodeCustomizer() {
             >
               <LogoSelector
                 selectedLogo={selectedLogo}
-                onLogoChange={setSelectedLogo}
+                onLogoChange={(logoId: string | null) =>
+                  dispatch(setSelectedLogo(logoId))
+                }
                 customLogo={customLogo}
-                onCustomLogoUpload={setCustomLogo}
+                onCustomLogoUpload={(logo: string | null) =>
+                  dispatch(setCustomLogo(logo))
+                }
               />
             </Accordion>
           </div>
@@ -589,7 +562,6 @@ export default function QRCodeCustomizer() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                       {selectedFrameIndex === 0 ? (
-                        // Index 0 → Shudhu plain QR code, kono frame nai
                         <div
                           ref={staticQrRef}
                           style={{
@@ -610,12 +582,6 @@ export default function QRCodeCustomizer() {
                           width={260}
                           height={260}
                         >
-                          {/* <foreignObject x="-10" y="-10" width="58" height="58">
-                          <div className="flex items-center justify-center">
-                            <CommonFrameQr />
-                            <div ref={mobileQrRef} />
-                          </div>
-                        </foreignObject> */}
                           <foreignObject x="-10" y="-10" width="58" height="58">
                             <div
                               className="flex items-center justify-center"
@@ -629,8 +595,7 @@ export default function QRCodeCustomizer() {
                               <div
                                 ref={mobileQrRef}
                                 style={{
-                                  transform: "scale(0.193)", // 58 / 300
-                                  // transformOrigin: "top left",
+                                  transform: "scale(0.193)",
                                 }}
                               />
                             </div>
