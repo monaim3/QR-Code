@@ -27,13 +27,13 @@ export default function Accordion({
               <div className="w-full bg-white rounded-xl shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="w-full flex items-center justify-between px-4 md:px-8 py-4 hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-start justify-between px-4 md:px-8 py-4 hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex flex-col items-start gap-1">
                     <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
                       {title}
                     </h3>
-                    <p className="text-sm leading-[22px] font-roboto text-[var(--Dark-gray)]">
+                    <p className="text-sm leading-[22px] font-roboto text-[var(--Dark-gray)] text-left">
                       {description}
                     </p>
                   </div>
@@ -41,7 +41,11 @@ export default function Accordion({
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                   >
-                    <ChevronDown size={20} color="black" />
+                    <ChevronDown
+                      size={32}
+                      color="black"
+                      className="w-6 h-6lg:w-8 lg:h-8 font-bold"
+                    />
                   </motion.div>
                 </button>
 

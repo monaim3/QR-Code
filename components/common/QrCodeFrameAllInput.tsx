@@ -2,9 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { IoIosSwap } from "react-icons/io";
 import { TextInput } from "./TextInput";
+import { IoSwapVertical } from "react-icons/io5";
 
 import { CheckboxInput } from "./CheckboxInput";
 import ColorInput from "./ColorInput";
+import Swap from "../icons/swap";
 
 const QrCodeFrameAllInput = ({
   frameText,
@@ -33,9 +35,9 @@ const QrCodeFrameAllInput = ({
     }
   }, [transparentBg]);
   return (
-    <div className=" ">
+    <div className="!mt-0 md:!mt-6">
       <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[72px] mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-[72px] mb-2 lg:mb-6">
           <TextInput
             label="Frame text"
             value={frameText}
@@ -52,7 +54,7 @@ const QrCodeFrameAllInput = ({
         </div>
 
         <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
-          <div className="flex items-end justify-center gap-6 pt-6 pb-8 relative z-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-6  pt-4 lg:pt-6  pb-4 lg:pb-8 relative z-10">
             {/* <ColorInput
               label="Background color"
               value={frameBackgroundColor ?? ""}
@@ -69,13 +71,28 @@ const QrCodeFrameAllInput = ({
             />
             <button
               type="button"
-              className="flex h-12 w-12 items-center justify-center text-gray-500"
+              className="hidden lg:flex  h-12 w-12 items-center justify-center text-gray-500"
               onClick={() => {
                 backgroundColor;
                 setFrameColor(backgroundColor);
               }}
             >
               <IoIosSwap className="text-2xl" onClick={handleSwapColors} />
+            </button>
+            <button
+              type="button"
+              className="flex lg:hidden p-2  items-center justify-center text-gray-500"
+              onClick={() => {
+                backgroundColor;
+                setFrameColor(backgroundColor);
+              }}
+            >
+              <p className="flex gap-2">
+                <span className="text-[#79809A] text-sm leading-[22px] font-normal">
+                  Swap the colours
+                </span>
+                <Swap className="text-2xl" onClick={handleSwapColors} />
+              </p>
             </button>
 
             <ColorInput

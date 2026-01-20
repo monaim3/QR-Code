@@ -320,11 +320,11 @@ export default function QRCodeCustomizer() {
     createQR();
   }, [websiteUrl, selectedFrameIndex, view]);
   return (
-    <div className="bg-gray-50 p-8 min-h-screen">
+    <div className="bg-gray-50 p-0 lg:p-8 min-h-screen">
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32">
           <div className="flex-1 flex flex-col space-y-4 ">
-            <h1 className="text-2xl font-Poppins font-bold text-gray-900">
+            <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900">
               Customize design for the Website URL QR code
             </h1>
 
