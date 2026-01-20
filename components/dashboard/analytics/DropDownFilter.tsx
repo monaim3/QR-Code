@@ -8,10 +8,16 @@ import Tooltip from "@/components/dashboard/Tooltip";
 interface Props {
   options: string[];
   label: string;
+  selected: string[];
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
 }
-export default function DropDownFilter({ options, label }: Props) {
+export default function DropDownFilter({
+  options,
+  label,
+  selected,
+  setSelected,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Toggle selection logic

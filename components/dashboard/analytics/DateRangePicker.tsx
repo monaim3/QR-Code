@@ -31,7 +31,7 @@ const MONTHS = [
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from(
   { length: 6 },
-  (_, i) => currentYear - 5 + i
+  (_, i) => currentYear - 5 + i,
 ).reverse();
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -58,7 +58,7 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
   });
 
   const [currentMonth, setCurrentMonth] = React.useState<Date>(
-    date?.from || new Date()
+    date?.from || new Date(),
   );
 
   // Update currentMonth when date changes
@@ -143,7 +143,7 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className="flex justify-start items-center py-2 px-4 rounded-[var(--Corner-Radius-10)] gap-2 w-[237px] h-[40px] border border-[var(--Boarder-Grey)] bg-white text-[var(--Grey)] text-[14px] leading-[22px]"
+          className="flex justify-start items-center !py-2 !px-4 rounded-[var(--Corner-Radius-10)] gap-2 w-[237px] h-[40px] border border-[var(--Boarder-Grey)] bg-white text-[var(--Grey)] text-[14px] leading-[22px] font-roboto"
         >
           {date?.from ? (
             date.to ? (

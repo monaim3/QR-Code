@@ -15,19 +15,29 @@ const options = [
   { label: "Product campaign", value: "product" },
 ];
 
-export default function QrCodeSearchDropdown() {
+interface Props {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  selected: string[];
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+export default function QrCodeSearchDropdown({
+  search,
+  setSearch,
+  selected,
+  setSelected,
+}: Props) {
   const [open, setOpen] = React.useState(false);
-  const [search, setSearch] = React.useState("");
-  const [selected, setSelected] = React.useState<string[]>([]);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const filteredOptions = options.filter((opt) =>
-    opt.label.toLowerCase().includes(search.toLowerCase())
+    opt.label.toLowerCase().includes(search.toLowerCase()),
   );
 
   const toggleOption = (val: string) => {
     setSelected((prev) =>
-      prev.includes(val) ? prev.filter((i) => i !== val) : [...prev, val]
+      prev.includes(val) ? prev.filter((i) => i !== val) : [...prev, val],
     );
   };
 
@@ -162,7 +172,7 @@ export default function QrCodeSearchDropdown() {
                       "flex h-10 p-2 items-center gap-2 self-stretch cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors",
                       isSelected
                         ? "bg-[var(--Light-blue)]"
-                        : "hover:bg-[var(--Light-blue)]"
+                        : "hover:bg-[var(--Light-blue)]",
                     )}
                   >
                     <CheckBox checked={isSelected} />

@@ -30,7 +30,7 @@ export default function KPICard({
 
           {highlight && (
             <Tooltip text={highlight}>
-              <HelpCircle className="text-[var(--Grey)]" />
+              <HelpCircle className="text-[var(--Grey)] cursor-pointer" />
             </Tooltip>
           )}
         </div>
