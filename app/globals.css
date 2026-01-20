@@ -43,9 +43,23 @@
   --Generator-Background: #f5f6fa;
   --boarder-grey-50: rgba(205, 208, 219, 0.5);
   --Light-blue: #f7f9fc;
+  --Grey: #79809a;
+  --Green: #6ad39f;
+  --error: #fd4255;
+  --Error: #f86666;
+  --Orange: #ff9c6f;
+  --pop-up-color: rgba(33, 32, 35, 0.8);
+  --Purple: #8077e6;
+  --placeholder-grey: #84868e;
+
+  --Generator-Shadow: 0 1px 8px 0 rgba(63, 72, 103, 0.16);
   --breadcrumb: #79809a;
   --pop-up-color: rgba(33, 32, 35, 0.8);
   --Corner-Radius-10: 10px;
+  --Corner-Radius-6: 6px;
+  --Corner-Radius-8: 8px;
+  --Corner-Radius-4: 4px;
+  --Corner-Radius-Full: 256px;
   --Gray-custom: #79809A;
 
   --font-HelveticaNeue: "HelveticaNeue", "Helvetica Neue", sans-serif;
@@ -59,6 +73,8 @@
   --Corner-Radius-12: 12px;
   --Corner-Radius-Full: 256px;
   --shadow-card: 0 4px 14px rgba(54, 66, 140, 0.16);
+  --Typeface-Line-height-Heading-4: 26px;
+  --Typeface-Line-height-Heading-2: 40px;
 }
 
 .dark {

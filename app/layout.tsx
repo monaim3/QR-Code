@@ -34,10 +34,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${Poppins.variable} ${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${rubik.variable}`}
     >
-      <body className="antialiased">
+      <body className="antialiased font-sans">
+        <ReduxProvider>
         {" "}
         <ReduxProvider>{children}</ReduxProvider>
         <ToastContainer position="top-right" />
+      </ReduxProvider>
       </body>
     </html>
   );
