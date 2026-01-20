@@ -1,17 +1,20 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Globe, X } from "lucide-react";
+import { X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown";
+import { ReactNode } from "react";
+import CurrenctSelector from '@/components/common/currency_dropdown';
 
 interface HeaderProps{
-  className?: string 
+  className?: string;
+  languageDropDown?: boolean;
 }
 
-export default function Header({ className = "" }: HeaderProps) {
+export default function Header({ className = "", languageDropDown = false}: HeaderProps) {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -28,13 +31,14 @@ export default function Header({ className = "" }: HeaderProps) {
   return (
     <header className={cn("w-full desktop:bg-[#F5F6FA] bg-white relative z-50 var(--font-poppins)", className)}>
       <Container>
-        <div className="flex items-center justify-between desktop:h-[72px] h-16">
+        <div className="flex items-center desktop:h-[72px] h-16">
           {/* Logo */}
           <Link href="/">
           <img src="/images/Logo.svg" alt="Logo" className="w-38" />
           </Link>
 
-          {/* Desktop Right side actions */}
+          <div className="flex items-center gap-4 ml-auto">
+            {/* Desktop Right side actions */}
           <div className="hidden desktop:flex items-center gap-4">
              <LanguageSelector/>
             {/* Log in Button */}
@@ -46,6 +50,13 @@ export default function Header({ className = "" }: HeaderProps) {
             </Link>
           </div>
 
+          {/* Currency Dropdown */}
+          {languageDropDown && (
+          <div className="block sm:hidden">
+            <CurrenctSelector/>
+          </div>
+          )}
+
           {/* Mobile Hamburger Menu */}
           <div className="flex desktop:hidden">
             <button
@@ -55,6 +66,7 @@ export default function Header({ className = "" }: HeaderProps) {
             >
               <MenuIcon className="w-6 h-6" />
             </button>
+          </div>
           </div>
         </div>
       </Container>
@@ -73,7 +85,7 @@ export default function Header({ className = "" }: HeaderProps) {
           onClick={() => setIsDrawerOpen(false)}
         />
 
-  {/* Drawer Content - Anchored to Left */}
+      {/* Drawer Content - Anchored to Left */}
       <div
         className={cn(
           "absolute top-0 left-0 h-full w-[320px] bg-white flex flex-col justify-between p-5",
@@ -112,7 +124,6 @@ export default function Header({ className = "" }: HeaderProps) {
                 {item}
               </Link>
             ))}
-            
             <LanguageSelector layout="gapBetween" mobileDrawer={true}/>
             </nav>
         </div>

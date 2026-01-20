@@ -19,41 +19,35 @@ interface PricingPlan {
 
 const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
   return (
-    <div className="flex flex-col bg-white p-[24px] desktop:p-[32px] shadow-md rounded-[12px] hover:shadow-xl transition-shadow duration-300">
+    <div className="flex flex-col bg-white p-[24px] desktop:p-[32px] shadow-card rounded-[12px] hover:shadow-xl transition-shadow duration-300">
       <div className='flex flex-row item-start justify-between desktop:flex-col w-full m-w-full'>
           <h3 className="
-            flex-1
             text-[var(--Black)]
             text-center
             font-medium
             text-[20px] 
-            desktop:text-[24px]
             leading-[28px]
-            desktop:leading-[32px]
-        "
-        >
+            desktop:text-[24px]
+            desktop:leading-[32px]">
         {plan.title}
       </h3>
-      <div className="desktop:pt-[16px] flex justify-center items-center w-full">
+      <div className="desktop:pt-[16px] flex justify-center items-center">
          <span
             className="
             text-[var(--Black)]
-            font-normal
+            font-regular
             text-[24px]
-            leading-[32px]
-            font-sans
-            "
-        >
+            leading-[32px]">
             {plan.price}
         </span>
       </div>
       </div>
-      <div className="w-full h-[1px] bg-[rgba(205,208,219,0.5)] my-[24px] desktop:my-[32px]" />
-      <ul className="space-y-4">
+      <div className="w-full h-[1px] bg-[rgba(205,208,219,0.5)] my-[24px]" />
+      <ul className="space-y-[12px]">
         {plan.features.map((feature, index) => (
-          <li key={index} className="flex items-center justify-start gap-[12px]">
+          <li key={index} className="flex items-center justify-start gap-[16px]">
            <CheckIcon/>
-            <span className="text-[#3F3E3E] text-[16px] leading-[24px]">
+            <span className="text-[#3F3E3E] text-[16px] leading-[24px] text-[var(--Dark-gray)]">
               {feature.text}
             </span>
           </li>
@@ -119,36 +113,40 @@ const PricingPage: React.FC = () => {
 
   return (
     <div className='bg-[var(--Generator-Background)]'>
-    <Container>
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ fontFamily: "var(--font-poppins)" }}>
       <div className="max-w-full">
         {/* Breadcrumb */}
-        <div className='h-[54px] w-full bg-white desktop:bg-transparent border-t-2 border-[var(--Boarder-Grey)]'>
-          <nav className="flex items-center gap-[8px] leading-[22px] py-[16px]">
+        <div className='h-[54px] w-full bg-white desktop:bg-transparent'>
+          <nav className="w-full desktop:max-w-[1256px] mx-auto relative px-5 flex items-center gap-[8px] leading-[22px] py-[16px]">
           <span className="text-[14px] font-regular">My QR Code</span>
           <ChevronRight className={`w-5 h-5 text-[#79809A]`}/>
           <span className="text-[14px] font-regular text-[var(--Blue)]">Prices</span>
         </nav>
         </div>
-        {/* Header */}
-        <div className="flex justify-between items-center pt-[100px]">
-          <h1 className="text-[32px] leading-[40px] font-bold text-[var(--black)]">Plans & Pricing</h1>
-          <div className="flex items-center gap-4">
-             <CurrenctSelector/>
-            <Link href="/generator" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
-           ">Create QR code</Link>
+        <Container>
+          <div>
+            {/* Header */}
+          <div className="flex justify-between items-center pt-[16px] desktop:pt-[84px]">
+            <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-[var(--black)]">Plans & Pricing</h1>
+            <div className="flex items-center gap-4">
+              <div className='hidden desktop:flex'>
+                <CurrenctSelector/>
+              </div>
+              <Link href="/generator" className="hidden desktop:flex bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+            ">Create QR code</Link>
+            </div>
           </div>
-        </div>
 
-        {/* Pricing Cards */}
-        <div className="pt-[60px] pb-[120px] grid md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
-          {plans.map((plan, index) => (
-            <PricingCard key={index} plan={plan} />
-          ))}
-        </div>
+          {/* Pricing Cards */}
+          <div className="pt-[71px] desktop:pt-[56px] pb-[120px] grid md:grid-cols-2 lg:grid-cols-3 gap-[24px] desktop:gap-[32px]">
+            {plans.map((plan, index) => (
+              <PricingCard key={index} plan={plan} />
+            ))}
+          </div>
+          </div>
+        </Container>
       </div>
     </div>
-    </Container>
     </div>
   );
 };

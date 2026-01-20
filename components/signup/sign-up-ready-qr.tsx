@@ -50,8 +50,8 @@ export default function SignUpReadyQr() {
         <div className="flex flex-col w-full gap-[16px] overflow-auto">
           {authFeatureList.map((feature) => (
             <div key={feature.id} className="flex items-center gap-[8px]">
-              <CheckIcon className="w-5 h-5 text-[#3F3E3E]" />
-              <p className="text-[14px] leading-[24px] font-normal text-[#3F3E3E]">{feature.label}</p>
+              <CheckIcon/>
+              <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)]">{feature.label}</p>
             </div>
           ))}
         </div>

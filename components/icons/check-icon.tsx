@@ -1,13 +1,14 @@
 import React from "react";
 
-const CheckIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
+const CheckIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({
+  className = "w-[11px] h-[8px] flex-shrink-0",
+  ...props}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={props.width || 12}
-      height={props.height || 9}
       viewBox="0 0 12 9"
       fill="none"
+      className={className}
       {...props} // forwards any additional props like className, onClick, etc.
     >
       <path
