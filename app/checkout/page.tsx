@@ -5,7 +5,7 @@ import CheckoutBody from "../checkout/body";
 export default function CheckoutPage() {
     return (
         <div className="pb-[100px] desktop:pb-[0px]">
-        <GeneratorHeader priceAndPlan={true}/>
+        <GeneratorHeader hideInfo={true}/>
        <CheckoutBody/>
        <Footer/>
        </div>

@@ -8,7 +8,7 @@ export default function CheckoutBody() {
 
   return (
     <Container
-      className="flex items-center justify-center min-h-screen px-4">
+      className="flex items-center justify-center min-h-screen px-4 pt-[40px] desktop:pt-[48px] pb-[120px] desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
       {/* Outer Card */}
       <div className="
@@ -28,7 +28,8 @@ export default function CheckoutBody() {
        <CheckoutElement />
 
        {/* Right Panel */}
-      <SignUpReadyQr />
+       <div className="block desktop:hidden h-[16px]"/>
+      <SignUpReadyQr viewOnMobile={true} />
       </div>
       </div>
     </Container>

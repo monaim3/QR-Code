@@ -6,6 +6,7 @@ import Paypal from "../icons/pay-pal";
 import ApplePay from "../icons/apple-pay";
 import SecurityCheck from "../icons/security-check";
 import Nortion from "../icons/nortion";
+import ArrowRight from "../icons/arrow-right"
 
 type PaymentMethod = {
   id: "card" | "gpay" | "paypal" | "applepay";
@@ -70,7 +71,7 @@ export default function CheckoutElement() {
   return (
     <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
       {/* Header */}
-      <div className="flex items-center justify-between pb-[16px] desktop:pb-[24px] border-b border-[var(--Boarder-Grey)]">
+      <div className="flex items-center justify-between pb-[16px] desktop:pb-[24px] border-b-[1px] border-[var(--Boarder-Grey)]">
           <h1 className="text-[18px] leading-[26px] font-bold text-[var(--Black)]">
             Total due today:
           </h1>
@@ -131,8 +132,8 @@ export default function CheckoutElement() {
                 placeholder="e.g. John Doe"
                 value={cardholderName}
                 onChange={(e) => setCardholderName(e.target.value)}
-                className="w-full h-[56px] px-4 border-b-2 border-gray-300 
-                  focus:border-emerald-500 outline-none transition-colors
+                className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)] 
+                  focus:border-[var(--Blue)] outline-none transition-colors
                   text-[16px] leading-[24px] placeholder:text-[var(--placeholder-grey)]"
               />
             </div>
@@ -147,8 +148,8 @@ export default function CheckoutElement() {
                 placeholder="•••• •••• •••• ••••"
                 value={cardNumber}
                 onChange={handleCardNumberChange}
-                className="w-full h-[56px] px-4 border-b-2 border-gray-300 
-                  focus:border-emerald-500 outline-none transition-colors
+                className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
+                  focus:border-[var(--Blue)] outline-none transition-colors
                   text-[16px] leading-[24px] placeholder:text-[var(--Boarder-Grey)]"
               />
             </div>
@@ -164,8 +165,8 @@ export default function CheckoutElement() {
                   placeholder="MM / YY"
                   value={expiryDate}
                   onChange={handleExpiryChange}
-                  className="w-full h-[56px] px-4 border-b-2 border-gray-300 
-                    focus:border-emerald-500 outline-none transition-colors
+                  className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
+                    focus:border-[var(--Blue)] outline-none transition-colors
                     text-[16px] leading-[24px] placeholder:text-[var(--Boarder-Grey)]"
                 />
               </div>
@@ -179,13 +180,17 @@ export default function CheckoutElement() {
                   placeholder="CVC"
                   value={cvv}
                   onChange={handleCvvChange}
-                  className="w-full h-[56px] px-4 border-b-2 border-gray-300 
-                    focus:border-emerald-500 outline-none transition-colors
+                  className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
+                    focus:border-[var(--Blue)] outline-none transition-colors
                     text-[16px] leading-[24px] placeholder:text-[var(--Boarder-Grey)]"
                 />
               </div>
             </div>
           </div>
+        )}
+
+        {selectedMethod === "gpay" && (
+          <div className="mt-[24px] h-[272px] desktop:h-[344px]"></div>
         )}
 
         <div className="flex items-center justify-between mt-[24px]">
@@ -197,16 +202,28 @@ export default function CheckoutElement() {
         </div>
 
         {/* Submit */}
-        <button
+       {selectedMethod === "card" && (<button
           type="button"
-          className="w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] 
+          className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] 
             text-white font-semibold text-[18px] rounded-[10px] transition-colors"
         >
           Get my QR code
-        </button>
+        </button>)}
 
         <div className="mt-[16px] desktop:mt-[24px]">
-
+        <p className="text-[12px] leading-[20px] font-regular">
+          <span className="text-[var-(--Grey)]">By proceeding with payment, you agree to be charged $1.95 now, accept our</span>
+          <span className="text-[var(--Blue)]">  Privacy Policy</span>
+          <span className="text-[var-(--Grey)]"> . Your payment will appear as "Myqrcode.com" on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at </span>
+          <span className="text-[var(--Blue)]">  support@myqrcode.com</span>
+          <span className="text-[var-(--Grey)]"> or call us at +1-631-892-9925.</span>
+          </p>
+        </div>
+        <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
+          <button className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
+            Continue
+            <ArrowRight className="w-5 h-5" />
+          </button>
         </div>
     </div>
   );
