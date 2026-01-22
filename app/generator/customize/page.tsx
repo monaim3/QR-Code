@@ -47,7 +47,7 @@ interface SocialLogo {
 
 export default function QRCodeCustomizer() {
   const dispatch = useAppDispatch();
-  const [view, setView] = useState<"preview" | "qrcode">("preview");
+  const [view, setView] = useState<"preview" | "qrcode">("qrcode");
   const [patternTransparentBg, setPatternTransparentBg] = useState(false);
 
   const mobileQrRef = useRef<HTMLDivElement>(null);

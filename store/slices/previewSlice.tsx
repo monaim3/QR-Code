@@ -11,7 +11,7 @@ interface PreviewState {
 }
 
 const initialState: PreviewState = {
-  activeTab: "preview",
+  activeTab: "qrcode",
   websiteUrl: "",
   qrCodeName: "",
   qrColor: "#000000",
