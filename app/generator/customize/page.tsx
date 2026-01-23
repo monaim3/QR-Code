@@ -55,6 +55,7 @@ export default function QRCodeCustomizer() {
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
+  
   const {
     selectedFrameIndex,
     frameText,

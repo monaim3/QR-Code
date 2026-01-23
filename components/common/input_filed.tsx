@@ -9,6 +9,7 @@ interface InputFieldProps {
   leading?: ReactNode; // icon at the start
   trailing?: ReactNode; // icon/button at the end
   desktopWidth?: number;
+  error?: boolean;
 }
 
 export default function InputField({
@@ -19,8 +20,10 @@ export default function InputField({
   leading,
   trailing,
   desktopWidth = 336,
+  error = false,
 }: InputFieldProps) {
   const [show, setShow] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   // Determine input type (useful for password show/hide)
   const inputType = type === "password" && show ? "text" : type;
@@ -41,22 +44,30 @@ export default function InputField({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         className={`
           h-[48px]
-          w-full                       /* ✅ full width */
+          w-full                       
           pl-[68px]
           ${trailing ? "pr-12" : "pr-4"}
           text-[16px]
           font-medium
           leading-[22px]
           border
-          border-gray-200
+          ${
+            isFocused
+              ? "border-[var(--Blue)] ring-2 ring-[var(--Blue)]"
+              : error
+              ? "border-red-500"
+              : "border-[var(--Border-Grey)]"
+          }
           rounded-[12px]
           focus:outline-none
           focus:ring-2
-          focus:ring-emerald-500
+          focus:ring-[var(--Blue)]
           text-gray-900
-          placeholder:text-gray-400
+          placeholder:text-[var(--placeholder-grey)]
         `}
         style={{
           fontFamily: "var(--font-poppins)",

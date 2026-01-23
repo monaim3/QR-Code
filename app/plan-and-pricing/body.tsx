@@ -6,8 +6,10 @@ import CheckIcon from '@/components/icons/check-icon';
 import PlanAndPricingRightPannelp from "./right-pannel";
 import CurrencySelector from '@/components/common/currency_dropdown.client';
 import { ArrowRight } from 'lucide-react';
+import { useRouter } from "next/navigation";
 
 export default function SmartQRPlanSelection() {
+  const router = useRouter();
   const [selectedPlan, setSelectedPlan] = useState('7-day-full');
 
   const plans = [
@@ -25,6 +27,10 @@ export default function SmartQRPlanSelection() {
     'Full access to all download formats',
     'Create any type of QR code you need'
   ];
+
+  function handleContinue() {
+    router.push("/checkout");
+  }
 
   return (
     <div className="min-h-screen bg-[var(--Generator-Background)] flex items-center justify-center" style={{ fontFamily: "var(--font-poppins)" }}>
@@ -97,7 +103,7 @@ export default function SmartQRPlanSelection() {
               </div>
 
               {/* Continue Button */}
-              <button className="hidden md:block w-full bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium py-4 rounded-xl transition-colors mt-[32px]">
+              <button onClick={handleContinue} className="hidden md:block w-full bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium py-4 rounded-xl transition-colors mt-[32px]">
                 Continue
               </button>
 

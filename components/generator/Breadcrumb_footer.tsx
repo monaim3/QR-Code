@@ -45,6 +45,8 @@ export default function BreadcrumbFooter() {
   const handleNext = () => {
     if (currentStep === 2) {
       router.push("/generator/customize");
+    }else if(currentStep === 3){
+      router.push("/signup");
     }
   };
 
@@ -84,7 +86,7 @@ export default function BreadcrumbFooter() {
             >
               <Eye className="w-5 h-5" />
             </button>
-            {currentStep === 2 && (
+            {(currentStep === 2 || currentStep === 3) && (
               <button
                 onClick={handleNext}
                 className="flex items-center gap-2 px-16 py-2 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-lg leading-[26px] font-medium transition-colors"
@@ -93,6 +95,7 @@ export default function BreadcrumbFooter() {
                 <ArrowRight className="w-5 h-5" />
               </button>
             )}
+
           </div>
         </Container>
       </footer>

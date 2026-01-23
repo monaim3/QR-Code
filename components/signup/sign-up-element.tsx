@@ -3,19 +3,50 @@ import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import InputField from "../../components/common/input_filed";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+// {for validation}
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const signUpSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+type SignUpForm = z.infer<typeof signUpSchema>;
 
 interface SignUpProps{
   socialRow?: boolean
 }
 
 export default function SignUpElements ({socialRow = false}: SignUpProps) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = () => {
-    alert(`Email: ${email}\nPassword: ${password}`);
+  const { control, handleSubmit, formState } = useForm<SignUpForm>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const { errors, isSubmitting } = formState;
+
+  const onSubmit = async (data: SignUpForm) => {
+    try {
+      console.log("Form Data:", data);
+      /// signup logic
+      //alert("Account created successfully!");
+      router.push("/plan-and-pricing");
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  //   alert(`Email: ${email}\nPassword: ${password}`);
+  // };
 
     return (
         <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
@@ -28,40 +59,65 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
           </h3>
 
           {/* Form */}
-          <div className="w-full desktop:w-[424px] mt-[32px] flex flex-col gap-[16px]">
-            <InputField
-              value={email}
-              onChange={setEmail}
-              placeholder="Enter your email"
-              type="email"
-              leading={<Mail size={20} />}
-              desktopWidth={424}
+          <form 
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full desktop:w-[424px] mt-[32px] flex flex-col gap-[16px]">
+            <Controller
+              name="email"
+              control={control}
+              render={({ field, fieldState }) => (
+                <>
+                  <InputField
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Enter your email"
+                    type="email"
+                    leading={<Mail size={20} />}
+                    error={!!fieldState.error}
+                  />
+                  {fieldState.error && (
+                    <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                  )}
+                </>
+              )}
             />
 
-            <InputField
-              value={password}
-              onChange={setPassword}
-              placeholder="Enter your password"
-              type={showPassword ? "text" : "password"}
-              leading={<Lock size={20} />}
-              trailing={
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              }
-              desktopWidth={424}
+      <Controller
+              name="password"
+              control={control}
+              render={({ field, fieldState }) => (
+                <>
+                  <InputField
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Enter your password"
+                    type={showPassword ? "text" : "password"}
+                    leading={<Lock size={20} />}
+                    desktopWidth={424}
+                    trailing={
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                      </button>
+                    }
+                    error={!!fieldState.error}
+                  />
+                  {fieldState.error && (
+                    <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                  )}
+                </>
+              )}
             />
 
             <button
-              onClick={handleSubmit}
+              type="submit"
               className="w-full desktop:w-full h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-200 mt-[24px]"
             >
               Create Account
             </button>
-          </div>
+          </form>
 
           {/* Divider */}
           <div className="w-full desktop:w-[424px] flex items-center gap-[16px] mt-[32px]">
