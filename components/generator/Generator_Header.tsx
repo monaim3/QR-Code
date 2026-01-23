@@ -12,9 +12,10 @@ import CurrencySelector from "../common/currency_dropdown";
 interface Props {
   className?: string;
   priceAndPlan?: boolean;
+  hideInfo?: boolean;
 }
 
-export default function GeneratorHeader({ className, priceAndPlan = false}: Props) {
+export default function GeneratorHeader({ className, priceAndPlan = false, hideInfo = false}: Props) {
   const [helpPopUpOpen, setHelpPopUpOpen] = useState(false);
 
   const handleOpenHelpPopUp = () => {
@@ -39,9 +40,9 @@ export default function GeneratorHeader({ className, priceAndPlan = false}: Prop
                <div className="block md:hidden">
                 <CurrencySelector/> 
                </div>
-                :
-                <HelpIcon onClick={handleOpenHelpPopUp} />
+                : <div/>
                }
+               {!hideInfo ? <HelpIcon onClick={handleOpenHelpPopUp} /> : <div/>}
             </div>
           </div>
         </Container>
