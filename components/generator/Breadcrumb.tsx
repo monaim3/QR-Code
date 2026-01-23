@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import CheckIcon from "../icons/check-icon";
 
 interface BreadcrumbStep {
   number: number;
@@ -21,8 +22,8 @@ const steps: BreadcrumbStep[] = [
 
 const mobileSteps: BreadcrumbStep[] = [
   { number: 1, label: "Choose QR code type", path: "/generator" },
-  { number: 2, label: "", path: "/generator/content" },
-  { number: 3, label: "", path: "/generator/customize" },
+  { number: 2, label: "content", path: "/generator/content" },
+  { number: 3, label: "Design", path: "/generator/customize" },
 ];
 
 const priceAndPlanData: BreadcrumbStep[] = [
@@ -87,7 +88,7 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
                   : "border border-[#D3D8EB] text-[#79809A]"
               }`}
             >
-              {step.number}
+             {step.number < currentStep ? <CheckIcon /> : step.number}
             </div>
 
             <span

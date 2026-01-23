@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
+import Breadcrumb from "../../../components/generator/Breadcrumb"
 
 import MobileFrame from "@/components/common/MobileFrame";
 import ColorInput from "@/components/common/ColorInput";
@@ -294,10 +295,12 @@ export default function QRCodeCustomizer() {
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
           <div className="flex-1 flex flex-col space-y-4">
+                <div className="block desktop:hidden">
+                {<Breadcrumb useMobileSteps={true} />}
+                </div>
             <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900">
               Customize design for the Website URL QR code
             </h1>
-
             <Accordion
               title="QR code frame"
               description="Frames improve your QR code visibility, leading to more scans"
