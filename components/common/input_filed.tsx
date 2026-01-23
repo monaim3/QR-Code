@@ -60,7 +60,7 @@ export default function InputField({
               ? "border-[var(--Blue)] ring-2 ring-[var(--Blue)]"
               : error
               ? "border-red-500"
-              : "border-[var(--Border-Grey)]"
+              : "border-[var(--Boarder-Grey)]"
           }
           rounded-[12px]
           focus:outline-none

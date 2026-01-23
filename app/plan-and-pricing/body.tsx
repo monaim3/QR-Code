@@ -45,7 +45,7 @@ export default function SmartQRPlanSelection() {
             <CurrencySelector />
             </div>
           </div>
-          <div className='pt-[0px]'>
+          <div className='pt-[0px] pb-[136px] desktop:pb-[160px]'>
             <div className="w-full max-w-[1079px] flex flex-col desktop:flex-row items-center desktop:items-start justify-center desktop:justify-between 
                           overflow-hidden desktop:gap-[32px] desktop:bg-white desktop:px-[32px] pt-[32px] pb-[24px] desktop:pb-[32px]
                           rounded-[12px] desktop:shadow-card">
@@ -128,7 +128,7 @@ export default function SmartQRPlanSelection() {
         </main>
         </div>
          <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
-          <button onClick={handleContinue} className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
+          <button  className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
             Continue
             <ArrowRight className="w-5 h-5" />
           </button>
