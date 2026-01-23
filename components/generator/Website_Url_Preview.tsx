@@ -12,9 +12,9 @@ export default function WebsiteUrlPreview({ url }: WebsiteUrlPreviewProps) {
       <div className="absolute top-0 left-0 w-full h-[45%] bg-[#A3C358]" />
 
       <div className="relative z-10 px-4 py-4">
-        <div className="bg-white/80 rounded-full px-4 py-2.5 flex items-center justify-center gap-2 mt-6">
+        <div className="bg-white/80 rounded-full px-4 py-1.5 flex items-center justify-center gap-2 mt-6">
           <Globe />
-          <span className="text-sm text-gray-700 truncate text-center">
+          <span className="text-[10px] leading-[20px] text-gray-700 truncate text-center">
             {displayUrl}
           </span>
         </div>

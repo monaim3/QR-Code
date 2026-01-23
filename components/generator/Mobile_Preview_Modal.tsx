@@ -37,7 +37,7 @@ export default function MobilePreviewModal({
           <CloseCircle className="text-white w-6 h-6" />
         </button>
         <div className="relative bg-white rounded-[var(--Corner-Radius-10)] max-h-[90vh] overflow-y-auto shadow-lg">
-          <div className="flex flex-col items-center py-6 px-8">
+          <div className="flex flex-col items-center py-6 px-8 gap-4">
             <PreviewQRButtons activeTab={activeTab} onTabChange={onTabChange} />
             <MobileFrame size="desktop">{children}</MobileFrame>
           </div>

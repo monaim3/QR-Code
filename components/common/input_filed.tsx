@@ -32,7 +32,7 @@ export default function InputField({
     <div className="relative">
       {/* Leading icon */}
       {leading && (
-        <div className="flex absolute left-[17px] top-1/2 -translate-y-1/2 text-gray-400">
+        <div className="flex items-center absolute left-[17px] top-1/2 -translate-y-1/2 text-gray-400">
           {leading}
           <div className="w-px mx-[16px] h-6 bg-gray-300"></div>
         </div>
@@ -47,7 +47,7 @@ export default function InputField({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={`
-          h-[48px]
+          h-12
           w-full                       
           pl-[68px]
           ${trailing ? "pr-12" : "pr-4"}
@@ -62,7 +62,7 @@ export default function InputField({
               ? "border-red-500"
               : "border-[var(--Boarder-Grey)]"
           }
-          rounded-[12px]
+          rounded-xl
           focus:outline-none
           focus:ring-2
           focus:ring-[var(--Blue)]
@@ -75,7 +75,7 @@ export default function InputField({
       />
       {/* Trailing icon/button */}
       {trailing && (
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400">
+        <div className="absolute leading-[0] right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400">
           {trailing}
         </div>
       )}

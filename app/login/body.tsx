@@ -17,22 +17,23 @@ export default function LoginBody() {
   return (
     <Container>
       {/* Page Wrapper */}
-      <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="min-h-[calc(100vh-72px)] flex items-center justify-center px-4">
         {/* Login Card */}
         <div
           className="
             w-[400px]
             bg-white
-            rounded-[12px]
-            p-[24px]
-            desktop:p-[32px]
+            rounded-xl
+            p-6
+            desktop:p-8
             flex
             flex-col
             items-center
-            gap-[32px]
+            gap-8
             shadow-card
           "
         >
+          <div className="w-full flex flex-col gap-6">
           {/* Title */}
           <h1
             className="
@@ -48,8 +49,7 @@ export default function LoginBody() {
           </h1>
 
           {/* Form */}
-          <div className="w-full flex flex-col gap-[24px]">
-            <div className="w-full flex flex-col gap-[16px]">
+            <div className="w-full flex flex-col gap-4">
                {/* Email */}
             <InputField
               value={email}
@@ -67,12 +67,12 @@ export default function LoginBody() {
               type={showPassword ? "text" : "password"}
               leading={<Lock size={20} />}
               trailing={
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="text-[#3F3E3E]"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="text-[var(--Dark-gray)] cursor-pointer bg-transparent p-0 leading-none"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               }
             />
@@ -82,7 +82,7 @@ export default function LoginBody() {
               onClick={handleSubmit}
               className="
                 w-full
-                h-[48px]
+                h-12
                 rounded-[10px]
                 bg-[#01A56D]
                 hover:bg-[#01915F]
@@ -112,7 +112,7 @@ export default function LoginBody() {
           {/* Divider */}
           <div className="w-full flex items-center gap-[16px]">
             <div className="flex-1 h-px bg-[#D3D8EB]" />
-            <span className="text-[16px] leading-[24px] text-[#3F3E3E]">
+            <span className="text-[16px] leading-[24px] text-[var(--Grey)]">
               OR
             </span>
             <div className="flex-1 h-px bg-[#D3D8EB]" />
@@ -123,7 +123,7 @@ export default function LoginBody() {
             {/* Google */}
             <button
               className="
-                h-[48px]
+                h-12
                 rounded-[10px]
                 border
                 border-[#D3D8EB]
@@ -134,7 +134,7 @@ export default function LoginBody() {
                 transition
               "
             >
-              <svg className="w-6 h-6" viewBox="0 0 24 24">
+              <svg className="size-6" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -157,7 +157,7 @@ export default function LoginBody() {
             {/* Facebook */}
             <button
               className="
-                h-[48px]
+                h-12
                 rounded-[10px]
                 border
                 border-[#D3D8EB]
@@ -169,7 +169,7 @@ export default function LoginBody() {
               "
             >
               <svg
-                className="w-6 h-6"
+                className="size-6"
                 viewBox="0 0 24 24"
                 fill="#1877F2"
               >
@@ -180,7 +180,7 @@ export default function LoginBody() {
             {/* Apple */}
             <button
               className="
-                h-[48px]
+                h-12
                 rounded-[10px]
                 border
                 border-[#D3D8EB]
@@ -191,7 +191,7 @@ export default function LoginBody() {
                 transition
               "
             >
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#000">
+              <svg className="size-6" viewBox="0 0 24 24" fill="#000">
                 <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z" />
                 <path d="M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
               </svg>
