@@ -104,10 +104,7 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
               {/* Mobile view */}
               <span className="md:hidden">
                 {useMobileSteps
-                  ? step.number === currentStep
-                    ? step.label
-                    : "" // hide others
-                  : step.label.split(" ").pop() // fallback for normal mobileSteps
+                  ?  step.label.split(" ").pop() : step.label
                 }
               </span>
 
