@@ -24,11 +24,11 @@ export default function QRCodeNameAccordion({
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between px-4 md:px-8 py-4"
       >
-        <div className="flex flex-col items-start gap-1">
+        <div className="flex flex-col items-start">
           <h3 className="text-lg leading-[26px] font-bold text-[var(--Black)] font-Poppins">
             QR code name
           </h3>
-          <p className="text-sm text-[var(--Dark-gray)] font-roboto">
+          <p className="text-[14px] leading-[22px] text-[var(--Dark-gray)] font-roboto">
             Set a name for your QR code
           </p>
         </div>

@@ -74,7 +74,7 @@ export default function WebsiteUrlPage() {
                     onClick={() => setIsUrlAccordionOpen(!isUrlAccordionOpen)}
                     className="w-full flex items-center justify-between px-4 md:px-8 py-4"
                   >
-                    <div className="flex flex-col items-start gap-1">
+                    <div className="flex flex-col items-start">
                       <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
                         Website address
                       </h3>

@@ -71,12 +71,12 @@ export default function BreadcrumbFooter() {
     <>
       <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-[var(--Boarder-Grey)] pt-4 pb-8 lg:pb-4 px-5 z-40">
         <Container>
-          <div className="flex items-center gap-4 md:gap-0 md:justify-between ">
+          <div className="flex items-center gap-4 desktop:gap-0 desktop:justify-between ">
             <button
               onClick={handleBack}
               className="flex items-center gap-2 px-3 md:px-6 py-3 font-roboto text-[var(--Blue)] hover:text-[var(--Blue-hover)] font-medium transition-colors border border-[var(--Boarder-Grey)] rounded-lg md:border-none"
             >
-              <ArrowLeft className="w-5 h-5 text-[#3F3E3E]" />
+              <ArrowLeft className="size-5 text-[#3F3E3E]" />
               <span className="hidden md:block text-[#3F3E3E]">Back</span>
             </button>
             <button
@@ -84,15 +84,15 @@ export default function BreadcrumbFooter() {
               className="desktop:hidden flex items-center justify-center w-12 h-12 rounded-lg bg-[#f7f8ff] text-[var(--Blue)] transition-colors"
               aria-label="Preview"
             >
-              <Eye className="w-5 h-5" />
+              <Eye className="size-5" />
             </button>
             {(currentStep === 2 || currentStep === 3) && (
               <button
                 onClick={handleNext}
-                className="flex items-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-lg leading-[26px] font-medium transition-colors"
+                className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[26px] font-medium transition-all duration-300"
               >
                 <span>Next</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="size-5" />
               </button>
             )}
 

@@ -69,7 +69,7 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
   };
 
   return (
-    <div className="flex items-center py-6 desktopDashboard:py-0 gap-2 desktopDashboard:gap-6">
+    <div className="flex items-center py-6 deskktop:py-0 desktopDashboard:py-0 gap-2 desktopDashboard:gap-6">
       {data.map((step, index) => (
         <div
           key={step.number}

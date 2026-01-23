@@ -424,11 +424,11 @@ export default function QRCodeCustomizer() {
               defaultOpen={true}
             >
               <div className="flex flex-col lg:flex-row gap-4">
-                <div className="">
+                <div className="flex flex-col gap-18 width-full w-full desktop:w-1/2">
                   <label className="block text-lg font-bold text-gray-900">
                     Corner frames style
                   </label>
-                  <div className="grid grid-cols-4 lg:grid-cols-6 gap-4 py-8">
+                  <div className="flex flex-row gap-4">
                     {cornerFrameOptions.map((style) => (
                       <CornerStylePreview
                         key={style}
@@ -441,11 +441,11 @@ export default function QRCodeCustomizer() {
                   </div>
                 </div>
 
-                <div className="">
+                <div className="flex flex-col gap-18 width-full w-full desktop:w-1/2">
                   <label className="block text-lg font-bold text-gray-900">
                     Corner dots type
                   </label>
-                  <div className="grid grid-cols-4 lg:grid-cols-6 gap-4 py-8">
+                  <div className="flex flex-row gap-4">
                     {cornerDotOptions.map((style) => (
                       <CornerStylePreview
                         key={style}
@@ -532,9 +532,9 @@ export default function QRCodeCustomizer() {
               <div className="flex gap-2 mb-4">
                 <button
                   onClick={() => setView("preview")}
-                  className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-700 ease-in-out ${
+                  className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-300 ease-in-out ${
                     view === "preview"
-                      ? "bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]"
+                      ? "border border-transparent bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]"
                       : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
                   }`}
                 >
@@ -544,9 +544,9 @@ export default function QRCodeCustomizer() {
                 </button>
                 <button
                   onClick={() => setView("qrcode")}
-                  className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-700 ease-in-out ${
+                  className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-300 ease-in-out ${
                     view === "qrcode"
-                      ? "text-white bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
+                      ? "border border-transparent text-white bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
                       : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
                   }`}
                 >
