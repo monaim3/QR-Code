@@ -423,8 +423,8 @@ export default function QRCodeCustomizer() {
               description="Choose your QR code corner style"
               defaultOpen={true}
             >
-              <div className="flex flex-col lg:flex-row gap-4">
-                <div className="flex flex-col gap-18 width-full w-full desktop:w-1/2">
+              <div className="flex flex-col lg:flex-row gap-[72px]">
+                <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
                   <label className="block text-lg font-bold text-gray-900">
                     Corner frames style
                   </label>
@@ -441,7 +441,7 @@ export default function QRCodeCustomizer() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-18 width-full w-full desktop:w-1/2">
+                <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
                   <label className="block text-lg font-bold text-gray-900">
                     Corner dots type
                   </label>
