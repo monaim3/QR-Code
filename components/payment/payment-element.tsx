@@ -7,6 +7,7 @@ import ApplePay from "../icons/apple-pay";
 import SecurityCheck from "../icons/security-check";
 import Nortion from "../icons/nortion";
 import ArrowRight from "../icons/arrow-right"
+import PayPalText from "../icons/paypal-text"
 
 type PaymentMethod = {
   id: "card" | "gpay" | "paypal" | "applepay";
@@ -190,7 +191,42 @@ export default function CheckoutElement() {
         )}
 
         {selectedMethod === "gpay" && (
-          <div className="mt-[24px] h-[272px] desktop:h-[344px]"></div>
+          <div className="flex flex-col items-center justify-center mt-[24px] w-full h-[272px] desktop:h-[344px]">
+            <p className="text-[16px] leading-[24px] item-center font-regular">Click below to pay with Google Pay:</p>
+            <div
+             onClick={() => {
+              console.log("Google Pay clicked!");
+            }}
+            className="h-[48px] w-[300px] rounded-[10px] bg-[white] border-[1px] border-[var(--Boarder-Grey)] hover:border-[var(--Blue)] mt-[24px] flex items-center justify-center">
+            <Gpay/>
+            </div>
+          </div>
+        )}
+
+        {selectedMethod === "paypal" && (
+          <div className="flex flex-col items-center justify-center mt-[24px] w-full h-[272px] desktop:h-[344px]">
+          <p className="text-[16px] leading-[24px] item-center font-regular">Click below to pay with PayPal:</p>
+          <div
+           onClick={() => {
+            console.log("PayPal clicked!");
+          }}
+          className="h-[48px] w-[300px] rounded-[10px] bg-[#FEC438] mt-[24px] flex items-center justify-center">
+          <PayPalText/>
+          </div>
+        </div>
+        )}
+
+           {selectedMethod === "applepay" && (
+          <div className="flex flex-col items-center justify-center mt-[24px] w-full h-[272px] desktop:h-[344px]">
+          <p className="text-[16px] leading-[24px] item-center font-regular">Click below to pay with PayPal:</p>
+          <div
+           onClick={() => {
+            console.log("PayPal clicked!");
+          }}
+          className="h-[48px] w-[300px] rounded-[10px] bg-[var(--Black)] mt-[24px] flex items-center justify-center">
+          <ApplePay color="white"/>
+          </div>
+        </div>
         )}
 
         <div className="flex items-center justify-between mt-[24px]">

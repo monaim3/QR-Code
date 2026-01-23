@@ -24,12 +24,10 @@ export default function CheckoutBody() {
         desktop:gap-[32px]
       ">
         {/* Left Panel */}
-       
        <CheckoutElement />
-
        {/* Right Panel */}
-       <div className="block desktop:hidden h-[16px]"/>
-      <SignUpReadyQr viewOnMobile={true} />
+      <div className="block desktop:hidden h-[16px]"/>
+      <SignUpReadyQr showOnMobile={true} />
       </div>
       </div>
     </Container>
