@@ -39,7 +39,7 @@ export default function QrInfo({
       {/* Preview link */}
       <div className="desktopDashboard:flex hidden items-center gap-1">
         <button onClick={() => onQrPreviewModal(item)}>
-          <Eye />
+          <Eye className="text-[var(--Dark-gray)] cursor-pointer" />
         </button>
         <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
           {item.shortUrl}

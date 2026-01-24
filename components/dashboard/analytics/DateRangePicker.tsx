@@ -60,6 +60,7 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
   const [currentMonth, setCurrentMonth] = React.useState<Date>(
     date?.from || new Date(),
   );
+  const [isMobile, setIsMobile] = React.useState(false);
 
   // Update currentMonth when date changes
   React.useEffect(() => {
@@ -67,6 +68,14 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
       setCurrentMonth(date.from);
     }
   }, [date?.from]);
+
+  // Responsive handling
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 740);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   // Navigation handlers
   const handlePreviousMonth = () => {
@@ -143,35 +152,37 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
-          className="flex justify-start items-center !py-2 !px-4 rounded-[var(--Corner-Radius-10)] gap-2 w-[237px] h-[40px] border border-[var(--Boarder-Grey)] bg-white text-[var(--Grey)] text-[14px] leading-[22px] font-roboto"
+          className="flex justify-between items-center !py-2 !px-4 rounded-[var(--Corner-Radius-10)] gap-2 desktopDashboard:w-[237px] h-[40px] border border-[var(--Boarder-Grey)] bg-white text-[var(--Grey)] text-[14px] leading-[22px] font-roboto w-[calc(100%-96px)]"
         >
-          {date?.from ? (
-            date.to ? (
-              <>
-                {format(date.from, "LLL dd, y")} -{" "}
-                {format(date.to, "LLL dd, y")}
-              </>
+          <span className="truncate flex-1 text-left min-w-0">
+            {date?.from ? (
+              date.to ? (
+                <>
+                  {format(date.from, "LLL dd, y")} -{" "}
+                  {format(date.to, "LLL dd, y")}
+                </>
+              ) : (
+                format(date.from, "LLL dd, y")
+              )
             ) : (
-              format(date.from, "LLL dd, y")
-            )
-          ) : (
-            <span>Pick a date</span>
-          )}
+              "Pick a date"
+            )}
+          </span>
 
-          <CalendarDate className="text-[var(--Grey)]" />
+          <CalendarDate className="text-[var(--Grey)] shrink-0" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto p-6 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]"
+        className="w-auto desktopDashboard:p-6 p-4 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]"
         align="start"
       >
         {/* Sidebar Presets */}
-        <div className="flex flex-col justify-center items-start gap-4 w-[221px]">
+        <div className="desktopDashboard:flex tablet:flex hidden flex-col justify-center items-start gap-4 w-[221px]">
           {presets.map((preset) => (
             <Button
               key={preset.label}
               variant="ghost"
-              className="text-[var(--Grey)] text-[14px] leading-[22px] p-0"
+              className="text-[var(--Grey)] text-[14px] leading-[22px] h-[22px] p-0"
               onClick={() => setDate(preset.getValue())}
             >
               {preset.label}
@@ -180,7 +191,7 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
         </div>
 
         {/* Dual Calendar */}
-        <div className="flex flex-col items-start gap-2 w-auto">
+        <div className="flex flex-col items-start gap-2 desktopDashboard:w-auto w-full">
           {/* Header */}
           <div className="flex items-center gap-6 self-stretch">
             <div className="flex justify-between items-center flex-1">
@@ -243,9 +254,11 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
             onMonthChange={setCurrentMonth}
             selected={date}
             onSelect={setDate}
-            numberOfMonths={2}
+            numberOfMonths={isMobile ? 1 : 2}
             className="w-full p-0"
             classNames={{
+              caption_label:
+                "hidden desktopDashboard:flex tabletDashboard:flex",
               button_previous: "hidden",
               button_next: "hidden",
             }}

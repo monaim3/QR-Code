@@ -87,7 +87,7 @@ export default function QrCodeSearchDropdown({
   };
 
   return (
-    <div className="w-[300px]">
+    <div className="desktopDashboard:w-[300px] w-full">
       <Popover open={open} onOpenChange={handleOpenChange}>
         {/* THE INTEGRATED SEARCH BAR TRIGGER */}
         <PopoverTrigger asChild>

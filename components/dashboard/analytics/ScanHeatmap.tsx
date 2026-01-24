@@ -49,7 +49,7 @@ export default function ScanHeatmap() {
           ))}
         </div>
 
-        <div className="flex-1 relative ml-[22.6px] mr-[27.74px]">
+        <div className="flex-1 relative desktopDashboard:ml-[22.6px] desktopDashboard:mr-[27.74px] tablet:ml-[18px] tablet:mr-[20px] ml-[15.01px] mr-[15px]">
           <div className="grid grid-cols-7 gap-1">
             {days.map((day) => (
               <div key={day} className="flex flex-col gap-1">
@@ -103,7 +103,8 @@ export default function ScanHeatmap() {
                 key={day}
                 className="text-center text-[12px] leading-[20px] text-[var(--placeholder-grey)] flex-shrink-0"
               >
-                {day}
+                <span className="hidden desktopDashboard:inline">{day}</span>
+                <span className="desktopDashboard:hidden">{day.charAt(0)}</span>
               </span>
             ))}
           </div>

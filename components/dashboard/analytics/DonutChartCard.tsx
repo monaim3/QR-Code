@@ -62,7 +62,7 @@ export default function DonutChartCard({ title, data }: Props) {
 
   return (
     <div className="flex flex-col items-start p-6 gap-6 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
-      <div className="w-full flex justify-between items-center gap-4 self-stretch">
+      <div className="w-full flex justify-between items-center desktopDashboard:gap-4 gap-2 self-stretch">
         <h4 className="text-[var(--Black)] font-bold text-[18px] leading-[26px]">
           {title}
         </h4>
@@ -83,12 +83,12 @@ export default function DonutChartCard({ title, data }: Props) {
         </div>
       </div>
 
-      <div className="flex items-center h-[204px] gap-16 self-stretch">
+      <div className="flex flex-col desktopDashboard:flex-row tablet:flex-row desktopDashboard:items-center desktopDashboard:h-[204px] desktopDashboard:gap-16 tablet:gap-16 gap-4 self-stretch">
         {processedData.length > 0 ? (
           <>
             <ChartContainer
               config={chartConfig}
-              className="aspect-square w-[200px] h-[200px]"
+              className="aspect-square w-[200px] h-[200px] desktopDashboard:mx-0 tablet:mx-0 mx-auto"
             >
               <PieChart width={200} height={200}>
                 <ChartTooltip cursor={false} content={<CustomTooltip />} />
@@ -125,7 +125,7 @@ export default function DonutChartCard({ title, data }: Props) {
                 </Pie>
               </PieChart>
             </ChartContainer>
-            <div className="flex flex-col items-start w-[244px] gap-1">
+            <div className="flex flex-col items-start desktopDashboard:w-[244px] desktopDashboard:gap-1 gap-2">
               {processedData?.map((item, i) => (
                 <div
                   key={i}
@@ -148,7 +148,7 @@ export default function DonutChartCard({ title, data }: Props) {
               ))}
             </div>
             {data.length > 8 && (
-              <div className="flex justify-end items-end gap-2 flex-1 basis-0 self-stretch relative">
+              <div className="flex desktopDashboard:justify-end tablet:justify-end items-end gap-2 flex-1 basis-0 self-stretch relative">
                 <DonutChartPopover data={data} />
               </div>
             )}{" "}
@@ -158,7 +158,7 @@ export default function DonutChartCard({ title, data }: Props) {
             <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
               No data to display
             </h4>
-            <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
+            <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px]">
               Not enough data to show statistics
             </p>
           </div>
