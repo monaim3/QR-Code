@@ -4,12 +4,10 @@ import { useEffect, useRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import { useAppSelector } from "@/store/hooks";
 import { QRFrameArray } from "@/components/common/QRFrameArray";
-import CommonFrameQr from "@/components/icons/common-frame-qr";
 import { getLogoComponent } from "@/lib/logoRegistry";
 
 export default function CustomizeQRDisplay() {
-  const staticQrRef = useRef<HTMLDivElement>(null);
-  const frameQrRef = useRef<HTMLDivElement>(null);
+  const frameQrRef = useRef<SVGGElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
@@ -31,8 +29,9 @@ export default function CustomizeQRDisplay() {
     selectedLogo,
     customLogo,
   } = useAppSelector((state) => state.qr);
-  console.log("selectedLogo", selectedLogo);
-  const SelectedFrameComponent = QRFrameArray[selectedFrameIndex];
+
+  const selectedFrame = QRFrameArray[selectedFrameIndex];
+  const SelectedFrameComponent = selectedFrame.frame;
   const isDefaultFrame = selectedFrameIndex === 0;
 
   const createIconImage = (logoId: string): Promise<string | null> => {
@@ -114,35 +113,12 @@ export default function CustomizeQRDisplay() {
   };
 
   useEffect(() => {
-    if (selectedFrameIndex !== 0 || !staticQrRef.current) return;
-
-    const qrOptions: Options = {
-      data: websiteUrl || "https://www.example.com/",
-      width: 300,
-      height: 300,
-      margin: 0,
-      dotsOptions: {
-        color: "#000000",
-        type: "rounded" as any,
-      },
-      backgroundOptions: {
-        color: "#FFFFFF",
-      },
-    };
-
-    staticQrRef.current.innerHTML = "";
-    const staticQr = new QRCodeStyling(qrOptions);
-    staticQr.append(staticQrRef.current);
-  }, [websiteUrl, selectedFrameIndex]);
-
-  useEffect(() => {
-    if (selectedFrameIndex === 0 || !frameQrRef.current) return;
+    if (!frameQrRef.current) return;
 
     const updateQRCode = async () => {
       const qrOptions: Options = {
+        type: "svg",
         data: websiteUrl || "https://www.example.com/",
-        width: 300,
-        height: 300,
         margin: 0,
         dotsOptions: {
           color: dotColor,
@@ -170,12 +146,12 @@ export default function CustomizeQRDisplay() {
       // Logo handling
       if (selectedLogo) {
         const iconDataUrl = await createIconImage(selectedLogo);
-        console.log("iconDataUrl", iconDataUrl);
+
         if (iconDataUrl) {
           qrOptions.image = iconDataUrl;
           qrOptions.imageOptions = {
             hideBackgroundDots: true,
-            imageSize: 0.3,
+            imageSize: 0.4,
             margin: 0,
           };
         }
@@ -188,16 +164,16 @@ export default function CustomizeQRDisplay() {
         };
       }
 
-      frameQrRef.current!.innerHTML = "";
+      if (frameQrRef.current) {
+        frameQrRef.current.innerHTML = "";
 
-      if (qrCodeRef.current) {
-        qrCodeRef.current.update(qrOptions);
-      } else {
-        qrCodeRef.current = new QRCodeStyling(qrOptions);
-      }
-
-      if (frameQrRef.current && qrCodeRef.current) {
-        qrCodeRef.current.append(frameQrRef.current);
+        if (qrCodeRef.current) {
+          qrCodeRef.current.update(qrOptions);
+          qrCodeRef.current.append(frameQrRef.current as unknown as HTMLElement);
+        } else {
+          qrCodeRef.current = new QRCodeStyling(qrOptions);
+          qrCodeRef.current.append(frameQrRef.current as unknown as HTMLElement);
+        }
       }
     };
 
@@ -220,44 +196,29 @@ export default function CustomizeQRDisplay() {
   return (
     <div className="w-full h-full flex items-center justify-center bg-white rounded-[32px]">
       {isDefaultFrame ? (
-        <div
-          ref={staticQrRef}
-          className="scale-[0.6] origin-center"
-          // style={{
-          //   transform: "scale(0.6)",
-          //   transformOrigin: "center center",
-          // }}
-        />
+        <svg width="120" height="120" viewBox="0 0 300 300">
+          <g ref={frameQrRef} />
+        </svg>
       ) : (
         <SelectedFrameComponent
           label={frameText}
           backgroundColor={
             transparentFrameBg ? "transparent" : frameBackgroundColor
           }
-          textColor={frameTextColor}
+          textColor={
+            frameTextColor
+              ? frameTextColor
+              : selectedFrame.frameColor === "black"
+                ? "#ffffff"
+                : "#000000"
+          }
           frameColor={frameColor}
           width={260}
           height={260}
         >
-          <foreignObject x="-10" y="-10" width="58" height="58">
-            <div
-              className="flex items-center justify-center w-[58px] h-[58px] overflow-hidden"
-              // style={{
-              //   width: 58,
-              //   height: 58,
-              //   overflow: "hidden",
-              // }}
-            >
-              <CommonFrameQr />
-              <div
-                ref={frameQrRef}
-                className="scale-[0.193]"
-                // style={{
-                //   transform: "scale(0.193)",
-                // }}
-              />
-            </div>
-          </foreignObject>
+          <svg width="40" height="40" viewBox="0 0 300 300">
+            <g ref={frameQrRef} />
+          </svg>
         </SelectedFrameComponent>
       )}
     </div>

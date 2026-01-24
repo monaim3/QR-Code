@@ -30,35 +30,41 @@ export default function QRFrameGallery({
       >
         <div className="space-y-4 w-[300px]">
           <div className="flex gap-2">
-            {topRowFrames.map((Frame, index) => (
-              <div
-                key={`top-${index}`}
-                className={`w-[80px] h-[100px] shrink-0 flex items-center justify-center border-2 rounded-lg bg-white hover:border-green-500 transition-colors cursor-pointer p-2 ${
-                  selectedFrameIndex === index
-                    ? "border-green-500"
-                    : "border-gray-200"
-                }`}
-                onClick={() => setSelectedFrameIndex(index)}
-              >
-                <Frame></Frame>
-              </div>
-            ))}
+            {topRowFrames.map((item, index) => {
+              const Frame = item.frame;
+              return (
+                <div
+                  key={`top-${index}`}
+                  className={`w-[80px] h-[100px] shrink-0 flex items-center justify-center border-2 rounded-lg bg-white hover:border-green-500 transition-colors cursor-pointer p-2 ${
+                    selectedFrameIndex === index
+                      ? "border-green-500"
+                      : "border-gray-200"
+                  }`}
+                  onClick={() => setSelectedFrameIndex(index)}
+                >
+                  <Frame></Frame>
+                </div>
+              );
+            })}
           </div>
 
           <div className="flex gap-2">
-            {bottomRowFrames.map((Frame, index) => (
-              <div
-                key={`bottom-${index}`}
-                className={`w-[80px] h-[100px] shrink-0 flex items-center justify-center border-2 rounded-lg bg-white hover:border-green-500 transition-colors cursor-pointer p-2 ${
-                  selectedFrameIndex === index + 16
-                    ? "border-green-500"
-                    : "border-gray-200"
-                }`}
-                onClick={() => setSelectedFrameIndex(index + 16)}
-              >
-                <Frame />
-              </div>
-            ))}
+            {bottomRowFrames.map((item, index) => {
+              const Frame = item.frame;
+              return (
+                <div
+                  key={`bottom-${index}`}
+                  className={`w-[80px] h-[100px] shrink-0 flex items-center justify-center border-2 rounded-lg bg-white hover:border-green-500 transition-colors cursor-pointer p-2 ${
+                    selectedFrameIndex === index + 16
+                      ? "border-green-500"
+                      : "border-gray-200"
+                  }`}
+                  onClick={() => setSelectedFrameIndex(index + 16)}
+                >
+                  <Frame></Frame>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

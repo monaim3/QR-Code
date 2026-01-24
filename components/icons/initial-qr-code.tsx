@@ -1,4 +1,4 @@
-const InitialQrCode = (props: React.SVGProps<SVGSVGElement>) => {
+const InitialQrCode = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,7 +7,7 @@ const InitialQrCode = (props: React.SVGProps<SVGSVGElement>) => {
       viewBox="0 0 160 160"
       fill="none"
     >
-      <g clip-path="url(#clip0_35677_77)">
+      <g clipPath="url(#clip0_35677_77)">
         <path
           d="M86.6673 126.667V120H80.0007V113.333H86.6673V120H93.334V113.333V106.667V100H86.6673V106.667H80.0007H73.334V100H80.0007H86.6673V93.3334V86.6667H80.0007V93.3334H73.334V86.6667H66.6673V93.3334V100V106.667H60.0007H53.334V113.333V120V126.667H60.0007V120V113.333H66.6673H73.334V120V126.667H80.0007V133.333H86.6673V140H93.334V133.333H100.001V126.667H93.334H86.6673Z"
           fill="#79809A"

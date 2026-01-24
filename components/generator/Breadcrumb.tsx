@@ -70,11 +70,11 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
   };
 
   return (
-    <div className="flex items-center py-6 deskktop:py-0 desktopDashboard:py-0 gap-2 desktopDashboard:gap-6">
+    <div className="flex items-center py-6 desktop:py-0 gap-2 desktop:gap-6">
       {data.map((step, index) => (
         <div
           key={step.number}
-          className="flex items-center gap-2 desktopDashboard:gap-6"
+          className="flex items-center gap-2 desktop:gap-6"
         >
           <button
             onClick={() => handleStepClick(step)}
@@ -96,13 +96,13 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
                 step.number === currentStep
                   ? "text-[var(--Black)] block"
                   : "text-[#79809A] " +
-                    (currentStep === 1 ? "hidden md:block" : "block")
+                    (currentStep === 1 ? "hidden desktop:block" : "block")
               }`}
             >
-              <span className="hidden md:inline">{step.label}</span>
+              <span className="hidden desktop:inline">{step.label}</span>
 
               {/* Mobile view */}
-              <span className="md:hidden">
+              <span className="desktop:hidden">
                 {useMobileSteps
 ?                 step.label.split(" ").pop() : step.label
                 }

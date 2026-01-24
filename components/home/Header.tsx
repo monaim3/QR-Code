@@ -60,10 +60,10 @@ export default function Header({ className = "", languageDropDown = false}: Head
           <div className="flex desktop:hidden">
             <button
               onClick={() => setIsDrawerOpen(true)}
-              className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-[var(--Black)] hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Open menu"
             >
-              <MenuIcon className="w-6 h-6" />
+              <MenuIcon className="size-6" />
             </button>
           </div>
           </div>

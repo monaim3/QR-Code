@@ -78,13 +78,13 @@ export default function LanguageSelector({
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          "p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-9 transition-all",
+          "p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-[99] transition-all",
            mobileDrawer ? "w-screen w-[280px] left-[10px] right-[20px]" : "w-[160px]"
         )}
         align="start"
         sideOffset={10}
       >
-        <div className="h-[188px] overflow-y-scroll always-visible-scrollbar">
+        <div className="h-[188px]">
           <Command>
             <CommandList>
               <CommandGroup className="pr-2">

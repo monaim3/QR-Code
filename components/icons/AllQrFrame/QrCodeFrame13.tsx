@@ -7,7 +7,6 @@ interface Props extends SVGProps<SVGSVGElement> {
   children?: React.ReactNode;
   backgroundColor?: string;
   textColor?: string;
-  frameColor?: string;
 }
 
 const QrCodeFrame13 = ({

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import Breadcrumb from "../../../components/generator/Breadcrumb"
+import Breadcrumb from "../../../components/generator/Breadcrumb";
 
 import MobileFrame from "@/components/common/MobileFrame";
 import ColorInput from "@/components/common/ColorInput";
@@ -22,7 +22,6 @@ import {
   setTransparentFrameBg,
   setDotColor,
   setBackgroundColor,
-  setTransparentBg,
   setPatternStyle,
   setCornerFrameColor,
   setCornerDotColor,
@@ -32,23 +31,16 @@ import {
   setCustomLogo,
 } from "@/store/slices/qrSlice";
 
-import { IconType } from "react-icons";
 import { QRFrameArray } from "@/components/common/QRFrameArray";
 import QrCodeFrameAllInput from "@/components/common/QrCodeFrameAllInput";
 import QRFrameGallery from "@/components/common/QRFrameGallery";
-import CommonFrameQr from "@/components/icons/common-frame-qr";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Swap from "@/components/icons/swap";
 import { getLogoComponent } from "@/lib/logoRegistry";
 
-interface SocialLogo {
-  Icon: IconType;
-  color: string;
-}
-
-export default function QRCodeCustomizer() {
+export default function QRCodeCustomize() {
   const dispatch = useAppDispatch();
-  const [view, setView] = useState<"preview" | "qrcode">("qrcode");
+  const [view, setView] = useState<"preview" | "qrCode">("qrCode");
   const [patternTransparentBg, setPatternTransparentBg] = useState(false);
 
   const mobileQrRef = useRef<HTMLDivElement>(null);
@@ -56,7 +48,7 @@ export default function QRCodeCustomizer() {
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
-  
+
   const {
     selectedFrameIndex,
     frameText,
@@ -165,18 +157,17 @@ export default function QRCodeCustomizer() {
     });
   };
 
-  const SelectedFrameComponent = QRFrameArray[selectedFrameIndex];
-  const isDefaultFrame = selectedFrameIndex === 0;
+  const selectedFrame = QRFrameArray[selectedFrameIndex];
+  const SelectedFrameComponent = selectedFrame.frame;
 
   // Desktop preview QR code update
   useEffect(() => {
-    if (view !== "qrcode" || !mobileQrRef.current) return;
+    if (view !== "qrCode" || !mobileQrRef.current) return;
 
     const updateQRCode = async () => {
       const qrOptions: Options = {
+        type: "svg",
         data: websiteUrl || "https://www.example.com/",
-        width: 300,
-        height: 300,
         margin: 0,
         dotsOptions: {
           color: dotColor,
@@ -203,7 +194,6 @@ export default function QRCodeCustomizer() {
 
       if (selectedLogo) {
         const iconDataUrl = await createIconImage(selectedLogo);
-        console.log("iconDataUrl2", iconDataUrl);
         if (iconDataUrl) {
           qrOptions.image = iconDataUrl;
           qrOptions.imageOptions = {
@@ -226,12 +216,9 @@ export default function QRCodeCustomizer() {
 
         if (mobileQrCodeRef.current) {
           mobileQrCodeRef.current.update(qrOptions);
+          mobileQrCodeRef.current.append(mobileQrRef.current);
         } else {
           mobileQrCodeRef.current = new QRCodeStyling(qrOptions);
-        }
-
-        if (mobileQrCodeRef.current) {
-          mobileQrCodeRef.current.append(mobileQrRef.current);
         }
       }
     };
@@ -250,10 +237,11 @@ export default function QRCodeCustomizer() {
     cornerDotType,
     selectedLogo,
     customLogo,
+    selectedFrameIndex,
   ]);
-  console.log("logo2", selectedLogo);
+
   useEffect(() => {
-    if (view !== "qrcode" || selectedFrameIndex !== 0 || !staticQrRef.current)
+    if (view !== "qrCode" || selectedFrameIndex !== 0 || !staticQrRef.current)
       return;
 
     const qrOptions: Options = {
@@ -295,9 +283,9 @@ export default function QRCodeCustomizer() {
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
           <div className="flex-1 flex flex-col">
-             <div className="block desktop:hidden space-y-0 desktop:space-y-4">
-                {<Breadcrumb useMobileSteps={true} />}
-              </div>
+            <div className="block desktop:hidden space-y-0 desktop:space-y-4">
+              {<Breadcrumb useMobileSteps={true} />}
+            </div>
             <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900 mb-4">
               Customize design for the Website URL QR code
             </h1>
@@ -313,27 +301,31 @@ export default function QRCodeCustomizer() {
                   }
                   selectedFrameIndex={selectedFrameIndex}
                 />
-                <QrCodeFrameAllInput
-                  setFrameText={(text: string) => dispatch(setFrameText(text))}
-                  frameText={frameText}
-                  frameBackgroundColor={frameBackgroundColor}
-                  setFrameBackgroundColor={(color: string) =>
-                    dispatch(setFrameBackgroundColor(color))
-                  }
-                  frameTextColor={frameTextColor}
-                  setFrameTextColor={(color: string) =>
-                    dispatch(setFrameTextColor(color))
-                  }
-                  frameColor={frameColor}
-                  setFrameColor={(color: string) =>
-                    dispatch(setFrameColor(color))
-                  }
-                  transparentBg={transparentFrameBg}
-                  setTransparentBg={(value: boolean) =>
-                    dispatch(setTransparentFrameBg(value))
-                  }
-                  handleSwapColors={handleSwapFrameColors}
-                />
+                {selectedFrameIndex > 0 && (
+                  <QrCodeFrameAllInput
+                    setFrameText={(text: string) =>
+                      dispatch(setFrameText(text))
+                    }
+                    frameText={frameText}
+                    frameBackgroundColor={frameBackgroundColor}
+                    setFrameBackgroundColor={(color: string) =>
+                      dispatch(setFrameBackgroundColor(color))
+                    }
+                    frameTextColor={frameTextColor}
+                    setFrameTextColor={(color: string) =>
+                      dispatch(setFrameTextColor(color))
+                    }
+                    frameColor={frameColor}
+                    setFrameColor={(color: string) =>
+                      dispatch(setFrameColor(color))
+                    }
+                    transparentBg={transparentFrameBg}
+                    setTransparentBg={(value: boolean) =>
+                      dispatch(setTransparentFrameBg(value))
+                    }
+                    handleSwapColors={handleSwapFrameColors}
+                  />
+                )}
               </Accordion>
 
               <Accordion
@@ -388,7 +380,7 @@ export default function QRCodeCustomizer() {
                         <span className="text-[#79809A] text-sm leading-[22px] font-normal">
                           Swap the colours
                         </span>
-                        <Swap className="text-2xl" />
+                        <Swap />
                       </p>
                     </button>
                     <ColorInput
@@ -409,7 +401,9 @@ export default function QRCodeCustomizer() {
                       type="checkbox"
                       id="transparent-bg"
                       checked={patternTransparentBg}
-                      onChange={(e) => handleTransparentChange(e.target.checked)}
+                      onChange={(e) =>
+                        handleTransparentChange(e.target.checked)
+                      }
                       className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
                     />
                     <label
@@ -532,7 +526,7 @@ export default function QRCodeCustomizer() {
           </div>
 
           {/* Preview Section */}
-          <div className="hidden lg:block desktop:sticky desktop:top-20 desktop:self-start desktop:h-fit">
+          <div className="hidden desktop:block desktop:sticky desktop:top-20 desktop:self-start desktop:h-fit">
             <div className="flex flex-col items-center justify-start">
               <div className="flex gap-2 mb-4">
                 <button
@@ -548,9 +542,9 @@ export default function QRCodeCustomizer() {
                   </span>
                 </button>
                 <button
-                  onClick={() => setView("qrcode")}
+                  onClick={() => setView("qrCode")}
                   className={`py-2 px-6 rounded-full font-medium font-roboto transition-all duration-300 ease-in-out ${
-                    view === "qrcode"
+                    view === "qrCode"
                       ? "border border-transparent text-white bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
                       : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
                   }`}
@@ -569,14 +563,9 @@ export default function QRCodeCustomizer() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                       {selectedFrameIndex === 0 ? (
-                        <div
-                          ref={staticQrRef}
-                          className="scale-[0.6] origin-center"
-                          // style={{
-                          //   transform: "scale(0.6)",
-                          //   transformOrigin: "center center",
-                          // }}
-                        />
+                        <svg width="120" height="120" viewBox="0 0 300 300">
+                          <g ref={mobileQrRef} />
+                        </svg>
                       ) : (
                         <SelectedFrameComponent
                           label={frameText}
@@ -585,30 +574,20 @@ export default function QRCodeCustomizer() {
                               ? "transparent"
                               : frameBackgroundColor
                           }
-                          textColor={frameTextColor}
+                          textColor={
+                            frameTextColor
+                              ? frameTextColor
+                              : selectedFrame.frameColor === "black"
+                                ? "#ffffff"
+                                : "#000000"
+                          }
                           frameColor={frameColor}
                           width={260}
                           height={260}
                         >
-                          <foreignObject x="-10" y="-10" width="58" height="58">
-                            <div
-                              className="flex items-center justify-center w-[58px] h-[58px] overflow-hidden"
-                              // style={{
-                              //   width: 58,
-                              //   height: 58,
-                              //   overflow: "hidden",
-                              // }}
-                            >
-                              <CommonFrameQr />
-                              <div
-                                className="scale-[0.193]"
-                                ref={mobileQrRef}
-                                // style={{
-                                //   transform: "scale(0.193)",
-                                // }}
-                              />
-                            </div>
-                          </foreignObject>
+                          <svg width="40" height="40" viewBox="0 0 300 300">
+                            <g ref={mobileQrRef} />
+                          </svg>
                         </SelectedFrameComponent>
                       )}
                     </div>

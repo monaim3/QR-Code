@@ -45,12 +45,12 @@ export default function BreadcrumbFooter() {
   const handleNext = () => {
     if (currentStep === 2) {
       router.push("/generator/customize");
-    }else if(currentStep === 3){
+    } else if (currentStep === 3) {
       router.push("/signup");
     }
   };
 
-  const handleTabChange = (tab: "preview" | "qrcode") => {
+  const handleTabChange = (tab: "preview" | "qrCode") => {
     dispatch(setActiveTab(tab));
   };
 
@@ -95,7 +95,6 @@ export default function BreadcrumbFooter() {
                 <ArrowRight className="size-5" />
               </button>
             )}
-
           </div>
         </Container>
       </footer>

@@ -16,11 +16,10 @@ export default function Accordion({
   description,
   defaultOpen = false,
 }: AccordionProps) {
-  const [isUrlAccordionOpen, setIsUrlAccordionOpen] = useState(true);
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
     <>
-      <div className="bg-[var(--Generator-Background)] ">
+      <div className="bg-[var(--Generator-Background)]">
         <div className="">
           <div className="flex flex-col desktop:flex-row gap-8">
             <div className="flex-1 flex flex-col gap-4">
@@ -87,7 +86,9 @@ export default function Accordion({
                     >
                       <hr className="ml-4 mr-4 md:ml-8 md:mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
                       {isOpen && (
-                        <div className="px-4 py-6 desktop:p-8 space-y-8 flex flex-col gap-8">{children}</div>
+                        <div className="px-4 py-6 desktop:p-8 space-y-8 flex flex-col gap-8">
+                          {children}
+                        </div>
                       )}
                     </motion.div>
                   )}

@@ -6,7 +6,7 @@ interface Props {
 export default function HelpIcon({ onClick }: Props) {
   return (
     <div className="flex items-center gap-10 ml-10">
-      <button className="hidden md:block">
+      <button className="hidden desktop:block">
         <svg width="1" height="19" viewBox="0 0 1 19" fill="none">
           <path
             d="M0.5 0.5L0.499999 18.5"

@@ -7,6 +7,7 @@ type Props = {
   onChange?: (value: string) => void;
   showColorIndicator?: boolean;
   id?: string;
+  disabled?: boolean;
 };
 
 export default function ColorInput({
@@ -15,6 +16,7 @@ export default function ColorInput({
   onChange,
   showColorIndicator = false,
   id,
+  disabled = false,
 }: Props) {
   const [showPicker, setShowPicker] = useState(false);
   const [activeTab, setActiveTab] = useState("solid");
@@ -281,6 +283,22 @@ export default function ColorInput({
     };
   };
 
+  const rgbStringToHex = (rgbString: string): string => {
+    // Match rgb(r, g, b) or rgba(r, g, b, a) patterns
+    const match = rgbString.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/i);
+    if (!match) {
+      // If it's already a hex value, return it
+      return rgbString.startsWith("#") ? rgbString.toUpperCase() : `#${rgbString.toUpperCase()}`;
+    }
+
+    const r = parseInt(match[1], 10);
+    const g = parseInt(match[2], 10);
+    const b = parseInt(match[3], 10);
+
+    const hex = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+    return hex.toUpperCase();
+  };
+
   const handleRgbChange = (component: "r" | "g" | "b", newValue: string) => {
     const rgb = hexToRgb(value);
     const numValue = Math.max(0, Math.min(255, parseInt(newValue) || 0));
@@ -351,7 +369,10 @@ export default function ColorInput({
     try {
       const eyeDropper = new (window as any).EyeDropper();
       const result = await eyeDropper.open();
-      onChange?.(result.sRGBHex.toUpperCase());
+
+      // Convert RGB/RGBA string to hex value
+      const hexValue = rgbStringToHex(result.sRGBHex);
+      onChange?.(hexValue);
     } catch (e) {
       console.log("User canceled the eyedropper");
     }
@@ -369,17 +390,21 @@ export default function ColorInput({
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           placeholder="#000000"
+          disabled={disabled}
           className="w-full px-4 py-3 border border-gray-300 rounded-[10px] focus:outline-none focus:ring-2 focus:ring-[var(--Blue)] focus:border-transparent text-gray-700 pr-14"
         />
-        {showColorIndicator && (
+        {showColorIndicator && !disabled && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 setShowPicker(!showPicker);
               }}
-              className="w-8 h-8 rounded-full border-2 border-gray-300 cursor-pointer"
-              style={{ backgroundColor: value }}
+              className={`w-8 h-8 rounded-full cursor-pointer`}
+              style={{
+                backgroundColor: value,
+                border: `1px solid ${value === "#ffffff" || value === "#FFFFFF" ? "var(--boarder-grey-50)" : value}`,
+              }}
             />
           </div>
         )}
@@ -388,7 +413,7 @@ export default function ColorInput({
             ref={pickerRef}
             className="absolute right-0 top-full mt-2 z-[9999]"
           >
-            <div className="max-w-[360px] bg-white rounded-2xl shadow-2xl p-4">
+            <div className="w-full desktop:w-[360px] bg-white rounded-2xl shadow-2xl p-4">
               {/* Tab Navigation */}
               <div className="flex gap-2 mb-4">
                 <div className="flex flex-1 gap-2 border border-gray-200 rounded-full p-1">
@@ -478,35 +503,35 @@ export default function ColorInput({
                         onChange={(e) =>
                           onChange?.(e.target.value.toUpperCase())
                         }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="flex-1 px-2 py-1 border border-[var(--Boarder-Grey)] rounded-full text-sm font-mono focus:outline-none text-[var(--Black)] text-[14px] leading-[22px] text-center"
                       />
                     )}
 
                     {colorMode === "rgb" && (
                       <div className="flex-1 flex gap-2">
                         <input
-                          type="number"
+                          type="text"
                           min="0"
                           max="255"
                           value={rgb.r}
                           onChange={(e) => handleRgbChange("r", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-2 py-1 border border-[var(--Boarder-Grey)] rounded-lg text-sm text-center focus:outline-none"
                         />
                         <input
-                          type="number"
+                          type="text"
                           min="0"
                           max="255"
                           value={rgb.g}
                           onChange={(e) => handleRgbChange("g", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-2 py-1 border border-[var(--Boarder-Grey)] rounded-lg text-sm text-center focus:outline-none"
                         />
                         <input
-                          type="number"
+                          type="text"
                           min="0"
                           max="255"
                           value={rgb.b}
                           onChange={(e) => handleRgbChange("b", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-2 py-1 border border-[var(--Boarder-Grey)] rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
                     )}
@@ -514,28 +539,28 @@ export default function ColorInput({
                     {colorMode === "hsl" && (
                       <div className="flex-1 flex gap-2">
                         <input
-                          type="number"
+                          type="text"
                           min="0"
                           max="360"
                           value={hsl.h}
                           onChange={(e) => handleHslChange("h", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-2 py-1 border border-[var(--Boarder-Grey)] rounded-lg text-sm text-center focus:outline-none"
                         />
                         <input
-                          type="number"
+                          type="text"
                           min="0"
                           max="100"
                           value={hsl.s}
                           onChange={(e) => handleHslChange("s", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-2 py-1 border border-[var(--Boarder-Grey)] rounded-lg text-sm text-center focus:outline-none"
                         />
                         <input
-                          type="number"
+                          type="text"
                           min="0"
                           max="100"
                           value={hsl.l}
                           onChange={(e) => handleHslChange("l", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-2 py-1 border border-[var(--Boarder-Grey)] rounded-lg text-sm text-center focus:outline-none"
                         />
                       </div>
                     )}
@@ -544,95 +569,15 @@ export default function ColorInput({
               ) : (
                 <>
                   {/* Color Palette Grid */}
-                  <div className="grid grid-cols-10  gap-[5px] mb-4">
+                  <div className="grid desktop:grid-cols-10 grid-cols-6 gap-[5px]">
                     {paletteColors.flat().map((color, index) => (
                       <button
                         key={index}
                         onClick={() => handlePaletteColorClick(color)}
-                        className={`w-8 h-8 rounded-lg `}
+                        className={`w-8 h-8 rounded-[6px] `}
                         style={{ backgroundColor: color }}
                       />
                     ))}
-                  </div>
-
-                  {/* Color Mode Input */}
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={cycleColorMode}
-                      className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
-                    >
-                      {colorMode.toUpperCase()}
-                      <ChevronDown size={16} />
-                    </button>
-
-                    {colorMode === "hex" && (
-                      <input
-                        type="text"
-                        value={value}
-                        onChange={(e) =>
-                          onChange?.(e.target.value.toUpperCase())
-                        }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    )}
-
-                    {colorMode === "rgb" && (
-                      <div className="flex-1 flex gap-2">
-                        <input
-                          type="number"
-                          min="0"
-                          max="255"
-                          value={rgb.r}
-                          onChange={(e) => handleRgbChange("r", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        <input
-                          type="number"
-                          min="0"
-                          max="255"
-                          value={rgb.g}
-                          onChange={(e) => handleRgbChange("g", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        <input
-                          type="number"
-                          min="0"
-                          max="255"
-                          value={rgb.b}
-                          onChange={(e) => handleRgbChange("b", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-                    )}
-
-                    {colorMode === "hsl" && (
-                      <div className="flex-1 flex gap-2">
-                        <input
-                          type="number"
-                          min="0"
-                          max="360"
-                          value={hsl.h}
-                          onChange={(e) => handleHslChange("h", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        <input
-                          type="number"
-                          min="0"
-                          max="100"
-                          value={hsl.s}
-                          onChange={(e) => handleHslChange("s", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        <input
-                          type="number"
-                          min="0"
-                          max="100"
-                          value={hsl.l}
-                          onChange={(e) => handleHslChange("l", e.target.value)}
-                          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-                    )}
                   </div>
                 </>
               )}

@@ -5,7 +5,6 @@ import { SVGProps } from "react";
 interface Props extends SVGProps<SVGSVGElement> {
   label?: string;
   children?: React.ReactNode;
-  backgroundColor?: string;
   textColor?: string;
   frameColor?: string;
 }
@@ -31,7 +30,7 @@ const QrCodeFrame8 = ({
       ></path>
       <path
         d="M6 10a4 4 0 0 1 4-4h44a4 4 0 0 1 4 4v44a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z"
-        fill={children ? "transparent" : "#E6E7ED"}
+        fill={children ? "white" : "#E6E7ED"}
         id="qr-background"
       />
       <g transform="translate(12, 12)">{children || <QrFrame />}</g>

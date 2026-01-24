@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { IoIosSwap } from "react-icons/io";
 import { TextInput } from "./TextInput";
-import { IoSwapVertical } from "react-icons/io5";
-
 import { CheckboxInput } from "./CheckboxInput";
 import ColorInput from "./ColorInput";
 import Swap from "../icons/swap";
+import { useAppSelector } from "@/store/hooks";
+import { QRFrameArray } from "./QRFrameArray";
 
 const QrCodeFrameAllInput = ({
   frameText,
@@ -25,6 +25,9 @@ const QrCodeFrameAllInput = ({
   handleSwapColors,
 }: any) => {
   const prevBgRef = useRef<string | null>(null);
+  const { selectedFrameIndex } = useAppSelector((state) => state.qr);
+
+  const selectedFrame = QRFrameArray[selectedFrameIndex].frameColor;
 
   useEffect(() => {
     if (transparentBg) {
@@ -34,6 +37,7 @@ const QrCodeFrameAllInput = ({
       setFrameBackgroundColor(prevBgRef.current);
     }
   }, [transparentBg]);
+
   return (
     <div className="!mt-0 md:!mt-0">
       <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4 desktop:p-6">
@@ -50,6 +54,7 @@ const QrCodeFrameAllInput = ({
             value={frameColor}
             onChange={setFrameColor}
             showColorIndicator={true}
+            disabled={selectedFrameIndex === 1}
           />
         </div>
 
@@ -63,18 +68,6 @@ const QrCodeFrameAllInput = ({
               onChange={transparentBg ? undefined : setFrameBackgroundColor}
               showColorIndicator={!transparentBg}
             />
-            {/* <div
-              className={`transparentBg ? "pointer-events-none opacity-50" : "" w-full `}
-            >
-              <ColorInput
-                label="Background color"
-                value={
-                  transparentBg ? "Transparent" : (frameBackgroundColor ?? "")
-                }
-                onChange={transparentBg ? undefined : setFrameBackgroundColor}
-                showColorIndicator={!transparentBg}
-              />
-            </div> */}
             <button
               type="button"
               className="hidden lg:flex  h-12 w-12 items-center justify-center text-gray-500"
@@ -103,7 +96,13 @@ const QrCodeFrameAllInput = ({
 
             <ColorInput
               label="Text color"
-              value={frameTextColor ?? ""}
+              value={
+                frameTextColor
+                  ? frameTextColor
+                  : selectedFrame === "black"
+                    ? "#ffffff"
+                    : "#000000"
+              }
               onChange={setFrameTextColor}
               showColorIndicator={true}
             />

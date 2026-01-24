@@ -1,4 +1,4 @@
-const Pinterest = (props: React.SVGProps<SVGSVGElement>) => {
+const Pinterest = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +24,9 @@ const Pinterest = (props: React.SVGProps<SVGSVGElement>) => {
           y2="35.5466"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F22543" />
-          <stop offset="0.422" stop-color="#EB2239" />
-          <stop offset="1" stop-color="#E52030" />
+          <stop stopColor="#F22543" />
+          <stop offset="0.422" stopColor="#EB2239" />
+          <stop offset="1" stopColor="#E52030" />
         </linearGradient>
       </defs>
     </svg>

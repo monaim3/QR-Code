@@ -9,8 +9,8 @@ interface MobilePreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
-  activeTab: "preview" | "qrcode";
-  onTabChange: (tab: "preview" | "qrcode") => void;
+  activeTab: "preview" | "qrCode";
+  onTabChange: (tab: "preview" | "qrCode") => void;
 }
 
 export default function MobilePreviewModal({
