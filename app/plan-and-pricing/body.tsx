@@ -64,7 +64,7 @@ export default function SmartQRPlanSelection() {
               {/* Plans */}
               <div className="space-y-[16px] pt-[24px] desktop:pt-[32px] w-full">
                 {plans.map((plan) => (
-                  <div key={plan.id} className={`relative w-full ${ plan.popular ? "h-[98px]" : "h-[76px]"}`}>
+                  <div key={plan.id} className={`relative w-full ${ plan.popular ? "h-auto" : "h-auto"}`}>
                     <button
                       onClick={() => setSelectedPlan(plan.id)}
                       className={`bg-white relative w-full rounded-[10px] transition-all 
@@ -81,7 +81,7 @@ export default function SmartQRPlanSelection() {
                       )}
 
                       {/* Button content */}
-                      <div className={`flex items-center justify-between px-[16px] pb-[24px] ${plan.popular ? 'pt-[46px]' : 'py-[24px]'}`}>
+                      <div className={`flex items-center justify-between px-[14px] pb-[22px] ${plan.popular ? 'pt-[46px]' : 'py-[22px]'}`}>
                         {/* Left */}
                         <div className="flex items-center space-x-3">
                           <div className={`w-[24px] h-[24px] rounded-[6px] flex items-center justify-center
@@ -119,7 +119,7 @@ export default function SmartQRPlanSelection() {
             </div>
 
             {/* Right Column */}
-            <div className="w-full desktop:w-[488px] mt-[32px] desktop:mt-0 flex justify-center">
+            <div className="w-full desktop:w-[456px] mt-[32px] desktop:mt-0 flex justify-center">
               <PlanAndPricingRightPannelp />
             </div>
 

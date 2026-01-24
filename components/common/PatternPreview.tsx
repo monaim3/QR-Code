@@ -255,7 +255,7 @@ export default function PatternPreview({
       className={`flex-shrink-0 flex items-center justify-center rounded-xl border transition-all w-[72px] h-[72px]
         ${
           isSelected
-            ? "border-green-500 ring-2 ring-green-200"
+            ? "border-[var(--Blue)] ring-2 ring-[var(--Blue)]"
             : "border-gray-200 hover:border-gray-400"
         }
       `}

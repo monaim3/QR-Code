@@ -369,7 +369,7 @@ export default function ColorInput({
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           placeholder="#000000"
-          className="w-full px-4 py-3 border border-gray-300 rounded-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700 pr-14"
+          className="w-full px-4 py-3 border border-gray-300 rounded-[10px] focus:outline-none focus:ring-2 focus:ring-[var(--Blue)] focus:border-transparent text-gray-700 pr-14"
         />
         {showColorIndicator && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">

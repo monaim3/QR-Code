@@ -49,19 +49,19 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
   // };
 
     return (
-        <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
-          <p className="text-[24px] font-bold leading-[32px] text-center desktop:text-start text-[#0A0909] tracking-[0%]">
+        <div className="flex flex-col w-full desktop:w-1/2 max-h-full desktop:pr-8">
+          <p className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
             Create a FREE account to download, edit and manage your QR codes
           </p>
 
-          <h3 className="mt-[8px] text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
+          <h3 className="mt-2 text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
             Join millions of users already using the smartest QR Code Generator!
           </h3>
 
           {/* Form */}
           <form 
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full desktop:w-[424px] mt-[32px] flex flex-col gap-[16px]">
+          className="w-full mt-8 flex flex-col gap-4">
             <Controller
               name="email"
               control={control}
@@ -113,14 +113,14 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
 
             <button
               type="submit"
-              className="w-full desktop:w-full h-[48px] bg-[#01A56D] hover:bg-emerald-700 text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-200 mt-[24px]"
+              className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
             >
               Create Account
             </button>
           </form>
 
           {/* Divider */}
-          <div className="w-full desktop:w-[424px] flex items-center gap-[16px] mt-[32px]">
+          <div className="w-full flex items-center gap-[16px] mt-[32px]">
             <div className="flex-1 h-px bg-[var(--boarder-grey-50)]" />
             <span className="text-[var(--Grey)] text-[16px] leading-[24px] font-normal">OR</span>
             <div className="flex-1 h-px bg-[var(--boarder-grey-50)]" />
@@ -128,7 +128,7 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
 
           {/* Social Buttons */}
          { !socialRow ?
-          <div className="flex flex-col gap-3 w-full desktop:w-[424px] mt-[32px]">
+          <div className="flex flex-col gap-4 w-full mt-[32px]">
             {/* Google */}
             <button
               onClick={() => alert("Google sign in clicked")}
@@ -255,15 +255,8 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
             </Link>
           </div>
 
-          <div className="w-full desktop:w-auto text-[12px] leading-[20px] font-normal text-[#3F3E3E] font-body_text flex flex-wrap gap-x-[4px] pt-[32px] text-center desktop:text-start justify-center desktop:justify-start">
-          <span>By clicking "Create account", you confirm that you have read and consent to our</span>
-          <Link href="#" className="text-[#01A56D] underline">
-            Terms and conditions
-          </Link>
-          <span>and</span>
-          <Link href="#" className="text-[#01A56D] underline">
-            Privacy policy
-          </Link>
+          <div className="text-[12px] leading-[20px] font-normal text-[#3F3E3E] font-body_text pt-[32px] text-center desktop:text-start justify-center desktop:justify-start">
+          By clicking "Create account", you confirm that you have read and consent to our <Link href="#" className="text-[#01A56D] underline">Terms and conditions</Link> and <Link href="#" className="text-[#01A56D] underline">Privacy policy</Link>
         </div>
         </div>
     );

@@ -87,7 +87,7 @@ export default function Accordion({
                     >
                       <hr className="ml-4 mr-4 md:ml-8 md:mr-8 border-t-[0.5px] border-[var(--Boarder-Grey)]" />
                       {isOpen && (
-                        <div className="px-4 py-6 desktop:py-6 desktop:px-8 space-y-8 flex flex-col gap-8">{children}</div>
+                        <div className="px-4 py-6 desktop:p-8 space-y-8 flex flex-col gap-8">{children}</div>
                       )}
                     </motion.div>
                   )}

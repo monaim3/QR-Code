@@ -16,6 +16,7 @@ const languages = [
   { value: "usd", label: "USD ($)" },
   { value: "eur", label: "EUR (€)" },
   { value: "gbp", label: "GBP (£)" },
+  { value: "bdt", label: "BDT (৳)" },
 ];
 
 interface CurrencySelectorProps {
@@ -82,7 +83,7 @@ export default function CurrencySelector({
         align="start"
         sideOffset={10}
       >
-        <div className="h-[188px] overflow-y-scroll always-visible-scrollbar">
+        <div className="h-[188px]">
           <Command>
             <CommandList>
               <div

@@ -28,7 +28,7 @@ const authFeatureList = [
 export default function SignUpReadyQr({ showOnMobile = false }: ReadyQrProps) {
     
     return (
-        <div className={`${showOnMobile ? "flex" : "hidden"}  desktop:flex flex-col w-full desktop:w-[456px] h-full max-h-full desktop:max-h-[814px] items-center justify-start bg-[#E7F4ED] rounded-[10px] p-[24px] desktop:pt-[32px] desktop:px-[56px] desktop:pb-[56px] flex-shrink-0 overflow-hidden gap-[24px] desktop:gap-[32px]`}>
+        <div className={`${showOnMobile ? "flex" : "hidden"}  desktop:flex flex-col w-full desktop:w-1/2 items-center justify-start bg-[#E7F4ED] rounded-[10px] p-[24px] desktop:pt-[32px] desktop:px-[56px] desktop:pb-[56px] gap-[24px] desktop:gap-[32px]`}>
 
         {/* Heading */}
         <p className="text-[20px] desktop:text-[24px] font-bold leading-[32px] text-center text-[#0A0909] tracking-[0%]">

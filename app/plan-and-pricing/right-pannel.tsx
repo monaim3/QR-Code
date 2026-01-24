@@ -11,17 +11,17 @@ const testimonials = [
     role: "Sales Director",
   },
   {
-    text: "SmartQR has transformed how we share information with our customers. The analytics feature is incredibly powerful and helps us track engagement effortlessly.",
+    text: "SmartQR has transformed how we share information with our customers. The analytics feature is incredibly powerful and helps us track engagement effortlessly assistance.",
     author: "Sarah Mitchell",
     role: "Marketing Manager",
   },
   {
-    text: "The customization options are endless! I created beautiful branded QR codes for our restaurant menu in minutes. Our customers love the seamless experience.",
+    text: "The customization options are endless! I created beautiful branded QR codes for our restaurant menu in minutes. Our customers love the seamless experience assistance.",
     author: "Michael Chen",
     role: "Restaurant Owner",
   },
   {
-    text: "Outstanding service and incredible value. The unlimited scans feature means we never have to worry about hitting limits during our busy season.",
+    text: "Outstanding service and incredible value. The unlimited scans feature means we never have to worry about hitting limits during our busy season assistance do it now at all.",
     author: "Emily Rodriguez",
     role: "Event Coordinator",
   },
@@ -68,8 +68,8 @@ export default function PlanAndPricingRightPannelp() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   return (
-    <div className="w-full desktop:w-[488px] flex-shrink-0 flex flex-col items-center justify-start
-      bg-[#E7F4ED] rounded-[10px] px-[24px] desktop:px-[56px] py-[32px] desktop:py-[56px] gap-[24px] desktop:gap-[32px]">
+    <div className="w-full desktop:w-[456px] flex-shrink-0 flex flex-col items-center justify-start
+      bg-[#E7F4ED] rounded-[10px] px-6 desktop:px-14 py-8 desktop:py-8 gap-6 desktop:gap-8">
       
       {/* Heading */}
       <p className="text-[20px] desktop:text-[24px] font-bold text-center text-[var(--Black)] leading-[28px] desktop:leading-[32px]">

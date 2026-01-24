@@ -294,239 +294,241 @@ export default function QRCodeCustomizer() {
     <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
-          <div className="flex-1 flex flex-col space-y-4">
-                <div className="block desktop:hidden">
+          <div className="flex-1 flex flex-col">
+             <div className="block desktop:hidden space-y-0 desktop:space-y-4">
                 {<Breadcrumb useMobileSteps={true} />}
-                </div>
-            <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900">
+              </div>
+            <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900 mb-4">
               Customize design for the Website URL QR code
             </h1>
-            <Accordion
-              title="QR code frame"
-              description="Frames improve your QR code visibility, leading to more scans"
-              defaultOpen={true}
-            >
-              <QRFrameGallery
-                setSelectedFrameIndex={(index: number) =>
-                  dispatch(setSelectedFrameIndex(index))
-                }
-                selectedFrameIndex={selectedFrameIndex}
-              />
-              <QrCodeFrameAllInput
-                setFrameText={(text: string) => dispatch(setFrameText(text))}
-                frameText={frameText}
-                frameBackgroundColor={frameBackgroundColor}
-                setFrameBackgroundColor={(color: string) =>
-                  dispatch(setFrameBackgroundColor(color))
-                }
-                frameTextColor={frameTextColor}
-                setFrameTextColor={(color: string) =>
-                  dispatch(setFrameTextColor(color))
-                }
-                frameColor={frameColor}
-                setFrameColor={(color: string) =>
-                  dispatch(setFrameColor(color))
-                }
-                transparentBg={transparentFrameBg}
-                setTransparentBg={(value: boolean) =>
-                  dispatch(setTransparentFrameBg(value))
-                }
-                handleSwapColors={handleSwapFrameColors}
-              />
-            </Accordion>
+            <div className="flex-1 flex flex-col gap-4">
+              <Accordion
+                title="QR code frame"
+                description="Frames improve your QR code visibility, leading to more scans"
+                defaultOpen={true}
+              >
+                <QRFrameGallery
+                  setSelectedFrameIndex={(index: number) =>
+                    dispatch(setSelectedFrameIndex(index))
+                  }
+                  selectedFrameIndex={selectedFrameIndex}
+                />
+                <QrCodeFrameAllInput
+                  setFrameText={(text: string) => dispatch(setFrameText(text))}
+                  frameText={frameText}
+                  frameBackgroundColor={frameBackgroundColor}
+                  setFrameBackgroundColor={(color: string) =>
+                    dispatch(setFrameBackgroundColor(color))
+                  }
+                  frameTextColor={frameTextColor}
+                  setFrameTextColor={(color: string) =>
+                    dispatch(setFrameTextColor(color))
+                  }
+                  frameColor={frameColor}
+                  setFrameColor={(color: string) =>
+                    dispatch(setFrameColor(color))
+                  }
+                  transparentBg={transparentFrameBg}
+                  setTransparentBg={(value: boolean) =>
+                    dispatch(setTransparentFrameBg(value))
+                  }
+                  handleSwapColors={handleSwapFrameColors}
+                />
+              </Accordion>
 
-            <Accordion
-              title="QR code pattern"
-              description="Select a pattern for your QR code and choose colors"
-              defaultOpen={true}
-            >
-              <div className="w-full">
-                <label className="block text-lg font-bold text-gray-900">
-                  Pattern style
-                </label>
-                <div className="flex gap-4 py-4 overflow-x-auto lg:grid lg:grid-cols-10 lg:overflow-visible">
-                  {patternOptions.map((pattern) => (
-                    <PatternPreview
-                      key={pattern}
-                      type={pattern}
-                      isSelected={patternStyle === pattern}
-                      onClick={() => dispatch(setPatternStyle(pattern))}
+              <Accordion
+                title="QR code pattern"
+                description="Select a pattern for your QR code and choose colors"
+                defaultOpen={true}
+              >
+                <div className="w-full">
+                  <label className="block text-lg font-bold text-gray-900">
+                    Pattern style
+                  </label>
+                  <div className="flex gap-4 pt-4 overflow-x-auto lg:overflow-visible">
+                    {patternOptions.map((pattern) => (
+                      <PatternPreview
+                        key={pattern}
+                        type={pattern}
+                        isSelected={patternStyle === pattern}
+                        onClick={() => dispatch(setPatternStyle(pattern))}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
+                    <ColorInput
+                      label="Dot color"
+                      value={dotColor}
+                      onChange={(color: string) => dispatch(setDotColor(color))}
+                      showColorIndicator
+                      id="dot-color"
                     />
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
-                <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
-                  <ColorInput
-                    label="Dot color"
-                    value={dotColor}
-                    onChange={(color: string) => dispatch(setDotColor(color))}
-                    showColorIndicator
-                    id="dot-color"
-                  />
-                  <button
-                    type="button"
-                    className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
-                    onClick={() => {
-                      dispatch(setDotColor(backgroundColor));
-                      dispatch(setBackgroundColor(dotColor));
-                    }}
-                  >
-                    <IoIosSwap className="text-2xl" />
-                  </button>
-                  <button
-                    type="button"
-                    className="flex lg:hidden p-2 text-gray-500"
-                    onClick={() => {
-                      dispatch(setDotColor(backgroundColor));
-                      dispatch(setBackgroundColor(dotColor));
-                    }}
-                  >
-                    <p className="flex gap-2">
-                      <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                        Swap the colours
-                      </span>
-                      <Swap className="text-2xl" />
-                    </p>
-                  </button>
-                  <ColorInput
-                    label="Background color"
-                    value={
-                      backgroundColor === "transparent"
-                        ? "#ffffff"
-                        : backgroundColor
-                    }
-                    onChange={(color: string) =>
-                      dispatch(setBackgroundColor(color))
-                    }
-                    showColorIndicator
-                  />
-                </div>
-                <div className="flex items-center gap-2 px-6 pb-4">
-                  <input
-                    type="checkbox"
-                    id="transparent-bg"
-                    checked={patternTransparentBg}
-                    onChange={(e) => handleTransparentChange(e.target.checked)}
-                    className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
-                  />
-                  <label
-                    htmlFor="transparent-bg"
-                    className="text-sm text-gray-700 font-Popins"
-                  >
-                    Transparent background
-                  </label>
-                </div>
-              </div>
-            </Accordion>
-
-            <Accordion
-              title="QR code corners"
-              description="Choose your QR code corner style"
-              defaultOpen={true}
-            >
-              <div className="flex flex-col lg:flex-row gap-[72px]">
-                <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
-                  <label className="block text-lg font-bold text-gray-900">
-                    Corner frames style
-                  </label>
-                  <div className="flex flex-row gap-4">
-                    {cornerFrameOptions.map((style) => (
-                      <CornerStylePreview
-                        key={style}
-                        type={style}
-                        isSelected={cornerFrameStyle === style}
-                        onClick={() => dispatch(setCornerFrameStyle(style))}
-                        isFrame={true}
-                      />
-                    ))}
+                    <button
+                      type="button"
+                      className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
+                      onClick={() => {
+                        dispatch(setDotColor(backgroundColor));
+                        dispatch(setBackgroundColor(dotColor));
+                      }}
+                    >
+                      <IoIosSwap className="text-2xl" />
+                    </button>
+                    <button
+                      type="button"
+                      className="flex lg:hidden p-2 text-gray-500"
+                      onClick={() => {
+                        dispatch(setDotColor(backgroundColor));
+                        dispatch(setBackgroundColor(dotColor));
+                      }}
+                    >
+                      <p className="flex gap-2">
+                        <span className="text-[#79809A] text-sm leading-[22px] font-normal">
+                          Swap the colours
+                        </span>
+                        <Swap className="text-2xl" />
+                      </p>
+                    </button>
+                    <ColorInput
+                      label="Background color"
+                      value={
+                        backgroundColor === "transparent"
+                          ? "#ffffff"
+                          : backgroundColor
+                      }
+                      onChange={(color: string) =>
+                        dispatch(setBackgroundColor(color))
+                      }
+                      showColorIndicator
+                    />
+                  </div>
+                  <div className="flex items-center gap-2 px-6 pb-4">
+                    <input
+                      type="checkbox"
+                      id="transparent-bg"
+                      checked={patternTransparentBg}
+                      onChange={(e) => handleTransparentChange(e.target.checked)}
+                      className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
+                    />
+                    <label
+                      htmlFor="transparent-bg"
+                      className="text-sm text-gray-700 font-Popins"
+                    >
+                      Transparent background
+                    </label>
                   </div>
                 </div>
+              </Accordion>
 
-                <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
-                  <label className="block text-lg font-bold text-gray-900">
-                    Corner dots type
-                  </label>
-                  <div className="flex flex-row gap-4">
-                    {cornerDotOptions.map((style) => (
-                      <CornerStylePreview
-                        key={style}
-                        type={style}
-                        isSelected={cornerDotType === style}
-                        onClick={() => dispatch(setCornerDotType(style))}
-                        isFrame={false}
-                      />
-                    ))}
+              <Accordion
+                title="QR code corners"
+                description="Choose your QR code corner style"
+                defaultOpen={true}
+              >
+                <div className="flex flex-col lg:flex-row gap-6 desktop:gap-[72px]">
+                  <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
+                    <label className="block text-lg font-bold text-gray-900">
+                      Corner frames style
+                    </label>
+                    <div className="flex flex-row gap-4">
+                      {cornerFrameOptions.map((style) => (
+                        <CornerStylePreview
+                          key={style}
+                          type={style}
+                          isSelected={cornerFrameStyle === style}
+                          onClick={() => dispatch(setCornerFrameStyle(style))}
+                          isFrame={true}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
+                    <label className="block text-lg font-bold text-gray-900">
+                      Corner dots type
+                    </label>
+                    <div className="flex flex-row gap-4">
+                      {cornerDotOptions.map((style) => (
+                        <CornerStylePreview
+                          key={style}
+                          type={style}
+                          isSelected={cornerDotType === style}
+                          onClick={() => dispatch(setCornerDotType(style))}
+                          isFrame={false}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
-                <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
-                  <ColorInput
-                    label="Corner frames color"
-                    value={cornerFrameColor}
-                    onChange={(color: string) =>
-                      dispatch(setCornerFrameColor(color))
-                    }
-                    showColorIndicator={true}
-                    id="corner-frame-color"
-                  />
+                <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
+                    <ColorInput
+                      label="Corner frames color"
+                      value={cornerFrameColor}
+                      onChange={(color: string) =>
+                        dispatch(setCornerFrameColor(color))
+                      }
+                      showColorIndicator={true}
+                      id="corner-frame-color"
+                    />
 
-                  <button
-                    type="button"
-                    className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
-                    onClick={() => {
-                      dispatch(setCornerFrameColor(cornerDotColor));
-                      dispatch(setCornerDotColor(cornerFrameColor));
-                    }}
-                  >
-                    <IoIosSwap className="text-2xl" />
-                  </button>
-                  <button
-                    type="button"
-                    className="flex lg:hidden p-2 text-gray-500"
-                    onClick={() => {
-                      dispatch(setCornerFrameColor(cornerDotColor));
-                      dispatch(setCornerDotColor(cornerFrameColor));
-                    }}
-                  >
-                    <p className="flex gap-2">
-                      <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                        Swap the colours
-                      </span>
-                      <Swap className="text-2xl" />
-                    </p>
-                  </button>
-                  <ColorInput
-                    label="Corner dots color"
-                    value={cornerDotColor}
-                    onChange={(color: string) =>
-                      dispatch(setCornerDotColor(color))
-                    }
-                    showColorIndicator={true}
-                    id="corner-dot-color"
-                  />
+                    <button
+                      type="button"
+                      className="hidden lg:flex h-12 w-12 items-center justify-center text-gray-500"
+                      onClick={() => {
+                        dispatch(setCornerFrameColor(cornerDotColor));
+                        dispatch(setCornerDotColor(cornerFrameColor));
+                      }}
+                    >
+                      <IoIosSwap className="text-2xl" />
+                    </button>
+                    <button
+                      type="button"
+                      className="flex lg:hidden p-2 text-gray-500"
+                      onClick={() => {
+                        dispatch(setCornerFrameColor(cornerDotColor));
+                        dispatch(setCornerDotColor(cornerFrameColor));
+                      }}
+                    >
+                      <p className="flex gap-2">
+                        <span className="text-[#79809A] text-sm leading-[22px] font-normal">
+                          Swap the colours
+                        </span>
+                        <Swap className="text-2xl" />
+                      </p>
+                    </button>
+                    <ColorInput
+                      label="Corner dots color"
+                      value={cornerDotColor}
+                      onChange={(color: string) =>
+                        dispatch(setCornerDotColor(color))
+                      }
+                      showColorIndicator={true}
+                      id="corner-dot-color"
+                    />
+                  </div>
                 </div>
-              </div>
-            </Accordion>
+              </Accordion>
 
-            <Accordion
-              title="Logo"
-              description="Add a logo to your QR code"
-              defaultOpen={true}
-            >
-              <LogoSelector
-                selectedLogo={selectedLogo}
-                onLogoChange={(logoId: string | null) =>
-                  dispatch(setSelectedLogo(logoId))
-                }
-                customLogo={customLogo}
-                onCustomLogoUpload={(logo: string | null) =>
-                  dispatch(setCustomLogo(logo))
-                }
-              />
-            </Accordion>
+              <Accordion
+                title="Logo"
+                description="Add a logo to your QR code"
+                defaultOpen={true}
+              >
+                <LogoSelector
+                  selectedLogo={selectedLogo}
+                  onLogoChange={(logoId: string | null) =>
+                    dispatch(setSelectedLogo(logoId))
+                  }
+                  customLogo={customLogo}
+                  onCustomLogoUpload={(logo: string | null) =>
+                    dispatch(setCustomLogo(logo))
+                  }
+                />
+              </Accordion>
+            </div>
           </div>
 
           {/* Preview Section */}

@@ -35,8 +35,8 @@ const QrCodeFrameAllInput = ({
     }
   }, [transparentBg]);
   return (
-    <div className="!mt-0 md:!mt-6">
-      <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4">
+    <div className="!mt-0 md:!mt-0">
+      <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4 desktop:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-[72px] mb-2 lg:mb-6">
           <TextInput
             label="Frame text"
@@ -54,7 +54,7 @@ const QrCodeFrameAllInput = ({
         </div>
 
         <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-6  pt-4 lg:pt-6  pb-4 lg:pb-8 relative z-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-6  pt-4 lg:pt-0  pb-4 lg:pb-8 relative z-10">
             <ColorInput
               label="Background color"
               value={
