@@ -1,4 +1,6 @@
-const Eye = () => {
+import React, { SVGProps } from "react";
+
+const Eye = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +8,7 @@ const Eye = () => {
       height="16"
       viewBox="0 0 16 16"
       fill="none"
-      className="cursor-pointer"
+      {...props} // <-- Spread all props here
     >
       <path
         fillRule="evenodd"
