@@ -160,7 +160,7 @@ export default function QRCodeCustomize() {
   const selectedFrame = QRFrameArray[selectedFrameIndex];
   const SelectedFrameComponent = selectedFrame.frame;
 
-  // Desktop preview QR code update
+  // Desktop preview QR code update - EXACT SAME AS REFERENCE
   useEffect(() => {
     if (view !== "qrCode" || !mobileQrRef.current) return;
 
@@ -219,6 +219,7 @@ export default function QRCodeCustomize() {
           mobileQrCodeRef.current.append(mobileQrRef.current);
         } else {
           mobileQrCodeRef.current = new QRCodeStyling(qrOptions);
+          mobileQrCodeRef.current.append(mobileQrRef.current);
         }
       }
     };
@@ -525,7 +526,7 @@ export default function QRCodeCustomize() {
             </div>
           </div>
 
-          {/* Preview Section */}
+          {/* Preview Section - EXACT SAME AS REFERENCE */}
           <div className="hidden desktop:block desktop:sticky desktop:top-20 desktop:self-start desktop:h-fit">
             <div className="flex flex-col items-center justify-start">
               <div className="flex gap-2 mb-4">
@@ -564,7 +565,7 @@ export default function QRCodeCustomize() {
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                       {selectedFrameIndex === 0 ? (
                         <svg width="120" height="120" viewBox="0 0 300 300">
-                          <g ref={mobileQrRef} />
+                          <g ref={mobileQrRef as any} />
                         </svg>
                       ) : (
                         <SelectedFrameComponent
@@ -586,7 +587,7 @@ export default function QRCodeCustomize() {
                           height={260}
                         >
                           <svg width="40" height="40" viewBox="0 0 300 300">
-                            <g ref={mobileQrRef} />
+                            <g ref={mobileQrRef as any} />
                           </svg>
                         </SelectedFrameComponent>
                       )}

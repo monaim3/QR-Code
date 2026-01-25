@@ -46,25 +46,25 @@ const features = [
 const reviews = [
   {
     title: "Quick support!",
-    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },
   {
     title: "Quick support!",
-    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },
   {
     title: "Quick support!",
-    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },
  {
     title: "Quick support!",
-    text: '“ I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. “',
+    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },
@@ -73,7 +73,7 @@ const reviews = [
 export default function PlanAndPricingRightPannelp() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  const mobileQrRef = useRef<HTMLDivElement>(null);
+  const mobileQrRef = useRef<SVGGElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
@@ -96,7 +96,6 @@ export default function PlanAndPricingRightPannelp() {
     transparentFrameBg,
   } = useAppSelector((state) => state.qr);
 
-  // ✅ Copy exact createIconImage function from QRCodeCustomize
   const createIconImage = (logoId: string): Promise<string | null> => {
     return new Promise((resolve) => {
       try {
@@ -178,7 +177,6 @@ export default function PlanAndPricingRightPannelp() {
   const selectedFrame = QRFrameArray[selectedFrameIndex];
   const SelectedFrameComponent = selectedFrame.frame;
 
-  // ✅ EXACT COPY of Desktop preview QR code update from QRCodeCustomize
   useEffect(() => {
     if (!mobileQrRef.current) return;
 
@@ -234,10 +232,10 @@ export default function PlanAndPricingRightPannelp() {
 
         if (mobileQrCodeRef.current) {
           mobileQrCodeRef.current.update(qrOptions);
-          mobileQrCodeRef.current.append(mobileQrRef.current);
+          mobileQrCodeRef.current.append(mobileQrRef.current as any);
         } else {
           mobileQrCodeRef.current = new QRCodeStyling(qrOptions);
-          mobileQrCodeRef.current.append(mobileQrRef.current);
+          mobileQrCodeRef.current.append(mobileQrRef.current as any);
         }
       }
     };
@@ -269,39 +267,39 @@ export default function PlanAndPricingRightPannelp() {
 
       {/* QR Code Box - EXACT STRUCTURE from QRCodeCustomize */}
       <div className="relative w-[260px] h-[260px] bg-white rounded-[10px] flex items-center justify-center">
-  <div className="relative w-[220px] h-[220px]">
-    <FourCorner className="absolute inset-0 pointer-events-none z-10" />
-    <div className="absolute inset-0 w-full h-full flex items-center justify-center rounded-[32px]">
-      {selectedFrameIndex === 0 ? (
-        <svg width="120" height="120" viewBox="0 0 300 300">
-          <g ref={mobileQrRef} />
-        </svg>
-      ) : (
-        <SelectedFrameComponent
-          label={frameText}
-          backgroundColor={
-            transparentFrameBg
-              ? "transparent"
-              : frameBackgroundColor
-          }
-          textColor={
-            frameTextColor
-              ? frameTextColor
-              : selectedFrame.frameColor === "black"
-                ? "#ffffff"
-                : "#000000"
-          }
-          frameColor={frameColor}
-          width={180}
-          height={180}
-        >
-          <svg width="40" height="40" viewBox="0 0 300 300">
-            <g ref={mobileQrRef} />
-          </svg>
-        </SelectedFrameComponent>
-      )}
-    </div>
-  </div>
+        <div className="relative w-[220px] h-[220px]">
+          <FourCorner className="absolute inset-0 pointer-events-none z-10" />
+          <div className="absolute inset-0 w-full h-full flex items-center justify-center rounded-[32px]">
+            {selectedFrameIndex === 0 ? (
+              <svg width="120" height="120" viewBox="0 0 300 300">
+                <g ref={mobileQrRef} />
+              </svg>
+            ) : (
+              <SelectedFrameComponent
+                label={frameText}
+                backgroundColor={
+                  transparentFrameBg
+                    ? "transparent"
+                    : frameBackgroundColor
+                }
+                textColor={
+                  frameTextColor
+                    ? frameTextColor
+                    : selectedFrame.frameColor === "black"
+                      ? "#ffffff"
+                      : "#000000"
+                }
+                frameColor={frameColor}
+                width={180}
+                height={180}
+              >
+                <svg width="40" height="40" viewBox="0 0 300 300">
+                  <g ref={mobileQrRef} />
+                </svg>
+              </SelectedFrameComponent>
+            )}
+          </div>
+        </div>
       </div>
 
 
