@@ -74,7 +74,6 @@ export default function WebsiteUrlPage() {
                 <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block">
                   Add content to the Website URL QR code
                 </h1>
-
                 <div className="flex-1 flex flex-col gap-4">
                   <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
                     <button

@@ -4,6 +4,7 @@ import React from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import Container from "../common/parent-container";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 class QrType {
   id: number;
@@ -132,6 +133,7 @@ const QrTypeData = [
 export default function QrTypes() {
   const [activeTab, setActiveTab] = React.useState(QrTypeData[0].id);
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   ///change tab using arrows
   const changeTab = (direction: "left" | "right") => {
@@ -342,8 +344,13 @@ export default function QrTypes() {
                     }
                   </motion.p>
 
-                <motion.a
-                  href={activeTab === 0 ? QrTypeData[0].contentUrlPath : "#"}
+                  <motion.button
+                  type="button"
+                  onClick={() => {
+                    const path = QrTypeData[activeTab - 1]?.contentUrlPath;
+                    console.log("My path",activeTab);
+                    if (path) router.push(path);
+                  }}
                   initial={{ opacity: 1, y: 2 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 1, y: 2 }}
@@ -351,7 +358,8 @@ export default function QrTypes() {
                   className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-3 px-8 w-full text-center desktop:w-auto inline-block transition-all duration-300 ease-linear"
                 >
                   Create QR code
-                </motion.a>
+                </motion.button>
+
 
                   {/* Arrow buttons */}
                   <div className="flex flex-row justify-center desktop:justify-start items-center pt-8 gap-4">

@@ -1,7 +1,7 @@
 "use client";
 import Container from "../../components/common/parent-container";
 import SignUpElements from "../../components/signup/sign-up-element";
-import SignUpReadyQr from "../../components/signup/sign-up-ready-qr"
+import SignUpReadyQr from "../../components/signup/sign-up-ready-qr";
 
 
 export default function SignupBody() {

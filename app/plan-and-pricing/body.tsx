@@ -119,7 +119,7 @@ export default function SmartQRPlanSelection() {
             </div>
 
             {/* Right Column */}
-            <div className="w-full desktop:w-[456px] mt-[32px] desktop:mt-0 flex justify-center">
+            <div className="w-full desktop:w-full mt-[32px] desktop:mt-0 flex justify-center">
               <PlanAndPricingRightPannelp />
             </div>
 

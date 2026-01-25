@@ -102,11 +102,11 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
               <span className="hidden desktop:inline">{step.label}</span>
 
               {/* Mobile view */}
-              <span className="desktop:hidden">
+             { <span className="desktop:hidden">
                 {useMobileSteps
 ?                 step.label.split(" ").pop() : step.label
                 }
-              </span>
+              </span>}
 
             </span>
           </button>
