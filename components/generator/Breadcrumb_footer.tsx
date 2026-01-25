@@ -50,7 +50,7 @@ export default function BreadcrumbFooter() {
     }
   };
 
-  const handleTabChange = (tab: "preview" | "qrCode") => {
+  const handleTabChange = (tab: "preview" | "qrcode") => {
     dispatch(setActiveTab(tab));
   };
 
