@@ -1,4 +1,7 @@
-const Swap = () => {
+import React from "react";
+
+// Accept all SVG props including className
+const Swap = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,6 +9,7 @@ const Swap = () => {
       height="19"
       viewBox="0 0 18 19"
       fill="none"
+      {...props} // <- spread props here
     >
       <path
         fillRule="evenodd"
