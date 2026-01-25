@@ -252,8 +252,8 @@ export default function SignUpReadyQr({ showOnMobile = false }: ReadyQrProps) {
                 : "#000000"
           }
           frameColor={frameColor}
-          width={220}
-          height={220}
+          width={180}
+          height={180}
         >
           <svg width="40" height="40" viewBox="0 0 300 300">
             <g ref={mobileQrRef} />
