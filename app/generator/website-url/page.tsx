@@ -44,7 +44,7 @@ export default function WebsiteUrlPage() {
     dispatch(setQrCodeName(value));
   };
 
-  const handleTabChange = (tab: "preview" | "qrCode") => {
+  const handleTabChange = (tab: "preview" | "qrcode") => {
     dispatch(setActiveTab(tab));
   };
 
