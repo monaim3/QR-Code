@@ -44,7 +44,7 @@ export default function DesignCustomize() {
       >
         <div className="space-y-8">
           {/* Color palette */}
-          <div className="flex justify-between items-center self-stretch">
+          <div className="flex justify-between items-center self-stretch w-full">
             {palette.map((item, index) => (
               <ColorBtn
                 key={index}
@@ -55,12 +55,15 @@ export default function DesignCustomize() {
           </div>
 
           {/* Color Picker */}
-          <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex items-end gap-4">
+          <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex items-end gap-4 w-full">
             <ColorPicker label="Primary color" color={"#6594FF"} />
 
-            <button className="p-2 w-10 h-12">
-              <SwapHorizontal />
-            </button>
+            <div className="flex w-10 h-12 items-center gap-2">
+              <button className="flex items-center gap-2 p-2 flex-1">
+                <SwapHorizontal />
+              </button>
+            </div>
+
             <ColorPicker label="Secondary color" color={"#FFFFFF"} />
           </div>
         </div>
