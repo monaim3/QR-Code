@@ -51,11 +51,11 @@ export default function DropDownFilter({
       : "";
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative desktopDashboard:w-auto w-full" ref={dropdownRef}>
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 self-stretch h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] bg-white hover:ring-[var(--Boarder-Grey)] hover:ring-2 transition-colors"
+        className="flex items-center justify-between gap-2 self-stretch h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] bg-white hover:ring-[var(--Boarder-Grey)] hover:ring-2 transition-colors desktopDashboard:w-auto w-full"
       >
         <div className="flex items-center gap-2">
           {selected.length > 0 && (

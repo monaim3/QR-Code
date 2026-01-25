@@ -5,7 +5,7 @@ import ScanEye from "@/components/icons/scan-eye";
 
 export default function KPIs() {
   return (
-    <div className="flex items-start gap-6 self-stretch">
+    <div className="flex flex-col desktopDashboard:flex-row items-start desktopDashboard:gap-6 gap-2 self-stretch">
       <KPICard icon={QrCode} title="Total number of QR codes" value="35" />
       <KPICard
         icon={Scan}

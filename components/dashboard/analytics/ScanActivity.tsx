@@ -44,7 +44,7 @@ export default function ScanActivity() {
   return (
     <div className="flex flex-col items-center justify-center gap-8 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] p-6 relative">
       {/* Heading */}
-      <div className="w-full flex items-start gap-4 self-stretch">
+      <div className="w-full flex flex-col desktopDashboard:flex-row tablet:flex-row items-start gap-4 self-stretch">
         <div className="flex flex-col items-start gap-1 flex-1">
           <h4 className="text-[var(--Black)] font-bold text-[18px] leading-[26px]">
             Scan activity
@@ -54,7 +54,7 @@ export default function ScanActivity() {
           </p>
         </div>
 
-        <div className="flex justify-end items-center gap-2">
+        <div className="flex desktopDashboard:justify-end items-center gap-2 flex-wrap">
           <Chip
             label="Day"
             selectedPeriod={selectedPeriod}
@@ -133,14 +133,14 @@ export default function ScanActivity() {
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="flex flex-col items-center gap-4 w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <LineChart1 />
 
-            <div className="flex flex-col items-center gap-1">
+            <div className="flex flex-col items-center gap-1 font-roboto">
               <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
                 No data to display
               </h4>
-              <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
+              <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px]">
                 Not enough data to show statistics
               </p>
             </div>

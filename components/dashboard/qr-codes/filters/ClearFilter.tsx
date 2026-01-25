@@ -3,11 +3,18 @@ import FilterAlt from "@/components/icons/filter-alt";
 interface Props {
   disabled?: boolean;
   onClick: () => void;
+  isHidden?: boolean;
 }
 
-export default function ClearFilter({ disabled = false, onClick }: Props) {
+export default function ClearFilter({
+  disabled = false,
+  onClick,
+  isHidden = true,
+}: Props) {
   return (
-    <div className="desktopDashboard:flex flex-col items-end flex-1 ml-auto hidden">
+    <div
+      className={`flex-col items-end flex-1 ml-auto  ${isHidden && "desktopDashboard:flex hidden"}`}
+    >
       <button
         className={`inline-flex justify-end items-center gap-2 ${
           disabled

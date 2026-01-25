@@ -15,7 +15,7 @@ export default function KPICard({
   highlight,
 }: Props) {
   return (
-    <div className="flex items-start gap-4 flex-1 p-6 rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] bg-white">
+    <div className="flex items-start gap-4 flex-1 p-6 rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] bg-white w-full desktopDashboard:w-auto">
       {/* Icon */}
       <div className="flex items-center justify-center p-2 bg-[var(--Blue)] w-10 h-10 rounded-[var(--Corner-Radius-8)]">
         <Icon className="text-white" />
