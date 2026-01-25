@@ -59,10 +59,10 @@ export default function InputField({
             isFocused
               ? "border-[var(--Blue)] ring-2 ring-[var(--Blue)]"
               : error
-              ? "border-red-500"
+              ? "border-[var(--error)] ring-2 ring-[var(--error)]"
               : "border-[var(--Boarder-Grey)]"
           }
-          rounded-xl
+          rounded-[10px]
           focus:outline-none
           focus:ring-2
           focus:ring-[var(--Blue)]

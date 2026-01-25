@@ -50,13 +50,13 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
 
     return (
         <div className="flex flex-col w-full desktop:w-1/2 max-h-full desktop:pr-8">
-          <p className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
+          <h1 className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
             Create a FREE account to download, edit and manage your QR codes
-          </p>
+          </h1>
 
-          <h3 className="mt-2 text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
+          <p className="mt-2 text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
             Join millions of users already using the smartest QR Code Generator!
-          </h3>
+          </p>
 
           {/* Form */}
           <form 
@@ -66,7 +66,7 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
               name="email"
               control={control}
               render={({ field, fieldState }) => (
-                <>
+                <div className="flex flex-col gap-1">
                   <InputField
                     value={field.value}
                     onChange={field.onChange}
@@ -76,9 +76,9 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
                     error={!!fieldState.error}
                   />
                   {fieldState.error && (
-                    <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                    <span className="text-[var(--error)] text-[12px] leading-[20px]">{fieldState.error.message}</span>
                   )}
-                </>
+                </div>
               )}
             />
 
@@ -86,7 +86,7 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
               name="password"
               control={control}
               render={({ field, fieldState }) => (
-                <>
+                <div className="flex flex-col gap-1">
                   <InputField
                     value={field.value}
                     onChange={field.onChange}
@@ -105,9 +105,9 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
                     error={!!fieldState.error}
                   />
                   {fieldState.error && (
-                    <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                    <span className="text-[var(--error)] text-[12px] leading-[20px]">{fieldState.error.message}</span>
                   )}
-                </>
+                </div>
               )}
             />
 

@@ -126,7 +126,7 @@ export default function WebsiteUrlPage() {
                                 onFocus={() => setIsUrlFocused(true)}
                                 onBlur={handleUrlBlur}
                                 placeholder="e.g. www.mywebsite.com"
-                                className={`w-full px-2 py-3 placeholder:px-2 font-roboto rounded-lg border transition-colors outline-none ${
+                                className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
                                   urlError
                                     ? "border-red-500 focus:border-red-500"
                                     : isUrlFocused

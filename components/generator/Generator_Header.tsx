@@ -37,7 +37,7 @@ export default function GeneratorHeader({ className, priceAndPlan = false, hideI
                 <Breadcrumb priceAndPlanSteps={priceAndPlan}/>
               </div>
               {priceAndPlan ?
-               <div className="block md:hidden">
+               <div className="block desktop:hidden">
                 <CurrencySelector/> 
                </div>
                 : <div/>
@@ -47,13 +47,6 @@ export default function GeneratorHeader({ className, priceAndPlan = false, hideI
           </div>
         </Container>
       </div>
-      {/* {<div className="bg-[var(--Generator-Background)]">
-        <Container>
-          <div className="md:hidden ">
-            <Breadcrumb />
-          </div>
-        </Container>
-      </div>} */}
 
       {/* Help Pop Up */}
       <HelpPopUp open={helpPopUpOpen} onClose={handleCloseHelpPopUp} />
