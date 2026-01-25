@@ -13,7 +13,7 @@ export default function ColorPicker({ label, color }: Props) {
       <div className="flex h-12 items-center gap-2 self-stretch px-4 py-2 rounded-[var(--Corner-Radius-10)] border border-[var(--Boarder-Grey)] bg-white">
         <input
           type="text"
-          className="text-[var(--Black)] text-[16px] leading-[24px] flex-1 focus:outline-none"
+          className="text-[var(--Black)] text-[16px] leading-[24px] flex-1 focus:outline-none w-full"
           defaultValue={color}
           maxLength={7}
         />

@@ -37,7 +37,7 @@ export default function AboutAccordion({
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            key="about"
+            key="about-accordion-content"
             initial={{ height: 0, opacity: 0 }}
             animate={{
               height: "auto",
@@ -68,9 +68,13 @@ export default function AboutAccordion({
                 },
               },
             }}
-            className="p-6 space-y-4"
+            className="overflow-hidden"
           >
-            {children}
+            {isOpen && (
+              <div className="p-6 space-y-4">
+                {children}
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
