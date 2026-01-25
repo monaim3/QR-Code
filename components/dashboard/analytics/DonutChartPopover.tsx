@@ -24,7 +24,7 @@ export default function DonutChartPopover({ data }: Props) {
         </button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-[568px] h-auto p-6 flex flex-col gap-6 bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] absolute -right-[80px] bottom-0"
+        className="desktopDashboard:w-[568px] w-auto min-w-[292px] h-auto p-6 flex flex-col gap-6 bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] absolute desktopDashboard-right-[80px] bottom-0"
         align="start"
       >
         <div className="flex items-center gap-6 self-stretch">
@@ -37,7 +37,7 @@ export default function DonutChartPopover({ data }: Props) {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-1">
+        <div className="grid desktopDashboard:grid-cols-2 grid-cols-1 gap-x-8 gap-y-1">
           {data?.map((item, i) => (
             <div key={i} className="flex justify-between items-center gap-4">
               <div className="flex items-center gap-2 flex-1 min-w-0">

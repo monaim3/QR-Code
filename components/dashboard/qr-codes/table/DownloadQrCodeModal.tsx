@@ -104,7 +104,7 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
 
           <div className="flex flex-col gap-2 self-stretch">
             <div className="flex items-center justify-between gap-2 py-2 px-4 flex-1 self-stretch rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]">
-              <p className="text-[var(--Black)] font-roboto text-[14px] leading-[22px]">
+              <p className="text-[var(--Black)] font-roboto text-[14px] leading-[22px] truncate">
                 {url}
               </p>
 

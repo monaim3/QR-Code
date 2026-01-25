@@ -126,7 +126,7 @@ export default function QrCodes() {
       </div>
 
       {/* Notification Banner */}
-      <div className="flex flex-col items-start desktopDashboard:gap-0 gap-2 self-stretch desktopDashboard:my-[20px] my-0">
+      <div className="flex flex-col items-start desktopDashboard:gap-0 gap-2 self-stretch desktopDashboard:my-[20px] my-3">
         <SubscribeBanner />
         <ReviewBanner />
       </div>

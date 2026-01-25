@@ -15,9 +15,9 @@ export default function Analytics() {
       </div>
 
       {/* Notification Banner */}
-      <div className="my-[20px]"></div>
+      <div className="flex flex-col items-start desktopDashboard:gap-0 gap-2 self-stretch desktopDashboard:my-[20px] my-3"></div>
 
-      <div className="flex flex-col items-start gap-6 self-stretch w-full">
+      <div className="flex flex-col items-start desktopDashboard:gap-6 gap-4 self-stretch w-full">
         {/* Filter */}
         <AnalyticsFilter />
 
