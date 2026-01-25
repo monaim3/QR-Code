@@ -15,7 +15,7 @@ export default function ForgetPasswordBody(){
 
     return (
         <Container className="flex flex-col items-center justify-center min-h-screen">
-            <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card w-[350px] desktop:w-[400px] h-[288px] p-[24px] desktop:p-[32px]">
+            <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card m-w-[350px] desktop:m-w-[400px]  p-[24px] desktop:p-[32px]">
                 <p className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--black)] center">
                  Recover password
                 </p>
@@ -35,7 +35,7 @@ export default function ForgetPasswordBody(){
                  {/* send link Button */}
                 <button
                  onClick={handleSubmit}
-                 className="mt-[16px] w-full desktop:w-[336px] h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-200"
+                 className="mt-[16px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-200"
                 >
                  Send reset link
                 </button>

@@ -262,7 +262,7 @@ export default function SignUpReadyQr({ showOnMobile = false }: ReadyQrProps) {
       )}
     </div>
   </div>
-</div>
+      </div>
 
       <div className="w-full px-[0px]">
         <div className="w-full h-[1px] bg-[#CDD0DB80]"></div>
