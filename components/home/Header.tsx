@@ -8,12 +8,57 @@ import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown";
 import CurrenctSelector from '@/components/common/currency_dropdown';
 
+class HeaderOptions{
+  id: number;
+  title: string;
+  path: string;
+
+  constructor(
+      id: number,
+      title: string,
+      path: string,
+  ){
+      this.id = id;
+      this.title = title;
+      this.path = path;
+  }
+}
+
+const Options = [
+  new HeaderOptions(
+      1,
+      "QR Code Generator",
+      "/#",
+  ),
+  new HeaderOptions(
+      2,
+      "FAQ",
+      "/#",
+  ),
+  new HeaderOptions(
+      3,
+      "Prices",
+      "/#",
+  ),
+  new HeaderOptions(
+      4,
+      "About us",
+      "/#",
+  ),
+  new HeaderOptions(
+      5,
+      "Contact us",
+      "/#",
+  ),
+]
+
 interface HeaderProps{
   className?: string;
   languageDropDown?: boolean;
+  showOptions?: boolean;
 }
 
-export default function Header({ className = "", languageDropDown = false}: HeaderProps) {
+export default function Header({ className = "", languageDropDown = false, showOptions = false}: HeaderProps) {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -39,6 +84,23 @@ export default function Header({ className = "", languageDropDown = false}: Head
           <div className="flex items-center gap-4 ml-auto">
             {/* Desktop Right side actions */}
           <div className="hidden desktop:flex items-center gap-4">
+            {/* header option */}
+            <div className={`${showOptions ? "block" : "hidden"}`}>
+            {Options.map((option) => {
+                return (
+                    <Link
+                    key={option.id}
+                    href={option.path}
+                    className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:text-[var(--Blue)]"
+                    >
+                    {option.title}
+                    </Link>
+                );
+            })}
+            </div>
+            <div className="h-[18px] w-[1px] bg-[var(--Boarder-Grey)]">
+
+            </div>
              <LanguageSelector/>
             {/* Log in Button */}
             <Link
