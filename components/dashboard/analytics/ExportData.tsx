@@ -30,7 +30,7 @@ export default function ExportData() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="items-center justify-center h-10 py-2 px-4 rounded-[var(--Corner-Radius-10)] border border-[var(--Boarder-Grey)] bg-white shadow-[0_1px_4px_0_rgba(63,72,103,0.16)] desktopDashboard:flex hidden"
+        className="items-center justify-center gap-2 h-10 py-2 px-4 rounded-[var(--Corner-Radius-10)] border border-[var(--Boarder-Grey)] bg-white shadow-[0_1px_4px_0_rgba(63,72,103,0.16)] desktopDashboard:flex hidden"
       >
         <Download className="text-[var(--Dark-gray)]" />
         <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
@@ -80,7 +80,7 @@ export default function ExportData() {
 
         {/* Drawer Content */}
         <div
-          className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+          className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out max-h-[90vh] overflow-y-auto ${isOpen ? "translate-y-0" : "translate-y-full"}`}
         >
           <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
             <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
