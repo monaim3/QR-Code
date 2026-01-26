@@ -12,7 +12,7 @@ export default function Input({
   type = "text",
 }: Props) {
   return (
-    <div className="flex flex-col gap-2 flex-1">
+    <div className="flex flex-col gap-2 flex-1 w-full">
       <label
         htmlFor={id}
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"

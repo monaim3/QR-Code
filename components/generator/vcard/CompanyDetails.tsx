@@ -9,7 +9,7 @@ interface Props {
 export default function CompanyDetails({ onClick, isOpen }: Props) {
   return (
     <AboutAccordion title="Company details" isOpen={isOpen} onClick={onClick}>
-      <div className="flex items-start gap-8 flex-1">
+      <div className="flex desktop:flex-row flex-col items-start gap-8 flex-1">
         <Input
           label="Company name"
           placeholder="e.g. My company"

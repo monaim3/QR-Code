@@ -16,7 +16,7 @@ export default function SocialInputCard({ channelId, handleDelete }: Props) {
   return (
     <div
       key={channelId}
-      className="flex p-4 items-center gap-4 self-stretch rounded-[var(--Corner-Radius-10)] bg-[var(--light-grey-70)]"
+      className="flex desktop:flex-row flex-col p-4 desktop:items-center gap-4 self-stretch rounded-[var(--Corner-Radius-10)] bg-[var(--light-grey-70)]"
     >
       <div className="flex items-center gap-2 w-[280px]">
         <ChannelIcon />
@@ -25,11 +25,11 @@ export default function SocialInputCard({ channelId, handleDelete }: Props) {
         </p>
       </div>
 
-      <div className="flex items-start gap-2 flex-1">
+      <div className="flex items-start gap-2 flex-1 w-full desktop:w-auto">
         <input
           type="url"
           placeholder="e.g. https://social-media.com"
-          className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1"
+          className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"
         />
 
         <button

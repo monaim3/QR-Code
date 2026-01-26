@@ -44,7 +44,7 @@ export default function DesignCustomize() {
       >
         <div className="space-y-8">
           {/* Color palette */}
-          <div className="flex justify-between items-center self-stretch w-full">
+          <div className="flex justify-between items-center gap-4 self-stretch w-full overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
             {palette.map((item, index) => (
               <ColorBtn
                 key={index}
@@ -55,12 +55,18 @@ export default function DesignCustomize() {
           </div>
 
           {/* Color Picker */}
-          <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex items-end gap-4 w-full">
+          <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
             <ColorPicker label="Primary color" color={"#6594FF"} />
 
-            <div className="flex w-10 h-12 items-center gap-2">
+            <div className="flex desktop:w-10 desktop:h-12 items-center gap-2 py-2 desktop:py-0">
               <button className="flex items-center gap-2 p-2 flex-1">
-                <SwapHorizontal />
+                <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktop:hidden">
+                  Swap the colours
+                </span>
+
+                <div className="rotate-90 desktop:rotate-0">
+                  <SwapHorizontal />
+                </div>
               </button>
             </div>
 

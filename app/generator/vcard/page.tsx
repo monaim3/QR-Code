@@ -11,19 +11,20 @@ export default function GeneratorVCard() {
     <main className="bg-[var(--Generator-Background)] min-h-screen">
       <Container className="flex flex-col desktop:flex-row gap-8 lg:pb-32">
         {/* Content */}
-        <div className="flex flex-col items-start gap-4 pt-[120px] pb-[160px] px-0 flex-1">
-          {/* Mobile Breadcrumb */}
-          <div className="block desktop:hidden space-y-0 desktop:space-y-4">
-            {<Breadcrumb useMobileSteps={true} />}
-          </div>
-
+        <div className="flex flex-col items-start gap-4 desktop:pt-[120px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
-          <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)]">
+          <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
             Add content to the vCard QR code
           </h3>
+          <div className="w-full">
+            {/* Mobile Breadcrumb */}
+            <div className="block desktop:hidden space-y-0 desktop:space-y-4">
+              {<Breadcrumb useMobileSteps={true} />}
+            </div>
 
-          {/* Design & Customize */}
-          <DesignCustomize />
+            {/* Design & Customize */}
+            <DesignCustomize />
+          </div>
 
           {/* About */}
           <About />

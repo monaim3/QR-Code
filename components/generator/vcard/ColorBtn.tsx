@@ -14,7 +14,7 @@ export default function ColorBtn({
   return (
     <button
       onClick={onClick}
-      className={`w-[104px] p-2 flex items-center gap-1 rounded-[var(--Corner-Radius-10)] ${isActive ? "border-2 border-[var(--Blue)]" : "border border-[var(--Boarder-Grey)]"}`}
+      className={`w-[104px] p-2 flex items-center gap-1 rounded-[var(--Corner-Radius-10)] shrink-0 ${isActive ? "ring-2 ring-[var(--Blue)]" : "ring-1 ring-[var(--Boarder-Grey)]"}`}
     >
       <div
         className="h-8 flex-1 rounded-[var(--Corner-Radius-8)] border"

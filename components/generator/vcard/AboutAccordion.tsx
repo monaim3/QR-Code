@@ -17,7 +17,7 @@ export default function AboutAccordion({
   return (
     <div>
       <div
-        className={`flex items-center gap-2 self-stretch p-6 cursor-pointer rounded-[var(--Corner-Radius-10)] transition-all duration-300 ${
+        className={`flex items-center gap-2 self-stretch desktop:p-6 p-4 cursor-pointer rounded-[var(--Corner-Radius-10)] transition-all duration-300 ${
           isOpen ? "bg-white" : "bg-[var(--light-grey-70)]"
         }`}
         onClick={onClick}
@@ -71,9 +71,7 @@ export default function AboutAccordion({
             className="overflow-hidden"
           >
             {isOpen && (
-              <div className="p-6 space-y-4">
-                {children}
-              </div>
+              <div className="desktop:p-6 p-4 space-y-4">{children}</div>
             )}
           </motion.div>
         )}

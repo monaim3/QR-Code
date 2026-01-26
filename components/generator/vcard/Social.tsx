@@ -34,7 +34,7 @@ export default function Social() {
               Add social channels
             </p>
 
-            <div className="flex flex-wrap items-center content-center gap-4 self-stretch">
+            <div className="flex desktop:flex-wrap items-center content-center gap-4 self-stretch overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
               {socialChannels.map((channel) => (
                 <SocialBtn
                   key={channel.id}
