@@ -2,6 +2,7 @@ import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import About from "@/components/generator/vcard/About";
 import DesignCustomize from "@/components/generator/vcard/DesignCustomize";
+import Social from "@/components/generator/vcard/Social";
 
 export default function GeneratorVCard() {
   return (
@@ -24,6 +25,9 @@ export default function GeneratorVCard() {
 
           {/* About */}
           <About />
+
+          {/* Social */}
+          <Social />
         </div>
 
         {/* Preview */}
