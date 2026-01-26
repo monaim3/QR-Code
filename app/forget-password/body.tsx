@@ -3,14 +3,18 @@ import Container from "../../components/common/parent-container";
 import InputField from "../../components/common/input_filed";
 import { useState } from "react";
 import { Mail } from "lucide-react"
-import BackButtonWithText from "../../components/common/back_button_with_text"
+import BackButtonWithText from "../../components/common/back_button_with_text";
+import { useRouter } from "next/navigation";
+import CheckInboxModal from "../../components/modals/check-inbox-modal"
 
 export default function ForgetPasswordBody(){
-    
+    const router = useRouter();
     const [email, setEmail] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSubmit = () => {
-        alert(`Email: ${email}`);
+       setIsModalOpen(true);
+       //router.push("/otp-verify");
     };
 
     return (
@@ -39,6 +43,11 @@ export default function ForgetPasswordBody(){
                 >
                  Send reset link
                 </button>
+
+                <CheckInboxModal
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+               />
             </div>
             <div className="mt-[24px]">
              <BackButtonWithText/>

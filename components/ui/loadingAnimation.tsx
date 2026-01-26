@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoadingAnimation = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center m-h-full">
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes drawCircle {
           0% {
@@ -32,17 +32,17 @@ const LoadingAnimation = () => {
         }
 
         .circle-progress {
-          animation: drawCircle 2s ease-in-out forwards;
+          animation: drawCircle 1s ease-in-out forwards;
         }
 
         .checkmark-path {
-          animation: drawCheckmark 2s ease-in-out forwards;
+          animation: drawCheckmark 1s ease-in-out forwards;
         }
       `}} />
       
       <div className="relative w-16 h-16">
         <svg
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 m-w-full m-h-full"
           viewBox="0 0 100 100"
         >
           {/* Animated progress circle */}
@@ -53,7 +53,7 @@ const LoadingAnimation = () => {
             r="45"
             fill="none"
             stroke="#10b981"
-            strokeWidth="8"
+            strokeWidth="4"
             strokeLinecap="round"
             strokeDasharray="283"
             strokeDashoffset="283"
@@ -66,7 +66,7 @@ const LoadingAnimation = () => {
             d="M30 50 L45 65 L70 35"
             fill="none"
             stroke="#10b981"
-            strokeWidth="8"
+            strokeWidth="4"
             strokeLinecap="butt"
             strokeLinejoin="round"
             strokeDasharray="60"

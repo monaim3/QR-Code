@@ -17,10 +17,12 @@ const signUpSchema = z.object({
 type SignUpForm = z.infer<typeof signUpSchema>;
 
 interface SignUpProps{
-  socialRow?: boolean
+  socialRow?: boolean;
+  withRightPannel?: boolean;
+  paddingRight?: boolean;
 }
 
-export default function SignUpElements ({socialRow = false}: SignUpProps) {
+export default function SignUpElements ({socialRow = false, withRightPannel = true, paddingRight = true}: SignUpProps) {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -49,7 +51,7 @@ export default function SignUpElements ({socialRow = false}: SignUpProps) {
   // };
 
     return (
-        <div className="flex flex-col w-full desktop:w-1/2 max-h-full desktop:pr-8">
+        <div className={`flex flex-col w-full ${withRightPannel ? "desktop:w-1/2" : "desktop:w-full"} max-h-full ${paddingRight ? "desktop:pr-8" : "desktop:pr-0"}`}>
           <h1 className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
             Create a FREE account to download, edit and manage your QR codes
           </h1>

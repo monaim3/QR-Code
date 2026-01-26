@@ -7,22 +7,22 @@ export default function SignupDirectBody() {
 
   return (
     <Container
-      className="flex items-center justify-center min-h-screen px-4">
+      className="flex items-center justify-center pt-14 desktop:pt-[48px] pb-8 desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
       {/* Outer Card */}
       <div className="
-        w-full max-w-[488px]
+       w-full max-w-[488px]
         bg-white
         rounded-[12px]
-        p-[16px] desktop:p-[32px]
+        px-[16px] desktop:px-[32px]
+        pt-[32px] pb-[24px] desktop:pb-[32px]
         shadow-card
         flex flex-col desktop:flex-row
-        items-start justify-between
+        items-start
         overflow-hidden
       ">
-        {/* Left Panel */}
-       
-       <SignUpElements />
+      {/* Left Panel */}
+       <SignUpElements withRightPannel={false} paddingRight={false}/>
       </div>
       </div>
     </Container>

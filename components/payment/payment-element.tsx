@@ -6,8 +6,9 @@ import Paypal from "../icons/pay-pal";
 import ApplePay from "../icons/apple-pay";
 import SecurityCheck from "../icons/security-check";
 import Nortion from "../icons/nortion";
-import ArrowRight from "../icons/arrow-right"
-import PayPalText from "../icons/paypal-text"
+import ArrowRight from "../icons/arrow-right";
+import PayPalText from "../icons/paypal-text";
+import { useRouter } from "next/navigation";
 
 type PaymentMethod = {
   id: "card" | "gpay" | "paypal" | "applepay";
@@ -19,6 +20,7 @@ type PaymentMethod = {
 };
 
 export default function CheckoutElement() {
+  const router = useRouter();
   const [selectedMethod, setSelectedMethod] =
     useState<PaymentMethod["id"]>("card");
 
@@ -68,6 +70,10 @@ export default function CheckoutElement() {
       setCvv(value);
     }
   };
+
+  function handleSuccess(){
+    router.push("/checkout/congratulation");
+  }
 
   return (
     <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
@@ -239,6 +245,7 @@ export default function CheckoutElement() {
 
         {/* Submit */}
        {selectedMethod === "card" && (<button
+          onClick={handleSuccess}
           type="button"
           className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] 
             text-white font-semibold text-[18px] rounded-[10px] transition-colors"

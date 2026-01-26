@@ -47,7 +47,7 @@ export default function SignupV2Body() {
       </div>
       <div className="px-[20px] desktop:px-0 pt-[56px] desktop:pt-[149px]">
         <div className="shadow-card md:shadow-none p-[16px] md:p-0 rounded-[10px]">
-        <SignUpElements socialRow={true} />
+        <SignUpElements socialRow={true} withRightPannel={false} />
       </div>
       </div>
       <div className="h-[120px]"></div>

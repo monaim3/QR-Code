@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Container from "../../components/common/parent-container";
 import BackButtonWithText from "../../components/common/back_button_with_text"
 import Link from "next/link";
-import CreatePasswordModal from "../../components/common/modal"
+import CreatePasswordModal from "../../components/modals/forget-password-modal"
 
 export default function TwoFactorAuthPage() {
   const router = useRouter();

@@ -8,7 +8,7 @@ export default function SignupBody() {
 
   return (
     <Container
-      className="flex items-center justify-center px-4 pt-14 desktop:pt-[48px] pb-8 desktop:pb-[160px]">
+      className="flex items-center justify-center pt-14 desktop:pt-[48px] pb-8 desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
       {/* Outer Card */}
       <div className="
