@@ -2,7 +2,9 @@ import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import About from "@/components/generator/vcard/About";
 import DesignCustomize from "@/components/generator/vcard/DesignCustomize";
+import NameQrCode from "@/components/generator/vcard/NameQrCode";
 import Social from "@/components/generator/vcard/Social";
+import Welcome from "@/components/generator/vcard/Welcome";
 
 export default function GeneratorVCard() {
   return (
@@ -28,6 +30,12 @@ export default function GeneratorVCard() {
 
           {/* Social */}
           <Social />
+
+          {/* Welcome Screen */}
+          <Welcome />
+
+          {/* Name */}
+          <NameQrCode />
         </div>
 
         {/* Preview */}
