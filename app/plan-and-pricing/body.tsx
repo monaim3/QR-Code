@@ -128,9 +128,12 @@ export default function SmartQRPlanSelection() {
         </main>
         </div>
          <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
-          <button   className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
+          <button 
+          type="button"
+          onClick={handleContinue}
+           className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
             Continue
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5"/>
           </button>
         </div>
       </Container>

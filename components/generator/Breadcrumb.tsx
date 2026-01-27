@@ -88,7 +88,7 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
                   : "border border-[#D3D8EB] text-[#79809A]"
               }`}
             >
-              {step.number < currentStep ? <CheckIcon /> : step.number}
+              {step.number < currentStep ? <CheckIcon fill="#79809A"/> : step.number}
             </div>
 
             <span

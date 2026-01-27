@@ -36,13 +36,12 @@ export default function GeneratorHeader({ className, priceAndPlan = false, hideI
               <div className="hidden desktop:flex flex-1 justify-end">
                 <Breadcrumb priceAndPlanSteps={priceAndPlan}/>
               </div>
-              {priceAndPlan ?
-               <div className="block desktop:hidden">
+              <div className={`${priceAndPlan ? "block desktop:hidden" : "hidden"}`}>
                 <CurrencySelector/> 
-               </div>
-                : <div/>
-               }
-               {!hideInfo ? <HelpIcon onClick={handleOpenHelpPopUp} /> : <div/>}
+              </div>
+              <div className={`${!hideInfo ? "block" : "hidden"}`}>
+              <HelpIcon onClick={handleOpenHelpPopUp} />
+              </div>
             </div>
           </div>
         </Container>

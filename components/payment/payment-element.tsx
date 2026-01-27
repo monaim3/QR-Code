@@ -260,12 +260,15 @@ export default function CheckoutElement() {
           <span className="text-[var-(--Grey)]"> . Your payment will appear as "Myqrcode.com" on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at </span>
           <span className="text-[var(--Blue)]">  support@myqrcode.com</span>
           <span className="text-[var-(--Grey)]"> or call us at +1-631-892-9925.</span>
-          </p>
+        </p>
         </div>
         <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
-          <button className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
+          <button 
+           type="button"
+           onClick={handleSuccess}
+           className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
             Continue
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5"/>
           </button>
         </div>
     </div>
