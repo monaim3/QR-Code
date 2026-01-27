@@ -1,5 +1,7 @@
 import TrashAlt from "@/components/icons/trash-alt";
 import { socialChannels } from "@/lib/socialChannels";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { updateSocialChannelUrl } from "@/store/slices/vCardSlice";
 
 interface Props {
   channelId: string;
@@ -7,11 +9,21 @@ interface Props {
 }
 
 export default function SocialInputCard({ channelId, handleDelete }: Props) {
+  const dispatch = useAppDispatch();
+  const vCard = useAppSelector((state) => state.vCard);
   const channel = socialChannels.find((channel) => channel.id === channelId);
 
   if (!channel) return null;
 
   const ChannelIcon = channel.icon;
+  const socialChannel = vCard.socialChannels.find(
+    (ch) => ch.name === channel.name,
+  );
+  const url = socialChannel?.url || "";
+
+  const handleUrlChange = (value: string) => {
+    dispatch(updateSocialChannelUrl({ name: channel.name, url: value }));
+  };
 
   return (
     <div
@@ -29,6 +41,8 @@ export default function SocialInputCard({ channelId, handleDelete }: Props) {
         <input
           type="url"
           placeholder="e.g. https://social-media.com"
+          value={url}
+          onChange={(e) => handleUrlChange(e.target.value)}
           className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"
         />
 

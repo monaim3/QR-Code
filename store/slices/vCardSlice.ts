@@ -137,6 +137,59 @@ const vCardSlice = createSlice({
     setQrCodeName: (state, action: PayloadAction<string>) => {
       state.qrCodeName = action.payload;
     },
+    addAltPhoneNumber: (state) => {
+      state.contactDetails.altPhoneNumbers.push("");
+    },
+    removeAltPhoneNumber: (state, action: PayloadAction<number>) => {
+      state.contactDetails.altPhoneNumbers.splice(action.payload, 1);
+    },
+    updateAltPhoneNumber: (
+      state,
+      action: PayloadAction<{ index: number; value: string }>,
+    ) => {
+      state.contactDetails.altPhoneNumbers[action.payload.index] =
+        action.payload.value;
+    },
+    addAltEmail: (state) => {
+      state.contactDetails.altEmails.push("");
+    },
+    removeAltEmail: (state, action: PayloadAction<number>) => {
+      state.contactDetails.altEmails.splice(action.payload, 1);
+    },
+    updateAltEmail: (
+      state,
+      action: PayloadAction<{ index: number; value: string }>,
+    ) => {
+      state.contactDetails.altEmails[action.payload.index] =
+        action.payload.value;
+    },
+    addSocialChannel: (
+      state,
+      action: PayloadAction<{ name: string; url: string }>,
+    ) => {
+      const existingIndex = state.socialChannels.findIndex(
+        (channel) => channel.name === action.payload.name,
+      );
+      if (existingIndex === -1) {
+        state.socialChannels.push(action.payload);
+      }
+    },
+    removeSocialChannel: (state, action: PayloadAction<string>) => {
+      state.socialChannels = state.socialChannels.filter(
+        (channel) => channel.name !== action.payload,
+      );
+    },
+    updateSocialChannelUrl: (
+      state,
+      action: PayloadAction<{ name: string; url: string }>,
+    ) => {
+      const channel = state.socialChannels.find(
+        (channel) => channel.name === action.payload.name,
+      );
+      if (channel) {
+        channel.url = action.payload.url;
+      }
+    },
   },
 });
 
@@ -154,5 +207,14 @@ export const {
   setSocialChannels,
   setWelcomeScreen,
   setQrCodeName,
+  addAltPhoneNumber,
+  removeAltPhoneNumber,
+  updateAltPhoneNumber,
+  addAltEmail,
+  removeAltEmail,
+  updateAltEmail,
+  addSocialChannel,
+  removeSocialChannel,
+  updateSocialChannelUrl,
 } = vCardSlice.actions;
 export default vCardSlice.reducer;

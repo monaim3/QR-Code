@@ -3,23 +3,44 @@
 import Accordion from "@/components/common/Accordion";
 import { socialChannels } from "@/lib/socialChannels";
 import SocialBtn from "./SocialBtn";
-import { useState } from "react";
 import SocialInputCard from "./SocialInputCard";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  addSocialChannel,
+  removeSocialChannel,
+} from "@/store/slices/vCardSlice";
 
 export default function Social() {
-  const [activeChannels, setActiveChannels] = useState<string[]>(["facebook"]);
+  const dispatch = useAppDispatch();
+  const vCard = useAppSelector((state) => state.vCard);
 
   const handleChannelToggle = (channelId: string) => {
-    if (activeChannels.includes(channelId)) {
-      setActiveChannels(activeChannels.filter((id) => id !== channelId));
+    const channel = socialChannels.find((ch) => ch.id === channelId);
+    if (!channel) return;
+
+    const isActive = vCard.socialChannels.some(
+      (ch) => ch.name === channel.name,
+    );
+
+    if (isActive) {
+      dispatch(removeSocialChannel(channel.name));
     } else {
-      setActiveChannels([...activeChannels, channelId]);
+      dispatch(addSocialChannel({ name: channel.name, url: "" }));
     }
   };
 
   const handleDelete = (channelId: string) => {
-    setActiveChannels(activeChannels.filter((id) => id !== channelId));
+    const channel = socialChannels.find((ch) => ch.id === channelId);
+    if (channel) {
+      dispatch(removeSocialChannel(channel.name));
+    }
   };
+
+  const activeChannels = socialChannels
+    .filter((channel) =>
+      vCard.socialChannels.some((ch) => ch.name === channel.name),
+    )
+    .map((channel) => channel.id);
 
   return (
     <div className="w-full">
@@ -46,14 +67,19 @@ export default function Social() {
             </div>
           </div>
           <div className="space-y-2">
-            {activeChannels.length > 0 &&
-              activeChannels.map((channelId) => (
+            {vCard.socialChannels.map((socialChannel) => {
+              const channel = socialChannels.find(
+                (ch) => ch.name === socialChannel.name,
+              );
+              if (!channel) return null;
+              return (
                 <SocialInputCard
-                  key={channelId}
-                  channelId={channelId}
-                  handleDelete={() => handleDelete(channelId)}
+                  key={channel.id}
+                  channelId={channel.id}
+                  handleDelete={() => handleDelete(channel.id)}
                 />
-              ))}
+              );
+            })}
           </div>
         </div>
       </Accordion>
