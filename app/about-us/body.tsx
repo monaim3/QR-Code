@@ -9,6 +9,7 @@ import RestaurantIcon from "../../components/icons/restaurant";
 import AboutUsLeftelement from "../../components/about-us/left-elements";
 import OurMission from "../../components/about-us/our-mission";
 import CustomerReview from "../../components/home/customer_review";
+import GetInTouch from "../../components/about-us/get-in-touch";
 
 export default function AboutUsBody() {
   return (
@@ -106,6 +107,7 @@ export default function AboutUsBody() {
         <OurMission/>
         </div>
         <CustomerReview/>
+        <GetInTouch/>
         </div>
     </div>
   );
