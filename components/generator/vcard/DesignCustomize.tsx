@@ -79,7 +79,7 @@ export default function DesignCustomize() {
                 </span>
 
                 <div className="rotate-90 desktop:rotate-0">
-                  <SwapHorizontal />
+                  <SwapHorizontal className="text-[#79809A]" />
                 </div>
               </button>
             </div>

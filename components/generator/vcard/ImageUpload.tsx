@@ -5,6 +5,7 @@ import NextImage from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
 import UploadIcon from "@/components/icons/upload-icon";
+import ImageCropper from "./ImageCropper";
 
 interface ImageUploadProps {
   onCustomLogoUpload?: (logo: string | null) => void;
@@ -18,6 +19,7 @@ export default function ImageUpload({
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyLogo.svg");
   const [customLogo, setCustomLogo] = useState("");
+  const [isCropping, setIsCropping] = useState(true);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -81,6 +83,10 @@ export default function ImageUpload({
     }
   };
 
+  const handleClose = () => {
+    setIsCropping(false);
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
@@ -107,7 +113,7 @@ export default function ImageUpload({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               {customLogo && !uploadError && (
-                <div className="w-[72px] h-16 lg:w-20 lg:h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white flex-shrink-0">
+                <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white flex-shrink-0">
                   <NextImage
                     src={customLogo}
                     alt={fileName}
@@ -119,11 +125,11 @@ export default function ImageUpload({
                 </div>
               )}
               {uploadError && (
-                <div className="w-[72px] h-16 lg:w-20 lg:h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white flex-shrink-0">
+                <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white flex-shrink-0">
                   <UploadIcon />
                 </div>
               )}
-              <span className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
+              <span className="text-[16px] leading-[24px] font-medium text-[var(--Black)] hidden desktop:block">
                 {fileName}
               </span>
             </div>
@@ -131,7 +137,7 @@ export default function ImageUpload({
             <div className="flex items-center gap-2">
               <button
                 onClick={handleEdit}
-                className=" px-2.5 py-2.5  text-gray-700 hover:bg-gray-100 rounded-lg transition-colors border border-gray-300"
+                className="px-2.5 py-2.5  text-gray-700 hover:bg-gray-100 rounded-lg transition-colors border border-gray-300"
                 title="Edit"
               >
                 <LuPencil />
@@ -152,7 +158,7 @@ export default function ImageUpload({
             htmlFor="logo-upload"
             className="cursor-pointer flex gap-6 items-center"
           >
-            <div className="w-[72px] h-16 lg:w-20 lg:h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white">
+            <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white">
               <div className="w-full h-full flex items-center justify-center rounded-full bg-[#F7F9FC] p-4">
                 <UploadIcon />
               </div>
@@ -170,8 +176,16 @@ export default function ImageUpload({
         )}
       </div>
       {uploadError && (
-        <p className="text-[12px] leading-[20px] text-[var(--error)] mt-2">{uploadError}</p>
+        <p className="text-[12px] leading-[20px] text-[var(--error)] mt-2">
+          {uploadError}
+        </p>
       )}
+
+      <ImageCropper
+        open={isCropping}
+        onClose={handleClose}
+        onCropComplete={() => {}}
+      />
     </div>
   );
 }

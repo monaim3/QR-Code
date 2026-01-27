@@ -22,6 +22,15 @@ export default function PersonalInfo({ onClick, isOpen }: Props) {
     );
   };
 
+  const handleImageChange = (value: string | null) => {
+    dispatch(
+      setPersonalInfo({
+        ...vCard.personalInfo,
+        image: value,
+      }),
+    );
+  };
+
   return (
     <AboutAccordion
       title="Personal information"
@@ -36,7 +45,7 @@ export default function PersonalInfo({ onClick, isOpen }: Props) {
         onChange={handleFullNameChange}
       />
 
-      <ImageUpload />
+      <ImageUpload onCustomLogoUpload={handleImageChange} />
     </AboutAccordion>
   );
 }

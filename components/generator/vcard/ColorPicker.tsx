@@ -20,7 +20,7 @@ export default function ColorPicker({ label, color }: Props) {
         <input
           type="text"
           className="text-[var(--Black)] text-[16px] leading-[24px] flex-1 focus:outline-none w-full"
-          defaultValue={color}
+          value={color}
           maxLength={7}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}

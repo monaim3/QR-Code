@@ -28,7 +28,7 @@ export default function VCardPreview() {
                 alt="User"
                 width={100}
                 height={100}
-                className="object-contain"
+                className="w-full h-full object-cover rounded-full"
               />
             ) : (
               <User />
