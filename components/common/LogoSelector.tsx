@@ -138,8 +138,8 @@ const LogoSelector = ({
                 onClick={() => handleLogoSelect(logo)}
                 className={`w-10 h-10 rounded-md flex items-center justify-center transition-all p-1 ${
                   isSelected
-                    ? "bg-white border-2 border-blue-500"
-                    : "bg-white border border-gray-300 hover:border-gray-400"
+                    ? "bg-white border border-transparent ring-2 ring-[var(--Blue)]"
+                    : "bg-white  border border-gray-300 hover:border-gray-400 transition-all ease-linear duration-200"
                 }`}
               >
                 <IconComponent />

@@ -37,7 +37,13 @@ const QrCodeFrameAllInput = ({
       setFrameBackgroundColor(prevBgRef.current);
     }
   }, [transparentBg]);
+  const handleLocalSwap = () => {
+    if (transparentBg) return;
 
+    const temp = frameBackgroundColor;
+    setFrameBackgroundColor(frameTextColor);
+    setFrameTextColor(temp);
+  };
   return (
     <div className="!mt-0 md:!mt-0">
       <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4 desktop:p-6">
@@ -71,12 +77,9 @@ const QrCodeFrameAllInput = ({
             <button
               type="button"
               className="hidden lg:flex  h-12 w-12 items-center justify-center text-gray-500"
-              onClick={() => {
-                backgroundColor;
-                setFrameColor(backgroundColor);
-              }}
+              onClick={handleLocalSwap}
             >
-              <IoIosSwap className="text-2xl" onClick={handleSwapColors} />
+              <IoIosSwap className="text-2xl" />
             </button>
             <button
               type="button"
@@ -113,6 +116,7 @@ const QrCodeFrameAllInput = ({
           label="Transparent background"
           checked={transparentBg}
           onChange={setTransparentBg}
+          id="frame-transparent-bg"
         />
       </div>
     </div>

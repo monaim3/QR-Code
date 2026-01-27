@@ -32,7 +32,7 @@ export default function Accordion({
                     <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
                       {title}
                     </h3>
-                    <p className="text-sm leading-[22px] font-roboto text-[var(--Dark-gray)] text-left">
+                    <p className="text-sm leading-[22px] text-[var(--Dark-gray)] text-left">
                       {description}
                     </p>
                   </div>

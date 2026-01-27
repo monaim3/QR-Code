@@ -49,10 +49,11 @@ const QrCodeFrame16 = ({
         id="arrow"
         d="M6.096 77.37s-3.764-5.443-1.203-11.627C6.01 63.022 7.539 61.8 7.539 61.8l-1.478.361-.24-.878s2.939-.379 3.643-.258c-.584 1.292-.859 3.324-.859 3.324l-.842-.086.447-1.809s-2.458 2.326-3.077 5.581c-1.048 5.495 1.255 9.198 1.255 9.198z"
         fill={textColor}
+        transform="translate(10, 20) scale(0.6)"
       ></path>
       <text
         x="33"
-        y="75.7"
+        y="65.7"
         textAnchor="middle"
         dominantBaseline="middle"
         fontSize={getFontSize(label)}

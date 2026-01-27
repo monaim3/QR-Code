@@ -29,6 +29,7 @@ import {
   setCornerDotType,
   setSelectedLogo,
   setCustomLogo,
+  setPrevBackgroundColor,
 } from "@/store/slices/qrSlice";
 
 import { QRFrameArray } from "@/components/common/QRFrameArray";
@@ -37,6 +38,8 @@ import QRFrameGallery from "@/components/common/QRFrameGallery";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Swap from "@/components/icons/swap";
 import { getLogoComponent } from "@/lib/logoRegistry";
+import { set } from "date-fns";
+import { CheckboxInput } from "@/components/common/CheckboxInput";
 
 export default function QRCodeCustomize() {
   const dispatch = useAppDispatch();
@@ -47,7 +50,7 @@ export default function QRCodeCustomize() {
   const staticQrRef = useRef<HTMLDivElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
 
-  const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
+  const websiteUrl = useAppSelector((state: any) => state.preview.websiteUrl);
 
   const {
     selectedFrameIndex,
@@ -66,6 +69,7 @@ export default function QRCodeCustomize() {
     cornerDotType,
     selectedLogo,
     customLogo,
+    prevBackgroundColor,
   } = useAppSelector((state) => state.qr);
 
   const patternOptions = [
@@ -109,8 +113,8 @@ export default function QRCodeCustomize() {
 
             const svgData = new XMLSerializer().serializeToString(svg);
             const canvas = document.createElement("canvas");
-            canvas.width = 100;
-            canvas.height = 100;
+            canvas.width = 60;
+            canvas.height = 60;
             const ctx = canvas.getContext("2d");
 
             if (!ctx) {
@@ -122,7 +126,7 @@ export default function QRCodeCustomize() {
 
             ctx.fillStyle = "white";
             ctx.beginPath();
-            ctx.roundRect(0, 0, 100, 100, 15);
+            ctx.roundRect(0, 0, 80, 80, 15);
             ctx.fill();
 
             const img = new Image();
@@ -132,7 +136,7 @@ export default function QRCodeCustomize() {
             const url = URL.createObjectURL(svgBlob);
 
             img.onload = () => {
-              ctx.drawImage(img, 20, 20, 60, 60);
+              ctx.drawImage(img, 1, 1, 60, 60);
               URL.revokeObjectURL(url);
               const dataUrl = canvas.toDataURL("image/png");
               root.unmount();
@@ -176,20 +180,14 @@ export default function QRCodeCustomize() {
         backgroundOptions: {
           color: transparentBg ? "transparent" : backgroundColor,
         },
-        cornersSquareOptions:
-          cornerFrameStyle === "none"
-            ? undefined
-            : {
-                color: cornerFrameColor,
-                type: cornerFrameStyle as any,
-              },
-        cornersDotOptions:
-          cornerDotType === "none"
-            ? undefined
-            : {
-                color: cornerDotColor,
-                type: cornerDotType as any,
-              },
+        cornersSquareOptions: {
+          color: cornerFrameColor,
+          type: cornerFrameStyle === "none" ? "dot" : (cornerFrameStyle as any),
+        },
+        cornersDotOptions: {
+          color: cornerDotColor,
+          type: cornerDotType === "none" ? "dot" : (cornerDotType as any),
+        },
       };
 
       if (selectedLogo) {
@@ -273,12 +271,12 @@ export default function QRCodeCustomize() {
   const handleTransparentChange = (checked: boolean) => {
     setPatternTransparentBg(checked);
     if (checked) {
+      dispatch(setPrevBackgroundColor(backgroundColor));
       dispatch(setBackgroundColor("transparent"));
     } else {
-      dispatch(setBackgroundColor("#ffffff"));
+      dispatch(setBackgroundColor(prevBackgroundColor));
     }
   };
-
   return (
     <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
       <Container>
@@ -335,7 +333,7 @@ export default function QRCodeCustomize() {
                 defaultOpen={true}
               >
                 <div className="w-full">
-                  <label className="block text-lg font-bold text-gray-900">
+                  <label className="block text-lg font-bold leading-[26px] text-[#0A0909]">
                     Pattern style
                   </label>
                   <div className="flex gap-4 pt-4 overflow-x-auto lg:overflow-visible">
@@ -387,32 +385,25 @@ export default function QRCodeCustomize() {
                     <ColorInput
                       label="Background color"
                       value={
-                        backgroundColor === "transparent"
-                          ? "#ffffff"
-                          : backgroundColor
+                        patternTransparentBg ? "Transparent" : backgroundColor
                       }
-                      onChange={(color: string) =>
-                        dispatch(setBackgroundColor(color))
+                      onChange={
+                        patternTransparentBg
+                          ? undefined
+                          : (color: string) =>
+                              dispatch(setBackgroundColor(color))
                       }
-                      showColorIndicator
+                      showColorIndicator={!patternTransparentBg}
+                      id="pattern-background-color"
                     />
                   </div>
                   <div className="flex items-center gap-2 px-6 pb-4">
-                    <input
-                      type="checkbox"
-                      id="transparent-bg"
+                    <CheckboxInput
+                      label="Transparent background"
                       checked={patternTransparentBg}
-                      onChange={(e) =>
-                        handleTransparentChange(e.target.checked)
-                      }
-                      className="w-4 h-4 text-blue-600 rounded-md focus:ring-blue-500"
+                      onChange={handleTransparentChange}
+                      id="pattern-transparent-bg"
                     />
-                    <label
-                      htmlFor="transparent-bg"
-                      className="text-sm text-gray-700 font-Popins"
-                    >
-                      Transparent background
-                    </label>
                   </div>
                 </div>
               </Accordion>
@@ -424,7 +415,7 @@ export default function QRCodeCustomize() {
               >
                 <div className="flex flex-col lg:flex-row gap-6 desktop:gap-[72px]">
                   <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
-                    <label className="block text-lg font-bold text-gray-900">
+                    <label className="block text-base font-medium ">
                       Corner frames style
                     </label>
                     <div className="flex flex-row gap-4">
@@ -441,7 +432,7 @@ export default function QRCodeCustomize() {
                   </div>
 
                   <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
-                    <label className="block text-lg font-bold text-gray-900">
+                    <label className="block  text-base font-medium ">
                       Corner dots type
                     </label>
                     <div className="flex flex-row gap-4">
@@ -509,7 +500,7 @@ export default function QRCodeCustomize() {
 
               <Accordion
                 title="Logo"
-                description="Add a logo to your QR code"
+                description="Personalize your QR code by adding a logo or image"
                 defaultOpen={true}
               >
                 <LogoSelector

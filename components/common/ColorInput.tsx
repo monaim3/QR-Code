@@ -285,10 +285,14 @@ export default function ColorInput({
 
   const rgbStringToHex = (rgbString: string): string => {
     // Match rgb(r, g, b) or rgba(r, g, b, a) patterns
-    const match = rgbString.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/i);
+    const match = rgbString.match(
+      /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/i,
+    );
     if (!match) {
       // If it's already a hex value, return it
-      return rgbString.startsWith("#") ? rgbString.toUpperCase() : `#${rgbString.toUpperCase()}`;
+      return rgbString.startsWith("#")
+        ? rgbString.toUpperCase()
+        : `#${rgbString.toUpperCase()}`;
     }
 
     const r = parseInt(match[1], 10);
@@ -380,7 +384,7 @@ export default function ColorInput({
 
   return (
     <div className="w-full">
-      <label className="block text-base font-roboto font-medium text-gray-900 mb-2">
+      <label className="block text-base font-medium text-gray-900 mb-2">
         {label}
       </label>
       <div className="relative">
