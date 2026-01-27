@@ -84,7 +84,7 @@ export default function WebsiteUrlPage() {
                         <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
                           Website address
                         </h3>
-                        <p className="text-sm leading-[22px] font-roboto text-[var(--Dark-gray)]">
+                        <p className="text-sm leading-[22px] text-[var(--Dark-gray)]">
                           Enter the URL to which the QR code will link
                         </p>
                       </div>

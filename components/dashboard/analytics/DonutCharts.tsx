@@ -10,7 +10,7 @@ import DonutChartCard from "./DonutChartCard";
 
 export default function DonutCharts() {
   return (
-    <div className="grid gap-6 desktopDashboard:grid-cols-2 grid-cols-1 w-full">
+    <div className="grid gap-6 desktopDashboard:grid-cols-2 desktopMd:grid-cols-1 desktopLg:grid-cols-1 grid-cols-1 w-full">
       <DonutChartCard
         title={"Scans by operating system"}
         data={operatingSystemData}

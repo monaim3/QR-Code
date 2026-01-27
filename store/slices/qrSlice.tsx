@@ -10,6 +10,8 @@ interface QRState {
   dotColor: string;
   backgroundColor: string;
   transparentBg: boolean;
+  patternTransparentBg: boolean;
+  prevBackgroundColor: string;
   patternStyle: string;
   cornerFrameColor: string;
   cornerDotColor: string;
@@ -30,6 +32,8 @@ const initialState: QRState = {
   backgroundColor: "#ffffff",
   transparentBg: false,
   patternStyle: "square",
+  patternTransparentBg: false,
+  prevBackgroundColor: "#ffffff",
   cornerFrameColor: "#000000",
   cornerDotColor: "#000000",
   cornerFrameStyle: "square",
@@ -72,6 +76,12 @@ const qrSlice = createSlice({
     setPatternStyle: (state, action: PayloadAction<string>) => {
       state.patternStyle = action.payload;
     },
+    setPrevBackgroundColor: (state, action: PayloadAction<string>) => {
+      state.prevBackgroundColor = action.payload;
+    },
+    setTranspatternTransparentBg: (state, action: PayloadAction<boolean>) => {
+      state.patternTransparentBg = action.payload;
+    },
     setCornerFrameColor: (state, action: PayloadAction<string>) => {
       state.cornerFrameColor = action.payload;
     },
@@ -103,7 +113,9 @@ export const {
   setDotColor,
   setBackgroundColor,
   setTransparentBg,
+  setPrevBackgroundColor,
   setPatternStyle,
+  setTranspatternTransparentBg,
   setCornerFrameColor,
   setCornerDotColor,
   setCornerFrameStyle,

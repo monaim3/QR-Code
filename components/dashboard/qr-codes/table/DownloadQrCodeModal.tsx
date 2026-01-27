@@ -46,7 +46,7 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
-        className={`!max-w-[500px] w-[calc(100%-40px)] tablet:!w-full desktopDashboard:!w-full p-0 gap-0 ${message ? "desktopDashboard:!h-[606px] tablet:!h-[602px] !h-[346px]" : "desktopDashboard:!h-[576px] tablet:!h-[572px] !h-[316px]"}`}
+        className={`!max-w-[500px] w-[calc(100%-40px)] tablet:!w-full desktopDashboard:!w-full p-0 gap-0`}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
       >
@@ -60,7 +60,7 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
           />
         </div>
 
-        <div className="flex flex-col items-center gap-6 tablet:p-8 desktopDashboard:p-8 p-6 self-stretch">
+        <div className="flex flex-col items-center gap-6 tablet:p-8 desktopDashboard:p-8 p-6 self-stretch relative w-full min-w-0">
           <DialogHeader className="flex flex-col justify-center items-center gap-2">
             <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
               Download your QR Code
@@ -102,19 +102,19 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 self-stretch">
-            <div className="flex items-center justify-between gap-2 py-2 px-4 flex-1 self-stretch rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]">
-              <p className="text-[var(--Black)] font-roboto text-[14px] leading-[22px] truncate">
+          <div className="flex flex-col gap-2 w-full min-w-0">
+            <div className="flex items-center gap-2 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] w-full min-w-0 overflow-hidden">
+              <p className="text-[var(--Black)] font-roboto text-[14px] leading-[22px] truncate min-w-0 flex-1 overflow-hidden">
                 {url}
               </p>
 
-              <button onClick={handleCopy}>
+              <button onClick={handleCopy} className="w-4 h-4 shrink-0">
                 <Copy />
               </button>
             </div>
 
             {message && (
-              <p className="text-[var(--Green)] text-[14px] leading-[22px]">
+              <p className="text-[var(--Green)] text-[14px] leading-[22px] absolute bottom-2 tablet:left-8 desktopDashboard:left-8 left-6">
                 {message}
               </p>
             )}

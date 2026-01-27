@@ -4,9 +4,9 @@ import LoadingAnimation from "../../../components/ui/loadingAnimation";
 
 export default function CongratulationPage(){
     return (
-        <Container className="flex flex-col items-center justify-center min-h-screen">
+        <Container className="flex flex-col items-center justify-center min-h-[calc(100vh-159px)]">
             <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card w-full max-w-[350px] desktop:max-w-[400px]  p-[24px] desktop:p-[32px]">
-                <div className="w-[60px] h-[60px]">
+                <div className="size-[60px]">
                 <LoadingAnimation/>
                 </div>
                 <p className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--black)] center mt-[24px]">
@@ -17,7 +17,7 @@ export default function CongratulationPage(){
                 </p>
                  {/* Button */}
                 <button
-                 className="mt-[24px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-200"
+                 className="mt-6 w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-all duration-300"
                 >
                  Go to My QR codes
                 </button>
