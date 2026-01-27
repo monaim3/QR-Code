@@ -3,6 +3,12 @@ import Link from 'next/link';
 import { ChevronRight } from "lucide-react";
 import Wifi from "../../components/icons/wifi";
 import LinkIcon from "../../components/icons/link";
+import VideoCamera from "../../components/icons/video-camera";
+import ImageIcon from "../../components/icons/image-icon";
+import RestaurantIcon from "../../components/icons/restaurant";
+import AboutUsLeftelement from "../../components/about-us/left-elements";
+import OurMission from "../../components/about-us/our-mission";
+import CustomerReview from "../../components/home/customer_review";
 
 export default function AboutUsBody() {
   return (
@@ -27,55 +33,80 @@ export default function AboutUsBody() {
         </div>
         </Container>
         </div> 
+        <div className="flex flex-col">
         <div className="bg-[var(--Generator-Background)]">
-     <Container className="w-full max-w-full">
-        {/* Main content */}
-        <div className="flex flex-col w-full h-[calc(100vh-54px)] desktop:mt-[120px]">
-        <div className="flex flex-col desktop:flex-row w-full min-w-full h-[480px]">
-        {/* Left half */}
-        <div className="order-2 desktop:order-1 flex-1 h-full flex flex-col items-center justify-center desktop:items-start">
-            <h1 className="text-[32px] desktop:text-[40px] leading-[40px] leading-[32px] font-bold">Get to know us</h1>
-            <p className="w-[350px] desktop:w-[488px] text-center desktop:text-start text-[18px] leadind-[26px] font-regular mt-2">Welcome to My QR Code, your go-to QR code generator for your business and personal needs.</p>
-            <Link 
-            href="#"
-            className="h-[48px] w-[159px] bg-[var(--Blue)] flex items-center justify-center text-[18px] leading-[26px] text-white font-medium rounded-[10px] mt-[24px]"
-            >
-            Learn more
-            </Link>
-        </div>
+        <Container className="w-full max-w-full">
+            {/* Main content */}
+            <div className="flex flex-col w-full h-full mt-[29px] desktop:mt-[120px]">
+            <div className="flex flex-col desktop:flex-row w-full min-w-full h-[480px]">
+            {/* Left half */}
+            <div className="hidden desktop:block">
+            <AboutUsLeftelement/>
+            </div>
 
-        {/* Right half */}
-        <div className="order-1 desktop:order-2 flex-1 h-full flex items-center justify-center">
-          <div className="relative flex justify-between">
-            <div className="w-[412px] h-[412px] rounded-full flex items-center justify-center overflow-hidden"
-                style={{
-                background: "linear-gradient(180deg, rgba(155,162,251,0.1) 0%, rgba(247,249,252,0.1) 100%)"
-                }}>
-            <div className="w-[254px] h-[254px] rounded-full"
-                style={{
-                    background: "linear-gradient(180deg, rgba(155,162,251,0.2) 0%, rgba(247,249,252,0.2) 100%)"
-                }}>
+            {/* Right half */}
+            <div className="order-1 desktop:order-2 desktop:flex-1 h-full flex items-center justify-center">
+            <div className="relative flex justify-between">
+                <div className="w-[412px] h-[412px] rounded-full flex items-center justify-center overflow-hidden"
+                    style={{
+                    background: "linear-gradient(180deg, rgba(155,162,251,0.1) 0%, rgba(247,249,252,0.1) 100%)"
+                    }}>
+                <div className="w-[254px] h-[254px] rounded-full"
+                    style={{
+                        background: "linear-gradient(180deg, rgba(155,162,251,0.2) 0%, rgba(247,249,252,0.2) 100%)"
+                    }}>
+                </div>
+                </div>
+                <div className="absolute top-[91px] bottom-[161px] left-[126px] right-[126px] desktop:top-[108px] desktop:bottom-[44px] desktop:left-[-21px] desktop:right-[173px]">
+                    <img
+                    src="/images/home/scan.svg"
+                    alt="QR Scan"
+                    className="w-[160px] h-[160px] desktop:w-[260px] desktop:h-[260px] drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
+                    />
+                </div>
+                <div className="absolute top-[22px] bottom-[350px] left-[61px] right-[311px] desktop:top-[-12px] esktop:bottom-[376px] desktop:left-[-8px] desktop:right-[372] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
+                <Wifi/>
+                </div>
+                <div className="absolute top-[203px] bottom-[169px] mobile:left-[55px] right-[317px] desktop:top-[195px] desktop:bottom-[169px] desktop:right-[536px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
+                <LinkIcon/>
+                </div>
+                <div className="mobile:hidden desktop:absolute desktop:top-[145px] desktop:bottom-[219px] desktop:left-[264px] desktop:right-[100px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
+                <VideoCamera/>
+                </div>
+                <div className="absolute top-[117px] bottom-[255px] left-[325px] right-[48px] desktop:top-[31px] desktop:bottom-[339px] desktop:left-[407px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
+                <ImageIcon/>
+                </div>
+                <div className="mobile:hidden desktop:absolute desktop:top-[300.17px] dedsktop:bottom-[68.17px] desktop:left-[355.33px] desktop:right-[40.42px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
+                <RestaurantIcon/>
+                </div>
+                <div className="absolute desktop:hidden top-[291px] left-[31px] right-[31px]">
+                <AboutUsLeftelement/>
+                </div>
             </div>
             </div>
-            <div className="absolute top-[91px] desktop:top-[108px] left-[115px] desktop:left-[-21px] right-[115px] desktop:right-0 desktop:bottom-[78px] desktop:right-[220px]">
-                <img
-                  src="/images/home/scan.svg"
-                  alt="QR Scan"
-                  className="w-[160px] h-[160px] desktop:w-[260px] desktop:h-[260px] drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
-                />
             </div>
-            <div className="absolute top-[0px] left-[110px] desktop:top-[-11px] desktop:left-[20px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
-               <Wifi/>
+            <div className="flex mt-[120px] mb-[59px] items-center gap-6">
+                <p className="hidden desktop:block text-[18px] leading-[26px] font-regular text-[#1D2948] whitespace-nowrap">
+                    Top brands that use QR codes:
+                </p>
+
+                <div className="flex items-center gap-6 overflow-hidden">
+                    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6" />
+                    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6" />
+                    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7" />
+                    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6" />
+                    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6" />
+                    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6" />
+                </div>
             </div>
-            <div className="absolute top-[0px] desktop:top-[203px] left-[30px] desktop:left-[-99px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
-               <LinkIcon/>
             </div>
-         </div>
+        </Container>
         </div>
+        <div className="w-full bg-white">
+        <OurMission/>
         </div>
+        <CustomerReview/>
         </div>
-    </Container>
-     </div>
     </div>
   );
 }
