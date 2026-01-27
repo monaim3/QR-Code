@@ -29,7 +29,7 @@ export default function Summary({ onClick, isOpen }: Props) {
           value={vCard.summary}
           onChange={(e) => handleSummaryChange(e.target.value)}
           placeholder="e.g. About my company"
-          className="min-h-[96px] py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border border-[var(--Boarder-Grey)] focus:outline-none resize-none"
+          className="min-h-[96px] py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border border-[var(--Boarder-Grey)] focus:outline-none resize-none focus:border-[var(--Blue)] focus:ring-2 focus:ring-[var(--Blue)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
         ></textarea>
       </div>
     </AboutAccordion>
