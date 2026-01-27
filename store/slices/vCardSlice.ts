@@ -165,10 +165,10 @@ const vCardSlice = createSlice({
     },
     addSocialChannel: (
       state,
-      action: PayloadAction<{ name: string; url: string }>,
+      action: PayloadAction<{ id: string; name: string; url: string }>,
     ) => {
       const existingIndex = state.socialChannels.findIndex(
-        (channel) => channel.name === action.payload.name,
+        (channel) => channel.id === action.payload.id,
       );
       if (existingIndex === -1) {
         state.socialChannels.push(action.payload);
@@ -176,15 +176,15 @@ const vCardSlice = createSlice({
     },
     removeSocialChannel: (state, action: PayloadAction<string>) => {
       state.socialChannels = state.socialChannels.filter(
-        (channel) => channel.name !== action.payload,
+        (channel) => channel.id !== action.payload,
       );
     },
     updateSocialChannelUrl: (
       state,
-      action: PayloadAction<{ name: string; url: string }>,
+      action: PayloadAction<{ id: string; url: string }>,
     ) => {
       const channel = state.socialChannels.find(
-        (channel) => channel.name === action.payload.name,
+        (channel) => channel.id === action.payload.id,
       );
       if (channel) {
         channel.url = action.payload.url;

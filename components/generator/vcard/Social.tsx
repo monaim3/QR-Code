@@ -19,26 +19,23 @@ export default function Social() {
     if (!channel) return;
 
     const isActive = vCard.socialChannels.some(
-      (ch) => ch.name === channel.name,
+      (ch) => ch.id === channel.id,
     );
 
     if (isActive) {
-      dispatch(removeSocialChannel(channel.name));
+      dispatch(removeSocialChannel(channel.id));
     } else {
-      dispatch(addSocialChannel({ name: channel.name, url: "" }));
+      dispatch(addSocialChannel({ id: channel.id, name: channel.name, url: "" }));
     }
   };
 
   const handleDelete = (channelId: string) => {
-    const channel = socialChannels.find((ch) => ch.id === channelId);
-    if (channel) {
-      dispatch(removeSocialChannel(channel.name));
-    }
+    dispatch(removeSocialChannel(channelId));
   };
 
   const activeChannels = socialChannels
     .filter((channel) =>
-      vCard.socialChannels.some((ch) => ch.name === channel.name),
+      vCard.socialChannels.some((ch) => ch.id === channel.id),
     )
     .map((channel) => channel.id);
 
@@ -69,14 +66,14 @@ export default function Social() {
           <div className="space-y-2">
             {vCard.socialChannels.map((socialChannel) => {
               const channel = socialChannels.find(
-                (ch) => ch.name === socialChannel.name,
+                (ch) => ch.id === socialChannel.id,
               );
               if (!channel) return null;
               return (
                 <SocialInputCard
-                  key={channel.id}
-                  channelId={channel.id}
-                  handleDelete={() => handleDelete(channel.id)}
+                  key={socialChannel.id}
+                  channelId={socialChannel.id}
+                  handleDelete={() => handleDelete(socialChannel.id)}
                 />
               );
             })}

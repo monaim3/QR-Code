@@ -17,12 +17,12 @@ export default function SocialInputCard({ channelId, handleDelete }: Props) {
 
   const ChannelIcon = channel.icon;
   const socialChannel = vCard.socialChannels.find(
-    (ch) => ch.name === channel.name,
+    (ch) => ch.id === channel.id,
   );
   const url = socialChannel?.url || "";
 
   const handleUrlChange = (value: string) => {
-    dispatch(updateSocialChannelUrl({ name: channel.name, url: value }));
+    dispatch(updateSocialChannelUrl({ id: channel.id, url: value }));
   };
 
   return (

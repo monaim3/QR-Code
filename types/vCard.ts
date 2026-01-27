@@ -18,6 +18,7 @@ export interface ContactDetails {
 }
 
 export interface SocialChannel {
+  id: string;
   name: string;
   url: string;
 }

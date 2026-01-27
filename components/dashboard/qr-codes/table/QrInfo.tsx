@@ -107,7 +107,7 @@ export default function QrInfo({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <LinkAlt01 />
+            <LinkAlt01 className="text-[#3F3E3E] cursor-pointer" />
           </a>
           <div className="flex items-center gap-2">
             <p className="text-[var(--Dark-Grey)] font-roboto text-[14px] leading-[22px]">
