@@ -18,8 +18,8 @@ export default function ForgetPasswordBody(){
     };
 
     return (
-        <Container className="flex flex-col items-center justify-center min-h-screen">
-            <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card m-w-[350px] desktop:m-w-[400px]  p-[24px] desktop:p-[32px]">
+        <Container className="flex flex-col items-center justify-center min-h-[calc(100vh-72px)]">
+            <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card max-w-[350px] desktop:max-w-[400px] p-[24px] desktop:p-[32px]">
                 <p className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--black)] center">
                  Recover password
                 </p>
@@ -39,7 +39,7 @@ export default function ForgetPasswordBody(){
                  {/* send link Button */}
                 <button
                  onClick={handleSubmit}
-                 className="mt-[16px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-200"
+                 className="mt-[16px] w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-300"
                 >
                  Send reset link
                 </button>
@@ -49,7 +49,7 @@ export default function ForgetPasswordBody(){
                 onClose={() => setIsModalOpen(false)} 
                />
             </div>
-            <div className="mt-[24px]">
+            <div className="mt-4">
              <BackButtonWithText/>
             </div>
         </Container>

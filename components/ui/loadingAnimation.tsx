@@ -14,12 +14,12 @@ const LoadingAnimation = () => {
         }
 
         @keyframes drawCheckmark {
-          0%, 79.9% {
+          0%, 89% {
             stroke-dashoffset: 60;
             opacity: 0;
             visibility: hidden;
           }
-          80% {
+          90% {
             stroke-dashoffset: 60;
             opacity: 1;
             visibility: visible;
@@ -42,7 +42,7 @@ const LoadingAnimation = () => {
       
       <div className="relative w-16 h-16">
         <svg
-          className="absolute inset-0 m-w-full m-h-full"
+          className="absolute inset-0 max-w-full m-h-full"
           viewBox="0 0 100 100"
         >
           {/* Animated progress circle */}

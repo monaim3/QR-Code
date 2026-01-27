@@ -257,8 +257,7 @@ export default function PlanAndPricingRightPannelp() {
   ]);
 
   return (
-    <div className="w-full max-w-full flex-shrink-0 flex flex-col items-center justify-start
-      bg-[#E7F4ED] rounded-[10px] px-6 desktop:px-14 py-8 desktop:py-8 gap-6 desktop:gap-8">
+    <div className="w-full max-w-full flex-shrink-0 flex flex-col items-center justify-start overflow-hidden bg-[#E7F4ED] rounded-[10px] px-6 desktop:px-14 py-8 desktop:py-8 gap-6 desktop:gap-8">
       
       {/* Heading */}
       <p className="text-[20px] desktop:text-[24px] font-bold text-center text-[var(--Black)] leading-[28px] desktop:leading-[32px]">

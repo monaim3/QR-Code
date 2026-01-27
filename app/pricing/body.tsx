@@ -20,7 +20,7 @@ interface PricingPlan {
 const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
   return (
     <div className="flex flex-col bg-white p-[24px] desktop:p-[32px] shadow-card rounded-[12px] hover:shadow-xl transition-shadow duration-300">
-      <div className='flex flex-row item-start justify-between desktop:flex-col w-full m-w-full'>
+      <div className='flex flex-row item-start justify-between desktop:flex-col w-full max-w-full'>
           <h3 className="
             text-[var(--Black)]
             text-center
