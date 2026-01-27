@@ -30,13 +30,13 @@ const Instagram = () => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(15.72 36.684)scale(41.5471)"
         >
-          <stop stop-color="#FD5"></stop>
-          <stop offset="0.328" stop-color="#FF543F"></stop>
-          <stop offset="0.348" stop-color="#FC5245"></stop>
-          <stop offset="0.504" stop-color="#E64771"></stop>
-          <stop offset="0.643" stop-color="#D53E91"></stop>
-          <stop offset="0.761" stop-color="#CC39A4"></stop>
-          <stop offset="0.841" stop-color="#C837AB"></stop>
+          <stop stopColor="#FD5"></stop>
+          <stop offset="0.328" stopColor="#FF543F"></stop>
+          <stop offset="0.348" stopColor="#FC5245"></stop>
+          <stop offset="0.504" stopColor="#E64771"></stop>
+          <stop offset="0.643" stopColor="#D53E91"></stop>
+          <stop offset="0.761" stopColor="#CC39A4"></stop>
+          <stop offset="0.841" stopColor="#C837AB"></stop>
         </radialGradient>
       </defs>
     </svg>

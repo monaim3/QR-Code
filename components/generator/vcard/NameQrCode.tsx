@@ -1,7 +1,18 @@
+"use client";
+
 import Accordion from "@/components/common/Accordion";
 import Input from "./Input";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setQrCodeName } from "@/store/slices/vCardSlice";
 
 export default function NameQrCode() {
+  const dispatch = useAppDispatch();
+  const vCard = useAppSelector((state) => state.vCard);
+
+  const handleChange = (value: string) => {
+    dispatch(setQrCodeName(value));
+  };
+
   return (
     <div className="w-full">
       <Accordion
@@ -12,6 +23,8 @@ export default function NameQrCode() {
           label="Name your QR code"
           placeholder="e.g. My first QR code"
           id="qrName"
+          value={vCard.qrCodeName}
+          onChange={handleChange}
         />
       </Accordion>
     </div>

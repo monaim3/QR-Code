@@ -1,6 +1,8 @@
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import AboutAccordion from "./AboutAccordion";
 import ImageUpload from "./ImageUpload";
 import Input from "./Input";
+import { setPersonalInfo } from "@/store/slices/vCardSlice";
 
 interface Props {
   onClick: () => void;
@@ -8,13 +10,31 @@ interface Props {
 }
 
 export default function PersonalInfo({ onClick, isOpen }: Props) {
+  const dispatch = useAppDispatch();
+  const vCard = useAppSelector((state) => state.vCard);
+
+  const handleFullNameChange = (value: string) => {
+    dispatch(
+      setPersonalInfo({
+        ...vCard.personalInfo,
+        fullName: value,
+      }),
+    );
+  };
+
   return (
     <AboutAccordion
       title="Personal information"
       isOpen={isOpen}
       onClick={onClick}
     >
-      <Input label="Full name*" placeholder="e.g. Jane Cooper" id="fullName" />
+      <Input
+        label="Full name*"
+        placeholder="e.g. Jane Cooper"
+        id="fullName"
+        value={vCard.personalInfo.fullName}
+        onChange={handleFullNameChange}
+      />
 
       <ImageUpload />
     </AboutAccordion>

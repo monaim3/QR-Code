@@ -1,40 +1,47 @@
+"use client";
+
 import Accordion from "@/components/common/Accordion";
 import ColorBtn from "./ColorBtn";
 import ColorPicker from "./ColorPicker";
 import SwapHorizontal from "@/components/icons/swap-horizontal";
-
-const palette = [
-  {
-    primary: "#6594FF",
-    secondary: "#FFFFFF",
-  },
-  {
-    primary: "#ECEDF1",
-    secondary: "#232321",
-  },
-  {
-    primary: "#ECECF0",
-    secondary: "#6594FF",
-  },
-  {
-    primary: "#DAEBF6",
-    secondary: "#6594FF",
-  },
-  {
-    primary: "#B69EDE",
-    secondary: "#FFFFFF",
-  },
-  {
-    primary: "#6ECD9D",
-    secondary: "#242420",
-  },
-  {
-    primary: "#FACB67",
-    secondary: "#FFFFFF",
-  },
-];
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  setColorPalette,
+  setPrimaryColor,
+  setSecondaryColor,
+} from "@/store/slices/vCardSlice";
+import { useState } from "react";
 
 export default function DesignCustomize() {
+  const dispatch = useAppDispatch();
+  const vCard = useAppSelector((state) => state.vCard);
+  const [isActive, setIsActive] = useState(0);
+
+  const handleSwap = () => {
+    const temp = vCard.primaryColor;
+    dispatch(setPrimaryColor(vCard.secondaryColor));
+    dispatch(setSecondaryColor(temp));
+    dispatch(
+      setColorPalette({
+        index: isActive,
+        color: {
+          primary: vCard.secondaryColor,
+          secondary: vCard.primaryColor,
+        },
+      }),
+    );
+  };
+
+  const handleColorSwitch = (
+    primaryColor: string,
+    secondaryColor: string,
+    index: number,
+  ) => {
+    dispatch(setPrimaryColor(primaryColor));
+    dispatch(setSecondaryColor(secondaryColor));
+    setIsActive(index);
+  };
+
   return (
     <div className="w-full">
       <Accordion
@@ -45,23 +52,30 @@ export default function DesignCustomize() {
         <div className="space-y-8">
           {/* Color palette */}
           <div className="flex justify-between items-center gap-4 self-stretch w-full overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
-            {palette.map((item, index) => (
+            {vCard.colorPalette.map((item, index) => (
               <ColorBtn
                 key={index}
                 primaryColor={item.primary}
                 secondaryColor={item.secondary}
+                onClick={() =>
+                  handleColorSwitch(item.primary, item.secondary, index)
+                }
+                isActive={isActive === index}
               />
             ))}
           </div>
 
           {/* Color Picker */}
           <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
-            <ColorPicker label="Primary color" color={"#6594FF"} />
+            <ColorPicker label="Primary color" color={vCard.primaryColor} />
 
             <div className="flex desktop:w-10 desktop:h-12 items-center gap-2 py-2 desktop:py-0">
-              <button className="flex items-center gap-2 p-2 flex-1">
+              <button
+                onClick={handleSwap}
+                className="flex items-center gap-2 p-2 flex-1"
+              >
                 <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktop:hidden">
-                  Swap the colours
+                  Swap the colors
                 </span>
 
                 <div className="rotate-90 desktop:rotate-0">
@@ -70,7 +84,7 @@ export default function DesignCustomize() {
               </button>
             </div>
 
-            <ColorPicker label="Secondary color" color={"#FFFFFF"} />
+            <ColorPicker label="Secondary color" color={vCard.secondaryColor} />
           </div>
         </div>
       </Accordion>

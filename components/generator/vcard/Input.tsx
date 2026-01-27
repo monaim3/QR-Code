@@ -3,6 +3,8 @@ interface Props {
   placeholder?: string;
   id: string;
   type?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 export default function Input({
@@ -10,6 +12,8 @@ export default function Input({
   placeholder,
   id,
   type = "text",
+  value,
+  onChange = () => {},
 }: Props) {
   return (
     <div className="flex flex-col gap-2 flex-1 w-full">
@@ -23,6 +27,8 @@ export default function Input({
         type={type}
         id={id}
         placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         className="h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border border-[var(--Boarder-Grey)] focus:outline-none"
       />
     </div>
