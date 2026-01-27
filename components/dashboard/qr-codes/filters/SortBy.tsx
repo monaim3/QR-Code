@@ -63,7 +63,7 @@ export default function SortBy({ selected, setSelected }: Props) {
             </Tooltip>
           )}
 
-          <span className="text-[var(--Grey)] text-[14px] leading-[22px]">
+          <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktopMd:truncate desktopLg:truncate desktopMd:max-w-[120px] desktopLg:max-w-[150px]">
             Sort by{selected && ":"}
             <span className="ml-1 text-[var(--Blue)] font-semibold">
               {displayLabel}

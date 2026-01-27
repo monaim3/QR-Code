@@ -157,7 +157,7 @@ export default function Pagination() {
 
           {/* Drawer Content */}
           <div
-            className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+            className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out max-h-[90vh] overflow-y-auto ${isOpen ? "translate-y-0" : "translate-y-full"}`}
           >
             <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
               <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">

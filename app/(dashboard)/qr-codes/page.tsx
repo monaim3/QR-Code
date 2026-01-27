@@ -10,6 +10,7 @@ import { QRCodeItem } from "@/types/qr-code";
 import NoResults from "@/components/dashboard/qr-codes/table/NoResults";
 import SubscribeBanner from "@/components/dashboard/qr-codes/SubscribeBanner";
 import ReviewBanner from "@/components/dashboard/qr-codes/ReviewBanner";
+import { useSearchParams } from "next/navigation";
 
 const initialQrData: QRCodeItem[] = [
   {
@@ -62,6 +63,8 @@ const initialQrData: QRCodeItem[] = [
 export default function QrCodes() {
   const [qrData, setQrData] = useState<QRCodeItem[]>(initialQrData);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const searchParams = useSearchParams();
+  const banner = searchParams.get("banner");
 
   const handleToggleSelection = useCallback((id: string) => {
     setSelectedIds((prev) => {
@@ -127,8 +130,9 @@ export default function QrCodes() {
 
       {/* Notification Banner */}
       <div className="flex flex-col items-start desktopDashboard:gap-0 gap-2 self-stretch desktopDashboard:my-[20px] my-3">
-        <SubscribeBanner />
-        <ReviewBanner />
+        {banner === "subscribe" && <SubscribeBanner />}
+        {banner === "review" && <ReviewBanner />}
+        {banner === "both" && <> <SubscribeBanner /> <ReviewBanner /> </>}
       </div>
 
       <div className="w-full flex flex-col items-start desktopDashboard:gap-6 gap-4 self-stretch">

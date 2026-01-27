@@ -15,7 +15,7 @@ export default function SearchBar({ query, setQuery }: Props) {
     <div
       className={`
         flex items-center desktopDashboard:flex-none flex-1 h-10 px-4 py-2 rounded-[var(--Corner-Radius-8)]
-        bg-white border
+        bg-white border desktopMd:w-[200px] desktopLg:w-[200px]
         ${
           isFocused
             ? "ring-2 ring-[var(--Blue)] border-[var(--Blue)] shadow-[0_0_8px_rgba(73,129,255,0.2)]"
@@ -33,10 +33,17 @@ export default function SearchBar({ query, setQuery }: Props) {
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            className={`border-0 outline-0 text-[16px] leading-[24px] text-[var(--Black)] focus:ring-0 focus:outline-0 placeholder:text-[var(--Grey)] placeholder:text-[14px] placeholder:leading-[22px] ${
+            style={{
+              border: "none",
+              outline: "none",
+              boxShadow: "none",
+              WebkitAppearance: "none",
+              MozAppearance: "none",
+            }}
+            className={`!border-none !outline-none !ring-0 !shadow-none !appearance-none text-[16px] leading-[24px] text-[var(--Black)] focus:!ring-0 focus:!outline-none focus:!border-none focus:!shadow-none placeholder:text-[var(--Grey)] placeholder:text-[14px] placeholder:leading-[22px] bg-transparent ${
               query
-                ? "desktopDashboard:w-[168px] w-full"
-                : "desktopDashboard:w-[184px] w-full"
+                ? "desktopDashboard:w-[168px] w-full desktopMd:w-full desktopLg:w-full"
+                : "desktopDashboard:w-[184px] w-full desktopMd:w-full desktopLg:w-full"
             }`}
           />
         </div>

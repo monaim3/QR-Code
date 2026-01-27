@@ -151,7 +151,7 @@ export default function DonutChartCard({ title, data }: Props) {
               <div className="flex desktopDashboard:justify-end tablet:justify-end items-end gap-2 flex-1 basis-0 self-stretch relative">
                 <DonutChartPopover data={data} />
               </div>
-            )}{" "}
+            )}
           </>
         ) : (
           <div className="flex flex-col items-center justify-center gap-1 w-full">

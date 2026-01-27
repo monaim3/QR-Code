@@ -9,6 +9,7 @@ import ShareQRModal from "./ShareQRModal";
 import CustomDownloadModal from "./CustomDownloadModal";
 import QrPreviewModal from "./QrPreviewModal";
 import DownloadQrCodeModal from "./DownloadQrCodeModal";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   qrData: QRCodeItem[];
@@ -30,8 +31,9 @@ export default function QrCodesTable({
   const [isCustomDownloadModalOpen, setIsCustomDownloadModalOpen] =
     useState(false);
   const [isQrPreviewModalOpen, setIsQrPreviewModalOpen] = useState(false);
-  const [isDownloadModal, setIsDownloadModal] = useState(true);
-
+  const searchParams = useSearchParams();
+  const downloadModalParam = searchParams.get("download-modal");
+  const [isDownloadModal, setIsDownloadModal] = useState(downloadModalParam === "true");
   // Handle save
   const handleSave = useCallback(() => {
     if (!selectedItem) return;

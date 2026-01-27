@@ -52,7 +52,7 @@ export default function CustomDropDown({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute z-10 flex flex-col items-start gap-1 w-full p-4 mt-2 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
+        <div className="absolute z-10 flex flex-col items-start gap-1 w-full p-4 mt-2 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150 max-h-[300px] overflow-y-auto custom-scrollbar">
           {options.map((option) => {
             return (
               <div
@@ -68,6 +68,21 @@ export default function CustomDropDown({
           })}
         </div>
       )}
+
+      {/* Custom Scrollbar Styles */}
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f5f6fa;
+          border-radius: 9px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #01a56d;
+          border-radius: 9px;
+        }
+      `}</style>
     </div>
   );
 }
