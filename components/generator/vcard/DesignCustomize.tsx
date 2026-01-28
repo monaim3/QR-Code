@@ -2,7 +2,7 @@
 
 import Accordion from "@/components/common/Accordion";
 import ColorBtn from "./ColorBtn";
-import ColorPicker from "./ColorPicker";
+import ColorInput from "./ColorInput";
 import SwapHorizontal from "@/components/icons/swap-horizontal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -82,8 +82,8 @@ export default function DesignCustomize() {
           </div>
 
           {/* Color Picker */}
-          <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
-            <ColorPicker
+          <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
+            <ColorInput
               label="Primary color"
               color={vCard.primaryColor}
               onChange={(v) => handleColorChange(v, vCard.secondaryColor)}
@@ -104,7 +104,7 @@ export default function DesignCustomize() {
               </button>
             </div>
 
-            <ColorPicker
+            <ColorInput
               label="Secondary color"
               color={vCard.secondaryColor}
               onChange={(v) => handleColorChange(vCard.primaryColor, v)}
