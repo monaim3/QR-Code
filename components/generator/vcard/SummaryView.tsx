@@ -14,7 +14,7 @@ export default function SummaryView() {
       title="Summary"
       icon={<FileText className="text-[var(--Grey)]" />}
     >
-      <p className="text-[var(--Black)] text-[12px] leading-[20px] w-full">
+      <p className="text-[var(--Black)] text-[12px] leading-[20px] break-words w-[188px]">
         {vCard.summary}
       </p>
     </PreviewAccordion>
