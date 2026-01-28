@@ -23,7 +23,7 @@ export default function ChangeMethodModal({ open, onClose }: Props) {
           <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px] text-left w-full">
             Change payment method
           </DialogTitle>
-          <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
+          <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px] w-full text-left">
             We&apos;re currently working on enabling direct modifications to
             payment information. In the meantime, our dedicated support team is
             available to assist you with any changes you need. Please don&apos;t

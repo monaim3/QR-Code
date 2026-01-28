@@ -5,11 +5,14 @@ export default function NotificationBanner() {
   return (
     <div className="flex items-center flex-col tablet:flex-row desktopDashboard:flex-row self-stretch tablet:gap-6 desktopDashboard:gap-6 gap-[10px] p-4 rounded-[var(--Corner-Radius-10)] bg-[#E7E8EE] desktopDashboard:my-1 my-0">
       <div className="flex items-center gap-2 flex-1">
-        <AlertTriangle className="w-6 h-6 shrink-0 text-[var(--Blue)]" />
+        <AlertTriangle className="w-6 h-6 shrink-0 text-[var(--Blue)] hidden tablet:block desktopDashboard:block" />
         <div>
-          <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
-            Subscription canceled
-          </p>
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-6 h-6 shrink-0 text-[var(--Blue)] tablet:hidden desktopDashboard:hidden" />
+            <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
+              Subscription canceled
+            </p>
+          </div>
           <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
             You canceled your subscription and the subscription period has now
             expired. All your QR codes have been paused. Please resubscribe to

@@ -20,10 +20,10 @@ export default function CancelSubscriptionModal({ open, onClose }: Props) {
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader className="flex flex-col justify-start items-center gap-2">
-          <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
+          <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px] w-full text-left">
             Do you really want to cancel your subscription?
           </DialogTitle>
-          <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
+          <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px] w-full text-left">
             If you choose to cancel your subscription, all of your QR codes will
             be deactivated once your current subscription period expires.
           </p>

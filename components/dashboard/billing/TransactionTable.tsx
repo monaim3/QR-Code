@@ -14,7 +14,7 @@ import { getStatusStyles } from "@/lib/utils";
 
 export default function TransactionTable() {
   return (
-    <div className="rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
+    <div className="rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full hidden desktopDashboard:block">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent border-b-[var(--boarder-grey-50)]">
@@ -70,7 +70,7 @@ export default function TransactionTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice, index) => (
+          {invoices?.map((invoice, index) => (
             <TableRow
               key={index}
               className="text-[var(--Black)] border-b-[var(--boarder-grey-50)] text-[14px] leading-[22px]"

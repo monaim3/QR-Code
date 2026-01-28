@@ -25,9 +25,9 @@ export default function PaymentMethod() {
           Subscription and payment method
         </p>
 
-        <div className="flex items-start gap-6 self-stretch">
+        <div className="flex flex-col desktopDashboard:flex-row items-start desktopDashboard:gap-6 gap-2 self-stretch">
           {/* Current Plan */}
-          <div className="flex flex-col items-start gap-6 p-6 flex-1 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
+          <div className="flex flex-col items-start desktopDashboard:gap-6 gap-4 p-6 flex-1 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
             <div className="flex flex-col items-start gap-1 flex-1 self-stretch">
               <div className="flex items-center gap-6 self-stretch">
                 <p className="text-[var(--Black)] font-semibold text-[16px] leading-[24px] flex-1">
@@ -51,14 +51,14 @@ export default function PaymentMethod() {
 
             <button
               onClick={() => setIsOpenCancelModal(true)}
-              className="flex h-10 px-4 py-2 justify-center items-center gap-2 bg-white border border-[var(--Blue)] rounded-[var(--Corner-Radius-10)] text-[var(--Blue)] text-[14px] leading-[22px] hover:bg-[var(--Blue)] hover:text-white transition-all duration-300 ease-linear"
+              className="flex h-10 px-4 py-2 justify-center items-center gap-2 bg-white border border-[var(--Blue)] rounded-[var(--Corner-Radius-10)] text-[var(--Blue)] text-[14px] leading-[22px] hover:bg-[var(--Blue)] hover:text-white transition-all duration-300 ease-linear w-full tablet:w-auto desktopDashboard:w-auto"
             >
               Cancel subscription
             </button>
           </div>
 
           {/* Payment Method */}
-          <div className="flex flex-col items-start gap-6 p-6 flex-1 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
+          <div className="flex flex-col items-start desktopDashboard:gap-6 gap-4 p-6 flex-1 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
             <div className="flex flex-col items-start gap-1 flex-1 self-stretch">
               <p className="text-[var(--Black)] font-semibold text-[16px] leading-[24px] flex-1">
                 Payment method
@@ -69,14 +69,14 @@ export default function PaymentMethod() {
               </p>
             </div>
 
-            <div className="flex items-center gap-6 p-4 self-stretch rounded-[var(--Corner-Radius-8)] bg-[var(--Generator-Background)]">
-              <div className="flex items-center gap-6 flex-1">
+            <div className="flex items-center desktopDashboard:gap-6 gap-2 p-4 self-stretch rounded-[var(--Corner-Radius-8)] bg-[var(--Generator-Background)]">
+              <div className="flex items-center desktopDashboard:gap-6 gap-2 flex-1">
                 <Visa />
-                <div className="flex items-center gap-6 flex-1">
-                  <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
+                <div className="flex flex-col desktopDashboard:flex-row desktopDashboard:items-center desktopDashboard:gap-6 flex-1">
+                  <p className="text-[var(--Dark-gray)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px]">
                     **** **** **** 8902
                   </p>
-                  <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
+                  <p className="text-[var(--Dark-gray)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px]">
                     Expiry 10/24
                   </p>
                 </div>
