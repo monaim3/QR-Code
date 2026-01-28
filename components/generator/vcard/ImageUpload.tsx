@@ -12,12 +12,14 @@ interface ImageUploadProps {
   onCustomLogoUpload?: (logo: string | null) => void;
   onLogoChange?: (logo: string | null) => void;
   onPreview?: () => void;
+  label?: string;
 }
 
 export default function ImageUpload({
   onCustomLogoUpload,
   onLogoChange,
   onPreview,
+  label = "Image",
 }: ImageUploadProps) {
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyLogo.svg");
@@ -167,7 +169,7 @@ export default function ImageUpload({
   return (
     <div className="flex flex-col gap-2">
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
-        Image
+        {label}
       </label>
       <div
         onDragEnter={handleDragEnter}
