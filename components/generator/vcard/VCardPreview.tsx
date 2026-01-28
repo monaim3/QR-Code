@@ -29,6 +29,8 @@ export default function VCardPreview() {
         return "text-[var(--Black)]";
       case "#DAEBF6":
         return "text-[var(--Black)]";
+      case "#FFFFFF":
+        return "text-[var(--Black)]";
       default:
         return "text-white";
     }
@@ -51,7 +53,7 @@ export default function VCardPreview() {
 
         <div className="flex flex-col items-center gap-2 stretch relative z-[2]">
           {/* Image */}
-          <div className="flex w-[108px] h-[108px] p-2 justify-center items-center gap-2 aspect-square rounded-full bg-[var(--Generator-Background)] border-4 border-white mx-auto">
+          <div className="flex w-[108px] h-[108px] justify-center items-center gap-2 aspect-square rounded-full bg-[var(--Generator-Background)] border-4 border-white mx-auto">
             {vCard.personalInfo.image ? (
               <Image
                 src={vCard.personalInfo.image}
