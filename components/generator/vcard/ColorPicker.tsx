@@ -3,9 +3,10 @@ import { useState } from "react";
 interface Props {
   label: string;
   color: string;
+  onChange: (color: string) => void;
 }
 
-export default function ColorPicker({ label, color }: Props) {
+export default function ColorPicker({ label, color, onChange }: Props) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -24,6 +25,7 @@ export default function ColorPicker({ label, color }: Props) {
           maxLength={7}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          onChange={(e) => onChange(e.target.value)}
         />
 
         <div

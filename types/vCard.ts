@@ -41,4 +41,5 @@ export interface VCardSlice {
   socialChannels: SocialChannel[];
   welcomeScreen: string;
   qrCodeName: string;
+  isPreviewWelcomeScreen: boolean;
 }

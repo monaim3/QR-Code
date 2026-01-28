@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import About from "@/components/generator/vcard/About";
@@ -10,9 +10,43 @@ import Social from "@/components/generator/vcard/Social";
 import Welcome from "@/components/generator/vcard/Welcome";
 import MobileFrame from "@/components/common/MobileFrame";
 import VCardPreview from "@/components/generator/vcard/VCardPreview";
+import QRCodeStyling, { Options } from "qr-code-styling";
 
 export default function GeneratorVCard() {
   const [view, setView] = useState<"preview" | "qrCode">("preview");
+  const qrRef = useRef<HTMLDivElement>(null);
+  const qrCodeRef = useRef<QRCodeStyling | null>(null);
+
+  useEffect(() => {
+    if (view !== "qrCode" || !qrRef.current) return;
+
+    const qrOptions: Options = {
+      type: "svg",
+      data: "https://www.example.com/",
+      margin: 0,
+      width: 300,
+      height: 300,
+      dotsOptions: {
+        color: "#000000",
+        type: "rounded",
+      },
+      backgroundOptions: {
+        color: "#FFFFFF",
+      },
+    };
+
+    if (qrRef.current) {
+      qrRef.current.innerHTML = "";
+
+      if (qrCodeRef.current) {
+        qrCodeRef.current.update(qrOptions);
+        qrCodeRef.current.append(qrRef.current);
+      } else {
+        qrCodeRef.current = new QRCodeStyling(qrOptions);
+        qrCodeRef.current.append(qrRef.current);
+      }
+    }
+  }, [view]);
 
   return (
     <main className="bg-[var(--Generator-Background)] min-h-screen">
@@ -83,7 +117,7 @@ export default function GeneratorVCard() {
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
-                    qrcode
+                    <div ref={qrRef} className="w-[154px] h-[154px] flex items-center justify-center" />
                   </div>
                 )}
               </MobileFrame>

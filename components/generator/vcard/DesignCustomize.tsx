@@ -42,6 +42,22 @@ export default function DesignCustomize() {
     setIsActive(index);
   };
 
+  const handleColorChange = (primaryColor: string, secondaryColor: string) => {
+    const upperPrimary = primaryColor.toUpperCase();
+    const upperSecondary = secondaryColor.toUpperCase();
+    dispatch(setPrimaryColor(upperPrimary));
+    dispatch(setSecondaryColor(upperSecondary));
+    dispatch(
+      setColorPalette({
+        index: isActive,
+        color: {
+          primary: upperPrimary,
+          secondary: upperSecondary,
+        },
+      }),
+    );
+  };
+
   return (
     <div className="w-full">
       <Accordion
@@ -67,7 +83,11 @@ export default function DesignCustomize() {
 
           {/* Color Picker */}
           <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
-            <ColorPicker label="Primary color" color={vCard.primaryColor} />
+            <ColorPicker
+              label="Primary color"
+              color={vCard.primaryColor}
+              onChange={(v) => handleColorChange(v, vCard.secondaryColor)}
+            />
 
             <div className="flex desktop:w-10 desktop:h-12 items-center gap-2 py-2 desktop:py-0">
               <button
@@ -84,7 +104,11 @@ export default function DesignCustomize() {
               </button>
             </div>
 
-            <ColorPicker label="Secondary color" color={vCard.secondaryColor} />
+            <ColorPicker
+              label="Secondary color"
+              color={vCard.secondaryColor}
+              onChange={(v) => handleColorChange(vCard.primaryColor, v)}
+            />
           </div>
         </div>
       </Accordion>

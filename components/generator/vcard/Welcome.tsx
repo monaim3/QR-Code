@@ -1,7 +1,22 @@
 import Accordion from "@/components/common/Accordion";
 import ImageUpload from "./ImageUpload";
+import { useAppDispatch } from "@/store/hooks";
+import {
+  setIsPreviewWelcomeScreen,
+  setWelcomeScreen,
+} from "@/store/slices/vCardSlice";
 
 export default function Welcome() {
+  const dispatch = useAppDispatch();
+
+  const handleImageChange = (value: string | null) => {
+    dispatch(setWelcomeScreen(value || ""));
+  };
+
+  const handlePreview = () => {
+    dispatch(setIsPreviewWelcomeScreen(true));
+  };
+
   return (
     <div className="w-full">
       <Accordion
@@ -9,7 +24,10 @@ export default function Welcome() {
         description="Display a custom logo while your page is loading"
         defaultOpen={true}
       >
-        <ImageUpload />
+        <ImageUpload
+          onCustomLogoUpload={handleImageChange}
+          onPreview={handlePreview}
+        />
       </Accordion>
     </div>
   );

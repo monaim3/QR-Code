@@ -66,6 +66,7 @@ const initialState: VCardSlice = {
   socialChannels: [],
   welcomeScreen: "",
   qrCodeName: "",
+  isPreviewWelcomeScreen: false,
 };
 
 const vCardSlice = createSlice({
@@ -190,6 +191,9 @@ const vCardSlice = createSlice({
         channel.url = action.payload.url;
       }
     },
+    setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
+      state.isPreviewWelcomeScreen = action.payload;
+    },
   },
 });
 
@@ -216,5 +220,6 @@ export const {
   addSocialChannel,
   removeSocialChannel,
   updateSocialChannelUrl,
+  setIsPreviewWelcomeScreen,
 } = vCardSlice.actions;
 export default vCardSlice.reducer;

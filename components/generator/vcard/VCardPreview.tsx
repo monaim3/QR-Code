@@ -7,12 +7,42 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import CompanyView from "./CompanyView";
 import SummaryView from "./SummaryView";
 import SocialMediaView from "./SocialMediaView";
+import { useEffect } from "react";
+import { setIsPreviewWelcomeScreen } from "@/store/slices/vCardSlice";
+import { useDispatch } from "react-redux";
 
 export default function VCardPreview() {
+  const dispatch = useDispatch();
   const vCard = useAppSelector((state) => state.vCard);
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(setIsPreviewWelcomeScreen(false));
+    }, 1000);
+  }, [vCard.isPreviewWelcomeScreen, dispatch]);
+
+  const textColor = () => {
+    switch (vCard.primaryColor) {
+      case "#ECEDF1":
+        return "text-[var(--Black)]";
+      case "#ECECF0":
+        return "text-[var(--Black)]";
+      case "#DAEBF6":
+        return "text-[var(--Black)]";
+      default:
+        return "text-white";
+    }
+  };
 
   return (
     <ScrollArea className="w-full h-full">
+      <div
+        className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${vCard.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
+      >
+        {vCard.welcomeScreen && (
+          <Image src={vCard.welcomeScreen} alt="Background" fill />
+        )}
+      </div>
       <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative">
         <div
           className="absolute left-0 top-0 h-[296px] w-full z-[1]"
@@ -36,7 +66,7 @@ export default function VCardPreview() {
           </div>
 
           {/* Name */}
-          <h4 className="text-[18px] text-white leading-[26px] font-bold">
+          <h4 className={`text-[18px] leading-[26px] font-bold ${textColor()}`}>
             {vCard.personalInfo.fullName || "Jane Cooper"}
           </h4>
 
