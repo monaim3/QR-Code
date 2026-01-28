@@ -11,6 +11,7 @@ import Container from "../common/parent-container";
 import WebsiteUrlPreview from "./Website_Url_Preview";
 import QRCodeDisplay from "./QR_Code_Display";
 import CustomizeQRDisplay from "../common/CustomizeQRDisplay";
+import VCardPreview from "./vcard/VCardPreview";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -55,6 +56,16 @@ export default function BreadcrumbFooter() {
   };
 
   const getPreviewContent = () => {
+    if (pathname.includes("/vcard")) {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <VCardPreview />
+          </div>
+        );
+      }
+    }
+
     if (activeTab === "preview") {
       return <WebsiteUrlPreview url={websiteUrl} />;
     }
