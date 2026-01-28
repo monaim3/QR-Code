@@ -4,6 +4,7 @@ import qrReducer from "./slices/qrSlice";
 import sidebarReducer from "./slices/sidebarSlice";
 import simpleTextReducer from "./slices/simpleTextSlice";
 import wifiReducer from "./slices/wifiSlice";
+import facebookReducer from "./slices/facebookSlice";
 export const store = configureStore({
   reducer: {
     preview: previewReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     simpleText: simpleTextReducer,
     wifi: wifiReducer,
+    facebook: facebookReducer,
   },
 });
 
