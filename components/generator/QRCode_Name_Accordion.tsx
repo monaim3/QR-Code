@@ -5,12 +5,16 @@ import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface QRCodeNameAccordionProps {
+  title: string;
+  description: string;
   value: string;
   onChange: (value: string) => void;
   error?: string;
 }
 
 export default function QRCodeNameAccordion({
+  title,
+  description,
   value,
   onChange,
   error,
@@ -26,10 +30,10 @@ export default function QRCodeNameAccordion({
       >
         <div className="flex flex-col items-start">
           <h3 className="text-lg leading-[26px] font-bold text-[var(--Black)] font-Poppins">
-            QR code name
+            {title}
           </h3>
           <p className="text-[14px] leading-[22px] text-[var(--Dark-gray)] font-roboto">
-            Set a name for your QR code
+            {description}
           </p>
         </div>
         <motion.div
@@ -71,8 +75,8 @@ export default function QRCodeNameAccordion({
                     error
                       ? "border-red-500 focus:border-red-500"
                       : isFocused
-                      ? "border-[var(--Blue)]"
-                      : "border-[var(--Boarder-Grey)] hover:border-gray-300"
+                        ? "border-[var(--Blue)]"
+                        : "border-[var(--Boarder-Grey)] hover:border-gray-300"
                   }`}
                 />
                 {error && (
