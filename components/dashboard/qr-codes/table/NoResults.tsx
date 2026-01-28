@@ -3,7 +3,7 @@ import CreateQrCodeBtn from "../CreateQrCodeBtn";
 import Error1 from "@/components/icons/error-1";
 
 interface Props {
-  filter?: "string";
+  filter?: string;
 }
 
 export default function NoResults({ filter }: Props) {

@@ -65,6 +65,8 @@ export default function QrCodesClient() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const searchParams = useSearchParams();
   const banner = searchParams.get("banner");
+  const noData = searchParams.get("nodata");
+  const filter = searchParams.get("filter");
 
   const handleToggleSelection = useCallback((id: string) => {
     setSelectedIds((prev) => {
@@ -132,14 +134,19 @@ export default function QrCodesClient() {
       <div className="flex flex-col items-start desktopDashboard:gap-0 gap-2 self-stretch desktopDashboard:my-[20px] my-3">
         {banner === "subscribe" && <SubscribeBanner />}
         {banner === "review" && <ReviewBanner />}
-        {banner === "both" && <> <SubscribeBanner /> <ReviewBanner /> </>}
+        {banner === "both" && (
+          <>
+            <SubscribeBanner /> <ReviewBanner />
+          </>
+        )}
       </div>
 
       <div className="w-full flex flex-col items-start desktopDashboard:gap-6 gap-4 self-stretch">
         {/* Filters */}
         <Filters allSelected={allSelected} onSelectAll={handleSelectAll} />
 
-        {qrData.length > 0 ? (
+        {/* qrData.length > 0 */}
+        {noData !== "true" ? (
           <>
             {/* Table */}
             <QrCodesTable
@@ -152,7 +159,7 @@ export default function QrCodesClient() {
             <Pagination />
           </>
         ) : (
-          <NoResults />
+          <NoResults filter={filter || ""} />
         )}
       </div>
 
