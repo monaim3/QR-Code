@@ -87,7 +87,7 @@ export default function AppInfo() {
               onChange={(value) => handleInput(value,"des")}
             />
         </div>
-        <div className="bg-[var(--Generator-Background)] h-max w-full">
+        <div className="bg-[var(--Generator-Background)] h-max w-full flex flex-col desktop:flex-row">
 
         </div>
         <button
