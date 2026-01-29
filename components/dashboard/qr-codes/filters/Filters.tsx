@@ -6,21 +6,39 @@ import QrCodeType from "./QrCodeType";
 import SortBy from "./SortBy";
 import CheckBox from "./CheckBox";
 import ClearFilter from "./ClearFilter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AdjustmentsHorizontal from "@/components/icons/adjustments-horizontal";
 import MobileFilter from "./MobileFilter";
 
 interface Props {
   allSelected: boolean;
   onSelectAll: () => void;
+  onFilterChange?: (filters: {
+    query: string;
+    status: string;
+    types: string[];
+    sortBy: string;
+  }) => void;
 }
 
-export default function Filters({ allSelected, onSelectAll }: Props) {
+export default function Filters({ allSelected, onSelectAll, onFilterChange }: Props) {
   const [query, setQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedSortBy, setSelectedSortBy] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // Notify parent when filters change
+  useEffect(() => {
+    if (onFilterChange) {
+      onFilterChange({
+        query,
+        status: selectedStatus,
+        types: selectedTypes,
+        sortBy: selectedSortBy,
+      });
+    }
+  }, [query, selectedStatus, selectedTypes, selectedSortBy, onFilterChange]);
 
   const handleClearFilter = () => {
     setQuery("");
