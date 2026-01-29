@@ -2,7 +2,7 @@
 
 import Accordion from "@/components/common/Accordion";
 import MenuSection from "./MenuSection";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Plus from "@/components/icons/plus";
 import DeleteModal from "./DeleteModal";
 import ReorderModal from "./ReorderModal";
@@ -49,19 +49,23 @@ export default function Menu() {
       <Accordion title="Menu" description="Input your menu" defaultOpen={true}>
         <div className="desktop:space-y-8 space-y-6">
           {sections.map((section, index) => (
-            <MenuSection
-              key={section.id}
-              section={section}
-              sectionIndex={index}
-              isOpen={effectiveActiveSectionId === section.id}
-              onClick={() => handleSectionClick(section.id)}
-              onDelete={() => handleDeleteSectionClick(section.id)}
-              showReorder={sections.length > 1}
-              onOpenReorderModal={() => setReorderModal({ mode: "sections" })}
-              onOpenProductReorder={(sectionId) =>
-                setReorderModal({ mode: "products", sectionId })
-              }
-            />
+            <Fragment key={section.id}>
+              <MenuSection
+                section={section}
+                sectionIndex={index}
+                isOpen={effectiveActiveSectionId === section.id}
+                onClick={() => handleSectionClick(section.id)}
+                onDelete={() => handleDeleteSectionClick(section.id)}
+                showReorder={sections.length > 1}
+                onOpenReorderModal={() => setReorderModal({ mode: "sections" })}
+                onOpenProductReorder={(sectionId) =>
+                  setReorderModal({ mode: "products", sectionId })
+                }
+              />
+              {sections.length > 1 && index < sections.length - 1 && (
+                <div className="h-[1px] w-full bg-[var(--boarder-grey-50)]" />
+              )}
+            </Fragment>
           ))}
 
           {/* Add New Section */}
