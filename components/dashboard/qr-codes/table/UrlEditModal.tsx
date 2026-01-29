@@ -8,17 +8,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { QRCodeItem } from "@/types/qr-code";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSave: () => void;
+  onSave: (newUrl: string) => void;
   item?: QRCodeItem | null;
 }
 
 export default function UrlEditModal({ open, onClose, onSave, item }: Props) {
   const [error] = useState<string>("");
+  const [url, setUrl] = useState(item?.destinationUrl || "");
+
+  // Reset URL when modal opens/closes or item changes
+  useEffect(() => {
+    if (open && item) {
+      setUrl(item.destinationUrl || "");
+    }
+  }, [open, item]);
+
+  const handleSave = () => {
+    onSave(url);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -45,7 +57,13 @@ export default function UrlEditModal({ open, onClose, onSave, item }: Props) {
                   ? "border-2 border-[var(--error)]"
                   : "border border-[var(--Boarder-Grey)]"
               }`}
-              defaultValue={item?.destinationUrl || ""}
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSave();
+                }
+              }}
             />
             {error && (
               <p className="text-[var(--error)] text-[12px] leading-[20px]">
@@ -64,7 +82,7 @@ export default function UrlEditModal({ open, onClose, onSave, item }: Props) {
             Cancel
           </Button>
           <Button
-            onClick={() => onSave()}
+            onClick={handleSave}
             className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear"
           >
             Save

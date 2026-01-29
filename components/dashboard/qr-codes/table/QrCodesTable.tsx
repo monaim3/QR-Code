@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { QRCodeItem } from "@/types/qr-code";
 import QrCodesTableItem from "./QrCodesTableItem";
 import NameEditModal from "./NameEditModal";
@@ -31,13 +31,43 @@ export default function QrCodesTable({
   const [isCustomDownloadModalOpen, setIsCustomDownloadModalOpen] =
     useState(false);
   const [isQrPreviewModalOpen, setIsQrPreviewModalOpen] = useState(false);
+  const [localQrData, setLocalQrData] = useState<QRCodeItem[]>(qrData);
   const searchParams = useSearchParams();
   const downloadModalParam = searchParams.get("download-modal");
   const [isDownloadModal, setIsDownloadModal] = useState(downloadModalParam === "true");
-  // Handle save
-  const handleSave = useCallback(() => {
+
+  // Sync local data when qrData prop changes
+  useEffect(() => {
+    setLocalQrData(qrData);
+  }, [qrData]);
+
+  // Handle save name
+  const handleSaveName = useCallback((newName: string) => {
     if (!selectedItem) return;
-    onUpdateQrCode(selectedItem.id, { title: "" });
+    // Update local state immediately
+    setLocalQrData((prevData) =>
+      prevData.map((item) =>
+        item.id === selectedItem.id ? { ...item, title: newName } : item
+      )
+    );
+    // Call parent update function
+    onUpdateQrCode(selectedItem.id, { title: newName });
+    setIsNameEditing(false);
+    setSelectedItem(null);
+  }, [selectedItem, onUpdateQrCode]);
+
+  // Handle save URL
+  const handleSaveUrl = useCallback((newUrl: string) => {
+    if (!selectedItem) return;
+    // Update local state immediately
+    setLocalQrData((prevData) =>
+      prevData.map((item) =>
+        item.id === selectedItem.id ? { ...item, destinationUrl: newUrl } : item
+      )
+    );
+    // Call parent update function
+    onUpdateQrCode(selectedItem.id, { destinationUrl: newUrl });
+    setIsUrlEditing(false);
     setSelectedItem(null);
   }, [selectedItem, onUpdateQrCode]);
 
@@ -123,7 +153,7 @@ export default function QrCodesTable({
   return (
     <>
       <div className="flex flex-col items-start gap-2 self-stretch">
-        {qrData?.map((item) => (
+        {localQrData?.map((item) => (
           <QrCodesTableItem
             key={item.id}
             item={item}
@@ -142,7 +172,7 @@ export default function QrCodesTable({
       <NameEditModal
         open={!!selectedItem && isNameEditing}
         onClose={handleCancel}
-        onSave={handleSave}
+        onSave={handleSaveName}
         item={selectedItem}
       />
 
@@ -150,7 +180,7 @@ export default function QrCodesTable({
       <UrlEditModal
         open={!!selectedItem && isUrlEditing}
         onClose={handleCancel}
-        onSave={handleSave}
+        onSave={handleSaveUrl}
         item={selectedItem}
       />
 
