@@ -260,7 +260,7 @@ export default function ImageUpload({
 
             <div className="space-y-1">
               <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
-                Upload image (jpg, png, svg) or drag and drop
+                Upload image (jpg, png, svg)
               </p>
               <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
                 Maximum size: 5MB

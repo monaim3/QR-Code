@@ -33,23 +33,28 @@ export default function RestaurantInfo() {
         description="Provide details about your restaurant"
         defaultOpen={true}
       >
-        <ImageUpload label="Add image" onCustomLogoUpload={handleImageChange} />
+        <div className="desktop:space-y-8 space-y-6">
+          <ImageUpload
+            label="Add image"
+            onCustomLogoUpload={handleImageChange}
+          />
 
-        <div className="flex items-start gap-12 self-stretch !mt-0">
-          <Input
-            label="Restaurant name"
-            placeholder="e.g. My restaurant"
-            id="res-name"
-            value={menu.restaurantInfo.name}
-            onChange={(v) => handleChange(v, "name")}
-          />
-          <Input
-            label="Description"
-            placeholder="e.g. Italian"
-            id="res-description"
-            value={menu.restaurantInfo.description}
-            onChange={(v) => handleChange(v, "description")}
-          />
+          <div className="flex flex-col desktop:flex-row items-start desktop:gap-12 gap-4 self-stretch">
+            <Input
+              label="Restaurant name"
+              placeholder="e.g. My restaurant"
+              id="res-name"
+              value={menu.restaurantInfo.name}
+              onChange={(v) => handleChange(v, "name")}
+            />
+            <Input
+              label="Description"
+              placeholder="e.g. Italian"
+              id="res-description"
+              value={menu.restaurantInfo.description}
+              onChange={(v) => handleChange(v, "description")}
+            />
+          </div>
         </div>
       </Accordion>
     </div>

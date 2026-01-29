@@ -10,8 +10,9 @@ import MenuPreview from "@/components/generator/menu/MenuPreview";
 import RestaurantInfo from "@/components/generator/menu/RestaurantInfo";
 import MenuWelcomeScreen from "@/components/generator/menu/MenuWelcomeScreen";
 import MenuQrName from "@/components/generator/menu/MenuQrName";
+import Menu from "@/components/generator/menu/Menu";
 
-export default function Menu() {
+export default function RestaurantMenu() {
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -68,6 +69,9 @@ export default function Menu() {
 
           {/* Restaurant Info */}
           <RestaurantInfo />
+
+          {/* Menu */}
+          <Menu />
 
           {/* Welcome */}
           <MenuWelcomeScreen />
