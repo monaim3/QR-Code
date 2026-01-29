@@ -10,9 +10,14 @@ import {
 interface Props {
   open: boolean;
   onClose: () => void;
+  onConfirm: () => void;
 }
 
-export default function DeleteModal({ open, onClose }: Props) {
+export default function DeleteModal({ open, onClose, onConfirm }: Props) {
+  const handleDelete = () => {
+    onConfirm();
+    onClose();
+  };
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
@@ -43,7 +48,10 @@ export default function DeleteModal({ open, onClose }: Props) {
             >
               Cancel
             </Button>
-            <Button className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear">
+            <Button
+              onClick={handleDelete}
+              className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear"
+            >
               Delete
             </Button>
           </div>

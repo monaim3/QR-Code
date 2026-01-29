@@ -9,6 +9,10 @@ interface Props {
   isOpen: boolean;
   onClick: () => void;
   children: React.ReactNode;
+  showReorder?: boolean;
+  onReorderClick?: () => void;
+  onDelete?: () => void;
+  onPreview?: () => void;
 }
 
 export default function MenuAccordion({
@@ -16,6 +20,10 @@ export default function MenuAccordion({
   isOpen,
   onClick,
   children,
+  showReorder = true,
+  onReorderClick,
+  onDelete,
+  onPreview,
 }: Props) {
   return (
     <div className="w-full space-y-8">
@@ -37,15 +45,40 @@ export default function MenuAccordion({
         </div>
 
         <div className="flex justify-end items-center gap-2">
-          <button className="flex w-10 h-10 p-2 justify-center items-center gap-2 rounded-full border border-[var(--Boarder-Grey)]">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onPreview?.();
+            }}
+            className="flex w-10 h-10 p-2 justify-center items-center gap-2 rounded-full border border-[var(--Boarder-Grey)]"
+          >
             <Eye className="text-[var(--Dark-gray)] w-4 h-4" />
           </button>
-          <button className="flex w-10 h-10 p-2 justify-center items-center gap-2 rounded-full border border-[var(--Boarder-Grey)]">
-            <TrashAlt className="text-[var(--Dark-gray)] w-4 h-4" />
-          </button>
-          <button className="flex w-10 h-10 p-2 justify-center items-center gap-2 rounded-full border border-[var(--Boarder-Grey)]">
-            <DashboardMenuIcon className="text-[var(--Dark-gray)] w-4 h-4" />
-          </button>
+          {onDelete && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+              className="flex w-10 h-10 p-2 justify-center items-center gap-2 rounded-full border border-[var(--Boarder-Grey)]"
+            >
+              <TrashAlt className="text-[var(--Dark-gray)] w-4 h-4" />
+            </button>
+          )}
+          {showReorder && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onReorderClick?.();
+              }}
+              className="flex w-10 h-10 p-2 justify-center items-center gap-2 rounded-full border border-[var(--Boarder-Grey)]"
+            >
+              <DashboardMenuIcon className="text-[var(--Dark-gray)] w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
 
