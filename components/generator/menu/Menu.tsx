@@ -2,9 +2,12 @@ import Accordion from "@/components/common/Accordion";
 import MenuSection from "./MenuSection";
 import { useState } from "react";
 import Plus from "@/components/icons/plus";
+import DeleteModal from "./DeleteModal";
 
 export default function Menu() {
   const [activeSection, setActiveSection] = useState(1);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(true);
+
   const handleClick = (section: number) =>
     setActiveSection(activeSection === section ? 0 : section);
 
@@ -26,6 +29,12 @@ export default function Menu() {
           </div>
         </div>
       </Accordion>
+
+      {/* Modal */}
+      <DeleteModal
+        open={isOpenDeleteModal}
+        onClose={() => setIsOpenDeleteModal(false)}
+      />
     </div>
   );
 }
