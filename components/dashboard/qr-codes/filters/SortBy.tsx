@@ -46,7 +46,7 @@ export default function SortBy({ selected, setSelected }: Props) {
 
   return (
     <div
-      className="relative desktopLg:min-w-[187px] min-w-[160px] hidden desktopDashboard:block"
+      className="relative desktopDashboard:min-w-[195px] min-w-[160px] hidden desktopDashboard:block"
       ref={dropdownRef}
     >
       {/* Trigger Button */}

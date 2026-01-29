@@ -88,9 +88,9 @@ export default function DonutChartCard({ title, data }: Props) {
           <>
             <ChartContainer
               config={chartConfig}
-              className="aspect-square w-[200px] h-[200px] desktopDashboard:mx-0 tablet:mx-0 mx-auto"
+              className="aspect-square w-[200px] h-[200px] desktopDashboard:mx-0 tablet:mx-0 mx-auto [&_.recharts-layer]:outline-none [&_.recharts-sector]:outline-none [&_.recharts-sector]:focus:outline-none [&_*]:outline-none [&_*]:focus:outline-none"
             >
-              <PieChart width={200} height={200}>
+              <PieChart width={200} height={200} style={{ outline: "none" }}>
                 <ChartTooltip cursor={false} content={<CustomTooltip />} />
                 <Pie
                   data={processedData}
@@ -98,7 +98,9 @@ export default function DonutChartCard({ title, data }: Props) {
                   nameKey="name"
                   innerRadius={60}
                   outerRadius={90}
-                  strokeWidth={5}
+                  stroke="none"
+                  activeIndex={undefined}
+                  isAnimationActive={false}
                 >
                   <Label
                     content={({ viewBox }) => {
