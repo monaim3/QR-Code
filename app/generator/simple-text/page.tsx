@@ -84,14 +84,16 @@ export default function SimpleText() {
               title="Simple text"
               description="Enter the text that you want displayed when a user scans your QR code"
             >
-              <Textarea
-                label="Text"
-                placeholder=" e.g. The concert will take place at 9pm on October 12"
-                id="description"
-                value={simpleText}
-                onChange={handleChange}
-                maxLength={500}
-              />
+              <div>
+                <Textarea
+                  label="Text"
+                  placeholder=" e.g. The concert will take place at 9pm on October 12"
+                  id="description"
+                  value={simpleText}
+                  onChange={handleChange}
+                  maxLength={500}
+                />
+              </div>
             </Accordion>
           </div>
           <QRCodeNameAccordion

@@ -101,35 +101,37 @@ export default function Wifi() {
               title="Wi-Fi"
               description="Provide your Wi-fi name, the type of encryption and your password"
             >
-              <div>
-                <RequiredTextInput
-                  label="Network name"
-                  value={wifi}
-                  onChange={handleChange}
-                  placeholder="e.g. My Wi-Fi"
-                  maxLength={100}
-                />
-              </div>
-              <div className="flex gap-12 items-center justify-center !mt-0 !p-0">
-                <TextInput
-                  label="Password"
-                  value={wifiPassword}
-                  onChange={handlePass}
-                  placeholder="e.g. 12345678"
-                  maxLength={100}
-                />
-                <SelectDropDown
-                  value={wifiEncryption}
-                  onChange={handleEncryption}
-                />
-              </div>
-              <div className="!mt-0 !p-0">
-                <CheckboxInput
-                  label="Hidden network"
-                  onChange={() => dispatch(setHiddenNetwork(!wifiHidden))}
-                  id="hide-ssid"
-                  checked={wifiHidden}
-                />
+              <div className="flex flex-col gap-6">
+                <div>
+                  <RequiredTextInput
+                    label="Network name"
+                    value={wifi}
+                    onChange={handleChange}
+                    placeholder="e.g. My Wi-Fi"
+                    maxLength={100}
+                  />
+                </div>
+                <div className="flex gap-12 items-center justify-center">
+                  <TextInput
+                    label="Password"
+                    value={wifiPassword}
+                    onChange={handlePass}
+                    placeholder="e.g. 12345678"
+                    maxLength={100}
+                  />
+                  <SelectDropDown
+                    value={wifiEncryption}
+                    onChange={handleEncryption}
+                  />
+                </div>
+                <div className="">
+                  <CheckboxInput
+                    label="Hidden network"
+                    onChange={() => dispatch(setHiddenNetwork(!wifiHidden))}
+                    id="hide-ssid"
+                    checked={wifiHidden}
+                  />
+                </div>
               </div>
             </Accordion>
           </div>
