@@ -35,7 +35,7 @@ export default function DeleteModal({ open, onClose }: Props) {
             </p>
           </DialogHeader>
 
-          <div className="flex items-center justify-center gap-6 self-stretch">
+          <div className="flex items-center justify-center desktop:gap-6 gap-4 self-stretch">
             <Button
               onClick={onClose}
               variant="outline"

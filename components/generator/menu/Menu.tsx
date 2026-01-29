@@ -3,10 +3,12 @@ import MenuSection from "./MenuSection";
 import { useState } from "react";
 import Plus from "@/components/icons/plus";
 import DeleteModal from "./DeleteModal";
+import ReorderModal from "./ReorderModal";
 
 export default function Menu() {
   const [activeSection, setActiveSection] = useState(1);
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(true);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenReorderModal, setIsOpenReorderModal] = useState(true);
 
   const handleClick = (section: number) =>
     setActiveSection(activeSection === section ? 0 : section);
@@ -34,6 +36,10 @@ export default function Menu() {
       <DeleteModal
         open={isOpenDeleteModal}
         onClose={() => setIsOpenDeleteModal(false)}
+      />
+      <ReorderModal
+        open={isOpenReorderModal}
+        onClose={() => setIsOpenReorderModal(false)}
       />
     </div>
   );
