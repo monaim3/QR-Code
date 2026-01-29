@@ -61,7 +61,7 @@ export default function QrCodeType({ selected, setSelected }: Props) {
 
   return (
     <div
-      className="relative min-w-[170px] hidden desktopDashboard:block"
+      className="relative min-w-[190px] hidden desktopDashboard:block"
       ref={dropdownRef}
     >
       {/* Trigger Button */}
