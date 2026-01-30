@@ -2,7 +2,7 @@
 
 import Accordion from "@/components/common/Accordion";
 import ColorBtn from "@/components/generator/vcard/ColorBtn";
-import ColorPicker from "../../../components/generator/vcard/ColorPicker";
+import ColorInput from "@/components/generator/vcard/ColorInput";
 import SwapHorizontal from "@/components/icons/swap-horizontal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@/store/slices/app-slice";
 import { useState } from "react";
 
-export default function AppDesignCustomize() {
+export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const app = useAppSelector((state) => state.app);
   const [isActive, setIsActive] = useState(0);
@@ -82,8 +82,8 @@ export default function AppDesignCustomize() {
           </div>
 
           {/* Color Picker */}
-          <div className="p-6 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
-            <ColorPicker
+          <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
+            <ColorInput
               label="Primary color"
               color={app.primaryColor}
               onChange={(v) => handleColorChange(v, app.secondaryColor)}
@@ -104,7 +104,7 @@ export default function AppDesignCustomize() {
               </button>
             </div>
 
-            <ColorPicker
+            <ColorInput
               label="Secondary color"
               color={app.secondaryColor}
               onChange={(v) => handleColorChange(app.primaryColor, v)}

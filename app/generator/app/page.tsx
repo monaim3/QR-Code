@@ -7,16 +7,48 @@ import AppInfo from "@/components/generator/app/app-info";
 import AppDesignCustomize from "@/components/generator/app/design-customize";
 import NameQrCode from "@/components/generator/app/qrCode-name";
 import Social from "@/components/generator/vcard/Social";
-import Welcome from "@/components/generator/vcard/Welcome";
+import Welcome from "@/components/generator/app/welcome-screen";
 import MobileFrame from "@/components/common/MobileFrame";
 import VCardPreview from "@/components/generator/vcard/VCardPreview";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import AppPreView from "@/components/generator/app/app-preview";
+import AppStoreLink from "@/components/generator/app/app-store-links";
 
 export default function GeneratorApp() {
     const [view, setView] = useState<"preview" | "qrCode">("preview");
     const qrRef = useRef<HTMLDivElement>(null);
     const qrCodeRef = useRef<QRCodeStyling | null>(null);
+
+     useEffect(() => {
+        if (view !== "qrCode" || !qrRef.current) return;
+    
+        const qrOptions: Options = {
+          type: "svg",
+          data: "https://www.example.com/",
+          margin: 0,
+          width: 300,
+          height: 300,
+          dotsOptions: {
+            color: "#000000",
+            type: "rounded",
+          },
+          backgroundOptions: {
+            color: "#FFFFFF",
+          },
+        };
+    
+        if (qrRef.current) {
+          qrRef.current.innerHTML = "";
+    
+          if (qrCodeRef.current) {
+            qrCodeRef.current.update(qrOptions);
+            qrCodeRef.current.append(qrRef.current);
+          } else {
+            qrCodeRef.current = new QRCodeStyling(qrOptions);
+            qrCodeRef.current.append(qrRef.current);
+          }
+        }
+      }, [view]);
 
     return (
         <main className="bg-[var(--Generator-Background)] min-h-screen">
@@ -24,7 +56,7 @@ export default function GeneratorApp() {
             <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the vCard QR code
+            Add content to the App QR code
           </h3>
           <div className="w-full flex flex-col gap-4">
             {/* Mobile Breadcrumb */}
@@ -37,7 +69,13 @@ export default function GeneratorApp() {
 
             {/* App Info */}
             <AppInfo/>
-            
+
+            {/* App Store Link */}
+            <AppStoreLink/>
+
+            {/* Welcome Screen */}
+            <Welcome />
+
             {/* Name */}
             <NameQrCode/>
           </div>

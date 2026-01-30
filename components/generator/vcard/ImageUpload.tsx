@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useRef, useCallback } from "react";
 import NextImage from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
