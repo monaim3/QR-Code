@@ -1,11 +1,13 @@
 import Arrow from "@/components/icons/arrow";
 import Eye from "@/components/icons/eye";
+import EyeOff from "@/components/icons/eye-off";
 import DashboardMenuIcon from "@/components/icons/menu";
 import TrashAlt from "@/components/icons/trash-alt";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
   title: string;
+  isVisible: boolean;
   isOpen: boolean;
   onClick: () => void;
   children: React.ReactNode;
@@ -13,10 +15,12 @@ interface Props {
   onReorderClick?: () => void;
   onDelete?: () => void;
   onPreview?: () => void;
+  hideBtnText: string;
 }
 
 export default function MenuAccordion({
   title,
+  isVisible,
   isOpen,
   onClick,
   children,
@@ -24,13 +28,16 @@ export default function MenuAccordion({
   onReorderClick,
   onDelete,
   onPreview,
+  hideBtnText,
 }: Props) {
   return (
     <div className="w-full space-y-8">
-      <div className="cursor-pointer flex items-center gap-2">
+      <div
+        className={`flex items-center gap-2 ${isVisible && "cursor-pointer"}`}
+      >
         <div
-          className={`flex items-center gap-2 self-stretch flex-1`}
-          onClick={onClick}
+          className={`flex items-center gap-2 self-stretch flex-1 ${!isVisible && "opacity-50"}`}
+          onClick={isVisible ? onClick : undefined}
         >
           <motion.div
             animate={{ rotate: isOpen ? 90 : 0 }}
@@ -45,6 +52,12 @@ export default function MenuAccordion({
         </div>
 
         <div className="flex justify-end items-center gap-2">
+          {!isVisible && (
+            <div className="flex flex-col justify-center items-center gap-2 px-4 py-2 self-stretch rounded-full border border-dashed border-[var(--Boarder-Grey)] text-[var(--Dark-gray)] text-[12px] leading-[20px]">
+              {hideBtnText}
+            </div>
+          )}
+
           <button
             type="button"
             onClick={(e) => {
@@ -53,7 +66,11 @@ export default function MenuAccordion({
             }}
             className="flex w-10 h-10 p-2 justify-center items-center gap-2 rounded-full border border-[var(--Boarder-Grey)]"
           >
-            <Eye className="text-[var(--Dark-gray)] w-4 h-4" />
+            {isVisible ? (
+              <Eye className="text-[var(--Dark-gray)] w-4 h-4" />
+            ) : (
+              <EyeOff className="text-[var(--Dark-gray)] w-4 h-4" />
+            )}
           </button>
           {onDelete && (
             <button

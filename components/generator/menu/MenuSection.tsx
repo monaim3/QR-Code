@@ -5,7 +5,11 @@ import Input from "../vcard/Input";
 import MenuAccordion from "./MenuAccordion";
 import SectionProduct from "./SectionProduct";
 import { useAppDispatch } from "@/store/hooks";
-import { updateSection, addProduct, createProductIdPublic } from "@/store/slices/menuSlice";
+import {
+  updateSection,
+  addProduct,
+  createProductIdPublic,
+} from "@/store/slices/menuSlice";
 import type { MenuSection as MenuSectionType } from "@/types/menu";
 import { useState } from "react";
 
@@ -34,9 +38,7 @@ export default function MenuSection({
   const [activeProductId, setActiveProductId] = useState<string | null>(null);
   // When only one product, use activeProductId so user can collapse it
   const effectiveActiveProductId =
-    section.products.length === 1
-      ? activeProductId
-      : (activeProductId ?? null);
+    section.products.length === 1 ? activeProductId : (activeProductId ?? null);
 
   const sectionTitle =
     section.name.trim() !== "" ? section.name : `Section ${sectionIndex + 1}`;
@@ -70,17 +72,31 @@ export default function MenuSection({
   };
 
   const handleProductClick = (productId: string) => {
-    setActiveProductId(effectiveActiveProductId === productId ? null : productId);
+    setActiveProductId(
+      effectiveActiveProductId === productId ? null : productId,
+    );
+  };
+
+  const handleSectionVisibilityToggle = () => {
+    dispatch(
+      updateSection({
+        id: section.id,
+        updates: { isVisible: !section.isVisible },
+      }),
+    );
   };
 
   return (
     <MenuAccordion
       title={sectionTitle}
+      isVisible={section.isVisible}
+      hideBtnText="Hide section"
       isOpen={isOpen}
       onClick={onClick}
       onDelete={onDelete}
       showReorder={showReorder}
       onReorderClick={onOpenReorderModal}
+      onPreview={handleSectionVisibilityToggle}
     >
       <div className="flex flex-col items-start gap-4 self-stretch">
         <div className="flex flex-col desktop:flex-row items-start desktop:gap-12 gap-4 self-stretch">
@@ -133,7 +149,8 @@ export default function MenuSection({
             showReorder={section.products.length > 1}
             onOpenReorderModal={() => onOpenProductReorder?.(section.id)}
             onDeleted={() => {
-              if (effectiveActiveProductId === product.id) setActiveProductId(null);
+              if (effectiveActiveProductId === product.id)
+                setActiveProductId(null);
             }}
           />
         ))}

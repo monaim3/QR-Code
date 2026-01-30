@@ -37,6 +37,7 @@ export default function RestaurantInfo() {
           <ImageUpload
             label="Add image"
             onCustomLogoUpload={handleImageChange}
+            aspectRatio={1.7647}
           />
 
           <div className="flex flex-col desktop:flex-row items-start desktop:gap-12 gap-4 self-stretch">

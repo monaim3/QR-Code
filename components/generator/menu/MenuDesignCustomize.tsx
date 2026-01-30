@@ -7,7 +7,7 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
-} from "@/store/slices/vCardSlice";
+} from "@/store/slices/menuSlice";
 import { useState } from "react";
 import ColorBtn from "../vcard/ColorBtn";
 import ColorInput from "../vcard/ColorInput";

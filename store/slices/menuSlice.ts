@@ -26,6 +26,7 @@ function createEmptyProduct(id?: string): MenuProduct {
     price: "",
     image: null,
     allergens: [],
+    isVisible: true,
   };
 }
 function createEmptySection(id?: string): MenuSection {
@@ -36,6 +37,7 @@ function createEmptySection(id?: string): MenuSection {
     description: "",
     descriptionTranslation: "",
     products: [],
+    isVisible: true,
   };
 }
 
@@ -126,19 +128,28 @@ const menuSlice = createSlice({
     },
     updateSection: (
       state,
-      action: PayloadAction<{ id: string; updates: Partial<Omit<MenuSection, "id" | "products">> }>,
+      action: PayloadAction<{
+        id: string;
+        updates: Partial<Omit<MenuSection, "id" | "products">>;
+      }>,
     ) => {
       const section = state.sections.find((s) => s.id === action.payload.id);
       if (section) {
         Object.assign(section, action.payload.updates);
       }
     },
-    reorderSections: (state, action: PayloadAction<{ fromIndex: number; toIndex: number }>) => {
+    reorderSections: (
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>,
+    ) => {
       const { fromIndex, toIndex } = action.payload;
       const [removed] = state.sections.splice(fromIndex, 1);
       state.sections.splice(toIndex, 0, removed);
     },
-    setSectionsOrder: (state, action: PayloadAction<{ orderedIds: string[] }>) => {
+    setSectionsOrder: (
+      state,
+      action: PayloadAction<{ orderedIds: string[] }>,
+    ) => {
       const { orderedIds } = action.payload;
       const plainSections = current(state.sections);
       const byId = new Map(plainSections.map((s) => [s.id, s]));
@@ -165,7 +176,9 @@ const menuSlice = createSlice({
       state,
       action: PayloadAction<{ sectionId: string; productId: string }>,
     ) => {
-      const section = state.sections.find((s) => s.id === action.payload.sectionId);
+      const section = state.sections.find(
+        (s) => s.id === action.payload.sectionId,
+      );
       if (section) {
         section.products = section.products.filter(
           (p) => p.id !== action.payload.productId,
@@ -180,8 +193,12 @@ const menuSlice = createSlice({
         updates: Partial<Omit<MenuProduct, "id">>;
       }>,
     ) => {
-      const section = state.sections.find((s) => s.id === action.payload.sectionId);
-      const product = section?.products.find((p) => p.id === action.payload.productId);
+      const section = state.sections.find(
+        (s) => s.id === action.payload.sectionId,
+      );
+      const product = section?.products.find(
+        (p) => p.id === action.payload.productId,
+      );
       if (product) {
         Object.assign(product, action.payload.updates);
       }
@@ -194,7 +211,9 @@ const menuSlice = createSlice({
         toIndex: number;
       }>,
     ) => {
-      const section = state.sections.find((s) => s.id === action.payload.sectionId);
+      const section = state.sections.find(
+        (s) => s.id === action.payload.sectionId,
+      );
       if (section) {
         const { fromIndex, toIndex } = action.payload;
         const [removed] = section.products.splice(fromIndex, 1);
@@ -205,7 +224,9 @@ const menuSlice = createSlice({
       state,
       action: PayloadAction<{ sectionId: string; orderedIds: string[] }>,
     ) => {
-      const section = state.sections.find((s) => s.id === action.payload.sectionId);
+      const section = state.sections.find(
+        (s) => s.id === action.payload.sectionId,
+      );
       if (section) {
         const { orderedIds } = action.payload;
         const plainProducts = current(section.products);

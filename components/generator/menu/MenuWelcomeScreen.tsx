@@ -27,6 +27,7 @@ export default function MenuWelcomeScreen() {
         <ImageUpload
           onCustomLogoUpload={handleImageChange}
           onPreview={handlePreview}
+          aspectRatio={1}
         />
       </Accordion>
     </div>

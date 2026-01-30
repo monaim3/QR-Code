@@ -3,7 +3,7 @@ import PreviewCard from "./PreviewCard";
 
 export default function MenuInitialPreview() {
   return (
-    <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative">
+    <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[58px] px-5 relative">
       <div className="absolute left-0 top-0 h-[249px] w-full z-[1] bg-[#C3944D]" />
 
       <div className="flex flex-col items-center gap-4 stretch relative z-[2]">
@@ -22,11 +22,11 @@ export default function MenuInitialPreview() {
       </div>
 
       <div className="space-y-2 relative z-[2] w-full">
-        <PreviewCard title="Starters" />
-        <PreviewCard title="Soups & Salad" />
-        <PreviewCard title="Pizza" />
-        <PreviewCard title="Desserts" />
-        <PreviewCard title="Drinks" />
+        <PreviewCard title="Starters" borderColor="#F4C47B" />
+        <PreviewCard title="Soups & Salad" borderColor="#F4C47B" />
+        <PreviewCard title="Pizza" borderColor="#F4C47B" />
+        <PreviewCard title="Desserts" borderColor="#F4C47B" />
+        <PreviewCard title="Drinks" borderColor="#F4C47B" />
       </div>
     </div>
   );

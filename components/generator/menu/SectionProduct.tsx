@@ -52,18 +52,41 @@ export default function SectionProduct({
     onDeleted?.();
   };
 
+  const handleProductVisibilityToggle = () => {
+    dispatch(
+      updateProduct({
+        sectionId,
+        productId: product.id,
+        updates: { isVisible: !product.isVisible },
+      }),
+    );
+  };
+
+  const handleImageChange = (value: string | null) => {
+    dispatch(
+      updateProduct({
+        sectionId,
+        productId: product.id,
+        updates: { image: value },
+      }),
+    );
+  };
+
   return (
     <div className="flex flex-col justify-center items-start gap-8 desktop:p-6 p-4 self-stretch bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)]">
       <MenuAccordion
         title={productTitle}
+        isVisible={product.isVisible}
+        hideBtnText="Hide product"
         isOpen={isOpen}
         onClick={onClick}
         showReorder={showReorder}
         onReorderClick={onOpenReorderModal}
         onDelete={handleDelete}
+        onPreview={handleProductVisibilityToggle}
       >
         <div className="desktop:space-y-8 space-y-6">
-          <ImageUpload label="Add image" />
+          <ImageUpload label="Add image" aspectRatio={1.7647} onCustomLogoUpload={handleImageChange} />
 
           <div className="space-y-4">
             <Input

@@ -18,6 +18,7 @@ export interface MenuProduct {
   price: string;
   image: string | null;
   allergens: string[];
+  isVisible: boolean;
 }
 
 export interface MenuSection {
@@ -26,6 +27,7 @@ export interface MenuSection {
   nameTranslation: string;
   description: string;
   descriptionTranslation: string;
+  isVisible: boolean;
   products: MenuProduct[];
 }
 
