@@ -355,7 +355,7 @@ export default function Facebook() {
             <div className="hidden desktop:flex desktop:flex-col desktop:gap-4">
               <MobileFrame>
                 {view === "preview" ? (
-                  <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+                  <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-y-auto">
                     <FacebookPreview />
                   </div>
                 ) : (
