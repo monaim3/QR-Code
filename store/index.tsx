@@ -5,6 +5,7 @@ import sidebarReducer from "./slices/sidebarSlice";
 import vCardSlice from "./slices/vCardSlice";
 import appSlice from "./slices/app-slice";
 import pdfSlice from "./slices/pdf-slice";
+import socialSlice from "./slices/social-slice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     vCard: vCardSlice,
     app: appSlice,
     pdf: pdfSlice,
+    social: socialSlice,
   },
 });
 

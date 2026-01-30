@@ -10,10 +10,11 @@ export interface DocumentInfo{
   website: string | null,
 }
 
-export interface AppSlice {
+export interface PdfSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  pdfFile: string,
   documentInfo: DocumentInfo,
   welcomeScreen: string;
   qrCodeName: string;

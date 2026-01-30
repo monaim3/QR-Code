@@ -3,16 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
-import AppDesignCustomize from "@/components/generator/app/design-customize";
+import DesignCustomize from "@/components/generator/socialMedia/design-customize";
 import NameQrCode from "@/components/generator/pdf/qrCode-name";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import AppPreView from "@/components/generator/app/app-preview";
-import PdfUploadScreen from "@/components/generator/pdf/pdf-upload-screen";
-import DocumentInfo from "@/components/generator/pdf/document-info";
 import Welcome from "@/components/generator/pdf/welcome-screen";
 
-export default function GeneratorApp() {
+export default function GeneratorSocialMedia() {
     const [view, setView] = useState<"preview" | "qrCode">("preview");
     const qrRef = useRef<HTMLDivElement>(null);
     const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -54,7 +52,7 @@ export default function GeneratorApp() {
             <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the PDF QR code
+            Add content to the Social Media QR code
           </h3>
           <div className="w-full flex flex-col gap-4">
             {/* Mobile Breadcrumb */}
@@ -62,14 +60,8 @@ export default function GeneratorApp() {
               {<Breadcrumb useMobileSteps={true} />}
             </div>
 
-            {/* Pdf Upload */}
-            <PdfUploadScreen/>
-
             {/* Design & Customize */}
-            <AppDesignCustomize />
-
-            {/* Document Info */}
-            <DocumentInfo/>
+            <DesignCustomize/>
 
             {/* welcome Screen */}
             <Welcome/>
