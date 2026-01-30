@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useId } from "react";
 import NextImage from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
@@ -12,12 +12,16 @@ interface ImageUploadProps {
   onCustomLogoUpload?: (logo: string | null) => void;
   onLogoChange?: (logo: string | null) => void;
   onPreview?: () => void;
+  label?: string;
+  aspectRatio?: number;
 }
 
 export default function ImageUpload({
   onCustomLogoUpload,
   onLogoChange,
   onPreview,
+  label = "Image",
+  aspectRatio = 1,
 }: ImageUploadProps) {
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyLogo.svg");
@@ -25,6 +29,7 @@ export default function ImageUpload({
   const [isCropping, setIsCropping] = useState(false);
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const id = `image-upload-${useId().replace(/:/g, "-")}`;
 
   const validateAndProcessFile = useCallback((file: File) => {
     // Validate file type
@@ -167,7 +172,7 @@ export default function ImageUpload({
   return (
     <div className="flex flex-col gap-2">
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
-        Image
+        {label}
       </label>
       <div
         onDragEnter={handleDragEnter}
@@ -185,7 +190,7 @@ export default function ImageUpload({
         <input
           ref={fileInputRef}
           type="file"
-          id="logo-upload"
+          id={id}
           accept="image/jpeg,image/jpg,image/png,image/svg+xml"
           onChange={handleFileUpload}
           className="hidden"
@@ -247,7 +252,7 @@ export default function ImageUpload({
           </div>
         ) : (
           <label
-            htmlFor="logo-upload"
+            htmlFor={id}
             className="cursor-pointer flex gap-6 items-center"
           >
             <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white">
@@ -258,7 +263,7 @@ export default function ImageUpload({
 
             <div className="space-y-1">
               <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
-                Upload image (jpg, png, svg) or drag and drop
+                Upload image (jpg, png, svg)
               </p>
               <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
                 Maximum size: 5MB
@@ -278,6 +283,7 @@ export default function ImageUpload({
         onClose={handleClose}
         imageSrc={imageToCrop}
         onCropComplete={handleCropComplete}
+        aspectRatio={aspectRatio}
       />
     </div>
   );

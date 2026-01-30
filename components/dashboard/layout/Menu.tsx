@@ -44,7 +44,7 @@ export default function Menu() {
         {/* Logo */}
         {collapsed ? (
           <div onClick={toggleCollapse} className="cursor-pointer py-1 mx-auto">
-            <DashboardMenuIcon />
+            <DashboardMenuIcon className="text-[#3F3E3E]" />
           </div>
         ) : (
           <div className="flex items-center gap-2 h-8 overflow-hidden transition-all duration-300">

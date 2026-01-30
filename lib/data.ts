@@ -89,3 +89,46 @@ export const cityData = [
   { name: "Seoul", value: 6.4, fill: "#6DFACD", scans: 64 },
   { name: "Mexico City", value: 5.8, fill: "#A155EC", scans: 58 },
 ];
+
+export const invoices = [
+  {
+    id: "D68A341D-73951",
+    transactionDate: "Sep 18, 2023",
+    plan: "Yearly Plan",
+    paymentMethod: "PayPal",
+    amount: "$14.95",
+    status: "Paid",
+  },
+  {
+    id: "D68A341D-72121",
+    transactionDate: "Sep 18, 2022",
+    plan: "Yearly Plan",
+    paymentMethod: "**** **** **** 8902",
+    amount: "$14.95",
+    status: "Paid",
+  },
+  {
+    id: "-",
+    transactionDate: "Sep 18, 2021",
+    plan: "Yearly Plan",
+    paymentMethod: "**** **** **** 8902",
+    amount: "$14.95",
+    status: "Failed",
+  },
+  {
+    id: "D68A341D-78901",
+    transactionDate: "Sep 18, 2020",
+    plan: "Yearly Plan",
+    paymentMethod: "**** **** **** 8902",
+    amount: "$14.95",
+    status: "Paid",
+  },
+  {
+    id: "D68A341D-75432",
+    transactionDate: "Sep 4, 2020",
+    plan: "7-Day Full Access",
+    paymentMethod: "**** **** **** 8902",
+    amount: "$1.95",
+    status: "Paid",
+  },
+];

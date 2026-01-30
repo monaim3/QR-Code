@@ -42,7 +42,13 @@ export default function VCardPreview() {
         className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${vCard.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
       >
         {vCard.welcomeScreen && (
-          <Image src={vCard.welcomeScreen} alt="Background" fill />
+          <Image
+            src={vCard.welcomeScreen}
+            alt="Background"
+            width={200}
+            height={200}
+            className="object-contain"
+          />
         )}
       </div>
       <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative">

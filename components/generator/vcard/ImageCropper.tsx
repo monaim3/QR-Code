@@ -17,9 +17,16 @@ interface Props {
   onClose: () => void;
   imageSrc: string | null;
   onCropComplete: (croppedImageUrl: string) => void;
+  aspectRatio?: number;
 }
 
-export default function ImageCropper({ open, onClose, imageSrc, onCropComplete }: Props) {
+export default function ImageCropper({
+  open,
+  onClose,
+  imageSrc,
+  onCropComplete,
+  aspectRatio = 1,
+}: Props) {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -84,7 +91,7 @@ export default function ImageCropper({ open, onClose, imageSrc, onCropComplete }
             crop={crop}
             zoom={zoom}
             rotation={rotation}
-            aspect={1}
+            aspect={aspectRatio}
             onCropChange={onCropChange}
             onCropComplete={onCropCompleteInternal}
             onZoomChange={onZoomChange}

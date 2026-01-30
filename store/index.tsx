@@ -7,6 +7,9 @@ import appSlice from "./slices/app-slice";
 import simpleTextReducer from "./slices/simpleTextSlice";
 import wifiReducer from "./slices/wifiSlice";
 import facebookReducer from "./slices/facebookSlice";
+import pdfSlice from "./slices/pdf-slice";
+import socialSlice from "./slices/social-slice";
+import menuSlice from "./slices/menuSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +21,9 @@ export const store = configureStore({
     facebook: facebookReducer,
     vCard: vCardSlice,
     app: appSlice,
+    pdf: pdfSlice,
+    social: socialSlice,
+    menu: menuSlice,
   },
 });
 

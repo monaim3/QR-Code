@@ -6,6 +6,7 @@ import { setAppInfo } from "@/store/slices/app-slice";
 import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
 import Plus from "@/components/icons/plus";
+import TrashAlt from "@/components/icons/trash-alt";
 
 export default function AppInfo() {
     const dispatch = useAppDispatch();
@@ -43,6 +44,39 @@ export default function AppInfo() {
         );
       }
     };
+
+    const addButton = () =>{
+      dispatch(
+          setAppInfo({
+            ...app.appInfo,
+            buttons: [
+            ...app.appInfo.buttons,
+            { text: '', url: '' },
+            ],
+          }),
+        );
+    }
+
+    const removeButton = (index: number) => {
+      dispatch(
+    setAppInfo({
+      ...app.appInfo,
+      buttons: app.appInfo.buttons.filter((_, i) => i !== index),
+    })
+  );
+    }
+
+    const setButtonInfo = (index: number, field: 'text' | 'url', value: string) => {
+      dispatch(
+        setAppInfo({
+          ...app.appInfo,
+          buttons: app.appInfo.buttons.map((button, i) =>
+            i === index ? { ...button, [field]: value } : button
+          ),
+        })
+      );
+  };
+
 
 
   return (
@@ -91,6 +125,7 @@ export default function AppInfo() {
 
         </div>
         <button
+        onClick={addButton}
             className="
                 flex 
                 h-10

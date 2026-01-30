@@ -3,7 +3,7 @@ export interface ColorPalette {
   secondary: string;
 }
 
-export interface Button{
+export default interface Button{
   text: string,
   url: string,
 }
@@ -16,10 +16,21 @@ export interface AppInfo{
   buttons: Button[],
 }
 
+export interface AppLinks{
+  id: number,
+  storeName: string,
+  title: string,
+  storeUrl: string,
+}
+
 export interface AppSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
   appInfo: AppInfo;
+  welcomeScreen: string;
   qrCodeName: string;
+  appLinks: AppLinks[],
+  appStoreLinks: AppLinks[];
+  isPreviewWelcomeScreen: boolean,
 }

@@ -105,7 +105,6 @@ export default function DesignCustomize() {
             </div>
 
             <ColorInput
-
               label="Secondary color"
               color={vCard.secondaryColor}
               onChange={(v) => handleColorChange(vCard.primaryColor, v)}
