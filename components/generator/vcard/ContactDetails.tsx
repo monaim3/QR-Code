@@ -82,7 +82,7 @@ export default function ContactDetails({ onClick, isOpen }: Props) {
             onClick={handleAddAltPhoneNumber}
             className="flex w-12 h-12 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)]"
           >
-            <Plus />
+            <Plus className="text-[var(--Dark-gray)]" />
           </button>
         </div>
       </div>
@@ -134,7 +134,7 @@ export default function ContactDetails({ onClick, isOpen }: Props) {
             onClick={handleAddAltEmail}
             className="flex w-12 h-12 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)]"
           >
-            <Plus />
+            <Plus className="text-[var(--Dark-gray)]" />
           </button>
         </div>
       </div>

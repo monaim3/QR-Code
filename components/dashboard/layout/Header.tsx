@@ -30,7 +30,7 @@ export default function DashboardHeader() {
           <Logo />
         </div>
         <button onClick={() => setIsDrawerOpen(true)}>
-          <DashboardMenuIcon />
+          <DashboardMenuIcon className="text-[#3F3E3E]" />
         </button>
       </header>
 

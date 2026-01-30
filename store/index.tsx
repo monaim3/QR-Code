@@ -6,6 +6,7 @@ import vCardSlice from "./slices/vCardSlice";
 import appSlice from "./slices/app-slice";
 import pdfSlice from "./slices/pdf-slice";
 import socialSlice from "./slices/social-slice";
+import menuSlice from "./slices/menuSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     app: appSlice,
     pdf: pdfSlice,
     social: socialSlice,
+    menu: menuSlice,
   },
 });
 
