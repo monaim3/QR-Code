@@ -4,6 +4,7 @@ import qrReducer from "./slices/qrSlice";
 import sidebarReducer from "./slices/sidebarSlice";
 import vCardSlice from "./slices/vCardSlice";
 import appSlice from "./slices/app-slice";
+import pdfSlice from "./slices/pdf-slice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     vCard: vCardSlice,
     app: appSlice,
+    pdf: pdfSlice,
   },
 });
 
