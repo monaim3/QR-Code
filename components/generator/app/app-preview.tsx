@@ -3,7 +3,10 @@ import StructureCheck from "@/components/icons/structure-check";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/store/hooks";
 import Image from "next/image";
-import Apple from "@/components/icons/apple";
+import AppleAvailable from "@/components/icons/apple-available";
+import PlayStoreAvailable from "@/components/icons/playstore-available";
+import AmazonAvailable from "@/components/icons/amazon-available";
+import MiStoreIcon from "@/components/icons/mi-available";
 
 export default function AppPreView(){
   const dispatch = useDispatch();
@@ -81,21 +84,21 @@ export default function AppPreView(){
                 {button.storeName === "appStore" ? 
                 <div className="h-[40px] w-full bg-[var(--Black)] rounded-[10px] flex items-center justify-center"
                 onClick={() => window.open(button.storeUrl, "_blank")}>
-                 
+                 <AppleAvailable/>
                 </div> :
                  button.storeName === "goolgePlay" ?
                  <div className="h-[40px] w-full bg-[var(--Black)] rounded-[10px] flex items-center justify-center"
                  onClick={() => window.open(button.storeUrl, "_blank")}>
-                 
+                 <PlayStoreAvailable/>
                 </div> :
                    button.storeName === "amazon" ? 
                    <div className="h-[40px] w-full bg-[var(--Black)] rounded-[10px] flex items-center justify-center"
                    onClick={() => window.open(button.storeUrl, "_blank")}>
-                 
+                 <AmazonAvailable/>
                 </div> :
                     <div className="h-[40px] w-full bg-[var(--Black)] rounded-[10px] flex items-center justify-center"
                     onClick={() => window.open(button.storeUrl, "_blank")}>
-                 
+                 <MiStoreIcon/>
                 </div>}
               </div>
             })}

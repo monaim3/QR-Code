@@ -39,25 +39,25 @@ const palette = [
 
 const storeDefaultLink = [
   {
-    id: 1,
+    id: 0,
     storeName: "appStore",
     title: "App Store",
     storeUrl: '',
   },
   {
-    id: 2,
+    id: 1,
     storeName: "goolgePlay",
     title: "Goolge Play",
     storeUrl: '',
   },
   {
-    id: 3,
+    id: 2,
     storeName: "amazon",
     title: "Amazon",
     storeUrl: '',
   },
   {
-    id: 4,
+    id: 3,
     storeName: "xiaomi",
     title: "Xioami",
     storeUrl: '',
@@ -111,14 +111,17 @@ const appSlice = createSlice({
       const index = state.appLinks.findIndex(item => item.id === action.payload);
       if (index !== -1) {
         const [item] = state.appLinks.splice(index, 1);
-        state.appStoreLinks.push(item);
+        state.appStoreLinks.push(item); // ✅ always at end
       }
-    },
+    },       
     moveLinkToAppLinks: (state, action: PayloadAction<number>) => {
-      const index = state.appStoreLinks.findIndex(item => item.id === action.payload);
+     const index = state.appStoreLinks.findIndex(item => item.id === action.payload);
       if (index !== -1) {
         const [item] = state.appStoreLinks.splice(index, 1);
-        state.appLinks.push(item);
+
+        // insert at original position using the id
+        const insertIndex = item.id; 
+        state.appLinks.splice(insertIndex, 0, item);
       }
     },
     setWelcomeScreen: (state, action: PayloadAction<string>) => {
