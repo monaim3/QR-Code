@@ -9,6 +9,8 @@ import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import AppPreView from "@/components/generator/app/app-preview";
 import Welcome from "@/components/generator/pdf/welcome-screen";
+import Information from "@/components/generator/socialMedia/information";
+import SocialLinks from "@/components/generator/socialMedia/social-links";
 
 export default function GeneratorSocialMedia() {
     const [view, setView] = useState<"preview" | "qrCode">("preview");
@@ -62,6 +64,12 @@ export default function GeneratorSocialMedia() {
 
             {/* Design & Customize */}
             <DesignCustomize/>
+
+            {/* Information */}
+            <Information/>
+
+            {/* Social Links */}
+            <SocialLinks/>
 
             {/* welcome Screen */}
             <Welcome/>

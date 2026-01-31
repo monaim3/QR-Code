@@ -5,15 +5,18 @@ import ColorBtn from "@/components/generator/vcard/ColorBtn";
 import ColorInput from "@/components/generator/vcard/ColorInput";
 import SwapHorizontal from "@/components/icons/swap-horizontal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { LuPencil } from "react-icons/lu";
 import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
   setWelcomeScreen,
   setIsPreviewWelcomeScreen,
+  removeCarouselImage,
 } from "@/store/slices/social-slice";
 import { useState } from "react";
-import ImageUpload from "./uploadMultipleImage";
+import ImageUpload from "@/components/generator/socialMedia/uploadCarusolImage";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
@@ -69,6 +72,11 @@ export default function DesignCustomize() {
       dispatch(setIsPreviewWelcomeScreen(true));
   };
 
+  const handleImageDelete = (value: string | null) => {
+    dispatch(removeCarouselImage(value || ""));
+  }
+
+
   return (
     <div className="w-full">
       <Accordion
@@ -122,11 +130,39 @@ export default function DesignCustomize() {
             />
           </div>
           <div>
-            {/* <ImageUpload
-              onCustomLogoUpload={handleImageChange}
-              onPreview={handlePreview}
-            /> */}
+            <ImageUpload
+             onCustomLogoUpload={()=>{}}
+            />
           </div>
+          <div className="grid grid-cols-5 gap-4">
+          {social.carousel.map((image,index)=> {
+            return <div className="flex flex-col items-center hustify-center">
+              <div className="border border-[var(--Boarder-Grey)] rounded-[12px]">
+                <img
+                src={image}
+                alt={image}
+                width={80}
+                height={80}
+                className="w-[150px] h-[150px] object-cover rounded-[12px] p-1"
+              />
+              </div>
+              <div className="w-[150px] flex gap-2 items-center mt-2">
+              <div 
+              id="${index}"
+              onClick={() => {}}
+              className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center">
+                <LuPencil className="text-[var(--Grey)]"/>
+              </div>
+              <div
+              onClick={()=> handleImageDelete(image)}
+              id="${index}"
+              className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center">
+                <RiDeleteBinLine className="text-[var(--Grey)]"/>
+              </div>
+            </div>
+            </div>
+          })}
+        </div>
         </div>
       </Accordion>
     </div>
