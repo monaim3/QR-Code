@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,11 +13,26 @@ import { QRCodeItem } from "@/types/qr-code";
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSave: () => void;
+  onSave: (newName: string) => void;
   item?: QRCodeItem | null;
 }
 
 export default function NameEditModal({ open, onClose, onSave, item }: Props) {
+  const [name, setName] = useState(item?.title || "");
+
+  // Reset name when modal opens/closes or item changes
+  useEffect(() => {
+    if (open && item) {
+      setName(item.title || "");
+    }
+  }, [open, item]);
+
+  const handleSave = () => {
+    const trimmedName = name.trim();
+    const finalName = trimmedName === "" ? "Untitled" : trimmedName;
+    onSave(finalName);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onClose} key={item?.id || "new"}>
       <DialogContent
@@ -37,7 +53,13 @@ export default function NameEditModal({ open, onClose, onSave, item }: Props) {
           <Input
             type="text"
             className="h-12 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[16px] !leading-[24px]"
-            defaultValue={item?.title || ""}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSave();
+              }
+            }}
           />
         </div>
 
@@ -50,7 +72,7 @@ export default function NameEditModal({ open, onClose, onSave, item }: Props) {
             Cancel
           </Button>
           <Button
-            onClick={() => onSave()}
+            onClick={handleSave}
             className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear"
           >
             Save

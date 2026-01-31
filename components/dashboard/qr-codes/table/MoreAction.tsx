@@ -22,35 +22,37 @@ export default function MoreAction({
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
+  const [showAbove, setShowAbove] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const options = [
     {
-      icon: Edit,
+      icon: <Edit className="text-[var(--Dark-gray)] w-4 h-4" />,
       label: "Edit",
     },
     {
-      icon: ChartBarSquare,
+      icon: <ChartBarSquare className="text-[var(--Dark-gray)] w-4 h-4" />,
       label: "Analytics",
     },
     {
-      icon: PauseCircle,
+      icon: <PauseCircle className="text-[var(--Dark-gray)] w-4 h-4" />,
       label: "Pause",
     },
     {
-      icon: Copy,
+      icon: <Copy className="text-[var(--Dark-gray)] w-4 h-4" />,
       label: "Duplicate",
     },
     {
-      icon: RefreshCw,
+      icon: <RefreshCw className="text-[var(--Dark-gray)] w-4 h-4" />,
       label: "Reset scans",
     },
     {
-      icon: QrCode5,
+      icon: <QrCode5 className="text-[var(--Dark-gray)] w-4 h-4" />,
       label: "Change QR type",
     },
     {
-      icon: TrashAlt,
+      icon: <TrashAlt className="text-[var(--error)] w-4 h-4" />,
       label: "Delete",
     },
   ];
@@ -84,6 +86,20 @@ export default function MoreAction({
     setIsOpen(false);
   };
 
+  const handleToggleDropdown = () => {
+    if (!isOpen && buttonRef.current) {
+      // Check position before opening
+      const rect = buttonRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const spaceBelow = viewportHeight - rect.bottom;
+      const dropdownHeight = 350; // Approximate height of dropdown (7 options + padding)
+
+      // If not enough space below, show above
+      setShowAbove(spaceBelow < dropdownHeight);
+    }
+    setIsOpen(!isOpen);
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -101,7 +117,8 @@ export default function MoreAction({
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        ref={buttonRef}
+        onClick={handleToggleDropdown}
         className="w-6 h-4 flex items-center justify-center"
       >
         <MoreHorizontal />
@@ -109,16 +126,19 @@ export default function MoreAction({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-1 z-10 desktopDashboard:flex  hidden flex-col items-start gap-1 w-[181px] p-4 top-[43px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
+        <div
+          className={`absolute right-1 z-10 desktopDashboard:flex hidden flex-col items-start gap-1 w-[188px] p-4 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150 ${
+            showAbove ? "bottom-full mb-[22px]" : "top-full mt-[22px]"
+          }`}
+        >
           {options.map((option, i) => {
-            const Icon = option.icon;
             return (
               <div
                 key={i}
                 onClick={() => handleSelect(option.label)}
                 className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
               >
-                <Icon className="text-[var(--Dark-gray)] w-4 h-4" />
+                {option.icon}
                 <span
                   className={`text-[14px] leading-[16px] ${
                     option.label === "Delete"
@@ -164,14 +184,13 @@ export default function MoreAction({
 
           <div className="flex flex-col items-start gap-1 tablet:px-8 px-5 py-4">
             {options.slice(0, options.length - 1).map((option, i) => {
-              const Icon = option.icon;
               return (
                 <div
                   key={i}
                   onClick={() => handleSelect(option.label)}
                   className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
                 >
-                  <Icon className="text-[var(--Dark-gray)] w-4 h-4" />
+                  {option.icon}
                   <span
                     className={`text-[14px] leading-[16px] ${
                       option.label === "Delete"
@@ -205,14 +224,13 @@ export default function MoreAction({
               </span>
             </div>
             {options.slice(options.length - 1).map((option, i) => {
-              const Icon = option.icon;
               return (
                 <div
                   key={i}
                   onClick={() => handleSelect(option.label)}
                   className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
                 >
-                  <Icon className="text-[var(--Dark-gray)] w-4 h-4" />
+                  {option.icon}
                   <span
                     className={`text-[14px] leading-[16px] ${
                       option.label === "Delete"

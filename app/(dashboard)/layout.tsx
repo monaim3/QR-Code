@@ -17,7 +17,7 @@ export default function DashboardLayout({
       <div className="self-stretch flex-1 h-full relative overflow-y-auto">
         <DashboardHeader />
 
-        <main className="desktopDashboard:py-8 desktopDashboard:px-6 tablet:px-8 px-[20px] py-6 flex flex-col items-start desktopDashboard:gap-0 gap-0 relative overflow-y-auto self-stretch flex-1">
+        <main className="desktopDashboard:py-8 desktopDashboard:px-6 tablet:px-8 px-[20px] py-6 flex flex-col items-start desktopDashboard:gap-0 gap-0 relative overflow-y-auto self-stretch flex-1 min-h-screen">
           {children}
         </main>
       </div>

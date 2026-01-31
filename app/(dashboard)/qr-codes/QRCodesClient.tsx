@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import CheckboxBar from "@/components/dashboard/qr-codes/checkbox-bar/CheckboxBar";
 import CreateQrCodeBtn from "@/components/dashboard/qr-codes/CreateQrCodeBtn";
 import Filters from "@/components/dashboard/qr-codes/filters/Filters";
@@ -63,10 +63,82 @@ const initialQrData: QRCodeItem[] = [
 export default function QrCodesClient() {
   const [qrData, setQrData] = useState<QRCodeItem[]>(initialQrData);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [filters, setFilters] = useState<{
+    query: string;
+    status: string;
+    types: string[];
+    sortBy: string;
+  }>({
+    query: "",
+    status: "",
+    types: [],
+    sortBy: "",
+  });
   const searchParams = useSearchParams();
   const banner = searchParams.get("banner");
   const noData = searchParams.get("nodata");
   const filter = searchParams.get("filter");
+
+  // Filter and sort QR codes based on filters
+  const filteredQrData = useMemo(() => {
+    let filtered = [...qrData];
+
+    // Filter by search query (search in title)
+    if (filters.query.trim()) {
+      const queryLower = filters.query.toLowerCase().trim();
+      filtered = filtered.filter((item) =>
+        item.title.toLowerCase().includes(queryLower)
+      );
+    }
+
+    // Filter by status
+    if (filters.status) {
+      filtered = filtered.filter((item) => item.status === filters.status);
+    }
+
+    // Filter by types
+    if (filters.types.length > 0) {
+      filtered = filtered.filter((item) =>
+        filters.types.includes(item.type)
+      );
+    }
+
+    // Sort data
+    if (filters.sortBy) {
+      switch (filters.sortBy) {
+        case "name-asc":
+          filtered.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case "name-desc":
+          filtered.sort((a, b) => b.title.localeCompare(a.title));
+          break;
+        case "scans-asc":
+          filtered.sort((a, b) => a.scans - b.scans);
+          break;
+        case "scans-desc":
+          filtered.sort((a, b) => b.scans - a.scans);
+          break;
+        case "date-asc":
+          filtered.sort((a, b) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
+            return dateA - dateB;
+          });
+          break;
+        case "date-desc":
+          filtered.sort((a, b) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
+            return dateB - dateA;
+          });
+          break;
+        default:
+          break;
+      }
+    }
+
+    return filtered;
+  }, [qrData, filters]);
 
   const handleToggleSelection = useCallback((id: string) => {
     setSelectedIds((prev) => {
@@ -87,13 +159,13 @@ export default function QrCodesClient() {
   const handleSelectAll = useCallback(() => {
     setSelectedIds((prev) => {
       // If all items are selected, deselect all
-      if (prev.size === qrData.length) {
+      if (prev.size === filteredQrData.length) {
         return new Set();
       }
       // Otherwise, select all
-      return new Set(qrData.map((item) => item.id));
+      return new Set(filteredQrData.map((item) => item.id));
     });
-  }, [qrData]);
+  }, [filteredQrData]);
 
   const handleUpdateQrCode = useCallback(
     (id: string, updates: Partial<QRCodeItem>) => {
@@ -118,7 +190,7 @@ export default function QrCodesClient() {
 
   const selectedCount = selectedIds.size;
   const hasSelection = selectedCount > 0;
-  const allSelected = selectedCount === qrData.length && qrData.length > 0;
+  const allSelected = selectedCount === filteredQrData.length && filteredQrData.length > 0;
 
   return (
     <>
@@ -143,14 +215,18 @@ export default function QrCodesClient() {
 
       <div className="w-full flex flex-col items-start desktopDashboard:gap-6 gap-4 self-stretch">
         {/* Filters */}
-        <Filters allSelected={allSelected} onSelectAll={handleSelectAll} />
+        <Filters
+          allSelected={allSelected}
+          onSelectAll={handleSelectAll}
+          onFilterChange={setFilters}
+        />
 
-        {/* qrData.length > 0 */}
+        {/* filteredQrData.length > 0 */}
         {noData !== "true" ? (
           <>
             {/* Table */}
             <QrCodesTable
-              qrData={qrData}
+              qrData={filteredQrData}
               selectedIds={selectedIds}
               onToggleSelection={handleToggleSelection}
               onUpdateQrCode={handleUpdateQrCode}

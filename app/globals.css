@@ -138,6 +138,14 @@
     font-family: var(--font-poppins);
   }
 
+  /* Remove focus outline/border from Recharts pie/donut chart sectors on click */
+  [data-slot="chart"] *:focus,
+  [data-slot="chart"] .recharts-sector:focus,
+  [data-slot="chart"] .recharts-layer:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

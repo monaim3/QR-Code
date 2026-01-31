@@ -122,10 +122,10 @@ export default function DesignCustomize() {
             />
           </div>
           <div>
-            <ImageUpload
+            {/* <ImageUpload
               onCustomLogoUpload={handleImageChange}
               onPreview={handlePreview}
-            />
+            /> */}
           </div>
         </div>
       </Accordion>

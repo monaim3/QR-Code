@@ -64,7 +64,6 @@ export default function WebsiteUrlPage() {
     <>
       <div className="bg-[var(--Generator-Background)] min-h-screen h-full">
         <Container>
-          
           <div className="py-0 desktop:py-12">
             <div className="flex flex-col desktop:flex-row gap-8">
               <div className="flex-1 flex flex-col gap-0 desktop:gap-4">
@@ -146,6 +145,8 @@ export default function WebsiteUrlPage() {
                     </AnimatePresence>
                   </div>
                   <QRCodeNameAccordion
+                    title="QR code name"
+                    description="Set a name for your QR code"
                     value={qrCodeName}
                     onChange={handleQrNameChange}
                     error={qrNameError}
