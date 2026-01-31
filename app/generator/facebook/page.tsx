@@ -18,7 +18,10 @@ import {
   addButton,
   removeButton,
   setButtonTextError,
+  setPrimaryColor as setFacebookPrimaryColor,
+  setSecondaryColor as setFacebookSecondaryColor,
 } from "@/store/slices/facebookSlice";
+
 import QRCodeStyling, { Options } from "qr-code-styling";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
@@ -82,14 +85,21 @@ export default function Facebook() {
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
+
+    // vCard এ swap
     dispatch(setPrimaryColor(vCard.secondaryColor));
     dispatch(setSecondaryColor(temp));
+
+    // Facebook slice এও swap করুন
+    dispatch(setFacebookPrimaryColor(vCard.secondaryColor));
+    dispatch(setFacebookSecondaryColor(temp));
+
     dispatch(
       setColorPalette({
         index: isActive,
         color: {
           primary: vCard.secondaryColor,
-          secondary: vCard.primaryColor,
+          secondary: temp,
         },
       }),
     );
@@ -100,16 +110,27 @@ export default function Facebook() {
     secondaryColor: string,
     index: number,
   ) => {
+    // vCard এ update
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
+
+    // Facebook slice এও update করুন
+    dispatch(setFacebookPrimaryColor(primaryColor));
+    dispatch(setFacebookSecondaryColor(secondaryColor));
+
     setIsActive(index);
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {
     const upperPrimary = primaryColor.toUpperCase();
     const upperSecondary = secondaryColor.toUpperCase();
+
     dispatch(setPrimaryColor(upperPrimary));
     dispatch(setSecondaryColor(upperSecondary));
+
+    dispatch(setFacebookPrimaryColor(upperPrimary));
+    dispatch(setFacebookSecondaryColor(upperSecondary));
+
     dispatch(
       setColorPalette({
         index: isActive,
@@ -120,7 +141,6 @@ export default function Facebook() {
       }),
     );
   };
-
   useEffect(() => {
     if (view !== "qrCode" || !qrRef.current) return;
 
@@ -296,7 +316,10 @@ export default function Facebook() {
                   </div>
 
                   <div
-                    className={`${buttonTextError || buttonUrlError ? "mt-6" : "mt-4"}`}
+                    className={`
+                      ${buttonTextError || buttonUrlError ? "mt-6" : ""}
+                      ${buttons.length > 0 ? "mt-4" : ""}
+                    `}
                   >
                     <button
                       onClick={handleAddButton}
@@ -355,7 +378,7 @@ export default function Facebook() {
             <div className="hidden desktop:flex desktop:flex-col desktop:gap-4">
               <MobileFrame>
                 {view === "preview" ? (
-                  <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-y-auto">
+                  <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
                     <FacebookPreview />
                   </div>
                 ) : (

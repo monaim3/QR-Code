@@ -23,6 +23,8 @@ interface facebookState {
   ErrorWebsite: string;
   buttons: Button[];
   images: ImageItem[];
+  primaryColor: string;
+  secondaryColor: string;
 }
 
 const initialState: facebookState = {
@@ -34,6 +36,8 @@ const initialState: facebookState = {
   ErrorWebsite: "",
   buttons: [],
   images: [],
+  primaryColor: "#EB7986",
+  secondaryColor: "#FFFFFF",
 };
 
 const facebookSlice = createSlice({
@@ -43,6 +47,13 @@ const facebookSlice = createSlice({
     setFacebookUrl: (state, action) => {
       state.FacebookUrl = action.payload;
     },
+    setPrimaryColor: (state, action) => {
+      state.primaryColor = action.payload;
+    },
+    setSecondaryColor: (state, action) => {
+      state.secondaryColor = action.payload;
+    },
+
     setName: (state, action) => {
       state.Name = action.payload;
     },
@@ -151,6 +162,8 @@ export const {
   addImage,
   removeImage,
   updateImage,
+  setPrimaryColor,
+  setSecondaryColor,
 } = facebookSlice.actions;
 
 export default facebookSlice.reducer;
