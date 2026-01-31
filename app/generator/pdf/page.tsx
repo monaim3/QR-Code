@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
-import AppDesignCustomize from "@/components/generator/app/design-customize";
+import DesignCustomize from "@/components/generator/pdf/app-design-customze";
 import NameQrCode from "@/components/generator/pdf/qrCode-name";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import AppPreView from "@/components/generator/app/app-preview";
+import PdfPreView from "@/components/generator/pdf/pdf-preview";
 import PdfUploadScreen from "@/components/generator/pdf/pdf-upload-screen";
 import DocumentInfo from "@/components/generator/pdf/document-info";
 import Welcome from "@/components/generator/pdf/welcome-screen";
@@ -66,7 +66,7 @@ export default function GeneratorApp() {
             <PdfUploadScreen/>
 
             {/* Design & Customize */}
-            <AppDesignCustomize />
+            <DesignCustomize />
 
             {/* Document Info */}
             <DocumentInfo/>
@@ -111,7 +111,7 @@ export default function GeneratorApp() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    <AppPreView />
+                    <PdfPreView />
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">

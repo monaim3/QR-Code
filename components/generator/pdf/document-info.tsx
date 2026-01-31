@@ -5,8 +5,6 @@ import Accordion from "@/components/common/Accordion";
 import { setDocInfo } from "@/store/slices/pdf-slice";
 import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
-import Plus from "@/components/icons/plus";
-import TrashAlt from "@/components/icons/trash-alt";
 
 export default function DocumentInfo() {
     const dispatch = useAppDispatch();
