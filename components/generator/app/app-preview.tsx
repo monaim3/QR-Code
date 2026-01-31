@@ -27,6 +27,21 @@ export default function AppPreView(){
     }
   };
 
+  const buttonTextColor = () => {
+     switch (app.secondaryColor) {
+      case "#232321":
+        return "text-[White]";
+      case "#ECECF0":
+        return "text-[var(--Black)]";
+      case "#DAEBF6":
+        return "text-[var(--Black)]";
+      case "#FFFFFF":
+        return "text-[var(--Black)]";
+      default:
+        return "text-white";
+    }
+  }
+
     return (
         <ScrollArea className="w-full h-full relative">
            <div
@@ -58,21 +73,22 @@ export default function AppPreView(){
             </div>}
             </div>
             <div className="flex flex-col items-center mt-[150px] px-[20px]">
-            <p className="text-[18px] leading-[26px] text-[var(--Black)] font-bold">
+            <p className={`text-[18px] leading-[26px] ${textColor()} font-bold`}>
                {app.appInfo.appName?.trim() || "MindFlow"}
             </p>
-            <p className="text-[10px] leading-[16px] text-[var(--Black)] font-regular">
+            <p className={`text-[10px] leading-[16px] ${textColor()} font-regular`}>
              {app.appInfo.developer?.trim() || "CreativeCore Apps"}
             </p>
-            <p className="text-[10px] leading-[16px] text-[var(--Black)] font-regular mt-[10px] text-center">
+            <p className={`text-[10px] leading-[16px] ${textColor()} font-regular mt-[10px] text-center`}>
              {app.appInfo.description?.trim() || "Organize your tasks, streamline your day, and stay focused with smart, personalized tools."}
             </p>
             <div className="w-full">
               {app.appInfo.buttons.map((button,index)=> {
               return <div
-              className="flex items-center justify-center bg-white border border-[var(--Boarder-Grey)] rounded-[10px] h-[40px] w-full max-w mt-2 cursor-pointer"
+              className={`flex items-center justify-center ${app.secondaryColor === "#FFFFFF" ? "border border-gray-400" : "" } rounded-[10px] h-[40px] w-full max-w mt-2 cursor-pointer`}
+              style={{ backgroundColor: app.secondaryColor }}
               onClick={() => window.open(button.url, "_blank")}>
-              <p className="text-[12px] leading-[20px] text-[var(--Black)]">
+              <p className={`text-[12px] leading-[20px] ${buttonTextColor()}`}>
                 {button.text}
               </p>
             </div>
