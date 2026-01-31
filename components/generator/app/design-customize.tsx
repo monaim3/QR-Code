@@ -9,24 +9,24 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
-} from "@/store/slices/vCardSlice";
+} from "@/store/slices/app-slice";
 import { useState } from "react";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
-  const vCard = useAppSelector((state) => state.vCard);
+  const app = useAppSelector((state) => state.app);
   const [isActive, setIsActive] = useState(0);
 
   const handleSwap = () => {
-    const temp = vCard.primaryColor;
-    dispatch(setPrimaryColor(vCard.secondaryColor));
+    const temp = app.primaryColor;
+    dispatch(setPrimaryColor(app.secondaryColor));
     dispatch(setSecondaryColor(temp));
     dispatch(
       setColorPalette({
         index: isActive,
         color: {
-          primary: vCard.secondaryColor,
-          secondary: vCard.primaryColor,
+          primary: app.secondaryColor,
+          secondary: app.primaryColor,
         },
       }),
     );
@@ -68,7 +68,7 @@ export default function DesignCustomize() {
         <div className="space-y-8">
           {/* Color palette */}
           <div className="flex justify-between items-center gap-4 self-stretch w-full overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
-            {vCard.colorPalette.map((item, index) => (
+            {app.colorPalette.map((item, index) => (
               <ColorBtn
                 key={index}
                 primaryColor={item.primary}
@@ -85,8 +85,8 @@ export default function DesignCustomize() {
           <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
             <ColorInput
               label="Primary color"
-              color={vCard.primaryColor}
-              onChange={(v) => handleColorChange(v, vCard.secondaryColor)}
+              color={app.primaryColor}
+              onChange={(v) => handleColorChange(v, app.secondaryColor)}
             />
 
             <div className="flex desktop:w-10 desktop:h-12 items-center gap-2 py-2 desktop:py-0">
@@ -106,8 +106,8 @@ export default function DesignCustomize() {
 
             <ColorInput
               label="Secondary color"
-              color={vCard.secondaryColor}
-              onChange={(v) => handleColorChange(vCard.primaryColor, v)}
+              color={app.secondaryColor}
+              onChange={(v) => handleColorChange(app.primaryColor, v)}
             />
           </div>
         </div>

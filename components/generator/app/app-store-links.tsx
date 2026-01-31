@@ -6,6 +6,8 @@ import TrashAlt from "@/components/icons/trash-alt";
 import AppStoreIcon from "@/components/icons/app-store";
 import PlayStoreIcon from "@/components/icons/play-store";
 import AmazonStore from "@/components/icons/amazon-store";
+import MiLogo from "@/components/icons/mi-logo";
+
 import { moveLinkToAppStore, moveLinkToAppLinks } from "@/store/slices/app-slice";
 
 export default function AppStoreLink() {
@@ -36,7 +38,8 @@ export default function AppStoreLink() {
                             <AmazonStore/>
                            </div> :
                             <div className="w-[60px] h-[60px] rounded-[10px] bg-[#FF7043] flex items-center justify-center">
-                        </div>}
+                              <MiLogo/>
+                           </div>}
                      </button>
                 })}
             </div>
