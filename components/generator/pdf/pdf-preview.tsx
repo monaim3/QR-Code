@@ -1,15 +1,17 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/store/hooks";
 import Image from "next/image";
 import { Globe } from "lucide-react";
 import { Document, Page, pdfjs } from 'react-pdf';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setIsPreviewWelcomeScreen } from "@/store/slices/pdf-slice";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 export default function PdfPreView(){
-  const dispatch = useDispatch();
   const pdf = useAppSelector((state) => state.pdf);
+  const dispatch = useDispatch();
 
   const textColor = () => {
     switch (pdf.primaryColor) {
@@ -40,6 +42,12 @@ export default function PdfPreView(){
         return "text-white";
     }
   }
+
+   useEffect(() => {
+      setTimeout(() => {
+        dispatch(setIsPreviewWelcomeScreen(false));
+      }, 1000);
+    }, [pdf.isPreviewWelcomeScreen, dispatch]);
 
     return (
         <ScrollArea className="w-full h-full relative">
@@ -99,7 +107,6 @@ export default function PdfPreView(){
                 </div>
             </div>
              <div>
-                
             </div>
         </ScrollArea>
     );

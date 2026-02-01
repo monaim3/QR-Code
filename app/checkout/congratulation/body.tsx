@@ -1,8 +1,15 @@
 "use client";
 import Container from "../../../components/common/parent-container";
 import LoadingAnimation from "../../../components/ui/loadingAnimation";
+import { useRouter } from "next/navigation";
 
 export default function CongratulationPage(){
+    const router = useRouter();
+
+    const handleRoute = () => {
+      router.push("/qr-codes");
+    }
+
     return (
         <Container className="flex flex-col items-center justify-center min-h-[calc(100vh-159px)]">
             <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card w-full max-w-[350px] desktop:max-w-[400px]  p-[24px] desktop:p-[32px]">
@@ -17,6 +24,7 @@ export default function CongratulationPage(){
                 </p>
                  {/* Button */}
                 <button
+                onClick={handleRoute}
                  className="mt-6 w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-all duration-300"
                 >
                  Go to My QR codes
