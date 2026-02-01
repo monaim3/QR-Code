@@ -62,24 +62,25 @@ export default function PdfPreView(){
             />
             <div className="absolute flex flex-col items-center justify-center w-full max-h top-[66px] px-[20px]">
                 <p className={`text-[10px] leading-[16px] font-regular ${textColor()}`}>
-                    {pdf.documentInfo.companyName?.trim() === "" ? "Top offers" : pdf.documentInfo.companyName}
+                    {pdf.defaultState ? "Top offers" : pdf.documentInfo.companyName}
                 </p>
                 <p className={`text-[18px] leading-[26px] font-bold ${textColor()}`}>
-                    {pdf.documentInfo.title?.trim() === "" ? "Fresh Corner" : pdf.documentInfo.title}
+                    {pdf.defaultState ? "Fresh Corner" : pdf.documentInfo.title}
                 </p>
                 <p className={`text-[10px] leading-[16px] font-regular ${textColor()} text-center`}>
-                  {pdf.documentInfo.fileDescription?.trim() === "" ? "Browse our top offers and handpicked highlights in this PDF." : pdf.documentInfo.fileDescription}
+                  {pdf.defaultState ? "Browse our top offers and handpicked highlights in this PDF." : pdf.documentInfo.fileDescription}
                 </p>
                 <div className="w-full h-[314px] flex flex-col rounded-[6px] p-2 shadow-card bg-white mt-[24px]">
-                   <div className="flex items-start justify-start overflow-hidden">
-                     {pdf.pdfFile.trim() === "" ? 
-                   <Image 
+                   <div className="flex items-start h-full justify-start overflow-hidden">
+                     {pdf.defaultState ? 
+                   (<Image 
                     src="/images/sample-pdf.png" 
                     alt="My Photo" 
                     width={300} 
                     height={200} 
-                    /> : <Document file={pdf.pdfFile} onLoadError={console.error}>
-                    {/* We only render page 1 */}
+                    />) : 
+                    pdf.pdfFile && (<Document file={pdf.pdfFile} 
+                    onLoadError={console.error}>
                     <Page 
                     pageNumber={1} 
                     height={250}
@@ -87,7 +88,7 @@ export default function PdfPreView(){
                     renderAnnotationLayer={false} 
                     className="max-w-full h-full"
                     />
-                </Document>}
+                   </Document>)}
                    </div>
                     <div className={`w-full h-[40px] flex items-center justify-center rounded-[6px] mt-2 ${
                         pdf.secondaryColor === "#FFFFFF" ? "border border-gray-400" : ""
@@ -100,9 +101,9 @@ export default function PdfPreView(){
                     </div>
                 </div>
                 <div className="w-full flex items-center justify-center max-h gap-2 mt-[24px] mb-[29px]">
-                    <Globe className="h-4 w-4"/>
+                   {(pdf.defaultState || pdf.documentInfo.website) && <Globe className="h-4 w-4"/>}
                     <p className="text-[10px] leading-[16px] font-regular text-[var(--Black)]">
-                       {pdf.documentInfo.website?.trim() === "" ? "www.fashionista.com" : pdf.documentInfo.website}
+                       {pdf.defaultState ? "www.fashionista.com" : pdf.documentInfo.website}
                     </p>
                 </div>
             </div>

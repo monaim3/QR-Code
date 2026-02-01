@@ -92,7 +92,7 @@ export default function DocumentInfo() {
               placeholder="e.g. https://pauljones.com"
               id="website"
               type="web"
-              value={pdf.documentInfo.title ?? ''}
+              value={pdf.documentInfo.website ?? ''}
               onChange={(value) => handleInput(value,"website")}
             />
           </div>

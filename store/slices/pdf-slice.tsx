@@ -49,6 +49,7 @@ const initialState: PdfSlice = {
   },
   welcomeScreen: "",
   qrCodeName: "",
+  defaultState: true,
   isPreviewWelcomeScreen: false,
 };
 
@@ -61,24 +62,31 @@ const pdfSlice = createSlice({
       action: PayloadAction<{ index: number; color: ColorPalette }>,
     ) => {
       state.colorPalette[action.payload.index] = action.payload.color;
+      state.defaultState = false;
     },
     setPrimaryColor: (state, action: PayloadAction<string>) => {
       state.primaryColor = action.payload;
+       state.defaultState = false;
     },
     setSecondaryColor: (state, action: PayloadAction<string>) => {
       state.secondaryColor = action.payload;
+       state.defaultState = false;
     },
     setPdfFile: (state, action: PayloadAction<string>) => {
         state.pdfFile = action.payload;
+         state.defaultState = false;
     },
     setDocInfo: (state, action: PayloadAction<DocumentInfo>) => {
       state.documentInfo = action.payload;
+       state.defaultState = false;
     },
     setWelcomeScreen: (state, action: PayloadAction<string>) => {
       state.welcomeScreen = action.payload;
+       state.defaultState = false;
     },
     setQrCodeName: (state, action: PayloadAction<string>) => {
       state.qrCodeName = action.payload;
+       state.defaultState = false;
     },
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
