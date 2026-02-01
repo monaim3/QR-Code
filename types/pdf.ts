@@ -18,5 +18,6 @@ export interface PdfSlice {
   documentInfo: DocumentInfo,
   welcomeScreen: string;
   qrCodeName: string;
+  defaultState: boolean;
   isPreviewWelcomeScreen: boolean,
 }
