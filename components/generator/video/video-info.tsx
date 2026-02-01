@@ -87,9 +87,10 @@ export default function VideoInfo() {
             />
           </div>
         </div>
-        {video.videoInfo.buttons.map((button, index) => {
+        <div className="pt-6">
+          {video.videoInfo.buttons.map((button, index) => {
             return (
-               <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] items-start gap-4 desktop:gap-[48px] p-6">
+               <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] items-start gap-4 desktop:gap-[48px] p-6 rounded-[12px] mb-4">
                 <div className="w-[calc(100%-56px)]">
                 <Input
                 label="Button text*"
@@ -115,6 +116,7 @@ export default function VideoInfo() {
                </div>
             );
         })}
+        </div>
         <div className="pt-6">
              <button
         onClick={addButton}
