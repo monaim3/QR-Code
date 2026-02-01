@@ -13,6 +13,7 @@ import QRCodeDisplay from "./QR_Code_Display";
 import CustomizeQRDisplay from "../common/CustomizeQRDisplay";
 import VCardPreview from "./vcard/VCardPreview";
 import MenuPreview from "./menu/MenuPreview";
+import BusinessPreview from "./businessPage/BusinessPreview";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -72,6 +73,16 @@ export default function BreadcrumbFooter() {
         return (
           <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
             <MenuPreview />
+          </div>
+        );
+      }
+    }
+
+    if (pathname.includes("/business-page")) {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <BusinessPreview />
           </div>
         );
       }

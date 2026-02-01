@@ -104,7 +104,7 @@ export default function Address({ onClick, isOpen }: Props) {
 
         {isManual ? (
           <>
-            <div className="flex desktop:flex-row flex-col items-start gap-8 flex-1">
+            <div className="flex desktop:flex-row flex-col items-start desktop:gap-8 gap-4 flex-1">
               <Input
                 label="Street"
                 placeholder="e.g. Spring Avenue, 9/18"
@@ -120,7 +120,7 @@ export default function Address({ onClick, isOpen }: Props) {
                 onChange={(value) => handleAddressChange(value, "postalCode")}
               />
             </div>
-            <div className="flex desktop:flex-row flex-col items-start gap-8 flex-1">
+            <div className="flex desktop:flex-row flex-col items-start desktop:gap-8 gap-4 flex-1">
               <Input
                 label="City"
                 placeholder="e.g. New York City"

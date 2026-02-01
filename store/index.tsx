@@ -10,6 +10,7 @@ import facebookReducer from "./slices/facebookSlice";
 import pdfSlice from "./slices/pdf-slice";
 import socialSlice from "./slices/social-slice";
 import menuSlice from "./slices/menuSlice";
+import businessSlice from "./slices/businessSlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     pdf: pdfSlice,
     social: socialSlice,
     menu: menuSlice,
+    business: businessSlice,
   },
 });
 

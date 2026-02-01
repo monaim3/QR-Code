@@ -1,18 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import QRCodeStyling, { Options } from "qr-code-styling";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
-import About from "@/components/generator/vcard/About";
-import DesignCustomize from "@/components/generator/vcard/DesignCustomize";
-import NameQrCode from "@/components/generator/vcard/NameQrCode";
-import Social from "@/components/generator/vcard/Social";
-import Welcome from "@/components/generator/vcard/Welcome";
 import MobileFrame from "@/components/common/MobileFrame";
-import VCardPreview from "@/components/generator/vcard/VCardPreview";
-import QRCodeStyling, { Options } from "qr-code-styling";
+import BusinessDesignCustomize from "@/components/generator/businessPage/BusinessDesignCustomize";
+import BusinessInfo from "@/components/generator/businessPage/BusinessInfo";
+import OpeningHours from "@/components/generator/businessPage/OpeningHours";
+import ContactInfo from "@/components/generator/businessPage/ContactInfo";
+import Location from "@/components/generator/businessPage/Location";
+import AboutCompany from "@/components/generator/businessPage/AboutCompany";
+import SocialNetworks from "@/components/generator/businessPage/SocialNetworks";
+import BusinessWelcomeScreen from "@/components/generator/businessPage/BusinessWelcomeScreen";
+import BusinessQrName from "@/components/generator/businessPage/BusinessQrName";
+import Facilities from "@/components/generator/businessPage/Facilities";
+import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
 
-export default function GeneratorVCard() {
+export default function BusinessPage() {
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -55,7 +60,7 @@ export default function GeneratorVCard() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the vCard QR code
+            Add content to the Business Page QR code
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -64,20 +69,35 @@ export default function GeneratorVCard() {
             </div>
 
             {/* Design & Customize */}
-            <DesignCustomize />
+            <BusinessDesignCustomize />
           </div>
 
+          {/* Business Info */}
+          <BusinessInfo />
+
+          {/* Opening Hours */}
+          <OpeningHours />
+
+          {/* Contact Information */}
+          <ContactInfo />
+
+          {/* Location */}
+          <Location />
+
+          {/* Facilities */}
+          <Facilities />
+
           {/* About */}
-          <About />
+          <AboutCompany />
 
-          {/* Social */}
-          <Social />
+          {/* Social Networks */}
+          <SocialNetworks />
 
-          {/* Welcome Screen */}
-          <Welcome />
+          {/* Welcome */}
+          <BusinessWelcomeScreen />
 
-          {/* Name */}
-          <NameQrCode />
+          {/* Qr Name */}
+          <BusinessQrName />
         </div>
 
         {/* Preview */}
@@ -113,7 +133,7 @@ export default function GeneratorVCard() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    <VCardPreview />
+                    <BusinessPreview />
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
