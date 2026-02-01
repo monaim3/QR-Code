@@ -49,15 +49,15 @@ const SelectDropDown: React.FC<EncryptionDropdownProps> = ({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full bg-white  px-4 py-[12px]
+          className="w-full bg-white px-4 py-[12px]
           border border-[var(--Boarder-Grey)]
-          rounded-[10px] text-left text-[16px] leading-[24px] font-normal text-[var(--Black)]  flex items-center justify-between focus:ring-2 focus:ring-[var(--Blue)]
+          rounded-[10px] text-left text-[16px] leading-[24px] font-normal text-[var(--Black)] flex items-center justify-between focus:ring-2 focus:ring-[var(--Blue)]
           focus:border-transparent
-          transition-all duration-200 ease-in-out "
+          transition-all duration-200 ease-in-out"
         >
           <span>{value}</span>
           <ChevronDown
-            className={`w-4 h-4 text-black  transition-transform duration-200 ${
+            className={`w-4 h-4 text-black transition-transform duration-200 ${
               isOpen ? "transform rotate-180" : ""
             }`}
           />
@@ -77,7 +77,7 @@ const SelectDropDown: React.FC<EncryptionDropdownProps> = ({
                   {option.label}
                 </span>
                 {value === option.value && (
-                  <Check className="w-4 h-4 text-[var(--Green)]  " />
+                  <Check className="w-4 h-4 text-[var(--Green)]" />
                 )}
               </div>
             ))}
