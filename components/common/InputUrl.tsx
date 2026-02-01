@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
 
 interface Props {
   label: string;
@@ -8,6 +8,8 @@ interface Props {
   value?: string;
   onChange?: (value: string) => void;
   required?: boolean;
+  errorKey: string;
+  setErrorAction: any;
 }
 
 export default function InputUrl({
@@ -18,10 +20,14 @@ export default function InputUrl({
   value,
   onChange = () => {},
   required = false,
+  errorKey,
+  setErrorAction,
 }: Props) {
-  const [error, setError] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const error = useAppSelector(
+    (state) => state.facebook[errorKey as keyof typeof state.facebook],
+  );
 
-  // URL validation function
   const isValidUrl = (url: string) => {
     if (!url) return true;
 
@@ -36,24 +42,26 @@ export default function InputUrl({
   const handleChange = (inputValue: string) => {
     onChange(inputValue);
 
-    // Validate on change
     if (inputValue && !isValidUrl(inputValue)) {
-      setError("You have entered an invalid link. Please try again.");
+      dispatch(
+        setErrorAction("You have entered an invalid link. Please try again."),
+      );
     } else if (required && !inputValue) {
-      setError("This field is required.");
+      dispatch(setErrorAction("This field is required."));
     } else {
-      setError("");
+      dispatch(setErrorAction(""));
     }
   };
 
   const handleBlur = () => {
-    // Validate on blur
     if (value && !isValidUrl(value)) {
-      setError("You have entered an invalid link. Please try again.");
+      dispatch(
+        setErrorAction("You have entered an invalid link. Please try again."),
+      );
     } else if (required && !value) {
-      setError("This field is required.");
+      dispatch(setErrorAction("This field is required."));
     } else {
-      setError("");
+      dispatch(setErrorAction(""));
     }
   };
 
@@ -80,9 +88,13 @@ export default function InputUrl({
             : "border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-[var(--Blue)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
         }`}
       />
-      {error && (
-        <p className="text-red-500 text-[14px] leading-[20px]">{error}</p>
-      )}
+      <div className="h-5">
+        {error && (
+          <p className="text-red-500 text-[14px] leading-[20px]">
+            {error as string}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
