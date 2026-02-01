@@ -216,7 +216,7 @@ export default function Facebook() {
                     onChange={(v) => handleColorChange(v, vCard.secondaryColor)}
                   />
 
-                  <div className="flex desktop:w-10 desktop:h-12 items-center gap-2 py-2 desktop:py-0">
+                  <div className="flex desktop:w-10 desktop:h-12 items-center gap-2 py-2 desktop:py-0 ">
                     <button
                       onClick={handleSwap}
                       className="flex items-center gap-2 p-2 flex-1"
