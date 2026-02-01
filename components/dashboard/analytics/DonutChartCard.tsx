@@ -127,11 +127,11 @@ export default function DonutChartCard({ title, data }: Props) {
                 </Pie>
               </PieChart>
             </ChartContainer>
-            <div className="flex flex-col items-start desktopDashboard:w-[244px] desktopDashboard:gap-1 gap-2">
+            <div className="flex flex-col items-start desktopDashboard:w-[244px] desktopDashboard:gap-1 tablet:w-[244px] gap-2">
               {processedData?.map((item, i) => (
                 <div
                   key={i}
-                  className="flex justify-between items-center self-stretch"
+                  className="flex justify-between items-center gap-4 self-stretch"
                 >
                   <div className="flex items-center gap-2 flex-1 basis-0">
                     <div
