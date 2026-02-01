@@ -151,7 +151,7 @@ export default function ImageCarousel({
               className="flex flex-col gap-2 relative group rounded-lg overflow-hidden  bg-white"
             >
               {/* Image */}
-              <div className="aspect-square border-2  rounded-lg border-gray-200 flex items-center justify-center p-4 bg-gray-50">
+              <div className="aspect-square border-2  rounded-lg border-gray-200 flex items-center justify-center p-4 bg-gray-50 min-h-[100px]">
                 <img
                   src={image.url}
                   alt={image.name}
