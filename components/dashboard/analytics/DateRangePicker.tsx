@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   format,
   subDays,
@@ -50,28 +49,29 @@ import {
   SelectTrigger,
   SelectItem,
 } from "@/components/ui/select";
+import { useEffect, useState } from "react";
 
-export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
+export function DateRangePicker() {
+  const [date, setDate] = useState<DateRange | undefined>({
     from: startOfToday(),
     to: endOfToday(),
   });
 
-  const [currentMonth, setCurrentMonth] = React.useState<Date>(
+  const [currentMonth, setCurrentMonth] = useState<Date>(
     date?.from || new Date(),
   );
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Update currentMonth when date changes
-  React.useEffect(() => {
-    if (date?.from) {
-      setCurrentMonth(date.from);
+  const handleDateChange = (newDate: DateRange | undefined) => {
+    setDate(newDate);
+    if (newDate?.from) {
+      setCurrentMonth(newDate.from);
     }
-  }, [date?.from]);
+  };
 
   // Responsive handling
-  React.useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 740);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -173,11 +173,11 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto desktopDashboard:p-6 p-4 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]"
+        className="!w-[calc(100vw-40px)] max-w-[100vw] tablet:!w-[calc(100vw-64px)] desktopDashboard:!w-auto desktopDashboard:max-w-none desktopDashboard:p-6 p-4 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]] absolute left-[-16px] desktopDashboard:left-0 top-6 desktopDashboard:top-auto"
         align="start"
       >
         {/* Sidebar Presets */}
-        <div className="desktopDashboard:flex tablet:flex hidden flex-col justify-center items-start gap-4 w-[221px]">
+        <div className="desktopDashboard:flex tablet:flex hidden flex-col justify-center items-start gap-4 w-[221px] tablet:w-auto">
           {presets.map((preset) => (
             <Button
               key={preset.label}
@@ -253,7 +253,7 @@ export function DateRangePicker({}: React.HTMLAttributes<HTMLDivElement>) {
             month={currentMonth}
             onMonthChange={setCurrentMonth}
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             numberOfMonths={isMobile ? 1 : 2}
             className="w-full p-0"
             classNames={{
