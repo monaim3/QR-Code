@@ -142,7 +142,7 @@ export default function ImageUpload({
     dispatch(addCarouselImage(croppedImageUrl));
     // CLEAR ALL LOCAL STATES
     setCustomLogo("");
-    setFileName("MyLogo.svg");
+    setFileName("");
     setUploadError("");
     setIsCropping(false);
     setImageToCrop(null);

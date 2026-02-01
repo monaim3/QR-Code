@@ -3,7 +3,7 @@
 import Accordion from "@/components/common/Accordion";
 import { socialChannels } from "@/lib/socialChannels";
 import SocialBtn from "@/components/generator/vcard/SocialBtn";
-import SocialInputCard from "@/components/generator/vcard/SocialInputCard";
+import SocialInputCard from "./social-input-card";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Plus from "@/components/icons/plus";
 import {
@@ -15,9 +15,11 @@ import { useState } from "react";
 import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
 import TrashAlt from "@/components/icons/trash-alt";
+import { SOCIAL_ICON_COMPONENTS } from '@/lib/social-icon-registry';
 import {
   SocialChannel,
 } from "@/types/social";
+import { ur } from "zod/v4/locales";
 
 export default function SocialLinks() {
   const dispatch = useAppDispatch();
@@ -70,11 +72,13 @@ export default function SocialLinks() {
     id: name,
     name: name,
     isIcon: false,
-    url: logo,
-    icon: null,
+    url: url,
+    icon: logo,
     description: description,
    };
    dispatch(addCustomSocialChannel(customLinks));
+   setAdd(false);
+   deleteCustonLink();
  }
         
   return (
@@ -103,14 +107,10 @@ export default function SocialLinks() {
           </div>
           <div className="space-y-2">
             {social.socialChannels.map((socialChannel) => {
-              const channel = socialChannels.find(
-                (ch) => ch.id === socialChannel.id,
-              );
-              if (!channel) return null;
               return (
                 <SocialInputCard
                   key={socialChannel.id}
-                  channelId={socialChannel.id}
+                  channel={socialChannel}
                   handleDelete={() => handleDelete(socialChannel.id)}
                 />
               );

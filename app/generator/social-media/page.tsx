@@ -7,8 +7,8 @@ import DesignCustomize from "@/components/generator/socialMedia/design-customize
 import NameQrCode from "@/components/generator/pdf/qrCode-name";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import AppPreView from "@/components/generator/app/app-preview";
-import Welcome from "@/components/generator/pdf/welcome-screen";
+import SocialPreView from "@/components/generator/socialMedia/social-preview";
+import Welcome from "@/components/generator/socialMedia/welcome-screen";
 import Information from "@/components/generator/socialMedia/information";
 import SocialLinks from "@/components/generator/socialMedia/social-links";
 
@@ -111,7 +111,7 @@ export default function GeneratorSocialMedia() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    <AppPreView />
+                    <SocialPreView />
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">

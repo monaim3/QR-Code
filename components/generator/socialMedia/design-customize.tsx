@@ -135,8 +135,10 @@ export default function DesignCustomize() {
             />
           </div>
           <div className="grid grid-cols-5 gap-4">
-          {social.carousel.map((image,index)=> {
-            return <div className="flex flex-col items-center hustify-center">
+          {social?.carousels?.map((image,index)=> {
+            return <div 
+            key={`carousel-${index}`}
+            className="flex flex-col items-center hustify-center">
               <div className="border border-[var(--Boarder-Grey)] rounded-[12px]">
                 <img
                 src={image}

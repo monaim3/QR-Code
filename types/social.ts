@@ -14,7 +14,7 @@ export interface SocialChannel {
   name: string;
   isIcon: boolean, 
   url: string | null;
-  icon:  React.ComponentType | null,
+  icon:  string | null,
   description: string | null,
 }
 
@@ -23,7 +23,7 @@ export interface SocialSlice {
   primaryColor: string;
   secondaryColor: string;
   socialInfo: socialInfo,
-  carousel: string[],
+  carousels: string[],
   availableChannels: SocialChannel[],
   socialChannels: SocialChannel[];
   welcomeScreen: string;
