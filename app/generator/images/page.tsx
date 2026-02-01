@@ -20,7 +20,7 @@ import {
   setButtonTextError,
   setPrimaryColor as setFacebookPrimaryColor,
   setSecondaryColor as setFacebookSecondaryColor,
-} from "@/store/slices/facebookSlice";
+} from "@/store/slices/imagesSlice";
 
 import QRCodeStyling, { Options } from "qr-code-styling";
 import MobileFrame from "@/components/common/MobileFrame";
@@ -43,7 +43,10 @@ import ColorBtn from "@/components/generator/vcard/ColorBtn";
 import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
 import Welcome from "@/components/generator/vcard/Welcome";
 import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
-export default function Facebook() {
+import { CheckboxInput } from "@/components/common/CheckboxInput";
+import { setShare } from "@/store/slices/imagesSlice";
+import ImagesPreview from "@/components/generator/Images/ImagesPreview";
+export default function Images() {
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
@@ -51,15 +54,16 @@ export default function Facebook() {
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const [qrNameError, setQrNameError] = useState("");
-  const facebookUrl = useAppSelector((state) => state.facebook.FacebookUrl);
-  const Name = useAppSelector((state) => state.facebook.Name);
-  const error = useAppSelector((state) => state.facebook.Error);
-  const title = useAppSelector((state) => state.facebook.Title);
-  const website = useAppSelector((state) => state.facebook.Website);
-  const errorWebsite = useAppSelector((state) => state.facebook.ErrorWebsite);
-  const buttons = useAppSelector((state) => state.facebook.buttons);
+  const facebookUrl = useAppSelector((state) => state.images.FacebookUrl);
+  const Name = useAppSelector((state) => state.images.Name);
+  const error = useAppSelector((state) => state.images.Error);
+  const title = useAppSelector((state) => state.images.Title);
+  const website = useAppSelector((state) => state.images.Website);
+  const errorWebsite = useAppSelector((state) => state.images.ErrorWebsite);
+  const buttons = useAppSelector((state) => state.images.buttons);
+  const share = useAppSelector((state) => state.images.Share);
   const lastButton = useAppSelector(
-    (state) => state.facebook.buttons[state.facebook.buttons.length - 1],
+    (state) => state.images.buttons[state.images.buttons.length - 1],
   );
   const buttonTextError = lastButton?.buttonTextError || "";
   const buttonUrlError = lastButton?.urlError || "";
@@ -108,9 +112,11 @@ export default function Facebook() {
     secondaryColor: string,
     index: number,
   ) => {
+    // vCard এ update
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
 
+    // Facebook slice এও update করুন
     dispatch(setFacebookPrimaryColor(primaryColor));
     dispatch(setFacebookSecondaryColor(secondaryColor));
 
@@ -175,7 +181,7 @@ export default function Facebook() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the Facebook QR code
+            Add content to the Images QR code
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -239,8 +245,8 @@ export default function Facebook() {
           </div>
           <div className="w-full ">
             <Accordion
-              title="Page information"
-              description="Provide information about yourself and your Facebook page"
+              title="Image gallery information"
+              description="Provide a headline, URL and short description for your image gallery"
             >
               <div>
                 <div>
@@ -254,22 +260,23 @@ export default function Facebook() {
                 </div>
 
                 <div className="flex gap-12 items-start justify-center ">
+                  <TextInput
+                    label="Headline"
+                    value={Name}
+                    onChange={(value) => dispatch(setName(value))}
+                    placeholder="e.g. Sunset photos"
+                    maxLength={100}
+                  />
+
                   <InputUrl
-                    label="Facebook URL"
-                    placeholder="e.g. https://facebook.com"
+                    label="Website"
+                    placeholder="e.g. https://pauljones.com"
                     id="facebook-link"
                     value={facebookUrl}
                     onChange={handleFacebookUrl}
-                    required={true}
+                    required={false}
                     errorKey="Error"
                     setErrorAction={setError}
-                  />
-                  <TextInput
-                    label="Name"
-                    value={Name}
-                    onChange={(value) => dispatch(setName(value))}
-                    placeholder="e.g. John Smith"
-                    maxLength={100}
                   />
                 </div>
 
@@ -278,22 +285,11 @@ export default function Facebook() {
                     className={`flex gap-12 items-start justify-center ${error ? "mt-6" : ""} `}
                   >
                     <TextInput
-                      label="Title"
+                      label="Description"
                       value={title}
                       onChange={(value) => dispatch(setTitle(value))}
-                      placeholder="e.g. Photojournist"
+                      placeholder="e.g. Beautiful shots of cityscape sunsets"
                       maxLength={100}
-                      required
-                    />
-                    <InputUrl
-                      label="Website"
-                      placeholder="e.g. https://johnsmith.com"
-                      id="website-link"
-                      value={website}
-                      onChange={(value) => dispatch(setWebsite(value))}
-                      required={false}
-                      errorKey="ErrorWebsite"
-                      setErrorAction={setErrorWebsite}
                     />
                   </div>
 
@@ -327,6 +323,20 @@ export default function Facebook() {
                   </div>
                 </div>
               </div>
+            </Accordion>
+          </div>
+          <div className="w-full">
+            <Accordion
+              title="Share"
+              description="Add the ability to share your image gallery"
+            >
+              <CheckboxInput
+                label="Add “Share” button to landing page"
+                onChange={() => dispatch(setShare(!share))}
+                id="share-id"
+                checked={share}
+                bgColor="#01A56D"
+              />
             </Accordion>
           </div>
           <div className="w-full">
@@ -375,7 +385,7 @@ export default function Facebook() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    <FacebookPreview />
+                    <ImagesPreview />
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
