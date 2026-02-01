@@ -40,28 +40,28 @@ export default function Footer() {
               <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
-                    href="#"
+                    href="/contact-us"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Contact Us
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/cancel-subscription"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Cancel subscription
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/create"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Create QR code
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/faq"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     FAQ
                   </Link>
@@ -73,28 +73,28 @@ export default function Footer() {
               <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
-                    href="#"
+                    href="/pricing"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Prices
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/about-us"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     About us
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/terms-and-condition"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Terms and conditions
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/terms-and-condition"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Privacy policy
                   </Link>

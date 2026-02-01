@@ -32,5 +32,6 @@ export interface AppSlice {
   qrCodeName: string;
   appLinks: AppLinks[],
   appStoreLinks: AppLinks[];
+  appDefaultState: boolean;
   isPreviewWelcomeScreen: boolean,
 }

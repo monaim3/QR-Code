@@ -7,6 +7,7 @@ import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown";
 import CurrenctSelector from '@/components/common/currency_dropdown';
+import path from "path";
 
 class HeaderOptions{
   id: number;
@@ -28,27 +29,27 @@ const Options = [
   new HeaderOptions(
       1,
       "QR Code Generator",
-      "/#",
+      "/generator",
   ),
   new HeaderOptions(
       2,
       "FAQ",
-      "/#",
+      "/faq",
   ),
   new HeaderOptions(
       3,
       "Prices",
-      "/#",
+      "/pricing",
   ),
   new HeaderOptions(
       4,
       "About us",
-      "/#",
+      "/about-us",
   ),
   new HeaderOptions(
       5,
       "Contact us",
-      "/#",
+      "/contact-us",
   ),
 ]
 
@@ -56,9 +57,10 @@ interface HeaderProps{
   className?: string;
   languageDropDown?: boolean;
   showOptions?: boolean;
+  hideDivider?: boolean;
 }
 
-export default function Header({ className = "", languageDropDown = false, showOptions = false}: HeaderProps) {
+export default function Header({ className = "", languageDropDown = false, showOptions = false, hideDivider = false}: HeaderProps) {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -98,9 +100,7 @@ export default function Header({ className = "", languageDropDown = false, showO
                 );
             })}
             </div>
-            <div className="h-[18px] w-[1px] bg-[var(--Boarder-Grey)]">
-
-            </div>
+            {!hideDivider && <div className={`h-[18px] w-[1px] bg-[var(--Boarder-Grey)]`}></div>}
              <LanguageSelector/>
             {/* Log in Button */}
             <Link
@@ -170,19 +170,34 @@ export default function Header({ className = "", languageDropDown = false, showO
           {/* Menu Links */}
           <nav className="flex flex-col">
             {[
-              "Contact us",
-              "FAQ",
-              "Prices",
-              "Terms & conditions",
-              "Privacy policy",
+              {
+                title: "Contact us",
+                path: "/contact-us",
+              },
+              {
+                title: "FAQ",
+                path: "/faq",
+              },
+              {
+                title: "Prices",
+                path: "/pricing",
+              },
+              {
+                title: "Terms & conditions",
+                path: "/terms-and-conditions",
+              },
+              {
+                title: "Privacy policy",
+                path: "/privacy-policy",
+              },
             ].map((item) => (
               <Link
-                key={item}
-                href="#"
+                key={item.title}
+                href={item.path}
                 onClick={() => setIsDrawerOpen(false)}
                 className="py-5 text-[16px] leading-[24px] font-medium text-[var(--Black)] border-b border-[#cdd0db80)]"
               >
-                {item}
+                {item.title}
               </Link>
             ))}
             <LanguageSelector layout="gapBetween" mobileDrawer={true}/>

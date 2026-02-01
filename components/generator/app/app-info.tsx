@@ -88,7 +88,6 @@ export default function AppInfo() {
       >
         <div className="space-y-2">
         <ImageUpload onCustomLogoUpload={handleImageChange} />
-
         <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
           <div className="w-[calc(100%-56px)]">
             <Input
@@ -121,8 +120,37 @@ export default function AppInfo() {
               onChange={(value) => handleInput(value,"des")}
             />
         </div>
-        <div className="bg-[var(--Generator-Background)] h-max w-full flex flex-col desktop:flex-row">
-
+        <div className="flex flex-col h-max w-full">
+          {app.appInfo.buttons.map((button, index)=>{
+            return <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2">
+          <div className="w-full pt-4 pb-4">
+            <Input
+              label="Button Text*"
+              placeholder="e.g. Click here"
+              id="bt"
+              type="btch"
+              value={app.appInfo.buttons[index].text}
+              onChange={(value) => setButtonInfo(index, 'text', value)}
+            />
+        </div>
+         <div className="w-full pt-4 pb-4 flex items-end justify-end gap-6">
+            <Input
+              label="URL*"
+              placeholder="e.g. pauljhon.com"
+              id="url"
+              type="url"
+              value={app.appInfo.buttons[index].url}
+              onChange={(value) =>  setButtonInfo(index, 'url', value)}
+            />
+            <button
+            onClick={() => removeButton(index)}
+            className="flex w-12 h-12 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)]"
+          >
+            <TrashAlt className="text-[var(--Dark-gray)]" />
+          </button>
+        </div>
+            </div>
+          })}
         </div>
         <button
         onClick={addButton}

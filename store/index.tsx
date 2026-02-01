@@ -11,6 +11,7 @@ import pdfSlice from "./slices/pdf-slice";
 import socialSlice from "./slices/social-slice";
 import menuSlice from "./slices/menuSlice";
 import businessSlice from "./slices/businessSlice";
+import videoSlice from "./slices/video-slice";
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     social: socialSlice,
     menu: menuSlice,
     business: businessSlice,
+    video: videoSlice,
   },
 });
 

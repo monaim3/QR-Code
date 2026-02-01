@@ -8,19 +8,42 @@ import {
   setQrCodeName,
   setActiveTab,
 } from "@/store/slices/previewSlice";
-import { setFacebookUrl, setName } from "@/store/slices/facebookSlice";
+import {
+  setFacebookUrl,
+  setName,
+  setTitle,
+  setWebsite,
+  setError,
+  setErrorWebsite,
+  addButton,
+  removeButton,
+  setButtonTextError,
+  setPrimaryColor as setFacebookPrimaryColor,
+  setSecondaryColor as setFacebookSecondaryColor,
+} from "@/store/slices/facebookSlice";
+
 import QRCodeStyling, { Options } from "qr-code-styling";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Accordion from "@/components/common/Accordion";
-
-import { RequiredTextInput } from "@/components/common/RequiredInput";
 import { TextInput } from "@/components/common/TextInput";
-import { CheckboxInput } from "@/components/common/CheckboxInput";
 import InputUrl from "@/components/common/InputUrl";
+import { Plus } from "lucide-react";
+import ButtonInput from "@/components/common/ButtonInput";
+import {
+  setColorPalette,
+  setPrimaryColor,
+  setSecondaryColor,
+} from "@/store/slices/vCardSlice";
 
-export default function Wifi() {
+import SwapHorizontal from "@/components/icons/swap-horizontal";
+import ColorInput from "@/components/generator/vcard/ColorInput";
+import ColorBtn from "@/components/generator/vcard/ColorBtn";
+import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
+import Welcome from "@/components/generator/vcard/Welcome";
+import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
+export default function Facebook() {
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
@@ -30,12 +53,93 @@ export default function Wifi() {
   const [qrNameError, setQrNameError] = useState("");
   const facebookUrl = useAppSelector((state) => state.facebook.FacebookUrl);
   const Name = useAppSelector((state) => state.facebook.Name);
+  const error = useAppSelector((state) => state.facebook.Error);
+  const title = useAppSelector((state) => state.facebook.Title);
+  const website = useAppSelector((state) => state.facebook.Website);
+  const errorWebsite = useAppSelector((state) => state.facebook.ErrorWebsite);
+  const buttons = useAppSelector((state) => state.facebook.buttons);
+  const lastButton = useAppSelector(
+    (state) => state.facebook.buttons[state.facebook.buttons.length - 1],
+  );
+  const buttonTextError = lastButton?.buttonTextError || "";
+  const buttonUrlError = lastButton?.urlError || "";
+  const handleAddButton = () => {
+    dispatch(addButton());
+  };
+
+  const handleRemoveButton = (id: string) => {
+    dispatch(removeButton(id));
+  };
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
   };
 
   const handleFacebookUrl = (value: string) => {
     dispatch(setFacebookUrl(value));
+  };
+
+  // color-customize
+
+  const vCard = useAppSelector((state) => state.vCard);
+  const [isActive, setIsActive] = useState(0);
+
+  const handleSwap = () => {
+    const temp = vCard.primaryColor;
+
+    // vCard এ swap
+    dispatch(setPrimaryColor(vCard.secondaryColor));
+    dispatch(setSecondaryColor(temp));
+
+    // Facebook slice এও swap করুন
+    dispatch(setFacebookPrimaryColor(vCard.secondaryColor));
+    dispatch(setFacebookSecondaryColor(temp));
+
+    dispatch(
+      setColorPalette({
+        index: isActive,
+        color: {
+          primary: vCard.secondaryColor,
+          secondary: temp,
+        },
+      }),
+    );
+  };
+
+  const handleColorSwitch = (
+    primaryColor: string,
+    secondaryColor: string,
+    index: number,
+  ) => {
+    // vCard এ update
+    dispatch(setPrimaryColor(primaryColor));
+    dispatch(setSecondaryColor(secondaryColor));
+
+    // Facebook slice এও update করুন
+    dispatch(setFacebookPrimaryColor(primaryColor));
+    dispatch(setFacebookSecondaryColor(secondaryColor));
+
+    setIsActive(index);
+  };
+
+  const handleColorChange = (primaryColor: string, secondaryColor: string) => {
+    const upperPrimary = primaryColor.toUpperCase();
+    const upperSecondary = secondaryColor.toUpperCase();
+
+    dispatch(setPrimaryColor(upperPrimary));
+    dispatch(setSecondaryColor(upperSecondary));
+
+    dispatch(setFacebookPrimaryColor(upperPrimary));
+    dispatch(setFacebookSecondaryColor(upperSecondary));
+
+    dispatch(
+      setColorPalette({
+        index: isActive,
+        color: {
+          primary: upperPrimary,
+          secondary: upperSecondary,
+        },
+      }),
+    );
   };
   useEffect(() => {
     if (view !== "qrCode" || !qrRef.current) return;
@@ -83,38 +187,155 @@ export default function Wifi() {
               {<Breadcrumb useMobileSteps={true} />}
             </div>
           </div>
+          <div className="w-full">
+            <Accordion
+              title="Design and customize"
+              description="Choose your color scheme"
+            >
+              <div className="space-y-8">
+                {/* Color palette */}
+                <div className="flex justify-between items-center gap-4 self-stretch w-full overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
+                  {vCard.colorPalette.map((item, index) => (
+                    <ColorBtn
+                      key={index}
+                      primaryColor={item.primary}
+                      secondaryColor={item.secondary}
+                      onClick={() =>
+                        handleColorSwitch(item.primary, item.secondary, index)
+                      }
+                      isActive={isActive === index}
+                    />
+                  ))}
+                </div>
+
+                {/* Color Picker */}
+                <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
+                  <ColorInput
+                    label="Primary color"
+                    color={vCard.primaryColor}
+                    onChange={(v) => handleColorChange(v, vCard.secondaryColor)}
+                  />
+
+                  <div className="flex desktop:w-10 desktop:h-12 items-center gap-2 py-2 desktop:py-0 ">
+                    <button
+                      onClick={handleSwap}
+                      className="flex items-center gap-2 p-2 flex-1"
+                    >
+                      <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktop:hidden">
+                        Swap the colors
+                      </span>
+
+                      <div className="rotate-90 desktop:rotate-0">
+                        <SwapHorizontal className="text-[#79809A]" />
+                      </div>
+                    </button>
+                  </div>
+
+                  <ColorInput
+                    label="Secondary color"
+                    color={vCard.secondaryColor}
+                    onChange={(v) => handleColorChange(vCard.primaryColor, v)}
+                  />
+                </div>
+                <ImageCarousel maxImages={10} maxSizeMB={5} />
+              </div>
+            </Accordion>
+          </div>
           <div className="w-full ">
             <Accordion
               title="Page information"
               description="Provide information about yourself and your Facebook page"
             >
               <div>
-                {/* <RequiredTextInput
+                <div>
+                  {/* <RequiredTextInput
                   label="Network name"
                   value={wifi}
                   onChange={handleChange}
                   placeholder="e.g. My Wi-Fi"
                   maxLength={100}
                 /> */}
-              </div>
-              <div className="flex gap-12 items-center justify-center !mt-0 !p-0">
-                <InputUrl
-                  label="Facebook URL"
-                  placeholder="e.g. https://facebook.com"
-                  id="facebook-link"
-                  value={facebookUrl}
-                  onChange={handleFacebookUrl}
-                  required={true}
-                />
-                <TextInput
-                  label="Name"
-                  value={Name}
-                  onChange={(value) => dispatch(setName(value))}
-                  placeholder="e.g. John Smith"
-                  maxLength={100}
-                />
+                </div>
+
+                <div className="flex gap-12 items-start justify-center ">
+                  <InputUrl
+                    label="Facebook URL"
+                    placeholder="e.g. https://facebook.com"
+                    id="facebook-link"
+                    value={facebookUrl}
+                    onChange={handleFacebookUrl}
+                    required={true}
+                    errorKey="Error"
+                    setErrorAction={setError}
+                  />
+                  <TextInput
+                    label="Name"
+                    value={Name}
+                    onChange={(value) => dispatch(setName(value))}
+                    placeholder="e.g. John Smith"
+                    maxLength={100}
+                  />
+                </div>
+
+                <div>
+                  <div
+                    className={`flex gap-12 items-start justify-center ${error ? "mt-6" : ""} `}
+                  >
+                    <TextInput
+                      label="Title"
+                      value={title}
+                      onChange={(value) => dispatch(setTitle(value))}
+                      placeholder="e.g. Photojournist"
+                      maxLength={100}
+                      required
+                    />
+                    <InputUrl
+                      label="Website"
+                      placeholder="e.g. https://johnsmith.com"
+                      id="website-link"
+                      value={website}
+                      onChange={(value) => dispatch(setWebsite(value))}
+                      required={false}
+                      errorKey="ErrorWebsite"
+                      setErrorAction={setErrorWebsite}
+                    />
+                  </div>
+
+                  <div className="space-y-4 mt-6">
+                    {buttons.map((button) => (
+                      <ButtonInput
+                        key={button.id}
+                        id={button.id}
+                        buttonText={button.buttonText}
+                        url={button.url}
+                        buttonTextError={button.buttonTextError}
+                        urlError={button.urlError}
+                        onRemove={() => handleRemoveButton(button.id)}
+                      />
+                    ))}
+                  </div>
+
+                  <div
+                    className={`
+                      ${buttonTextError || buttonUrlError ? "mt-6" : ""}
+                      ${buttons.length > 0 ? "mt-4" : ""}
+                    `}
+                  >
+                    <button
+                      onClick={handleAddButton}
+                      className="flex px-4 py-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] text-[var(--Dark-grey)] font-medium text-[14px] leading-[22px]"
+                    >
+                      <Plus size={16} />
+                      <span className="ml-2">Add button</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </Accordion>
+          </div>
+          <div className="w-full">
+            {/* Welcome Screen */}
+            <Welcome />
           </div>
           <QRCodeNameAccordion
             title="Name of the QR code"
@@ -158,7 +379,7 @@ export default function Wifi() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    {/* <WifiPreview /> */}
+                    <FacebookPreview />
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">

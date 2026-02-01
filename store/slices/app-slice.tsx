@@ -5,6 +5,7 @@ import {
   AppLinks,
 } from "@/types/app";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 const palette = [
   {
@@ -39,25 +40,25 @@ const palette = [
 
 const storeDefaultLink = [
   {
-    id: 1,
+    id: 0,
     storeName: "appStore",
     title: "App Store",
     storeUrl: '',
   },
   {
-    id: 2,
+    id: 1,
     storeName: "goolgePlay",
     title: "Goolge Play",
     storeUrl: '',
   },
   {
-    id: 3,
+    id: 2,
     storeName: "amazon",
     title: "Amazon",
     storeUrl: '',
   },
   {
-    id: 4,
+    id: 3,
     storeName: "xiaomi",
     title: "Xioami",
     storeUrl: '',
@@ -79,6 +80,7 @@ const initialState: AppSlice = {
   appStoreLinks: [],
   welcomeScreen: "",
   qrCodeName: "",
+  appDefaultState: true,
   isPreviewWelcomeScreen: false,
 };
 
@@ -91,41 +93,54 @@ const appSlice = createSlice({
       action: PayloadAction<{ index: number; color: ColorPalette }>,
     ) => {
       state.colorPalette[action.payload.index] = action.payload.color;
+      state.appDefaultState = false;
     },
     setPrimaryColor: (state, action: PayloadAction<string>) => {
       state.primaryColor = action.payload;
+      state.appDefaultState = false;
     },
     setSecondaryColor: (state, action: PayloadAction<string>) => {
       state.secondaryColor = action.payload;
+      state.appDefaultState = false;
     },
     setAppInfo: (state, action: PayloadAction<AppInfo>) => {
       state.appInfo = action.payload;
+      state.appDefaultState = false;
     },
     setAppLinks: (state, action: PayloadAction<AppLinks[]>) => {
      state.appLinks = action.payload;
+     state.appDefaultState = false;
     },
     setAppStoreLinks: (state, action: PayloadAction<AppLinks[]>) => {
      state.appStoreLinks = action.payload;
+     state.appDefaultState = false;
     },
     moveLinkToAppStore: (state, action: PayloadAction<number>) => {
       const index = state.appLinks.findIndex(item => item.id === action.payload);
       if (index !== -1) {
         const [item] = state.appLinks.splice(index, 1);
         state.appStoreLinks.push(item);
+        state.appDefaultState = false;
       }
-    },
+    },       
     moveLinkToAppLinks: (state, action: PayloadAction<number>) => {
-      const index = state.appStoreLinks.findIndex(item => item.id === action.payload);
+     const index = state.appStoreLinks.findIndex(item => item.id === action.payload);
       if (index !== -1) {
         const [item] = state.appStoreLinks.splice(index, 1);
-        state.appLinks.push(item);
+
+        // insert at original position using the id
+        const insertIndex = item.id; 
+        state.appLinks.splice(insertIndex, 0, item);
+        state.appDefaultState = false;
       }
     },
     setWelcomeScreen: (state, action: PayloadAction<string>) => {
       state.welcomeScreen = action.payload;
+      state.appDefaultState = false;
     },
     setQrCodeName: (state, action: PayloadAction<string>) => {
       state.qrCodeName = action.payload;
+      state.appDefaultState = false;
     },
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;

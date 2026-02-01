@@ -24,7 +24,9 @@ export default function AppStoreLink() {
         <div className="space-y-2">
             <div className="flex items-start justify-start gap-4">
                 {app.appLinks.map((appLink,index)=> {
-                    return <button onClick={() => dispatch(moveLinkToAppStore(appLink.id))}>
+                    return <button 
+                    key={appLink.id}
+                    onClick={() => dispatch(moveLinkToAppStore(appLink.id))}>
                         {appLink.storeName === "appStore" ?
                          <div className="w-[60px] h-[60px] rounded-[10px] bg-gradient-to-b from-[#18BFFB] to-[#2072F3] flex items-center justify-center">
                             <AppStoreIcon/>
@@ -45,7 +47,9 @@ export default function AppStoreLink() {
             </div>
             <div className="flex flex-col h-max w-full pt-6 desktop:pt-8">
             {app.appStoreLinks.map((button, index)=>{
-                return <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2">
+                return <div 
+                key={button.id}
+                className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2">
                 <div className="flex gap-2 w-full max-w items-center justify-start">
                     {button.storeName === "appStore" ?
                     <div className="w-[60px] h-[60px] rounded-[10px] bg-gradient-to-b from-[#18BFFB] to-[#2072F3] flex items-center justify-center">
@@ -60,6 +64,7 @@ export default function AppStoreLink() {
                        <AmazonStore/>
                     </div> :
                       <div className="w-[60px] h-[60px] rounded-[10px] bg-[#FF7043] flex items-center justify-center">
+                         <MiLogo/>
                     </div>}
                  <p className="text-[16px] leading-[22px] text-[var(--Black)]">
                     {button.title}
@@ -69,8 +74,8 @@ export default function AppStoreLink() {
               <Input
                 label="URL*"
                 placeholder={button.storeName === "appStore"? "e.g. https://apps.apple.com/my-app" : button.storeName === "goolgePlay"? "e.g. https://play.google.com/my-app" : button.storeName === "amazon"? "e.g. https://amazon.com/my-app" : "e.g. https://mi.com/my-app"}
-                id="url"
                 type="url"
+                id={`url-${button.id}`}
                 value={button.storeUrl}
                />
                 <button

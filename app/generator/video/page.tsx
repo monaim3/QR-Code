@@ -3,16 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
-import DesignCustomize from "@/components/generator/socialMedia/design-customize";
-import NameQrCode from "@/components/generator/pdf/qrCode-name";
+import VideoInfo from "@/components/generator/video/video-info";
+import DesignCustomize from "@/components/generator/video/design-customize";
+import NameQrCode from "@/components/generator/app/qrCode-name";
+import Welcome from "@/components/generator/app/welcome-screen";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import SocialPreView from "@/components/generator/socialMedia/social-preview";
-import Welcome from "@/components/generator/socialMedia/welcome-screen";
-import Information from "@/components/generator/socialMedia/information";
-import SocialLinks from "@/components/generator/socialMedia/social-links";
+import AppPreView from "@/components/generator/app/app-preview";
+import AppStoreLink from "@/components/generator/app/app-store-links";
 
-export default function GeneratorSocialMedia() {
+export default function GeneratorApp() {
     const [view, setView] = useState<"preview" | "qrCode">("preview");
     const qrRef = useRef<HTMLDivElement>(null);
     const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -54,7 +54,7 @@ export default function GeneratorSocialMedia() {
             <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the Social Media QR code
+            Add content to the Video QR code
           </h3>
           <div className="w-full flex flex-col gap-4">
             {/* Mobile Breadcrumb */}
@@ -63,16 +63,16 @@ export default function GeneratorSocialMedia() {
             </div>
 
             {/* Design & Customize */}
-            <DesignCustomize/>
+            <DesignCustomize />
 
-            {/* Information */}
-            <Information/>
+            {/* App Info */}
+            <VideoInfo/>
 
-            {/* Social Links */}
-            <SocialLinks/>
+            {/* App Store Link */}
+            <AppStoreLink/>
 
-            {/* welcome Screen */}
-            <Welcome/>
+            {/* Welcome Screen */}
+            <Welcome />
 
             {/* Name */}
             <NameQrCode/>
@@ -111,7 +111,7 @@ export default function GeneratorSocialMedia() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    <SocialPreView />
+                    <AppPreView />
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">

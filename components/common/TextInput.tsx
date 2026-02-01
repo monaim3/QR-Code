@@ -5,6 +5,7 @@ type TextInputProps = {
   placeholder?: string;
   maxLength?: number;
   id?: string;
+  required?: boolean;
 };
 
 export const TextInput = ({
@@ -14,6 +15,7 @@ export const TextInput = ({
   placeholder,
   maxLength = 31,
   id,
+  required = false,
 }: TextInputProps) => {
   const inputId = id ?? label.replace(/\s+/g, "-").toLowerCase();
 
@@ -24,6 +26,7 @@ export const TextInput = ({
         className="block mb-2 text-[16px] leading-[24px] font-medium text-[var(--Black)]"
       >
         {label}
+        <span>{required ? "*" : ""}</span>
       </label>
 
       <input
