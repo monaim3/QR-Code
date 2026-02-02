@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/store/hooks";
-import Women from "../../../public/images/generator_img/women.jpg";
+import forest from "../../../public/images/generator_img/forest-nature.png";
 import FacebookIcon from "@/components/icons/facebook-icon";
 import { Globe } from "lucide-react";
 import Image from "next/image";
@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect } from "react";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/vCardSlice";
 import { useDispatch } from "react-redux";
+import { IoShareSocialOutline } from "react-icons/io5";
 
 const ImagesPreview: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const ImagesPreview: React.FC = () => {
   const images = useAppSelector((state) => state.images.images);
   const primaryColor = useAppSelector((state) => state.images.primaryColor);
   const secondaryColor = useAppSelector((state) => state.images.secondaryColor);
-
+  const share = useAppSelector((state) => state.images.Share);
   const vCard = useAppSelector((state) => state.vCard);
 
   const hasUserAction =
@@ -29,11 +30,26 @@ const ImagesPreview: React.FC = () => {
     buttons.length > 0 ||
     images.length > 0;
 
+  const hasTextContent = name || title || website;
+
   const displayImage =
-    images.length > 0 ? images[0].url : hasUserAction ? null : Women.src;
-  const showName = hasUserAction ? name : "Lydia Harper";
-  const showTitle = hasUserAction ? title : "PROJECT MANAGER";
-  const showWebsite = hasUserAction ? website : "www.lydiaharper.com";
+    images.length > 0 ? images[0].url : hasUserAction ? null : forest.src;
+
+  const showName = hasTextContent
+    ? name
+    : hasUserAction
+      ? "My Images"
+      : "Vision Hub";
+  const showTitle = hasTextContent
+    ? title
+    : hasUserAction
+      ? ""
+      : "Every image tells a story, inviting you to look closer and feel more.";
+  const showWebsite = hasTextContent
+    ? website
+    : hasUserAction
+      ? ""
+      : "www.visionhub.com";
 
   const showFacebookButton = facebookUrl || !hasUserAction;
 
@@ -41,10 +57,14 @@ const ImagesPreview: React.FC = () => {
 
   const getButtonFontColor = (bgColor: string) => {
     const color = bgColor.toUpperCase();
-    if (color === "#000000" || color === "#000") {
-      return "#FFFFFF";
-    } else if (color === "#FFFFFF" || color === "#FFF") {
+
+    // Specific colors that need black text
+    const lightColors = ["#FFFFFF", "#FFF", "#ECEDF1", "#DAEBF6", "#ECECF0"];
+
+    if (lightColors.includes(color)) {
       return "#000000";
+    } else if (color === "#000000" || color === "#000") {
+      return "#FFFFFF";
     } else {
       return "#FFFFFF";
     }
@@ -71,14 +91,74 @@ const ImagesPreview: React.FC = () => {
           style={{ backgroundColor: primaryColor }}
         />
 
-        <div className="relative z-3 mx-10 pt-12">
-          <div className="bg-white rounded-lg shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] overflow-hidden">
+        <div className="relative z-3 mx-2 pt-12">
+          {(showName || showTitle) && (
+            <div className="px-4 pb-4 text-center mt-4 w-full overflow-hidden">
+              {showName && (
+                <h2
+                  className="text-lg font-bold leading-[26px] break-words"
+                  style={{
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                    color: hasUserAction
+                      ? getButtonFontColor(primaryColor)
+                      : "#FFFFFF",
+                  }}
+                >
+                  {showName}
+                </h2>
+              )}
+              {showTitle && (
+                <p
+                  className="text-[10px] font-normal leading-[16px] mt-0.5 tracking-wide break-words"
+                  style={{
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                    color: hasUserAction
+                      ? getButtonFontColor(primaryColor)
+                      : "#FFFFFF",
+                  }}
+                >
+                  {showTitle}
+                </p>
+              )}
+            </div>
+          )}
+
+          {showWebsite && (
+            <div className="flex gap-2 px-4 mx-auto items-center justify-center mb-4">
+              <Globe
+                size={16}
+                className="flex-shrink-0"
+                style={{
+                  color: hasUserAction
+                    ? getButtonFontColor(primaryColor)
+                    : "#FFFFFF",
+                }}
+              />
+              <p
+                className="text-[10px] font-normal leading-[16px] break-all"
+                style={{
+                  color: hasUserAction
+                    ? getButtonFontColor(primaryColor)
+                    : "#FFFFFF",
+                }}
+              >
+                {showWebsite.replace(/^https?:\/\//, "")}
+              </p>
+            </div>
+          )}
+
+          <div className="rounded-lg px-4 overflow-hidden">
             <div className="w-full px-1 pt-1 pb-1">
               {stackImages.length > 0 ? (
-                <div className="w-full relative pb-[133%]">
+                <div
+                  className="w-full relative"
+                  style={{ aspectRatio: "207/240" }}
+                >
                   {/* Second Image - Left side */}
                   {stackImages[1] && (
-                    <div className="absolute -left-10 w-[48%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] h-[calc(100%-28px)]">
+                    <div className="absolute -left-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]">
                       <Image
                         src={stackImages[1].url}
                         alt={stackImages[1].name}
@@ -91,7 +171,7 @@ const ImagesPreview: React.FC = () => {
 
                   {/* Third Image - Right side */}
                   {stackImages[2] && (
-                    <div className="absolute -right-16 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] h-[calc(100%-28px)]">
+                    <div className="absolute -right-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]">
                       <Image
                         src={stackImages[2].url}
                         alt={stackImages[2].name}
@@ -113,7 +193,10 @@ const ImagesPreview: React.FC = () => {
                   </div>
                 </div>
               ) : displayImage ? (
-                <div className="w-full aspect-[3/4] bg-gray-100 flex items-center justify-center overflow-hidden rounded-lg relative">
+                <div
+                  className="w-full flex items-center justify-center overflow-hidden rounded-lg relative"
+                  style={{ aspectRatio: "207/240" }}
+                >
                   <Image
                     src={displayImage}
                     alt={showName || "Profile"}
@@ -123,99 +206,102 @@ const ImagesPreview: React.FC = () => {
                   />
                 </div>
               ) : (
-                <div className="w-full aspect-[3/4] bg-gray-100 rounded-lg" />
+                <div
+                  className="w-full bg-gray-100 rounded-lg"
+                  style={{ aspectRatio: "207/240" }}
+                />
               )}
             </div>
           </div>
-
-          {(showName || showTitle) && (
-            <div className="px-4 pb-4 text-center mt-4 w-full overflow-hidden">
-              {showName && (
-                <h2
-                  className="text-lg font-bold leading-[26px] break-words "
-                  style={{
-                    wordBreak: "break-word",
-                    overflowWrap: "anywhere",
-                  }}
-                >
-                  {showName}
-                </h2>
-              )}
-              {showTitle && (
-                <p
-                  className="text-[10px] font-normal leading-[16px] mt-0.5 uppercase tracking-wide break-words "
-                  style={{
-                    wordBreak: "break-word",
-                    overflowWrap: "anywhere",
-                  }}
-                >
-                  {showTitle}
-                </p>
-              )}
-            </div>
-          )}
-
-          {showWebsite && (
-            <div className="flex gap-2 px-4 mb-4 items-center w-full overflow-hidden">
-              <Globe size={16} className="text-gray-600 flex-shrink-0" />
-              <p className="text-[10px] font-normal leading-[16px] truncate flex-1 min-w-0">
-                {showWebsite.replace(/^https?:\/\//, "")}
-              </p>
-            </div>
-          )}
         </div>
 
-        <div className="px-5 mt-8 space-y-2 pb-4 w-full">
+        <div className="px-5 space-y-2 pb-4 w-full">
           {!hasUserAction && (
-            <button className="w-full py-2.5 rounded-lg text-white text-xs font-normal leading-[20px] bg-black">
-              Learn more
-            </button>
+            <div className="flex gap-2">
+              <button className="w-full py-2.5 rounded-lg text-white text-xs font-normal leading-[20px] bg-black">
+                View more
+              </button>
+              {/* Share button always shows initially */}
+              <button className="max-w-10 flex items-center justify-center w-full py-2.5 rounded-lg text-black text-xs font-normal leading-[20px] bg-white border border-black">
+                <IoShareSocialOutline size={16} />
+              </button>
+            </div>
           )}
 
-          {buttons.map((button) => (
+          {hasUserAction && buttons.length > 0 && (
+            <>
+              <div className={share ? "flex gap-2 mt-4" : "mt-4"}>
+                {/* First button */}
+                {buttons[0] && (
+                  <button
+                    className="w-full py-2.5 min-h-10 rounded-lg text-xs font-normal leading-[20px] border hover:opacity-90 transition-all duration-150 overflow-hidden"
+                    style={{
+                      backgroundColor: secondaryColor,
+                      color: getButtonFontColor(secondaryColor),
+                      borderColor:
+                        secondaryColor === "#FFFFFF"
+                          ? "#000000"
+                          : secondaryColor,
+                      wordBreak: "break-word",
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    <span className="block px-2 truncate">
+                      {buttons[0].buttonText || "e.g. Click here"}
+                    </span>
+                  </button>
+                )}
+
+                {/* Share icon - only show if checkbox is checked */}
+                {share && (
+                  <button
+                    className="max-w-10 flex items-center justify-center w-full py-2.5 rounded-lg text-xs font-normal leading-[20px] border hover:opacity-90 transition-all duration-150"
+                    style={{
+                      backgroundColor: secondaryColor,
+                      color: getButtonFontColor(secondaryColor),
+                      borderColor:
+                        secondaryColor === "#FFFFFF"
+                          ? "#000000"
+                          : secondaryColor,
+                    }}
+                  >
+                    <IoShareSocialOutline size={16} />
+                  </button>
+                )}
+              </div>
+
+              {buttons.slice(1).map((button) => (
+                <button
+                  key={button.id}
+                  className="w-full py-2.5 min-h-10 rounded-lg text-xs font-normal leading-[20px] border hover:opacity-90 transition-all duration-150 overflow-hidden"
+                  style={{
+                    backgroundColor: secondaryColor,
+                    color: getButtonFontColor(secondaryColor),
+                    borderColor:
+                      secondaryColor === "#FFFFFF" ? "#000000" : secondaryColor,
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                  }}
+                >
+                  <span className="block px-2 truncate">
+                    {button.buttonText || "e.g. Click here"}
+                  </span>
+                </button>
+              ))}
+            </>
+          )}
+
+          {hasUserAction && buttons.length === 0 && share && (
             <button
-              key={button.id}
-              className="w-full py-2.5 min-h-10 rounded-lg text-xs font-normal leading-[20px] border hover:opacity-90 transition-all duration-150 overflow-hidden"
+              className="w-full py-2.5 rounded-lg text-xs font-normal leading-[20px] border hover:opacity-90 transition-all duration-150 flex items-center justify-center mt-4"
               style={{
                 backgroundColor: secondaryColor,
                 color: getButtonFontColor(secondaryColor),
                 borderColor:
                   secondaryColor === "#FFFFFF" ? "#000000" : secondaryColor,
-                wordBreak: "break-word",
-                overflowWrap: "anywhere",
               }}
             >
-              <span className="block px-2 truncate">
-                {button.buttonText || ""}
-              </span>
-            </button>
-          ))}
-
-          {showFacebookButton && (
-            <button className="w-full py-2.5 rounded-lg bg-white text-gray-900 text-sm font-medium transition-all duration-150 flex items-center justify-between px-4">
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                  <FacebookIcon />
-                </div>
-                <span className="text-xs font-normal leading-[20px] truncate">
-                  Facebook
-                </span>
-              </div>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                className="text-gray-400 flex-shrink-0"
-              >
-                <path
-                  d="M6 12L10 8L6 4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <IoShareSocialOutline size={16} />
             </button>
           )}
         </div>

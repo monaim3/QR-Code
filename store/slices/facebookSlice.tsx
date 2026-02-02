@@ -44,29 +44,29 @@ const facebookSlice = createSlice({
   name: "facebook",
   initialState,
   reducers: {
-    setFacebookUrl: (state, action) => {
+    setFacebookUrl: (state, action: PayloadAction<string>) => {
       state.FacebookUrl = action.payload;
     },
-    setPrimaryColor: (state, action) => {
+    setPrimaryColor: (state, action: PayloadAction<string>) => {
       state.primaryColor = action.payload;
     },
-    setSecondaryColor: (state, action) => {
+    setSecondaryColor: (state, action: PayloadAction<string>) => {
       state.secondaryColor = action.payload;
     },
 
-    setName: (state, action) => {
+    setName: (state, action: PayloadAction<string>) => {
       state.Name = action.payload;
     },
-    setError: (state, action) => {
+    setError: (state, action: PayloadAction<string>) => {
       state.Error = action.payload;
     },
-    setTitle: (state, action) => {
+    setTitle: (state, action: PayloadAction<string>) => {
       state.Title = action.payload;
     },
-    setWebsite: (state, action) => {
+    setWebsite: (state, action: PayloadAction<string>) => {
       state.Website = action.payload;
     },
-    setErrorWebsite: (state, action) => {
+    setErrorWebsite: (state, action: PayloadAction<string>) => {
       state.ErrorWebsite = action.payload;
     },
 

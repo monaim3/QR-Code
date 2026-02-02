@@ -17,7 +17,13 @@ import {
   setErrorWebsite,
   addButton,
   removeButton,
+  updateButtonText,
+  updateButtonUrl,
   setButtonTextError,
+  setButtonUrlError,
+  addImage,
+  removeImage,
+  updateImage,
   setPrimaryColor as setFacebookPrimaryColor,
   setSecondaryColor as setFacebookSecondaryColor,
 } from "@/store/slices/imagesSlice";
@@ -46,6 +52,7 @@ import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
 import { setShare } from "@/store/slices/imagesSlice";
 import ImagesPreview from "@/components/generator/Images/ImagesPreview";
+
 export default function Images() {
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
@@ -61,12 +68,14 @@ export default function Images() {
   const website = useAppSelector((state) => state.images.Website);
   const errorWebsite = useAppSelector((state) => state.images.ErrorWebsite);
   const buttons = useAppSelector((state) => state.images.buttons);
+  const images = useAppSelector((state) => state.images.images);
   const share = useAppSelector((state) => state.images.Share);
   const lastButton = useAppSelector(
     (state) => state.images.buttons[state.images.buttons.length - 1],
   );
   const buttonTextError = lastButton?.buttonTextError || "";
   const buttonUrlError = lastButton?.urlError || "";
+
   const handleAddButton = () => {
     dispatch(addButton());
   };
@@ -74,12 +83,30 @@ export default function Images() {
   const handleRemoveButton = (id: string) => {
     dispatch(removeButton(id));
   };
+
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
   };
 
   const handleFacebookUrl = (value: string) => {
     dispatch(setFacebookUrl(value));
+  };
+
+  // Button handlers - এগুলো add করতে হবে
+  const handleButtonTextChange = (id: string, value: string) => {
+    dispatch(updateButtonText({ id, value }));
+  };
+
+  const handleButtonUrlChange = (id: string, value: string) => {
+    dispatch(updateButtonUrl({ id, value }));
+  };
+
+  const handleButtonTextError = (id: string, error: string) => {
+    dispatch(setButtonTextError({ id, error }));
+  };
+
+  const handleButtonUrlError = (id: string, error: string) => {
+    dispatch(setButtonUrlError({ id, error }));
   };
 
   // color-customize
@@ -143,6 +170,7 @@ export default function Images() {
       }),
     );
   };
+
   useEffect(() => {
     if (view !== "qrCode" || !qrRef.current) return;
 
@@ -239,7 +267,16 @@ export default function Images() {
                     onChange={(v) => handleColorChange(vCard.primaryColor, v)}
                   />
                 </div>
-                <ImageCarousel maxImages={10} maxSizeMB={5} />
+                <ImageCarousel
+                  maxImages={10}
+                  maxSizeMB={5}
+                  images={images}
+                  onAddImage={(image) => dispatch(addImage(image))}
+                  onRemoveImage={(id) => dispatch(removeImage(id))}
+                  onUpdateImage={(id, image) =>
+                    dispatch(updateImage({ id, image }))
+                  }
+                />
               </div>
             </Accordion>
           </div>
@@ -249,16 +286,6 @@ export default function Images() {
               description="Provide a headline, URL and short description for your image gallery"
             >
               <div>
-                <div>
-                  {/* <RequiredTextInput
-                  label="Network name"
-                  value={wifi}
-                  onChange={handleChange}
-                  placeholder="e.g. My Wi-Fi"
-                  maxLength={100}
-                /> */}
-                </div>
-
                 <div className="flex gap-12 items-start justify-center ">
                   <TextInput
                     label="Headline"
@@ -271,12 +298,12 @@ export default function Images() {
                   <InputUrl
                     label="Website"
                     placeholder="e.g. https://pauljones.com"
-                    id="facebook-link"
-                    value={facebookUrl}
-                    onChange={handleFacebookUrl}
+                    id="website"
+                    value={website}
+                    onChange={(value) => dispatch(setWebsite(value))}
                     required={false}
-                    errorKey="Error"
-                    setErrorAction={setError}
+                    error={error}
+                    onError={(errorMsg) => dispatch(setError(errorMsg))}
                   />
                 </div>
 
@@ -303,6 +330,18 @@ export default function Images() {
                         buttonTextError={button.buttonTextError}
                         urlError={button.urlError}
                         onRemove={() => handleRemoveButton(button.id)}
+                        onButtonTextChange={(value) =>
+                          handleButtonTextChange(button.id, value)
+                        }
+                        onUrlChange={(value) =>
+                          handleButtonUrlChange(button.id, value)
+                        }
+                        onButtonTextError={(error) =>
+                          handleButtonTextError(button.id, error)
+                        }
+                        onUrlError={(error) =>
+                          handleButtonUrlError(button.id, error)
+                        }
                       />
                     ))}
                   </div>
@@ -331,7 +370,7 @@ export default function Images() {
               description="Add the ability to share your image gallery"
             >
               <CheckboxInput
-                label="Add “Share” button to landing page"
+                label="Add Share button to landing page"
                 onChange={() => dispatch(setShare(!share))}
                 id="share-id"
                 checked={share}

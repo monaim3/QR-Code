@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -18,6 +18,7 @@ import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Container from "@/components/common/parent-container";
 import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import Breadcrumb from "../../../components/generator/Breadcrumb";
+import QRCodeStyling, { Options } from "qr-code-styling";
 
 const urlSchema = z.string().url("Please enter a valid URL");
 
@@ -27,7 +28,8 @@ export default function WebsiteUrlPage() {
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
   const activeTab = useAppSelector((state) => state.preview.activeTab);
-
+  const qrRef = useRef<HTMLDivElement>(null);
+  const qrCodeRef = useRef<QRCodeStyling | null>(null);
   const [urlError, setUrlError] = useState("");
   const [qrNameError, setQrNameError] = useState("");
   const [isUrlFocused, setIsUrlFocused] = useState(false);
@@ -59,6 +61,38 @@ export default function WebsiteUrlPage() {
       }
     }
   };
+
+  useEffect(() => {
+    // Fixed: Check activeTab instead of view
+    if (activeTab !== "qrcode" || !qrRef.current) return;
+
+    const qrOptions: Options = {
+      type: "svg",
+      data: websiteUrl || "https://www.example.com",
+      margin: 0,
+      width: 300,
+      height: 300,
+      dotsOptions: {
+        color: "#000000",
+        type: "rounded",
+      },
+      backgroundOptions: {
+        color: "#FFFFFF",
+      },
+    };
+
+    if (qrRef.current) {
+      qrRef.current.innerHTML = "";
+
+      if (qrCodeRef.current) {
+        qrCodeRef.current.update(qrOptions);
+        qrCodeRef.current.append(qrRef.current);
+      } else {
+        qrCodeRef.current = new QRCodeStyling(qrOptions);
+        qrCodeRef.current.append(qrRef.current);
+      }
+    }
+  }, [activeTab, websiteUrl]); // Added websiteUrl as dependency
 
   return (
     <>
@@ -163,7 +197,12 @@ export default function WebsiteUrlPage() {
                     {activeTab === "preview" ? (
                       <WebsiteUrlPreview url={websiteUrl} />
                     ) : (
-                      <QRCodeDisplay />
+                      <div className="w-full h-full flex items-center justify-center rounded-[32px]">
+                        <div
+                          ref={qrRef}
+                          className="w-[154px] h-[154px] flex items-center justify-center"
+                        />
+                      </div>
                     )}
                   </MobileFrame>
                 </div>

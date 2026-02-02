@@ -17,7 +17,13 @@ import {
   setErrorWebsite,
   addButton,
   removeButton,
+  updateButtonText,
+  updateButtonUrl,
   setButtonTextError,
+  setButtonUrlError,
+  addImage,
+  removeImage,
+  updateImage,
   setPrimaryColor as setFacebookPrimaryColor,
   setSecondaryColor as setFacebookSecondaryColor,
 } from "@/store/slices/facebookSlice";
@@ -43,6 +49,7 @@ import ColorBtn from "@/components/generator/vcard/ColorBtn";
 import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
 import Welcome from "@/components/generator/vcard/Welcome";
 import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
+
 export default function Facebook() {
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
@@ -58,11 +65,13 @@ export default function Facebook() {
   const website = useAppSelector((state) => state.facebook.Website);
   const errorWebsite = useAppSelector((state) => state.facebook.ErrorWebsite);
   const buttons = useAppSelector((state) => state.facebook.buttons);
+  const images = useAppSelector((state) => state.facebook.images);
   const lastButton = useAppSelector(
     (state) => state.facebook.buttons[state.facebook.buttons.length - 1],
   );
   const buttonTextError = lastButton?.buttonTextError || "";
   const buttonUrlError = lastButton?.urlError || "";
+
   const handleAddButton = () => {
     dispatch(addButton());
   };
@@ -70,12 +79,30 @@ export default function Facebook() {
   const handleRemoveButton = (id: string) => {
     dispatch(removeButton(id));
   };
+
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
   };
 
   const handleFacebookUrl = (value: string) => {
     dispatch(setFacebookUrl(value));
+  };
+
+  // Button handlers
+  const handleButtonTextChange = (id: string, value: string) => {
+    dispatch(updateButtonText({ id, value }));
+  };
+
+  const handleButtonUrlChange = (id: string, value: string) => {
+    dispatch(updateButtonUrl({ id, value }));
+  };
+
+  const handleButtonTextError = (id: string, error: string) => {
+    dispatch(setButtonTextError({ id, error }));
+  };
+
+  const handleButtonUrlError = (id: string, error: string) => {
+    dispatch(setButtonUrlError({ id, error }));
   };
 
   // color-customize
@@ -137,6 +164,7 @@ export default function Facebook() {
       }),
     );
   };
+
   useEffect(() => {
     if (view !== "qrCode" || !qrRef.current) return;
 
@@ -233,7 +261,16 @@ export default function Facebook() {
                     onChange={(v) => handleColorChange(vCard.primaryColor, v)}
                   />
                 </div>
-                <ImageCarousel maxImages={10} maxSizeMB={5} />
+                <ImageCarousel
+                  maxImages={10}
+                  maxSizeMB={5}
+                  images={images}
+                  onAddImage={(image) => dispatch(addImage(image))}
+                  onRemoveImage={(id) => dispatch(removeImage(id))}
+                  onUpdateImage={(id, image) =>
+                    dispatch(updateImage({ id, image }))
+                  }
+                />
               </div>
             </Accordion>
           </div>
@@ -243,16 +280,6 @@ export default function Facebook() {
               description="Provide information about yourself and your Facebook page"
             >
               <div>
-                <div>
-                  {/* <RequiredTextInput
-                  label="Network name"
-                  value={wifi}
-                  onChange={handleChange}
-                  placeholder="e.g. My Wi-Fi"
-                  maxLength={100}
-                /> */}
-                </div>
-
                 <div className="flex gap-12 items-start justify-center ">
                   <InputUrl
                     label="Facebook URL"
@@ -261,8 +288,8 @@ export default function Facebook() {
                     value={facebookUrl}
                     onChange={handleFacebookUrl}
                     required={true}
-                    errorKey="Error"
-                    setErrorAction={setError}
+                    error={error}
+                    onError={(errorMsg) => dispatch(setError(errorMsg))}
                   />
                   <TextInput
                     label="Name"
@@ -292,8 +319,10 @@ export default function Facebook() {
                       value={website}
                       onChange={(value) => dispatch(setWebsite(value))}
                       required={false}
-                      errorKey="ErrorWebsite"
-                      setErrorAction={setErrorWebsite}
+                      error={errorWebsite}
+                      onError={(errorMsg) =>
+                        dispatch(setErrorWebsite(errorMsg))
+                      }
                     />
                   </div>
 
@@ -307,6 +336,18 @@ export default function Facebook() {
                         buttonTextError={button.buttonTextError}
                         urlError={button.urlError}
                         onRemove={() => handleRemoveButton(button.id)}
+                        onButtonTextChange={(value) =>
+                          handleButtonTextChange(button.id, value)
+                        }
+                        onUrlChange={(value) =>
+                          handleButtonUrlChange(button.id, value)
+                        }
+                        onButtonTextError={(error) =>
+                          handleButtonTextError(button.id, error)
+                        }
+                        onUrlError={(error) =>
+                          handleButtonUrlError(button.id, error)
+                        }
                       />
                     ))}
                   </div>
