@@ -23,13 +23,6 @@ export default function Carousel({ images, initialIndex = 0 }: CarouselProps) {
       prev === 0 ? images.length - 1 : prev - 1
     );
   };
-
-//   images = [
-//     '/images/social-user.png',
-//     '/images/social-user.png',
-//     '/images/social-user.png',
-// ];
-
   const getImageStyle = (index: number) => {
     const diff = index - currentIndex;
 
@@ -71,7 +64,7 @@ export default function Carousel({ images, initialIndex = 0 }: CarouselProps) {
   return (
     <div
       className="w-full h-[200px] flex items-center justify-center overflow-hidden">
-      {social?.carousels?.map((image, index) => {
+      {images.map((image, index) => {
         const style = getImageStyle(index);
         return (
           <div

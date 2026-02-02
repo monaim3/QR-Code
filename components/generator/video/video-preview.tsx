@@ -41,28 +41,29 @@ export default function VideoPreView(){
       default:
         return "text-white";
     }
-  }
+  };
 
   const defaultbutton = [
     { text: "Click here", link: "https://www.example.com/" },
   ];
+
   const defaultVideo = [
     { title: "So much joy!", description: "A truly unforgettable moment!",url: "" },
     { title: "The highlight of the day!", description: "Discover more amazing content!",url: "" },
   ];
 
-   useEffect(() => {
-        setTimeout(() => {
-          dispatch(setIsPreviewWelcomeScreen(false));
-        }, 1000);
-      }, [video.isPreviewWelcomeScreen, dispatch]);
+ useEffect(() => {
+    setTimeout(() => {
+      dispatch(setIsPreviewWelcomeScreen(false));
+    }, 1000);
+  }, [video.isPreviewWelcomeScreen, dispatch]);
 
     return (
-        <ScrollArea className="w-full h-full overflow-y-auto">
+        <ScrollArea className="w-full h-full relative overflow-y-auto">
            <div
               className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${video.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}>
                  {video.welcomeScreen && (
-                    <Image src={video.welcomeScreen} alt="Background" fill />
+                    <Image src={video.welcomeScreen} alt="Background" fill/>
                   )}
                 </div>
             <div className="absolute inset-0 w-full h-1/2"
@@ -96,7 +97,7 @@ export default function VideoPreView(){
                     return (
                         <div 
                         key={index}
-                        className="flex flex-col items-start justify-center bg-white border border-white rounded-[6px] shadow-card">
+                        className="flex flex-col items-start justify-center bg-white border border-white rounded-[6px] shadow-card mb-[10px]">
                         {video.isDefault ? (
                          <div className="relative w-full h-[130px] p-[1px]">
                             <Image

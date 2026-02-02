@@ -5,23 +5,19 @@ import Image from "next/image";
 import { socialChannels } from "@/lib/socialChannels";
 import Carousel from "@/components/generator/socialMedia/image-carousel";
 import { ChevronRight } from "lucide-react";
+import { useEffect } from "react";
+import { setIsPreviewWelcomeScreen } from "@/store/slices/app-slice";
 
 export default function SocialPreView(){
   const dispatch = useDispatch();
   const social = useAppSelector((state) => state.social);
 
-  const textColor = () => {
-    switch (social.primaryColor) {
-      case "#ECEDF1":
-        return "text-[var(--Black)]";
-      case "#ECECF0":
-        return "text-[var(--Black)]";
-      case "#DAEBF6":
-        return "text-[var(--Black)]";
+  const buttonColor = () => {
+    switch (social.secondaryColor) {
       case "#FFFFFF":
-        return "text-[var(--Black)]";
+        return "#f8f9fc";
       default:
-        return "text-white";
+        return social.secondaryColor;
     }
   };
 
@@ -40,7 +36,25 @@ export default function SocialPreView(){
       default:
         return "text-white";
     }
-  }
+  };
+
+  const defaultImages = [
+    "/images/social-user.png",
+    "/images/social-user.png",
+    "/images/social-user.png",
+  ];
+
+  const defaultChannels = [
+  { id: "facebook", name: "Facebook", icon: "facebook", isIcon: true, url: "", description: "" },
+  { id: "instagram", name: "Instagram", icon: "instagram", isIcon: true, url: "", description: "" },
+  { id: "twitter", name: "Twitter", icon: "twitter", isIcon: true, url: "", description: "" },
+  ]
+
+  useEffect(() => {
+    setTimeout(() => {
+     dispatch(setIsPreviewWelcomeScreen(false));
+    },1000);
+  }, [social.isPreviewWelcomeScreen, dispatch]);
 
     return (
         <ScrollArea className="w-full h-full relative">
@@ -55,18 +69,18 @@ export default function SocialPreView(){
             />
             <div className="relative z-10 flex flex-col items-center px-4 pt-8 ">
                  <div className="absolute left-0 right-0 top-[32px] flex flex-col items-center justify-center px-4">
-             <Carousel images={social.carousels}/>
-             <p className="text-[18px] leading-[26px] font-bold text-[var(--Black)]">{social.socialInfo.headLine.trim() === "" ? "Scan & Connect" : social.socialInfo.headLine}</p>
-             <p className="text-[10px] leading-[16px] font-regular text-[var(--Black)] text-center">{social.socialInfo.description.trim() === "" ? "Hello, I’m Mark. Explore my content and connect on social media." : social.socialInfo.description}</p>
+             <Carousel images={social.isDefault ? defaultImages : social.carousels}/>
+             <p className="text-[18px] leading-[26px] font-bold text-[var(--Black)]">{social.isDefault ? "Scan & Connect" : social.socialInfo.headLine}</p>
+             <p className="text-[10px] leading-[16px] font-regular text-[var(--Black)] text-center">{social.isDefault ? "Hello, I’m Mark. Explore my content and connect on social media." : social.socialInfo.description}</p>
              <div className="w-full pt-6">
-                {social?.socialChannels?.map((channel,index)=>{
+                {(social.isDefault ? defaultChannels : social?.socialChannels).map((channel,index)=>{
                   const findChannel = socialChannels.find((ch) => ch.id === channel.id);
                   const ChannelIcon = findChannel?.icon as React.ComponentType;
                   return (
                    <div 
                    key={"channel-"+index}
-                   className="flex flex-row items-center justify-start h-[58px] rounded-[6px] mb-[6px] p-2 gap-2"
-                   style={{ backgroundColor: social.secondaryColor }}
+                   className="flex flex-row items-center justify-start h-[58px] rounded-[6px] mb-[6px] p-2 gap-2 cursor-pointer"
+                   style={{ backgroundColor: buttonColor() }}
                    >
                     {channel.isIcon && ChannelIcon ? <ChannelIcon/> : 
                     <img src={channel.icon ?? ""} alt={channel?.name} className="w-6 h-6 object-contain"/>}

@@ -27,6 +27,7 @@ export interface SocialSlice {
   availableChannels: SocialChannel[],
   socialChannels: SocialChannel[];
   welcomeScreen: string;
+  isDefault: boolean;
   qrCodeName: string;
   isPreviewWelcomeScreen: boolean,
 }

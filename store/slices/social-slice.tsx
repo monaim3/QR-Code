@@ -83,6 +83,7 @@ const initialState: SocialSlice = {
   availableChannels: socialChannels,
   socialChannels: [],
   welcomeScreen: "",
+  isDefault: true,
   qrCodeName: "",
   isPreviewWelcomeScreen: false,
 };
@@ -96,21 +97,27 @@ const pdfSlice = createSlice({
       action: PayloadAction<{ index: number; color: ColorPalette }>,
     ) => {
       state.colorPalette[action.payload.index] = action.payload.color;
+      state.isDefault = false;
     },
     setPrimaryColor: (state, action: PayloadAction<string>) => {
       state.primaryColor = action.payload;
+      state.isDefault = false;
     },
     setSecondaryColor: (state, action: PayloadAction<string>) => {
       state.secondaryColor = action.payload;
+      state.isDefault = false;
     },
     setSocialInfo: (state, action: PayloadAction<socialInfo>) => {
       state.socialInfo = action.payload;
+      state.isDefault = false;
     },
     setWelcomeScreen: (state, action: PayloadAction<string>) => {
       state.welcomeScreen = action.payload;
+      state.isDefault = false;
     },
     setQrCodeName: (state, action: PayloadAction<string>) => {
       state.qrCodeName = action.payload;
+      state.isDefault = false;
     },
     addToSocialChannels: (state, action: PayloadAction<string>) => {
     const channelId = action.payload;
@@ -119,12 +126,14 @@ const pdfSlice = createSlice({
     if (indexInSocial !== -1) {
         // If it exists, remove it (toggle off)
         state.socialChannels.splice(indexInSocial, 1);
+       
     } else {
         // If it doesn't exist, find in availableChannels and add
         const channel = state.availableChannels.find(c => c.id === channelId);
         if (channel) {
         state.socialChannels.push({ ...channel });
         }
+         state.isDefault = false;
     }
     },
     removeFromSocialChannels: (state, action: PayloadAction<string>) => {
@@ -143,18 +152,21 @@ const pdfSlice = createSlice({
             ...changes,
         };
       }
+      state.isDefault = false;
     },
     addCustomSocialChannel: (state, action: PayloadAction<SocialChannel> ) => {
     const exists = state.socialChannels.some(c => c.id === action.payload.id);
     if (!exists) {
       state.socialChannels.push(action.payload);
      }
+     state.isDefault = false;
     },
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
     addCarouselImage: (state, action: PayloadAction<string>) => {
       state.carousels.push(action.payload);
+      state.isDefault = false;
     },
     removeCarouselImage: (state, action: PayloadAction<string>) => {
       state.carousels = state.carousels.filter(img => img !== action.payload);
