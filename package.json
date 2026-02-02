@@ -35,7 +35,7 @@
     "lucide-react": "^0.562.0",
     "next": "^16.1.6",
     "next-themes": "^0.4.6",
-    "pdfjs-dist": "^5.4.530",
+    "pdfjs-dist": "5.4.530",
     "qr-code-styling": "^1.9.2",
     "qrcode.react": "^4.2.0",
     "react": "19.2.3",

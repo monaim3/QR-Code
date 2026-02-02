@@ -6,8 +6,12 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/pdf-slice";
+import dynamic from "next/dynamic";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+const PdfViewer = dynamic(
+  () => import("@/components/generator/pdf/pdf-renderer"),
+  { ssr: false }
+);
 
 export default function PdfPreView(){
   const pdf = useAppSelector((state) => state.pdf);
@@ -79,16 +83,7 @@ export default function PdfPreView(){
                     width={300} 
                     height={200} 
                     />) : 
-                    pdf.pdfFile && (<Document file={pdf.pdfFile} 
-                    onLoadError={console.error}>
-                    <Page 
-                    pageNumber={1} 
-                    height={250}
-                    renderTextLayer={false} 
-                    renderAnnotationLayer={false} 
-                    className="max-w-full h-full"
-                    />
-                   </Document>)}
+                    (pdf.pdfFile && <PdfViewer file={pdf.pdfFile} />)}
                    </div>
                     <div className={`w-full h-[40px] flex items-center justify-center rounded-[6px] mt-2 ${
                         pdf.secondaryColor === "#FFFFFF" ? "border border-gray-400" : ""
