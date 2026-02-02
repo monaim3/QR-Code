@@ -54,6 +54,7 @@ export default function VideoUpload({
     // Add video to Redux carousel
     dispatch(addVideo({
         ...video.videos,
+        id: video.videos.length > 0 ? video.videos.length + 1 : 1,
         url: videoURL,
         title: "",
         description: "",
