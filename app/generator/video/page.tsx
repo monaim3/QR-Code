@@ -9,7 +9,7 @@ import NameQrCode from "@/components/generator/video/qrCode-name";
 import Welcome from "@/components/generator/video/welcom-screen";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import AppPreView from "@/components/generator/app/app-preview";
+import VideoPreView from "@/components/generator/video/video-preview";
 import Addvideos from "@/components/generator/video/add-videos";
 import Share from "@/components/generator/video/share";
 
@@ -115,7 +115,7 @@ export default function GeneratorApp() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    <AppPreView />
+                    <VideoPreView />
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
