@@ -5,12 +5,13 @@ import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import VideoInfo from "@/components/generator/video/video-info";
 import DesignCustomize from "@/components/generator/video/design-customize";
-import NameQrCode from "@/components/generator/app/qrCode-name";
-import Welcome from "@/components/generator/app/welcome-screen";
+import NameQrCode from "@/components/generator/video/qrCode-name";
+import Welcome from "@/components/generator/video/welcom-screen";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import AppPreView from "@/components/generator/app/app-preview";
-import AppStoreLink from "@/components/generator/app/app-store-links";
+import Addvideos from "@/components/generator/video/add-videos";
+import Share from "@/components/generator/video/share";
 
 export default function GeneratorApp() {
     const [view, setView] = useState<"preview" | "qrCode">("preview");
@@ -68,8 +69,11 @@ export default function GeneratorApp() {
             {/* App Info */}
             <VideoInfo/>
 
-            {/* App Store Link */}
-            <AppStoreLink/>
+            {/* add videos */}
+            <Addvideos/>
+
+            {/* share button */}
+            <Share/>
 
             {/* Welcome Screen */}
             <Welcome />

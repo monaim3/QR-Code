@@ -6,7 +6,6 @@ import ImageCropper from "@/components/generator/vcard/ImageCropper";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   addCarouselImage,
-  removeCarouselImage,
 } from "@/store/slices/social-slice";
 
 interface ImageUploadProps {

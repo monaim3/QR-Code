@@ -2,7 +2,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAppSelector } from "@/store/hooks";
 import Image from "next/image";
 import { Globe } from "lucide-react";
-import { Document, Page, pdfjs } from 'react-pdf';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/pdf-slice";

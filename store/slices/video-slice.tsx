@@ -26,7 +26,7 @@ const initialState: VideoSlice = {
     buttons: [],
   },
   videos: [],
-  isShare: false,
+  isShare: true,
   isDefault: true,
   welcomeScreen: "",
   qrCodeName: "",
@@ -94,6 +94,44 @@ const videoSlice = createSlice({
       state.videos.push(action.payload);
     },
 
+  setVideoTitleByIndex: (
+    state,
+    action: PayloadAction<{ index: number; title: string }>
+  ) => {
+    const { index, title } = action.payload;
+    if (state.videos[index]) {
+      state.videos[index].title = title;
+    }
+  },
+   setVideoDescriptionByIndex: (
+    state,
+    action: PayloadAction<{ index: number; description: string }>
+  ) => {
+    const { index, description } = action.payload;
+    if (state.videos[index]) {
+      state.videos[index].description = description;
+    }
+   },
+   swapVideos: (
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>
+    ) => {
+      const { fromIndex, toIndex } = action.payload;
+      const videos = state.videos;
+
+      // Ensure both indexes are valid
+      if (
+        fromIndex < 0 ||
+        fromIndex >= videos.length ||
+        toIndex < 0 ||
+        toIndex >= videos.length
+      )
+        return;
+
+      // Swap the two videos
+      [videos[fromIndex], videos[toIndex]] = [videos[toIndex], videos[fromIndex]];
+    },
+
     removeVideo: (state, action: PayloadAction<number>) => {
       state.videos.splice(action.payload, 1);
     },
@@ -133,6 +171,9 @@ export const {
   setVideoButtons,
   setVideos,
   addVideo,
+  setVideoTitleByIndex,
+  setVideoDescriptionByIndex,
+  swapVideos,
   removeVideo,
   setIsShare,
   setWelcomeScreen,

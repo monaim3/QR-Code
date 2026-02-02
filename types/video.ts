@@ -16,7 +16,9 @@ export interface VideoInfo{
 }
 
 export interface video{
+  id: number,
   title: string,
+  description: string,
   url: string,
 }
 

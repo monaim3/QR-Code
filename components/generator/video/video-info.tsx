@@ -2,8 +2,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Accordion from "@/components/common/Accordion";
-import { setAppInfo } from "@/store/slices/app-slice";
-import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
 import Plus from "@/components/icons/plus";
 import TrashAlt from "@/components/icons/trash-alt";
@@ -87,11 +85,11 @@ export default function VideoInfo() {
             />
           </div>
         </div>
-        <div className="pt-6">
+        <div className="pt-6 flex flex-col h-max w-full">
           {video.videoInfo.buttons.map((button, index) => {
             return (
-               <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] items-start gap-4 desktop:gap-[48px] p-6 rounded-[12px] mb-4">
-                <div className="w-[calc(100%-56px)]">
+               <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2">
+                <div className="w-full pt-4 pb-4">
                 <Input
                 label="Button text*"
                 key={"text-" + index}
@@ -102,23 +100,28 @@ export default function VideoInfo() {
                 onChange={(value) => dispatch(setVideoInfoButtonTitle({index: index, title: value || ''}))}
                 />
           </div>
-           <div className="w-[calc(100%-56px)]">
+            <div className="w-full pt-4 pb-4 flex items-end justify-end gap-6">
                 <Input
                 label="URL*"
                 key={"url-" + index}
                 placeholder="e.g. https://pauljohnes.com"
-                id={"text-" + index}
+                id={"url-" + index}
                 type="description"
                 value={video.videoInfo.buttons[index].url}
                 onChange={(value) => dispatch(setVideoInfoButtonUrl({index: index, url: value || ''}))}
                 />
+                <button
+              onClick={() => removeButton(index)}
+              className="p-2 rounded-[6px] border border-[var(--Boarder-Grey)] bg-[var(--Light-Grey)] hover:bg-[var(--Boarder-Grey)]" aria-label="Remove Button"
+            >
+              <TrashAlt className="w-5 h-5 text-[var(--Dark-gray)]" />
+            </button>
           </div>
-               </div>
+          </div>
             );
         })}
         </div>
-        <div className="pt-6">
-             <button
+        <button
         onClick={addButton}
             className="
                 flex 
@@ -140,7 +143,6 @@ export default function VideoInfo() {
                 Add Button
             </span>
         </button>
-        </div>
         </div>
       </Accordion>
     </div>
