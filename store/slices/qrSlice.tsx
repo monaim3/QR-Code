@@ -19,6 +19,8 @@ interface QRState {
   cornerDotType: string;
   selectedLogo: string | null;
   customLogo: string | null;
+  cornerFrameStyleUI: string;
+  cornerDotTypeUI: string;
 }
 
 const initialState: QRState = {
@@ -40,6 +42,8 @@ const initialState: QRState = {
   cornerDotType: "dot",
   selectedLogo: null,
   customLogo: null,
+  cornerFrameStyleUI: "none",
+  cornerDotTypeUI: "none",
 };
 
 const qrSlice = createSlice({
@@ -88,11 +92,25 @@ const qrSlice = createSlice({
     setCornerDotColor: (state, action: PayloadAction<string>) => {
       state.cornerDotColor = action.payload;
     },
+    setCornerFrameStyleUI: (state, action: PayloadAction<string>) => {
+      state.cornerFrameStyleUI = action.payload;
+      state.cornerFrameStyle =
+        action.payload === "none" || action.payload === "square"
+          ? "square"
+          : action.payload;
+    },
     setCornerFrameStyle: (state, action: PayloadAction<string>) => {
       state.cornerFrameStyle = action.payload;
     },
     setCornerDotType: (state, action: PayloadAction<string>) => {
       state.cornerDotType = action.payload;
+    },
+    setCornerDotTypeUI: (state, action: PayloadAction<string>) => {
+      state.cornerDotTypeUI = action.payload;
+      state.cornerDotType =
+        action.payload === "none" || action.payload === "square"
+          ? "square"
+          : action.payload;
     },
     setSelectedLogo: (state, action: PayloadAction<string | null>) => {
       state.selectedLogo = action.payload; // Now stores logo ID instead of component
@@ -122,6 +140,8 @@ export const {
   setCornerDotType,
   setSelectedLogo,
   setCustomLogo,
+  setCornerFrameStyleUI,
+  setCornerDotTypeUI,
 } = qrSlice.actions;
 
 export default qrSlice.reducer;

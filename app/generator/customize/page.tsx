@@ -30,6 +30,8 @@ import {
   setSelectedLogo,
   setCustomLogo,
   setPrevBackgroundColor,
+  setCornerFrameStyleUI,
+  setCornerDotTypeUI,
 } from "@/store/slices/qrSlice";
 
 import { QRFrameArray } from "@/components/common/QRFrameArray";
@@ -77,6 +79,8 @@ export default function QRCodeCustomize() {
     selectedLogo,
     customLogo,
     prevBackgroundColor,
+    cornerFrameStyleUI,
+    cornerDotTypeUI,
   } = useAppSelector((state) => state.qr);
 
   const patternOptions = [
@@ -470,15 +474,19 @@ export default function QRCodeCustomize() {
                       Corner frames style
                     </label>
                     <div className="flex flex-row gap-4">
-                      {cornerFrameOptions.map((style) => (
-                        <CornerStylePreview
-                          key={style}
-                          type={style}
-                          isSelected={cornerFrameStyle === style}
-                          onClick={() => dispatch(setCornerFrameStyle(style))}
-                          isFrame={true}
-                        />
-                      ))}
+                      {cornerFrameOptions.map((style) => {
+                        return (
+                          <CornerStylePreview
+                            key={style}
+                            type={style}
+                            isSelected={cornerFrameStyleUI === style}
+                            onClick={() =>
+                              dispatch(setCornerFrameStyleUI(style))
+                            }
+                            isFrame={true}
+                          />
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -491,8 +499,8 @@ export default function QRCodeCustomize() {
                         <CornerStylePreview
                           key={style}
                           type={style}
-                          isSelected={cornerDotType === style}
-                          onClick={() => dispatch(setCornerDotType(style))}
+                          isSelected={cornerDotTypeUI === style}
+                          onClick={() => dispatch(setCornerDotTypeUI(style))}
                           isFrame={false}
                         />
                       ))}
