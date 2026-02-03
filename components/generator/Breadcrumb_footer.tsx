@@ -47,6 +47,7 @@ export default function BreadcrumbFooter() {
 
   const handleNext = () => {
     if (currentStep === 2) {
+      localStorage.setItem("qrType", pathname.split("/")[2]);
       router.push("/generator/customize");
     } else if (currentStep === 3) {
       router.push("/signup");

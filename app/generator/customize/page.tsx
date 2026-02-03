@@ -38,10 +38,17 @@ import QRFrameGallery from "@/components/common/QRFrameGallery";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Swap from "@/components/icons/swap";
 import { getLogoComponent } from "@/lib/logoRegistry";
-import { set } from "date-fns";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
+import VCardPreview from "@/components/generator/vcard/VCardPreview";
+import MenuPreview from "@/components/generator/menu/MenuPreview";
+import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
+import CustomizeQRDisplay from "@/components/common/CustomizeQRDisplay";
+import QRCodeDisplay from "@/components/generator/QR_Code_Display";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function QRCodeCustomize() {
+  const pathname = usePathname();
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("qrCode");
   const [patternTransparentBg, setPatternTransparentBg] = useState(false);
@@ -49,7 +56,7 @@ export default function QRCodeCustomize() {
   const mobileQrRef = useRef<HTMLDivElement>(null);
   const staticQrRef = useRef<HTMLDivElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
-
+  const activeTab = useAppSelector((state) => state.preview.activeTab);
   const websiteUrl = useAppSelector((state: any) => state.preview.websiteUrl);
 
   const {
@@ -277,6 +284,50 @@ export default function QRCodeCustomize() {
       dispatch(setBackgroundColor(prevBackgroundColor));
     }
   };
+
+  const getPreviewContent = () => {
+    const qrType = localStorage.getItem("qrType");
+    if (!qrType) {
+      router.push("/generator");
+    }
+
+    if (qrType === "vcard") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <VCardPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "menu") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <MenuPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "business-page") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <BusinessPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "website-url") {
+      return <WebsiteUrlPreview url={websiteUrl} />;
+    }
+
+    return <QRCodeDisplay />;
+  };
+
   return (
     <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
       <Container>
@@ -550,7 +601,7 @@ export default function QRCodeCustomize() {
                 <MobileFrame>
                   {view === "preview" ? (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
-                      <WebsiteUrlPreview url={websiteUrl} />
+                      {getPreviewContent()}
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
