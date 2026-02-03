@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { set } from "date-fns";
 
 interface Button {
   id: string;
@@ -14,7 +15,7 @@ interface ImageItem {
   name: string;
 }
 
-interface facebookState {
+interface imageState {
   FacebookUrl: string;
   Name: string;
   Error: string;
@@ -25,9 +26,10 @@ interface facebookState {
   images: ImageItem[];
   primaryColor: string;
   secondaryColor: string;
+  Share: boolean;
 }
 
-const initialState: facebookState = {
+const initialState: imageState = {
   FacebookUrl: "",
   Name: "",
   Error: "",
@@ -36,37 +38,40 @@ const initialState: facebookState = {
   ErrorWebsite: "",
   buttons: [],
   images: [],
-  primaryColor: "#EB7986",
+  primaryColor: "#68C2D9",
   secondaryColor: "#FFFFFF",
+  Share: false,
 };
 
-const facebookSlice = createSlice({
-  name: "facebook",
+const imagesSlice = createSlice({
+  name: "images",
   initialState,
   reducers: {
-    setFacebookUrl: (state, action: PayloadAction<string>) => {
+    setFacebookUrl: (state, action) => {
       state.FacebookUrl = action.payload;
     },
-    setPrimaryColor: (state, action: PayloadAction<string>) => {
+    setPrimaryColor: (state, action) => {
       state.primaryColor = action.payload;
     },
-    setSecondaryColor: (state, action: PayloadAction<string>) => {
+    setSecondaryColor: (state, action) => {
       state.secondaryColor = action.payload;
     },
-
-    setName: (state, action: PayloadAction<string>) => {
+    setShare: (state, action) => {
+      state.Share = action.payload;
+    },
+    setName: (state, action) => {
       state.Name = action.payload;
     },
-    setError: (state, action: PayloadAction<string>) => {
+    setError: (state, action) => {
       state.Error = action.payload;
     },
-    setTitle: (state, action: PayloadAction<string>) => {
+    setTitle: (state, action) => {
       state.Title = action.payload;
     },
-    setWebsite: (state, action: PayloadAction<string>) => {
+    setWebsite: (state, action) => {
       state.Website = action.payload;
     },
-    setErrorWebsite: (state, action: PayloadAction<string>) => {
+    setErrorWebsite: (state, action) => {
       state.ErrorWebsite = action.payload;
     },
 
@@ -164,6 +169,7 @@ export const {
   updateImage,
   setPrimaryColor,
   setSecondaryColor,
-} = facebookSlice.actions;
+  setShare,
+} = imagesSlice.actions;
 
-export default facebookSlice.reducer;
+export default imagesSlice.reducer;

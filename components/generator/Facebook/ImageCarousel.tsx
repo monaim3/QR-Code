@@ -3,25 +3,31 @@
 import { useState } from "react";
 import { LuPencil } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  addImage,
-  removeImage,
-  updateImage,
-} from "@/store/slices/facebookSlice";
 import UploadIcon from "@/components/icons/upload-icon";
+
+interface ImageItem {
+  id: string;
+  url: string;
+  name: string;
+}
 
 interface ImageCarouselProps {
   maxImages?: number;
   maxSizeMB?: number;
+  images: ImageItem[]; // Prop থেকে receive করবে
+  onAddImage: (image: ImageItem) => void; // Callback
+  onRemoveImage: (id: string) => void; // Callback
+  onUpdateImage: (id: string, image: ImageItem) => void; // Callback
 }
 
 export default function ImageCarousel({
   maxImages = 10,
   maxSizeMB = 5,
+  images,
+  onAddImage,
+  onRemoveImage,
+  onUpdateImage,
 }: ImageCarouselProps) {
-  const dispatch = useAppDispatch();
-  const images = useAppSelector((state) => state.facebook.images);
   const [uploadError, setUploadError] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -68,10 +74,10 @@ export default function ImageCarousel({
       };
 
       if (editingId) {
-        dispatch(updateImage({ id: editingId, image: imageData }));
+        onUpdateImage(editingId, imageData);
         setEditingId(null);
       } else {
-        dispatch(addImage(imageData));
+        onAddImage(imageData);
       }
       setUploadError("");
     };
@@ -85,7 +91,7 @@ export default function ImageCarousel({
   };
 
   const handleDelete = (id: string) => {
-    dispatch(removeImage(id));
+    onRemoveImage(id);
     setUploadError("");
   };
 

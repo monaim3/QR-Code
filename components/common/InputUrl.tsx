@@ -1,5 +1,3 @@
-import { useAppSelector, useAppDispatch } from "@/store/hooks";
-
 interface Props {
   label: string;
   placeholder?: string;
@@ -8,8 +6,8 @@ interface Props {
   value?: string;
   onChange?: (value: string) => void;
   required?: boolean;
-  errorKey: string;
-  setErrorAction: any;
+  error?: string; // Direct error prop instead of reading from Redux
+  onError?: (error: string) => void; // Callback to set error
 }
 
 export default function InputUrl({
@@ -20,14 +18,9 @@ export default function InputUrl({
   value,
   onChange = () => {},
   required = false,
-  errorKey,
-  setErrorAction,
+  error,
+  onError,
 }: Props) {
-  const dispatch = useAppDispatch();
-  const error = useAppSelector(
-    (state) => state.facebook[errorKey as keyof typeof state.facebook],
-  );
-
   const isValidUrl = (url: string) => {
     if (!url) return true;
 
@@ -42,26 +35,26 @@ export default function InputUrl({
   const handleChange = (inputValue: string) => {
     onChange(inputValue);
 
-    if (inputValue && !isValidUrl(inputValue)) {
-      dispatch(
-        setErrorAction("You have entered an invalid link. Please try again."),
-      );
-    } else if (required && !inputValue) {
-      dispatch(setErrorAction("This field is required."));
-    } else {
-      dispatch(setErrorAction(""));
+    if (onError) {
+      if (inputValue && !isValidUrl(inputValue)) {
+        onError("You have entered an invalid link. Please try again.");
+      } else if (required && !inputValue) {
+        onError("This field is required.");
+      } else {
+        onError("");
+      }
     }
   };
 
   const handleBlur = () => {
-    if (value && !isValidUrl(value)) {
-      dispatch(
-        setErrorAction("You have entered an invalid link. Please try again."),
-      );
-    } else if (required && !value) {
-      dispatch(setErrorAction("This field is required."));
-    } else {
-      dispatch(setErrorAction(""));
+    if (onError) {
+      if (value && !isValidUrl(value)) {
+        onError("You have entered an invalid link. Please try again.");
+      } else if (required && !value) {
+        onError("This field is required.");
+      } else {
+        onError("");
+      }
     }
   };
 
@@ -90,9 +83,7 @@ export default function InputUrl({
       />
       <div className="h-5">
         {error && (
-          <p className="text-red-500 text-[14px] leading-[20px]">
-            {error as string}
-          </p>
+          <p className="text-red-500 text-[14px] leading-[20px]">{error}</p>
         )}
       </div>
     </div>

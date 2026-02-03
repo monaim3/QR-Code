@@ -43,10 +43,14 @@ const FacebookPreview: React.FC = () => {
 
   const getButtonFontColor = (bgColor: string) => {
     const color = bgColor.toUpperCase();
-    if (color === "#000000" || color === "#000") {
-      return "#FFFFFF";
-    } else if (color === "#FFFFFF" || color === "#FFF") {
+
+    // Specific colors that need black text
+    const lightColors = ["#FFFFFF", "#FFF", "#ECEDF1", "#DAEBF6", "#ECECF0"];
+
+    if (lightColors.includes(color)) {
       return "#000000";
+    } else if (color === "#000000" || color === "#000") {
+      return "#FFFFFF";
     } else {
       return "#FFFFFF";
     }
@@ -73,49 +77,55 @@ const FacebookPreview: React.FC = () => {
           style={{ backgroundColor: primaryColor }}
         />
 
-        <div className="relative z-3 mx-10 pt-12">
-          <div className="bg-white rounded-lg shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] overflow-hidden">
+        <div className="relative z-3 mx-8 pt-12">
+          <div className="">
             <div className="w-full px-1 pt-1 pb-1">
               {stackImages.length > 0 ? (
-                <div className="w-full relative pb-[133%]">
+                <div className="w-full aspect-[3/4] relative">
                   {/* Second Image - Left side */}
                   {stackImages[1] && (
-                    <div className="absolute -left-10 w-[48%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] h-[calc(100%-28px)]">
-                      <Image
-                        src={stackImages[1].url}
-                        alt={stackImages[1].name}
-                        fill
-                        className="object-cover"
-                        unoptimized
-                      />
+                    <div className="absolute -left-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px] border-2 border-white p-0.5">
+                      <div className="w-full h-full rounded-md overflow-hidden relative">
+                        <Image
+                          src={stackImages[1].url}
+                          alt={stackImages[1].name}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                      </div>
                     </div>
                   )}
 
                   {/* Third Image - Right side */}
                   {stackImages[2] && (
-                    <div className="absolute -right-16 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] h-[calc(100%-28px)]">
+                    <div className="absolute -right-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px] border-2 border-white p-0.5">
+                      <div className="w-full h-full rounded-md overflow-hidden relative">
+                        <Image
+                          src={stackImages[2].url}
+                          alt={stackImages[2].name}
+                          className="object-cover"
+                          fill
+                          unoptimized
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="absolute bg-white flex items-center justify-center overflow-hidden rounded-lg z-4 shadow-lg left-[5%] right-[5%] inset-y-0 border-2 border-white p-0.5">
+                    <div className="w-full h-full rounded-md overflow-hidden relative bg-gray-100">
                       <Image
-                        src={stackImages[2].url}
-                        alt={stackImages[2].name}
+                        src={stackImages[0].url}
+                        alt={stackImages[0].name}
                         className="object-cover"
                         fill
                         unoptimized
                       />
                     </div>
-                  )}
-
-                  <div className="absolute bg-gray-100 flex items-center justify-center overflow-hidden rounded-lg z-4 shadow-lg left-[5%] right-[5%] inset-y-0">
-                    <Image
-                      src={stackImages[0].url}
-                      alt={stackImages[0].name}
-                      className="object-cover"
-                      fill
-                      unoptimized
-                    />
                   </div>
                 </div>
               ) : displayImage ? (
-                <div className="w-full aspect-[3/4] bg-gray-100 flex items-center justify-center overflow-hidden rounded-lg relative">
+                <div className="w-full aspect-[3/4] flex items-center justify-center overflow-hidden  border-2 border-white rounded-lg relative">
                   <Image
                     src={displayImage}
                     alt={showName || "Profile"}
@@ -158,9 +168,9 @@ const FacebookPreview: React.FC = () => {
           )}
 
           {showWebsite && (
-            <div className="flex gap-2 px-4 mb-4 items-center w-full overflow-hidden">
+            <div className="flex gap-2 px-4 mb-4 items-center justify-center w-full overflow-hidden">
               <Globe size={16} className="text-gray-600 flex-shrink-0" />
-              <p className="text-[10px] font-normal leading-[16px] truncate flex-1 min-w-0">
+              <p className="text-[10px] font-normal leading-[16px] break-all">
                 {showWebsite.replace(/^https?:\/\//, "")}
               </p>
             </div>
@@ -188,7 +198,7 @@ const FacebookPreview: React.FC = () => {
               }}
             >
               <span className="block px-2 truncate">
-                {button.buttonText || ""}
+                {button.buttonText || "e.g. Click here"}
               </span>
             </button>
           ))}

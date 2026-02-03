@@ -12,6 +12,7 @@ import socialSlice from "./slices/social-slice";
 import menuSlice from "./slices/menuSlice";
 import businessSlice from "./slices/businessSlice";
 import videoSlice from "./slices/video-slice";
+import imagesReducer from "./slices/imagesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ export const store = configureStore({
     menu: menuSlice,
     business: businessSlice,
     video: videoSlice,
+    images: imagesReducer,
   },
 });
 

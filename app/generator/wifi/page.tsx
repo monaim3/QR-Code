@@ -38,6 +38,7 @@ export default function Wifi() {
   const wifiPassword = useAppSelector((state) => state.wifi.Password);
   const wifiEncryption = useAppSelector((state) => state.wifi.EncryptionType);
   const wifiHidden = useAppSelector((state) => state.wifi.HiddenNetwork);
+
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
   };
@@ -50,13 +51,37 @@ export default function Wifi() {
   const handleEncryption = (value: string) => {
     dispatch(setEncryptionType(value));
   };
+
+  const escapeWifiString = (str: string): string => {
+    return str.replace(/[\\"';:,]/g, (char) => `\\${char}`);
+  };
+
+  // Function to generate WiFi
+  const generateWifiString = (): string => {
+    const encryptionMap: { [key: string]: string } = {
+      WEP: "WEP",
+      "WPA / WPA2": "WPA",
+      "WPA - EAP": "WPA",
+      NONE: "nopass",
+    };
+
+    const encryptionType = encryptionMap[wifiEncryption] || "WPA";
+    const networkName = escapeWifiString(wifi);
+    const password = escapeWifiString(wifiPassword);
+    const hidden = wifiHidden ? "true" : "false";
+
+    return `WIFI:T:${encryptionType};S:${networkName};P:${password};H:${hidden};;`;
+  };
+
   useEffect(() => {
     if (view !== "qrCode" || !qrRef.current) return;
 
+    const wifiString = generateWifiString();
+
     const qrOptions: Options = {
       type: "svg",
-      data: "https://www.example.com/",
-      margin: 0,
+      data: wifiString,
+      margin: 10,
       width: 300,
       height: 300,
       dotsOptions: {
@@ -65,6 +90,14 @@ export default function Wifi() {
       },
       backgroundOptions: {
         color: "#FFFFFF",
+      },
+      cornersSquareOptions: {
+        color: "#000000",
+        type: "square",
+      },
+      cornersDotOptions: {
+        color: "#000000",
+        type: "square",
       },
     };
 
@@ -79,7 +112,7 @@ export default function Wifi() {
         qrCodeRef.current.append(qrRef.current);
       }
     }
-  }, [view]);
+  }, [view, wifi, wifiPassword, wifiEncryption, wifiHidden]);
 
   return (
     <main className="bg-[var(--Generator-Background)] min-h-screen">
@@ -88,7 +121,7 @@ export default function Wifi() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the Simple Text QR code
+            Add content to the WiFi QR code
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -177,7 +210,6 @@ export default function Wifi() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    {/* <SimpleTextPreview /> */}
                     <WifiPreview />
                   </div>
                 ) : (

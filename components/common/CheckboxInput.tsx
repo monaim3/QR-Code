@@ -3,6 +3,7 @@ type CheckboxInputProps = {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   id?: string;
+  bgColor?: string;
 };
 
 export const CheckboxInput = ({
@@ -10,7 +11,10 @@ export const CheckboxInput = ({
   checked,
   onChange,
   id,
+  bgColor,
 }: CheckboxInputProps) => {
+  const defaultColor = "#2563eb";
+  const activeColor = bgColor || defaultColor;
   return (
     <div className="flex items-center gap-2">
       <div className="relative">
@@ -23,11 +27,11 @@ export const CheckboxInput = ({
         />
         <label
           htmlFor={id}
-          className={`flex items-center justify-center w-6 h-6 border rounded-md cursor-pointer ${
-            checked
-              ? "bg-blue-600 border-blue-600"
-              : "bg-white border-[#D3D8EB]"
-          }`}
+          className={`flex items-center justify-center w-6 h-6 border rounded-md cursor-pointer`}
+          style={{
+            backgroundColor: checked ? activeColor : "white",
+            borderColor: checked ? activeColor : "#D3D8EB",
+          }}
         >
           <svg
             className={`w-4 h-4 text-white ${checked ? "opacity-100" : "opacity-0"}`}

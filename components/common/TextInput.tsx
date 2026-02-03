@@ -41,9 +41,8 @@ export const TextInput = ({
           border border-[var(--Boarder-Grey)]
           rounded-[10px]
           text-gray-700 placeholder:text-gray-400
-          focus:outline-none
-          focus:ring-2 focus:ring-[var(--Blue)]
-          focus:border-transparent
+          focus:outline-none focus:ring-2 focus:ring-[var(--Blue)]
+          focus:border-[var(--Blue)] 
           transition-all duration-200
         "
       />
