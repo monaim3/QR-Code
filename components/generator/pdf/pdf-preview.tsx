@@ -54,12 +54,19 @@ export default function PdfPreView(){
 
     return (
         <ScrollArea className="w-full h-full relative">
-           <div
-              className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${pdf.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}>
-                 {pdf.welcomeScreen && (
-                    <Image src={pdf.welcomeScreen} alt="Background" fill />
-                  )}
-                </div>
+            <div
+              className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${pdf.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
+              >
+              {pdf.welcomeScreen && (
+                <Image
+                  src={pdf.welcomeScreen}
+                  alt="Background"
+                  width={200}
+                  height={200}
+                  className="object-contain"
+                />
+              )}
+            </div>
             <div className="absolute inset-0 w-full h-1/2"
              style={{ backgroundColor: pdf.primaryColor }}
             />

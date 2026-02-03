@@ -7,6 +7,7 @@ import SwapHorizontal from "@/components/icons/swap-horizontal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
+import ImageCropper from "@/components/generator/vcard/ImageCropper";
 import {
   setColorPalette,
   setPrimaryColor,
@@ -14,14 +15,21 @@ import {
   setWelcomeScreen,
   setIsPreviewWelcomeScreen,
   removeCarouselImage,
+  editCarouselImage,
 } from "@/store/slices/social-slice";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import ImageUpload from "@/components/generator/socialMedia/uploadCarusolImage";
+import Carousel from "./image-carousel";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const social = useAppSelector((state) => state.social);
   const [isActive, setIsActive] = useState(0);
+  const [imageIndex, setimageIndex] = useState(0);
+  const fileRef = useRef<HTMLInputElement | null>(null);
+  const [isCropping, setIsCropping] = useState(false);
+  const [imageToCrop, setImageToCrop] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState("");
 
   const handleSwap = () => {
     const temp = social.primaryColor;
@@ -63,13 +71,87 @@ export default function DesignCustomize() {
       }),
     );
   };
-  
-  const handleImageChange = (value: string | null) => {
-      dispatch(setWelcomeScreen(value || ""));
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+     setimageIndex(index);
+     validateAndProcessFile(file);
   };
+
+  const validateAndProcessFile = useCallback((file: File) => {
+      // Validate file type
+      const validTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/svg+xml",
+      ];
+      if (!validTypes.includes(file.type)) {
+        setUploadError("Please upload a valid image file (jpg, png, svg)");
+        return;
+      }
   
-  const handlePreview = () => {
-      dispatch(setIsPreviewWelcomeScreen(true));
+      // Validate file size (5MB)
+      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      if (file.size > maxSize) {
+        setUploadError("Image size must be less than 5MB");
+        return;
+      }
+      setUploadError("");
+  
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (result && typeof result === "string") {
+          // Check dimensions for non-SVG images
+          if (!file.type.includes("svg")) {
+            const img = new Image();
+            img.onload = () => {
+              if (img.width > 2048 || img.height > 2048) {
+                setUploadError(
+                  "Image dimensions must be smaller than or equal to 2048 x 2048",
+                );
+                return;
+              }
+              // Open cropper with the image
+              setImageToCrop(result);
+              setIsCropping(true);
+            };
+            img.onerror = () => {
+              setUploadError("Failed to load image");
+            };
+            img.src = result;
+          } else {
+            // For SVG, open cropper directly
+            setImageToCrop(result);
+            setIsCropping(true);
+          }
+        }
+      };
+      reader.onerror = () => {
+        setUploadError("Failed to read file");
+      };
+      reader.readAsDataURL(file);
+    }, []);
+
+    const handleClose = () => {
+    setIsCropping(false);
+    // Clean up the image source if user cancels (only blob URLs need cleanup)
+    // if (!customLogo && imageToCrop && imageToCrop.startsWith("blob:")) {
+    //   URL.revokeObjectURL(imageToCrop);
+    // }
+    setImageToCrop(null);
+  };
+
+  const handleCropComplete = (croppedImageUrl: string) => {
+    setIsCropping(false);
+    // Clean up the original image (only blob URLs need cleanup)
+    if (imageToCrop && imageToCrop.startsWith("blob:")) {
+      URL.revokeObjectURL(imageToCrop);
+    }
+    dispatch(editCarouselImage({index: imageIndex,newImage: croppedImageUrl}));
+    setImageToCrop(null);
   };
 
   const handleImageDelete = (value: string | null) => {
@@ -149,22 +231,43 @@ export default function DesignCustomize() {
               />
               </div>
               <div className="w-[150px] flex gap-2 items-center mt-2">
-              <div 
-              id="${index}"
-              onClick={() => {}}
-              className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center">
-                <LuPencil className="text-[var(--Grey)]"/>
+              {/* Pencil button */}
+              <div className="relative flex-1 h-[35px]">
+                <label
+                  htmlFor={`file-${index}`}
+                  className="flex items-center justify-center w-full h-full border border-[var(--Boarder-Grey)] rounded-[6px] cursor-pointer bg-white"
+                >
+                  <LuPencil className="text-[var(--Grey)]" />
+                </label>
+                <input
+                  id={`file-${index}`}
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFile(e, index)}
+                  className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                />
               </div>
+
+              {/* Delete button */}
               <div
-              onClick={()=> handleImageDelete(image)}
-              id="${index}"
-              className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center">
-                <RiDeleteBinLine className="text-[var(--Grey)]"/>
+                onClick={() => handleImageDelete(image)}
+                id={`button-${index}`}
+                className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center"
+              >
+                <RiDeleteBinLine className="text-[var(--Grey)]" />
               </div>
             </div>
+
             </div>
           })}
         </div>
+         <ImageCropper
+            open={isCropping}
+            onClose={handleClose}
+            imageSrc={imageToCrop}
+            onCropComplete={handleCropComplete}
+            aspectRatio={1}
+          />
         </div>
       </Accordion>
     </div>
