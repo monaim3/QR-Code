@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/store/hooks";
 import Image from "next/image";
 import { useEffect } from "react";
-import { setIsPreviewWelcomeScreen } from "@/store/slices/app-slice";
+import { setIsPreviewWelcomeScreen } from "@/store/slices/video-slice";
 import ShareAndroid from "@/components/icons/share-android";
 import UnifiedVideoPlayer from "@/components/generator/video/video-player";
 import { url } from "inspector";
@@ -59,17 +59,25 @@ export default function VideoPreView(){
   }, [video.isPreviewWelcomeScreen, dispatch]);
 
     return (
-        <ScrollArea className="w-full h-full relative overflow-y-auto">
-           <div
-              className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${video.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}>
-                 {video.welcomeScreen && (
-                    <Image src={video.welcomeScreen} alt="Background" fill/>
-                  )}
-                </div>
-            <div className="absolute inset-0 w-full h-1/2"
+        <ScrollArea className="w-full h-full">
+            <div
+              className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${video.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
+              >
+              {video.welcomeScreen && (
+                  <Image
+                    src={video.welcomeScreen}
+                    alt="Background"
+                    width={200}
+                    height={200}
+                    className="object-contain"
+                    />
+                     )}
+            </div>
+            <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative">
+              <div className="absolute left-0 top-0 w-full h-[300px] z-[1]"
              style={{ backgroundColor: video.primaryColor }}
             />
-            <div className="absolute w-full h-full flex flex-col items-center justify-start top-[52px] px-[20px]">
+            <div className="absolute left-0 right-0 top-[32px] flex flex-col items-center justify-center px-[22px] z-[2]">
                 <p className={`text-[18px] leading-[26px] font-bold ${textColor()}`}>{video.isDefault ? "A Day to Remember" : video.videoInfo.title}</p>
                 <p className={`text-[10px] leading-[16px] font-regular text-center ${textColor()}`}>{video.isDefault ? "Full of smiles, emotions, and beautiful memories!" : video.videoInfo.description}</p>
                 <div className="w-full max-w-full pt-4">
@@ -122,6 +130,7 @@ export default function VideoPreView(){
                     );
                   })}
                 </div>
+            </div>
             </div>
         </ScrollArea>
     );
