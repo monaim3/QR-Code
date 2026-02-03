@@ -46,7 +46,7 @@ const QrTypeData = [
     "/images/qr_types/vcard.svg",
     "Enhance the value of your electronic business card by adding a QR code. This gives viewers an easy way to access more information about you or your company. An added bonus: you can edit the QR content whenever you like.",
     "/images/qr_types/half_device_vcard.webp",
-    "#"
+    "/generator/vcard"
   ),
   new QrType(
     3,
@@ -54,7 +54,7 @@ const QrTypeData = [
     "/images/qr_types/pdf.svg",
     "Put all the information that matters at your clients' and customers' fingertips. With a customizable QR code, they can access PDF files rich with content. And after a quick download, they can easily share or save.",
     "/images/qr_types/half_device_pdf.webp",
-    "#"
+    "/generator/pdf"
   ),
   new QrType(
     4,
@@ -62,7 +62,7 @@ const QrTypeData = [
     "/images/qr_types/Images.svg",
     "If you're in an industry that relies heavily on images to promote your brand, why not use a QR code to link to an image gallery in a snap? Showcase real estate, consumer goods, food and furniture with ease.",
     "/images/qr_types/half_device_image.webp",
-    "#"
+    "/generator/images"
   ),
   new QrType(
     5,
@@ -70,7 +70,7 @@ const QrTypeData = [
     "/images/qr_types/social_media.svg",
     "One QR code can open the door to all of your social media channels. Make it simple for users to follow you on Facebook, Instagram, Twitter or wherever they like to hang out online.",
     "/images/qr_types/half_device_socialmedia.webp",
-    "#"
+    "/generator/social-media"
   ),
   new QrType(
     6,
@@ -78,7 +78,7 @@ const QrTypeData = [
     "/images/qr_types/video.svg",
     "Add a QR code to a brochure, poster, mailer or any other platform to unlock instant access to video content. Make your print media more dynamic, capture attention and boost your brand appeal.",
     "/images/qr_types/half_device_video.webp",
-    "#"
+    "/generator/video"
   ),
   new QrType(
     7,
@@ -86,7 +86,7 @@ const QrTypeData = [
     "/images/qr_types/simple_text.svg",
     "From product descriptions to serial numbers to information cards, any text can be accessed immediately with a custom QR code. Make your product more engaging and change the content in real time.",
     "/images/qr_types/half_device_text.webp",
-    "#"
+    "/generator/simple-text"
   ),
   new QrType(
     8,
@@ -94,7 +94,7 @@ const QrTypeData = [
     "/images/qr_types/business_page.svg",
     "Showcase your company information with a business page QR code. This simple, streamlined landing page can include your business details, opening hours and any other key info. Add a button to make booking an appointment effortless.",
     "/images/qr_types/half_device_business.webp",
-    "#"
+    "/generator/business-page"
   ),
   new QrType(
     9,
@@ -102,7 +102,7 @@ const QrTypeData = [
     "/images/qr_types/facebook.svg",
     "Want more likes and shares? Boost the impact of your print media by adding a QR code that links to your Facebook page. It's all about new ways to build your audience.",
     "/images/qr_types/half_device_facebook.webp",
-    "#"
+    "/generator/facebook"
   ),
   new QrType(
     10,
@@ -110,7 +110,7 @@ const QrTypeData = [
     "/images/qr_types/wi_fi.svg",
     "Avoid password problems by using a QR code to unlock Wi-Fi access. With a quick scan, customers can easily get on to your network. Fewer interruptions and super-fast connections will keep everyone happy.",
     "/images/qr_types/half_device_wifi.webp",
-    "#"
+    "/generator/wifi"
   ),
   new QrType(
     11,
@@ -118,7 +118,7 @@ const QrTypeData = [
     "/images/qr_types/app.svg",
     "By scanning a single QR code, anyone can install your app instantly from the App Store or Google Play. Full customization lets you match your code's appearance to your brand so you stand out from the competition.",
     "/images/qr_types/half_device_app.webp",
-    "#"
+    "/generator/app"
   ),
   new QrType(
     12,
@@ -126,7 +126,7 @@ const QrTypeData = [
     "/images/qr_types/menu.svg",
     "Own a restaurant or bar? Use a QR code to link to a digital menu and make it easy to access your food and drink offering. You can make menu changes at any time, so it's always up to date.",
     "/images/qr_types/half_device_menue.webp",
-    "#"
+    "/generator/menu"
   ),
 ];
 
@@ -305,7 +305,7 @@ export default function QrTypes() {
                       QrTypeData.find((qr) => qr.id === activeTab)?.title ||
                       "QR Code Example"
                     }
-                    className=""             // optional if using container div
+                    height={140}
                   />
                   </div>
                 </motion.div>
