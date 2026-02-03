@@ -12,6 +12,7 @@ interface BreadcrumbStep {
 interface BreadcrumbProps {
   useMobileSteps?: boolean;
   priceAndPlanSteps?: boolean;
+  dashboardSteps?: boolean;
 }
 
 const steps: BreadcrumbStep[] = [
@@ -27,12 +28,21 @@ const mobileSteps: BreadcrumbStep[] = [
 ];
 
 const priceAndPlanData: BreadcrumbStep[] = [
-   { number: 1, label: "QR Ready", path: "/generator/customize" },
+  { number: 1, label: "QR Ready", path: "/generator/customize" },
   { number: 2, label: "Plan Selection", path: "/plan-and-pricing" },
   { number: 3, label: "Payment Details", path: "/checkout" },
-]
+];
 
-export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps = false }: BreadcrumbProps) {
+const dashboardData: BreadcrumbStep[] = [
+  { number: 1, label: "Edit content", path: "/qr-codes/edit" },
+  { number: 2, label: "Edit QR design", path: "/qr-codes/edit/customize" },
+];
+
+export default function Breadcrumb({
+  useMobileSteps = false,
+  priceAndPlanSteps = false,
+  dashboardSteps = false,
+}: BreadcrumbProps) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -52,14 +62,29 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
     return 0;
   };
 
-  const currentStep = priceAndPlanSteps ? getPriceAndPlanStep() :  getCurrentStep();
+  const getDashboardStep = (): number => {
+    if (pathname.includes("/edit/customize")) return 2;
+    if (pathname.includes("/edit")) return 1;
+    return 1;
+  };
+
+  const currentStep = priceAndPlanSteps
+    ? getPriceAndPlanStep()
+    : dashboardSteps
+      ? getDashboardStep()
+      : getCurrentStep();
 
   let data: BreadcrumbStep[];
-  if(useMobileSteps && !priceAndPlanSteps){
+
+  if (useMobileSteps && dashboardSteps) {
+    data = dashboardData;
+  } else if (useMobileSteps && !priceAndPlanSteps) {
     data = mobileSteps;
-  }else if(priceAndPlanSteps){
+  } else if (priceAndPlanSteps) {
     data = priceAndPlanData;
-  }else{
+  } else if (dashboardSteps) {
+    data = dashboardData;
+  } else {
     data = steps;
   }
 
@@ -88,7 +113,11 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
                   : "border border-[#D3D8EB] text-[#79809A]"
               }`}
             >
-              {step.number < currentStep ? <CheckIcon fill="#79809A"/> : step.number}
+              {step.number < currentStep ? (
+                <CheckIcon fill="#79809A" />
+              ) : (
+                step.number
+              )}
             </div>
 
             <span
@@ -96,18 +125,21 @@ export default function Breadcrumb({ useMobileSteps = false, priceAndPlanSteps =
                 step.number === currentStep
                   ? "text-[var(--Black)] block"
                   : "text-[#79809A] " +
-                    (currentStep === 1 ? "hidden desktop:block" : "block")
+                    (currentStep === 1 && !dashboardSteps
+                      ? "hidden desktop:block"
+                      : "block")
               }`}
             >
               <span className="hidden desktop:inline">{step.label}</span>
 
               {/* Mobile view */}
-             { <span className="desktop:hidden">
-                {useMobileSteps
-?                 step.label.split(" ").pop() : step.label
-                }
-              </span>}
-
+              {useMobileSteps && dashboardSteps ? (
+                <span className="desktop:hidden">{step.label}</span>
+              ) : (
+                <span className="desktop:hidden">
+                  {useMobileSteps ? step.label.split(" ").pop() : step.label}
+                </span>
+              )}
             </span>
           </button>
 

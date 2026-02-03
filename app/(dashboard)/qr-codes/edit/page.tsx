@@ -62,12 +62,12 @@ export default function EditQrCode() {
 
   return (
     <>
-      <Container>
+      <Container className="px-0">
         <div className="py-0 desktop:py-12">
           <div className="flex flex-col desktop:flex-row gap-8">
             <div className="flex-1 flex flex-col gap-0 desktop:gap-4">
               <div className="block desktop:hidden">
-                {<Breadcrumb useMobileSteps={true} />}
+                {<Breadcrumb useMobileSteps={true} dashboardSteps={true} />}
               </div>
               <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block">
                 Edit content to the Website URL QR code
@@ -82,7 +82,7 @@ export default function EditQrCode() {
                       <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
                         Website address
                       </h3>
-                      <p className="text-sm leading-[22px] text-[var(--Dark-gray)]">
+                      <p className="text-sm text-left leading-[22px] text-[var(--Dark-gray)]">
                         Enter the URL to which the QR code will link
                       </p>
                     </div>

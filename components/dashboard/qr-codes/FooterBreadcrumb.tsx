@@ -14,6 +14,9 @@ import CustomizeQRDisplay from "@/components/common/CustomizeQRDisplay";
 import VCardPreview from "@/components/generator/vcard/VCardPreview";
 import MenuPreview from "@/components/generator/menu/MenuPreview";
 import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
+import Breadcrumb from "@/components/generator/Breadcrumb";
+import Save from "@/components/icons/save";
+import Close from "@/components/icons/close";
 
 export default function FooterBreadcrumb() {
   const pathname = usePathname();
@@ -23,33 +26,30 @@ export default function FooterBreadcrumb() {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
+  const collapsed = useAppSelector((state) => state.sidebar.collapsed);
+
+  const desktopPositionClasses = collapsed
+    ? "desktopDashboard:left-[72px] left-0 desktopDashboard:max-w-[calc(100vw-72px)] max-w-full"
+    : "desktopDashboard:left-[214px] left-0 desktopDashboard:max-w-[calc(100vw-214px)] max-w-full";
 
   const getCurrentStep = (): number => {
     // Check most specific paths first
-    if (pathname.includes("/customize")) return 3;
-    if (pathname.includes("/content") || pathname.match(/\/generator\/[^/]+$/))
-      return 2;
-    if (pathname === "/generator") return 1;
+    if (pathname.includes("/customize")) return 2;
     return 1;
   };
 
   const currentStep = getCurrentStep();
-  const showNavigation = currentStep > 1;
+  const showNavigation = currentStep > 0;
 
   const handleBack = () => {
     if (currentStep === 2) {
-      router.push("/generator");
-    } else if (currentStep === 3) {
-      const pathSegments = pathname.split("/");
-      router.back();
+      router.push("/qr-codes/edit");
     }
   };
 
   const handleNext = () => {
-    if (currentStep === 2) {
-      router.push("/generator/customize");
-    } else if (currentStep === 3) {
-      router.push("/signup");
+    if (currentStep === 1) {
+      router.push("/qr-codes/edit/customize");
     }
   };
 
@@ -102,32 +102,71 @@ export default function FooterBreadcrumb() {
 
   return (
     <>
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-[var(--Boarder-Grey)] pt-4 pb-8 lg:pb-4 z-40">
+      <footer
+        className={`
+        fixed bottom-0 w-full flex items-center justify-center gap-10 py-4 px-5
+        desktopDashboard:px-6 bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]
+        transition-all duration-300
+        ${desktopPositionClasses}
+      `}
+      >
         <Container>
-          <div className="flex items-center gap-4 desktop:gap-0 desktop:justify-between ">
-            <button
-              onClick={handleBack}
-              className="flex items-center gap-2 px-3 md:px-6 py-3 font-roboto text-[var(--Blue)] hover:text-[var(--Blue-hover)] font-medium transition-colors border border-[var(--Boarder-Grey)] rounded-lg md:border-none"
-            >
-              <ArrowLeft className="size-5 text-[#3F3E3E]" />
-              <span className="hidden md:block text-[#3F3E3E]">Back</span>
-            </button>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="desktop:hidden flex items-center justify-center w-12 h-12 rounded-lg bg-[#f7f8ff] text-[var(--Blue)] transition-colors"
-              aria-label="Preview"
-            >
-              <Eye className="size-5" />
-            </button>
-            {(currentStep === 2 || currentStep === 3) && (
-              <button
-                onClick={handleNext}
-                className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
-              >
-                <span>Next</span>
-                <ArrowRight className="size-5" />
+          <div className="flex items-center gap-4 desktop:gap-8 desktop:justify-between">
+            <div className="flex items-center desktop:gap-6 gap-4 flex-1 justify-between">
+              <button className="flex h-12 py-0 px-4 justify-center items-center gap-1 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]">
+                <span className="hidden desktop:inline">Exit</span>
+                <span>
+                  <Close className="w-4 h-4 text-[var(--Grey)]" />
+                </span>
               </button>
-            )}
+              <div className="hidden desktop:block">
+                <Breadcrumb dashboardSteps={true} />
+              </div>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="desktop:hidden flex items-center justify-center w-12 h-12 rounded-lg bg-[#f7f8ff] text-[var(--Blue)] transition-colors shrink-0"
+                aria-label="Preview"
+              >
+                <Eye className="size-5" />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4">
+              {currentStep === 1 && (
+                <button className="flex w-12 h-12 p-2 justify-center items-center flex-shrink-0 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]">
+                  <Save className="text-[var(--Dark-gray)]" />
+                </button>
+              )}
+
+              {currentStep === 2 && (
+                <button
+                  onClick={handleBack}
+                  className="flex items-center gap-2 px-3 md:px-6 py-3 font-roboto text-[var(--Blue)] hover:text-[var(--Blue-hover)] font-medium transition-colors border border-[var(--Blue)] rounded-lg"
+                >
+                  <ArrowLeft className="size-5 text-[var(--Blue)]" />
+                  <span className="hidden md:block text-[var(--Blue)]">
+                    Back
+                  </span>
+                </button>
+              )}
+              {currentStep === 1 && (
+                <button
+                  onClick={handleNext}
+                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
+                >
+                  <span>Next</span>
+                  <ArrowRight className="size-5" />
+                </button>
+              )}
+              {currentStep === 2 && (
+                <button
+                  // onClick={handleNext}
+                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
+                >
+                  Complete
+                </button>
+              )}
+            </div>
           </div>
         </Container>
       </footer>
