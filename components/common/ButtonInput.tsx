@@ -117,8 +117,8 @@ export default function ButtonInput({
             }
           }}
           required={true}
-          errorKey={`buttons.${id}.urlError`}
-          setErrorAction={(error: string) => {
+          error={`buttons.${id}.urlError`}
+          onError={(error: string) => {
             if (onUrlError) {
               onUrlError(error);
             }
