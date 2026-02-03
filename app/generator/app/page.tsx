@@ -122,7 +122,7 @@ export default function GeneratorApp() {
             </div>
           </div>
         </div>
-            </Container>
+        </Container>
         </main>
     );
 }
