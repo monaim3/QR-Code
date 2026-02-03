@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import Breadcrumb from "../../../components/generator/Breadcrumb";
 
 import MobileFrame from "@/components/common/MobileFrame";
 import ColorInput from "@/components/common/ColorInput";
@@ -39,16 +38,10 @@ import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Swap from "@/components/icons/swap";
 import { getLogoComponent } from "@/lib/logoRegistry";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
-import VCardPreview from "@/components/generator/vcard/VCardPreview";
-import MenuPreview from "@/components/generator/menu/MenuPreview";
-import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
-import CustomizeQRDisplay from "@/components/common/CustomizeQRDisplay";
-import QRCodeDisplay from "@/components/generator/QR_Code_Display";
-import { usePathname, useRouter } from "next/navigation";
+import Breadcrumb from "@/components/generator/Breadcrumb";
+import FooterBreadcrumb from "@/components/dashboard/qr-codes/FooterBreadcrumb";
 
-export default function QRCodeCustomize() {
-  const pathname = usePathname();
-  const router = useRouter();
+export default function DashboardQRCodeCustomize() {
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("qrCode");
   const [patternTransparentBg, setPatternTransparentBg] = useState(false);
@@ -56,7 +49,7 @@ export default function QRCodeCustomize() {
   const mobileQrRef = useRef<HTMLDivElement>(null);
   const staticQrRef = useRef<HTMLDivElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
-  const activeTab = useAppSelector((state) => state.preview.activeTab);
+
   const websiteUrl = useAppSelector((state: any) => state.preview.websiteUrl);
 
   const {
@@ -284,57 +277,13 @@ export default function QRCodeCustomize() {
       dispatch(setBackgroundColor(prevBackgroundColor));
     }
   };
-
-  const getPreviewContent = () => {
-    const qrType = localStorage.getItem("qrType");
-    if (!qrType) {
-      router.push("/generator");
-    }
-
-    if (qrType === "vcard") {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <VCardPreview />
-          </div>
-        );
-      }
-    }
-
-    if (qrType === "menu") {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <MenuPreview />
-          </div>
-        );
-      }
-    }
-
-    if (qrType === "business-page") {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <BusinessPreview />
-          </div>
-        );
-      }
-    }
-
-    if (qrType === "website-url") {
-      return <WebsiteUrlPreview url={websiteUrl} />;
-    }
-
-    return <QRCodeDisplay />;
-  };
-
   return (
-    <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
-      <Container>
-        <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
+    <>
+      <Container className="px-0">
+        <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32">
           <div className="flex-1 flex flex-col">
             <div className="block desktop:hidden space-y-0 desktop:space-y-4">
-              {<Breadcrumb useMobileSteps={true} />}
+              {<Breadcrumb useMobileSteps={true} dashboardSteps={true} />}
             </div>
             <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900 mb-4">
               Customize design for the Website URL QR code
@@ -601,7 +550,7 @@ export default function QRCodeCustomize() {
                 <MobileFrame>
                   {view === "preview" ? (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
-                      {getPreviewContent()}
+                      <WebsiteUrlPreview url={websiteUrl} />
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
@@ -641,6 +590,7 @@ export default function QRCodeCustomize() {
           </div>
         </div>
       </Container>
-    </div>
+      <FooterBreadcrumb />
+    </>
   );
 }
