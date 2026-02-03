@@ -171,6 +171,16 @@ const pdfSlice = createSlice({
     removeCarouselImage: (state, action: PayloadAction<string>) => {
       state.carousels = state.carousels.filter(img => img !== action.payload);
     },
+    editCarouselImage: (
+      state,
+      action: PayloadAction<{ index: number; newImage: string }>
+    ) => {
+      const { index, newImage } = action.payload;
+
+      if (index >= 0 && index < state.carousels.length) {
+        state.carousels[index] = newImage;
+      }
+    },
   },
 });
 
@@ -188,5 +198,6 @@ export const {
   setIsPreviewWelcomeScreen,
   addCarouselImage,
   removeCarouselImage,
+  editCarouselImage,
 } = pdfSlice.actions;
 export default pdfSlice.reducer;

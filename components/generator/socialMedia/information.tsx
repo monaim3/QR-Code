@@ -44,7 +44,7 @@ export default function Information() {
             <Input
               label="Headline*"
               placeholder="e.g. My social media channels"
-              id="headLine"
+              id="infohead"
               type="head"
               value={social.socialInfo.headLine ?? ''}
               onChange={(value) => handleInput(value,"headline")}
@@ -54,7 +54,7 @@ export default function Information() {
             <Input
               label="Description"
               placeholder="e.g. Find me on Facebook and Instagram"
-              id="description"
+              id="des"
               type="des"
               value={social.socialInfo.description ?? ''}
               onChange={(value) => handleInput(value,"des")}

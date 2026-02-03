@@ -6,11 +6,18 @@ import { socialChannels } from "@/lib/socialChannels";
 import Carousel from "@/components/generator/socialMedia/image-carousel";
 import { ChevronRight } from "lucide-react";
 import { useEffect } from "react";
-import { setIsPreviewWelcomeScreen } from "@/store/slices/app-slice";
+import { setIsPreviewWelcomeScreen } from "@/store/slices/social-slice";
 
 export default function SocialPreView(){
   const dispatch = useDispatch();
   const social = useAppSelector((state) => state.social);
+
+ useEffect(() => {
+    setTimeout(() => {
+      dispatch(setIsPreviewWelcomeScreen(false));
+    }, 1000);
+  }, [social.isPreviewWelcomeScreen, dispatch]);
+
 
   const buttonColor = () => {
     switch (social.secondaryColor) {
@@ -48,27 +55,28 @@ export default function SocialPreView(){
   { id: "facebook", name: "Facebook", icon: "facebook", isIcon: true, url: "", description: "" },
   { id: "instagram", name: "Instagram", icon: "instagram", isIcon: true, url: "", description: "" },
   { id: "twitter", name: "Twitter", icon: "twitter", isIcon: true, url: "", description: "" },
-  ]
+  ];
 
-  useEffect(() => {
-    setTimeout(() => {
-     dispatch(setIsPreviewWelcomeScreen(false));
-    },1000);
-  }, [social.isPreviewWelcomeScreen, dispatch]);
-
-    return (
-        <ScrollArea className="w-full h-full relative">
+  return (
+        <ScrollArea className="w-full h-full">
            <div
-              className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${social.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}>
-                 {social.welcomeScreen && (
-                    <Image src={social.welcomeScreen} alt="Background" fill />
-                  )}
-                </div>
-            <div className="absolute inset-0 w-full h-[145px]"
+            className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${social.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
+            >
+            {social.welcomeScreen && (
+              <Image
+              src={social.welcomeScreen}
+              alt="Background"
+              width={200}
+              height={200}
+              className="object-contain"
+            />
+          )}
+          </div>
+          <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative">
+             <div className="absolute left-0 top-0 h-[145px] w-full z-[1]"
              style={{ backgroundColor: social.primaryColor }}
             />
-            <div className="relative z-10 flex flex-col items-center px-4 pt-8 ">
-                 <div className="absolute left-0 right-0 top-[32px] flex flex-col items-center justify-center px-4">
+            <div className="absolute left-0 right-0 top-[32px] flex flex-col items-center justify-center px-4 z-[2]">
              <Carousel images={social.isDefault ? defaultImages : social.carousels}/>
              <p className="text-[18px] leading-[26px] font-bold text-[var(--Black)]">{social.isDefault ? "Scan & Connect" : social.socialInfo.headLine}</p>
              <p className="text-[10px] leading-[16px] font-regular text-[var(--Black)] text-center">{social.isDefault ? "Hello, I’m Mark. Explore my content and connect on social media." : social.socialInfo.description}</p>
@@ -96,7 +104,7 @@ export default function SocialPreView(){
              <div className="flex gap-2 mt-4">
              </div>
             </div>
-            </div>
+          </div>
         </ScrollArea>
     );
 }
