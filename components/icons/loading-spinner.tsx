@@ -1,0 +1,13 @@
+const LoadingSpinner = (props: React.SVGProps<SVGSVGElement>) => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+  <g clip-path="url(#paint0_angular_37520_121950_clip_path)" data-figma-skip-parse="true"><g transform="matrix(0 0.025 -0.025 0 25 25)"><foreignObject x="-1040" y="-1040" width="2080" height="2080"><div xmlns="http://www.w3.org/1999/xhtml" style="background:conic-gradient(from 90deg,rgba(1, 165, 109, 1) 0deg,rgba(1, 165, 109, 0) 360deg);height:100%;width:100%;opacity:1"></div></foreignObject></g></g><path d="M50 25C50 38.8071 38.8071 50 25 50C11.1929 50 0 38.8071 0 25C0 11.1929 11.1929 0 25 0C38.8071 0 50 11.1929 50 25ZM8.30797 25C8.30797 34.2188 15.7812 41.692 25 41.692C34.2188 41.692 41.692 34.2188 41.692 25C41.692 15.7812 34.2188 8.30797 25 8.30797C15.7812 8.30797 8.30797 15.7812 8.30797 25Z" data-figma-gradient-fill="{&quot;type&quot;:&quot;GRADIENT_ANGULAR&quot;,&quot;stops&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.0039215688593685627,&quot;g&quot;:0.64705884456634521,&quot;b&quot;:0.42745098471641541,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:0.0039215688593685627,&quot;g&quot;:0.64705884456634521,&quot;b&quot;:0.42745098471641541,&quot;a&quot;:0.0},&quot;position&quot;:1.0}],&quot;stopsVar&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.0039215688593685627,&quot;g&quot;:0.64705884456634521,&quot;b&quot;:0.42745098471641541,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:0.0039215688593685627,&quot;g&quot;:0.64705884456634521,&quot;b&quot;:0.42745098471641541,&quot;a&quot;:0.0},&quot;position&quot;:1.0}],&quot;transform&quot;:{&quot;m00&quot;:3.0616171049931400e-15,&quot;m01&quot;:-50.0,&quot;m02&quot;:50.0,&quot;m10&quot;:50.0,&quot;m11&quot;:3.0616171049931400e-15,&quot;m12&quot;:-3.0616171049931400e-15},&quot;opacity&quot;:1.0,&quot;blendMode&quot;:&quot;NORMAL&quot;,&quot;visible&quot;:true}"/>
+  <circle cx="24.9987" cy="45.8327" r="4.16667" fill="#01A56D"/>
+  <defs>
+    <clipPath id="paint0_angular_37520_121950_clip_path"><path d="M50 25C50 38.8071 38.8071 50 25 50C11.1929 50 0 38.8071 0 25C0 11.1929 11.1929 0 25 0C38.8071 0 50 11.1929 50 25ZM8.30797 25C8.30797 34.2188 15.7812 41.692 25 41.692C34.2188 41.692 41.692 34.2188 41.692 25C41.692 15.7812 34.2188 8.30797 25 8.30797C15.7812 8.30797 8.30797 15.7812 8.30797 25Z"/></clipPath></defs>
+    </svg>
+    );
+  };
+  
+  export default LoadingSpinner;
+  
