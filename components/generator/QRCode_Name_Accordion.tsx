@@ -71,13 +71,14 @@ export default function QRCodeNameAccordion({
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
                   placeholder="e.g. My Website QR"
-                  className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
-                    error
-                      ? "border-red-500 focus:border-red-500"
-                      : isFocused
-                        ? "border-[var(--Blue)]"
-                        : "border-[var(--Boarder-Grey)] hover:border-gray-300"
-                  }`}
+                  className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none  focus:outline-none focus:ring-2 focus:ring-[var(--Blue)]
+          focus:border-[var(--Blue)]  ${
+            error
+              ? "border-red-500 focus:border-red-500"
+              : isFocused
+                ? "border-[var(--Blue)]"
+                : "border-[var(--Boarder-Grey)] hover:border-gray-300"
+          }`}
                 />
                 {error && (
                   <p className="text-sm text-red-500 font-roboto">{error}</p>

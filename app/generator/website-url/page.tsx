@@ -161,9 +161,9 @@ export default function WebsiteUrlPage() {
                                 placeholder="e.g. www.mywebsite.com"
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
                                   urlError
-                                    ? "border-red-500 focus:border-red-500"
+                                    ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
                                     : isUrlFocused
-                                      ? "border-[var(--Blue)]"
+                                      ? "focus:ring-2 focus:ring-[var(--Blue)] border-[var(--Blue)]"
                                       : "border-[var(--Boarder-Grey)] hover:border-gray-300"
                                 }`}
                               />

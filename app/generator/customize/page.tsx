@@ -47,6 +47,10 @@ import BusinessPreview from "@/components/generator/businessPage/BusinessPreview
 import CustomizeQRDisplay from "@/components/common/CustomizeQRDisplay";
 import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { usePathname, useRouter } from "next/navigation";
+import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPreview";
+import WifiPreview from "@/components/generator/Wifi/WifiPreview";
+import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
+import ImagesPreview from "@/components/generator/Images/ImagesPreview";
 
 export default function QRCodeCustomize() {
   const pathname = usePathname();
@@ -320,6 +324,45 @@ export default function QRCodeCustomize() {
         return (
           <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
             <BusinessPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "simple-text") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <SimpleTextPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "wifi") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <WifiPreview />
+          </div>
+        );
+      }
+    }
+    if (qrType === "facebook") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <FacebookPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "images") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <ImagesPreview />
           </div>
         );
       }

@@ -1,39 +1,32 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
-import {
-  setWebsiteUrl,
-  setQrCodeName,
-  setActiveTab,
-} from "@/store/slices/previewSlice";
+import { setQrCodeName } from "@/store/slices/previewSlice";
 import {
   setNetworkName,
   setPassword,
   setEncryptionType,
   setHiddenNetwork,
 } from "@/store/slices/wifiSlice";
-import QRCodeStyling, { Options } from "qr-code-styling";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Accordion from "@/components/common/Accordion";
-
 import { RequiredTextInput } from "@/components/common/RequiredInput";
 import { TextInput } from "@/components/common/TextInput";
 import SelectDropDown from "@/components/generator/Wifi/SelectDropDown";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
 import WifiPreview from "@/components/generator/Wifi/WifiPreview";
+import WifiQRCode from "@/components/generator/Wifi/WifiQRCode";
 
 export default function Wifi() {
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
-  const qrRef = useRef<HTMLDivElement>(null);
-  const qrCodeRef = useRef<QRCodeStyling | null>(null);
-  const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
-  const activeTab = useAppSelector((state) => state.preview.activeTab);
   const [qrNameError, setQrNameError] = useState("");
+
+  const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
   const wifi = useAppSelector((state) => state.wifi.NetworkName);
   const wifiPassword = useAppSelector((state) => state.wifi.Password);
   const wifiEncryption = useAppSelector((state) => state.wifi.EncryptionType);
@@ -51,68 +44,6 @@ export default function Wifi() {
   const handleEncryption = (value: string) => {
     dispatch(setEncryptionType(value));
   };
-
-  const escapeWifiString = (str: string): string => {
-    return str.replace(/[\\"';:,]/g, (char) => `\\${char}`);
-  };
-
-  // Function to generate WiFi
-  const generateWifiString = (): string => {
-    const encryptionMap: { [key: string]: string } = {
-      WEP: "WEP",
-      "WPA / WPA2": "WPA",
-      "WPA - EAP": "WPA",
-      NONE: "nopass",
-    };
-
-    const encryptionType = encryptionMap[wifiEncryption] || "WPA";
-    const networkName = escapeWifiString(wifi);
-    const password = escapeWifiString(wifiPassword);
-    const hidden = wifiHidden ? "true" : "false";
-
-    return `WIFI:T:${encryptionType};S:${networkName};P:${password};H:${hidden};;`;
-  };
-
-  useEffect(() => {
-    if (view !== "qrCode" || !qrRef.current) return;
-
-    const wifiString = generateWifiString();
-
-    const qrOptions: Options = {
-      type: "svg",
-      data: wifiString,
-      margin: 10,
-      width: 300,
-      height: 300,
-      dotsOptions: {
-        color: "#000000",
-        type: "rounded",
-      },
-      backgroundOptions: {
-        color: "#FFFFFF",
-      },
-      cornersSquareOptions: {
-        color: "#000000",
-        type: "square",
-      },
-      cornersDotOptions: {
-        color: "#000000",
-        type: "square",
-      },
-    };
-
-    if (qrRef.current) {
-      qrRef.current.innerHTML = "";
-
-      if (qrCodeRef.current) {
-        qrCodeRef.current.update(qrOptions);
-        qrCodeRef.current.append(qrRef.current);
-      } else {
-        qrCodeRef.current = new QRCodeStyling(qrOptions);
-        qrCodeRef.current.append(qrRef.current);
-      }
-    }
-  }, [view, wifi, wifiPassword, wifiEncryption, wifiHidden]);
 
   return (
     <main className="bg-[var(--Generator-Background)] min-h-screen">
@@ -213,12 +144,7 @@ export default function Wifi() {
                     <WifiPreview />
                   </div>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center rounded-[32px]">
-                    <div
-                      ref={qrRef}
-                      className="w-[154px] h-[154px] flex items-center justify-center"
-                    />
-                  </div>
+                  <WifiQRCode width={200} height={200} />
                 )}
               </MobileFrame>
             </div>
