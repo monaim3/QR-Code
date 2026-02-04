@@ -112,6 +112,18 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.w-color-saturation-pointer {
+  width: 12px;
+  height: 12px;
+  transform: scale(1.8);
+  border-radius: 9999px;
+  background: transparent;
+  border: 1.5px solid #fff;
+}
+
+.w-color-saturation-pointer > div {
+  display: none;
+}
 @layer base {
   * {
     border-color: var(--border);

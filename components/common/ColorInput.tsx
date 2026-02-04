@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Pipette, ChevronDown } from "lucide-react";
+import Saturation from "@uiw/react-color-saturation";
+import Hue from "@uiw/react-color-hue";
+import { hsvaToHex, hexToHsva } from "@uiw/color-convert";
 
 type Props = {
   label: string;
@@ -21,12 +24,8 @@ export default function ColorInput({
   const [showPicker, setShowPicker] = useState(false);
   const [activeTab, setActiveTab] = useState("solid");
   const [colorMode, setColorMode] = useState<"hex" | "rgb" | "hsl">("hex");
-  const [hue, setHue] = useState(220);
-  const [saturation, setSaturation] = useState(70);
-  const [brightness, setBrightness] = useState(93);
-  const [isDragging, setIsDragging] = useState(false);
+  const [hsva, setHsva] = useState(hexToHsva(value || "#000000"));
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
 
   const paletteColors = [
@@ -57,172 +56,20 @@ export default function ColorInput({
   }, []);
 
   useEffect(() => {
-    if (value && value.startsWith("#")) {
-      const rgb = hexToRgb(value);
-      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-      setHue(hsl.h);
-      const max = Math.max(rgb.r, rgb.g, rgb.b) / 255;
-      const min = Math.min(rgb.r, rgb.g, rgb.b) / 255;
-      const delta = max - min;
-      const sat = max === 0 ? 0 : (delta / max) * 100;
-      const bright = max * 100;
-      setSaturation(sat);
-      setBrightness(bright);
+    if (value) {
+      try {
+        const newHsva = hexToHsva(value);
+        setHsva(newHsva);
+      } catch (e) {
+        // Invalid color, ignore
+      }
     }
   }, [value]);
 
-  useEffect(() => {
-    drawGradient();
-  }, [hue]);
-
-  useEffect(() => {
-    if (showPicker) {
-      setTimeout(() => {
-        drawGradient();
-      }, 0);
-    }
-  }, [showPicker]);
-
-  useEffect(() => {
-    if (activeTab === "solid" && showPicker) {
-      setTimeout(() => {
-        drawGradient();
-      }, 0);
-    }
-  }, [activeTab]);
-
-  const drawGradient = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const width = canvas.width;
-    const height = canvas.height;
-
-    // Clear canvas first
-    ctx.clearRect(0, 0, width, height);
-
-    const horizGrad = ctx.createLinearGradient(0, 0, width, 0);
-    horizGrad.addColorStop(0, "#FFFFFF");
-    horizGrad.addColorStop(1, `hsl(${hue}, 100%, 50%)`);
-    ctx.fillStyle = horizGrad;
-    ctx.fillRect(0, 0, width, height);
-
-    const vertGrad = ctx.createLinearGradient(0, 0, 0, height);
-    vertGrad.addColorStop(0, "rgba(0, 0, 0, 0)");
-    vertGrad.addColorStop(1, "rgba(0, 0, 0, 1)");
-    ctx.fillStyle = vertGrad;
-    ctx.fillRect(0, 0, width, height);
-  };
-
-  const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const x = Math.max(0, Math.min(e.clientX - rect.left, canvas.width));
-    const y = Math.max(0, Math.min(e.clientY - rect.top, canvas.height));
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const imageData = ctx.getImageData(x, y, 1, 1);
-    const [r, g, b] = imageData.data;
-
-    const hex = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
-    onChange?.(hex);
-
-    setSaturation(Math.round((x / canvas.width) * 100));
-    setBrightness(Math.round((1 - y / canvas.height) * 100));
-  };
-
-  const handleCanvasMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    setIsDragging(true);
-    handleCanvasClick(e);
-  };
-
-  const handleCanvasMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDragging) return;
-    handleCanvasClick(e);
-  };
-
-  const handleCanvasMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  useEffect(() => {
-    const handleGlobalMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    if (isDragging) {
-      document.addEventListener("mouseup", handleGlobalMouseUp);
-      return () => document.removeEventListener("mouseup", handleGlobalMouseUp);
-    }
-  }, [isDragging]);
-
-  const handleHueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newHue = parseInt(e.target.value);
-    setHue(newHue);
-
-    const h = newHue / 360;
-    const s = saturation / 100;
-    const v = brightness / 100;
-
-    const i = Math.floor(h * 6);
-    const f = h * 6 - i;
-    const p = v * (1 - s);
-    const q = v * (1 - f * s);
-    const t = v * (1 - (1 - f) * s);
-
-    let r: number, g: number, b: number;
-    switch (i % 6) {
-      case 0:
-        r = v;
-        g = t;
-        b = p;
-        break;
-      case 1:
-        r = q;
-        g = v;
-        b = p;
-        break;
-      case 2:
-        r = p;
-        g = v;
-        b = t;
-        break;
-      case 3:
-        r = p;
-        g = q;
-        b = v;
-        break;
-      case 4:
-        r = t;
-        g = p;
-        b = v;
-        break;
-      case 5:
-        r = v;
-        g = p;
-        b = q;
-        break;
-      default:
-        r = v;
-        g = t;
-        b = p;
-    }
-
-    const hex = `#${Math.round(r * 255)
-      .toString(16)
-      .padStart(2, "0")}${Math.round(g * 255)
-      .toString(16)
-      .padStart(2, "0")}${Math.round(b * 255)
-      .toString(16)
-      .padStart(2, "0")}`.toUpperCase();
-    onChange?.(hex);
+  const handleColorChange = (newHsva: any) => {
+    setHsva(newHsva);
+    const hex = hsvaToHex(newHsva);
+    onChange?.(hex.toUpperCase());
   };
 
   const handlePaletteColorClick = (color: string) => {
@@ -284,12 +131,10 @@ export default function ColorInput({
   };
 
   const rgbStringToHex = (rgbString: string): string => {
-    // Match rgb(r, g, b) or rgba(r, g, b, a) patterns
     const match = rgbString.match(
       /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/i,
     );
     if (!match) {
-      // If it's already a hex value, return it
       return rgbString.startsWith("#")
         ? rgbString.toUpperCase()
         : `#${rgbString.toUpperCase()}`;
@@ -373,8 +218,6 @@ export default function ColorInput({
     try {
       const eyeDropper = new (window as any).EyeDropper();
       const result = await eyeDropper.open();
-
-      // Convert RGB/RGBA string to hex value
       const hexValue = rgbStringToHex(result.sRGBHex);
       onChange?.(hexValue);
     } catch (e) {
@@ -421,7 +264,6 @@ export default function ColorInput({
               {/* Tab Navigation */}
               <div className="flex gap-2 mb-4">
                 <div className="flex flex-1 gap-2 border border-gray-200 rounded-full p-1">
-                  {" "}
                   <button
                     onClick={() => setActiveTab("solid")}
                     className={`flex-1 px-4 py-2 rounded-full font-medium transition-all ${
@@ -453,40 +295,28 @@ export default function ColorInput({
 
               {activeTab === "solid" ? (
                 <>
-                  {/* Color Gradient Canvas */}
-                  <div className="relative mb-4 rounded-xl overflow-hidden shadow-lg">
-                    <canvas
-                      ref={canvasRef}
-                      width={224}
-                      height={160}
-                      onMouseDown={handleCanvasMouseDown}
-                      onMouseMove={handleCanvasMouseMove}
-                      onMouseUp={handleCanvasMouseUp}
-                      className="w-full h-40 cursor-crosshair"
-                    />
-                    <div
-                      className="absolute w-5 h-5 rounded-full border-2 border-white shadow-lg pointer-events-none -translate-x-1/2 -translate-y-1/2"
+                  {/* Color Gradient Canvas using @uiw/react-color-block */}
+                  <div className="color-picker relative mb-4 rounded-xl overflow-hidden shadow-lg">
+                    <Saturation
+                      hsva={hsva}
+                      onChange={handleColorChange}
+                      className="w-full h-[160px] cursor-crosshair"
                       style={{
-                        left: `${(saturation / 100) * 100}%`,
-                        top: `${(1 - brightness / 100) * 100}%`,
-                        // transform: "translate(-50%, -50%)",
+                        width: "100%",
+                        height: "160px",
+                        cursor: "crosshair",
                       }}
                     />
                   </div>
 
-                  {/* Hue Slider */}
                   <div className="mb-4">
-                    <input
-                      type="range"
-                      min="0"
-                      max="360"
-                      value={hue}
-                      onChange={handleHueChange}
-                      className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                      style={{
-                        background:
-                          "linear-gradient(to right, #FF0000 0%, #FFFF00 17%, #00FF00 33%, #00FFFF 50%, #0000FF 67%, #FF00FF 83%, #FF0000 100%)",
+                    <Hue
+                      hue={hsva.h}
+                      onChange={(newHue) => {
+                        const newHsva = { ...hsva, h: newHue.h };
+                        handleColorChange(newHsva);
                       }}
+                      className="w-full h-[8px] rounded-full"
                     />
                   </div>
 
