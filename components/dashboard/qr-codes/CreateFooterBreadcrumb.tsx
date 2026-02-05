@@ -15,10 +15,17 @@ import VCardPreview from "@/components/generator/vcard/VCardPreview";
 import MenuPreview from "@/components/generator/menu/MenuPreview";
 import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
 import Breadcrumb from "@/components/generator/Breadcrumb";
-import Save from "@/components/icons/save";
 import Close from "@/components/icons/close";
+import AppPreView from "@/components/generator/app/app-preview";
+import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
+import ImagesPreview from "@/components/generator/Images/ImagesPreview";
+import PdfPreView from "@/components/generator/pdf/pdf-preview";
+import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPreview";
+import SocialPreView from "@/components/generator/socialMedia/social-preview";
+import VideoPreView from "@/components/generator/video/video-preview";
+import WifiPreview from "@/components/generator/Wifi/WifiPreview";
 
-export default function FooterBreadcrumb() {
+export default function CreateFooterBreadcrumb() {
   const pathname = usePathname();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,9 +40,13 @@ export default function FooterBreadcrumb() {
     : "desktopDashboard:left-[214px] left-0 desktopDashboard:max-w-[calc(100vw-214px)] max-w-full";
 
   const getCurrentStep = (): number => {
-    // Check most specific paths first
-    if (pathname.includes("/customize")) return 2;
-    return 1;
+    if (pathname.includes("/customize")) {
+      return 3;
+    } else if (pathname.match(/\/generator\/[^/]+$/)) {
+      return 2;
+    } else {
+      return 1;
+    }
   };
 
   const currentStep = getCurrentStep();
@@ -43,13 +54,16 @@ export default function FooterBreadcrumb() {
 
   const handleBack = () => {
     if (currentStep === 2) {
-      router.push("/qr-codes/edit");
+      router.push("/qr-codes/generator");
+    } else if (currentStep === 3) {
+      router.back();
     }
   };
 
   const handleNext = () => {
-    if (currentStep === 1) {
-      router.push("/qr-codes/edit/customize");
+    if (currentStep === 2) {
+      localStorage.setItem("qrType", pathname.split("/")[3]);
+      router.push("/qr-codes/generator/customize");
     }
   };
 
@@ -62,39 +76,37 @@ export default function FooterBreadcrumb() {
   };
 
   const getPreviewContent = () => {
-    if (pathname.includes("/vcard")) {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <VCardPreview />
-          </div>
-        );
-      }
-    }
-
-    if (pathname.includes("/menu")) {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <MenuPreview />
-          </div>
-        );
-      }
-    }
-
-    if (pathname.includes("/business-page")) {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <BusinessPreview />
-          </div>
-        );
-      }
-    }
-
     if (activeTab === "preview") {
-      return <WebsiteUrlPreview url={websiteUrl} />;
+      switch (true) {
+        case pathname.includes("/app"):
+          return <AppPreView />;
+        case pathname.includes("/business-page"):
+          return <BusinessPreview />;
+        case pathname.includes("/facebook"):
+          return <FacebookPreview />;
+        case pathname.includes("/images"):
+          return <ImagesPreview />;
+        case pathname.includes("/menu"):
+          return <MenuPreview />;
+        case pathname.includes("/pdf"):
+          return <PdfPreView />;
+        case pathname.includes("/simple-text"):
+          return <SimpleTextPreview />;
+        case pathname.includes("/social-media"):
+          return <SocialPreView />;
+        case pathname.includes("/vcard"):
+          return <VCardPreview />;
+        case pathname.includes("/video"):
+          return <VideoPreView />;
+        case pathname.includes("/website-url"):
+          return <WebsiteUrlPreview url={websiteUrl} />;
+        case pathname.includes("/wifi"):
+          return <WifiPreview />;
+        default:
+          return;
+      }
     }
+
     if (pathname.includes("/customize")) {
       return <CustomizeQRDisplay />;
     }
@@ -110,7 +122,7 @@ export default function FooterBreadcrumb() {
         className={`
         fixed bottom-0 w-full flex items-center justify-center gap-10 py-4 px-5
         desktopDashboard:px-6 bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]
-        transition-all duration-300
+        transition-all duration-300 z-20
         ${desktopPositionClasses}
       `}
       >
@@ -127,25 +139,21 @@ export default function FooterBreadcrumb() {
                 </span>
               </button>
               <div className="hidden desktop:block">
-                <Breadcrumb dashboardSteps={true} />
+                <Breadcrumb dashboardSteps={true} dashboardCreateQr={true} />
               </div>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="desktop:hidden flex items-center justify-center w-12 h-12 rounded-lg bg-[#f7f8ff] text-[var(--Blue)] transition-colors shrink-0"
-                aria-label="Preview"
-              >
-                <Eye className="size-5" />
-              </button>
+              {currentStep !== 1 && (
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="desktop:hidden flex items-center justify-center w-12 h-12 rounded-lg bg-[#f7f8ff] text-[var(--Blue)] transition-colors shrink-0"
+                  aria-label="Preview"
+                >
+                  <Eye className="size-5" />
+                </button>
+              )}
             </div>
 
             <div className="flex items-center gap-4">
-              {currentStep === 1 && (
-                <button className="flex w-12 h-12 p-2 justify-center items-center flex-shrink-0 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]">
-                  <Save className="text-[var(--Dark-gray)]" />
-                </button>
-              )}
-
-              {currentStep === 2 && (
+              {currentStep !== 1 && (
                 <button
                   onClick={handleBack}
                   className="flex items-center gap-2 px-3 md:px-6 py-3 font-roboto text-[var(--Blue)] hover:text-[var(--Blue-hover)] font-medium transition-colors border border-[var(--Blue)] rounded-lg"
@@ -156,7 +164,7 @@ export default function FooterBreadcrumb() {
                   </span>
                 </button>
               )}
-              {currentStep === 1 && (
+              {currentStep === 2 && (
                 <button
                   onClick={handleNext}
                   className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
@@ -165,7 +173,7 @@ export default function FooterBreadcrumb() {
                   <ArrowRight className="size-5" />
                 </button>
               )}
-              {currentStep === 2 && (
+              {currentStep === 3 && (
                 <button
                   // onClick={handleNext}
                   className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"

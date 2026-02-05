@@ -10,6 +10,7 @@ import QrCode5 from "@/components/icons/qr-code-5";
 import Close from "@/components/icons/close";
 import ShareAndroid from "@/components/icons/share-android";
 import Download from "@/components/icons/download";
+import { useRouter } from "next/navigation";
 
 interface Props {
   onCustomDownloadModal: () => void;
@@ -25,6 +26,7 @@ export default function MoreAction({
   const [showAbove, setShowAbove] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
 
   const options = [
     {
@@ -64,6 +66,9 @@ export default function MoreAction({
         break;
       case "Share":
         onShareModal();
+        break;
+      case "Edit":
+        router.push("/qr-codes/edit");
         break;
     }
     setIsOpen(false);

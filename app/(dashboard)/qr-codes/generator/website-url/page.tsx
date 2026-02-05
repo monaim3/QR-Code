@@ -9,14 +9,15 @@ import {
   setActiveTab,
 } from "@/store/slices/previewSlice";
 import { motion, AnimatePresence } from "framer-motion";
+import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { ChevronDown } from "lucide-react";
 import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
 import PreviewQRButtons from "@/components/generator/Preview_QR_Buttons";
 import MobileFrame from "@/components/common/MobileFrame";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Container from "@/components/common/parent-container";
+import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import FooterBreadcrumb from "@/components/dashboard/qr-codes/FooterBreadcrumb";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 
 const urlSchema = z.string().url("Please enter a valid URL");
@@ -95,13 +96,13 @@ export default function WebsiteUrlPage() {
 
   return (
     <>
-      <div className="bg-[var(--Generator-Background)] min-h-screen h-full w-full">
+      <div className="bg-[var(--Generator-Background)] min-h-screen h-full">
         <Container>
           <div className="py-0 desktop:py-12">
             <div className="flex flex-col desktop:flex-row gap-8">
               <div className="flex-1 flex flex-col gap-0 desktop:gap-4">
                 <div className="block desktop:hidden">
-                  {<Breadcrumb useMobileSteps={true} dashboardSteps={true} />}
+                  {<Breadcrumb useMobileSteps={true} />}
                 </div>
                 <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block">
                   Add content to the Website URL QR code
@@ -210,8 +211,6 @@ export default function WebsiteUrlPage() {
           </div>
         </Container>
       </div>
-
-      <FooterBreadcrumb />
     </>
   );
 }
