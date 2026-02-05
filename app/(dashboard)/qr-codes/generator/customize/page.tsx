@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import Breadcrumb from "../../../components/generator/Breadcrumb";
 
 import MobileFrame from "@/components/common/MobileFrame";
 import ColorInput from "@/components/common/ColorInput";
@@ -25,8 +24,6 @@ import {
   setPatternStyle,
   setCornerFrameColor,
   setCornerDotColor,
-  setCornerFrameStyle,
-  setCornerDotType,
   setSelectedLogo,
   setCustomLogo,
   setPrevBackgroundColor,
@@ -47,6 +44,7 @@ import BusinessPreview from "@/components/generator/businessPage/BusinessPreview
 import CustomizeQRDisplay from "@/components/common/CustomizeQRDisplay";
 import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { usePathname, useRouter } from "next/navigation";
+import Breadcrumb from "@/components/generator/Breadcrumb";
 import AppPreView from "@/components/generator/app/app-preview";
 import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import ImagesPreview from "@/components/generator/Images/ImagesPreview";
@@ -338,7 +336,7 @@ export default function QRCodeCustomize() {
   };
 
   return (
-    <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
+    <div className="p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
       <Container>
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
           <div className="flex-1 flex flex-col">
