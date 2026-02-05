@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, Eye, EyeOff, Lock } from 'lucide-react';
+import { useModalQuery } from "./modal-hooks";
 
 interface CheckInboxModalProps {
   isOpen: boolean;
@@ -7,6 +8,7 @@ interface CheckInboxModalProps {
 }
 
 export default function CheckInboxModal({ isOpen, onClose }: CheckInboxModalProps) {
+  const { closeModal } = useModalQuery();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -25,7 +27,7 @@ export default function CheckInboxModal({ isOpen, onClose }: CheckInboxModalProp
       <div className="relative">
         {/* Close Button - Outside the modal container */}
         <button
-          onClick={onClose}
+          onClick={closeModal}
           className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors flex items-center gap-2"
           aria-label="Close"
         >
