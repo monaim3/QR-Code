@@ -39,7 +39,11 @@ export default function MobilePreviewModal({
         <div className="relative bg-white rounded-[var(--Corner-Radius-10)] max-h-[90vh] overflow-y-auto shadow-lg">
           <div className="flex flex-col items-center py-6 px-8 gap-4">
             <PreviewQRButtons activeTab={activeTab} onTabChange={onTabChange} />
-            <MobileFrame size="desktop">{children}</MobileFrame>
+            <MobileFrame size="desktop">
+              <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+                {children}
+              </div>
+            </MobileFrame>
           </div>
         </div>
       </div>

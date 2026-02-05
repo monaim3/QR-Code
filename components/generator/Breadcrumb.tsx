@@ -13,6 +13,7 @@ interface BreadcrumbProps {
   useMobileSteps?: boolean;
   priceAndPlanSteps?: boolean;
   dashboardSteps?: boolean;
+  dashboardCreateQr?: boolean;
 }
 
 const steps: BreadcrumbStep[] = [
@@ -42,6 +43,7 @@ export default function Breadcrumb({
   useMobileSteps = false,
   priceAndPlanSteps = false,
   dashboardSteps = false,
+  dashboardCreateQr = false,
 }: BreadcrumbProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -70,14 +72,18 @@ export default function Breadcrumb({
 
   const currentStep = priceAndPlanSteps
     ? getPriceAndPlanStep()
-    : dashboardSteps
-      ? getDashboardStep()
-      : getCurrentStep();
+    : dashboardCreateQr
+      ? getCurrentStep()
+      : dashboardSteps
+        ? getDashboardStep()
+        : getCurrentStep();
 
   let data: BreadcrumbStep[];
 
   if (useMobileSteps && dashboardSteps) {
     data = dashboardData;
+  } else if (dashboardCreateQr) {
+    data = steps;
   } else if (useMobileSteps && !priceAndPlanSteps) {
     data = mobileSteps;
   } else if (priceAndPlanSteps) {
