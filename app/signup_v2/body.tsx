@@ -98,10 +98,10 @@ export default function SignupV2Body() {
             <button
               key={index}
               onClick={() => setCurrentTestimonial(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-[16px] w-[16px] rounded-full transition-all duration-300 ${
                 index === currentTestimonial
-                  ? "bg-emerald-500 w-6 desktop:w-8"
-                  : "bg-gray-300 w-2 desktop:w-2 hover:bg-gray-400"
+                  ? "bg-white"
+                  : "border border-white"
               }`}
               aria-label={`Go to testimonial ${index + 1}`}
             />

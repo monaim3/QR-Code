@@ -22,7 +22,7 @@ export default function SignupDirectBody() {
         overflow-hidden
       ">
       {/* Left Panel */}
-       <SignUpElements withRightPannel={false} paddingRight={false}/>
+       <SignUpElements withRightPannel={false} paddingRight={false} fromDirect={true}/>
       </div>
       </div>
     </Container>

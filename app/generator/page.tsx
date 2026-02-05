@@ -143,7 +143,7 @@ function Arrow({ hideOnMobile = false }: ArrowProps) {
   return (
     <div
       className={cn(
-        "absolute top-[78px] left-[-50px] arrow-create-page",
+        "absolute top-[102px] left-[-50px] arrow-create-page",
         hideOnMobile && "hidden lg:block", // hidden on mobile if prop is true
       )}
     >
@@ -222,10 +222,10 @@ export default function GeneratorPage({
         {/* Arrow: hide on mobile */}
         {showArrow ? <Arrow hideOnMobile /> : <div></div>}
         <Container>
-          <div className="desktop:py-12">
+          <div>
             <h1
               className={cn(
-                "pt-6 desktop:pt-0 text-[24px] desktop:text-[32px] font-bold text-[var(--Black)] leading-[32px] desktop:leading-[40px] desktop:mb-[32px]",
+                "pt-6 desktop:pt-[72px] text-[24px] desktop:text-[32px] font-bold text-[var(--Black)] leading-[32px] desktop:leading-[40px] desktop:mb-[32px]",
                 showArrow ? "block" : "hidden desktop:block",
               )}
             >

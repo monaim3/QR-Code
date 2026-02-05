@@ -190,6 +190,49 @@
     border-radius: 10px;
     min-height: 24px;
   }
+ /* Custom scrollbar for language selector - Override shadcn CommandList */
+.language-selector-scrollbar::-webkit-scrollbar {
+  width: 4px !important;
+  display: block !important;
+}
+
+.language-selector-scrollbar::-webkit-scrollbar-track {
+  background: #f5f6fa !important;
+  border-radius: 9px !important;
+}
+
+.language-selector-scrollbar::-webkit-scrollbar-thumb {
+  background: #01a56d !important;
+  border-radius: 9px !important;
+  min-height: 24px !important;
+}
+
+/* For Firefox */
+.language-selector-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #01a56d #f5f6fa !important;
+}
+
+/* Override shadcn CommandList internal scrollbar */
+.language-selector-scrollbar[cmdk-list] {
+  overflow-y: auto !important;
+  max-height: 100% !important;
+}
+
+.language-selector-scrollbar[cmdk-list]::-webkit-scrollbar {
+  width: 4px !important;
+  display: block !important;
+}
+
+.language-selector-scrollbar[cmdk-list]::-webkit-scrollbar-track {
+  background: #f5f6fa !important;
+  border-radius: 9px !important;
+}
+
+.language-selector-scrollbar[cmdk-list]::-webkit-scrollbar-thumb {
+  background: #01a56d !important;
+  border-radius: 9px !important;
+}
 
   @media screen and (min-width: 739px) {
     .generator-create-page {

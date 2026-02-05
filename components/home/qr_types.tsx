@@ -283,7 +283,7 @@ export default function QrTypes() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 1 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="relative overflow-hidden rounded-lg bg-white/10 px-[25px] pt-[56px] desktop:pt-[100px] w-full desktop:w-1/2 flex justify-center"
+                className="relative h-[440px] overflow-hidden rounded-lg bg-white/10 px-[25px] pt-[56px] desktop:pt-[100px] w-full desktop:w-1/2 flex justify-center"
               >
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
@@ -305,7 +305,6 @@ export default function QrTypes() {
                       QrTypeData.find((qr) => qr.id === activeTab)?.title ||
                       "QR Code Example"
                     }
-                    height={140}
                   />
                   </div>
                 </motion.div>
