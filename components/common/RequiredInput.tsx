@@ -22,6 +22,8 @@ export const RequiredTextInput = ({
   required = true,
 }: RequiredTextInputProps) => {
   const [touched, setTouched] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
   const inputId = id ?? label.replace(/\s+/g, "-").toLowerCase();
 
   const showError = required && touched && !value.trim();
@@ -60,14 +62,13 @@ export const RequiredTextInput = ({
            rounded-[10px]
           placeholder:text-[var(--Grey)] placeholder:text-gray-400
           transition-all duration-200 
-          border
-          focus:outline-none
-          ${
-            showError
-              ? "border-red-500 focus:border-red-500 "
-              : "border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-1 focus:ring-[var(--Blue)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
-          }
-        `}
+             outline-none
+    ${
+      showError
+        ? "border border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+        : "border border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-2 focus:ring-[var(--Blue)] hover:border-[var(--Boarder-Grey)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
+    }
+  `}
         aria-invalid={showError}
         aria-describedby={showError ? `${inputId}-error` : undefined}
       />

@@ -14,6 +14,11 @@ import CustomizeQRDisplay from "../common/CustomizeQRDisplay";
 import VCardPreview from "./vcard/VCardPreview";
 import MenuPreview from "./menu/MenuPreview";
 import BusinessPreview from "./businessPage/BusinessPreview";
+import SimpleTextPreview from "./SimpleText/SimpleTextPreview";
+import WifiPreview from "./Wifi/WifiPreview";
+import WifiQRCode from "./Wifi/WifiQRCode";
+import FacebookPreview from "./Facebook/FacebookPreview";
+import ImagesPreview from "./Images/ImagesPreview";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -84,6 +89,53 @@ export default function BreadcrumbFooter() {
         return (
           <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
             <BusinessPreview />
+          </div>
+        );
+      }
+    }
+
+    if (pathname.includes("/simple-text")) {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <SimpleTextPreview />
+          </div>
+        );
+      }
+    }
+
+    if (pathname.includes("/wifi")) {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <WifiPreview />
+          </div>
+        );
+      }
+      if (activeTab === "qrcode") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px]">
+            <WifiQRCode width={200} height={200} />
+          </div>
+        );
+      }
+    }
+
+    if (pathname.includes("/facebook")) {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <FacebookPreview />
+          </div>
+        );
+      }
+    }
+
+    if (pathname.includes("/images")) {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <ImagesPreview />
           </div>
         );
       }
