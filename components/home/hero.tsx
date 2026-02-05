@@ -37,11 +37,11 @@ export default function Hero() {
                     />
                   </div>
 
-                  <div className="xl:block absolute bottom-28 right-2 hidden">
+                  <div className="xl:block absolute bottom-28 right-2 hidden ">
                   <motion.img
                     src="/images/home/qr.svg"
                     alt="Customize"
-                    className="w-70 xl:w-70 shadow-[0_1.761px_28.179px_0_rgba(63,72,103,0.08)]"
+                    className="w-70 xl:w-70 rounded-[12px] drop-shadow-[0_1.761px_28.179px_rgba(63,72,103,0.08)]"
                     animate={{ y: [0, -20, 0] }}
                     transition={{
                       duration: 5,

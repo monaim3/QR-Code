@@ -9,6 +9,7 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 import ReduxProvider from "@/store/ReduxProvider";
+import ModalController from "@/components/modals/modal-controller";
 
 // Toasts
 import { Toaster } from "@/components/ui/sonner";
@@ -79,6 +80,10 @@ export default function RootLayout({
 
           {/* React Toastify */}
           <ToastContainer position="top-right" />
+
+          {/* modal Controller */}
+          <ModalController />
+          
         </ReduxProvider>
       </body>
     </html>
