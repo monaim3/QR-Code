@@ -42,7 +42,7 @@ export default function SmartQRPlanSelection() {
             <div className="flex-1" />
             {/* Takes only its own width */}
             <div className="h-[54px] flex items-center flex-shrink-0">
-            <CurrencySelector />
+            <CurrencySelector textClass='text-[14px] leading-[22px] text-[var(--Grey)] font-regular'/>
             </div>
           </div>
           <div className='pt-[0px] pb-[136px] desktop:pb-[160px]'>
@@ -103,7 +103,7 @@ export default function SmartQRPlanSelection() {
               </div>
 
               {/* Continue Button */}
-              <button onClick={handleContinue} className="hidden md:block w-full bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium py-4 rounded-xl transition-colors mt-[32px]">
+              <button onClick={handleContinue} className="hidden md:block w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium py-4 rounded-xl transition-colors mt-[32px]">
                 Continue
               </button>
 

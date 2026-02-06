@@ -141,7 +141,7 @@ export default function CheckoutElement() {
                 onChange={(e) => setCardholderName(e.target.value)}
                 className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)] 
                   focus:border-[var(--Blue)] outline-none transition-colors
-                  text-[16px] leading-[24px] placeholder:text-[var(--placeholder-grey)]"
+                  text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
               />
             </div>
 
@@ -157,7 +157,7 @@ export default function CheckoutElement() {
                 onChange={handleCardNumberChange}
                 className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
                   focus:border-[var(--Blue)] outline-none transition-colors
-                  text-[16px] leading-[24px] placeholder:text-[var(--Boarder-Grey)]"
+                  text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
               />
             </div>
 
@@ -174,7 +174,7 @@ export default function CheckoutElement() {
                   onChange={handleExpiryChange}
                   className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
                     focus:border-[var(--Blue)] outline-none transition-colors
-                    text-[16px] leading-[24px] placeholder:text-[var(--Boarder-Grey)]"
+                    text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
                 />
               </div>
 
@@ -189,7 +189,7 @@ export default function CheckoutElement() {
                   onChange={handleCvvChange}
                   className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
                     focus:border-[var(--Blue)] outline-none transition-colors
-                    text-[16px] leading-[24px] placeholder:text-[var(--Boarder-Grey)]"
+                    text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
                 />
               </div>
             </div>
@@ -238,7 +238,7 @@ export default function CheckoutElement() {
         <div className="flex items-center justify-between mt-[24px]">
             <div className="flex items-center gap-[8px]">
                 <SecurityCheck/>
-                <p className="text-[16px] leading-[22px] font-regular">Secure checkout</p>
+                <p className="text-[16px] leading-[22px] text-[var(--Dark-gray)] font-regular">Secure checkout</p>
             </div>
             <Nortion/>
         </div>
@@ -266,7 +266,7 @@ export default function CheckoutElement() {
           <button 
            type="button"
            onClick={handleSuccess}
-           className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3">
+           className="w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] transition duration-300 text-white font-semibold rounded-[10px] flex items-center justify-center gap-3">
             Continue
             <ArrowRight className="w-5 h-5"/>
           </button>

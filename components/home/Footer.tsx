@@ -2,7 +2,7 @@
 import Container from "@/components/common/parent-container";
 import Link from "next/link";
 import { useState } from "react";
-import LanguageSelector from "../common/language_dropdown"
+import LanguageSelector from "../common/language_dropdown";
 
 export default function Footer() {
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -16,10 +16,12 @@ export default function Footer() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 desktop:gap-10 items-center text-center lg:text-left">
               {/* Left: Logo + Text */}
               <div className="flex flex-col gap-4">
+                <Link href="/">
                 <div className="flex items-center justify-center lg:justify-start gap-3">
                   <img src="/images/qr.svg" alt="Logo" className="w-11 h-11" />
                   <span className="text-2xl md:text-[34px] font-bold text-white">SmartQR</span>
                 </div>
+                </Link>
                 <p className="text-white/60 text-1">
                   Create personalized dynamic QR codes with ease. Boost their effectiveness using advanced analytics and branding tools, and modify your QR codes at any time.
                 </p>

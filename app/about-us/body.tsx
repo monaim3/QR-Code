@@ -90,15 +90,26 @@ export default function AboutUsBody() {
                 <p className="hidden desktop:block text-[18px] leading-[26px] font-regular text-[#1D2948] whitespace-nowrap">
                     Top brands that use QR codes:
                 </p>
+                <div className="overflow-hidden w-full">
+  <div className="flex items-center gap-6 w-max animate-marquee">
+    {/* first set */}
+    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7 shrink-0" />
+    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6 shrink-0" />
 
-                <div className="flex items-center gap-6 overflow-hidden">
-                    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6" />
-                    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6" />
-                    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7" />
-                    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6" />
-                    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6" />
-                    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6" />
-                </div>
+    {/* duplicate set for infinite loop */}
+    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7 shrink-0" />
+    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6 shrink-0" />
+    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6 shrink-0" />
+  </div>
+</div>
+
             </div>
             </div>
         </Container>

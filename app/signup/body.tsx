@@ -19,7 +19,7 @@ export default function SignupBody() {
         pt-[32px] pb-[24px] desktop:pb-[32px]
         shadow-card
         flex flex-col desktop:flex-row
-        items-start justify-between
+        items-stretch justify-between
         overflow-hidden
       ">
         {/* Left Panel */}

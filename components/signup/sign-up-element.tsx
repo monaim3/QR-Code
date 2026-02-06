@@ -20,9 +20,10 @@ interface SignUpProps{
   socialRow?: boolean;
   withRightPannel?: boolean;
   paddingRight?: boolean;
+  fromDirect?: boolean;
 }
 
-export default function SignUpElements ({socialRow = false, withRightPannel = true, paddingRight = true}: SignUpProps) {
+export default function SignUpElements ({socialRow = false, withRightPannel = true, paddingRight = true, fromDirect = false}: SignUpProps) {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -53,11 +54,11 @@ export default function SignUpElements ({socialRow = false, withRightPannel = tr
     return (
         <div className={`flex flex-col w-full ${withRightPannel ? "desktop:w-1/2" : "desktop:w-full"} max-h-full ${paddingRight ? "desktop:pr-8" : "desktop:pr-0"}`}>
           <h1 className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
-            Create a FREE account to download, edit and manage your QR codes
+            {fromDirect ? "Sign up" : "Create a FREE account to download, edit and manage your QR codes"}
           </h1>
 
           <p className="mt-2 text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
-            Join millions of users already using the smartest QR Code Generator!
+           {fromDirect ? "Create a FREE account to download, edit and manage your QR codes" : "Join millions of users already using the smartest QR Code Generator!"}
           </p>
 
           {/* Form */}

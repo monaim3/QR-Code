@@ -126,9 +126,9 @@ const PricingPage: React.FC = () => {
         <Container>
           <div>
             {/* Header */}
-          <div className="flex justify-between items-center pt-[16px] desktop:pt-[84px]">
+          <div className="flex justify-between items-center pt-[16px] desktop:pt-[80px]">
             <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-[var(--black)]">Plans & Pricing</h1>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <div className='hidden desktop:flex'>
                 <CurrenctSelector/>
               </div>

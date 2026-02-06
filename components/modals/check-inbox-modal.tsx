@@ -22,9 +22,9 @@ export default function CheckInboxModal({ isOpen, onClose }: CheckInboxModalProp
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       {/* Container for modal and close button */}
-      <div className="relative">
+      <div className="relative max-w-[400px]">
         {/* Close Button - Outside the modal container */}
         <button
           onClick={closeModal}
@@ -39,24 +39,24 @@ export default function CheckInboxModal({ isOpen, onClose }: CheckInboxModalProp
 
         {/* Modal Container - Following Figma specs */}
         <div 
-          className="w-full max-w-md flex flex-col items-center gap-8 p-8 bg-white rounded-lg"
+          className="w-full max-w-[400px] flex flex-col items-center p-6 desktop:p-8 bg-white rounded-[10px]"
           style={{
             boxShadow: '0 4px 14px 0 rgba(54, 66, 140, 0.16)'
           }}
         >
         {/* Header */}
-        <div className="flex flex-col items-center gap-2 text-center w-full">
-          <h2 className="text-2xl font-semibold text-gray-900">
+        <div className="flex flex-col items-center text-center w-full">
+          <h2 className="text-[20px] leading-[20px] desktop:text-[24px] leading-[32px] font-bold text-[var(--Black)]">
           Check your inbox
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)] mt-2">
           If an account with that email address exists, we have sent an email with the instructions to recover your password.
           </p>
         </div>
 
         <button
          onClick={handleSubmit}
-        className="mt-[16px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-200"
+        className="mt-[24px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[26px] font-medium rounded-[10px] transition-colors duration-200"
         >
         Log in
         </button>

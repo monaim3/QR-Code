@@ -6,7 +6,7 @@ import CurrenctSelector from '@/components/common/currency_dropdown';
 export default function Pricing() {
     return (
         <div className="pb-[100px] desktop:pb-[0px]">
-          <Header languageDropDown={true} className="bg-white desktop:bg-white border-b border-[var(--Boarder-Grey)]"/>
+          <Header languageDropDown={true} hideDivider={true} className="bg-white desktop:bg-white border-b border-[var(--Boarder-Grey)]"/>
           <PricingPage/>
           <Footer />
         </div>
