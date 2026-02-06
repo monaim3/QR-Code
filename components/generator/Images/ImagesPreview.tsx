@@ -215,10 +215,10 @@ const ImagesPreview: React.FC = () => {
           </div>
         </div>
 
-        <div className="px-5 space-y-2 pb-4 w-full">
+        <div className="px-5 space-y-2 py-4 w-full">
           {!hasUserAction && (
             <div className="flex gap-2">
-              <button className="w-full py-2.5 rounded-lg text-white text-xs font-normal leading-[20px] bg-black">
+              <button className="w-full py-2 px-8 max-h-[40px]  rounded-lg text-white text-xs font-normal leading-[20px] bg-black">
                 View more
               </button>
               {/* Share button always shows initially */}

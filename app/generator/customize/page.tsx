@@ -47,14 +47,6 @@ import BusinessPreview from "@/components/generator/businessPage/BusinessPreview
 import CustomizeQRDisplay from "@/components/common/CustomizeQRDisplay";
 import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { usePathname, useRouter } from "next/navigation";
-import AppPreView from "@/components/generator/app/app-preview";
-import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
-import ImagesPreview from "@/components/generator/Images/ImagesPreview";
-import PdfPreView from "@/components/generator/pdf/pdf-preview";
-import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPreview";
-import SocialPreView from "@/components/generator/socialMedia/social-preview";
-import VideoPreView from "@/components/generator/video/video-preview";
-import WifiPreview from "@/components/generator/Wifi/WifiPreview";
 
 export default function QRCodeCustomize() {
   const pathname = usePathname();
@@ -303,35 +295,38 @@ export default function QRCodeCustomize() {
       router.push("/generator");
     }
 
-    if (activeTab === "preview") {
-      switch (qrType) {
-        case "app":
-          return <AppPreView />;
-        case "business-page":
-          return <BusinessPreview />;
-        case "facebook":
-          return <FacebookPreview />;
-        case "images":
-          return <ImagesPreview />;
-        case "menu":
-          return <MenuPreview />;
-        case "pdf":
-          return <PdfPreView />;
-        case "simple-text":
-          return <SimpleTextPreview />;
-        case "social-media":
-          return <SocialPreView />;
-        case "vcard":
-          return <VCardPreview />;
-        case "video":
-          return <VideoPreView />;
-        case "website-url":
-          return <WebsiteUrlPreview url={websiteUrl} />;
-        case "wifi":
-          return <WifiPreview />;
-        default:
-          return;
+    if (qrType === "vcard") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <VCardPreview />
+          </div>
+        );
       }
+    }
+
+    if (qrType === "menu") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <MenuPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "business-page") {
+      if (activeTab === "preview") {
+        return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <BusinessPreview />
+          </div>
+        );
+      }
+    }
+
+    if (qrType === "website-url") {
+      return <WebsiteUrlPreview url={websiteUrl} />;
     }
 
     return <QRCodeDisplay />;
@@ -619,7 +614,7 @@ export default function QRCodeCustomize() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                       {selectedFrameIndex === 0 ? (
-                        <svg width="120" height="120" viewBox="0 0 300 300">
+                        <svg width="200" height="200" viewBox="0 0 300 300">
                           <g ref={mobileQrRef as any} />
                         </svg>
                       ) : (
