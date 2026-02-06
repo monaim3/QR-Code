@@ -335,7 +335,7 @@ export default function QRCodeCustomize() {
   return (
     <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
       <Container>
-        <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
+        <div className=" flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
           <div className="flex-1 flex flex-col">
             <div className="block desktop:hidden space-y-0 desktop:space-y-4">
               {<Breadcrumb useMobileSteps={true} />}
