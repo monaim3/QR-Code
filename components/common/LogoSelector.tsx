@@ -136,15 +136,16 @@ const LogoSelector = ({
             <div key={logo.id} className="relative group">
               <button
                 onClick={() => handleLogoSelect(logo)}
-                className={`w-10 h-10 rounded-md flex items-center justify-center transition-all p-1 ${
-                  isSelected
-                    ? "bg-white border border-transparent ring-2 ring-[var(--Blue)]"
-                    : "bg-white  border border-gray-300 hover:border-gray-400 transition-all ease-linear duration-200"
-                }`}
+                className={`w-10 h-10 rounded-md flex items-center justify-center transition-all p-1 
+                  hover:border-2 hover:border-[#D3D8EB] ${
+                    isSelected
+                      ? "bg-white border border-transparent ring-2 ring-[var(--Blue)]"
+                      : "bg-white  border border-gray-300 hover:border-gray-400 transition-all ease-linear duration-200"
+                  }`}
               >
                 <IconComponent />
               </button>
-              <div className="absolute  left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              <div className="absolute  left-1/2 -translate-x-1/2 mt-[-2px] mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                 <Tooltip text={logo.name} />
               </div>
             </div>
