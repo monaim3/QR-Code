@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
 
 import MobileFrame from "@/components/common/MobileFrame";
@@ -278,7 +278,7 @@ export default function DashboardQRCodeCustomize() {
     }
   };
   return (
-    <>
+    <Suspense fallback={<div>Loading QR codes...</div>}>
       <Container className="px-0">
         <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32">
           <div className="flex-1 flex flex-col">
@@ -591,6 +591,6 @@ export default function DashboardQRCodeCustomize() {
         </div>
       </Container>
       <FooterBreadcrumb />
-    </>
+    </Suspense>
   );
 }
