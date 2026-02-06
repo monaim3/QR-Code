@@ -11,8 +11,8 @@ export default function CongratulationPage(){
     }
 
     return (
-        <Container className="flex flex-col items-center justify-center min-h-[calc(100vh-159px)]">
-            <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card w-full max-w-[350px] desktop:max-w-[400px]  p-[24px] desktop:p-[32px]">
+        <Container className="flex flex-col items-center justify-start min-h-[calc(100vh-159px)]">
+            <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card w-full max-w-[350px] desktop:max-w-[400px]  p-[24px] desktop:p-[32px] mt-[184px] desktop:mt-[120px]">
                 <div className="size-[60px]">
                 <LoadingAnimation/>
                 </div>

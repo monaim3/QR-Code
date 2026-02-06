@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from 'react';
-import { Mail, ChevronRight, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { Mail, ChevronRight, Loader2, CheckCircle2 } from 'lucide-react';
 import Container from '@/components/common/parent-container';
 import InputField from "../../components/common/input_filed";
-import EmailIcon from "../../components/icons/email"
+import EmailIcon from "../../components/icons/email";
 
 // Types
 interface FormState {
@@ -108,14 +108,14 @@ export default function CancelSubscriptionPage() {
             className="text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-1"
             aria-label="Go back"
           >
-          <span className='text-[var(--Black)]'>My QR Code</span>
+          <span className='text-[var(--Black)] text-[14px] leading-[22px] font-regular'>My QR Code</span>
           </button>
           <ChevronRight size={20} className="text-gray-500" />
-          <span className="text-[var(--Blue)]">Cancel subscription</span>
+          <span className="text-[var(--Blue)] text-[14px] leading-[22px] font-regular">Cancel subscription</span>
         </Container>
         </div>
       <Container>
-       <div className="min-h-screen">
+       <div>
       {/* Main Card - Centered */}
       <div className="flex items-center justify-center pt-[16px] desktop:pt-[120px] pb-[120px]">
         { !cancelClick ?
@@ -125,13 +125,13 @@ export default function CancelSubscriptionPage() {
               <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)]">
                 Cancel Your Subscription!
               </h3>
-              <p className="text-[var(--Black)] font-regular text-[16px] leading-[24px] pt-[8px]">
+              <p className="text-[var(--Dark-gray)] font-regular text-[16px] leading-[24px] pt-[8px]">
                 Easily cancel your subscription by entering the email used to create your account.
               </p>
             </div>
             <div className="h-px w-full bg-[#CDD0DB80] my-[24px] desktop:my-[32px]" />
             {/* Info Section */}
-             <p className="text-[var(--Black)] text-[14px] leading-[22px]">
+             <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px] font-regular">
                 You may cancel your subscription at any time. Just provide the email address you used when registering and click on the "Cancel Subscription" button below. It's that easy!
               </p>
 
@@ -151,7 +151,7 @@ export default function CancelSubscriptionPage() {
               <button
                 onClick={handleSubmit}
                 disabled={formState.isSubmitting || formState.status === 'success'}
-                className="w-full bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-semibold rounded-[10px] transition-all duration-300"
               >
                 {formState.isSubmitting ? (
                   <>
@@ -171,7 +171,7 @@ export default function CancelSubscriptionPage() {
 
             {/* Help Text */}
             <div className="pt-[24px] desktop:pt-[32px]">
-              <p className="text-[var(--Black)] text-[14px] leading-[22px]">
+              <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px] font-regular">
                 If you don't remember which email you used to register, check your inbox for our
                 welcome mailer. Otherwise, contact our friendly customer support team{' '}
                 <a
@@ -183,25 +183,25 @@ export default function CancelSubscriptionPage() {
                 </a>
                 .
               </p>
-              <p className="text-[var(--Black)] text-[14px] leading-[22px] pt-[16px]">
+              <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px] pt-[16px] font-regular">
                 You can also cancel your subscription by logging into your account, going to the
                 "Billing" tab and clicking "Cancel Subscription".
               </p>
             </div>
         </div> : 
-        <div className='pt-[143px]'>
-           <div className="bg-white rounded-[10px] shadow-xl w-full desktop:max-w-[600px] p-[24px] desktop:p-[32px] flex flex-col items-center">
+        <div>
+           <div className="bg-white rounded-[10px] shadow-card w-[350px] desktop:w-[500px] p-[24px] desktop:p-[32px] flex flex-col items-center">
         <EmailIcon className='w-[40px] h-[32px] text-[var(--Blue)]'/>
         <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)] pt-[16px] desktop:pt-[24px]">
           Confirmation required
             </h3>
-            <p className="text-[var(--Black)] font-regular text-[16px] leading-[24px] pt-[8px] text-center mb-[16px] desktop:mb-[24px]">
+            <p className="text-[var(--Dark-gray)] font-regular text-[16px] leading-[24px] pt-[8px] text-center mb-[16px] desktop:mb-[24px]">
               We have sent a confirmation request to your email address if you have an account with us.
             </p>
             <button
                 onClick={handleSubmit}
                 disabled={formState.isSubmitting || formState.status === 'success'}
-                className="w-[160px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-[160px] h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-semibold rounded-[10px] transition-all duration-300"
               >
                 {formState.isSubmitting ? (
                   <>
@@ -226,3 +226,4 @@ export default function CancelSubscriptionPage() {
     </div>
   );
 }
+

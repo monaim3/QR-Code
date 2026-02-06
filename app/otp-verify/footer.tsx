@@ -10,21 +10,21 @@ export default function Footer() {
             {/* Navigation Links */}
             <nav className="flex flex-col desktop:flex-row items-center gap-4 desktop:gap-10">
               <Link 
-                href="/about" 
+                href="/about-us" 
                 className="text-[14px] leading-[22px] text-[var(--Dark-gray)] hover:text-[var(--Blue)] transition-all duration-300"
               >
                 About us
               </Link>
               <div className="hidden desktop:block w-px h-[22px] bg-[var(--boarder-grey-50)]" />
               <Link 
-                href="/terms" 
+                href="/terms-and-condition" 
                 className="text-[14px] leading-[22px] text-[var(--Dark-gray)] hover:text-[var(--Blue)] transition-all duration-300"
               >
                 Terms and conditions
               </Link>
               <div className="hidden desktop:block w-px h-[22px] bg-[var(--boarder-grey-50)]" />
               <Link 
-                href="/privacy" 
+                href="/terms-and-condition" 
                 className="text-[14px] leading-[22px] text-[var(--Dark-gray)] hover:text-[var(--Blue)] transition-all duration-300"
               >
                 Privacy policy

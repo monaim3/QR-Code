@@ -7,9 +7,10 @@ import CheckoutElement from "../../components/payment/payment-element";
 export default function CheckoutBody() {
 
   return (
-    <Container
+    <div>
+       <Container
       className="flex items-center justify-center min-h-screen px-4 pt-[40px] desktop:pt-[48px] pb-[120px] desktop:pb-[160px]">
-        <div style={{ fontFamily: "var(--font-poppins)" }}>
+        <div>
       {/* Outer Card */}
       <div className="
         w-full max-w-[976px]
@@ -31,5 +32,6 @@ export default function CheckoutBody() {
       </div>
       </div>
     </Container>
+    </div>
   );
 }
