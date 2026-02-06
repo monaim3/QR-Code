@@ -39,7 +39,7 @@ export default function ForgetPasswordBody(){
                  {/* send link Button */}
                 <button
                  onClick={handleSubmit}
-                 className="mt-[16px] w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-300"
+                 className="h-[48px] mt-[16px] w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-300"
                 >
                  Send reset link
                 </button>
@@ -49,7 +49,7 @@ export default function ForgetPasswordBody(){
                 onClose={() => setIsModalOpen(false)} 
                />
             </div>
-            <div className="mt-4">
+            <div className="mt-6">
              <BackButtonWithText/>
             </div>
         </Container>

@@ -46,23 +46,23 @@ export default function CreatePasswordModal({ isOpen, onClose }: CreatePasswordM
 
         {/* Modal Container - Following Figma specs */}
         <div 
-          className="w-full max-w-md flex flex-col items-center gap-8 p-8 bg-white rounded-lg"
+          className="w-[400px] flex flex-col items-center p-6 desktop:p-8 bg-white rounded-[10px]"
           style={{
             boxShadow: '0 4px 14px 0 rgba(54, 66, 140, 0.16)'
           }}
         >
         {/* Header */}
         <div className="flex flex-col items-center gap-2 text-center w-full">
-          <h2 className="text-2xl font-semibold text-gray-900">
+          <h2 className="text-[20px] leading-[28px] desktop:text-[24px] leading-[32px] font-bold text-[var(--Black)]">
             Create new password
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="mt-2 text-[16px] leading-[24px] text-[var(--Dark-gray)]">
             Enter a new password into both fields below
           </p>
         </div>
 
         {/* Form Fields */}
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col w-full mt-6">
           {/* Password Input */}
           <div className="relative">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -85,7 +85,7 @@ export default function CreatePasswordModal({ isOpen, onClose }: CreatePasswordM
           </div>
 
           {/* Confirm Password Input */}
-          <div className="relative">
+          <div className="relative mt-4">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
               <Lock size={18} />
             </div>
@@ -108,7 +108,7 @@ export default function CreatePasswordModal({ isOpen, onClose }: CreatePasswordM
           {/* Confirm Button */}
           <button
             onClick={handleSubmit}
-            className="w-full py-3 px-6 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-lg transition-colors mt-4"
+            className="w-full h-[48px] px-6 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-medium rounded-[10px] transition-colors duration-300 mt-6"
           >
             Confirm
           </button>
