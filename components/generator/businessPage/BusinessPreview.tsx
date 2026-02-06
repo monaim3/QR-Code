@@ -24,9 +24,9 @@ export default function BusinessPreview() {
     business.primaryColor === "#6594FF" &&
     business.secondaryColor === "#FFFFFF" &&
     business.useWeekdaysTemplate === true &&
-    business.weeklyOpeningHours[0].open.hour === "09" &&
+    business.weeklyOpeningHours[0].open.hour === "08" &&
     business.weeklyOpeningHours[0].open.minute === "00" &&
-    business.weeklyOpeningHours[0].close.hour === "17" &&
+    business.weeklyOpeningHours[0].close.hour === "12" &&
     business.weeklyOpeningHours[0].close.minute === "00" &&
     business.openingHours.length === 0 &&
     !business.contactInfo.fullName &&
@@ -110,7 +110,7 @@ export default function BusinessPreview() {
                 alt="business"
                 width={280}
                 height={100}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover rounded-[var(--Corner-Radius-4)]"
               />
             </div>
           )}

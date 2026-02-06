@@ -14,24 +14,22 @@ import SocialQr from "@/components/icons/social-qr";
 import VcardQr from "@/components/icons/vcard-qr";
 import VideoQr from "@/components/icons/video-qr";
 import WebsiteUrlQr from "@/components/icons/website-url-qr";
-import WebsiteUrlMobileFramBg from "@/public/images/generator_img/website url.webp";
-import BusinessPage from "@/public/images/generator_img/Business page.webp";
-import Facebook from "@/public/images/generator_img/Facebook.webp";
-import Vcard from "@/public/images/generator_img/vcard.webp";
-import Pdf from "@/public/images/generator_img/pdf.webp";
-import Images from "@/public/images/generator_img/Images.webp";
-import SocialMedia from "@/public/images/generator_img/Social media.webp";
-import Video from "@/public/images/generator_img/Video.webp";
-import SimpleText from "@/public/images/generator_img/Simple text.webp";
-import App from "@/public/images/generator_img/App.webp";
-import Menu from "@/public/images/generator_img/Menu.webp";
-import Wifi from "@/public/images/generator_img/wifi.webp";
 import WifiQr from "@/components/icons/wifi-qr";
-import CreateArrow from "@/components/icons/create_arrow";
 import { useRef, useState } from "react";
-import Image from "next/image";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import { cn } from "@/lib/utils";
+import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
+import PdfPreView from "@/components/generator/pdf/pdf-preview";
+import ImagesPreview from "@/components/generator/Images/ImagesPreview";
+import SocialPreView from "@/components/generator/socialMedia/social-preview";
+import VideoPreView from "@/components/generator/video/video-preview";
+import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPreview";
+import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
+import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
+import WifiPreview from "@/components/generator/Wifi/WifiPreview";
+import AppPreView from "@/components/generator/app/app-preview";
+import MenuPreview from "@/components/generator/menu/MenuPreview";
+import VCardPreview from "@/components/generator/vcard/VCardPreview";
 
 const qrTypes = [
   {
@@ -40,7 +38,7 @@ const qrTypes = [
     description: "Link to a website of your choice",
     href: "/qr-codes/generator/website-url",
     icon: <WebsiteUrlQr />,
-    mobilePreview: WebsiteUrlMobileFramBg,
+    mobilePreview: <WebsiteUrlPreview url={""} />,
   },
   {
     id: "vcard",
@@ -48,7 +46,7 @@ const qrTypes = [
     description: "Share your electronic business card",
     href: "/qr-codes/generator/vcard",
     icon: <VcardQr />,
-    mobilePreview: Vcard,
+    mobilePreview: <VCardPreview />,
   },
   {
     id: "pdf",
@@ -56,7 +54,7 @@ const qrTypes = [
     description: "Show a PDF",
     href: "/qr-codes/generator/pdf",
     icon: <PdfQr />,
-    mobilePreview: Pdf,
+    mobilePreview: <PdfPreView />,
   },
   {
     id: "images",
@@ -64,7 +62,7 @@ const qrTypes = [
     description: "Display an image gallery",
     href: "/qr-codes/generator/images",
     icon: <ImagesQr />,
-    mobilePreview: Images,
+    mobilePreview: <ImagesPreview />,
   },
   {
     id: "social-media",
@@ -72,7 +70,7 @@ const qrTypes = [
     description: "Share your social media channels",
     href: "/qr-codes/generator/social-media",
     icon: <SocialQr />,
-    mobilePreview: SocialMedia,
+    mobilePreview: <SocialPreView />,
   },
   {
     id: "video",
@@ -80,7 +78,7 @@ const qrTypes = [
     description: "Share one or multiple videos",
     href: "/qr-codes/generator/video",
     icon: <VideoQr />,
-    mobilePreview: Video,
+    mobilePreview: <VideoPreView />,
   },
   {
     id: "simple-text",
@@ -88,7 +86,7 @@ const qrTypes = [
     description: "Display a body of text",
     href: "/qr-codes/generator/simple-text",
     icon: <SimpleTextQr />,
-    mobilePreview: SimpleText,
+    mobilePreview: <SimpleTextPreview />,
   },
   {
     id: "business-page",
@@ -96,7 +94,7 @@ const qrTypes = [
     description: "Share your business information",
     href: "/qr-codes/generator/business-page",
     icon: <BusinessQr />,
-    mobilePreview: BusinessPage,
+    mobilePreview: <BusinessPreview />,
   },
   {
     id: "facebook",
@@ -104,7 +102,7 @@ const qrTypes = [
     description: "Share your Facebook page",
     href: "/qr-codes/generator/facebook",
     icon: <FacebookQr />,
-    mobilePreview: Facebook,
+    mobilePreview: <FacebookPreview />,
   },
   {
     id: "wifi",
@@ -112,7 +110,7 @@ const qrTypes = [
     description: "Connect to a wireless network",
     href: "/qr-codes/generator/wifi",
     icon: <WifiQr />,
-    mobilePreview: Wifi,
+    mobilePreview: <WifiPreview />,
   },
   {
     id: "app",
@@ -120,7 +118,7 @@ const qrTypes = [
     description: "Link to the iOS App Store/Google Play",
     href: "/qr-codes/generator/app",
     icon: <AppQr />,
-    mobilePreview: App,
+    mobilePreview: <AppPreView />,
   },
   {
     id: "menu",
@@ -128,7 +126,7 @@ const qrTypes = [
     description: "Create a digital restaurant menu",
     href: "/qr-codes/generator/menu",
     icon: <MenuQr />,
-    mobilePreview: Menu,
+    mobilePreview: <MenuPreview />,
   },
 ];
 
@@ -171,17 +169,11 @@ export default function DashboardGenerator() {
             key={type.id}
             className={`absolute inset-0 top-0.3 transition-opacity duration-500 ease-in-out ${
               hoveredType === type.id
-                ? "opacity-100 z-20"
+                ? "opacity-100"
                 : "opacity-0 z-0 pointer-events-none"
             }`}
           >
-            <Image
-              src={type.mobilePreview}
-              alt={type.title}
-              fill
-              className="object-cover object-top"
-              priority={hoveredType === type.id}
-            />
+            {type.mobilePreview}
           </div>
         ))}
       </>
