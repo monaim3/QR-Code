@@ -31,7 +31,9 @@ export default function GetInTouch() {
                 absolute inset-0
               "
             >
-             <Rocket/>
+              <div className="flex-shrink: 0">
+                <Rocket/>
+              </div>
             <p className="text-[24px] desktop:tet-[32px] leading-[32px] desktop:leading-[40px] font-bold text-white mt-[32px]">Get in touch with us</p>
             <p className="text-[16px] leading-[24px] font-regular text-white mt-1 max-w-[500px] text-center mx-auto">
              If you have any questions or concerns, please contact us and our team will reach out to you within a few hours.
