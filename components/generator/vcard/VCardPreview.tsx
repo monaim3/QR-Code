@@ -80,11 +80,11 @@ export default function VCardPreview() {
 
           {/* Button */}
           <button
-            className="flex h-10 px-6 py-2 justify-center items-center gap-2 self-stretch rounded-full w-auto "
+            className="flex h-10 px-6 py-2 justify-center items-center gap-2 self-stretch rounded-full w-auto"
             style={{ backgroundColor: vCard.secondaryColor }}
           >
             <PlusCircle
-              className={`${vCard.secondaryColor === "#FFFFFF" ? "text-black" : "text-white"}`}
+              className={`${vCard.secondaryColor === "#FFFFFF" ? "text-black" : "text-white"} w-4 h-4`}
             />
             <span
               className={`text-[12px] leading-[20px] ${vCard.secondaryColor === "#FFFFFF" ? "text-black" : "text-white"}`}
