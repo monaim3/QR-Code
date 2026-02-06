@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import {
   Geist,
   Geist_Mono,
@@ -81,8 +82,10 @@ export default function RootLayout({
           {/* React Toastify */}
           <ToastContainer position="top-right" />
 
-          {/* modal Controller */}
-          <ModalController />
+          {/* modal Controller - wrapped in Suspense for useSearchParams() */}
+          <Suspense fallback={null}>
+            <ModalController />
+          </Suspense>
           
         </ReduxProvider>
       </body>
