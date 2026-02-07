@@ -1,7 +1,6 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-
 import CheckInboxModal from "./check-inbox-modal";
 import ForgetPasswordModal from "./forget-password-modal";
 import TrialExpirationModal from "./trial-expiration-modal";

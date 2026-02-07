@@ -91,24 +91,24 @@ export default function AboutUsBody() {
                     Top brands that use QR codes:
                 </p>
                 <div className="overflow-hidden w-full">
-  <div className="flex items-center gap-6 w-max animate-marquee">
-    {/* first set */}
-    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7 shrink-0" />
-    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6 shrink-0" />
+                <div className="flex items-center gap-6 w-max animate-marquee">
+                    {/* first set */}
+                    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7 shrink-0" />
+                    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6 shrink-0" />
 
-    {/* duplicate set for infinite loop */}
-    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7 shrink-0" />
-    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6 shrink-0" />
-    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6 shrink-0" />
-  </div>
-</div>
+                    {/* duplicate set for infinite loop */}
+                    <img src="/images/brand/toyota.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/netflix.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/disney.svg" className="h-5 desktop:h-7 shrink-0" />
+                    <img src="/images/brand/oracle.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/delta.svg" className="h-5 desktop:h-6 shrink-0" />
+                    <img src="/images/brand/fedex_express.svg" className="h-5 desktop:h-6 shrink-0" />
+                </div>
+                </div>
 
             </div>
             </div>
