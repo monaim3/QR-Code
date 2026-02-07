@@ -3,7 +3,7 @@ import Eye from "@/components/icons/eye";
 import EyeOff from "@/components/icons/eye-off";
 import DashboardMenuIcon from "@/components/icons/menu";
 import TrashAlt from "@/components/icons/trash-alt";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface Props {
   title: string;
@@ -31,7 +31,7 @@ export default function MenuAccordion({
   hideBtnText,
 }: Props) {
   return (
-    <div className="w-full space-y-8">
+    <div className="w-full">
       <div
         className={`flex items-center gap-2 ${isVisible && "cursor-pointer"}`}
       >
@@ -99,46 +99,33 @@ export default function MenuAccordion({
         </div>
       </div>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="about-accordion-content"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{
-              height: "auto",
-              opacity: 1,
-              transition: {
-                height: {
-                  duration: 0.4,
-                  ease: [0.4, 0, 0.2, 1],
-                },
-                opacity: {
-                  duration: 0.3,
-                  ease: "easeOut",
-                  delay: 0.1,
-                },
-              },
-            }}
-            exit={{
-              height: 0,
-              opacity: 0,
-              transition: {
-                height: {
-                  duration: 0.4,
-                  ease: [0.4, 0, 0.2, 1],
-                },
-                opacity: {
-                  duration: 0.2,
-                  ease: "easeIn",
-                },
-              },
-            }}
-            className="overflow-hidden"
-          >
-            {isOpen && <div className="space-y-8 px-[2px]">{children}</div>}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial={false}
+        animate={{
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          opacity: isOpen ? 1 : 0,
+          marginTop: isOpen ? 32 : 0,
+        }}
+        transition={{
+          gridTemplateRows: {
+            duration: 0.35,
+            ease: [0.4, 0, 0.2, 1],
+          },
+          opacity: {
+            duration: 0.25,
+            ease: "easeInOut",
+          },
+          marginTop: {
+            duration: 0.35,
+            ease: [0.4, 0, 0.2, 1],
+          },
+        }}
+        className="grid"
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className="space-y-8 px-[2px]">{children}</div>
+        </div>
+      </motion.div>
     </div>
   );
 }

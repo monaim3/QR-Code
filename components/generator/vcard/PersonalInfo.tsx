@@ -45,7 +45,7 @@ export default function PersonalInfo({ onClick, isOpen }: Props) {
         onChange={handleFullNameChange}
       />
 
-      <ImageUpload onCustomLogoUpload={handleImageChange} />
+      <ImageUpload value={vCard.personalInfo.image} onCustomLogoUpload={handleImageChange} />
     </AboutAccordion>
   );
 }

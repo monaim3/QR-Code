@@ -102,9 +102,11 @@ export default function BusinessPreview() {
             className="absolute left-0 top-0 h-[123px] w-full z-[1]"
             style={{ backgroundColor: business.primaryColor }}
           />
-
-          {business.businessImage && (
-            <div className="w-full relative z-[2] h-[100px] bg-white rounded-[var(--Corner-Radius-4)] p-[2px] shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
+          <div
+            className="w-full relative z-[2] h-[100px] bg-white rounded-[var(--Corner-Radius-4)] p-[2px] shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]"
+            style={{ visibility: business.businessImage ? "visible" : "hidden" }}
+          >
+            {business.businessImage && (
               <Image
                 src={business.businessImage}
                 alt="business"
@@ -112,8 +114,8 @@ export default function BusinessPreview() {
                 height={100}
                 className="w-full h-full object-cover rounded-[var(--Corner-Radius-4)]"
               />
-            </div>
-          )}
+            )}
+          </div>
 
           <div className="space-y-4 z-[2]">
             <div className="space-y-2">

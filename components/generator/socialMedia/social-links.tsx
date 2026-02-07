@@ -140,7 +140,7 @@ export default function SocialLinks() {
             </button>
 
           <div className={`${add ? "block" : "hidden"} space-y-2`}>
-           <ImageUpload label="Add social logo" onCustomLogoUpload={handleImageChange} />
+           <ImageUpload label="Add social logo" value={logo || null} onCustomLogoUpload={handleImageChange} />
            <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
             <div className="w-[calc(100%-56px)]">
             <Input

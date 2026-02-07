@@ -107,7 +107,7 @@ export default function PreviewSectionCard({ section, index }: Props) {
                       <button
                         key={allergen.id}
                         type="button"
-                        className="flex p-2 items-center gap-2 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]"
+                        className="flex px-2 py-1 items-center gap-2 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]"
                       >
                         <Icon />
                         <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">

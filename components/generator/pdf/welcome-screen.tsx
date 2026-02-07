@@ -1,6 +1,6 @@
 import Accordion from "@/components/common/Accordion";
 import ImageUpload from "@/components/generator/vcard/ImageUpload";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   setIsPreviewWelcomeScreen,
   setWelcomeScreen,
@@ -8,6 +8,7 @@ import {
 
 export default function Welcome() {
   const dispatch = useAppDispatch();
+  const welcomeScreen = useAppSelector((state) => state.pdf.welcomeScreen);
 
   const handleImageChange = (value: string | null) => {
     dispatch(setWelcomeScreen(value || ""));
@@ -25,6 +26,7 @@ export default function Welcome() {
         defaultOpen={true}
       >
         <ImageUpload
+          value={welcomeScreen || null}
           onCustomLogoUpload={handleImageChange}
           onPreview={handlePreview}
         />

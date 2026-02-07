@@ -130,111 +130,120 @@ export default function MenuPreview() {
         <MenuInitialPreview />
       ) : (
         <>
-      {isMenuView ? (
-        <div className="w-full h-full flex flex-col items-center relative">
-          <div
-            className="flex flex-col items-center gap-4 pb-12 pt-[58px] px-5 stretch relative z-[2] w-full"
-            style={{ backgroundColor: menu.primaryColor }}
-          >
-            {menu.restaurantInfo.image && (
-              <Image
-                src={menu.restaurantInfo.image}
-                alt="menu"
-                width={120}
-                height={68}
-                className="object-cover w-[120px] h-[68px] rounded"
-              />
-            )}
+          {isMenuView ? (
+            <div className="w-full h-full flex flex-col items-center relative">
+              <div
+                className="flex flex-col items-center gap-4 pb-12 pt-[58px] px-5 stretch relative z-[2] w-full"
+                style={{ backgroundColor: menu.primaryColor }}
+              >
+                {menu.restaurantInfo.image && (
+                  <Image
+                    src={menu.restaurantInfo.image}
+                    alt="menu"
+                    width={120}
+                    height={68}
+                    className="object-cover w-[120px] h-[68px] rounded"
+                  />
+                )}
 
-            <div className="flex flex-col items-center w-[220px]">
-              <h4 className="text-white text-[18px] text-center leading-[26px] font-bold truncate w-[220px]">
-                {menu.restaurantInfo.name}
-              </h4>
-
-              <p className="text-white text-[10px] leading-[16px] text-center truncate w-[220px]">
-                {menu.restaurantInfo.description}
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-2 px-5 relative z-[2] w-full -mt-6">
-            {menu.sections
-              .filter((s) => s.isVisible)
-              .map((section, index) => (
-                <PreviewCard
-                  key={section.id}
-                  title={section.name || "Section " + (index + 1)}
-                  borderColor={menu.secondaryColor}
-                  onClick={() => handleClickMenu(section.id)}
-                />
-              ))}
-          </div>
-        </div>
-      ) : (
-        <div className="w-full flex flex-col gap-6 items-center relative">
-          <div
-            className="w-full h-[125px] px-5 pt-[58px] space-y-4 sticky top-0 z-[2]"
-            style={{ backgroundColor: menu.primaryColor }}
-          >
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => setIsMenuView(true)}
-            >
-              <ArrowLeft className="text-[var(--Dark-gray)]" />
-              <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
-                Back
-              </p>
-            </div>
-
-            <div
-              ref={sectionTabsRef}
-              role="region"
-              aria-label="Section tabs"
-              className="flex items-center gap-4 overflow-x-auto overflow-y-hidden pb-1 min-w-0 w-[220px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing select-none touch-pan-x"
-              onPointerDown={handlePointerDown}
-              onPointerMove={handlePointerMove}
-              onPointerUp={handlePointerUp}
-              onPointerLeave={handlePointerUp}
-              onClickCapture={handleClickCapture}
-            >
-              {visibleSections.map((section, index) => (
-                <button
-                  key={section.id}
-                  type="button"
-                  data-section-id={section.id}
-                  className={`relative flex-shrink-0 whitespace-nowrap transition-opacity`}
-                >
-                  <span
-                    className="text-[14px] leading-[22px] font-medium"
+                <div className="flex flex-col items-center w-[220px]">
+                  <h4
+                    className={`text-[18px] text-center leading-[26px] font-bold truncate w-[220px]`}
                     style={{ color: menu.secondaryColor }}
                   >
-                    {section.name || "Section" + (index + 1)}
-                  </span>
+                    {menu.restaurantInfo.name}
+                  </h4>
 
-                  <div
-                    className={`w-full h-[2px] rounded-full absolute bottom-[-1px] left-0 top-[26px] ${effectiveActiveId === section.id ? "opacity-100" : "opacity-0"}`}
-                    style={{ backgroundColor: menu.secondaryColor }}
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="px-5 pb-8 space-y-6 w-full">
-            {visibleSections.map((section, index) => (
-              <div
-                key={section.id}
-                ref={(el) => {
-                  sectionCardRefs.current[section.id] = el;
-                }}
-                className="scroll-mt-[140px]"
-              >
-                <PreviewSectionCard section={section} index={index} />
+                  <p
+                    className={`text-[10px] leading-[16px] text-center truncate w-[220px]`}
+                    style={{ color: menu.secondaryColor }}
+                  >
+                    {menu.restaurantInfo.description}
+                  </p>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+
+              <div className="space-y-2 px-5 relative z-[2] w-full -mt-6">
+                {menu.sections
+                  .filter((s) => s.isVisible)
+                  .map((section, index) => (
+                    <PreviewCard
+                      key={section.id}
+                      title={section.name || "Section " + (index + 1)}
+                      borderColor={menu.secondaryColor}
+                      onClick={() => handleClickMenu(section.id)}
+                    />
+                  ))}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full flex flex-col gap-6 items-center relative">
+              <div
+                className="w-full h-[125px] px-5 pt-[58px] space-y-4 sticky top-0 z-[2]"
+                style={{ backgroundColor: menu.primaryColor }}
+              >
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => setIsMenuView(true)}
+                >
+                  <ArrowLeft style={{ color: menu.secondaryColor }} />
+                  <p
+                    className="text-[16px] leading-[24px]"
+                    style={{ color: menu.secondaryColor }}
+                  >
+                    Back
+                  </p>
+                </div>
+
+                <div
+                  ref={sectionTabsRef}
+                  role="region"
+                  aria-label="Section tabs"
+                  className="flex items-center gap-4 overflow-x-auto overflow-y-hidden pb-1 min-w-0 w-[220px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing select-none touch-pan-x"
+                  onPointerDown={handlePointerDown}
+                  onPointerMove={handlePointerMove}
+                  onPointerUp={handlePointerUp}
+                  onPointerLeave={handlePointerUp}
+                  onClickCapture={handleClickCapture}
+                >
+                  {visibleSections.map((section, index) => (
+                    <button
+                      key={section.id}
+                      type="button"
+                      data-section-id={section.id}
+                      className={`relative flex-shrink-0 whitespace-nowrap transition-opacity`}
+                    >
+                      <span
+                        className="text-[14px] leading-[22px] font-medium"
+                        style={{ color: menu.secondaryColor }}
+                      >
+                        {section.name || "Section" + (index + 1)}
+                      </span>
+
+                      <div
+                        className={`w-full h-[2px] rounded-full absolute bottom-[-1px] left-0 top-[26px] ${effectiveActiveId === section.id ? "opacity-100" : "opacity-0"}`}
+                        style={{ backgroundColor: menu.secondaryColor }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="px-5 pb-8 space-y-6 w-full">
+                {visibleSections.map((section, index) => (
+                  <div
+                    key={section.id}
+                    ref={(el) => {
+                      sectionCardRefs.current[section.id] = el;
+                    }}
+                    className="scroll-mt-[140px]"
+                  >
+                    <PreviewSectionCard section={section} index={index} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </>
       )}
     </ScrollArea>
