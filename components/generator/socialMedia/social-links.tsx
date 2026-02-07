@@ -15,7 +15,6 @@ import { useState } from "react";
 import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
 import TrashAlt from "@/components/icons/trash-alt";
-import { SOCIAL_ICON_COMPONENTS } from '@/lib/social-icon-registry';
 import {
   SocialChannel,
 } from "@/types/social";

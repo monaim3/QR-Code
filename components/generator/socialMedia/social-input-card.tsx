@@ -50,7 +50,7 @@ export default function SocialInputCard({ channel, handleDelete }: Props) {
     >
       <div className="flex items-center gap-2 w-[280px]">
        {channels?.isIcon && ChannelIcon ? <ChannelIcon /> : 
-       <img src={imageUrl ?? ""} alt={channels?.name} className="w-6 h-6 object-contain"/>}
+       <img src={imageUrl ?? ""} alt={channels?.name} className="w-[40px] h-[40px] object-contain"/>}
         <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
           {channel.name}
         </p>
