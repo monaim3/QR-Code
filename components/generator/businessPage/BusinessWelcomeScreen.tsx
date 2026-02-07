@@ -1,5 +1,5 @@
 import Accordion from "@/components/common/Accordion";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import ImageUpload from "../vcard/ImageUpload";
 import {
   setIsPreviewWelcomeScreen,
@@ -8,6 +8,7 @@ import {
 
 export default function BusinessWelcomeScreen() {
   const dispatch = useAppDispatch();
+  const welcomeScreen = useAppSelector((state) => state.business.welcomeScreen);
 
   const handleImageChange = (value: string | null) => {
     dispatch(setWelcomeScreen(value || ""));
@@ -25,6 +26,7 @@ export default function BusinessWelcomeScreen() {
         defaultOpen={true}
       >
         <ImageUpload
+          value={welcomeScreen || null}
           onCustomLogoUpload={handleImageChange}
           onPreview={handlePreview}
           aspectRatio={1}

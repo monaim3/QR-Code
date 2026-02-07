@@ -87,7 +87,7 @@ export default function AppInfo() {
         defaultOpen={true}
       >
         <div className="space-y-2">
-        <ImageUpload onCustomLogoUpload={handleImageChange} />
+        <ImageUpload value={app.appInfo.image || null} onCustomLogoUpload={handleImageChange} />
         <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
           <div className="w-[calc(100%-56px)]">
             <Input

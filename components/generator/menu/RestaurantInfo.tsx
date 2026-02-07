@@ -36,6 +36,7 @@ export default function RestaurantInfo() {
         <div className="desktop:space-y-8 space-y-6">
           <ImageUpload
             label="Add image"
+            value={menu.restaurantInfo.image}
             onCustomLogoUpload={handleImageChange}
             aspectRatio={1.7647}
           />

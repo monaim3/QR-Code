@@ -9,6 +9,8 @@ import ImageCropper from "./ImageCropper";
 import Eye from "@/components/icons/eye";
 
 interface ImageUploadProps {
+  /** Current image URL from Redux/parent – used to show preview when component remounts */
+  value?: string | null;
   onCustomLogoUpload?: (logo: string | null) => void;
   onLogoChange?: (logo: string | null) => void;
   onPreview?: () => void;
@@ -17,6 +19,7 @@ interface ImageUploadProps {
 }
 
 export default function ImageUpload({
+  value,
   onCustomLogoUpload,
   onLogoChange,
   onPreview,
@@ -30,6 +33,9 @@ export default function ImageUpload({
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = `image-upload-${useId().replace(/:/g, "-")}`;
+
+  // Display image from Redux (value) or local state (customLogo) so preview shows after remount
+  const displayImage = value ?? customLogo;
 
   const validateAndProcessFile = useCallback((file: File) => {
     // Validate file type
@@ -182,7 +188,7 @@ export default function ImageUpload({
         className={`border-[1.5px] border-dashed rounded-[var(--Corner-Radius-10)] p-4 lg:p-6 transition-color duration-300 bg-white hover:bg-[#F7F9FC] ${
           uploadError
             ? "border-[var(--error)]"
-            : customLogo || fileName !== "MyLogo.svg"
+            : displayImage || fileName !== "MyLogo.svg"
               ? "border-[var(--Blue)]"
               : "border-[var(--Blue)]"
         }`}
@@ -196,13 +202,13 @@ export default function ImageUpload({
           className="hidden"
         />
 
-        {customLogo || uploadError ? (
+        {displayImage || uploadError ? (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              {customLogo && !uploadError && (
+              {displayImage && !uploadError && (
                 <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white flex-shrink-0">
                   <NextImage
-                    src={customLogo}
+                    src={displayImage}
                     alt={fileName}
                     width={48}
                     height={48}

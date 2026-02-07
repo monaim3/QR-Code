@@ -86,7 +86,7 @@ export default function SectionProduct({
         onPreview={handleProductVisibilityToggle}
       >
         <div className="desktop:space-y-8 space-y-6">
-          <ImageUpload label="Add image" aspectRatio={1.7647} onCustomLogoUpload={handleImageChange} />
+          <ImageUpload label="Add image" value={product.image} aspectRatio={1.7647} onCustomLogoUpload={handleImageChange} />
 
           <div className="space-y-4">
             <Input
