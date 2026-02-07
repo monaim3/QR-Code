@@ -69,9 +69,37 @@ const initialState: VCardSlice = {
   isPreviewWelcomeScreen: false,
 };
 
+/** True when vCard matches initial state (show initial preview). Mirrors BusinessPreview pattern. */
+export function isVCardInitialState(state: VCardSlice): boolean {
+  return (
+    !state.personalInfo.fullName?.trim() &&
+    !state.personalInfo.image &&
+    state.primaryColor === initialState.primaryColor &&
+    state.secondaryColor === initialState.secondaryColor &&
+    !state.contactDetails.phoneNumber &&
+    !state.contactDetails.altPhoneNumber &&
+    state.contactDetails.altPhoneNumbers.length === 0 &&
+    !state.contactDetails.website &&
+    !state.contactDetails.email &&
+    state.contactDetails.altEmails.length === 0 &&
+    !state.companyName &&
+    !state.companyTitle &&
+    !state.summary &&
+    !state.street &&
+    !state.postalCode &&
+    !state.city &&
+    !state.state &&
+    !state.country &&
+    !state.addressUrl &&
+    state.socialChannels.length === 0 &&
+    !state.welcomeScreen &&
+    !state.qrCodeName
+  );
+}
+
 const vCardSlice = createSlice({
   name: "vCard",
-  initialState: initialState,
+  initialState,
   reducers: {
     setColorPalette: (
       state,

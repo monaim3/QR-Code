@@ -105,7 +105,7 @@ export default function ImageCropper({
             classes={{
               containerClassName:
                 "rounded-t-[var(--Corner-Radius-10)] bg-[#D9D9D9]",
-              cropAreaClassName: "rounded-t-[var(--Corner-Radius-10)]",
+              cropAreaClassName: `rounded-t-[var(--Corner-Radius-10)] ${aspectRatio === 1 && "!w-[250px] !h-[240px]"}`,
             }}
           />
         </div>
@@ -115,14 +115,16 @@ export default function ImageCropper({
             <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
               Zoom
             </p>
-            <Slider
-              value={[zoom]}
-              min={1}
-              max={3}
-              step={0.1}
-              onValueChange={(vals) => setZoom(vals[0])}
-              className="[&_[role=slider]]:bg-[var(--Blue)] [&_[role=slider]]:h-3 [&_[role=slider]]:rounded-full [&_[role=slider]]:w-3 w-full rounded-[9px] bg-[rgba(73,129,255,0.50)] h-[2px] [&_[data-slot=slider-range]]:bg-[var(--Blue)] [&_[data-slot=slider-range]]:h-[3px]"
-            />
+            <div className="w-full h-3 flex items-center">
+              <Slider
+                value={[zoom]}
+                min={1}
+                max={3}
+                step={0.1}
+                onValueChange={(vals) => setZoom(vals[0])}
+                className="[&_[role=slider]]:bg-[var(--Blue)] [&_[role=slider]]:h-3 [&_[role=slider]]:rounded-full [&_[role=slider]]:w-3 w-full rounded-[9px] bg-[rgba(73,129,255,0.50)] h-[2px] [&_[data-slot=slider-range]]:bg-[var(--Blue)] [&_[data-slot=slider-range]]:h-[3px]"
+              />
+            </div>
           </div>
 
           <div className="flex flex-col desktop:flex-row items-center gap-6 self-stretch">

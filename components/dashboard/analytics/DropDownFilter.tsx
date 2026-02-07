@@ -66,7 +66,7 @@ export default function DropDownFilter({
             </Tooltip>
           )}
 
-          <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktopMd:truncate desktopLg:truncate desktopMd:max-w-[80px] desktopLg:max-w-[120px]">
+          <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktopMd:truncate desktopLg:truncate desktopDashboard:truncate desktopMd:max-w-[80px] desktopLg:max-w-[120px] desktopDashboard:max-w-[180px]">
             {label}
             {selected.length > 0 && ":"}
             <span className="ml-1 text-[var(--Blue)] font-semibold">

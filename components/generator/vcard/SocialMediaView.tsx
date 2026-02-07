@@ -9,12 +9,15 @@ export default function SocialMediaView() {
 
   const handleRedirect = (url: string) => {
     if (!url) return;
-    
+
     // Ensure URL is properly formatted for external navigation
     let formattedUrl = url.trim();
-    
+
     // Add protocol if missing (assume https for external URLs)
-    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+    if (
+      !formattedUrl.startsWith("http://") &&
+      !formattedUrl.startsWith("https://")
+    ) {
       formattedUrl = `https://${formattedUrl}`;
     }
 
@@ -41,30 +44,32 @@ export default function SocialMediaView() {
       title="Social media"
       icon={<ThumbsUp className="text-[var(--Grey)]" />}
     >
-      {vCard.socialChannels.map((channel, index) => {
-        const IconComponent = getIconForChannel(channel.id);
-        
-        return (
-          <div
-            key={channel.id || index}
-            onClick={() => handleRedirect(channel.url)}
-            className="-m-2 flex p-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-6)] bg-[var(--light-grey-70)] cursor-pointer"
-          >
-            {IconComponent && (
-              <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center overflow-hidden">
-                <div className="scale-[0.8] origin-center">
-                  <IconComponent />
-                </div>
-              </div>
-            )}
-            <p className="text-[var(--Black)] text-[12px] leading-[20px] flex-1">
-              {channel.name}
-            </p>
+      <div className="flex flex-col gap-2 p-0 -m-2">
+        {vCard.socialChannels.map((channel, index) => {
+          const IconComponent = getIconForChannel(channel.id);
 
-            <ChevronRightSmall />
-          </div>
-        );
-      })}
+          return (
+            <div
+              key={channel.id || index}
+              onClick={() => handleRedirect(channel.url)}
+              className="flex p-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-6)] bg-[var(--light-grey-70)] cursor-pointer"
+            >
+              {IconComponent && (
+                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center overflow-hidden">
+                  <div className="scale-[0.8] origin-center">
+                    <IconComponent />
+                  </div>
+                </div>
+              )}
+              <p className="text-[var(--Black)] text-[12px] leading-[20px] flex-1">
+                {channel.name}
+              </p>
+
+              <ChevronRightSmall />
+            </div>
+          );
+        })}
+      </div>
     </PreviewAccordion>
   );
 }
