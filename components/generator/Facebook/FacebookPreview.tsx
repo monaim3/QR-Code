@@ -8,8 +8,13 @@ import { useEffect } from "react";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/vCardSlice";
 import { useDispatch } from "react-redux";
 
-const FacebookPreview: React.FC = () => {
+interface FacebookPreviewProps {
+  onImageClick?: (index: number) => void;
+}
+
+const FacebookPreview: React.FC<FacebookPreviewProps> = ({ onImageClick }) => {
   const dispatch = useDispatch();
+
   const name = useAppSelector((state) => state.facebook.Name);
   const title = useAppSelector((state) => state.facebook.Title);
   const website = useAppSelector((state) => state.facebook.Website);
@@ -56,6 +61,13 @@ const FacebookPreview: React.FC = () => {
     }
   };
 
+  const handleImageClick = (index: number) => {
+    // Only trigger if there are actual user-uploaded images
+    if (images.length > 0 && onImageClick) {
+      onImageClick(index);
+    }
+  };
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(setIsPreviewWelcomeScreen(false));
@@ -87,10 +99,19 @@ const FacebookPreview: React.FC = () => {
           <div className="">
             <div className="w-full px-1 pt-1 pb-1">
               {stackImages.length > 0 ? (
-                <div className="w-full aspect-[3/4] relative">
+                <div
+                  className="w-full aspect-[3/4] relative cursor-pointer"
+                  onClick={() => handleImageClick(0)}
+                >
                   {/* Second Image - Left side */}
                   {stackImages[1] && (
-                    <div className="absolute -left-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px] border-2 border-white p-0.5">
+                    <div
+                      className="absolute -left-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px] border-2 border-white p-0.5"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleImageClick(1);
+                      }}
+                    >
                       <div className="w-full h-full rounded-md overflow-hidden relative">
                         <Image
                           src={stackImages[1].url}
@@ -105,7 +126,13 @@ const FacebookPreview: React.FC = () => {
 
                   {/* Third Image - Right side */}
                   {stackImages[2] && (
-                    <div className="absolute -right-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px] border-2 border-white p-0.5">
+                    <div
+                      className="absolute -right-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px] border-2 border-white p-0.5"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleImageClick(2);
+                      }}
+                    >
                       <div className="w-full h-full rounded-md overflow-hidden relative">
                         <Image
                           src={stackImages[2].url}
@@ -210,7 +237,7 @@ const FacebookPreview: React.FC = () => {
           ))}
 
           {showFacebookButton && (
-            <button className="w-full py-2.5 rounded-lg bg-white text-gray-900 text-sm font-medium transition-all duration-150 flex items-center justify-between px-4">
+            <button className="w-full py-2.5 rounded-lg bg-[#F8F9FC] text-gray-900 text-sm font-medium transition-all duration-150 flex items-center justify-between px-4">
               <div className="flex items-center gap-3 min-w-0 flex-1">
                 <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
                   <FacebookIcon />

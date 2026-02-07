@@ -94,6 +94,7 @@ export default function Wifi() {
                     onChange={() => dispatch(setHiddenNetwork(!wifiHidden))}
                     id="hide-ssid"
                     checked={wifiHidden}
+                    bgColor="#01A56D"
                   />
                 </div>
               </div>
