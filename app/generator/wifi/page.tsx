@@ -65,7 +65,7 @@ export default function Wifi() {
               title="Wi-Fi"
               description="Provide your Wi-fi name, the type of encryption and your password"
             >
-              <div className="flex flex-col gap-6">
+              <div className="flex  flex-col lg:gap-6 gap-4">
                 <div>
                   <RequiredTextInput
                     label="Network name"
@@ -75,7 +75,7 @@ export default function Wifi() {
                     maxLength={100}
                   />
                 </div>
-                <div className="flex gap-12 items-center justify-center">
+                <div className="flex  flex-col gap-4 lg:flex-row lg:gap-12 items-center justify-center">
                   <TextInput
                     label="Password"
                     value={wifiPassword}

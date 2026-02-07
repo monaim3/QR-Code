@@ -295,8 +295,8 @@ export default function Facebook() {
               title="Page information"
               description="Provide information about yourself and your Facebook page"
             >
-              <div>
-                <div className="flex gap-12 items-start justify-center ">
+              <div className="space-y-4">
+                <div className="flex flex-col gap-4 lg:flex-row lg:gap-12 items-start justify-center ">
                   <InputUrl
                     label="Facebook URL"
                     placeholder="e.g. https://facebook.com"
@@ -318,7 +318,7 @@ export default function Facebook() {
 
                 <div>
                   <div
-                    className={`flex gap-12 items-start justify-center ${error ? "mt-6" : ""} `}
+                    className={`flex flex-col gap-4 lg:flex-row lg:gap-12  items-start justify-center ${error ? "mt-6" : ""} `}
                   >
                     <TextInput
                       label="Title"
