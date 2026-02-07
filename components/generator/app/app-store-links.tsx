@@ -8,7 +8,7 @@ import PlayStoreIcon from "@/components/icons/play-store";
 import AmazonStore from "@/components/icons/amazon-store";
 import MiLogo from "@/components/icons/mi-logo";
 
-import { moveLinkToAppStore, moveLinkToAppLinks } from "@/store/slices/app-slice";
+import { moveLinkToAppStore, moveLinkToAppLinks, setStoreLinks } from "@/store/slices/app-slice";
 
 export default function AppStoreLink() {
     const dispatch = useAppDispatch();
@@ -77,6 +77,7 @@ export default function AppStoreLink() {
                 type="url"
                 id={`url-${button.id}`}
                 value={button.storeUrl}
+                onChange={(v) => dispatch(setStoreLinks({link: v,index: index}))}
                />
                 <button
                 onClick={() => dispatch(moveLinkToAppLinks(button.id))}

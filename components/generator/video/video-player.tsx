@@ -1,4 +1,5 @@
 "use client";
+import PlayButton from "@/components/icons/play-button";
 
 import { useState, useEffect, useRef } from "react";
 
@@ -11,7 +12,7 @@ interface Props {
   url?: string;                 
   width?: string | number;      
   height?: string | number;     
-  canPlay?: boolean;            
+  canPlay?: boolean;         
 }
 
 export default function UnifiedVideoPlayer({
@@ -112,21 +113,8 @@ export default function UnifiedVideoPlayer({
                 />
               )}
               {/* Simple white play icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className={`w-10 h-10 flex items-center justify-center ${
-                    canPlay ? "" : "opacity-50"
-                  }`}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10 text-white"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
+              <div className={`absolute ${canPlay ? "inset-0 flex items-center justify-center" : "bottom-[10px] left-[10px]"}`}>
+                <PlayButton/>
               </div>
             </div>
           )

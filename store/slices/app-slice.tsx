@@ -111,8 +111,8 @@ const appSlice = createSlice({
      state.appLinks = action.payload;
      state.appDefaultState = false;
     },
-    setAppStoreLinks: (state, action: PayloadAction<AppLinks[]>) => {
-     state.appStoreLinks = action.payload;
+    setStoreLinks: (state, action: PayloadAction<{link: string,index:number}>) => {
+     state.appStoreLinks[action.payload.index].storeUrl = action.payload.link;
      state.appDefaultState = false;
     },
     moveLinkToAppStore: (state, action: PayloadAction<number>) => {
@@ -122,7 +122,7 @@ const appSlice = createSlice({
         state.appStoreLinks.push(item);
         state.appDefaultState = false;
       }
-    },       
+    },      
     moveLinkToAppLinks: (state, action: PayloadAction<number>) => {
      const index = state.appStoreLinks.findIndex(item => item.id === action.payload);
       if (index !== -1) {
@@ -155,7 +155,7 @@ export const {
   setQrCodeName,
   setAppInfo,
   setAppLinks,
-  setAppStoreLinks,
+  setStoreLinks,
   moveLinkToAppStore,
   moveLinkToAppLinks,
   setWelcomeScreen,
