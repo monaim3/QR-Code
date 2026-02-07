@@ -16,7 +16,7 @@ export default function FaqBody() {
             href="/#"
             className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
           >
-            My QR Code
+            Smart QR
           </Link>
           <ChevronRight className="w-4 h-4 text-[#79809A]" />
           <Link

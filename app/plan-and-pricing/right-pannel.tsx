@@ -12,7 +12,7 @@ import { getLogoComponent } from "@/lib/logoRegistry";
 
 const testimonials = [
   {
-    text: "My QR Code definitely met my expectations. Ran into a few bumps customizing my code, but a quick call and they steered me right. Appreciated their prompt assistance!",
+    text: "Smart QR Code definitely met my expectations. Ran into a few bumps customizing my code, but a quick call and they steered me right. Appreciated their prompt assistance!",
     author: "James Lawson",
     role: "Sales Director",
   },
@@ -46,25 +46,25 @@ const features = [
 const reviews = [
   {
     title: "Quick support!",
-    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
+    text: '" I owe a thanks to the Smart QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },
   {
     title: "Quick support!",
-    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
+    text: '" I owe a thanks to the Smart QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },
   {
     title: "Quick support!",
-    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
+    text: '" I owe a thanks to the Smart QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },
  {
     title: "Quick support!",
-    text: '" I owe a thanks to the My QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
+    text: '" I owe a thanks to the Smart QR Code support team. Had a slight hiccup when trying to process a payment, but they were quick to grasp my issue and straighten things out. "',
     user: "Amanda Jones",
     rating: 5,
   },

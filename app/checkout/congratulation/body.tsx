@@ -27,7 +27,7 @@ export default function CongratulationPage(){
                 onClick={handleRoute}
                  className="mt-6 w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-all duration-300"
                 >
-                 Go to My QR codes
+                 Go to Smart QR codes
                 </button>
             </div>
         </Container>

@@ -250,15 +250,15 @@ export default function CheckoutElement() {
           className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] 
             text-white font-semibold text-[18px] rounded-[10px] transition-colors"
         >
-          Get my QR code
+          Get Smart QR code
         </button>)}
 
         <div className="mt-[16px] desktop:mt-[24px]">
         <p className="text-[12px] leading-[20px] font-regular">
           <span className="text-[var-(--Grey)]">By proceeding with payment, you agree to be charged $1.95 now, accept our</span>
           <span className="text-[var(--Blue)]">  Privacy Policy</span>
-          <span className="text-[var-(--Grey)]"> . Your payment will appear as "Myqrcode.com" on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at </span>
-          <span className="text-[var(--Blue)]">  support@myqrcode.com</span>
+          <span className="text-[var-(--Grey)]"> . Your payment will appear as "smartqrcode.com" on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at </span>
+          <span className="text-[var(--Blue)]">  support@smartqrcode.com</span>
           <span className="text-[var-(--Grey)]"> or call us at +1-631-892-9925.</span>
         </p>
         </div>

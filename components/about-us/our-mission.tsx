@@ -63,10 +63,10 @@ export default function OurMission() {
                  Our mission is to seamlessly connect the physical and digital realms through the power of QR codes. With our user-friendly platform, you can enhance customer experiences, optimize operations, and track the effectiveness of your marketing efforts. 
                  </p>
                  <p className="text-[18] leading-[26px] font-regular mt-[16px]">
-                 Join the ever-growing community of millions of happy users who rely on My QR Code to unlock the potential of QR codes. Jump on board and let us show all the cool things QR tech can do! 
+                 Join the ever-growing community of millions of happy users who rely on Smart QR Code to unlock the potential of QR codes. Jump on board and let us show all the cool things QR tech can do! 
                  </p>
                  <div className="mt-[24px]">
-                 <AvatarGroup className="grayscale">
+                 <AvatarGroup className="">
                     {userList.map((image)=> {
                         return (
                         <Avatar>

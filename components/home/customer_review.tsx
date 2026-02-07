@@ -25,19 +25,19 @@ const CustomerReviews: CustomerReviewProps[] = [
     "James Lawson",
     "23/12/25",
     "Perfect QR code converter!",
-    "Using My QR Code has been a smooth experience. The whole process of converting and personalizing QR codes was quick and easy. I used them to get feedback at my event. It worked perfectly for what I wanted!"
+    "Using Smart QR Code has been a smooth experience. The whole process of converting and personalizing QR codes was quick and easy. I used them to get feedback at my event. It worked perfectly for what I wanted!"
   ),
   new CustomerReviewProps(
     "Emma Thompson",
     "23/12/25",
     "Perfect QR code converter!",
-    "“My QR Code definitely met my expectations. Ran into a few bumps customizing my code, but a quick call and they steered me right. Appreciated their prompt assistance!“"
+    "“Smart QR Code definitely met my expectations. Ran into a few bumps customizing my code, but a quick call and they steered me right. Appreciated their prompt assistance!“"
   ),
   new CustomerReviewProps(
     "Lily Brown",
     "23/12/25",
     "Perfect QR code converter!",
-    "“After a long search for the perfect QR code converter, I landed on My QR Code. This platform totally met my expectations. Big shoutout to the team for their work.”"
+    "“After a long search for the perfect QR code converter, I landed on Smart QR Code. This platform totally met my expectations. Big shoutout to the team for their work.”"
   ),
 ];
 

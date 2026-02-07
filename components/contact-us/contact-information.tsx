@@ -4,7 +4,7 @@ const contactInfo = [
     {
         id: 1,
         title: "Email",
-        subTitle: "support@myqrcode.com",
+        subTitle: "support@smartqrcode.com",
     },
     {
         id: 2,
