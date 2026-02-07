@@ -79,10 +79,16 @@ const ImagesPreview: React.FC = () => {
   return (
     <ScrollArea className="w-full h-full">
       <div
-        className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[8] absolute transition-transform duration-500 ease-in-out ${vCard.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
+        className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${vCard.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
       >
         {vCard.welcomeScreen && (
-          <Image src={vCard.welcomeScreen} alt="Background" fill />
+          <Image
+            src={vCard.welcomeScreen}
+            alt="Background"
+            width={200}
+            height={200}
+            className="object-contain"
+          />
         )}
       </div>
       <div className="w-full h-full relative rounded-[32px] overflow-hidden bg-white pb-4">
@@ -215,10 +221,10 @@ const ImagesPreview: React.FC = () => {
           </div>
         </div>
 
-        <div className="px-5 space-y-2 pb-4 w-full">
+        <div className="px-5 space-y-2 py-4 w-full">
           {!hasUserAction && (
             <div className="flex gap-2">
-              <button className="w-full py-2.5 rounded-lg text-white text-xs font-normal leading-[20px] bg-black">
+              <button className="w-full py-2 px-8 max-h-[40px]  rounded-lg text-white text-xs font-normal leading-[20px] bg-black">
                 View more
               </button>
               {/* Share button always shows initially */}

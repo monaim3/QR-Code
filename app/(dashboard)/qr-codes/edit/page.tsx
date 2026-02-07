@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -94,7 +94,7 @@ export default function WebsiteUrlPage() {
   }, [activeTab, websiteUrl]); // Added websiteUrl as dependency
 
   return (
-    <>
+    <Suspense fallback={<div>Loading QR codes...</div>}>
       <div className="bg-[var(--Generator-Background)] min-h-screen h-full w-full">
         <Container>
           <div className="py-0 desktop:py-12">
@@ -212,6 +212,6 @@ export default function WebsiteUrlPage() {
       </div>
 
       <FooterBreadcrumb />
-    </>
+    </Suspense>
   );
 }

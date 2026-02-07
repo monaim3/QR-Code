@@ -92,7 +92,6 @@ export default function Images() {
     dispatch(setFacebookUrl(value));
   };
 
-  // Button handlers - এগুলো add করতে হবে
   const handleButtonTextChange = (id: string, value: string) => {
     dispatch(updateButtonText({ id, value }));
   };
@@ -139,11 +138,9 @@ export default function Images() {
     secondaryColor: string,
     index: number,
   ) => {
-    // vCard এ update
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
 
-    // Facebook slice এও update করুন
     dispatch(setFacebookPrimaryColor(primaryColor));
     dispatch(setFacebookSecondaryColor(secondaryColor));
 

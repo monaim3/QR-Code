@@ -340,7 +340,7 @@ export default function QRCodeCustomize() {
   return (
     <div className="bg-gray-50 p-0 lg:p-8 min-h-screen pb-[120px] lg:pb-0">
       <Container>
-        <div className="flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
+        <div className=" flex flex-col desktop:flex-row gap-8 lg:pb-32 ">
           <div className="flex-1 flex flex-col">
             <div className="block desktop:hidden space-y-0 desktop:space-y-4">
               {<Breadcrumb useMobileSteps={true} />}
@@ -619,7 +619,7 @@ export default function QRCodeCustomize() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                       {selectedFrameIndex === 0 ? (
-                        <svg width="120" height="120" viewBox="0 0 300 300">
+                        <svg width="200" height="200" viewBox="0 0 300 300">
                           <g ref={mobileQrRef as any} />
                         </svg>
                       ) : (
