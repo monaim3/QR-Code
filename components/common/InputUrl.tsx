@@ -81,7 +81,7 @@ export default function InputUrl({
             : "border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-[var(--Blue)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
         }`}
       />
-      <div className="h-5">
+      <div className={`${error ? "h-5" : "h-0"}`}>
         {error && (
           <p className="text-red-500 text-[14px] leading-[20px]">{error}</p>
         )}

@@ -283,7 +283,7 @@ export default function Images() {
               description="Provide a headline, URL and short description for your image gallery"
             >
               <div>
-                <div className="flex gap-12 items-start justify-center ">
+                <div className="flex flex-col gap-4 lg:flex-row  lg:gap-12 items-start justify-center ">
                   <TextInput
                     label="Headline"
                     value={Name}

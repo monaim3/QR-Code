@@ -29,7 +29,7 @@ export default function ButtonInput({
 }: ButtonInputProps) {
   return (
     <div className="flex gap-4 items-start w-full bg-[#F8F9F9] p-4 rounded-[var(--Corner-Radius-10)] ">
-      <div className="flex gap-6 items-start flex-1">
+      <div className="flex flex-col gap-4 lg:flex-row  lg:gap-6 items-start flex-1">
         <RequiredTextInput
           label="Button text"
           value={buttonText}

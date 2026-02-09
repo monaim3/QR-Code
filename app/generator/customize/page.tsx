@@ -463,6 +463,7 @@ export default function QRCodeCustomize() {
                       checked={patternTransparentBg}
                       onChange={handleTransparentChange}
                       id="pattern-transparent-bg"
+                      bgColor="#01A56D"
                     />
                   </div>
                 </div>
