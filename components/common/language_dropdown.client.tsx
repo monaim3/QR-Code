@@ -35,6 +35,7 @@ interface LanguageSelectorProps {
   arrowUp?: boolean;
   layout?: "start" | "gapBetween";
   mobileDrawer?: boolean;
+  fromHeader?: boolean;
 }
 
 export default function LanguageSelector({
@@ -44,6 +45,7 @@ export default function LanguageSelector({
   arrowUp = false,
   layout = "start",
   mobileDrawer = false,
+  fromHeader = true,
 }: LanguageSelectorProps): React.JSX.Element {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("en");
@@ -69,9 +71,15 @@ export default function LanguageSelector({
               >
                 <div className="flex items-center gap-2">
                   <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
-                  <span className={cn("font-regular", textClass)}>
-                    {languages.find((lang) => lang.value === value)?.label.toUpperCase()}
-                  </span>
+                 <span className={cn("font-regular", textClass)}>
+                {(() => {
+                  const label =
+                    languages.find(lang => lang.value === value)?.label ?? "";
+
+                  return (fromHeader ? label.slice(0, 2) : label).toUpperCase();
+                })()}
+              </span>
+
                 </div>
 
                 <ChevronUp
