@@ -19,6 +19,7 @@ import Container from "@/components/common/parent-container";
 import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import Breadcrumb from "../../../components/generator/Breadcrumb";
 import QRCodeStyling, { Options } from "qr-code-styling";
+import { urlValidationSchema } from "@/lib/Validation/validators";
 
 const urlSchema = z.string().url("Please enter a valid URL");
 
@@ -37,7 +38,13 @@ export default function WebsiteUrlPage() {
 
   const handleUrlChange = (value: string) => {
     dispatch(setWebsiteUrl(value));
-    if (urlError) {
+
+    // Validate with Zod
+    const result = urlValidationSchema.safeParse(value);
+
+    if (!result.success) {
+      setUrlError(result.error.issues[0].message);
+    } else {
       setUrlError("");
     }
   };
@@ -50,17 +57,17 @@ export default function WebsiteUrlPage() {
     dispatch(setActiveTab(tab));
   };
 
-  const handleUrlBlur = () => {
-    setIsUrlFocused(false);
-    if (!websiteUrl.trim()) {
-      setUrlError("This field is required and cannot be left blank.");
-    } else {
-      const result = urlSchema.safeParse(websiteUrl);
-      if (!result.success) {
-        setUrlError("Please enter a valid URL");
-      }
-    }
-  };
+  // const handleUrlBlur = () => {
+  //   setIsUrlFocused(false);
+  //   if (!websiteUrl.trim()) {
+  //     setUrlError("This field is required and cannot be left blank.");
+  //   } else {
+  //     const result = urlSchema.safeParse(websiteUrl);
+  //     if (!result.success) {
+  //       setUrlError("Please enter a valid URL");
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     // Fixed: Check activeTab instead of view
@@ -157,11 +164,11 @@ export default function WebsiteUrlPage() {
                                   handleUrlChange(e.target.value)
                                 }
                                 onFocus={() => setIsUrlFocused(true)}
-                                onBlur={handleUrlBlur}
+                                // onBlur={handleUrlBlur}
                                 placeholder="e.g. www.mywebsite.com"
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
                                   urlError
-                                    ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+                                    ? "border-red-500 focus:border-red-500 focus:ring-2 ring-2 ring-red-500 focus:ring-red-500"
                                     : isUrlFocused
                                       ? "focus:ring-2 focus:ring-[var(--Blue)] border-[var(--Blue)]"
                                       : "border-[var(--Boarder-Grey)] hover:border-gray-300"
@@ -200,7 +207,7 @@ export default function WebsiteUrlPage() {
                       <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                         <div
                           ref={qrRef}
-                          className="w-[154px] h-[154px] flex items-center justify-center"
+                          className="w-[200px] h-[200px] flex items-center justify-center"
                         />
                       </div>
                     )}

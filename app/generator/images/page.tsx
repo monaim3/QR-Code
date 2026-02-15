@@ -427,7 +427,7 @@ export default function Images() {
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                     <div
                       ref={qrRef}
-                      className="w-[154px] h-[154px] flex items-center justify-center"
+                      className="w-[200px] h-[200px] flex items-center justify-center"
                     />
                   </div>
                 )}

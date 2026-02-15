@@ -1,3 +1,5 @@
+import { urlValidationSchema } from "@/lib/Validation/validators";
+
 interface Props {
   label: string;
   placeholder?: string;
@@ -36,10 +38,10 @@ export default function InputUrl({
     onChange(inputValue);
 
     if (onError) {
-      if (inputValue && !isValidUrl(inputValue)) {
-        onError("You have entered an invalid link. Please try again.");
-      } else if (required && !inputValue) {
-        onError("This field is required.");
+      const result = urlValidationSchema.safeParse(inputValue);
+
+      if (!result.success) {
+        onError(result.error.issues[0].message);
       } else {
         onError("");
       }
@@ -77,7 +79,7 @@ export default function InputUrl({
         required={required}
         className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border focus:outline-none focus:ring-2 ${
           error
-            ? "border-red-500 focus:border-red-500 focus:ring-red-500 hover:ring-red-500"
+            ? "border-red-500 ring-2 ring-red-500 focus:border-red-500 focus:ring-red-500 hover:ring-red-500"
             : "border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-[var(--Blue)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
         }`}
       />

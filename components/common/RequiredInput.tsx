@@ -65,7 +65,7 @@ export const RequiredTextInput = ({
              outline-none
     ${
       showError
-        ? "border border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+        ? "border border-red-500 ring-2 ring-red-500   border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
         : "border border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-2 focus:ring-[var(--Blue)] hover:border-[var(--Boarder-Grey)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
     }
   `}
