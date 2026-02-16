@@ -3,10 +3,11 @@ import { useEffect, useRef } from "react";
 import { IoIosSwap } from "react-icons/io";
 import { TextInput } from "./TextInput";
 import { CheckboxInput } from "./CheckboxInput";
-import ColorInput from "./ColorInput";
+// import ColorInput from "./ColorInput";
 import Swap from "../icons/swap";
 import { useAppSelector } from "@/store/hooks";
 import { QRFrameArray } from "./QRFrameArray";
+import ColorInput from "../generator/vcard/ColorInput";
 
 const QrCodeFrameAllInput = ({
   frameText,
@@ -57,22 +58,20 @@ const QrCodeFrameAllInput = ({
 
           <ColorInput
             label="Frame color"
-            value={frameColor}
+            color={frameColor}
             onChange={setFrameColor}
-            showColorIndicator={true}
-            disabled={selectedFrameIndex === 1}
+            // disabled={selectedFrameIndex === 1}
           />
         </div>
 
         <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-6  pt-4 lg:pt-0  pb-4 lg:pb-8 relative z-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-6  pt-4 lg:pt-0  pb-4 lg:pb-8 relative ">
             <ColorInput
               label="Background color"
-              value={
+              color={
                 transparentBg ? "Transparent" : (frameBackgroundColor ?? "")
               }
               onChange={transparentBg ? undefined : setFrameBackgroundColor}
-              showColorIndicator={!transparentBg}
             />
             <button
               type="button"
@@ -99,7 +98,7 @@ const QrCodeFrameAllInput = ({
 
             <ColorInput
               label="Text color"
-              value={
+              color={
                 frameTextColor
                   ? frameTextColor
                   : selectedFrame === "black"
@@ -107,7 +106,6 @@ const QrCodeFrameAllInput = ({
                     : "#000000"
               }
               onChange={setFrameTextColor}
-              showColorIndicator={true}
             />
           </div>
         </div>

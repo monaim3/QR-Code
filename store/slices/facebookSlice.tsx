@@ -25,6 +25,7 @@ interface facebookState {
   images: ImageItem[];
   primaryColor: string;
   secondaryColor: string;
+  hasColorChanged: boolean;
 }
 
 const initialState: facebookState = {
@@ -38,6 +39,7 @@ const initialState: facebookState = {
   images: [],
   primaryColor: "#EB7986",
   secondaryColor: "#FFFFFF",
+  hasColorChanged: false,
 };
 
 const facebookSlice = createSlice({
@@ -52,6 +54,9 @@ const facebookSlice = createSlice({
     },
     setSecondaryColor: (state, action: PayloadAction<string>) => {
       state.secondaryColor = action.payload;
+    },
+    setHasColorChanged: (state, action: PayloadAction<boolean>) => {
+      state.hasColorChanged = action.payload;
     },
 
     setName: (state, action: PayloadAction<string>) => {
@@ -164,6 +169,7 @@ export const {
   updateImage,
   setPrimaryColor,
   setSecondaryColor,
+  setHasColorChanged,
 } = facebookSlice.actions;
 
 export default facebookSlice.reducer;

@@ -5,7 +5,7 @@ import QRCodeStyling, { Options } from "qr-code-styling";
 import Breadcrumb from "../../../components/generator/Breadcrumb";
 
 import MobileFrame from "@/components/common/MobileFrame";
-import ColorInput from "@/components/common/ColorInput";
+// import ColorInput from "@/components/common/ColorInput";
 import Accordion from "@/components/common/Accordion";
 import Container from "@/components/common/parent-container";
 import PatternPreview from "@/components/common/PatternPreview";
@@ -55,6 +55,7 @@ import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPrevi
 import SocialPreView from "@/components/generator/socialMedia/social-preview";
 import VideoPreView from "@/components/generator/video/video-preview";
 import WifiPreview from "@/components/generator/Wifi/WifiPreview";
+import ColorInput from "@/components/generator/vcard/ColorInput";
 
 export default function QRCodeCustomize() {
   const pathname = usePathname();
@@ -145,7 +146,7 @@ export default function QRCodeCustomize() {
 
             ctx.fillStyle = "white";
             ctx.beginPath();
-            ctx.roundRect(0, 0, 80, 80, 15);
+            ctx.roundRect(0, 0, 100, 100, 20);
             ctx.fill();
 
             const img = new Image();
@@ -155,7 +156,7 @@ export default function QRCodeCustomize() {
             const url = URL.createObjectURL(svgBlob);
 
             img.onload = () => {
-              ctx.drawImage(img, 1, 1, 60, 60);
+              ctx.drawImage(img, 5, 5, 50, 50);
               URL.revokeObjectURL(url);
               const dataUrl = canvas.toDataURL("image/png");
               root.unmount();
@@ -412,10 +413,8 @@ export default function QRCodeCustomize() {
                   <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
                     <ColorInput
                       label="Dot color"
-                      value={dotColor}
+                      color={dotColor}
                       onChange={(color: string) => dispatch(setDotColor(color))}
-                      showColorIndicator
-                      id="dot-color"
                     />
                     <button
                       type="button"
@@ -444,17 +443,15 @@ export default function QRCodeCustomize() {
                     </button>
                     <ColorInput
                       label="Background color"
-                      value={
+                      color={
                         patternTransparentBg ? "Transparent" : backgroundColor
                       }
                       onChange={
                         patternTransparentBg
-                          ? undefined
+                          ? () => {}
                           : (color: string) =>
                               dispatch(setBackgroundColor(color))
                       }
-                      showColorIndicator={!patternTransparentBg}
-                      id="pattern-background-color"
                     />
                   </div>
                   <div className="flex items-center gap-2 px-6 pb-4">
@@ -517,12 +514,10 @@ export default function QRCodeCustomize() {
                   <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
                     <ColorInput
                       label="Corner frames color"
-                      value={cornerFrameColor}
+                      color={cornerFrameColor}
                       onChange={(color: string) =>
                         dispatch(setCornerFrameColor(color))
                       }
-                      showColorIndicator={true}
-                      id="corner-frame-color"
                     />
 
                     <button
@@ -552,12 +547,10 @@ export default function QRCodeCustomize() {
                     </button>
                     <ColorInput
                       label="Corner dots color"
-                      value={cornerDotColor}
+                      color={cornerDotColor}
                       onChange={(color: string) =>
                         dispatch(setCornerDotColor(color))
                       }
-                      showColorIndicator={true}
-                      id="corner-dot-color"
                     />
                   </div>
                 </div>

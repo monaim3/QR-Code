@@ -25,6 +25,9 @@ const FacebookPreview: React.FC<FacebookPreviewProps> = ({ onImageClick }) => {
   const secondaryColor = useAppSelector(
     (state) => state.facebook.secondaryColor,
   );
+  const hasColorChanged = useAppSelector(
+    (state) => state.facebook.hasColorChanged,
+  );
 
   const vCard = useAppSelector((state) => state.vCard);
 
@@ -34,7 +37,8 @@ const FacebookPreview: React.FC<FacebookPreviewProps> = ({ onImageClick }) => {
     website ||
     facebookUrl ||
     buttons.length > 0 ||
-    images.length > 0;
+    images.length > 0 ||
+    hasColorChanged;
 
   const displayImage =
     images.length > 0 ? images[0].url : hasUserAction ? null : Women.src;

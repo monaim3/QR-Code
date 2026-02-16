@@ -26,6 +26,7 @@ import {
   updateImage,
   setPrimaryColor as setFacebookPrimaryColor,
   setSecondaryColor as setFacebookSecondaryColor,
+  setHasColorChanged,
 } from "@/store/slices/facebookSlice";
 
 import QRCodeStyling, { Options } from "qr-code-styling";
@@ -145,6 +146,7 @@ export default function Facebook() {
         },
       }),
     );
+    dispatch(setHasColorChanged(true));
   };
 
   const handleColorSwitch = (
@@ -159,6 +161,7 @@ export default function Facebook() {
     dispatch(setFacebookSecondaryColor(secondaryColor));
 
     setIsActive(index);
+    dispatch(setHasColorChanged(true));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {
@@ -180,6 +183,7 @@ export default function Facebook() {
         },
       }),
     );
+    dispatch(setHasColorChanged(true));
   };
 
   useEffect(() => {
