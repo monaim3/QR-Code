@@ -27,6 +27,7 @@ export interface AppSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  activeColorIndex: number;
   appInfo: AppInfo;
   welcomeScreen: string;
   qrCodeName: string;

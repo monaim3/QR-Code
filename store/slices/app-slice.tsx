@@ -69,6 +69,7 @@ const initialState: AppSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
   secondaryColor: "#FFFFFF",
+  activeColorIndex: 0,
   appInfo: {
     image: '',
     appName: '',
@@ -145,6 +146,9 @@ const appSlice = createSlice({
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
+    setActiveColorIndex: (state, action: PayloadAction<number>) => {
+      state.activeColorIndex = action.payload;
+    },
   },
 });
 
@@ -160,5 +164,6 @@ export const {
   moveLinkToAppLinks,
   setWelcomeScreen,
   setIsPreviewWelcomeScreen,
+  setActiveColorIndex,
 } = appSlice.actions;
 export default appSlice.reducer;

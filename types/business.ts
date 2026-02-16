@@ -45,6 +45,7 @@ export interface BusinessSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  activeColorIndex: number;
   businessImage: string | null;
   businessInfo: BusinessInfo;
   timeFormat: TimeFormat;

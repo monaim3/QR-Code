@@ -16,6 +16,7 @@ import {
   setIsPreviewWelcomeScreen,
   removeCarouselImage,
   editCarouselImage,
+  setActiveColorIndex,
 } from "@/store/slices/social-slice";
 import { useState, useRef, useCallback } from "react";
 import ImageUpload from "@/components/generator/socialMedia/uploadCarusolImage";
@@ -24,7 +25,7 @@ import Carousel from "./image-carousel";
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const social = useAppSelector((state) => state.social);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = social.activeColorIndex;
   const [imageIndex, setimageIndex] = useState(0);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [isCropping, setIsCropping] = useState(false);
@@ -53,7 +54,7 @@ export default function DesignCustomize() {
   ) => {
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
-    setIsActive(index);
+    dispatch(setActiveColorIndex(index));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {

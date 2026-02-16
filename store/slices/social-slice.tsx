@@ -75,6 +75,7 @@ const initialState: SocialSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
   secondaryColor: "#FFFFFF",
+  activeColorIndex: 0,
   carousels: [],
   socialInfo: {
    headLine: "",
@@ -181,6 +182,9 @@ const pdfSlice = createSlice({
         state.carousels[index] = newImage;
       }
     },
+    setActiveColorIndex: (state, action: PayloadAction<number>) => {
+      state.activeColorIndex = action.payload;
+    },
   },
 });
 
@@ -199,5 +203,6 @@ export const {
   addCarouselImage,
   removeCarouselImage,
   editCarouselImage,
+  setActiveColorIndex,
 } = pdfSlice.actions;
 export default pdfSlice.reducer;

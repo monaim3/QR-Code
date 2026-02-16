@@ -3,7 +3,6 @@
 import Accordion from "@/components/common/Accordion";
 import SwapHorizontal from "@/components/icons/swap-horizontal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { useState } from "react";
 import ColorBtn from "../vcard/ColorBtn";
 import ColorInput from "../vcard/ColorInput";
 import ImageUpload from "../vcard/ImageUpload";
@@ -12,12 +11,13 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/businessSlice";
 
 export default function BusinessDesignCustomize() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = business.activeColorIndex;
 
   const handleSwap = () => {
     const temp = business.primaryColor;
@@ -41,7 +41,7 @@ export default function BusinessDesignCustomize() {
   ) => {
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
-    setIsActive(index);
+    dispatch(setActiveColorIndex(index));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {

@@ -51,6 +51,7 @@ const initialState: BusinessSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
   secondaryColor: "#FFFFFF",
+  activeColorIndex: 0,
   businessImage: null,
   businessInfo: {
     companyName: "",
@@ -329,6 +330,9 @@ const menuSlice = createSlice({
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
+    setActiveColorIndex: (state, action: PayloadAction<number>) => {
+      state.activeColorIndex = action.payload;
+    },
   },
 });
 
@@ -371,5 +375,6 @@ export const {
   setWelcomeScreen,
   setQrCodeName,
   setIsPreviewWelcomeScreen,
+  setActiveColorIndex,
 } = menuSlice.actions;
 export default menuSlice.reducer;

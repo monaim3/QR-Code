@@ -41,6 +41,7 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/vCardSlice";
 
 import SwapHorizontal from "@/components/icons/swap-horizontal";
@@ -48,7 +49,6 @@ import ColorInput from "@/components/generator/vcard/ColorInput";
 import ColorBtn from "@/components/generator/vcard/ColorBtn";
 import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
 import Welcome from "@/components/generator/vcard/Welcome";
-import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
 import { setShare } from "@/store/slices/imagesSlice";
 import ImagesPreview from "@/components/generator/Images/ImagesPreview";
@@ -112,7 +112,7 @@ export default function Images() {
   // color-customize
 
   const vCard = useAppSelector((state) => state.vCard);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = vCard.activeColorIndex;
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
@@ -147,7 +147,7 @@ export default function Images() {
     dispatch(setFacebookPrimaryColor(primaryColor));
     dispatch(setFacebookSecondaryColor(secondaryColor));
 
-    setIsActive(index);
+    dispatch(setActiveColorIndex(index));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {

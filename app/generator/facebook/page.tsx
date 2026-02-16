@@ -41,6 +41,7 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/vCardSlice";
 
 import SwapHorizontal from "@/components/icons/swap-horizontal";
@@ -108,7 +109,7 @@ export default function Facebook() {
   // color-customize
 
   const vCard = useAppSelector((state) => state.vCard);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = vCard.activeColorIndex;
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
@@ -141,7 +142,7 @@ export default function Facebook() {
     dispatch(setFacebookPrimaryColor(primaryColor));
     dispatch(setFacebookSecondaryColor(secondaryColor));
 
-    setIsActive(index);
+    dispatch(setActiveColorIndex(index));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {
