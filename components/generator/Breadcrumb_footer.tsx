@@ -5,6 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setActiveTab } from "@/store/slices/previewSlice";
+import { validateQRData } from "@/lib/validation/qr-validation";
+import { setErrors, setShowErrors, clearAllErrors } from "@/store/slices/validationSlice";
 
 import MobilePreviewModal from "./Mobile_Preview_Modal";
 import Container from "../common/parent-container";
@@ -28,6 +30,7 @@ export default function BreadcrumbFooter() {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
+  const reduxState = useAppSelector((state) => state);
 
   const getCurrentStep = (): number => {
     // Check most specific paths first
@@ -52,7 +55,25 @@ export default function BreadcrumbFooter() {
 
   const handleNext = () => {
     if (currentStep === 2) {
-      localStorage.setItem("qrType", pathname.split("/")[2]);
+      // Get QR type from pathname
+      const qrType = pathname.split("/")[2];
+      
+      // Validate the form data
+      const validationResult = validateQRData(reduxState, qrType);
+      
+      if (!validationResult.isValid) {
+        // Dispatch errors to Redux
+        dispatch(setErrors(validationResult.fieldErrors));
+        dispatch(setShowErrors(true));
+        
+        // Scroll to top to show error
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      
+      // Clear any previous errors
+      dispatch(clearAllErrors());
+      localStorage.setItem("qrType", qrType);
       router.push("/generator/customize");
     } else if (currentStep === 3) {
       router.push("/signup");

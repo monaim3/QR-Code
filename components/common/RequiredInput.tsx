@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAppSelector } from "@/store/hooks";
 
 type RequiredTextInputProps = {
   label: string;
@@ -9,6 +10,7 @@ type RequiredTextInputProps = {
   id?: string;
   errorMessage?: string;
   required?: boolean;
+  validationKey?: string; // Key to get error from Redux validation state
 };
 
 export const RequiredTextInput = ({
@@ -20,13 +22,18 @@ export const RequiredTextInput = ({
   id,
   errorMessage = "This field is required and cannot be left blank.",
   required = true,
+  validationKey,
 }: RequiredTextInputProps) => {
   const [touched, setTouched] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
 
   const inputId = id ?? label.replace(/\s+/g, "-").toLowerCase();
 
-  const showError = required && touched && !value.trim();
+  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
+  const showError = (required && touched && !value.trim()) || validationError;
 
   const handleBlur = () => {
     setTouched(true);
@@ -79,7 +86,7 @@ export const RequiredTextInput = ({
           className="mt-2 text-sm text-red-500"
           role="alert"
         >
-          {errorMessage}
+          {validationError || errorMessage}
         </p>
       )}
     </div>

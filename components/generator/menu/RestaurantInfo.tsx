@@ -48,6 +48,8 @@ export default function RestaurantInfo() {
               id="res-name"
               value={menu.restaurantInfo.name}
               onChange={(v) => handleChange(v, "name")}
+              validationKey="restaurantName"
+              required={true}
             />
             <Input
               label="Description"

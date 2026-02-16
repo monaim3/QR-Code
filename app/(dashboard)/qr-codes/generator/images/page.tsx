@@ -221,6 +221,7 @@ export default function Images() {
             <Accordion
               title="Design and customize"
               description="Choose your color scheme"
+              defaultOpen={true}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -284,6 +285,7 @@ export default function Images() {
             <Accordion
               title="Image gallery information"
               description="Provide a headline, URL and short description for your image gallery"
+              defaultOpen={true}
             >
               <div>
                 <div className="flex gap-12 items-start justify-center ">
@@ -368,6 +370,7 @@ export default function Images() {
             <Accordion
               title="Share"
               description="Add the ability to share your image gallery"
+              defaultOpen={true}
             >
               <CheckboxInput
                 label="Add Share button to landing page"

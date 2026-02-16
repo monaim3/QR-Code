@@ -44,7 +44,7 @@ export default function SocialMediaView() {
       title="Social media"
       icon={<ThumbsUp className="text-[var(--Grey)]" />}
     >
-      <div className="flex flex-col gap-2 p-0 -m-2">
+      <div className="flex flex-col gap-2 p-0">
         {vCard.socialChannels.map((channel, index) => {
           const IconComponent = getIconForChannel(channel.id);
 

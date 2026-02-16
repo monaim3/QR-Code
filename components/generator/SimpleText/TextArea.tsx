@@ -1,3 +1,5 @@
+import { useAppSelector } from "@/store/hooks";
+
 interface TextareaProps {
   label: string;
   placeholder?: string;
@@ -7,6 +9,8 @@ interface TextareaProps {
   error?: string;
   maxLength?: number;
   rows?: number;
+  validationKey?: string;
+  required?: boolean;
 }
 
 export default function Textarea({
@@ -18,9 +22,15 @@ export default function Textarea({
   error,
   maxLength = 500,
   rows = 6,
+  validationKey,
+  required = false,
 }: TextareaProps) {
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  
+  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
   const characterCount = value.length;
-  const hasError = error || characterCount >= maxLength;
+  const hasError = error || validationError || characterCount >= maxLength;
 
   return (
     <div className="flex flex-col gap-2">
@@ -29,6 +39,7 @@ export default function Textarea({
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"
       >
         {label}
+        {required && <span className="text-black">*</span>}
       </label>
       <textarea
         id={id}
@@ -45,7 +56,8 @@ export default function Textarea({
       />
       {hasError && (
         <p className="text-red-500 text-[12px] font-normal leading-[20px]">
-          {error ||
+          {validationError ||
+            error ||
             `Only the first ${maxLength} characters were pasted. Extra text was removed.`}
         </p>
       )}

@@ -212,6 +212,7 @@ export default function Facebook() {
             <Accordion
               title="Design and customize"
               description="Choose your color scheme"
+              defaultOpen={true}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -275,6 +276,7 @@ export default function Facebook() {
             <Accordion
               title="Page information"
               description="Provide information about yourself and your Facebook page"
+              defaultOpen={true}
             >
               <div>
                 <div className="flex gap-12 items-start justify-center ">

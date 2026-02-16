@@ -1,3 +1,6 @@
+import { useAppSelector } from "@/store/hooks";
+import { useState } from "react";
+
 interface Props {
   label: string;
   placeholder?: string;
@@ -8,6 +11,7 @@ interface Props {
   required?: boolean;
   error?: string; // Direct error prop instead of reading from Redux
   onError?: (error: string) => void; // Callback to set error
+  validationKey?: string;
 }
 
 export default function InputUrl({
@@ -20,7 +24,15 @@ export default function InputUrl({
   required = false,
   error,
   onError,
+  validationKey,
 }: Props) {
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const [isFocused, setIsFocused] = useState(false);
+  
+  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
+  const displayError = validationError || error;
+
   const isValidUrl = (url: string) => {
     if (!url) return true;
 
@@ -47,6 +59,7 @@ export default function InputUrl({
   };
 
   const handleBlur = () => {
+    setIsFocused(false);
     if (onError) {
       if (value && !isValidUrl(value)) {
         onError("You have entered an invalid link. Please try again.");
@@ -73,19 +86,20 @@ export default function InputUrl({
         placeholder={placeholder}
         value={value}
         onChange={(e) => handleChange(e.target.value)}
+        onFocus={() => setIsFocused(true)}
         onBlur={handleBlur}
         required={required}
-        className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border focus:outline-none focus:ring-2 ${
-          error
-            ? "border-red-500 focus:border-red-500 focus:ring-red-500 hover:ring-red-500"
-            : "border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-[var(--Blue)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
+        className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border transition-colors outline-none ${
+          displayError
+            ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+            : isFocused
+              ? "focus:ring-2 focus:ring-[var(--Blue)] border-[var(--Blue)]"
+              : "border-[var(--Boarder-Grey)] hover:border-gray-300"
         }`}
       />
-      <div className="h-5">
-        {error && (
-          <p className="text-red-500 text-[14px] leading-[20px]">{error}</p>
-        )}
-      </div>
+      {displayError && (
+        <p className="text-sm text-red-500 font-roboto">{displayError}</p>
+      )}
     </div>
   );
 }

@@ -83,6 +83,7 @@ export default function SimpleText() {
             <Accordion
               title="Simple text"
               description="Enter the text that you want displayed when a user scans your QR code"
+              defaultOpen={true}
             >
               <div>
                 <Textarea
