@@ -76,7 +76,7 @@ export const RequiredTextInput = ({
         : "border border-[var(--Boarder-Grey)] focus:border-[var(--Blue)] focus:ring-2 focus:ring-[var(--Blue)] hover:border-[var(--Boarder-Grey)] hover:ring-2 hover:ring-[var(--Boarder-Grey)]"
     }
   `}
-        aria-invalid={showError}
+        aria-invalid={!!showError}
         aria-describedby={showError ? `${inputId}-error` : undefined}
       />
 
