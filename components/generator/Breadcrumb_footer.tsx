@@ -19,6 +19,10 @@ import WifiPreview from "./Wifi/WifiPreview";
 import WifiQRCode from "./Wifi/WifiQRCode";
 import FacebookPreview from "./Facebook/FacebookPreview";
 import ImagesPreview from "./Images/ImagesPreview";
+import PdfPreView from "./pdf/pdf-preview";
+import SocialPreView from "./socialMedia/social-preview";
+import VideoPreView from "./video/video-preview";
+import AppPreView from "./app/app-preview";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -139,6 +143,38 @@ export default function BreadcrumbFooter() {
           </div>
         );
       }
+    }
+
+    if(pathname.includes("/pdf")){
+      return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <PdfPreView />
+          </div>
+        );
+    }
+
+    if(pathname.includes("/social-media")){
+      return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <SocialPreView />
+          </div>
+        );
+    }
+
+    if(pathname.includes("/video")){
+      return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <VideoPreView />
+          </div>
+        );
+    }
+
+     if(pathname.includes("/app")){
+      return (
+          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+            <AppPreView />
+          </div>
+        );
     }
 
     if (activeTab === "preview") {

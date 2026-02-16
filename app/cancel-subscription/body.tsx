@@ -190,7 +190,7 @@ export default function CancelSubscriptionPage() {
             </div>
         </div> : 
         <div>
-           <div className="bg-white rounded-[10px] shadow-card w-[350px] desktop:w-[500px] p-[24px] desktop:p-[32px] flex flex-col items-center">
+          <div className="bg-white rounded-[10px] shadow-card max-w-[350px] desktop:max-w-[500px] p-[24px] desktop:p-[32px] flex flex-col items-center mt-[104px]">
         <EmailIcon className='w-[40px] h-[32px] text-[var(--Blue)]'/>
         <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)] pt-[16px] desktop:pt-[24px]">
           Confirmation required
