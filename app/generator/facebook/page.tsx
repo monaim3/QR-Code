@@ -50,6 +50,7 @@ import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
 import Welcome from "@/components/generator/vcard/Welcome";
 import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import ImageCarouselViewer from "@/components/generator/Facebook/PreviewImageCarousel";
+import { RequiredTextInput } from "@/components/common/RequiredInput";
 
 export default function Facebook() {
   const dispatch = useAppDispatch();
@@ -320,7 +321,7 @@ export default function Facebook() {
                   <div
                     className={`flex flex-col gap-4 lg:flex-row lg:gap-12  items-start justify-center ${error ? "mt-6" : ""} `}
                   >
-                    <TextInput
+                    <RequiredTextInput
                       label="Title"
                       value={title}
                       onChange={(value) => dispatch(setTitle(value))}
@@ -334,7 +335,7 @@ export default function Facebook() {
                       id="website-link"
                       value={website}
                       onChange={(value) => dispatch(setWebsite(value))}
-                      required={false}
+                      // required={false}
                       error={errorWebsite}
                       onError={(errorMsg) =>
                         dispatch(setErrorWebsite(errorMsg))
@@ -446,7 +447,7 @@ export default function Facebook() {
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                     <div
                       ref={qrRef}
-                      className="w-[154px] h-[154px] flex items-center justify-center"
+                      className="w-[200px] h-[200px] flex items-center justify-center"
                     />
                   </div>
                 )}
