@@ -41,7 +41,6 @@ const socialChannels: SocialChannel[] = [
   { id: "facebook", name: "Facebook", icon: "facebook", isIcon: true, url: "", description: "" },
   { id: "instagram", name: "Instagram", icon: "instagram", isIcon: true, url: "", description: "" },
   { id: "twitter", name: "Twitter", icon: "twitter", isIcon: true, url: "", description: "" },
-  { id: "twitter-x", name: "Twitter", icon: "twitter-x", isIcon: true, url: "", description: "" },
   { id: "x", name: "X", icon: "x", isIcon: true, url: "", description: "" },
   { id: "whatsapp", name: "WhatsApp", icon: "whatsapp", isIcon: true, url: "", description: "" },
   { id: "tiktok", name: "TikTok", icon: "tiktok", isIcon: true, url: "", description: "" },

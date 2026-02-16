@@ -143,7 +143,7 @@ export default function Footer() {
                 </>
               )}
             </div>} */}
-             <LanguageSelector textClass="text-white" iconClass="#FFFFFF" globalIconColor="#ffffff" arrowUp={true}/>
+             <LanguageSelector textClass="text-white" iconClass="#FFFFFF" globalIconColor="#ffffff" arrowUp={true} fromHeader={false}/>
             <div className="desktop:text-right">
               <span className="text-white text-sm leading-[22px]">
                 {new Date().getFullYear()} © SmartQR.com™ All rights reserved

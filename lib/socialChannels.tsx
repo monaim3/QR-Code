@@ -53,11 +53,6 @@ export const socialChannels: SocialChannel[] = [
     icon: Twitter,
   },
   {
-    id: "twitter-x",
-    name: "Twitter",
-    icon: TwitterX,
-  },
-  {
     id: "x",
     name: "X",
     icon: X,

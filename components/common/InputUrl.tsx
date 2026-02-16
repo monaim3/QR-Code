@@ -48,10 +48,10 @@ export default function InputUrl({
     onChange(inputValue);
 
     if (onError) {
-      if (inputValue && !isValidUrl(inputValue)) {
-        onError("You have entered an invalid link. Please try again.");
-      } else if (required && !inputValue) {
-        onError("This field is required.");
+      const result = urlValidationSchema.safeParse(inputValue);
+
+      if (!result.success) {
+        onError(result.error.issues[0].message);
       } else {
         onError("");
       }

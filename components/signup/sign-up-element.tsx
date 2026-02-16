@@ -39,18 +39,11 @@ export default function SignUpElements ({socialRow = false, withRightPannel = tr
 
   const onSubmit = async (data: SignUpForm) => {
     try {
-      console.log("Form Data:", data);
-      /// signup logic
-      //alert("Account created successfully!");
-      router.push("/plan-and-pricing");
+      router.push("/pricing");
     } catch (error) {
       console.error(error);
     }
   };
-
-  //   alert(`Email: ${email}\nPassword: ${password}`);
-  // };
-
     return (
         <div className={`flex flex-col w-full ${withRightPannel ? "desktop:w-1/2" : "desktop:w-full"} max-h-full ${paddingRight ? "desktop:pr-8" : "desktop:pr-0"}`}>
           <h1 className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">

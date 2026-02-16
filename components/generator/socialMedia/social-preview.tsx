@@ -91,10 +91,10 @@ export default function SocialPreView(){
                    style={{ backgroundColor: buttonColor() }}
                    >
                     {channel.isIcon && ChannelIcon ? <ChannelIcon/> : 
-                    <img src={channel.icon ?? ""} alt={channel?.name} className="w-6 h-6 object-contain"/>}
+                    <img src={channel.icon ?? ""} alt={channel?.name} className="w-[40px] h-[40px] object-contain"/>}
                     <div className="flex flex-col flex-1 items-start justify-start">
-                        <p className={`text-[14px] leading-[22px] font-medium ${buttonTextColor()} text-denter`}>{channel.name}</p>
-                        <p className={`text-[12px] leading-[20px] font-regular ${buttonTextColor()} text-denter`}>{channel.description}</p>
+                        <p className={`text-[14px] leading-[22px] font-medium ${buttonTextColor()} text-[var(--Black)]`}>{channel.name}</p>
+                        <p className={`text-[12px] leading-[20px] font-regular ${buttonTextColor()} text-[var(--Grey)]`}>{channel.description}</p>
                     </div>
                     <ChevronRight height={16} width={16} className={`${buttonTextColor()}`}/>
                    </div>

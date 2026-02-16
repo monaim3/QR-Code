@@ -50,10 +50,15 @@ import ColorBtn from "@/components/generator/vcard/ColorBtn";
 import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
 import Welcome from "@/components/generator/vcard/Welcome";
 import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
+import ImageCarouselViewer from "@/components/generator/Facebook/PreviewImageCarousel";
+import { RequiredTextInput } from "@/components/common/RequiredInput";
 
 export default function Facebook() {
   const dispatch = useAppDispatch();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [carouselStartIndex, setCarouselStartIndex] = useState(0);
+
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
@@ -104,6 +109,18 @@ export default function Facebook() {
 
   const handleButtonUrlError = (id: string, error: string) => {
     dispatch(setButtonUrlError({ id, error }));
+  };
+
+  // Image carousel handlers
+  const handleOpenCarousel = (index: number) => {
+    if (images.length > 0) {
+      setCarouselStartIndex(index);
+      setIsCarouselOpen(true);
+    }
+  };
+
+  const handleCloseCarousel = () => {
+    setIsCarouselOpen(false);
   };
 
   // color-customize
@@ -282,8 +299,8 @@ export default function Facebook() {
               description="Provide information about yourself and your Facebook page"
               defaultOpen={true}
             >
-              <div>
-                <div className="flex gap-12 items-start justify-center ">
+              <div className="space-y-4">
+                <div className="flex flex-col gap-4 lg:flex-row lg:gap-12 items-start justify-center ">
                   <InputUrl
                     label="Facebook URL"
                     placeholder="e.g. https://facebook.com"
@@ -306,9 +323,9 @@ export default function Facebook() {
 
                 <div>
                   <div
-                    className={`flex gap-12 items-start justify-center ${error ? "mt-6" : ""} `}
+                    className={`flex flex-col gap-4 lg:flex-row lg:gap-12  items-start justify-center ${error ? "mt-6" : ""} `}
                   >
-                    <TextInput
+                    <RequiredTextInput
                       label="Title"
                       value={title}
                       onChange={(value) => dispatch(setTitle(value))}
@@ -322,7 +339,7 @@ export default function Facebook() {
                       id="website-link"
                       value={website}
                       onChange={(value) => dispatch(setWebsite(value))}
-                      required={false}
+                      // required={false}
                       error={errorWebsite}
                       onError={(errorMsg) =>
                         dispatch(setErrorWebsite(errorMsg))
@@ -420,13 +437,21 @@ export default function Facebook() {
               <MobileFrame>
                 {view === "preview" ? (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-                    <FacebookPreview />
+                    {isCarouselOpen && images.length > 0 ? (
+                      <ImageCarouselViewer
+                        images={images}
+                        initialIndex={carouselStartIndex}
+                        onClose={handleCloseCarousel}
+                      />
+                    ) : (
+                      <FacebookPreview onImageClick={handleOpenCarousel} />
+                    )}
                   </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                     <div
                       ref={qrRef}
-                      className="w-[154px] h-[154px] flex items-center justify-center"
+                      className="w-[200px] h-[200px] flex items-center justify-center"
                     />
                   </div>
                 )}

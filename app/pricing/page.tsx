@@ -1,14 +1,13 @@
-import Header from "../../components/home/Header";
-import Footer from "../../components/home/Footer";
-import PricingPage from "./body";
-import CurrenctSelector from '@/components/common/currency_dropdown';
+import Footer from "../../app/otp-verify/footer";
+import SmartQRPlanSelection from "./body";
+import GeneratorHeader from "@/components/generator/Generator_Header";
 
-export default function Pricing() {
+export default function PlanAndPricing() {
     return (
         <div className="pb-[100px] desktop:pb-[0px]">
-          <Header languageDropDown={true} hideDivider={true} className="bg-white desktop:bg-white border-b border-[var(--Boarder-Grey)]"/>
-          <PricingPage/>
-          <Footer />
+         <GeneratorHeader priceAndPlan={true} hideInfo={true}/>
+        <SmartQRPlanSelection/>
+        <Footer/>
         </div>
-      );
+    );
 }

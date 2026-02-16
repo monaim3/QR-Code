@@ -15,6 +15,7 @@ export const CheckboxInput = ({
 }: CheckboxInputProps) => {
   const defaultColor = "#2563eb";
   const activeColor = bgColor || defaultColor;
+
   return (
     <div className="flex items-center gap-2">
       <div className="relative">
@@ -27,14 +28,14 @@ export const CheckboxInput = ({
         />
         <label
           htmlFor={id}
-          className={`flex items-center justify-center w-6 h-6 border rounded-md cursor-pointer`}
+          className={`flex items-center justify-center w-6 h-6 border rounded-md cursor-pointer transition-all duration-200 hover:border-2`}
           style={{
             backgroundColor: checked ? activeColor : "white",
             borderColor: checked ? activeColor : "#D3D8EB",
           }}
         >
           <svg
-            className={`w-4 h-4 text-white ${checked ? "opacity-100" : "opacity-0"}`}
+            className={`w-4 h-4 text-white transition-opacity duration-200 ${checked ? "opacity-100" : "opacity-0"}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -49,8 +50,10 @@ export const CheckboxInput = ({
         </label>
       </div>
       <label
-        htmlFor="transparent-bg"
-        className="text-sm leading-[22px] font-normal text-[#79809A] cursor-pointer select-none"
+        htmlFor={id}
+        className={`text-sm leading-[22px] font-normal cursor-pointer select-none transition-colors duration-200 ${
+          checked ? "text-[var(--Black)]" : "text-[#7f8083]"
+        }`}
       >
         {label}
       </label>

@@ -286,7 +286,7 @@ export default function Images() {
               defaultOpen={true}
             >
               <div>
-                <div className="flex gap-12 items-start justify-center ">
+                <div className="flex flex-col gap-4 lg:flex-row  lg:gap-12 items-start justify-center ">
                   <TextInput
                     label="Headline"
                     value={Name}
@@ -431,7 +431,7 @@ export default function Images() {
                   <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                     <div
                       ref={qrRef}
-                      className="w-[154px] h-[154px] flex items-center justify-center"
+                      className="w-[200px] h-[200px] flex items-center justify-center"
                     />
                   </div>
                 )}

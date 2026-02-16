@@ -117,6 +117,7 @@ const QrCodeFrameAllInput = ({
           checked={transparentBg}
           onChange={setTransparentBg}
           id="frame-transparent-bg"
+          bgColor="#01A56D"
         />
       </div>
     </div>

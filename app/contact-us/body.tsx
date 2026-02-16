@@ -43,7 +43,7 @@ export default function ContactUsBody() {
         pt-[32px] pb-[24px] desktop:pb-[32px]
         shadow-card
         flex flex-col desktop:flex-row
-        items-start justify-between
+        items-stratch justify-between
         overflow-hidden
         mobile:gap-6
       ">
