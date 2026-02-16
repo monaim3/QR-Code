@@ -20,7 +20,6 @@ export default function Input({
   value,
   onChange = () => {},
   validationKey,
-  required = false,
 }: Props) {
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
@@ -30,7 +29,7 @@ export default function Input({
   const hasError = validationError;
 
   return (
-    <div className="flex flex-col gap-2 flex-1 w-full">
+    <div className="flex flex-col gap-2 w-full">
       <label
         htmlFor={id}
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"
@@ -45,7 +44,7 @@ export default function Input({
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border transition-colors outline-none ${
+        className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border transition-colors outline-none w-full ${
           hasError
             ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
             : isFocused
