@@ -611,7 +611,7 @@ export default function QRCodeCustomize() {
                   </span>
                 </button>
               </div>
-              <div className="hidden desktop:flex desktop:flex-col desktop:gap-4 ">
+              <div className="hidden desktop:flex desktop:flex-col desktop:gap-4">
                 <MobileFrame>
                   {view === "preview" ? (
                     <div className="w-full h-full flex items-center justify-center rounded-[32px]">

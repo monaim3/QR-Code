@@ -75,13 +75,14 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                 <p className="text-[16px] leading-[24px] font-bold">
                     Name*
                 </p>
-                <div className="flex flex-col mt-2">
+                <div className="w-full flex flex-col mt-2">
                 <Controller
                 name="name"
                 control={control}
                 render={({ field, fieldState }) => (
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 w-full">
                     <SimpleInputField
+                     className="w-full"
                         value={field.value}
                         onChange={field.onChange}
                         placeholder="e.g. John"

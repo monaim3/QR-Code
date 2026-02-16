@@ -75,7 +75,7 @@ export default function AppPreView(){
                      />
                    )}
              </div>
-            <div className="absolute inset-0 w-full h-[96px]"
+            <div className="absolute inset-0 w-full h-[96px] rounded-[32px]"
              style={{ backgroundColor: app.primaryColor }}
             />
             <div className="h-[80px] w-[80px] bg-white rounded-[20px] absolute left-[90px] right-[90px] top-[58px] shadow-card"/>

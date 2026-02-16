@@ -12,7 +12,7 @@ const FourCorner = ({ strokeColor = "#0A0909", ...props }: FourCornerProps) => {
       fill="none"
       {...props}
     >
-      <rect x="2" y="2" width="220" height="220" fill="white" />
+      <rect x="2" y="2" width="220" height="220" fill="non" />
       <path d="M2 26.0428V2" stroke={strokeColor} strokeWidth="4" strokeLinecap="round" />
       <path d="M2 2H26.3153" stroke={strokeColor} strokeWidth="4" strokeLinecap="round" />
       <path d="M2 197.957V222" stroke={strokeColor} strokeWidth="4" strokeLinecap="round" />

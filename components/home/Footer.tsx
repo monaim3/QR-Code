@@ -83,7 +83,7 @@ export default function Footer() {
               <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
-                    href="/pricing"
+                    href="/plan-and-pricing"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Prices
                   </Link>

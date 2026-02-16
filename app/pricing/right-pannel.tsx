@@ -106,8 +106,7 @@ export default function PlanAndPricingRightPannelp() {
         }
 
         const div = document.createElement("div");
-        div.style.cssText =
-          "position:absolute;left:-9999px;width:60px;height:60px;";
+        div.style.cssText = "position:absolute;left:-9999px;width:60px;height:60px;";
         document.body.appendChild(div);
 
         import("react-dom/client").then(({ createRoot }) => {
@@ -267,10 +266,10 @@ export default function PlanAndPricingRightPannelp() {
       {/* QR Code Box - EXACT STRUCTURE from QRCodeCustomize */}
       <div className="relative w-[260px] h-[260px] bg-white rounded-[10px] flex items-center justify-center">
         <div className="relative w-[220px] h-[220px]">
-          <FourCorner className="absolute inset-0 pointer-events-none z-10" />
+          <FourCorner className="absolute inset-0 pointer-events-none z-10" strokeColor={`${selectedFrameIndex === 0 ? "var(--Boarder-Grey)" : "var(--Black)"}`} />
           <div className="absolute inset-0 w-full h-full flex items-center justify-center rounded-[32px]">
             {selectedFrameIndex === 0 ? (
-              <svg width="120" height="120" viewBox="0 0 300 300">
+              <svg width="190" height="190" viewBox="0 0 300 300">
                 <g ref={mobileQrRef} />
               </svg>
             ) : (
