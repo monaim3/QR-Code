@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/store/hooks";
+import { useEffect, useRef } from "react";
 
 interface TextareaProps {
   label: string;
@@ -25,6 +26,8 @@ export default function Textarea({
   validationKey,
   required = false,
 }: TextareaProps) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   
