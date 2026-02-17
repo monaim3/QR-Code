@@ -160,8 +160,6 @@ export default function Facebook() {
 
     dispatch(setFacebookPrimaryColor(primaryColor));
     dispatch(setFacebookSecondaryColor(secondaryColor));
-
-    setIsActive(index);
     dispatch(setHasColorChanged(true));
   };
 
