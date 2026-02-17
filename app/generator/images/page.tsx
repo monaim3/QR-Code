@@ -113,7 +113,8 @@ export default function Images() {
   // color-customize
 
   const vCard = useAppSelector((state) => state.vCard);
-  const isActive = vCard.activeColorIndex;
+  const [isActive, setIsActive] = useState(0);
+  //const isActive = vCard.activeColorIndex;
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
