@@ -90,7 +90,7 @@ export default function VideoPreView() {
                 <div className="w-full max-w-full pt-4">
                     {(video.isDefault ? defaultbutton : video.videoInfo.buttons).map((button, index) => {
                         return (
-                            <div className="flex items-center justify-center gap-2 w-full mb-2">
+                            <div key={index} className="flex items-center justify-center gap-2 w-full mb-2">
                                 <button key={index} className={`py-2 px-4 w-full h-[40px] rounded-[32px] border border-transparent ${buttonTextColor()} text-sm font-medium`}
                                 style={{backgroundColor: video.secondaryColor}}
                                 >
