@@ -14,31 +14,6 @@ export default function AppPreView() {
   const dispatch = useDispatch();
   const app = useAppSelector((state) => state.app);
 
-  const textColor = () => {
-    switch (app.primaryColor) {
-      case "#ECEDF1":
-        return "text-[var(--Black)]";
-      case "#ECECF0":
-        return "text-[var(--Black)]";
-      case "#DAEBF6":
-        return "text-[var(--Black)]";
-      case "#FFFFFF":
-        return "text-[var(--Black)]";
-      case "#B69EDE":
-        return "text-[var(--Black)]";
-      case "#6594FF":
-        return "text-[var(--Black)]";
-      case "#6ECD9D":
-        return "text-[var(--Black)]";
-      case "#FACB67":
-        return "text-[var(--Black)]";
-      case "#232321":
-        return "text-[var(--Black)]";
-      default:
-        return "text-white";
-    }
-  };
-
   const buttonTextColor = () => {
     switch (app.secondaryColor) {
       case "#232321":
