@@ -19,7 +19,7 @@ import Container from "@/components/common/parent-container";
 import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import Breadcrumb from "../../../components/generator/Breadcrumb";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import { urlValidationSchema } from "@/lib/Validation/validators";
+import { urlValidationSchema } from "@/lib/validators/validators";
 
 const urlSchema = z.string().url("Please enter a valid URL");
 

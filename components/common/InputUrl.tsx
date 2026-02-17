@@ -1,4 +1,4 @@
-import { urlValidationSchema } from "@/lib/Validation/validators";
+import { urlValidationSchema } from "@/lib/validators/validators";
 import { useAppSelector } from "@/store/hooks";
 import { useState } from "react";
 
