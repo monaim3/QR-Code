@@ -289,7 +289,7 @@ export default function Images() {
               defaultOpen={true}
             >
               <div>
-                <div className="flex flex-col gap-4 lg:flex-row  lg:gap-12 items-start justify-center ">
+                <div className="flex flex-col gap-4 lg:flex-row  lg:gap-12 items-start justify-center mb-4">
                   <TextInput
                     label="Headline"
                     value={Name}
@@ -312,7 +312,7 @@ export default function Images() {
 
                 <div>
                   <div
-                    className={`flex gap-12 items-start justify-center ${error ? "mt-6" : ""} `}
+                    className={`flex gap-12 items-start justify-center  ${error ? "mt-6" : ""} `}
                   >
                     <TextInput
                       label="Description"

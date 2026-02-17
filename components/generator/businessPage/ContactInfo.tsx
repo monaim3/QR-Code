@@ -67,14 +67,17 @@ export default function ContactInfo() {
           />
 
           <div className="desktop:flex desktop:items-start desktop:gap-12 space-y-4 desktop:space-y-0 desktop:flex-1 w-full">
-            <Input
-              label="Phone number"
-              placeholder="e.g. +1809999999"
-              id="phoneNumber"
-              type="tel"
-              value={business.contactInfo.phoneNumber}
-              onChange={(value) => handleChange(value, "phoneNumber")}
-            />
+            <div className="flex-1">
+              <Input
+                label="Phone number"
+                placeholder="e.g. +1809999999"
+                id="phoneNumber"
+                type="tel"
+                value={business.contactInfo.phoneNumber}
+                onChange={(value) => handleChange(value, "phoneNumber")}
+              />
+            </div>
+
             <div className="flex items-end gap-2 flex-1 w-full">
               <div className="w-[calc(100%-56px)]">
                 <Input
@@ -119,14 +122,17 @@ export default function ContactInfo() {
           ))}
 
           <div className="desktop:flex desktop:items-start desktop:gap-12 space-y-4 desktop:space-y-0 desktop:flex-1 w-full">
-            <Input
-              label="Website"
-              placeholder="e.g. www.pauljones.com"
-              id="website"
-              type="url"
-              value={business.contactInfo.website}
-              onChange={(value) => handleChange(value, "website")}
-            />
+            <div className="flex-1">
+              <Input
+                label="Website"
+                placeholder="e.g. www.pauljones.com"
+                id="website"
+                type="url"
+                value={business.contactInfo.website}
+                onChange={(value) => handleChange(value, "website")}
+              />
+            </div>
+
             <div className="flex items-end gap-2 flex-1 w-full">
               <div className="w-[calc(100%-56px)]">
                 <Input
