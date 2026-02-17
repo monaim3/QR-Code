@@ -127,8 +127,7 @@ export default function Facebook() {
   // color-customize
 
   const vCard = useAppSelector((state) => state.vCard);
-  const [isActive, setIsActive] = useState(0);
-  //const isActive = vCard.activeColorIndex;
+  const isActive = vCard.activeColorIndex;
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
@@ -158,7 +157,7 @@ export default function Facebook() {
   ) => {
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
-
+    dispatch(setActiveColorIndex(index));
     dispatch(setFacebookPrimaryColor(primaryColor));
     dispatch(setFacebookSecondaryColor(secondaryColor));
     dispatch(setHasColorChanged(true));
