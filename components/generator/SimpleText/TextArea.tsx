@@ -22,16 +22,17 @@ export default function Textarea({
   onChange = () => {},
   error,
   maxLength = 500,
-  rows = 6,
+  rows = 4,
   validationKey,
   required = false,
 }: TextareaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  
+
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
-  
-  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
+
+  const validationError =
+    validationKey && showErrors ? validationErrors[validationKey] : "";
   const characterCount = value.length;
   const hasError = error || validationError || characterCount >= maxLength;
 

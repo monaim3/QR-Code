@@ -30,8 +30,9 @@ export default function InputUrl({
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const [isFocused, setIsFocused] = useState(false);
-  
-  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
+
+  const validationError =
+    validationKey && showErrors ? validationErrors[validationKey] : "";
   const displayError = validationError || error;
 
   const isValidUrl = (url: string) => {
@@ -92,7 +93,7 @@ export default function InputUrl({
         required={required}
         className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border transition-colors outline-none ${
           displayError
-            ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+            ? "border-red-500 ring-2 ring-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
             : isFocused
               ? "focus:ring-2 focus:ring-[var(--Blue)] border-[var(--Blue)]"
               : "border-[var(--Boarder-Grey)] hover:border-gray-300"

@@ -369,15 +369,15 @@ export default function QRCodeCustomize() {
                     frameText={frameText}
                     frameBackgroundColor={frameBackgroundColor}
                     setFrameBackgroundColor={(color: string) =>
-                      dispatch(setFrameBackgroundColor(color))
+                      dispatch(setFrameBackgroundColor(color.toUpperCase()))
                     }
                     frameTextColor={frameTextColor}
                     setFrameTextColor={(color: string) =>
-                      dispatch(setFrameTextColor(color))
+                      dispatch(setFrameTextColor(color.toUpperCase()))
                     }
                     frameColor={frameColor}
                     setFrameColor={(color: string) =>
-                      dispatch(setFrameColor(color))
+                      dispatch(setFrameColor(color.toUpperCase()))
                     }
                     transparentBg={transparentFrameBg}
                     setTransparentBg={(value: boolean) =>
@@ -414,7 +414,9 @@ export default function QRCodeCustomize() {
                     <ColorInput
                       label="Dot color"
                       color={dotColor}
-                      onChange={(color: string) => dispatch(setDotColor(color))}
+                      onChange={(color: string) =>
+                        dispatch(setDotColor(color.toUpperCase()))
+                      }
                     />
                     <button
                       type="button"
@@ -450,7 +452,7 @@ export default function QRCodeCustomize() {
                         patternTransparentBg
                           ? () => {}
                           : (color: string) =>
-                              dispatch(setBackgroundColor(color))
+                              dispatch(setBackgroundColor(color.toUpperCase()))
                       }
                     />
                   </div>

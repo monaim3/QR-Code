@@ -31,7 +31,7 @@ export default function WebsiteUrlPage() {
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
-  
+
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
   const [urlError, setUrlError] = useState("");
@@ -170,14 +170,17 @@ export default function WebsiteUrlPage() {
                                 // onBlur={handleUrlBlur}
                                 placeholder="e.g. www.mywebsite.com"
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
-                                  urlError || (showErrors && validationErrors.websiteUrl)
-                                    ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+                                  urlError ||
+                                  (showErrors && validationErrors.websiteUrl)
+                                    ? "border-red-500 ring-2 ring-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
                                     : isUrlFocused
                                       ? "focus:ring-2 focus:ring-[var(--Blue)] border-[var(--Blue)]"
                                       : "border-[var(--Boarder-Grey)] hover:border-gray-300"
                                 }`}
                               />
-                              {(urlError || (showErrors && validationErrors.websiteUrl)) && (
+                              {(urlError ||
+                                (showErrors &&
+                                  validationErrors.websiteUrl)) && (
                                 <p className="text-sm text-red-500 font-roboto">
                                   {urlError || validationErrors.websiteUrl}
                                 </p>
