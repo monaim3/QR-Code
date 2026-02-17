@@ -5,7 +5,7 @@ import ContactUsBody from "./body";
 export default function ContactUsPage() {
     return (
         <div>
-        <Header showOptions={true}/>
+        <Header showOptions={true} className="desktop:bg-white"/>
         <ContactUsBody/>
         <Footer/>
         </div>

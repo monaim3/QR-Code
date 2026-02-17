@@ -8,7 +8,7 @@ import MostCommonQuestion from "../../components/contact-us/most-common-question
 
 export default function ContactUsBody() {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col bg-[var(--Generator-Background)]">
         {/* Breadcrumb */}
         <div className="bg-white">
         <Container>
@@ -31,12 +31,12 @@ export default function ContactUsBody() {
         <div>
         </div>
         </div> 
-        <Container
+     <Container
       className="flex items-center justify-center pt-14 desktop:pt-[48px] pb-8 desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
       {/* Outer Card */}
       <div className="
-        w-full max-w-[976px]
+        w-full max-w-full
         bg-white
         rounded-[12px]
         px-[16px] desktop:px-[32px]
@@ -44,7 +44,7 @@ export default function ContactUsBody() {
         shadow-card
         flex flex-col desktop:flex-row
         items-stratch justify-between
-        overflow-hidden
+       
         mobile:gap-6
       ">
         {/* Left Panel */}

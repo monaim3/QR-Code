@@ -4,23 +4,23 @@ const contactInfo = [
     {
         id: 1,
         title: "Email",
-        subTitle: "support@smartqrcode.com",
+        subTitle: "contact@qrpath.com",
     },
     {
         id: 2,
         title: "Phone",
-        subTitle: "+1-631-892-9925",
+        subTitle: "+1 (415) 728-3492",
     },
     {
         id: 3,
         title: "Address",
-        subTitle: "46, Akademik Stefan Mladenov Str.,Office 5, 1700 Sofia, Bulgaria",
+        subTitle: "1287 Market Street, Suite 402, San Francisco, CA 94103, USA",
     }
 ];
 
 export default function ContactInformation() {
     return (
-        <div className={`flex desktop:flex-2 flex-col w-full items-center justify-center bg-[#E7F4ED] rounded-[10px] p-6 desktop:p-10`}>
+        <div className={`flex desktop:flex-2 flex-col w-full max-w-[512px] items-center justify-center bg-[#E7F4ED] rounded-[10px] p-6 desktop:p-10`}>
             <div className="flex flex-col items-start justify-center">
                 {contactInfo.map((info) => {
                     return (

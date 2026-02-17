@@ -5,7 +5,7 @@ import FaqBody from "./body"
 export default function FaqPage() {
     return (
         <div>
-        <Header showOptions={true}/>
+        <Header showOptions={true} className="desktop:bg-white"/>
         <FaqBody/>
         <Footer/>
         </div>

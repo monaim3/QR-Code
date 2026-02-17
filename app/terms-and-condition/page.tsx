@@ -5,7 +5,7 @@ import TermsAndCondition from "./body";
 export default function FaqPage() {
     return (
         <div>
-        <Header showOptions={true}/>
+        <Header showOptions={true} className="desktop:bg-white"/>
         <TermsAndCondition/>
         <Footer/>
         </div>
