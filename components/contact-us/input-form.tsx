@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "../ui/input";
 import SimpleInputField from "../../components/contact-us/input-field";
+import SimpleDropdown from "./subject-selection";
 
 const signUpSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -75,13 +76,14 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                 <p className="text-[16px] leading-[24px] font-bold">
                     Name*
                 </p>
-                <div className="flex flex-col mt-2">
+                <div className="w-full flex flex-col mt-2">
                 <Controller
                 name="name"
                 control={control}
                 render={({ field, fieldState }) => (
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 w-full">
                     <SimpleInputField
+                     className="w-full"
                         value={field.value}
                         onChange={field.onChange}
                         placeholder="e.g. John"
@@ -148,34 +150,14 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                 />
                 </div>
             </div>
+            <SimpleDropdown/>
+            </div>
             <div className="flex flex-col flex-1">
-                <p className="text-[16px] leading-[24px] font-bold">
-                    Subject*
-                </p>
-                <div className="flex flex-col mt-2">
-                <Controller
-                name="surName"
-                control={control}
-                render={({ field, fieldState }) => (
-                    <div className="flex flex-col gap-1">
-                    <SimpleInputField
-                        value={field.value}
-                        onChange={field.onChange}
-                        placeholder="e.g. John"
-                        type="surName"
-                        error={!!fieldState.error}
-                    />
-                    {fieldState.error && (
-                        <span className="text-[var(--error)] text-[12px] leading-[20px]">{fieldState.error.message}</span>
-                    )}
-                    </div>
-                )}
-                />
-                </div>
-            </div>
-            </div>
-            <div className="w-full">
-            <Controller
+              <p className="text-[16px] leading-[24px] font-bold">
+                Message*
+              </p>
+              <div className="flex flex-col mt-2">
+                 <Controller
                 name="message"
                 control={control}
                 render={({ field, fieldState }) => (
@@ -195,6 +177,7 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                  </div>
                 )}
                 />
+              </div>
             </div>
 
             <button

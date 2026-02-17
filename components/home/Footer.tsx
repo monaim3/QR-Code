@@ -3,9 +3,12 @@ import Container from "@/components/common/parent-container";
 import Link from "next/link";
 import { useState } from "react";
 import LanguageSelector from "../common/language_dropdown";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
   const [isLangOpen, setIsLangOpen] = useState(false);
+
+  const router = useRouter();
 
   return (
     <footer className="w-full pt-5 desktop:pt-16 pb-5 desktop:pb-0 bg-[radial-gradient(circle,#334A56,#2F3E46)]">
@@ -16,7 +19,12 @@ export default function Footer() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 desktop:gap-10 items-center text-center lg:text-left">
               {/* Left: Logo + Text */}
               <div className="flex flex-col gap-4">
-                <Link href="/">
+                <Link href="/"
+                onClick={() => {
+                  router.push("/");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                >
                 <div className="flex items-center justify-center lg:justify-start gap-3">
                   <img src="/images/qr.svg" alt="Logo" className="w-11 h-11" />
                   <span className="text-2xl md:text-[34px] font-bold text-white">SmartQR</span>
@@ -75,7 +83,7 @@ export default function Footer() {
               <ul className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <li>
                   <Link
-                    href="/pricing"
+                    href="/plan-and-pricing"
                     className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]">
                     Prices
                   </Link>

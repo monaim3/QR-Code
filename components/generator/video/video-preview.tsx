@@ -65,113 +65,80 @@ export default function VideoPreView() {
     }, 1000);
   }, [video.isPreviewWelcomeScreen, dispatch]);
 
-  return (
-    <ScrollArea className="w-full h-full">
-      <div
-        className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${video.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
-      >
-        {video.welcomeScreen && (
-          <Image
-            src={video.welcomeScreen}
-            alt="Background"
-            width={200}
-            height={200}
-            className="object-contain"
-          />
-        )}
-      </div>
-      <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative">
-        <div
-          className="absolute left-0 top-0 w-full h-[300px] z-[1]"
-          style={{ backgroundColor: video.primaryColor }}
-        />
-        <div className="absolute left-0 right-0 top-[32px] flex flex-col items-center justify-center px-[22px] z-[2]">
-          <p className={`text-[18px] leading-[26px] font-bold ${textColor()}`}>
-            {video.isDefault ? "A Day to Remember" : video.videoInfo.title}
-          </p>
-          <p
-            className={`text-[10px] leading-[16px] font-regular text-center ${textColor()}`}
-          >
-            {video.isDefault
-              ? "Full of smiles, emotions, and beautiful memories!"
-              : video.videoInfo.description}
-          </p>
-          <div className="w-full max-w-full pt-4">
-            {(video.isDefault ? defaultbutton : video.videoInfo.buttons).map(
-              (button, index) => {
-                return (
-                  <div
-                    key={index + 1}
-                    className="flex items-center justify-center gap-2 w-full mb-2"
-                  >
-                    <button
-                      key={index + 2}
-                      className={`py-2 px-4 w-full h-[40px] rounded-md border border-transparent ${buttonTextColor()} text-sm font-medium`}
-                      style={{ backgroundColor: video.secondaryColor }}
-                    >
-                      {video.isDefault ? "Click here" : `${button.text}`}
-                    </button>
-                    {index === 0 && video.isShare && (
-                      <div
-                        key={index + 3}
-                        className={`py-2 px-4 w-[40px] h-[40px] flex items-center justify-center rounded-md border border-transparent ${buttonTextColor()}`}
-                        style={{ backgroundColor: video.secondaryColor }}
-                      >
-                        <ShareAndroid className="flex-shrink-0" />
-                      </div>
-                    )}
-                    {index !== 0 && video.isShare && (
-                      <div
-                        key={index + 4}
-                        className={`h-[40px] w-[40px] py-2 px-4`}
-                      />
-                    )}
-                  </div>
-                );
-              },
-            )}
-          </div>
-          <div className="w-full max-w-full pt-[26px]">
-            {(video.isDefault ? defaultVideo : video.videos).map(
-              (item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex flex-col items-start justify-center bg-white border border-white rounded-[6px] shadow-card mb-[10px]"
-                  >
-                    {video.isDefault ? (
-                      <div className="relative w-full h-[130px] p-[1px]">
-                        <Image
-                          src="/images/vieo-sample.png"
-                          alt="My Photo"
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                    ) : (
-                      video.videos && (
-                        <div className="flex w-full flex-1 flex-col items-center justify-center">
-                          <UnifiedVideoPlayer
-                            url={item.url}
-                            height={130}
-                            canPlay={true}
-                          />
-                        </div>
-                      )
-                    )}
-                    <p className="text-[14px] leading-[22px] font-medium text-[var(--Black)] px-2 pt-2">
-                      {video.isDefault ? "So much joy!" : item.title}
-                    </p>
-                    <p className="text-[12px] leading-[20px] font-regular text-[var(--Black)] px-2 pb-2">
-                      {video.isDefault ? "So much joy!" : item.description}
-                    </p>
-                  </div>
-                );
-              },
-            )}
-          </div>
-        </div>
-      </div>
-    </ScrollArea>
-  );
+    return (
+        <ScrollArea className="w-full h-full rounded-[32px]">
+            <div
+              className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${video.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
+              >
+              {video.welcomeScreen && (
+                  <Image
+                    src={video.welcomeScreen}
+                    alt="Background"
+                    width={200}
+                    height={200}
+                    className="object-contain"
+                    />
+                     )}
+            </div>
+            <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative rounded-[32px]">
+              <div className="absolute left-0 top-0 w-full h-[300px] z-[1] rounded-[32px]"
+             style={{ backgroundColor: video.primaryColor }}
+            />
+            <div className="absolute left-0 right-0 top-[32px] flex flex-col items-center justify-center px-[22px] z-[2]">
+                <p className={`text-[18px] leading-[26px] font-bold ${textColor()}`}>{video.isDefault ? "A Day to Remember" : video.videoInfo.title}</p>
+                <p className={`text-[10px] leading-[16px] font-regular text-center ${textColor()}`}>{video.isDefault ? "Full of smiles, emotions, and beautiful memories!" : video.videoInfo.description}</p>
+                <div className="w-full max-w-full pt-4">
+                    {(video.isDefault ? defaultbutton : video.videoInfo.buttons).map((button, index) => {
+                        return (
+                            <div className="flex items-center justify-center gap-2 w-full mb-2">
+                                <button key={index} className={`py-2 px-4 w-full h-[40px] rounded-[32px] border border-transparent ${buttonTextColor()} text-sm font-medium`}
+                                style={{backgroundColor: video.secondaryColor}}
+                                >
+                                 {(video.isDefault ? "Click here" : `${button.text}`)}
+                                </button>
+                                {index === 0 && video.isShare && ( <div key={index} className={`py-2 px-4 w-[40px] h-[40px] flex items-center justify-center rounded-md border border-transparent ${buttonTextColor()}`}
+                                style={{backgroundColor: video.secondaryColor}}
+                                >
+                                <ShareAndroid className="flex-shrink-0"/>
+                                </div>)}
+                                {index !== 0 && video.isShare && ( 
+                                <div key={index} className={`h-[40px] w-[40px] py-2 px-4`}/>)}
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className="w-full max-w-full pt-[26px]">
+                  {(video.isDefault ? defaultVideo : video.videos).map((item,index) => {
+                    return (
+                        <div 
+                        key={index}
+                        className="flex flex-col items-start justify-center bg-white border border-white rounded-[6px] shadow-card mb-[10px]">
+                        {video.isDefault ? (
+                         <div className="relative w-full h-[130px] p-[1px]">
+                            <Image
+                                src="/images/vieo-sample.png"
+                                alt="My Photo"
+                                fill
+                                className="object-contain"
+                            />
+                            </div>
+                        ) : video.videos && (
+                          <div className="flex w-full flex-1 flex-col items-center justify-center">
+                            <UnifiedVideoPlayer url={item.url} height={130} canPlay={true}/>
+                          </div>
+                        )}
+                        <p className="text-[14px] leading-[22px] font-medium text-[var(--Black)] px-2 pt-2">
+                            {video.isDefault ? "So much joy!" : item.title}
+                        </p>
+                         <p className="text-[12px] leading-[20px] font-regular text-[var(--Black)] px-2 pb-2">
+                            {video.isDefault ? "So much joy!" : item.description}
+                        </p>
+                     </div>
+                    );
+                  })}
+                </div>
+            </div>
+            </div>
+        </ScrollArea>
+    );
 }

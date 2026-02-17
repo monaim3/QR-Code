@@ -40,6 +40,7 @@ const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
             leading-[32px]">
             {plan.price}
         </span>
+       {plan.period && <p className='text-[var(--Grey)] text-4 font-regular pl-1'>{plan.period}</p>}
       </div>
       </div>
       <div className="w-full h-[1px] bg-[rgba(205,208,219,0.5)] my-[24px]" />
@@ -93,7 +94,7 @@ const PricingPage: React.FC = () => {
     {
       title: 'Yearly Plan',
       price: '$19',
-      period: 'mo',
+      period: '/ mo',
       features: [
         { text: 'Unlimited QR codes', included: true },
         { text: 'Unlimited QR code scans', included: true },
@@ -130,7 +131,7 @@ const PricingPage: React.FC = () => {
             <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-[var(--black)]">Plans & Pricing</h1>
             <div className="flex items-center gap-6">
               <div className='hidden desktop:flex'>
-                <CurrenctSelector/>
+                <CurrenctSelector textClass='text-[var(--Grey)]'/>
               </div>
               <Link href="/generator" className="hidden desktop:flex bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
             ">Create QR code</Link>

@@ -79,7 +79,7 @@ export default function Header({ className = "", languageDropDown = false, showO
       <Container>
         <div className="flex items-center desktop:h-[72px] h-16">
           {/* Logo */}
-          <Link href="/">
+          <Link className="flex-shrink-0" href="/">
           <img src="/images/Logo.svg" alt="Logo" className="w-38" />
           </Link>
 
@@ -87,13 +87,13 @@ export default function Header({ className = "", languageDropDown = false, showO
             {/* Desktop Right side actions */}
           <div className="hidden desktop:flex items-center gap-4">
             {/* header option */}
-            <div className={`${showOptions ? "block" : "hidden"}`}>
+            <div className={`${showOptions ? "block" : "hidden"} overflow-x-auto whitespace-nowrap scrollbar-none`}>
             {Options.map((option) => {
                 return (
                     <Link
                     key={option.id}
                     href={option.path}
-                    className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:text-[var(--Blue)]"
+                    className="px-4 py-2 text-[14px] leading-[22px] font-regular text-[var(--Dark-gray)]  hover:text-[var(--Blue)] inline-block"
                     >
                     {option.title}
                     </Link>
@@ -105,7 +105,7 @@ export default function Header({ className = "", languageDropDown = false, showO
             {/* Log in Button */}
             <Link
               href="/login"
-              className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear"
+              className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear flex-shrink-0"
             >
               Log in
             </Link>

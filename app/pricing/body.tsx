@@ -84,7 +84,7 @@ export default function SmartQRPlanSelection() {
                       <div className={`flex items-center justify-between px-[14px] pb-[22px] ${plan.popular ? 'pt-[46px]' : 'py-[22px]'}`}>
                         {/* Left */}
                         <div className="flex items-center space-x-3">
-                          <div className={`w-[24px] h-[24px] rounded-[6px] flex items-center justify-center
+                          <div className={`w-[24px] h-[24px] rounded-[6px] flex items-center justify-center flex-shrink-0
                             ${selectedPlan === plan.id ? 'bg-[var(--Blue)]' : 'border-[2px] border-gray-300'}`}>
                             {selectedPlan === plan.id && <Check className="w-3 h-3 text-white" />}
                           </div>

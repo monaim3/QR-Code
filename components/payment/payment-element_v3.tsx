@@ -163,7 +163,7 @@ export default function CheckoutElementV3() {
              onClick={() => {
               console.log("Google Pay clicked!");
             }}
-            className="h-[48px] w-[300px] rounded-[10px] bg-[white] border-[1px] border-[var(--Boarder-Grey)] hover:border-[var(--Blue)] mt-[24px] flex items-center justify-center flex-shrink-0">
+            className="h-[48px] w-[300px] rounded-[10px] bg-[white] border-[1px] border-[var(--Boarder-Grey)] hover:border-[var(--Blue)] mt-[24px] flex items-center justify-center flex-shrink-0 transition duration-300">
             <Gpay/>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function CheckoutElementV3() {
            onClick={() => {
             console.log("PayPal clicked!");
           }}
-          className="h-[48px] w-[300px] rounded-[10px] bg-[#FEC438] mt-[24px] flex items-center justify-center">
+          className="h-[48px] w-[300px] rounded-[10px] bg-[#FEC438] mt-[24px] flex items-center justify-center transition-opacity duration-300 hover:opacity-80">
           <PayPalText/>
           </div>
         </div>
@@ -189,7 +189,7 @@ export default function CheckoutElementV3() {
            onClick={() => {
             console.log("PayPal clicked!");
           }}
-          className="h-[48px] w-[300px] rounded-[10px] bg-[var(--Black)] mt-[24px] flex items-center justify-center">
+          className="h-[48px] w-[300px] rounded-[10px] bg-[var(--Black)] mt-[24px] flex items-center justify-center transition-opacity duration-300 hover:opacity-80">
           <ApplePay color="white"/>
           </div>
         </div>
