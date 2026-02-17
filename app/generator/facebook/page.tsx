@@ -42,6 +42,7 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/vCardSlice";
 
 import SwapHorizontal from "@/components/icons/swap-horizontal";
@@ -126,7 +127,7 @@ export default function Facebook() {
   // color-customize
 
   const vCard = useAppSelector((state) => state.vCard);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = vCard.activeColorIndex;
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
@@ -236,6 +237,7 @@ export default function Facebook() {
             <Accordion
               title="Design and customize"
               description="Choose your color scheme"
+              defaultOpen={true}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -299,6 +301,7 @@ export default function Facebook() {
             <Accordion
               title="Page information"
               description="Provide information about yourself and your Facebook page"
+              defaultOpen={true}
             >
               <div className="space-y-4">
                 <div className="flex flex-col gap-4 lg:flex-row lg:gap-12 items-start justify-center ">
@@ -311,6 +314,7 @@ export default function Facebook() {
                     required={true}
                     error={error}
                     onError={(errorMsg) => dispatch(setError(errorMsg))}
+                    validationKey="facebookUrl"
                   />
                   <TextInput
                     label="Name"

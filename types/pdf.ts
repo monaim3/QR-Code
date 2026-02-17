@@ -14,6 +14,7 @@ export interface PdfSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  activeColorIndex: number;
   pdfFile: string,
   documentInfo: DocumentInfo,
   welcomeScreen: string;

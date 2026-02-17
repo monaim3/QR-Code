@@ -9,13 +9,13 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/vCardSlice";
-import { useState } from "react";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const vCard = useAppSelector((state) => state.vCard);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = vCard.activeColorIndex;
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
@@ -39,7 +39,7 @@ export default function DesignCustomize() {
   ) => {
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
-    setIsActive(index);
+    dispatch(setActiveColorIndex(index));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {
@@ -65,9 +65,9 @@ export default function DesignCustomize() {
         description="Choose your color scheme"
         defaultOpen={true}
       >
-        <div className="space-y-8">
+        <div className="space-y-8 w-full overflow-hidden">
           {/* Color palette */}
-          <div className="flex justify-between items-center gap-4 self-stretch w-full overflow-x-auto pb-4 desktop:overflow-x-visible desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
+          <div className="flex items-center gap-4 overflow-x-auto pb-4 pt-[2px] px-[2px]">
             {vCard.colorPalette.map((item, index) => (
               <ColorBtn
                 key={index}

@@ -79,6 +79,7 @@ const initialState: MenuSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
   secondaryColor: "#FFFFFF",
+  activeColorIndex: 0,
   restaurantInfo: {
     name: "",
     description: "",
@@ -237,6 +238,9 @@ const menuSlice = createSlice({
         section.products = newOrder;
       }
     },
+    setActiveColorIndex: (state, action: PayloadAction<number>) => {
+      state.activeColorIndex = action.payload;
+    },
   },
 });
 
@@ -258,5 +262,6 @@ export const {
   updateProduct,
   reorderProducts,
   setProductsOrder,
+  setActiveColorIndex,
 } = menuSlice.actions;
 export default menuSlice.reducer;

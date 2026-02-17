@@ -20,6 +20,7 @@ const initialState: VideoSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
   secondaryColor: "#FFFFFF",
+  activeColorIndex: 0,
   videoInfo: {
     title: "",
     description: "",
@@ -172,6 +173,9 @@ const videoSlice = createSlice({
 
     /** 🔄 Reset */
     resetSocialState: () => initialState,
+    setActiveColorIndex: (state, action: PayloadAction<number>) => {
+      state.activeColorIndex = action.payload;
+    },
   },
 });
 
@@ -196,6 +200,7 @@ export const {
   setVideoInfoButtonTitle,
   setVideoInfoButtonUrl,
   resetSocialState,
+  setActiveColorIndex,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;

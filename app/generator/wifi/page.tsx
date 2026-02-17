@@ -64,6 +64,7 @@ export default function Wifi() {
             <Accordion
               title="Wi-Fi"
               description="Provide your Wi-fi name, the type of encryption and your password"
+              defaultOpen={true}
             >
               <div className="flex  flex-col lg:gap-6 gap-4">
                 <div>
@@ -73,6 +74,7 @@ export default function Wifi() {
                     onChange={handleChange}
                     placeholder="e.g. My Wi-Fi"
                     maxLength={100}
+                    validationKey="networkName"
                   />
                 </div>
                 <div className="flex  flex-col gap-4 lg:flex-row lg:gap-12 items-center justify-center">

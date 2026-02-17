@@ -7,15 +7,15 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/menuSlice";
-import { useState } from "react";
 import ColorBtn from "../vcard/ColorBtn";
 import ColorInput from "../vcard/ColorInput";
 
 export default function MenuDesignCustomize() {
   const dispatch = useAppDispatch();
   const menu = useAppSelector((state) => state.menu);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = menu.activeColorIndex;
 
   const handleSwap = () => {
     const temp = menu.primaryColor;
@@ -39,7 +39,7 @@ export default function MenuDesignCustomize() {
   ) => {
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
-    setIsActive(index);
+    dispatch(setActiveColorIndex(index));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {

@@ -42,6 +42,7 @@ const initialState: VCardSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
   secondaryColor: "#FFFFFF",
+  activeColorIndex: 0,
   personalInfo: {
     fullName: "",
     image: null,
@@ -222,6 +223,9 @@ const vCardSlice = createSlice({
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
+    setActiveColorIndex: (state, action: PayloadAction<number>) => {
+      state.activeColorIndex = action.payload;
+    },
   },
 });
 
@@ -249,5 +253,6 @@ export const {
   removeSocialChannel,
   updateSocialChannelUrl,
   setIsPreviewWelcomeScreen,
+  setActiveColorIndex,
 } = vCardSlice.actions;
 export default vCardSlice.reducer;

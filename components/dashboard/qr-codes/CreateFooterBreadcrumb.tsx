@@ -5,6 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setActiveTab } from "@/store/slices/previewSlice";
+import { validateQRData } from "@/lib/validation/qr-validation";
+import { setErrors, setShowErrors, clearAllErrors } from "@/store/slices/validationSlice";
 
 import MobilePreviewModal from "@/components/generator/Mobile_Preview_Modal";
 import Container from "@/components/common/parent-container";
@@ -34,6 +36,7 @@ export default function CreateFooterBreadcrumb() {
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const collapsed = useAppSelector((state) => state.sidebar.collapsed);
+  const reduxState = useAppSelector((state) => state);
 
   const desktopPositionClasses = collapsed
     ? "desktopDashboard:left-[72px] left-0 desktopDashboard:max-w-[calc(100vw-72px)] max-w-full"
@@ -62,7 +65,25 @@ export default function CreateFooterBreadcrumb() {
 
   const handleNext = () => {
     if (currentStep === 2) {
-      localStorage.setItem("qrType", pathname.split("/")[3]);
+      // Get QR type from pathname
+      const qrType = pathname.split("/")[3];
+      
+      // Validate the form data
+      const validationResult = validateQRData(reduxState, qrType);
+      
+      if (!validationResult.isValid) {
+        // Dispatch errors to Redux
+        dispatch(setErrors(validationResult.fieldErrors));
+        dispatch(setShowErrors(true));
+        
+        // Scroll to top to show error
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      
+      // Clear any previous errors
+      dispatch(clearAllErrors());
+      localStorage.setItem("qrType", qrType);
       router.push("/qr-codes/generator/customize");
     }
   };

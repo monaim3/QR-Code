@@ -40,6 +40,7 @@ const initialState: PdfSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
   secondaryColor: "#FFFFFF",
+  activeColorIndex: 0,
   pdfFile: "",
   documentInfo: {
     companyName: "",
@@ -91,6 +92,9 @@ const pdfSlice = createSlice({
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
+    setActiveColorIndex: (state, action: PayloadAction<number>) => {
+      state.activeColorIndex = action.payload;
+    },
   },
 });
 
@@ -103,5 +107,6 @@ export const {
   setDocInfo,
   setWelcomeScreen,
   setIsPreviewWelcomeScreen,
+  setActiveColorIndex,
 } = pdfSlice.actions;
 export default pdfSlice.reducer;

@@ -35,6 +35,7 @@ export interface MenuSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  activeColorIndex: number;
   restaurantInfo: RestaurantInfo;
   welcomeScreen: string;
   qrCodeName: string;

@@ -22,6 +22,7 @@ export interface SocialSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  activeColorIndex: number;
   socialInfo: socialInfo,
   carousels: string[],
   availableChannels: SocialChannel[],

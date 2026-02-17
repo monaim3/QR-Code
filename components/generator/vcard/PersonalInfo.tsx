@@ -43,6 +43,8 @@ export default function PersonalInfo({ onClick, isOpen }: Props) {
         id="fullName"
         value={vCard.personalInfo.fullName}
         onChange={handleFullNameChange}
+        validationKey="fullName"
+        required={true}
       />
 
       <ImageUpload value={vCard.personalInfo.image} onCustomLogoUpload={handleImageChange} />

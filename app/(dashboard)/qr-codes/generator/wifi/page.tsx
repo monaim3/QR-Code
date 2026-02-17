@@ -133,6 +133,7 @@ export default function Wifi() {
             <Accordion
               title="Wi-Fi"
               description="Provide your Wi-fi name, the type of encryption and your password"
+              defaultOpen={true}
             >
               <div className="flex flex-col gap-6">
                 <div>

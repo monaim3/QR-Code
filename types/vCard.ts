@@ -27,6 +27,7 @@ export interface VCardSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  activeColorIndex: number;
   personalInfo: PersonalInfo;
   contactDetails: ContactDetails;
   companyName: string;

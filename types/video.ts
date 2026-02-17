@@ -26,6 +26,7 @@ export interface VideoSlice {
   colorPalette: ColorPalette[];
   primaryColor: string;
   secondaryColor: string;
+  activeColorIndex: number;
   videoInfo: VideoInfo,
   videos: video[],
   welcomeScreen: string;

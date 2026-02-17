@@ -42,6 +42,7 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/vCardSlice";
 
 import SwapHorizontal from "@/components/icons/swap-horizontal";
@@ -112,7 +113,7 @@ export default function Images() {
   // color-customize
 
   const vCard = useAppSelector((state) => state.vCard);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = vCard.activeColorIndex;
 
   const handleSwap = () => {
     const temp = vCard.primaryColor;
@@ -222,6 +223,7 @@ export default function Images() {
             <Accordion
               title="Design and customize"
               description="Choose your color scheme"
+              defaultOpen={true}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -285,6 +287,7 @@ export default function Images() {
             <Accordion
               title="Image gallery information"
               description="Provide a headline, URL and short description for your image gallery"
+              defaultOpen={true}
             >
               <div>
                 <div className="flex flex-col gap-4 lg:flex-row  lg:gap-12 items-start justify-center ">
@@ -369,6 +372,7 @@ export default function Images() {
             <Accordion
               title="Share"
               description="Add the ability to share your image gallery"
+              defaultOpen={true}
             >
               <CheckboxInput
                 label="Add Share button to landing page"

@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/store/hooks";
 import { useEffect, useRef } from "react";
 
 interface TextareaProps {
@@ -9,6 +10,8 @@ interface TextareaProps {
   error?: string;
   maxLength?: number;
   rows?: number;
+  validationKey?: string;
+  required?: boolean;
 }
 
 export default function Textarea({
@@ -19,11 +22,18 @@ export default function Textarea({
   onChange = () => {},
   error,
   maxLength = 500,
-  rows = 4,
+  rows = 6,
+  validationKey,
+  required = false,
 }: TextareaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  
+  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
   const characterCount = value.length;
-  const hasError = error || characterCount >= maxLength;
+  const hasError = error || validationError || characterCount >= maxLength;
 
   // Auto-resize textarea
   useEffect(() => {
@@ -40,6 +50,7 @@ export default function Textarea({
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"
       >
         {label}
+        {required && <span className="text-black">*</span>}
       </label>
       <textarea
         ref={textareaRef}
@@ -57,7 +68,8 @@ export default function Textarea({
       />
       {hasError && (
         <p className="text-red-500 text-[12px] font-normal leading-[20px]">
-          {error ||
+          {validationError ||
+            error ||
             `Only the first ${maxLength} characters were pasted. Extra text was removed.`}
         </p>
       )}

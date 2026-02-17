@@ -82,7 +82,7 @@ export default function AnalyticsFilter() {
           />
         </div>
 
-        <div className="flex justify-between items-center gap-4 w-full desktopDashboard:w-auto">
+        <div className="flex justify-between items-center gap-4 w-full desktopDashboard:w-auto shrink-0">
           <ClearFilter
             disabled={
               !searchName &&

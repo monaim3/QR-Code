@@ -9,13 +9,13 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
+  setActiveColorIndex,
 } from "@/store/slices/video-slice";
-import { useState } from "react";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const video = useAppSelector((state) => state.video);
-  const [isActive, setIsActive] = useState(0);
+  const isActive = video.activeColorIndex;
 
   const handleSwap = () => {
     const temp = video.primaryColor;
@@ -39,7 +39,7 @@ export default function DesignCustomize() {
   ) => {
     dispatch(setPrimaryColor(primaryColor));
     dispatch(setSecondaryColor(secondaryColor));
-    setIsActive(index);
+    dispatch(setActiveColorIndex(index));
   };
 
   const handleColorChange = (primaryColor: string, secondaryColor: string) => {

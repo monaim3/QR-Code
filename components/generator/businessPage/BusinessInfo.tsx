@@ -39,6 +39,8 @@ export default function BusinessInfo() {
                 id="business-company-name"
                 value={business.businessInfo.companyName}
                 onChange={(v) => handleChange(v, "companyName")}
+                validationKey="companyName"
+                required={true}
               />
               <Input
                 label="Title"
