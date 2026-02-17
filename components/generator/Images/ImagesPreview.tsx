@@ -21,6 +21,9 @@ const ImagesPreview: React.FC = () => {
   const secondaryColor = useAppSelector((state) => state.images.secondaryColor);
   const share = useAppSelector((state) => state.images.Share);
   const vCard = useAppSelector((state) => state.vCard);
+  const hasColorChanged = useAppSelector(
+    (state) => state.images.hasColorChanged,
+  );
 
   const hasUserAction =
     name ||
@@ -28,7 +31,8 @@ const ImagesPreview: React.FC = () => {
     website ||
     facebookUrl ||
     buttons.length > 0 ||
-    images.length > 0;
+    images.length > 0 ||
+    hasColorChanged;
 
   const hasTextContent = name || title || website;
 
