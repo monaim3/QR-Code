@@ -15,7 +15,9 @@ export default function MostCommonQuestion() {
                 h-full w-full
               "
             >
-             <Message className="flex-shrink-0"/>
+              <div className="flex-shrink-0">
+                <Message/>
+              </div>
             <p className="text-[24px] desktop:tet-[32px] leading-[32px] desktop:leading-[40px] font-bold text-white mt-[32px]">Most common questions about our services</p>
             <p className="text-[16px] leading-[24px] font-regular text-white max-w-[500px] text-center mx-auto">
             Get answers to your questions about QR codes

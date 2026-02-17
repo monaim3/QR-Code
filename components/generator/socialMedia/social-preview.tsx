@@ -58,7 +58,7 @@ export default function SocialPreView(){
   ];
 
   return (
-        <ScrollArea className="w-full h-full">
+        <ScrollArea className="w-full h-full rounded-[32px]">
            <div
             className={`w-full h-full bottom-0 left-0 flex justify-center items-center bg-white z-[3] absolute transition-transform duration-500 ease-in-out ${social.isPreviewWelcomeScreen ? "translate-y-0" : "translate-y-full"}`}
             >
@@ -73,7 +73,7 @@ export default function SocialPreView(){
           )}
           </div>
           <div className="w-full h-full flex flex-col items-center gap-6 pb-8 pt-[66.46px] px-5 relative">
-             <div className="absolute left-0 top-0 h-[145px] w-full z-[1]"
+             <div className="absolute left-0 top-0 h-[145px] w-full z-[1] rounded-[32px]"
              style={{ backgroundColor: social.primaryColor }}
             />
             <div className="absolute left-0 right-0 top-[32px] flex flex-col items-center justify-center px-4 z-[2]">

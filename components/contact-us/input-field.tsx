@@ -40,7 +40,7 @@ const SimpleInputField: FC<InputFieldProps> = ({
     `;
   
     return (
-      <div className="w-full" style={multiline ? {} :{ maxWidth: desktopWidth }}>
+      <div className="w-full">
         {multiline ? (
           <textarea
             value={value}

@@ -67,7 +67,7 @@ export default function PdfPreView(){
                 />
               )}
             </div>
-            <div className="absolute inset-0 w-full h-1/2"
+            <div className="absolute inset-0 w-full h-1/2 rounded-[32px]"
              style={{ backgroundColor: pdf.primaryColor }}
             />
             <div className="absolute flex flex-col items-center justify-center w-full max-h top-[66px] px-[20px]">

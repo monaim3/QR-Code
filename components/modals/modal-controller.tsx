@@ -7,6 +7,7 @@ import TrialExpirationModal from "./trial-expiration-modal";
 import SubscriptionCanceled from "./subscription-cancled";
 import PaymentFailed from "./payment-failed";
 import TransactionFailed from "./transaction-failed";
+import SuccessModal from "./success-modal";
 
 export default function ModalController() {
   const searchParams = useSearchParams();
@@ -44,6 +45,12 @@ export default function ModalController() {
     case "transaction-failed":
         return (
             <TransactionFailed />
+        );
+    case "subscription-cenceled-success":
+        return (
+            <SuccessModal 
+            isOpen={true}
+            onClose={()=> {}}/>
         );
 
     default:
