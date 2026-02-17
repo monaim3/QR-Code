@@ -27,6 +27,7 @@ interface imageState {
   primaryColor: string;
   secondaryColor: string;
   Share: boolean;
+  hasColorChanged: boolean;
 }
 
 const initialState: imageState = {
@@ -41,6 +42,7 @@ const initialState: imageState = {
   primaryColor: "#68C2D9",
   secondaryColor: "#FFFFFF",
   Share: false,
+  hasColorChanged: false,
 };
 
 const imagesSlice = createSlice({
@@ -55,6 +57,9 @@ const imagesSlice = createSlice({
     },
     setSecondaryColor: (state, action) => {
       state.secondaryColor = action.payload;
+    },
+    setHasColorChanged: (state, action: PayloadAction<boolean>) => {
+      state.hasColorChanged = action.payload;
     },
     setShare: (state, action) => {
       state.Share = action.payload;
@@ -170,6 +175,7 @@ export const {
   setPrimaryColor,
   setSecondaryColor,
   setShare,
+  setHasColorChanged,
 } = imagesSlice.actions;
 
 export default imagesSlice.reducer;
