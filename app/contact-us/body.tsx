@@ -32,7 +32,7 @@ export default function ContactUsBody() {
         </div>
         </div> 
      <Container
-      className="flex items-center justify-center pt-14 desktop:pt-[48px] pb-8 desktop:pb-[160px]">
+      className="flex items-center justify-center pt-[16px] desktop:pt-[96px] pb-[80px] desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
       {/* Outer Card */}
       <div className="
@@ -44,7 +44,6 @@ export default function ContactUsBody() {
         shadow-card
         flex flex-col desktop:flex-row
         items-stratch justify-between
-       
         mobile:gap-6
       ">
         {/* Left Panel */}
