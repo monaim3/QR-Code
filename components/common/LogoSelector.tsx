@@ -140,7 +140,7 @@ const LogoSelector = ({
                   hover:border-2 hover:border-[#D3D8EB] ${
                     isSelected
                       ? "bg-white border border-transparent ring-2 ring-[var(--Blue)]"
-                      : "bg-white  border border-gray-300 hover:border-gray-400 transition-all ease-linear duration-200"
+                      : "bg-white  border border-gray-300 hover:border-gray-400 transition-all ease-linear duration-300"
                   }`}
               >
                 <IconComponent />

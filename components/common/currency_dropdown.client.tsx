@@ -85,13 +85,13 @@ export default function CurrencySelector({
             sideOffset={10}
           >
             <div className="h-[188px]">
-              <Command>
+              <Command className="![overflow:unset]">
                 <div
                   className={cn(
                     "mb-2 rounded-[10px] transition-all duration-200",
                     isSearchFocused || search.length > 0
-                      ? "border-2 border-[var(--Blue)]"
-                      : "border border-[#CDD0DB]"
+                      ? "ring-2 ring-[var(--Blue)]"
+                      : "ring-1 ring-[#CDD0DB]"
                   )}
                 >
                   <div className="relative flex items-center">

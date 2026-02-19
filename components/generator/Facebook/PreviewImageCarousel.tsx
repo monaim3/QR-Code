@@ -101,7 +101,7 @@ const ImageCarouselViewer: React.FC<ImageCarouselProps> = ({
       </div>
 
       {/* Image Container */}
-      <div className=" flex items-center justify-center px-6 overflow-hidden">
+      <div className=" flex items-center justify-center px-6">
         <div
           className="w-full relative cursor-grab active:cursor-grabbing"
           onTouchStart={handleTouchStart}
@@ -144,8 +144,8 @@ const ImageCarouselViewer: React.FC<ImageCarouselProps> = ({
             onClick={() => goToSlide(index)}
             className={`transition-all duration-300 rounded-full ${
               index === currentIndex
-                ? "w-8 h-2 bg-blue-500"
-                : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                ? "w-8 h-2 bg-[var(--Blue)]"
+                : "w-2 h-2 bg-[var(--Boarder-Grey)] hover:bg-[var(--Blue)]"
             }`}
             aria-label={`Go to image ${index + 1}`}
           />

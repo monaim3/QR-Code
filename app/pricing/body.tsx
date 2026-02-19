@@ -103,7 +103,7 @@ export default function SmartQRPlanSelection() {
               </div>
 
               {/* Continue Button */}
-              <button onClick={handleContinue} className="hidden md:block w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium py-4 rounded-xl transition-colors mt-[32px]">
+              <button onClick={handleContinue} className="hidden md:block w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium rounded-[10px] transition-all duration-300 mt-[32px]">
                 Continue
               </button>
 

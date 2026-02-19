@@ -159,7 +159,7 @@ const ImagesPreview: React.FC = () => {
             </div>
           )}
 
-          <div className="rounded-lg px-4 overflow-hidden">
+          <div className="rounded-lg px-4">
             <div className="w-full px-1 pt-1 pb-1">
               {stackImages.length > 0 ? (
                 <div
