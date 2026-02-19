@@ -18,7 +18,7 @@ export default function Footer() {
           <div className="bg-white/10 rounded-xl p-6 px-4 md:p-10">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 desktop:gap-10 items-center text-center lg:text-left">
               {/* Left: Logo + Text */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col items-center lg:items-start gap-4">
                 <Link href="/"
                 onClick={() => {
                   router.push("/");

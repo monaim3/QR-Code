@@ -2,6 +2,7 @@
 import { useState, FC, InputHTMLAttributes } from "react";
 
 interface InputFieldProps {
+  id?: string
   value: string;
   onChange: (val: string) => void;
   placeholder?: string;
@@ -13,6 +14,7 @@ interface InputFieldProps {
 }
 
 const SimpleInputField: FC<InputFieldProps> = ({
+    id,
     value,
     onChange,
     placeholder = "",
@@ -43,6 +45,7 @@ const SimpleInputField: FC<InputFieldProps> = ({
       <div className="w-full">
         {multiline ? (
           <textarea
+            id={id}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
@@ -55,6 +58,7 @@ const SimpleInputField: FC<InputFieldProps> = ({
           />
         ) : (
           <input
+            id={id}
             type={type}
             value={value}
             onChange={(e) => onChange(e.target.value)}

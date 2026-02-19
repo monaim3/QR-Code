@@ -20,7 +20,7 @@ const contactInfo = [
 
 export default function ContactInformation() {
     return (
-        <div className={`flex desktop:flex-2 flex-col w-full max-w-[512px] items-center justify-center bg-[#E7F4ED] rounded-[10px] p-6 desktop:p-10`}>
+        <div className={`flex desktop:flex-2 flex-col w-full max-w-[512px] items-center justify-center bg-[#E7F4ED] rounded-[10px] p-6 desktop:py-10 desktop:px-16`}>
             <div className="flex flex-col items-start justify-center">
                 {contactInfo.map((info) => {
                     return (

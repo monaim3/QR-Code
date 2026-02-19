@@ -58,7 +58,7 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
   };
 
     return (
-        <div className={`flex flex-col w-full desktop:flex-3 max-h-full ${paddingRight ? "desktop:pr-8" : "desktop:pr-0"}`}>
+        <div className={`flex flex-col w-full desktop:flex-3 max-h-full`}>
           <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
           Contact Us
           </h1>
@@ -72,11 +72,10 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
           onSubmit={handleSubmit(onSubmit)}
           className="w-full mt-8 flex flex-col gap-4">
             <div className="flex flex-col desktop:flex-row gap-6">
-            <div className="flex flex-col flex-1">
-                <p className="text-[16px] leading-[24px] font-bold">
+            <div className="flex flex-col flex-1 gap-2">
+                <label htmlFor="name" className="text-[16px] leading-[24px] font-semibold">
                     Name*
-                </p>
-                <div className="w-full flex flex-col mt-2">
+                </label>
                 <Controller
                 name="name"
                 control={control}
@@ -84,6 +83,7 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                     <div className="flex flex-col gap-1 w-full">
                     <SimpleInputField
                      className="w-full"
+                        id="name"
                         value={field.value}
                         onChange={field.onChange}
                         placeholder="e.g. John"
@@ -96,19 +96,18 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                     </div>
                 )}
                 />
-                </div>
             </div>
-            <div className="flex flex-col flex-1">
-                <p className="text-[16px] leading-[24px] font-bold">
+            <div className="flex flex-col flex-1 gap-2">
+                <label htmlFor="surName" className="text-[16px] leading-[24px] font-semibold">
                     Surname*
-                </p>
-                <div className="flex flex-col mt-2">
+                </label>
                 <Controller
                 name="surName"
                 control={control}
                 render={({ field, fieldState }) => (
                     <div className="flex flex-col gap-1">
                     <SimpleInputField
+                        id="surName"
                         value={field.value}
                         onChange={field.onChange}
                         placeholder="e.g. John"
@@ -121,21 +120,20 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                     </div>
                 )}
                 />
-                </div>
             </div>
             </div>
             <div className="flex flex-col desktop:flex-row gap-6">
-            <div className="flex flex-col flex-1">
-                <p className="text-[16px] leading-[24px] font-bold">
+            <div className="flex flex-col flex-1 gap-2">
+                <label htmlFor="email" className="text-[16px] leading-[24px] font-semibold">
                     Email*
-                </p>
-                <div className="flex flex-col mt-2">
+                </label>
                 <Controller
                 name="email"
                 control={control}
                 render={({ field, fieldState }) => (
                     <div className="flex flex-col gap-1">
                     <SimpleInputField
+                        id="email"
                         value={field.value}
                         onChange={field.onChange}
                         placeholder="e.g. johndoe@mail.com"
@@ -148,28 +146,27 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                     </div>
                 )}
                 />
-                </div>
             </div>
             <SimpleDropdown/>
             </div>
-            <div className="flex flex-col flex-1">
-              <p className="text-[16px] leading-[24px] font-bold">
+            <div className="flex flex-col flex-1 gap-2">
+              <label htmlFor="message" className="text-[16px] leading-[24px] font-semibold">
                 Message*
-              </p>
-              <div className="flex flex-col mt-2">
+              </label>
                  <Controller
                 name="message"
                 control={control}
                 render={({ field, fieldState }) => (
                  <div className="flex flex-col gap-1 w-full">
                     <SimpleInputField
-                    className="w-full"
-                        value={field.value}
-                        onChange={field.onChange}
-                        placeholder="Message"
-                        type="message"
-                        multiline={true}
-                        error={!!fieldState.error}
+                      id="message"
+                      className="w-full"
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder="Message"
+                      type="message"
+                      multiline={true}
+                      error={!!fieldState.error}
                     />
                     {fieldState.error && (
                         <span className="text-[var(--error)] text-[12px] leading-[20px]">{fieldState.error.message}</span>
@@ -177,7 +174,6 @@ export default function ContactUsInputForm ({socialRow = false, withRightPannel 
                  </div>
                 )}
                 />
-              </div>
             </div>
 
             <button

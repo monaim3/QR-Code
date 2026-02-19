@@ -39,12 +39,13 @@ export default function ContactUsBody() {
         w-full max-w-full
         bg-white
         rounded-[12px]
-        px-[16px] desktop:px-[32px]
-        pt-[32px] pb-[24px] desktop:pb-[32px]
+        px-[16px] desktop:p-10
+        pt-[32px] pb-[24px]
         shadow-card
         flex flex-col desktop:flex-row
         items-stratch justify-between
-        mobile:gap-6
+        gap-6
+        desktop:gap-10
       ">
         {/* Left Panel */}
         <ContactUsInputForm/>
