@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/video-slice";
 import ShareAndroid from "@/components/icons/share-android";
 import UnifiedVideoPlayer from "@/components/generator/video/video-player";
+import PlayCircle from "@/components/icons/play-circle";
 
 export default function VideoPreView() {
   const dispatch = useDispatch();
@@ -147,6 +148,7 @@ export default function VideoPreView() {
                           fill
                           className="object-contain"
                         />
+                        <PlayCircle className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                       </div>
                     ) : (
                       video.videos && (
