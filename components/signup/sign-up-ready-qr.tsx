@@ -8,7 +8,7 @@ import QRCodeStyling, { Options } from "qr-code-styling";
 import { QRFrameArray } from "@/components/common/QRFrameArray";
 import { getLogoComponent } from "@/lib/logoRegistry";
 
-interface ReadyQrProps{
+interface ReadyQrProps {
   showOnMobile?: boolean;
 }
 
@@ -22,17 +22,16 @@ class AuthFeatures {
 }
 
 const authFeatureList = [
-  new AuthFeatures(1, 'Unlimited QR codes'),
-  new AuthFeatures(2, 'Unlimited QR code scans'),
-  new AuthFeatures(3, 'Unrestricted customization options'),
-  new AuthFeatures(4, 'Unlimited access to analytics'),
-  new AuthFeatures(5, 'Unlimited downloads'),
-  new AuthFeatures(6, 'Full access to all download formats'),
-  new AuthFeatures(7, 'Create any type of QR code you need'),
+  new AuthFeatures(1, "Unlimited QR codes"),
+  new AuthFeatures(2, "Unlimited QR code scans"),
+  new AuthFeatures(3, "Unrestricted customization options"),
+  new AuthFeatures(4, "Unlimited access to analytics"),
+  new AuthFeatures(5, "Unlimited downloads"),
+  new AuthFeatures(6, "Full access to all download formats"),
+  new AuthFeatures(7, "Create any type of QR code you need"),
 ];
 
 export default function SignUpReadyQr({ showOnMobile = false }: ReadyQrProps) {
-
   const router = useRouter();
   const mobileQrRef = useRef<SVGGElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -218,8 +217,9 @@ export default function SignUpReadyQr({ showOnMobile = false }: ReadyQrProps) {
   ]);
 
   return (
-    <div className={`${showOnMobile ? "flex" : "hidden"} desktop:flex flex-col w-full desktop:w-1/2 items-center justify-start bg-[#E7F4ED] rounded-[10px] p-[24px] desktop:pt-[32px] desktop:px-[56px] desktop:pb-[56px] gap-[24px] desktop:gap-[32px]`}>
-
+    <div
+      className={`${showOnMobile ? "flex" : "hidden"} desktop:flex flex-col w-full desktop:w-1/2 items-center justify-start bg-[#E7F4ED] rounded-[10px] p-[24px] desktop:pt-[32px] desktop:px-[56px] desktop:pb-[56px] gap-[24px] desktop:gap-[32px]`}
+    >
       {/* Heading */}
       <p className="text-[20px] desktop:text-[24px] font-bold leading-[32px] text-center text-[#0A0909] tracking-[0%]">
         Your QR code is ready!
@@ -238,15 +238,13 @@ export default function SignUpReadyQr({ showOnMobile = false }: ReadyQrProps) {
               <SelectedFrameComponent
                 label={frameText}
                 backgroundColor={
-                  transparentFrameBg
-                    ? "transparent"
-                    : frameBackgroundColor
+                  transparentFrameBg ? "transparent" : frameBackgroundColor
                 }
                 textColor={
                   frameTextColor
                     ? frameTextColor
                     : selectedFrame.frameColor === "black"
-                      ? "#ffffff"
+                      ? "#FFFFFF"
                       : "#000000"
                 }
                 frameColor={frameColor}
@@ -270,8 +268,10 @@ export default function SignUpReadyQr({ showOnMobile = false }: ReadyQrProps) {
       <div className="flex flex-col w-full gap-[16px] overflow-auto">
         {authFeatureList.map((feature) => (
           <div key={feature.id} className="flex items-center gap-[8px]">
-            <CheckIcon/>
-            <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)]">{feature.label}</p>
+            <CheckIcon />
+            <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)]">
+              {feature.label}
+            </p>
           </div>
         ))}
       </div>

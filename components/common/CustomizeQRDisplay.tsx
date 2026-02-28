@@ -169,10 +169,14 @@ export default function CustomizeQRDisplay() {
 
         if (qrCodeRef.current) {
           qrCodeRef.current.update(qrOptions);
-          qrCodeRef.current.append(frameQrRef.current as unknown as HTMLElement);
+          qrCodeRef.current.append(
+            frameQrRef.current as unknown as HTMLElement,
+          );
         } else {
           qrCodeRef.current = new QRCodeStyling(qrOptions);
-          qrCodeRef.current.append(frameQrRef.current as unknown as HTMLElement);
+          qrCodeRef.current.append(
+            frameQrRef.current as unknown as HTMLElement,
+          );
         }
       }
     };
@@ -209,7 +213,7 @@ export default function CustomizeQRDisplay() {
             frameTextColor
               ? frameTextColor
               : selectedFrame.frameColor === "black"
-                ? "#ffffff"
+                ? "#FFFFFF"
                 : "#000000"
           }
           frameColor={frameColor}

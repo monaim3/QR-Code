@@ -13,8 +13,8 @@ export default {
         ring: "var(--ring)",
       },
       fontFamily: {
-        sans: ['var(--font-Roboto)', 'sans-serif'],
-        heading: ['var(--font-poppins)', 'sans-serif'],
+        sans: ["var(--font-Roboto)", "sans-serif"],
+        heading: ["var(--font-poppins)", "sans-serif"],
         sans: ["var(--font-poppins)", "sans-serif"],
         roboto: ["var(--font-roboto)", "sans-serif"],
         rubik: ["var(--font-rubik)", "sans-serif"],
@@ -22,6 +22,7 @@ export default {
       screens: {
         desktop: "740px",
         mobile: { max: "739px" },
+        mobileLg: { min: "991px" },
         tablet: { min: "740px", max: "1219px" },
         desktopDashboard: "1220px",
         desktopMd: { min: "1220px", max: "1335px" },
@@ -33,12 +34,12 @@ export default {
       },
       keyframes: {
         marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' },
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
       animation: {
-        marquee: 'marquee 20s linear infinite',
+        marquee: "marquee 20s linear infinite",
       },
     },
   },

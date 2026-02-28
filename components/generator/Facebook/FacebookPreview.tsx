@@ -4,16 +4,15 @@ import FacebookIcon from "@/components/icons/facebook-icon";
 import { Globe } from "lucide-react";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/vCardSlice";
 import { useDispatch } from "react-redux";
+import ImageCarouselViewer from "./PreviewImageCarousel";
 
-interface FacebookPreviewProps {
-  onImageClick?: (index: number) => void;
-}
-
-const FacebookPreview: React.FC<FacebookPreviewProps> = ({ onImageClick }) => {
+const FacebookPreview: React.FC = () => {
   const dispatch = useDispatch();
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [carouselStartIndex, setCarouselStartIndex] = useState(0);
 
   const name = useAppSelector((state) => state.facebook.Name);
   const title = useAppSelector((state) => state.facebook.Title);
@@ -67,9 +66,14 @@ const FacebookPreview: React.FC<FacebookPreviewProps> = ({ onImageClick }) => {
 
   const handleImageClick = (index: number) => {
     // Only trigger if there are actual user-uploaded images
-    if (images.length > 0 && onImageClick) {
-      onImageClick(index);
+    if (images.length > 0) {
+      setCarouselStartIndex(index);
+      setIsCarouselOpen(true);
     }
+  };
+
+  const handleCloseCarousel = () => {
+    setIsCarouselOpen(false);
   };
 
   useEffect(() => {
@@ -77,6 +81,17 @@ const FacebookPreview: React.FC<FacebookPreviewProps> = ({ onImageClick }) => {
       dispatch(setIsPreviewWelcomeScreen(false));
     }, 1000);
   }, [vCard.isPreviewWelcomeScreen, dispatch]);
+
+  // If carousel is open, show the carousel viewer
+  if (isCarouselOpen && images.length > 0) {
+    return (
+      <ImageCarouselViewer
+        images={images}
+        initialIndex={carouselStartIndex}
+        onClose={handleCloseCarousel}
+      />
+    );
+  }
 
   return (
     <ScrollArea className="w-full h-full">
