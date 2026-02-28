@@ -77,7 +77,7 @@ export default function Header({
 
           <div className="flex items-center gap-4 ml-auto">
             {/* Desktop Right side actions */}
-            <div className="hidden desktop:flex items-center gap-4">
+            <div className="hidden mobileLg:flex items-center gap-4">
               {/* header option */}
               <div
                 className={`${showOptions ? "block" : "hidden"} overflow-x-auto whitespace-nowrap scrollbar-none`}
@@ -117,7 +117,7 @@ export default function Header({
             )}
 
             {/* Mobile Hamburger Menu */}
-            <div className="flex desktop:hidden">
+            <div className="flex mobileLg:hidden">
               <button
                 onClick={() => setIsDrawerOpen(true)}
                 className="p-2 text-[var(--Black)] hover:bg-gray-100 rounded-lg transition-colors"
@@ -132,7 +132,7 @@ export default function Header({
       {/* Mobile Drawer */}
       <div
         className={cn(
-          "fixed inset-0 z-[100] desktop:hidden transition-all duration-300 ease-in-out",
+          "fixed inset-0 z-[100] mobileLg:hidden transition-all duration-300 ease-in-out",
           isDrawerOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none",
