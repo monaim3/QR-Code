@@ -102,7 +102,7 @@ const QrCodeFrameAllInput = ({
                 frameTextColor
                   ? frameTextColor
                   : selectedFrame === "black"
-                    ? "#ffffff"
+                    ? "#FFFFFF"
                     : "#000000"
               }
               onChange={setFrameTextColor}

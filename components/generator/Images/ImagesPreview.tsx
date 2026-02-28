@@ -4,13 +4,17 @@ import FacebookIcon from "@/components/icons/facebook-icon";
 import { Globe } from "lucide-react";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/vCardSlice";
 import { useDispatch } from "react-redux";
 import { IoShareSocialOutline } from "react-icons/io5";
+import ImageCarouselViewer from "../Facebook/PreviewImageCarousel";
 
 const ImagesPreview: React.FC = () => {
   const dispatch = useDispatch();
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [carouselStartIndex, setCarouselStartIndex] = useState(0);
+
   const name = useAppSelector((state) => state.images.Name);
   const title = useAppSelector((state) => state.images.Title);
   const website = useAppSelector((state) => state.images.Website);
@@ -74,11 +78,34 @@ const ImagesPreview: React.FC = () => {
     }
   };
 
+  const handleImageClick = (index: number) => {
+    // Only trigger if there are actual user-uploaded images
+    if (images.length > 0) {
+      setCarouselStartIndex(index);
+      setIsCarouselOpen(true);
+    }
+  };
+
+  const handleCloseCarousel = () => {
+    setIsCarouselOpen(false);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(setIsPreviewWelcomeScreen(false));
     }, 1000);
   }, [vCard.isPreviewWelcomeScreen, dispatch]);
+
+  // If carousel is open, show the carousel viewer
+  if (isCarouselOpen && images.length > 0) {
+    return (
+      <ImageCarouselViewer
+        images={images}
+        initialIndex={carouselStartIndex}
+        onClose={handleCloseCarousel}
+      />
+    );
+  }
 
   return (
     <ScrollArea className="w-full h-full">
@@ -163,12 +190,19 @@ const ImagesPreview: React.FC = () => {
             <div className="w-full px-1 pt-1 pb-1">
               {stackImages.length > 0 ? (
                 <div
-                  className="w-full relative"
+                  className="w-full relative cursor-pointer"
                   style={{ aspectRatio: "207/240" }}
+                  onClick={() => handleImageClick(0)}
                 >
                   {/* Second Image - Left side */}
                   {stackImages[1] && (
-                    <div className="absolute -left-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]">
+                    <div 
+                      className="absolute -left-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleImageClick(1);
+                      }}
+                    >
                       <Image
                         src={stackImages[1].url}
                         alt={stackImages[1].name}
@@ -181,7 +215,13 @@ const ImagesPreview: React.FC = () => {
 
                   {/* Third Image - Right side */}
                   {stackImages[2] && (
-                    <div className="absolute -right-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]">
+                    <div 
+                      className="absolute -right-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleImageClick(2);
+                      }}
+                    >
                       <Image
                         src={stackImages[2].url}
                         alt={stackImages[2].name}

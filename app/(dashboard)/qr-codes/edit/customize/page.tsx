@@ -570,7 +570,7 @@ export default function DashboardQRCodeCustomize() {
                             frameTextColor
                               ? frameTextColor
                               : selectedFrame.frameColor === "black"
-                                ? "#ffffff"
+                                ? "#FFFFFF"
                                 : "#000000"
                           }
                           frameColor={frameColor}
