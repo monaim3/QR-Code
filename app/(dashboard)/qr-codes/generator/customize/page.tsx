@@ -143,7 +143,7 @@ export default function QRCodeCustomize() {
 
             ctx.fillStyle = "white";
             ctx.beginPath();
-            ctx.roundRect(0, 0, 80, 80, 15);
+            ctx.roundRect(0, 0, 60, 60, 10);
             ctx.fill();
 
             const img = new Image();
