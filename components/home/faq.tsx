@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import Link from 'next/link';
 import {
   Accordion,
   AccordionContent,
@@ -130,7 +131,7 @@ const handleItemClick = (index: number) => {
         <div className="flex flex-col items-center justify-center max-w-[800] m-auto">
           <div className="flex flex-col items-center justify-center gap-2 mb-10">
             <h2 className="font-bold text-center text-[24px] leading-8 desktop:text-[32px] desktop:leading-10 text-[var(--Black)]">Frequently asked questions</h2>
-            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or <a href="#" className="text-[var(--Blue)] underline">contact us</a>
+            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or <Link href="/contact-us" className="text-[var(--Blue)] underline">contact us</Link>
             </p>
           </div>
 

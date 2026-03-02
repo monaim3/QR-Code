@@ -67,7 +67,7 @@ export default function DesignCustomize() {
       >
         <div className="space-y-8 w-full overflow-hidden">
           {/* Color palette */}
-          <div className="flex items-center gap-4 overflow-x-auto pb-4 pt-[2px] px-[2px]">
+          <div className="flex items-center gap-4 overflow-x-auto pb-4 pt-[2px] px-[2px] desktop:flex-wrap">
             {vCard.colorPalette.map((item, index) => (
               <ColorBtn
                 key={index}

@@ -15,33 +15,32 @@ export default function AboutUsBody() {
   return (
     <div className="flex flex-col">
         {/* Breadcrumb */}
-        <div className="bg-white">
-        <Container>
-        <div className="flex h-[54px] w-full items-center justify-start gap-2">
-            <Link
-            href="/#"
-            className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
-          >
-            Smart QR Code
-          </Link>
-          <ChevronRight className="w-4 h-4 text-[#79809A]" />
-          <Link
-            href="/#"
-            className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
-          >
-            About us
-          </Link>
-        </div>
-        </Container>
-        </div> 
-        <div className="flex flex-col">
-        <div className="bg-[var(--Generator-Background)]">
+        <section className="bg-white">
+          <Container>
+            <div className="flex h-[54px] w-full items-center justify-start gap-2">
+                <Link
+                href="/#"
+                className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
+              >
+                Smart QR Code
+              </Link>
+              <ChevronRight className="w-4 h-4 text-[#79809A]" />
+              <Link
+                href="/#"
+                className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
+              >
+                About us
+              </Link>
+            </div>
+          </Container>
+        </section> 
+        <section className="bg-[var(--Generator-Background)] overflow-hidden">
         <Container className="w-full max-w-full">
             {/* Main content */}
-            <div className="flex flex-col w-full h-full mt-[29px] desktop:mt-[120px]">
-            <div className="flex flex-col desktop:flex-row w-full min-w-full h-[480px]">
+            <div className="flex flex-col w-full h-full pt-[29px] desktop:pt-[120px]">
+            <div className="flex flex-col items-center desktop:flex-row w-full min-w-full h-[480px]">
             {/* Left half */}
-            <div className="hidden desktop:block">
+            <div className="hidden desktop:block relative z-10">
             <AboutUsLeftelement/>
             </div>
 
@@ -86,7 +85,7 @@ export default function AboutUsBody() {
             </div>
             </div>
             </div>
-            <div className="flex mt-[120px] mb-[59px] items-center gap-6">
+            <div className="flex pt-[120px] pb-[59px] items-center gap-6">
                 <p className="hidden desktop:block text-[18px] leading-[26px] font-regular text-[#1D2948] whitespace-nowrap">
                     Top brands that use QR codes:
                 </p>
@@ -113,13 +112,12 @@ export default function AboutUsBody() {
             </div>
             </div>
         </Container>
-        </div>
-        <div className="w-full bg-white">
+        </section>
+        <section className="w-full bg-white" id="more_about">
         <OurMission/>
-        </div>
+        </section>
         <CustomerReview/>
         <GetInTouch/>
-        </div>
     </div>
   );
 }

@@ -67,7 +67,7 @@ export default function DesignCustomize() {
       >
         <div className="space-y-8">
           {/* Color palette */}
-          <div className="flex justify-between items-center gap-4 self-stretch w-full overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
+          <div className="flex items-center gap-4 self-stretch w-full overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0 desktop:flex-wrap">
             {video.colorPalette.map((item, index) => (
               <ColorBtn
                 key={index}

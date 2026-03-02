@@ -47,7 +47,7 @@ export default function OurMission() {
 
     return (
         <Container className="px-5">
-             <div className="flex flex-col mt-[80px] desktop:mt-[160px]">
+             <div className="flex flex-col pt-[80px] desktop:pt-[160px]">
                 <div className="flex flex-col desktop:flex-row items-center justify-center gap-[56px]">
                 <div className="order-2 desktop:order-1 flex-1">
                     <img
@@ -59,13 +59,13 @@ export default function OurMission() {
                  <h2 className="text-[24px] desktop:text-[32px] font-bold leading-[32px] desktop:leading-[40px]">
                  Our mission
                  </h2>
-                 <p className="text-[18] leading-[26px] font-regular mt-[8px]">
+                 <p className="text-[18] leading-[26px] font-regular pt-[8px]">
                  Our mission is to seamlessly connect the physical and digital realms through the power of QR codes. With our user-friendly platform, you can enhance customer experiences, optimize operations, and track the effectiveness of your marketing efforts. 
                  </p>
-                 <p className="text-[18] leading-[26px] font-regular mt-[16px]">
+                 <p className="text-[18] leading-[26px] font-regular pt-[16px]">
                  Join the ever-growing community of millions of happy users who rely on Smart QR Code to unlock the potential of QR codes. Jump on board and let us show all the cool things QR tech can do! 
                  </p>
-                 <div className="mt-[24px]">
+                 <div className="pt-[24px]">
                  <AvatarGroup className="">
                     {userList.map((image)=> {
                         return (
@@ -82,7 +82,7 @@ export default function OurMission() {
                  </div>
                 </div>
                 </div>
-                <div className="w-full max-w-full flex flex-col desktop:flex-row justify-between mt-[56px] gap-8">
+                <div className="w-full max-w-full flex flex-col desktop:flex-row justify-between pt-[56px] gap-8 border-b-[1px] border-[var(--Boarder-Grey)] pb-[80px] desktop:pb-[160px]">
                     {footers.map((footer) => {
                         return (
                             <div className="bg-[var(--boarder-grey-50)] h-[102px] w-full max-w-full flex items-center justify-start p-6 rounded-[12px] gap-6">
@@ -100,7 +100,6 @@ export default function OurMission() {
                         );
                     })}
                 </div>
-                <div className="h-[1px] w-full bg-[var(--Boarder-Grey)] mt-[160px]"/>
             </div>
         </Container>
     );
