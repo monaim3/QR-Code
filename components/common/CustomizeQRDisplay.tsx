@@ -77,7 +77,7 @@ export default function CustomizeQRDisplay() {
 
             ctx.fillStyle = "white";
             ctx.beginPath();
-            ctx.roundRect(0, 0, 100, 100, 15);
+            ctx.roundRect(0, 0, 60, 60, 10);
             ctx.fill();
 
             const img = new Image();
