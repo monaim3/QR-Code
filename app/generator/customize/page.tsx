@@ -144,7 +144,7 @@ export default function QRCodeCustomize() {
               return;
             }
 
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "transparent";
             ctx.beginPath();
             ctx.roundRect(0, 0, 60, 60, 10);
             ctx.fill();
@@ -216,7 +216,7 @@ export default function QRCodeCustomize() {
           qrOptions.image = iconDataUrl;
           qrOptions.imageOptions = {
             hideBackgroundDots: true,
-            imageSize: 0.4,
+            imageSize: 0.3,
             margin: 0,
           };
         }
@@ -397,7 +397,7 @@ export default function QRCodeCustomize() {
                   <label className="block text-lg font-bold leading-[26px] text-[#0A0909]">
                     Pattern style
                   </label>
-                  <div className="flex gap-4 pt-4 overflow-x-auto lg:overflow-visible">
+                  <div className="flex gap-4 p-0.5 pt-4 overflow-x-auto lg:overflow-visible">
                     {patternOptions.map((pattern) => (
                       <PatternPreview
                         key={pattern}

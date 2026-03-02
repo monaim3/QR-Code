@@ -17,10 +17,10 @@ const CornerStylePreview = ({
   const strokeWidth = 2.5;
 
   const baseClass =
-    "w-[60px] h-[60px] flex items-center justify-center rounded-[10px] border transition-all p-4";
+    "w-[60px] h-[60px] flex items-center justify-center rounded-[10px] border transition-all p-4 border-2";
 
   const stateClass = isSelected
-    ? "border-[#01A56D] bg-[#F3FBF8]"
+    ? "border-[var(--Blue)] bg-[#F3FBF8]"
     : "border-[#D6DDF0] hover:border-[#BFC8E8]";
 
   if (type === "none") {

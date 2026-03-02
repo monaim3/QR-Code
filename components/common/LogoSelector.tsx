@@ -162,8 +162,8 @@ const LogoSelector = ({
             uploadError
               ? "border-red-500 bg-red-50"
               : customLogo || fileName !== "MyLogo.svg"
-                ? "border-[#01A56D] bg-white"
-                : "border-[#01A56D] hover:border-[#01A56D]"
+                ? "border-[var(--Blue)] bg-white"
+                : "border-[var(--Blue)] hover:border-[var(--Blue)]"
           }`}
         >
           <input

@@ -112,8 +112,8 @@ export default function ImageCarousel({
           uploadError
             ? "border-red-500 bg-red-50"
             : images.length > 0
-              ? "border-[#01A56D] bg-white"
-              : "border-[#01A56D] hover:border-[#01A56D]"
+              ? "border-[var(--Blue)] bg-white"
+              : "border-[var(--Blue)] hover:border-[var(--Blue)]"
         }`}
       >
         <input
@@ -157,7 +157,7 @@ export default function ImageCarousel({
               className="flex flex-col gap-2 relative group rounded-lg overflow-hidden  bg-white"
             >
               {/* Image */}
-              <div className="aspect-square border-2  rounded-lg border-gray-200 flex items-center justify-center p-4 bg-gray-50 min-h-[100px]">
+              <div className="aspect-square border-2  rounded-lg border-[var(--Boarder-Grey)] flex items-center justify-center p-4 bg-gray-50 min-h-[100px]">
                 <img
                   src={image.url}
                   alt={image.name}
