@@ -210,7 +210,7 @@ export default function GeneratorPage({
   };
 
   return (
-    <div className="bg-[var(--Generator-Background)] pb-20 desktop:pb-28 min-h-screen">
+    <div className="bg-[var(--Generator-Background)] pb-20 desktop:pb-28 min-h-[calc(100vh-73px)]">
       <div className="desktop:max-w-[1256px] desktop:mx-auto relative">
         {/* Arrow: hide on mobile */}
         {showArrow ? <Arrow hideOnMobile /> : <div></div>}
