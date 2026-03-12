@@ -6,7 +6,11 @@ import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setActiveTab } from "@/store/slices/previewSlice";
 import { validateQRData } from "@/lib/validation/qr-validation";
-import { setErrors, setShowErrors, clearAllErrors } from "@/store/slices/validationSlice";
+import {
+  setErrors,
+  setShowErrors,
+  clearAllErrors,
+} from "@/store/slices/validationSlice";
 
 import MobilePreviewModal from "./Mobile_Preview_Modal";
 import Container from "../common/parent-container";
@@ -52,7 +56,6 @@ export default function BreadcrumbFooter() {
     if (currentStep === 2) {
       router.push("/generator");
     } else if (currentStep === 3) {
-      const pathSegments = pathname.split("/");
       router.back();
     }
   };
@@ -61,20 +64,20 @@ export default function BreadcrumbFooter() {
     if (currentStep === 2) {
       // Get QR type from pathname
       const qrType = pathname.split("/")[2];
-      
+
       // Validate the form data
       const validationResult = validateQRData(reduxState, qrType);
-      
+
       if (!validationResult.isValid) {
         // Dispatch errors to Redux
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
-        
+
         // Scroll to top to show error
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
-      
+
       // Clear any previous errors
       dispatch(clearAllErrors());
       localStorage.setItem("qrType", qrType);
@@ -166,36 +169,36 @@ export default function BreadcrumbFooter() {
       }
     }
 
-    if(pathname.includes("/pdf")){
+    if (pathname.includes("/pdf")) {
       return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <PdfPreView />
-          </div>
-        );
+        <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+          <PdfPreView />
+        </div>
+      );
     }
 
-    if(pathname.includes("/social-media")){
+    if (pathname.includes("/social-media")) {
       return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <SocialPreView />
-          </div>
-        );
+        <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+          <SocialPreView />
+        </div>
+      );
     }
 
-    if(pathname.includes("/video")){
+    if (pathname.includes("/video")) {
       return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <VideoPreView />
-          </div>
-        );
+        <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+          <VideoPreView />
+        </div>
+      );
     }
 
-     if(pathname.includes("/app")){
+    if (pathname.includes("/app")) {
       return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <AppPreView />
-          </div>
-        );
+        <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
+          <AppPreView />
+        </div>
+      );
     }
 
     if (activeTab === "preview") {

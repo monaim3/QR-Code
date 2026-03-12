@@ -18,13 +18,13 @@ interface BreadcrumbProps {
 
 const steps: BreadcrumbStep[] = [
   { number: 1, label: "Choose Type", path: "/generator" },
-  { number: 2, label: "Add content", path: "/generator/content" },
-  { number: 3, label: "Customize QR design", path: "/generator/customize" },
+  { number: 2, label: "Add Content", path: "/generator/content" },
+  { number: 3, label: "Customize QR Design", path: "/generator/customize" },
 ];
 
 const mobileSteps: BreadcrumbStep[] = [
-  { number: 1, label: "Choose QR code type", path: "/generator" },
-  { number: 2, label: "content", path: "/generator/content" },
+  { number: 1, label: "Choose QR Code Type", path: "/generator" },
+  { number: 2, label: "Content", path: "/generator/content" },
   { number: 3, label: "Design", path: "/generator/customize" },
 ];
 
@@ -136,7 +136,10 @@ export default function Breadcrumb({
                       : "block")
               }`}
             >
-              <span className="hidden desktop:inline">{step.label}</span>
+              <span className="hidden tabletLg:inline">{step.label}</span>
+              <span className="hidden tabletMd:inline">
+                {step.label.split(" ").pop()}
+              </span>
 
               {/* Mobile view */}
               {useMobileSteps && dashboardSteps ? (
