@@ -30,7 +30,7 @@ const mobileSteps: BreadcrumbStep[] = [
 
 const priceAndPlanData: BreadcrumbStep[] = [
   { number: 1, label: "QR Ready", path: "/generator/customize" },
-  { number: 2, label: "Plan Selection", path: "/pricing" },
+  { number: 2, label: "Plan Selection", path: "/prices" },
   { number: 3, label: "Payment Details", path: "/checkout" },
 ];
 
@@ -59,7 +59,7 @@ export default function Breadcrumb({
 
   const getPriceAndPlanStep = (): number => {
     if (pathname.includes("/checkout")) return 3;
-    if (pathname.includes("/pricing")) return 2;
+    if (pathname.includes("/prices")) return 2;
     if (pathname.includes("/generator/customize")) return 1;
     return 0;
   };
@@ -146,7 +146,11 @@ export default function Breadcrumb({
                 <span className="desktop:hidden">{step.label}</span>
               ) : (
                 <span className="desktop:hidden">
-                  {useMobileSteps ? step.label.split(" ").pop() : step.label}
+                  {useMobileSteps
+                    ? pathname === "/generator"
+                      ? step.label
+                      : step.label.split(" ").pop()
+                    : step.label}
                 </span>
               )}
             </span>

@@ -31,7 +31,7 @@ export default function Menu() {
 
   const utilityLinks = [
     { icon: Support, label: "Help", href: "/help", onClick: () => {} },
-    { icon: LogOut, label: "Log out", href: "#", onClick: () => {} },
+    { icon: LogOut, label: "Log out", href: "/", onClick: () => {} },
   ];
 
   return (

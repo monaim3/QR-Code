@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown";
@@ -42,18 +42,18 @@ export default function Header({
   showOptions = false,
   hideDivider = false,
 }: HeaderProps) {
-  const [isLangOpen, setIsLangOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const languages = [
-    { value: "en", label: "English" },
-    { value: "da", label: "Dansk" },
-    { value: "et", label: "Eesti" },
-    { value: "fil", label: "Filipino" },
-    { value: "it", label: "Italiano" },
-    { value: "es", label: "Español" },
-    { value: "ar", label: "Arabic" },
-  ];
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (isDrawerOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [isDrawerOpen]);
 
   return (
     <header
