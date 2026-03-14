@@ -47,7 +47,7 @@ export default function Footer() {
               {/* Right: Button */}
               <div className="flex justify-center lg:justify-end">
                 <Link
-                  href="/generator"
+                  href="/create"
                   className=" bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
                  "
                 >

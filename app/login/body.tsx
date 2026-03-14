@@ -35,18 +35,7 @@ export default function LoginBody() {
         >
           <div className="w-full flex flex-col gap-6">
           {/* Title */}
-          <h1
-            className="
-              text-[24px]
-              font-bold
-              leading-[32px]
-              text-center
-              text-[#0A0909]
-              font-[Poppins]
-            "
-          >
-            Welcome back!
-          </h1>
+          <h1 className="text-[24px] font-bold leading-[32px] text-center text-[var(--Black)]">Welcome back!</h1>
 
           {/* Form */}
             <div className="w-full flex flex-col gap-4">
