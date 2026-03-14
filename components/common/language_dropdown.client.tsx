@@ -9,7 +9,11 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const languages = [
   { value: "en", label: "English" },
@@ -66,26 +70,35 @@ export default function LanguageSelector({
                   "flex items-center text-base font-normal hover:bg-transparent px-2 w-full",
                   layout === "gapBetween" ? "justify-between" : "justify-start",
                   "gap-2",
-                  layout === "gapBetween" ? "mx-[-6px]" : ""
+                  layout === "gapBetween" ? "mx-[-6px]" : "",
                 )}
               >
                 <div className="flex items-center gap-2">
-                  <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
-                 <span className={cn("font-regular", textClass)}>
-                {(() => {
-                  const label =
-                    languages.find(lang => lang.value === value)?.label ?? "";
+                  <Globe
+                    className="w-6 h-6"
+                    style={{ color: globalIconColor }}
+                  />
+                  <span className={cn("font-regular", textClass)}>
+                    {(() => {
+                      const label =
+                        languages.find((lang) => lang.value === value)?.label ??
+                        "";
 
-                  return (fromHeader ? label.slice(0, 2) : label).toUpperCase();
-                })()}
-              </span>
-
+                      return fromHeader ? label.slice(0, 2) : label;
+                    })()}
+                  </span>
                 </div>
 
                 <ChevronUp
                   className={cn(
                     "w-5 h-5 transition-transform",
-                    arrowUp ? (open ? "rotate-180" : "") : open ? "" : "rotate-180"
+                    arrowUp
+                      ? open
+                        ? "rotate-180"
+                        : ""
+                      : open
+                        ? ""
+                        : "rotate-180",
                   )}
                   style={{ color: globalIconColor }}
                 />
@@ -95,7 +108,7 @@ export default function LanguageSelector({
           <PopoverContent
             className={cn(
               "p-2 rounded-2 shadow-[0_1px_16px_0_rgba(63,72,103,0.13)] bg-white z-[99] transition-all",
-              mobileDrawer ? "w-screen w-[280px] left-[10px] right-[20px]" : "w-[160px]"
+              mobileDrawer ? "w-[280px] left-[10px] right-[20px]" : "w-[160px]",
             )}
             align="start"
             sideOffset={10}
@@ -107,7 +120,9 @@ export default function LanguageSelector({
                     <CommandGroup className="pr-1">
                       {languages
                         .filter((lang) =>
-                          lang.label.toLowerCase().includes(search.toLowerCase())
+                          lang.label
+                            .toLowerCase()
+                            .includes(search.toLowerCase()),
                         )
                         .map((lang) => (
                           <CommandItem
@@ -126,7 +141,7 @@ export default function LanguageSelector({
                                 value === lang.value
                                   ? "font-medium text-black"
                                   : "font-normal text-gray-600",
-                                "group-hover:text-[var(--Blue)]"
+                                "group-hover:text-[var(--Blue)]",
                               )}
                             >
                               {lang.label}
@@ -151,7 +166,7 @@ export default function LanguageSelector({
               <div className="flex items-center gap-2">
                 <Globe className="w-6 h-6" style={{ color: globalIconColor }} />
                 <span className={cn("font-medium", textClass)}>
-                  {languages.find((lang) => lang.value === value)?.label.toUpperCase()}
+                  {languages.find((lang) => lang.value === value)?.label}
                 </span>
               </div>
 
@@ -184,10 +199,14 @@ export default function LanguageSelector({
                         className={cn(
                           "w-full py-[5px] px-4 flex items-center justify-between rounded-[8px] transform transition-all duration-200 group",
                           isSelected ? "bg-[#9BA2FB]/10" : "",
-                          !isSelected ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]" : ""
+                          !isSelected
+                            ? "hover:bg-[#9BA2FB]/10 hover:scale-[1.02]"
+                            : "",
                         )}
                         style={{
-                          transitionDelay: isExpanded ? `${index * 30}ms` : "0ms",
+                          transitionDelay: isExpanded
+                            ? `${index * 30}ms`
+                            : "0ms",
                         }}
                       >
                         <span
@@ -207,7 +226,9 @@ export default function LanguageSelector({
             </div>
           </div>
           {/* Divider */}
-          <div className={`border-b border-[#cdd0db80] ${isExpanded ? "pt-[16px]" : ""}`} />
+          <div
+            className={`border-b border-[#cdd0db80] ${isExpanded ? "pt-[16px]" : ""}`}
+          />
         </div>
       )}
 

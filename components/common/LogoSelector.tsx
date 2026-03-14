@@ -127,7 +127,7 @@ const LogoSelector = ({
 
       <div
         className="flex gap-4 overflow-x-auto overflow-y-hidden flex-nowrap
-    lg:flex-wrap lg:overflow-visible pb-3 lg:pb-0"
+    desktop:flex-wrap desktop:overflow-visible pb-3 desktop:pb-0"
       >
         {socialLogos.map((logo) => {
           const IconComponent = logo.Icon;

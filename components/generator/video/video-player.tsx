@@ -1,7 +1,7 @@
 "use client";
-import PlayButton from "@/components/icons/play-button";
-
-import { useState, useEffect, useRef } from "react";
+import PlayCircle from "@/components/icons/play-circle";
+import Image from "next/image";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 type VideoSource = {
   type: "youtube" | "remote" | "local";
@@ -9,10 +9,10 @@ type VideoSource = {
 };
 
 interface Props {
-  url?: string;                 
-  width?: string | number;      
-  height?: string | number;     
-  canPlay?: boolean;         
+  url?: string;
+  width?: string | number;
+  height?: string | number;
+  canPlay?: boolean;
 }
 
 export default function UnifiedVideoPlayer({
@@ -21,12 +21,35 @@ export default function UnifiedVideoPlayer({
   height = 360,
   canPlay = true,
 }: Props) {
-  const [videoSource, setVideoSource] = useState<VideoSource | null>(null);
   const [showPlayer, setShowPlayer] = useState(false);
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const [asyncThumbnail, setAsyncThumbnail] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Generate thumbnail for remote/local video
+  // Derive video source from url during render (avoids setState in effect)
+  const videoSource = useMemo<VideoSource | null>(() => {
+    if (!url?.trim()) return null;
+    const trimmedUrl = url.trim();
+    if (trimmedUrl.includes("youtube.com") || trimmedUrl.includes("youtu.be")) {
+      return { type: "youtube", url: trimmedUrl };
+    }
+    if (trimmedUrl.startsWith("http")) return { type: "remote", url: trimmedUrl };
+    return { type: "local", url: trimmedUrl };
+  }, [url]);
+
+  // Derive YouTube thumbnail URL during render
+  const youtubeThumbnailUrl = useMemo<string | null>(() => {
+    if (videoSource?.type !== "youtube") return null;
+    const u = videoSource.url;
+    let videoId = "";
+    if (u.includes("watch?v=")) videoId = u.split("watch?v=")[1].split("&")[0];
+    else if (u.includes("youtu.be/")) videoId = u.split("youtu.be/")[1].split("?")[0];
+    return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
+  }, [videoSource]);
+
+  const displayedThumbnail =
+    videoSource?.type === "youtube" ? youtubeThumbnailUrl : asyncThumbnail;
+
+  // Generate thumbnail for remote/local video (setState only in async callback)
   const generateThumbnail = (videoUrl: string) => {
     const videoEl = document.createElement("video");
     videoEl.src = videoUrl;
@@ -40,43 +63,24 @@ export default function UnifiedVideoPlayer({
       const ctx = canvas.getContext("2d");
       if (ctx) ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL("image/png");
-      setThumbnail(dataUrl);
+      setAsyncThumbnail(dataUrl);
     });
   };
 
-  // Determine video type
+  // Sync with external system: clear UI state when url changes; generate thumbnail for remote/local
   useEffect(() => {
-    if (!url) {
-      setVideoSource(null);
-      setThumbnail(null);
-      setShowPlayer(false);
+    queueMicrotask(() => setShowPlayer(false));
+    if (!url?.trim()) {
+      queueMicrotask(() => setAsyncThumbnail(null));
       return;
     }
-
     const trimmedUrl = url.trim();
-
     if (trimmedUrl.includes("youtube.com") || trimmedUrl.includes("youtu.be")) {
-      setVideoSource({ type: "youtube", url: trimmedUrl });
-
-      // YouTube thumbnail
-      let videoId = "";
-      if (trimmedUrl.includes("watch?v=")) {
-        videoId = trimmedUrl.split("watch?v=")[1].split("&")[0];
-      } else if (trimmedUrl.includes("youtu.be")) {
-        videoId = trimmedUrl.split("youtu.be/")[1].split("?")[0];
-      }
-
-      setThumbnail(`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`);
-      setShowPlayer(false);
-    } else if (trimmedUrl.startsWith("http")) {
-      setVideoSource({ type: "remote", url: trimmedUrl });
-      setShowPlayer(false);
-      generateThumbnail(trimmedUrl);
-    } else {
-      setVideoSource({ type: "local", url: trimmedUrl });
-      setShowPlayer(false);
-      generateThumbnail(trimmedUrl);
+      queueMicrotask(() => setAsyncThumbnail(null));
+      return;
     }
+    queueMicrotask(() => setAsyncThumbnail(null));
+    generateThumbnail(trimmedUrl);
   }, [url]);
 
   const handlePlayClick = () => {
@@ -105,16 +109,20 @@ export default function UnifiedVideoPlayer({
               style={{ width, height }}
               onClick={handlePlayClick}
             >
-              {thumbnail && (
-                <img
-                  src={thumbnail}
+              {displayedThumbnail && (
+                <Image
+                  src={displayedThumbnail}
                   alt="Video thumbnail"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  unoptimized={displayedThumbnail.startsWith("data:")}
                 />
               )}
               {/* Simple white play icon */}
-              <div className={`absolute ${canPlay ? "inset-0 flex items-center justify-center" : "bottom-[10px] left-[10px]"}`}>
-                <PlayButton/>
+              <div
+                className={`${canPlay && "inset-0 flex items-center justify-center"}`}
+              >
+                <PlayCircle className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
               </div>
             </div>
           )
@@ -132,11 +140,13 @@ export default function UnifiedVideoPlayer({
             style={{ width, height }}
             onClick={handlePlayClick}
           >
-            {thumbnail ? (
-              <img
-                src={thumbnail}
+            {displayedThumbnail ? (
+              <Image
+                src={displayedThumbnail}
                 alt="Video thumbnail"
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                unoptimized={displayedThumbnail.startsWith("data:")}
               />
             ) : (
               <span className="text-gray-500">Click to play</span>

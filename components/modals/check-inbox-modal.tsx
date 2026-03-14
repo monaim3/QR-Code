@@ -1,22 +1,20 @@
-import { useState } from 'react';
-import { X, Eye, EyeOff, Lock } from 'lucide-react';
-import { useModalQuery } from "./modal-hooks";
+import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface CheckInboxModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function CheckInboxModal({ isOpen, onClose }: CheckInboxModalProps) {
-  const { closeModal } = useModalQuery();
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+export default function CheckInboxModal({
+  isOpen,
+  onClose,
+}: CheckInboxModalProps) {
+  const router = useRouter();
 
   const handleSubmit = () => {
-    console.log('Password created successfully');
     onClose();
+    router.push("/login");
   };
 
   if (!isOpen) return null;
@@ -27,7 +25,7 @@ export default function CheckInboxModal({ isOpen, onClose }: CheckInboxModalProp
       <div className="relative max-w-[400px]">
         {/* Close Button - Outside the modal container */}
         <button
-          onClick={closeModal}
+          onClick={onClose}
           className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors flex items-center gap-2"
           aria-label="Close"
         >
@@ -38,29 +36,29 @@ export default function CheckInboxModal({ isOpen, onClose }: CheckInboxModalProp
         </button>
 
         {/* Modal Container - Following Figma specs */}
-        <div 
+        <div
           className="w-full max-w-[400px] flex flex-col items-center p-6 desktop:p-8 bg-white rounded-[10px]"
           style={{
-            boxShadow: '0 4px 14px 0 rgba(54, 66, 140, 0.16)'
+            boxShadow: "0 4px 14px 0 rgba(54, 66, 140, 0.16)",
           }}
         >
-        {/* Header */}
-        <div className="flex flex-col items-center text-center w-full">
-          <h2 className="text-[20px] leading-[20px] desktop:text-[24px] leading-[32px] font-bold text-[var(--Black)]">
-          Check your inbox
-          </h2>
-          <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)] mt-2">
-          If an account with that email address exists, we have sent an email with the instructions to recover your password.
-          </p>
-        </div>
+          {/* Header */}
+          <div className="flex flex-col items-center text-center w-full">
+            <h2 className="text-[20px] desktop:text-[24px] leading-[32px] font-bold text-[var(--Black)]">
+              Check your inbox
+            </h2>
+            <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)] mt-2">
+              If an account with that email address exists, we have sent an
+              email with the instructions to recover your password.
+            </p>
+          </div>
 
-        <button
-         onClick={handleSubmit}
-        className="mt-[24px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[26px] font-medium rounded-[10px] transition-colors duration-200"
-        >
-        Log in
-        </button>
-
+          <button
+            onClick={handleSubmit}
+            className="mt-[24px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[26px] font-medium rounded-[10px] transition-colors duration-200"
+          >
+            Log in
+          </button>
         </div>
       </div>
     </div>

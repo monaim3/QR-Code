@@ -427,12 +427,12 @@ export default function PlanAndPricingRightPannelp() {
       </div>
 
       {/* Money-back Guarantee */}
-      <div className="w-full border-2 border-[var(--Boarder-Grey)] border-dotted p-[24px] rounded-[10px] text-[16px] leading-[24px] text-center item-center justify-center">
+      {/* <div className="w-full border-2 border-[var(--Boarder-Grey)] border-dotted p-[24px] rounded-[10px] text-[16px] leading-[24px] text-center item-center justify-center">
         <p className="w-[270px] font-medium mx-auto">
           {" "}
           30-day money-back guarantee
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }
