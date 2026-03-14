@@ -269,12 +269,12 @@ export default function CheckoutElement() {
           <span className="text-[var(--Blue)]"> Privacy Policy</span>
           <span className="text-[var-(--Grey)]">
             {" "}
-            . Your payment will appear as "smartqrcode.com" on your statement.
+            . Your payment will appear as "qrcenter.com" on your statement.
             After 7 days, you will be billed $39 every 4 weeks until you cancel
             your subscription. You can cancel anytime. For any inquiries,
             contact us at{" "}
           </span>
-          <span className="text-[var(--Blue)]"> support@smartqrcode.com</span>
+          <span className="text-[var(--Blue)]"> support@qrcenter.com</span>
           <span className="text-[var-(--Grey)]">
             {" "}
             or call us at +1-631-892-9925.

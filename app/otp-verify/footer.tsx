@@ -32,7 +32,7 @@ export default function Footer() {
           </nav>
           {/* Copyright */}
           <div className="text-[14px] leading-[22px] text-[var(--Dark-gray)]">
-            {currentYear} © SmartQR.com™ All rights reserved
+            {currentYear} © QRCenter.com™ All rights reserved
           </div>
         </div>
       </Container>

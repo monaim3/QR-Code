@@ -17,7 +17,7 @@ const testimonials = [
     role: "Sales Director",
   },
   {
-    text: "SmartQR has transformed how we share information with our customers. The analytics feature is incredibly powerful and helps us track engagement effortlessly assistance.",
+    text: "QRCenter has transformed how we share information with our customers. The analytics feature is incredibly powerful and helps us track engagement effortlessly assistance.",
     author: "Sarah Mitchell",
     role: "Marketing Manager",
   },

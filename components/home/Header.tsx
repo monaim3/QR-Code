@@ -8,6 +8,7 @@ import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown";
 import CurrenctSelector from "@/components/common/currency_dropdown";
 import Image from "next/image";
+import Logo from "../dashboard/layout/Logo";
 
 class HeaderOptions {
   id: number;
@@ -24,7 +25,7 @@ class HeaderOptions {
 const Options = [
   new HeaderOptions(1, "QR Code Generator", "/generator"),
   new HeaderOptions(2, "FAQ", "/faq"),
-  new HeaderOptions(3, "Prices", "/plan-and-pricing"),
+  new HeaderOptions(3, "Prices", "/prices"),
   new HeaderOptions(4, "About us", "/about-us"),
   new HeaderOptions(5, "Contact us", "/contact-us"),
 ];
@@ -156,13 +157,7 @@ export default function Header({
             {/* Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Image
-                  src="/images/Logo.svg"
-                  alt="SmartQR"
-                  className="w-auto h-8"
-                  width={152}
-                  height={48}
-                />
+                <Logo />
               </div>
               <button
                 onClick={() => setIsDrawerOpen(false)}
@@ -185,7 +180,7 @@ export default function Header({
                 },
                 {
                   title: "Prices",
-                  path: "/plan-and-pricing",
+                  path: "/prices",
                 },
                 {
                   title: "Terms & conditions",

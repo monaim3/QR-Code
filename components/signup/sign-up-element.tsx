@@ -44,7 +44,7 @@ export default function SignUpElements({
 
   const onSubmit = async (data: SignUpForm) => {
     try {
-      router.push("/prices");
+      router.push("/pricing");
     } catch (error) {
       console.error(error);
     }
