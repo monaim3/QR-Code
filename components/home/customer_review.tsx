@@ -50,7 +50,7 @@ export default function CustomerReview() {
             Customer reviews
           </h2>
           <p className="text-[16px] leading-[24px] font-regular text-center text-[var(--Dark-gray)]">
-            See what others are saying about SmartQR
+            See what others are saying about QRCenter
           </p>
         </div>
         <div className="grid grid-cols-1 desktop:grid-cols-3 gap-8">

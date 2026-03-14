@@ -7,7 +7,7 @@ export default function Logo() {
       <QrCode4 />
 
       <span className="text-[var(--Black)] text-2xl font-bold leading-8">
-        SmartQR
+        QRCenter
       </span>
     </Link>
   );
