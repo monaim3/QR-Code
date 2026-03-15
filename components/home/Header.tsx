@@ -7,8 +7,8 @@ import Container from "../common/parent-container";
 import MenuIcon from "../icons/menu-icon";
 import LanguageSelector from "../common/language_dropdown";
 import CurrenctSelector from "@/components/common/currency_dropdown";
-import Image from "next/image";
 import Logo from "../dashboard/layout/Logo";
+import QrCode4 from "@/components/icons/qr-code-4";
 
 class HeaderOptions {
   id: number;
@@ -66,14 +66,11 @@ export default function Header({
       <Container>
         <div className="flex items-center desktop:h-[72px] h-16">
           {/* Logo */}
-          <Link className="flex-shrink-0" href="/">
-            <Image
-              src="/images/Logo.svg"
-              alt="Logo"
-              className="w-38"
-              width={152}
-              height={48}
-            />
+          <Link className="flex h-8 items-center gap-2 flex-0" href="/">
+           <QrCode4 />
+            <span className="text-[var(--Black)] text-2xl font-bold leading-8">
+             SmartQR
+            </span>
           </Link>
 
           <div className="flex items-center gap-4 ml-auto">
