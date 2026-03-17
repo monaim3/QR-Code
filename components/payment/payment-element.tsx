@@ -256,7 +256,7 @@ export default function CheckoutElement() {
           className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] 
             text-white font-semibold text-[18px] rounded-[10px] transition-colors"
         >
-          Get Smart QR code
+          Get QRCenter
         </button>
       )}
 
@@ -269,10 +269,10 @@ export default function CheckoutElement() {
           <span className="text-[var(--Blue)]"> Privacy Policy</span>
           <span className="text-[var-(--Grey)]">
             {" "}
-            . Your payment will appear as "qrcenter.com" on your statement.
-            After 7 days, you will be billed $39 every 4 weeks until you cancel
-            your subscription. You can cancel anytime. For any inquiries,
-            contact us at{" "}
+            . Your payment will appear as &quot;qrcenter.com&quot; on your
+            statement. After 7 days, you will be billed $39 every 4 weeks until
+            you cancel your subscription. You can cancel anytime. For any
+            inquiries, contact us at{" "}
           </span>
           <span className="text-[var(--Blue)]"> support@qrcenter.com</span>
           <span className="text-[var-(--Grey)]">

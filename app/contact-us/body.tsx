@@ -1,41 +1,39 @@
 import Container from "../../components/common/parent-container";
-import Link from 'next/link';
+import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import ContactUsInputForm from "../../components/contact-us/input-form";
 import ContactInformation from "../../components/contact-us/contact-information";
 import MostCommonQuestion from "../../components/contact-us/most-common-questions";
 
-
 export default function ContactUsBody() {
-    return (
-        <div className="flex flex-col bg-[var(--Generator-Background)]">
-        {/* Breadcrumb */}
-        <div className="bg-white">
+  return (
+    <div className="flex flex-col bg-[var(--Generator-Background)]">
+      {/* Breadcrumb */}
+      <div className="bg-white">
         <Container>
-        <div className="flex h-[54px] w-full items-center justify-start gap-2">
+          <div className="flex h-[54px] w-full items-center justify-start gap-2">
             <Link
-            href="/#"
-            className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
-          >
-            Smart QR Code
-          </Link>
-          <ChevronRight className="w-4 h-4 text-[#79809A]" />
-          <Link
-            href="/#"
-            className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
-          >
-            Contact US
-          </Link>
-        </div>
+              href="/#"
+              className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
+            >
+              QRCenter
+            </Link>
+            <ChevronRight className="w-4 h-4 text-[#79809A]" />
+            <Link
+              href="/#"
+              className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
+            >
+              Contact US
+            </Link>
+          </div>
         </Container>
-        <div>
-        </div>
-        </div> 
-     <Container
-      className="flex items-center justify-center pt-[16px] desktop:pt-[96px] pb-[80px] desktop:pb-[160px]">
+        <div></div>
+      </div>
+      <Container className="flex items-center justify-center pt-[16px] desktop:pt-[96px] pb-[80px] desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
-      {/* Outer Card */}
-      <div className="
+          {/* Outer Card */}
+          <div
+            className="
         w-full max-w-full
         bg-white
         rounded-[12px]
@@ -46,15 +44,16 @@ export default function ContactUsBody() {
         items-stratch justify-between
         gap-6
         desktop:gap-10
-      ">
-        {/* Left Panel */}
-        <ContactUsInputForm/>
-       {/* Right Panel */}
-       <ContactInformation/>
-      </div>
-      </div>
-        </Container>
-        <MostCommonQuestion/>
+      "
+          >
+            {/* Left Panel */}
+            <ContactUsInputForm />
+            {/* Right Panel */}
+            <ContactInformation />
+          </div>
+        </div>
+      </Container>
+      <MostCommonQuestion />
     </div>
-    );
+  );
 }

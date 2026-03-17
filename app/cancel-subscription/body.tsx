@@ -108,7 +108,7 @@ export default function CancelSubscriptionPage() {
             className="text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-1"
             aria-label="Go back"
           >
-          <span className='text-[var(--Black)] text-[14px] leading-[22px] font-regular'>Smart QR Code</span>
+          <span className='text-[var(--Black)] text-[14px] leading-[22px] font-regular'>QRCenter</span>
           </button>
           <ChevronRight size={20} className="text-gray-500" />
           <span className="text-[var(--Blue)] text-[14px] leading-[22px] font-regular">Cancel subscription</span>
