@@ -63,7 +63,7 @@ export default function OurMission() {
             </p>
             <p className="text-[18] leading-[26px] font-regular pt-[16px]">
               Join the ever-growing community of millions of happy users who
-              rely on Smart QR Code to unlock the potential of QR codes. Jump on
+              rely on QRCenter to unlock the potential of QR codes. Jump on
               board and let us show all the cool things QR tech can do!
             </p>
             <div className="pt-[24px]">

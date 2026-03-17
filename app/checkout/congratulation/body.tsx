@@ -3,33 +3,34 @@ import Container from "../../../components/common/parent-container";
 import LoadingAnimation from "../../../components/ui/loadingAnimation";
 import { useRouter } from "next/navigation";
 
-export default function CongratulationPage(){
-    const router = useRouter();
+export default function CongratulationPage() {
+  const router = useRouter();
 
-    const handleRoute = () => {
-      router.push("/qr-codes");
-    }
+  const handleRoute = () => {
+    router.push("/qr-codes");
+  };
 
-    return (
-        <Container className="flex flex-col items-center justify-start min-h-[calc(100vh-159px)]">
-            <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card w-full max-w-[350px] desktop:max-w-[400px]  p-[24px] desktop:p-[32px] mt-[184px] desktop:mt-[120px]">
-                <div className="size-[60px]">
-                <LoadingAnimation/>
-                </div>
-                <p className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--black)] center mt-[24px]">
-                 Congratulations!
-                </p>
-                <p className="text-[16px] leading-[24px] font-regular text-[var(--Black)] text-center mt-[8px]">
-                Your account has been created successfully, you now have access to myqrcode.com and all its functions.
-                </p>
-                 {/* Button */}
-                <button
-                onClick={handleRoute}
-                 className="mt-6 w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-all duration-300"
-                >
-                 Go to Smart QR codes
-                </button>
-            </div>
-        </Container>
-    );
+  return (
+    <Container className="flex flex-col items-center justify-start min-h-[calc(100vh-159px)]">
+      <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card w-full max-w-[350px] desktop:max-w-[400px]  p-[24px] desktop:p-[32px] mt-[184px] desktop:mt-[120px]">
+        <div className="size-[60px]">
+          <LoadingAnimation />
+        </div>
+        <p className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--black)] center mt-[24px]">
+          Congratulations!
+        </p>
+        <p className="text-[16px] leading-[24px] font-regular text-[var(--Black)] text-center mt-[8px]">
+          Your account has been created successfully, you now have access to
+          myqrcode.com and all its functions.
+        </p>
+        {/* Button */}
+        <button
+          onClick={handleRoute}
+          className="mt-6 w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-all duration-300"
+        >
+          Go to QRCenter
+        </button>
+      </div>
+    </Container>
+  );
 }

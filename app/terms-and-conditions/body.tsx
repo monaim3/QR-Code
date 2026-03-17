@@ -13,7 +13,7 @@ export default function TermsAndCondition() {
               href="/#"
               className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
             >
-              Smart QR
+              QRCenter
             </Link>
             <ChevronRight className="w-4 h-4 text-[#79809A]" />
             <Link

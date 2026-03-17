@@ -39,67 +39,67 @@ const FaqData: FaqTabItem[] = [
   new FaqTabItem(1, "Basics", [
     new FaqItem(
       "What is a QR code generator?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
       "Can anyone generate a QR code?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "Is Smart QR Code QR code generator free?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "Is QRCenter QR code generator free?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "Can I use Smart QR Code QR code generator for commercial purposes?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "Can I use QRCenter QR code generator for commercial purposes?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
       "How do I get a QR code for my business?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
   new FaqTabItem(2, "Generating", [
     new FaqItem(
       "Can anyone generate a QR code?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "Is Smart QR Code QR code generator free?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "Is QRCenter QR code generator free?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "Can I use Smart QR Code QR code generator for commercial purposes?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "Can I use QRCenter QR code generator for commercial purposes?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
       "How do I get a QR code for my business?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
       "What is a QR code generator?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
   new FaqTabItem(3, "Printing", [
     new FaqItem(
       "How do I get a QR code for my business?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
       "What is a QR code generator?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
       "Can anyone generate a QR code?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "Is Smart QR Code QR code generator free?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "Is QRCenter QR code generator free?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
     new FaqItem(
-      "Can I use Smart QR Code QR code generator for commercial purposes?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. Smart QR Code’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "Can I use QRCenter QR code generator for commercial purposes?",
+      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
 ];
