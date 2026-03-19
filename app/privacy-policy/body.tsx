@@ -15,13 +15,8 @@ export default function PrivacyPolicy() {
             >
               QRCenter
             </Link>
-            <ChevronRight className="w-4 h-4 text-[#79809A]" />
-            <Link
-              href="/#"
-              className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
-            >
-              Privacy Policy
-            </Link>
+            <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
+            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">Privacy Policy</span>
           </div>
         </Container>
       </div>

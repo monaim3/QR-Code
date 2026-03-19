@@ -18,13 +18,8 @@ export default function ContactUsBody() {
             >
               QRCenter
             </Link>
-            <ChevronRight className="w-4 h-4 text-[#79809A]" />
-            <Link
-              href="/#"
-              className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
-            >
-              Contact US
-            </Link>
+            <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
+            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">Contact Us</span>
           </div>
         </Container>
         <div></div>
@@ -32,20 +27,7 @@ export default function ContactUsBody() {
       <Container className="flex items-center justify-center pt-[16px] desktop:pt-[96px] pb-[80px] desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
           {/* Outer Card */}
-          <div
-            className="
-        w-full max-w-full
-        bg-white
-        rounded-[12px]
-        px-[16px] desktop:p-10
-        pt-[32px] pb-[24px]
-        shadow-card
-        flex flex-col desktop:flex-row
-        items-stratch justify-between
-        gap-6
-        desktop:gap-10
-      "
-          >
+          <div className="w-full max-w-full bg-white rounded-[12px] p-6 desktop:p-10 shadow-card flex flex-col desktop:flex-row items-stretch justify-between gap-6 desktop:gap-10">
             {/* Left Panel */}
             <ContactUsInputForm />
             {/* Right Panel */}

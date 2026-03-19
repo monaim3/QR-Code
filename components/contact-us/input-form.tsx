@@ -63,11 +63,11 @@ export default function ContactUsInputForm({
 
   return (
     <div className={`flex flex-col w-full desktop:flex-3 max-h-full`}>
-      <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
+      <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-start text-[var(--Black)] tracking-[0%]">
         Contact Us
       </h1>
 
-      <p className="mt-1 text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
+      <p className="mt-1 text-[16px] font-normal leading-[24px] text-start text-[#3F3E3E] font-body_text">
         If you have any questions or concerns, please fill out the form below
         and our team will reach out to you within a few hours.
       </p>
@@ -75,9 +75,9 @@ export default function ContactUsInputForm({
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full mt-8 flex flex-col gap-4"
+        className="w-full mt-6 desktop:mt-8 flex flex-col gap-4"
       >
-        <div className="flex flex-col desktop:flex-row gap-6">
+        <div className="flex flex-col desktop:flex-row gap-4 desktop:gap-6">
           <div className="flex flex-col flex-1 gap-2">
             <label
               htmlFor="name"
@@ -138,7 +138,7 @@ export default function ContactUsInputForm({
             />
           </div>
         </div>
-        <div className="flex flex-col desktop:flex-row gap-6">
+        <div className="flex flex-col desktop:flex-row gap-4 desktop:gap-6">
           <div className="flex flex-col flex-1 gap-2">
             <label
               htmlFor="email"

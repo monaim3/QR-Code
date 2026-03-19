@@ -19,18 +19,13 @@ export default function AboutUsBody() {
         <Container>
           <div className="flex h-[54px] w-full items-center justify-start gap-2">
             <Link
-              href="/#"
+              href="/"
               className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
             >
               QRCenter
             </Link>
-            <ChevronRight className="w-4 h-4 text-[#79809A]" />
-            <Link
-              href="/#"
-              className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
-            >
-              About us
-            </Link>
+            <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
+            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">About us</span>
           </div>
         </Container>
       </section>

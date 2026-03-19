@@ -15,13 +15,8 @@ export default function TermsAndCondition() {
             >
               QRCenter
             </Link>
-            <ChevronRight className="w-4 h-4 text-[#79809A]" />
-            <Link
-              href="/#"
-              className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
-            >
-              Terms And Conditions
-            </Link>
+            <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
+            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">Terms and Conditions</span>
           </div>
         </Container>
       </div>

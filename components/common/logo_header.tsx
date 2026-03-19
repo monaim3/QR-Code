@@ -1,6 +1,8 @@
 "use client";
 import Container from "../common/parent-container";
 import Link from "next/link";
+import Logo from "../dashboard/layout/Logo";
+
 
 export default function LogoHeader() {
   return (
@@ -9,11 +11,8 @@ export default function LogoHeader() {
       style={{ fontFamily: "var(--font-poppins)" }}
     >
       <Container className="h-full flex items-center">
-        <Link href="/">
-          <img src="/images/Logo.svg" alt="Logo" className="w-38" />
-        </Link>
+        <Logo />
       </Container>
     </header>
   );
 }
-

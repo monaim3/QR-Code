@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { ChevronDown, Globe, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "../dashboard/layout/Logo";
 
 interface Props {
   isOpen: boolean;
@@ -34,7 +35,7 @@ export function MobileDrawer({ isOpen, setIsOpen }: Props) {
           isOpen ? "translate-x-0" : "translate-x-full"
         )}>
         <div className="flex items-center justify-between mb-2">
-          <img src="/images/Logo.svg" alt="Logo" className="w-32 h-8" />
+          <Logo />
           <button
             className="text-gray-700 p-2 hover:bg-gray-200 rounded-full transition-colors"
             onClick={() => setIsOpen(false)}>

@@ -17,13 +17,8 @@ export default function FaqBody() {
             >
               QRCenter
             </Link>
-            <ChevronRight className="w-4 h-4 text-[#79809A]" />
-            <Link
-              href="/#"
-              className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]"
-            >
-              FAQ
-            </Link>
+            <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
+            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">FAQ</span>
           </div>
         </Container>
       </div>
