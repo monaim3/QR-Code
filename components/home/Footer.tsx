@@ -3,10 +3,11 @@ import Container from "@/components/common/parent-container";
 import Link from "next/link";
 import Image from "next/image";
 import LanguageSelector from "../common/language_dropdown";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Footer() {
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <footer className="w-full pt-5 desktop:pt-16 pb-5 desktop:pb-0 bg-[radial-gradient(circle,#334A56,#2F3E46)]">
@@ -47,7 +48,12 @@ export default function Footer() {
               {/* Right: Button */}
               <div className="flex justify-center lg:justify-end">
                 <Link
-                  href="/create"
+                  href="/generator"
+                  onClick={() => {
+                    if (pathname === "/create") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
                   className=" bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
                  "
                 >

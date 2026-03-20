@@ -78,7 +78,13 @@ export default function LanguageSelector({
                     className="w-6 h-6"
                     style={{ color: globalIconColor }}
                   />
-                  <span className={cn("font-regular", textClass)}>
+                  <span
+                    className={cn(
+                      "font-regular",
+                      textClass,
+                      fromHeader && "uppercase",
+                    )}
+                  >
                     {(() => {
                       const label =
                         languages.find((lang) => lang.value === value)?.label ??

@@ -139,64 +139,67 @@ export default function Header({
         {/* Drawer Content - Anchored to Left */}
         <div
           className={cn(
-            "absolute top-0 left-0 h-full w-[320px] bg-white flex flex-col justify-between p-5",
+            "absolute top-0 left-0 h-full max-h-dvh w-[320px] bg-white flex flex-col min-h-0 pt-5 pb-5",
             "transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform",
             isDrawerOpen ? "translate-x-0" : "-translate-x-full",
           )}
         >
-          <div className="flex flex-col gap-9">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Logo />
-              </div>
-              <button
-                onClick={() => setIsDrawerOpen(false)}
-                className="stroke-[#202023]"
-              >
-                <X className="size-6" />
-              </button>
-            </div>
-
-            {/* Menu Links */}
-            <nav className="flex flex-col">
-              {[
-                {
-                  title: "Contact us",
-                  path: "/contact-us",
-                },
-                {
-                  title: "FAQ",
-                  path: "/faq",
-                },
-                {
-                  title: "Prices",
-                  path: "/prices",
-                },
-                {
-                  title: "Terms & conditions",
-                  path: "/terms-and-conditions",
-                },
-                {
-                  title: "Privacy policy",
-                  path: "/privacy-policy",
-                },
-              ].map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.path}
+          {/* Full-width scroll column so scrollbar sits flush to drawer right (right: 0) */}
+          <div className="flex flex-col flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain mobile-drawer-scrollbar">
+            <div className="flex flex-col gap-9 px-5">
+              {/* Header */}
+              <div className="flex shrink-0 items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Logo />
+                </div>
+                <button
                   onClick={() => setIsDrawerOpen(false)}
-                  className="py-5 text-[16px] leading-[24px] font-medium text-[var(--Black)] border-b border-[#cdd0db80)]"
+                  className="stroke-[#202023]"
                 >
-                  {item.title}
-                </Link>
-              ))}
-              <LanguageSelector layout="gapBetween" mobileDrawer={true} />
-            </nav>
+                  <X className="size-6" />
+                </button>
+              </div>
+
+              {/* Menu Links */}
+              <nav className="flex flex-col pb-2">
+                {[
+                  {
+                    title: "Contact us",
+                    path: "/contact-us",
+                  },
+                  {
+                    title: "FAQ",
+                    path: "/faq",
+                  },
+                  {
+                    title: "Prices",
+                    path: "/prices",
+                  },
+                  {
+                    title: "Terms & conditions",
+                    path: "/terms-and-conditions",
+                  },
+                  {
+                    title: "Privacy policy",
+                    path: "/privacy-policy",
+                  },
+                ].map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.path}
+                    onClick={() => setIsDrawerOpen(false)}
+                    className="py-5 text-[16px] leading-[24px] font-medium text-[var(--Black)] border-b border-[#cdd0db80)]"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+                <LanguageSelector layout="gapBetween" mobileDrawer={true} />
+              </nav>
+            </div>
           </div>
 
           {/* Footer Login Button */}
-          <div>
+          <div className="shrink-0 pt-4 border-t border-[var(--Boarder-Grey)]/50 bg-white px-5">
             <Link
               href="/login"
               onClick={() => setIsDrawerOpen(false)}
