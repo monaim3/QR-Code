@@ -235,7 +235,7 @@ export default function BreadcrumbFooter() {
             {(currentStep === 2 || currentStep === 3) && (
               <button
                 onClick={handleNext}
-                className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
+                className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300 animate-pulse-cta"
               >
                 <span>Next</span>
                 <ArrowRight className="size-5" />

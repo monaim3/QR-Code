@@ -39,9 +39,21 @@ const config = {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "pulse-cta": {
+          "0%": {
+            boxShadow: "0 0 0 0 rgba(1, 165, 109, 0.5)",
+          },
+          "70%": {
+            boxShadow: "0 0 0 14px rgba(1, 165, 109, 0)",
+          },
+          "100%": {
+            boxShadow: "0 0 0 0 rgba(1, 165, 109, 0)",
+          },
+        },
       },
       animation: {
         marquee: "marquee 20s linear infinite",
+        "pulse-cta": "pulse-cta 2s ease-out infinite",
       },
     },
   },

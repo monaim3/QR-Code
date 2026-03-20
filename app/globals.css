@@ -234,6 +234,35 @@
   border-radius: 9px !important;
 }
 
+/* Mobile drawer & inline lists: green thumb on a light track (thumb is clearly separate, moves with scroll) */
+.mobile-drawer-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--Blue) rgba(205, 208, 219, 0.35);
+}
+
+.mobile-drawer-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-drawer-scrollbar::-webkit-scrollbar-track {
+  margin: 4px 0;
+  background: rgba(205, 208, 219, 0.35);
+  border-radius: 9999px;
+}
+
+.mobile-drawer-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--Blue);
+  border-radius: 9999px;
+  /* Keeps thumb as a pill, not a full-height block; browser sizes length from scroll ratio */
+  min-height: 40px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.mobile-drawer-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--Blue-hover);
+}
+
   @media screen and (min-width: 739px) {
     .generator-create-page {
       background: var(--Generator-Background, #f5f6fa);

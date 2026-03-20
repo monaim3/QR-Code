@@ -9,6 +9,7 @@ import Nortion from "../icons/nortion";
 import ArrowRight from "../icons/arrow-right";
 import PayPalText from "../icons/paypal-text";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type PaymentMethod = {
   id: "card" | "gpay" | "paypal" | "applepay";
@@ -92,7 +93,7 @@ export default function CheckoutElement() {
         <h2 className="text-[16px] leading-[26px] font-bold text-[var(--Black)] mb-[8px]">
           Select payment method:
         </h2>
-        <div className="grid grid-cols-4 gap-[8px] desktop:gap-[16px]">
+        <div className="grid grid-cols-3 gap-[8px] desktop:gap-[16px]">
           {paymentMethods.map((method) => (
             <button
               key={method.id}
@@ -266,7 +267,10 @@ export default function CheckoutElement() {
             By proceeding with payment, you agree to be charged $1.95 now,
             accept our
           </span>
-          <span className="text-[var(--Blue)]"> Privacy Policy</span>
+          <Link href="/privacy-policy" className="text-[var(--Blue)]">
+            {" "}
+            Privacy Policy
+          </Link>
           <span className="text-[var-(--Grey)]">
             {" "}
             . Your payment will appear as &quot;qrcenter.com&quot; on your
