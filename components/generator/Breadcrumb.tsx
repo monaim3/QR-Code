@@ -59,7 +59,7 @@ export default function Breadcrumb({
 
   const getPriceAndPlanStep = (): number => {
     if (pathname.includes("/checkout")) return 3;
-    if (pathname.includes("/prices")) return 2;
+    if (pathname.includes("/pricing")) return 2;
     if (pathname.includes("/generator/customize")) return 1;
     return 0;
   };

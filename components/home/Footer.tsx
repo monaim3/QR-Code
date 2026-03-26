@@ -135,7 +135,7 @@ export default function Footer() {
                 <ul className="grid grid-cols-1 gap-4">
                   <li>
                     <Link
-                      href="/terms-and-conditions"
+                      href="/terms-of-use"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
                       Terms and conditions

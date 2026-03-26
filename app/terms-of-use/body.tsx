@@ -10,13 +10,15 @@ export default function TermsAndCondition() {
         <Container>
           <div className="flex h-[54px] w-full items-center justify-start gap-2">
             <Link
-              href="/#"
+              href="/"
               className="text-[14px] font-regular leading-[22px] text-[var(--Black)]"
             >
               QRCenter
             </Link>
             <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
-            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">Terms and Conditions</span>
+            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">
+              Terms and Conditions
+            </span>
           </div>
         </Container>
       </div>
@@ -29,10 +31,10 @@ export default function TermsAndCondition() {
             <p className="text-4 leading-8 font-regular mt-6 text-[var(--Black)]">
               <span>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
+                industry. Lorem Ipsum has been the industry&apos;s standard
+                dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book. It
+                has survived not only five centuries, but also the leap into
                 electronic typesetting, remaining essentially unchanged. It was
                 popularised in the 1960s with the release of Letraset sheets
                 containing Lorem Ipsum passages, and more recently with desktop
@@ -54,18 +56,18 @@ export default function TermsAndCondition() {
               </span>
               <span>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
+                industry. Lorem Ipsum has been the industry&apos;s standard
+                dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book. It
+                has survived not only five centuries, but also the leap into
                 electronic typesetting, remaining essentially unchanged.
               </span>
             </p>
             <p className="text-4 leading-8 font-regular mt-4 text-[var(--Black)]">
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
+              industry. Lorem Ipsum has been the industry&apos;s standard dummy
+              text ever since the 1500s, when an unknown printer took a galley
+              of type and scrambled it to make a type specimen book. It has
               survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged. It was
               popularised in the 1960s with the release of Letraset sheets
@@ -75,9 +77,9 @@ export default function TermsAndCondition() {
             </p>
             <p className="text-4 leading-8 font-regular mt-4 text-[var(--Black)]">
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
+              industry. Lorem Ipsum has been the industry&apos;s standard dummy
+              text ever since the 1500s, when an unknown printer took a galley
+              of type and scrambled it to make a type specimen book. It has
               survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged. It was
               popularised in the 1960s with the release of Letraset sheets
@@ -95,10 +97,10 @@ export default function TermsAndCondition() {
               </span>
               <span>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
+                industry. Lorem Ipsum has been the industry&apos;s standard
+                dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book. It
+                has survived not only five centuries, but also the leap into
                 electronic typesetting, remaining essentially unchanged. It was
                 popularised in the 1960s with the release of Letraset sheets
                 containing Lorem Ipsum passages, and more recently with desktop
@@ -109,16 +111,16 @@ export default function TermsAndCondition() {
                 Privacy Policy
               </span>
               .Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's
+              industry. Lorem Ipsum has been the industry&apos;s
             </p>
             <p className="text-6 desktop:text-8 leading-8 desktop:leading-10 font-bold text-[var(--Black)] mt-4">
               2. ELIGIBILITY
             </p>
             <p className="text-4 leading-8 font-regular mt-2 text-[var(--Black)]">
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
+              industry. Lorem Ipsum has been the industry&apos;s standard dummy
+              text ever since the 1500s, when an unknown printer took a galley
+              of type and scrambled it to make a type specimen book. It has
               survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged. It was
               popularised in the 1960s with the release of Letraset sheets

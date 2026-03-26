@@ -17,7 +17,7 @@ export default function Footer() {
             </Link>
             <div className="hidden desktop:block w-px h-[22px] bg-[var(--boarder-grey-50)]" />
             <Link
-              href="/terms-and-conditions"
+              href="/terms-of-use"
               className="text-[14px] leading-[22px] text-[var(--Dark-gray)] hover:text-[var(--Blue)] transition-all duration-300"
             >
               Terms and conditions
