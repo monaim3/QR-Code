@@ -1,12 +1,13 @@
 import Container from "@/components/common/parent-container";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import Wifi from "../../components/icons/wifi";
 import LinkIcon from "../../components/icons/link";
 import VideoCamera from "../../components/icons/video-camera";
 import ImageIcon from "../../components/icons/image-icon";
 import RestaurantIcon from "../../components/icons/restaurant";
-import AboutUsLeftelement from "../../components/about-us/left-elements";
+import AboutUsLeftElement from "../../components/about-us/left-elements";
 import OurMission from "../../components/about-us/our-mission";
 import CustomerReview from "../../components/home/customer_review";
 import GetInTouch from "../../components/about-us/get-in-touch";
@@ -25,7 +26,9 @@ export default function AboutUsBody() {
               QRCenter
             </Link>
             <ChevronRight className="w-4 h-4 text-[var(--breadcrumb)]" />
-            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">About us</span>
+            <span className="text-[14px] font-regular leading-[22px] text-[var(--Blue)]">
+              About us
+            </span>
           </div>
         </Container>
       </section>
@@ -36,7 +39,7 @@ export default function AboutUsBody() {
             <div className="flex flex-col items-center desktop:flex-row w-full min-w-full h-[480px]">
               {/* Left half */}
               <div className="hidden desktop:block relative z-10">
-                <AboutUsLeftelement />
+                <AboutUsLeftElement />
               </div>
 
               {/* Right half */}
@@ -58,13 +61,15 @@ export default function AboutUsBody() {
                     ></div>
                   </div>
                   <div className="absolute top-[91px] bottom-[161px] left-[126px] right-[126px] desktop:top-[108px] desktop:bottom-[44px] desktop:left-[-21px] desktop:right-[173px]">
-                    <img
+                    <Image
                       src="/images/home/scan.svg"
                       alt="QR Scan"
+                      width={260}
+                      height={260}
                       className="w-[160px] h-[160px] desktop:w-[260px] desktop:h-[260px] drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
                     />
                   </div>
-                  <div className="absolute top-[22px] bottom-[350px] left-[61px] right-[311px] desktop:top-[-12px] esktop:bottom-[376px] desktop:left-[-8px] desktop:right-[372] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
+                  <div className="absolute top-[22px] bottom-[350px] left-[61px] right-[311px] desktop:top-[-12px] desktop:bottom-[376px] desktop:left-[-8px] desktop:right-[372] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
                     <Wifi />
                   </div>
                   <div className="absolute top-[203px] bottom-[169px] mobile:left-[55px] right-[317px] desktop:top-[195px] desktop:bottom-[169px] desktop:right-[536px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
@@ -76,11 +81,11 @@ export default function AboutUsBody() {
                   <div className="absolute top-[117px] bottom-[255px] left-[325px] right-[48px] desktop:top-[31px] desktop:bottom-[339px] desktop:left-[407px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
                     <ImageIcon />
                   </div>
-                  <div className="mobile:hidden desktop:absolute desktop:top-[300.17px] dedsktop:bottom-[68.17px] desktop:left-[355.33px] desktop:right-[40.42px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
+                  <div className="mobile:hidden desktop:absolute desktop:top-[300.17px] desktop:bottom-[68.17px] desktop:left-[355.33px] desktop:right-[40.42px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
                     <RestaurantIcon />
                   </div>
                   <div className="absolute desktop:hidden top-[291px] left-[31px] right-[31px]">
-                    <AboutUsLeftelement />
+                    <AboutUsLeftElement />
                   </div>
                 </div>
               </div>
@@ -92,54 +97,90 @@ export default function AboutUsBody() {
               <div className="overflow-hidden w-full">
                 <div className="flex items-center gap-6 w-max animate-marquee">
                   {/* first set */}
-                  <img
+                  <Image
                     src="/images/brand/toyota.svg"
+                    alt="Toyota"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/netflix.svg"
+                    alt="Netflix"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/disney.svg"
+                    alt="Disney"
+                    width={96}
+                    height={28}
                     className="h-5 desktop:h-7 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/oracle.svg"
+                    alt="Oracle"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/delta.svg"
+                    alt="Delta"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/fedex_express.svg"
+                    alt="FedEx Express"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
 
                   {/* duplicate set for infinite loop */}
-                  <img
+                  <Image
                     src="/images/brand/toyota.svg"
+                    alt="Toyota"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/netflix.svg"
+                    alt="Netflix"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/disney.svg"
+                    alt="Disney"
+                    width={96}
+                    height={28}
                     className="h-5 desktop:h-7 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/oracle.svg"
+                    alt="Oracle"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/delta.svg"
+                    alt="Delta"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
-                  <img
+                  <Image
                     src="/images/brand/fedex_express.svg"
+                    alt="FedEx Express"
+                    width={96}
+                    height={24}
                     className="h-5 desktop:h-6 shrink-0"
                   />
                 </div>
@@ -148,7 +189,7 @@ export default function AboutUsBody() {
           </div>
         </Container>
       </section>
-      <section className="w-full bg-white" id="more_about">
+      <section className="w-full bg-white" id="mission-section">
         <OurMission />
       </section>
       <CustomerReview />

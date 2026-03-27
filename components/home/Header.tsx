@@ -177,7 +177,7 @@ export default function Header({
                   },
                   {
                     title: "Terms & conditions",
-                    path: "/terms-and-conditions",
+                    path: "/terms-of-use",
                   },
                   {
                     title: "Privacy policy",

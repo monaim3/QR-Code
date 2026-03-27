@@ -4,18 +4,19 @@ import InputField from "../../components/common/input_filed";
 import { useState } from "react";
 import { Mail } from "lucide-react";
 import BackButtonWithText from "../../components/common/back_button_with_text";
-import { useRouter } from "next/navigation";
 import CheckInboxModal from "../../components/modals/check-inbox-modal";
 
 export default function ForgetPasswordBody() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = () => {
     if (email.trim() === "") {
+      setEmailError("Email is required");
       return;
     }
+    setEmailError("");
     setIsModalOpen(true);
     //router.push("/otp-verify");
   };
@@ -33,11 +34,22 @@ export default function ForgetPasswordBody() {
           {/* Email Input */}
           <InputField
             value={email}
-            onChange={setEmail}
+            onChange={(value) => {
+              setEmail(value);
+              if (emailError) {
+                setEmailError("");
+              }
+            }}
             placeholder="Enter your email"
             type="email"
             leading={<Mail size={20} />}
+            error={Boolean(emailError)}
           />
+          {emailError && (
+            <p className="mt-2 text-[14px] leading-[20px] text-[var(--error)]">
+              {emailError}
+            </p>
+          )}
         </div>
         {/* send link Button */}
         <button

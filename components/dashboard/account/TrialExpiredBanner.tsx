@@ -1,8 +1,15 @@
 import AlertCircleBg from "@/components/icons/alert-circle-bg";
 import Crown from "@/components/icons/crown";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function TrialExpiredBanner() {
+  const router = useRouter();
+
+  const handleActivateAccount = () => {
+    router.push("/plan-and-pricing_v2");
+  };
+
   return (
     <div className="flex items-center flex-col tablet:flex-row desktopDashboard:flex-row self-stretch tablet:gap-6 desktopDashboard:gap-6 gap-[10px] p-4 rounded-[var(--Corner-Radius-10)] bg-[var(--error)] desktopDashboard:my-1 my-0">
       <div className="flex items-center gap-2 flex-1">
@@ -13,7 +20,10 @@ export default function TrialExpiredBanner() {
         </p>
       </div>
 
-      <Button className="bg-white text-[var(--Black)] flex items-center justify-center gap-2 rounded-[var(--Corner-Radius-10)] py-2 px-4 text-[14px] leading-[22px] h-10 w-full tablet:w-auto desktopDashboard:w-auto">
+      <Button
+        onClick={handleActivateAccount}
+        className="bg-white text-[var(--Black)] flex items-center justify-center gap-2 rounded-[var(--Corner-Radius-10)] py-2 px-4 text-[14px] leading-[22px] h-10 w-full tablet:w-auto desktopDashboard:w-auto"
+      >
         <Crown />
         Activate account
       </Button>

@@ -83,7 +83,7 @@ export default function BreadcrumbFooter() {
       localStorage.setItem("qrType", qrType);
       router.push("/generator/customize");
     } else if (currentStep === 3) {
-      router.push("/signup");
+      router.push("/sign-up?onboarding-flow=true");
     }
   };
 

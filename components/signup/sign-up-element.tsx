@@ -290,7 +290,7 @@ export default function SignUpElements({
       <div className="text-[12px] leading-[20px] font-normal text-[#3F3E3E] font-body_text pt-[32px] text-center desktop:text-start justify-center desktop:justify-start">
         By clicking "Create account", you confirm that you have read and consent
         to our{" "}
-        <Link href="/terms-and-conditions" className="text-[#01A56D] underline">
+        <Link href="/terms-of-use" className="text-[#01A56D] underline">
           Terms and conditions
         </Link>{" "}
         and{" "}
