@@ -134,7 +134,7 @@ export default function SocialLinks() {
             >
             <Plus />
             <span className="text-[14px] leading-[22px] font-medium text-[var(--Dark-gray)]">
-                Add Button
+                Add more
             </span>
             </button>
 
