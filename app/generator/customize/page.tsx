@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { flushSync } from "react-dom";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import Breadcrumb from "../../../components/generator/Breadcrumb";
 
@@ -29,6 +30,7 @@ import {
   setCornerDotType,
   setSelectedLogo,
   setCustomLogo,
+  setCustomLogoName,
   setPrevBackgroundColor,
   setCornerFrameStyleUI,
   setCornerDotTypeUI,
@@ -87,6 +89,7 @@ export default function QRCodeCustomize() {
     cornerDotType,
     selectedLogo,
     customLogo,
+    customLogoName,
     prevBackgroundColor,
     cornerFrameStyleUI,
     cornerDotTypeUI,
@@ -119,60 +122,60 @@ export default function QRCodeCustomize() {
 
         import("react-dom/client").then(({ createRoot }) => {
           const root = createRoot(div);
-          root.render(<LogoComponent />);
-
-          requestAnimationFrame(() => {
-            const svg = div.querySelector("svg");
-
-            if (!svg) {
-              root.unmount();
-              document.body.removeChild(div);
-              resolve(null);
-              return;
-            }
-
-            const svgData = new XMLSerializer().serializeToString(svg);
-            const canvas = document.createElement("canvas");
-            canvas.width = 60;
-            canvas.height = 60;
-            const ctx = canvas.getContext("2d");
-
-            if (!ctx) {
-              root.unmount();
-              document.body.removeChild(div);
-              resolve(null);
-              return;
-            }
-
-            ctx.fillStyle = "transparent";
-            ctx.beginPath();
-            ctx.roundRect(0, 0, 60, 60, 10);
-            ctx.fill();
-
-            const img = new Image();
-            const svgBlob = new Blob([svgData], {
-              type: "image/svg+xml;charset=utf-8",
-            });
-            const url = URL.createObjectURL(svgBlob);
-
-            img.onload = () => {
-              ctx.drawImage(img, 5, 5, 50, 50);
-              URL.revokeObjectURL(url);
-              const dataUrl = canvas.toDataURL("image/png");
-              root.unmount();
-              document.body.removeChild(div);
-              resolve(dataUrl);
-            };
-
-            img.onerror = () => {
-              URL.revokeObjectURL(url);
-              root.unmount();
-              document.body.removeChild(div);
-              resolve(null);
-            };
-
-            img.src = url;
+          flushSync(() => {
+            root.render(<LogoComponent />);
           });
+
+          const svg = div.querySelector("svg");
+
+          if (!svg) {
+            root.unmount();
+            document.body.removeChild(div);
+            resolve(null);
+            return;
+          }
+
+          const svgData = new XMLSerializer().serializeToString(svg);
+          const canvas = document.createElement("canvas");
+          canvas.width = 60;
+          canvas.height = 60;
+          const ctx = canvas.getContext("2d");
+
+          if (!ctx) {
+            root.unmount();
+            document.body.removeChild(div);
+            resolve(null);
+            return;
+          }
+
+          ctx.fillStyle = "transparent";
+          ctx.beginPath();
+          ctx.roundRect(0, 0, 60, 60, 10);
+          ctx.fill();
+
+          const img = new Image();
+          const svgBlob = new Blob([svgData], {
+            type: "image/svg+xml;charset=utf-8",
+          });
+          const url = URL.createObjectURL(svgBlob);
+
+          img.onload = () => {
+            ctx.drawImage(img, 5, 5, 50, 50);
+            URL.revokeObjectURL(url);
+            const dataUrl = canvas.toDataURL("image/png");
+            root.unmount();
+            document.body.removeChild(div);
+            resolve(dataUrl);
+          };
+
+          img.onerror = () => {
+            URL.revokeObjectURL(url);
+            root.unmount();
+            document.body.removeChild(div);
+            resolve(null);
+          };
+
+          img.src = url;
         });
       } catch (error) {
         console.error("Error creating icon:", error);
@@ -569,8 +572,12 @@ export default function QRCodeCustomize() {
                     dispatch(setSelectedLogo(logoId))
                   }
                   customLogo={customLogo}
+                  customLogoName={customLogoName}
                   onCustomLogoUpload={(logo: string | null) =>
                     dispatch(setCustomLogo(logo))
+                  }
+                  onCustomLogoNameChange={(name: string) =>
+                    dispatch(setCustomLogoName(name))
                   }
                 />
               </Accordion>
