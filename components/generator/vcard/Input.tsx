@@ -46,6 +46,7 @@ export default function Input({
         onChange={(e) => { onChange(e.target.value); if (validationKey) dispatch(clearFieldError(validationKey)); }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        aria-invalid={!!hasError}
         className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border transition-colors outline-none w-full ${
           hasError
             ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
