@@ -73,7 +73,7 @@ export default function CheckoutElement() {
   };
 
   function handleSuccess() {
-    router.push("/checkout/congratulation");
+    router.push("/checkout/success");
   }
 
   return (
