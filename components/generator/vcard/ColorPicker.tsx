@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Saturation from "@uiw/react-color-saturation";
 import Hue from "@uiw/react-color-hue";
 import {
@@ -15,7 +15,6 @@ import Picker from "@/components/icons/picker";
 import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import ChevronDownSmall from "@/components/icons/chevron-down-small";
 import { paletteColors } from "@/lib/colorPIcker";
-import { useRef } from "react";
 
 // Type declaration for EyeDropper API
 declare global {
@@ -39,6 +38,7 @@ export default function ColorPicker({ color, onChange, setShowPicker }: Props) {
   const [hsva, setHsva] = useState(hexToHsva(color));
   const [colorMode, setColorMode] = useState<"hex" | "rgb" | "hsl">("hex");
   const pickerRef = useRef<HTMLDivElement>(null);
+  const mouseDownInsideRef = useRef(false);
 
   // Update hsva when color prop changes
   useEffect(() => {
@@ -149,7 +149,13 @@ export default function ColorPicker({ color, onChange, setShowPicker }: Props) {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleMouseDown = (event: MouseEvent) => {
+      if (pickerRef.current && event.target instanceof Node) {
+        mouseDownInsideRef.current = pickerRef.current.contains(event.target);
+      }
+    };
+    const handleClick = (event: MouseEvent) => {
+      if (mouseDownInsideRef.current) return;
       if (
         pickerRef.current &&
         event.target instanceof Node &&
@@ -158,16 +164,18 @@ export default function ColorPicker({ color, onChange, setShowPicker }: Props) {
         setShowPicker(false);
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("click", handleClick);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("click", handleClick);
     };
   }, [setShowPicker]);
 
   return (
     <div
       ref={pickerRef}
-      className="absolute right-0 top-full mt-2 z-10 bg-white w-full rounded-[var(--Corner-Radius-10)] shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] p-4 flex flex-col items-center gap-4"
+      className="absolute right-0 top-full mt-2 z-50 bg-white w-full rounded-[var(--Corner-Radius-10)] shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] p-4 flex flex-col items-center gap-4"
     >
       {/* Tab Navigation */}
       <div className="flex justify-center items-center gap-4 self-stretch">
