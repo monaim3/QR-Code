@@ -1,4 +1,5 @@
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { clearFieldError } from "@/store/slices/validationSlice";
 import { useEffect, useRef } from "react";
 
 interface TextareaProps {
@@ -26,6 +27,7 @@ export default function Textarea({
   validationKey,
   required = false,
 }: TextareaProps) {
+  const dispatch = useAppDispatch();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const validationErrors = useAppSelector((state) => state.validation.errors);
@@ -58,7 +60,7 @@ export default function Textarea({
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => { onChange(e.target.value); if (validationKey) dispatch(clearFieldError(validationKey)); }}
         maxLength={maxLength}
         rows={rows}
         className={`py-2 px-4 text-[var(--Black)] text-[16px] font-normal leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border bg-[var(--White)] focus:outline-none resize-none overflow-hidden ${

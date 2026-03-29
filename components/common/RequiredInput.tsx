@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { clearFieldError } from "@/store/slices/validationSlice";
 
 type RequiredTextInputProps = {
   label: string;
@@ -24,9 +25,10 @@ export const RequiredTextInput = ({
   required = true,
   validationKey,
 }: RequiredTextInputProps) => {
+  const dispatch = useAppDispatch();
   const [touched, setTouched] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  
+
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
 
@@ -43,6 +45,7 @@ export const RequiredTextInput = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
+    if (validationKey) dispatch(clearFieldError(validationKey));
   };
 
   return (

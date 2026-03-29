@@ -1,4 +1,5 @@
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { clearFieldError } from "@/store/slices/validationSlice";
 import { useState } from "react";
 
 interface Props {
@@ -21,6 +22,7 @@ export default function Input({
   onChange = () => {},
   validationKey,
 }: Props) {
+  const dispatch = useAppDispatch();
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const [isFocused, setIsFocused] = useState(false);
@@ -41,7 +43,7 @@ export default function Input({
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => { onChange(e.target.value); if (validationKey) dispatch(clearFieldError(validationKey)); }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border transition-colors outline-none w-full ${
