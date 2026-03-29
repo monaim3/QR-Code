@@ -52,7 +52,11 @@ export default function ColorPicker({ color, onChange, setShowPicker }: Props) {
   }, [hsva]);
   const hsl = useMemo(() => {
     const hsla = hsvaToHsla(hsva);
-    return { h: hsla.h, s: hsla.s, l: hsla.l };
+    return {
+      h: parseFloat(hsla.h.toFixed(2)),
+      s: parseFloat(hsla.s.toFixed(2)),
+      l: parseFloat(hsla.l.toFixed(2)),
+    };
   }, [hsva]);
 
   const handleColorChange = (hsva: {
