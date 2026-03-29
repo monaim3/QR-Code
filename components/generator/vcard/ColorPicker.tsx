@@ -175,7 +175,7 @@ export default function ColorPicker({ color, onChange, setShowPicker }: Props) {
   return (
     <div
       ref={pickerRef}
-      className="absolute right-0 top-full mt-2 z-50 bg-white w-full rounded-[var(--Corner-Radius-10)] shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] p-4 flex flex-col items-center gap-4"
+      className="bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] p-4 flex flex-col items-center gap-4"
     >
       {/* Tab Navigation */}
       <div className="flex justify-center items-center gap-4 self-stretch">
