@@ -8,6 +8,7 @@ import {
   setQrCodeName,
   setActiveTab,
 } from "@/store/slices/previewSlice";
+import { clearFieldError } from "@/store/slices/validationSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { ChevronDown } from "lucide-react";
@@ -41,6 +42,7 @@ export default function WebsiteUrlPage() {
 
   const handleUrlChange = (value: string) => {
     dispatch(setWebsiteUrl(value));
+    dispatch(clearFieldError("websiteUrl"));
 
     // Validate with Zod
     const result = urlValidationSchema.safeParse(value);

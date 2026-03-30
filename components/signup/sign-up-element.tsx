@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const signUpSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
@@ -68,6 +68,7 @@ export default function SignUpElements({
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
+        noValidate
         className="w-full mt-8 flex flex-col gap-4"
       >
         <Controller

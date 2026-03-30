@@ -5,6 +5,12 @@ import { useState } from "react";
 import { Mail } from "lucide-react";
 import BackButtonWithText from "../../components/common/back_button_with_text";
 import CheckInboxModal from "../../components/modals/check-inbox-modal";
+import { z } from "zod";
+
+const emailSchema = z
+  .string()
+  .min(1, "This field is required and cannot be left blank.")
+  .email("You have entered an invalid email address. Please try again.");
 
 export default function ForgetPasswordBody() {
   const [email, setEmail] = useState("");
@@ -12,13 +18,13 @@ export default function ForgetPasswordBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = () => {
-    if (email.trim() === "") {
-      setEmailError("Email is required");
+    const result = emailSchema.safeParse(email);
+    if (!result.success) {
+      setEmailError(result.error.issues[0].message);
       return;
     }
     setEmailError("");
     setIsModalOpen(true);
-    //router.push("/otp-verify");
   };
 
   return (

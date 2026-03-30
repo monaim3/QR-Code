@@ -46,6 +46,7 @@ export default function InputField({
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        onInvalid={(e) => e.preventDefault()}
         className={`
           h-12
           w-full                       

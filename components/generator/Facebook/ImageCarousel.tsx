@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { LuPencil } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import UploadIcon from "@/components/icons/upload-icon";
@@ -30,6 +30,8 @@ export default function ImageCarousel({
 }: ImageCarouselProps) {
   const [uploadError, setUploadError] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragCounter = useRef(0);
 
   const validateFile = (file: File): string | null => {
     const validTypes = [
@@ -97,6 +99,60 @@ export default function ImageCarousel({
 
   const canUploadMore = images.length < maxImages;
 
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current++;
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current--;
+    if (dragCounter.current === 0) setIsDragging(false);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    dragCounter.current = 0;
+
+    if (!canUploadMore && !editingId) return;
+
+    const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+
+    const error = validateFile(file);
+    if (error) {
+      setUploadError(error);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imageData = {
+        id: editingId || Date.now().toString(),
+        url: event.target?.result as string,
+        name: file.name,
+      };
+      if (editingId) {
+        onUpdateImage(editingId, imageData);
+        setEditingId(null);
+      } else {
+        onAddImage(imageData);
+      }
+      setUploadError("");
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="w-full">
       <label className="block text-lg leading-[26px] font-bold text-[var(--Black)] ">
@@ -108,12 +164,18 @@ export default function ImageCarousel({
 
       {/* Upload Area */}
       <div
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
         className={`border-2 border-dashed rounded-lg p-4 lg:p-6 transition-colors ${
           uploadError
             ? "border-red-500 bg-red-50"
-            : images.length > 0
-              ? "border-[var(--Blue)] bg-white"
-              : "border-[var(--Blue)] hover:border-[var(--Blue)]"
+            : isDragging
+              ? "border-[var(--Blue)] bg-blue-50"
+              : images.length > 0
+                ? "border-[var(--Blue)] bg-white"
+                : "border-[var(--Blue)] hover:border-[var(--Blue)]"
         }`}
       >
         <input

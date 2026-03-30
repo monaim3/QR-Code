@@ -22,11 +22,12 @@ export default function CheckInboxModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       {/* Container for modal and close button */}
-      <div className="relative max-w-[400px]">
-        {/* Close Button - Outside the modal container */}
+      <div className="relative w-[calc(100vw-32px)] max-w-[400px]">
+        {/* Close Button - Outside the modal, above it */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors flex items-center gap-2"
+          className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors flex items-center gap-2 z-10"
           aria-label="Close"
         >
           <span className="text-sm font-medium">Close</span>
@@ -35,14 +36,11 @@ export default function CheckInboxModal({
           </div>
         </button>
 
-        {/* Modal Container - Following Figma specs */}
+        {/* Modal Container */}
         <div
-          className="w-full max-w-[400px] flex flex-col items-center p-6 desktop:p-8 bg-white rounded-[10px]"
-          style={{
-            boxShadow: "0 4px 14px 0 rgba(54, 66, 140, 0.16)",
-          }}
+          className="w-full flex flex-col items-center p-6 desktop:p-8 bg-white rounded-[10px]"
+          style={{ boxShadow: "0 4px 14px 0 rgba(54, 66, 140, 0.16)" }}
         >
-          {/* Header */}
           <div className="flex flex-col items-center text-center w-full">
             <h2 className="text-[20px] desktop:text-[24px] leading-[32px] font-bold text-[var(--Black)]">
               Check your inbox
@@ -54,8 +52,9 @@ export default function CheckInboxModal({
           </div>
 
           <button
+            type="button"
             onClick={handleSubmit}
-            className="mt-[24px] w-full h-[48px] bg-[var(--Blue)] hover:bg-emerald-700 text-white text-[18px] leading-[26px] font-medium rounded-[10px] transition-colors duration-200"
+            className="mt-[24px] w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium rounded-[10px] transition-colors duration-200"
           >
             Log in
           </button>

@@ -19,6 +19,7 @@ interface QRState {
   cornerDotType: string;
   selectedLogo: string | null;
   customLogo: string | null;
+  customLogoName: string;
   cornerFrameStyleUI: string;
   cornerDotTypeUI: string;
 }
@@ -42,6 +43,7 @@ const initialState: QRState = {
   cornerDotType: "dot",
   selectedLogo: null,
   customLogo: null,
+  customLogoName: "",
   cornerFrameStyleUI: "none",
   cornerDotTypeUI: "none",
 };
@@ -118,6 +120,9 @@ const qrSlice = createSlice({
     setCustomLogo: (state, action: PayloadAction<string | null>) => {
       state.customLogo = action.payload;
     },
+    setCustomLogoName: (state, action: PayloadAction<string>) => {
+      state.customLogoName = action.payload;
+    },
   },
 });
 
@@ -140,6 +145,7 @@ export const {
   setCornerDotType,
   setSelectedLogo,
   setCustomLogo,
+  setCustomLogoName,
   setCornerFrameStyleUI,
   setCornerDotTypeUI,
 } = qrSlice.actions;

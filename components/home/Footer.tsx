@@ -76,7 +76,7 @@ export default function Footer() {
                       href="/contact-us"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      Contact Us
+                      Contact us
                     </Link>
                   </li>
                   <li>

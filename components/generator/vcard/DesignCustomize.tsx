@@ -65,7 +65,7 @@ export default function DesignCustomize() {
         description="Choose your color scheme"
         defaultOpen={true}
       >
-        <div className="space-y-8 w-full overflow-hidden">
+        <div className="space-y-8 w-full">
           {/* Color palette */}
           <div className="flex items-center gap-4 overflow-x-auto pb-4 pt-[2px] px-[2px] desktop:flex-wrap">
             {vCard.colorPalette.map((item, index) => (

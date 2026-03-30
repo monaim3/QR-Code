@@ -1,5 +1,6 @@
 import { urlValidationSchema } from "@/lib/validators/validators";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { clearFieldError } from "@/store/slices/validationSlice";
 import { useState } from "react";
 
 interface Props {
@@ -27,6 +28,7 @@ export default function InputUrl({
   onError,
   validationKey,
 }: Props) {
+  const dispatch = useAppDispatch();
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const [isFocused, setIsFocused] = useState(false);
@@ -48,6 +50,7 @@ export default function InputUrl({
 
   const handleChange = (inputValue: string) => {
     onChange(inputValue);
+    if (validationKey) dispatch(clearFieldError(validationKey));
 
     if (onError) {
       const result = urlValidationSchema.safeParse(inputValue);

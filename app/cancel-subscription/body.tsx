@@ -207,8 +207,7 @@ export default function CancelSubscriptionPage() {
                     our friendly customer support team{" "}
                     <a
                       href="/contact-us"
-                      className="text-[var(--Blue)] hover:text-[var(----Blue-hover)] font-regular"
-                      onClick={(e) => e.preventDefault()}
+                      className="text-[var(--Blue)] hover:underline font-regular"
                     >
                       here
                     </a>

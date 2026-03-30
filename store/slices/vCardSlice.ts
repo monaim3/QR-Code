@@ -195,7 +195,7 @@ const vCardSlice = createSlice({
     },
     addSocialChannel: (
       state,
-      action: PayloadAction<{ id: string; name: string; url: string }>,
+      action: PayloadAction<{ id: string; name: string; url: string; description?: string; icon?: string }>,
     ) => {
       const existingIndex = state.socialChannels.findIndex(
         (channel) => channel.id === action.payload.id,
@@ -218,6 +218,17 @@ const vCardSlice = createSlice({
       );
       if (channel) {
         channel.url = action.payload.url;
+      }
+    },
+    updateSocialChannel: (
+      state,
+      action: PayloadAction<{ id: string; changes: Partial<SocialChannel> }>,
+    ) => {
+      const channel = state.socialChannels.find(
+        (channel) => channel.id === action.payload.id,
+      );
+      if (channel) {
+        Object.assign(channel, action.payload.changes);
       }
     },
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
@@ -252,6 +263,7 @@ export const {
   addSocialChannel,
   removeSocialChannel,
   updateSocialChannelUrl,
+  updateSocialChannel,
   setIsPreviewWelcomeScreen,
   setActiveColorIndex,
 } = vCardSlice.actions;

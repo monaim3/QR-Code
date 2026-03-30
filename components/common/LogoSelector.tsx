@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 import UploadIcon from "../icons/upload-icon";
@@ -25,20 +26,24 @@ type LogoType = {
 };
 
 type LogoSelectorProps = {
-  selectedLogo: string | null; // Changed to string (logo ID)
-  onLogoChange: (logoId: string | null) => void; // Changed to accept logo ID
+  selectedLogo: string | null;
+  onLogoChange: (logoId: string | null) => void;
   customLogo: string | null;
+  customLogoName?: string;
   onCustomLogoUpload: (logo: string | null) => void;
+  onCustomLogoNameChange?: (name: string) => void;
 };
 
 const LogoSelector = ({
   selectedLogo,
   onLogoChange,
   customLogo,
+  customLogoName = "",
   onCustomLogoUpload,
+  onCustomLogoNameChange,
 }: LogoSelectorProps) => {
   const [uploadError, setUploadError] = useState("");
-  const [fileName, setFileName] = useState("MyLogo.svg");
+  const fileName = customLogoName || "MyLogo.svg";
 
   const socialLogos: LogoType[] = [
     { id: "twitter", name: "Twitter", Icon: Twitter },
@@ -70,7 +75,7 @@ const LogoSelector = ({
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFileName(file.name);
+      onCustomLogoNameChange?.(file.name);
       setUploadError("");
       const img = new Image();
       const objectUrl = URL.createObjectURL(file);
@@ -113,8 +118,8 @@ const LogoSelector = ({
 
   const handleDelete = () => {
     onCustomLogoUpload(null);
+    onCustomLogoNameChange?.("");
     setUploadError("");
-    setFileName("MyLogo.svg");
     const input = document.getElementById("logo-upload") as HTMLInputElement;
     if (input) input.value = "";
   };

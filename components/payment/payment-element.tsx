@@ -73,7 +73,7 @@ export default function CheckoutElement() {
   };
 
   function handleSuccess() {
-    router.push("/checkout/congratulation");
+    router.push("/checkout/success");
   }
 
   return (
@@ -145,15 +145,38 @@ export default function CheckoutElement() {
             <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
               Card number
             </label>
-            <input
-              type="text"
-              placeholder="•••• •••• •••• ••••"
-              value={cardNumber}
-              onChange={handleCardNumberChange}
-              className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
-                  focus:border-[var(--Blue)] outline-none transition-colors
-                  text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
-            />
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="•••• •••• •••• ••••"
+                value={cardNumber}
+                onChange={handleCardNumberChange}
+                className="w-full h-[56px] pl-4 pr-[110px] border-b-[1px] border-[var(--Boarder-Grey)]
+                    focus:border-[var(--Blue)] outline-none transition-colors
+                    text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
+              />
+              {/* Card brand icons */}
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                {/* Visa */}
+                <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="38" height="24" rx="6" fill="white" stroke="#E6E6E6" strokeWidth="1"/>
+                  <text x="19" y="16" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="11" fill="#1A1F71" letterSpacing="1">VISA</text>
+                </svg>
+                {/* Mastercard */}
+                <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="38" height="24" rx="6" fill="white" stroke="#E6E6E6" strokeWidth="1"/>
+                  <circle cx="14.5" cy="12" r="5.5" fill="#EB001B"/>
+                  <circle cx="23.5" cy="12" r="5.5" fill="#F79E1B"/>
+                  <path d="M19 7.52a5.5 5.5 0 010 8.96A5.5 5.5 0 0119 7.52z" fill="#FF5F00"/>
+                </svg>
+                {/* American Express */}
+                <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="38" height="24" rx="6" fill="#2557D6"/>
+                  <text x="19" y="11" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="5.5" fill="white" letterSpacing="0.3">AMERICAN</text>
+                  <text x="19" y="18" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="5.5" fill="white" letterSpacing="0.3">EXPRESS</text>
+                </svg>
+              </div>
+            </div>
           </div>
 
           {/* Expiry and CVV */}
@@ -177,15 +200,24 @@ export default function CheckoutElement() {
               <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
                 CVV Code
               </label>
-              <input
-                type="text"
-                placeholder="CVC"
-                value={cvv}
-                onChange={handleCvvChange}
-                className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
-                    focus:border-[var(--Blue)] outline-none transition-colors
-                    text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="CVC"
+                  value={cvv}
+                  onChange={handleCvvChange}
+                  className="w-full h-[56px] pl-4 pr-10 border-b-[1px] border-[var(--Boarder-Grey)]
+                      focus:border-[var(--Blue)] outline-none transition-colors
+                      text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
+                />
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--Grey)]">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                    <path d="M2 9H22" stroke="currentColor" strokeWidth="1.5"/>
+                    <path d="M6 14H10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -254,35 +286,28 @@ export default function CheckoutElement() {
         <button
           onClick={handleSuccess}
           type="button"
-          className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] 
+          className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]
             text-white font-semibold text-[18px] rounded-[10px] transition-colors"
         >
-          Get QRCenter
+          Get my QR code
         </button>
       )}
 
       <div className="mt-[16px] desktop:mt-[24px]">
-        <p className="text-[12px] leading-[20px] font-regular">
-          <span className="text-[var-(--Grey)]">
-            By proceeding with payment, you agree to be charged $1.95 now,
-            accept our
-          </span>
-          <Link href="/privacy-policy" className="text-[var(--Blue)]">
-            {" "}
+        <p className="text-[12px] leading-[20px] font-regular text-[var(--Grey)]">
+          By proceeding with payment, you agree to be charged $1.95 now, accept our{" "}
+          <Link href="/terms-of-use" className="text-[var(--Blue)] underline">
+            Terms and conditions
+          </Link>
+          , and acknowledge that you have read our{" "}
+          <Link href="/privacy-policy" className="text-[var(--Blue)] underline">
             Privacy Policy
           </Link>
-          <span className="text-[var-(--Grey)]">
-            {" "}
-            . Your payment will appear as &quot;qrcenter.com&quot; on your
-            statement. After 7 days, you will be billed $39 every 4 weeks until
-            you cancel your subscription. You can cancel anytime. For any
-            inquiries, contact us at{" "}
-          </span>
-          <span className="text-[var(--Blue)]"> support@qrcenter.com</span>
-          <span className="text-[var-(--Grey)]">
-            {" "}
-            or call us at +1-631-892-9925.
-          </span>
+          . Your payment will appear as &quot;smartqrcode.com&quot; on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at{" "}
+          <a href="mailto:support@smartqrcode.com" className="text-[var(--Blue)] underline">
+            support@smartqrcode.com
+          </a>{" "}
+          or call us at +1-631-892-9925.
         </p>
       </div>
       <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
@@ -291,8 +316,7 @@ export default function CheckoutElement() {
           onClick={handleSuccess}
           className="w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] transition duration-300 text-white font-semibold rounded-[10px] flex items-center justify-center gap-3"
         >
-          Continue
-          <ArrowRight className="w-5 h-5" />
+          Get my QR code
         </button>
       </div>
     </div>

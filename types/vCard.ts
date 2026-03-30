@@ -21,6 +21,8 @@ export interface SocialChannel {
   id: string;
   name: string;
   url: string;
+  description?: string;
+  icon?: string;
 }
 
 export interface VCardSlice {
