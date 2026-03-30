@@ -8,13 +8,14 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   addSocialChannel,
   removeSocialChannel,
-  updateSocialChannelUrl,
+  updateSocialChannel,
 } from "@/store/slices/vCardSlice";
 import Plus from "@/components/icons/plus";
 import Input from "./Input";
 import TrashAlt from "@/components/icons/trash-alt";
 import ImageUpload from "./ImageUpload";
 import { useState } from "react";
+import { urlValidationSchema } from "@/lib/validators/validators";
 
 export default function Social() {
   const dispatch = useAppDispatch();
@@ -24,6 +25,8 @@ export default function Social() {
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
   const [logo, setLogo] = useState<string | null>(null);
+  const [nameError, setNameError] = useState("");
+  const [urlError, setUrlError] = useState("");
 
   const handleChannelToggle = (channelId: string) => {
     const channel = socialChannels.find((ch) => ch.id === channelId);
@@ -54,11 +57,23 @@ export default function Social() {
     setUrl("");
     setDescription("");
     setLogo(null);
+    setNameError("");
+    setUrlError("");
+  };
+
+  const validateUrl = (value: string): string => {
+    if (!value.trim()) return "This field is required and cannot be left blank.";
+    const result = urlValidationSchema.safeParse(value);
+    return result.success ? "" : result.error.issues[0].message;
   };
 
   const handleAddCustom = () => {
-    if (!name.trim()) return;
-    dispatch(addSocialChannel({ id: `custom-${Date.now()}`, name, url }));
+    const nErr = name.trim() ? "" : "This field is required and cannot be left blank.";
+    const uErr = validateUrl(url);
+    setNameError(nErr);
+    setUrlError(uErr);
+    if (nErr || uErr) return;
+    dispatch(addSocialChannel({ id: `custom-${Date.now()}`, name, url, description, icon: logo ?? undefined }));
     resetForm();
   };
 
@@ -106,6 +121,9 @@ export default function Social() {
                   className="flex desktop:flex-row flex-col p-4 desktop:items-center gap-4 self-stretch rounded-[var(--Corner-Radius-10)] bg-[var(--light-grey-70)]"
                 >
                   <div className="flex items-center gap-2 w-[280px]">
+                    {socialChannel.icon && (
+                      <img src={socialChannel.icon} alt={socialChannel.name} className="w-[40px] h-[40px] object-contain" />
+                    )}
                     <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
                       {socialChannel.name}
                     </p>
@@ -113,10 +131,19 @@ export default function Social() {
                   <div className="flex items-start gap-2 flex-1 w-full desktop:w-auto">
                     <input
                       type="url"
-                      placeholder="e.g. https://social-media.com"
+                      placeholder="URL"
                       value={socialChannel.url}
                       onChange={(e) =>
-                        dispatch(updateSocialChannelUrl({ id: socialChannel.id, url: e.target.value }))
+                        dispatch(updateSocialChannel({ id: socialChannel.id, changes: { url: e.target.value } }))
+                      }
+                      className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Description"
+                      value={socialChannel.description ?? ""}
+                      onChange={(e) =>
+                        dispatch(updateSocialChannel({ id: socialChannel.id, changes: { description: e.target.value } }))
                       }
                       className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"
                     />
@@ -151,7 +178,8 @@ export default function Social() {
                   placeholder="e.g. My social media"
                   id="custom-social-name"
                   value={name}
-                  onChange={(value) => setName(value)}
+                  onChange={(value) => { setName(value); if (value.trim()) setNameError(""); }}
+                  error={nameError}
                 />
               </div>
               <div className="w-[calc(100%-56px)]">
@@ -160,7 +188,15 @@ export default function Social() {
                   placeholder="e.g. https://pauljones.com"
                   id="custom-social-url"
                   value={url}
-                  onChange={(value) => setUrl(value)}
+                  onChange={(value) => {
+                    setUrl(value);
+                    if (urlError) {
+                      const err = validateUrl(value);
+                      if (!err) setUrlError("");
+                    }
+                  }}
+                  onBlur={() => setUrlError(validateUrl(url))}
+                  error={urlError}
                 />
               </div>
             </div>

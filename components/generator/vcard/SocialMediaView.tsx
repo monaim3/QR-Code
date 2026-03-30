@@ -54,13 +54,17 @@ export default function SocialMediaView() {
               onClick={() => handleRedirect(channel.url)}
               className="flex p-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-6)] bg-[var(--light-grey-70)] cursor-pointer"
             >
-              {IconComponent && (
+              {IconComponent ? (
                 <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center overflow-hidden">
                   <div className="scale-[0.8] origin-center">
                     <IconComponent />
                   </div>
                 </div>
-              )}
+              ) : channel.icon ? (
+                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center overflow-hidden">
+                  <img src={channel.icon} alt={channel.name} className="w-full h-full object-contain" />
+                </div>
+              ) : null}
               <p className="text-[var(--Black)] text-[12px] leading-[20px] flex-1">
                 {channel.name}
               </p>
