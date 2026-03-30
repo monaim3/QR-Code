@@ -75,6 +75,7 @@ export default function ContactUsInputForm({
       {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
+        noValidate
         className="w-full mt-6 desktop:mt-8 flex flex-col gap-4"
       >
         <div className="flex flex-col desktop:flex-row gap-4 desktop:gap-6">

@@ -65,6 +65,7 @@ const SimpleInputField: FC<InputFieldProps> = ({
             placeholder={placeholder}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
+            onInvalid={(e) => e.preventDefault()}
             className={`${baseClasses} h-12`}
             style={{ fontFamily: "var(--font-poppins)" }}
             {...rest}
