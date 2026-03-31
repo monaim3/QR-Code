@@ -18,7 +18,7 @@ export default function MobileFrame({
     <div
       className={`relative ${dimensions.width} ${dimensions.height} mx-auto`}
     >
-      <div className="absolute inset-0 rounded-[40px] border-[8px] border-black bg-white ">
+      <div className="absolute inset-0 rounded-[40px] border-[8px] border-black bg-white overflow-hidden">
         <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
