@@ -33,16 +33,20 @@ interface Props {
   setShowPicker: (show: boolean) => void;
 }
 
+const isValidHex = (hex: string) => /^#[0-9A-Fa-f]{6}$/.test(hex);
+
 export default function ColorPicker({ color, onChange, setShowPicker }: Props) {
   const [isSolid, setIsSolid] = useState(true);
-  const [hsva, setHsva] = useState(hexToHsva(color));
+  const [hsva, setHsva] = useState(hexToHsva(isValidHex(color) ? color : "#000000"));
   const [colorMode, setColorMode] = useState<"hex" | "rgb" | "hsl">("hex");
   const pickerRef = useRef<HTMLDivElement>(null);
   const mouseDownInsideRef = useRef(false);
 
   // Update hsva when color prop changes
   useEffect(() => {
-    setHsva(hexToHsva(color));
+    if (isValidHex(color)) {
+      setHsva(hexToHsva(color));
+    }
   }, [color]);
 
   // Compute RGB and HSL from HSVA (extract r, g, b from rgba and h, s, l from hsla)

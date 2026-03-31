@@ -303,9 +303,9 @@ export default function CheckoutElement() {
           <Link href="/privacy-policy" className="text-[var(--Blue)] underline">
             Privacy Policy
           </Link>
-          . Your payment will appear as &quot;smartqrcode.com&quot; on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at{" "}
-          <a href="mailto:support@smartqrcode.com" className="text-[var(--Blue)] underline">
-            support@smartqrcode.com
+          . Your payment will appear as &quot;qrcenter.com&quot; on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at{" "}
+          <a href="mailto:support@qrcenter.com" className="text-[var(--Blue)] underline">
+            support@qrcenter.com
           </a>{" "}
           or call us at +1-631-892-9925.
         </p>
