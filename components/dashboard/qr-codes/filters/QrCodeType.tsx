@@ -78,12 +78,16 @@ export default function QrCodeType({ selected, setSelected }: Props) {
             </Tooltip>
           )}
 
-          <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktopMd:truncate desktopLg:truncate desktopMd:max-w-[120px] desktopLg:max-w-[150px]">
-            QR Code type{selected.length > 0 && ":"}
-            <span className="ml-1 text-[var(--Blue)] font-semibold">
-              {displayLabel}
+          <div className="flex items-center gap-1 min-w-0">
+            <span className="text-[var(--Grey)] text-[14px] leading-[22px] whitespace-nowrap shrink-0">
+              QR Code type{selected.length > 0 && ":"}
             </span>
-          </span>
+            {selected.length > 0 && (
+              <span className="text-[var(--Blue)] font-semibold text-[14px] leading-[22px] truncate">
+                {displayLabel}
+              </span>
+            )}
+          </div>
         </div>
         {isOpen ? (
           <ChevronUpSmall className="text-[var(--Grey)]" />

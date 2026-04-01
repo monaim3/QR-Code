@@ -66,13 +66,16 @@ export default function DropDownFilter({
             </Tooltip>
           )}
 
-          <span className="text-[var(--Grey)] text-[14px] leading-[22px] truncate desktopMd:max-w-[10ch] desktopLg:max-w-[13ch] desktopXl:max-w-[25ch]">
-            {label}
-            {selected.length > 0 && ":"}
-            <span className="ml-1 text-[var(--Blue)] font-semibold">
-              {displayLabel}
+          <div className="flex items-center gap-1 min-w-0">
+            <span className="text-[var(--Grey)] text-[14px] leading-[22px] whitespace-nowrap shrink-0">
+              {label}{selected.length > 0 && ":"}
             </span>
-          </span>
+            {selected.length > 0 && (
+              <span className="text-[var(--Blue)] font-semibold text-[14px] leading-[22px] truncate">
+                {displayLabel}
+              </span>
+            )}
+          </div>
         </div>
         {isOpen ? (
           <ChevronUpSmall className="text-[var(--Grey)]" />
