@@ -4,10 +4,20 @@ import QrCode4 from "@/components/icons/qr-code-4";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Logo() {
+const DASHBOARD_PATHS = ["/qr-codes", "/analytics", "/billing", "/account", "/help"];
+
+interface Props {
+  noLink?: boolean;
+}
+
+export default function Logo({ noLink }: Props) {
   const pathname = usePathname();
   const isDisabledPath =
-    pathname.startsWith("/pricing") || pathname.startsWith("/checkout");
+    noLink ||
+    pathname.startsWith("/pricing") ||
+    pathname.startsWith("/checkout");
+
+  const isDashboardPath = DASHBOARD_PATHS.some((p) => pathname.startsWith(p));
 
   const content = (
     <>
@@ -24,7 +34,7 @@ export default function Logo() {
   }
 
   return (
-    <Link href={"/"} className="flex h-8 items-center gap-2 flex-0">
+    <Link href={isDashboardPath ? "/qr-codes" : "/"} className="flex h-8 items-center gap-2 flex-0">
       {content}
     </Link>
   );
