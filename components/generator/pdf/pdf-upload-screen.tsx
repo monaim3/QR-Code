@@ -1,10 +1,13 @@
 import Accordion from "@/components/common/Accordion";
 import PdfUpload from "@/components/generator/pdf/pdf-upload";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setPdfFile } from "@/store/slices/pdf-slice";
 
 export default function PdfUploadScreen() {
   const dispatch = useAppDispatch();
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const hasPdfError = showErrors && !!validationErrors.pdfFile;
 
   const handleImageChange = (value: string | null) => {
     dispatch(setPdfFile(value || ""));
@@ -20,11 +23,20 @@ export default function PdfUploadScreen() {
         title="PDF file*"
         description="Upload your PDF file"
         defaultOpen={true}
+        forceOpen={hasPdfError}
       >
         <PdfUpload
           onCustomLogoUpload={handleImageChange}
           //onPreview={handlePreview}
         />
+        {hasPdfError && (
+          <p
+            className="text-sm text-red-500 mt-2"
+            data-validation-error="true"
+          >
+            {validationErrors.pdfFile}
+          </p>
+        )}
       </Accordion>
     </div>
   );

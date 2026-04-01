@@ -40,6 +40,12 @@ export default function WebsiteUrlPage() {
   const [isUrlFocused, setIsUrlFocused] = useState(false);
   const [isUrlAccordionOpen, setIsUrlAccordionOpen] = useState(true);
 
+  useEffect(() => {
+    if (showErrors && validationErrors.websiteUrl) {
+      setIsUrlAccordionOpen(true);
+    }
+  }, [showErrors, validationErrors.websiteUrl]);
+
   const handleUrlChange = (value: string) => {
     dispatch(setWebsiteUrl(value));
     dispatch(clearFieldError("websiteUrl"));
@@ -171,6 +177,7 @@ export default function WebsiteUrlPage() {
                                 onFocus={() => setIsUrlFocused(true)}
                                 // onBlur={handleUrlBlur}
                                 placeholder="e.g. www.mywebsite.com"
+                                aria-invalid={!!(urlError || (showErrors && validationErrors.websiteUrl))}
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
                                   urlError ||
                                   (showErrors && validationErrors.websiteUrl)

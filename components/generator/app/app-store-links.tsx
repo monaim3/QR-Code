@@ -92,5 +92,5 @@ export default function AppStoreLink() {
         </div>
       </Accordion>
     </div>
-   ); 
+   );
 }

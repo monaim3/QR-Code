@@ -28,6 +28,8 @@ export default function Wifi() {
 
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
   const wifi = useAppSelector((state) => state.wifi.NetworkName);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
   const wifiPassword = useAppSelector((state) => state.wifi.Password);
   const wifiEncryption = useAppSelector((state) => state.wifi.EncryptionType);
   const wifiHidden = useAppSelector((state) => state.wifi.HiddenNetwork);
@@ -65,6 +67,7 @@ export default function Wifi() {
               title="Wi-Fi"
               description="Provide your Wi-fi name, the type of encryption and your password"
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.networkName}
             >
               <div className="flex  flex-col lg:gap-6 gap-4">
                 <div>

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
@@ -8,14 +8,20 @@ type AccordionProps = {
   title: string;
   description?: string;
   defaultOpen?: boolean;
+  forceOpen?: boolean;
 };
 export default function Accordion({
   children,
   title,
   description,
   defaultOpen = false,
+  forceOpen,
 }: AccordionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  useEffect(() => {
+    if (forceOpen) setIsOpen(true);
+  }, [forceOpen]);
   return (
     <>
       <div className="bg-[var(--Generator-Background)]">

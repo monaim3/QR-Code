@@ -20,6 +20,9 @@ export default function Addvideos() {
   const [openSwap, setOpenSwap] = useState(false);
   const dispatch = useAppDispatch();
   const video = useAppSelector((state) => state.video);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const hasVideoError = showErrors && !!validationErrors.videos;
 
   const handleAddVideo = () => {
     const id = video.videos.length > 0 ? video.videos.length + 1 : 1;
@@ -49,6 +52,7 @@ export default function Addvideos() {
         title="Add videos*"
         description="Upload or provide links to your videos - you can add up to 10 videos"
         defaultOpen={true}
+        forceOpen={hasVideoError}
       >
         <div className="space-y-2">
           <div className="flex flex-col items-start justify-center gap-8 w-full">
@@ -70,6 +74,14 @@ export default function Addvideos() {
             </div>
             <div className="w-full">
               <VideoUpload />
+              {hasVideoError && (
+                <p
+                  className="text-sm text-red-500 mt-2"
+                  data-validation-error="true"
+                >
+                  {validationErrors.videos}
+                </p>
+              )}
             </div>
             <div className="w-full max-w-full">
               {video.videos.map((vid, index) => {

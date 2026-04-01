@@ -7,6 +7,8 @@ import Input from "../vcard/Input";
 export default function RestaurantInfo() {
   const dispatch = useAppDispatch();
   const menu = useAppSelector((state) => state.menu);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
 
   const handleImageChange = (value: string | null) => {
     dispatch(
@@ -32,6 +34,7 @@ export default function RestaurantInfo() {
         title="Restaurant information"
         description="Provide details about your restaurant"
         defaultOpen={true}
+        forceOpen={showErrors && !!validationErrors.restaurantName}
       >
         <div className="desktop:space-y-8 space-y-6">
           <ImageUpload

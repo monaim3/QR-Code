@@ -62,6 +62,8 @@ export default function Facebook() {
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const [qrNameError, setQrNameError] = useState("");
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
   const facebookUrl = useAppSelector((state) => state.facebook.FacebookUrl);
   const Name = useAppSelector((state) => state.facebook.Name);
   const error = useAppSelector((state) => state.facebook.Error);
@@ -285,6 +287,7 @@ export default function Facebook() {
               title="Page information"
               description="Provide information about yourself and your Facebook page"
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.facebookUrl}
             >
               <div className="space-y-4">
                 <div className="flex flex-col gap-4 lg:flex-row lg:gap-12 items-start justify-center ">

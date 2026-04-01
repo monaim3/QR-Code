@@ -63,6 +63,9 @@ export default function Images() {
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const [qrNameError, setQrNameError] = useState("");
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const hasImagesError = showErrors && !!validationErrors.images;
   const facebookUrl = useAppSelector((state) => state.images.FacebookUrl);
   const Name = useAppSelector((state) => state.images.Name);
   const error = useAppSelector((state) => state.images.Error);
@@ -223,6 +226,7 @@ export default function Images() {
               title="Design and customize"
               description="Choose your color scheme"
               defaultOpen={true}
+              forceOpen={hasImagesError}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -279,6 +283,14 @@ export default function Images() {
                     dispatch(updateImage({ id, image }))
                   }
                 />
+                {hasImagesError && (
+                  <p
+                    className="text-sm text-red-500 mt-2"
+                    data-validation-error="true"
+                  >
+                    {validationErrors.images}
+                  </p>
+                )}
               </div>
             </Accordion>
           </div>

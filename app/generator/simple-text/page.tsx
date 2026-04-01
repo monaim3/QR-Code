@@ -26,6 +26,8 @@ export default function SimpleText() {
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const [qrNameError, setQrNameError] = useState("");
   const simpleText = useAppSelector((state) => state.simpleText.Text);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
   };
@@ -84,6 +86,7 @@ export default function SimpleText() {
               title="Simple text"
               description="Enter the text that you want displayed when a user scans your QR code"
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.simpleText}
             >
               <div>
                 <Textarea

@@ -13,6 +13,8 @@ import TrashAlt from "@/components/icons/trash-alt";
 export default function BusinessInfo() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
 
   const handleChange = (value: string, id: string) => {
     dispatch(
@@ -29,6 +31,7 @@ export default function BusinessInfo() {
         title="Business information"
         description="Provide details about your business"
         defaultOpen={true}
+        forceOpen={showErrors && !!validationErrors.companyName}
       >
         <div className="desktop:space-y-8 space-y-6">
           <div className="space-y-4">
