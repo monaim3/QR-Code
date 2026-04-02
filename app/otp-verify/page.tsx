@@ -7,7 +7,9 @@ import Footer from "./footer";
 export default function OtpVerify() {
     return (
         <div className="bg-[var(--Generator-Background)]">
-        <LogoHeader/>
+        <Suspense fallback={<div className="w-full desktop:bg-[#F5F6FA] bg-white z-50 desktop:h-[72px] h-16" />}>
+          <LogoHeader/>
+        </Suspense>
         <Suspense fallback={null}>
          <TwoFactorAuthPage/>
         </Suspense>
