@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import LogoHeader from "../../../components/common/logo_header";
 import Footer from "../../../app/otp-verify/footer";
 import CongratulationPage from "../congratulation/body"
@@ -5,7 +6,9 @@ import CongratulationPage from "../congratulation/body"
 export default function CheckoutSuccess() {
     return (
         <div className="bg-[var(--Generator-Background)]">
-         <LogoHeader/>
+         <Suspense fallback={<div className="w-full desktop:bg-[#F5F6FA] bg-white z-50 desktop:h-[72px] h-16" />}>
+           <LogoHeader/>
+         </Suspense>
          <CongratulationPage/>
          <Footer/>
         </div>
