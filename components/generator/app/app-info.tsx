@@ -11,6 +11,8 @@ import TrashAlt from "@/components/icons/trash-alt";
 export default function AppInfo() {
     const dispatch = useAppDispatch();
     const app = useAppSelector((state) => state.app);
+    const validationErrors = useAppSelector((state) => state.validation.errors);
+    const showErrors = useAppSelector((state) => state.validation.showErrors);
 
     const handleImageChange = (value: string | null) => {
          dispatch(
@@ -85,6 +87,7 @@ export default function AppInfo() {
         title="App information"
         description="Provide details about your app"
         defaultOpen={true}
+        forceOpen={showErrors && !!validationErrors.appName}
       >
         <div className="space-y-2">
         <ImageUpload value={app.appInfo.image || null} onCustomLogoUpload={handleImageChange} />
@@ -97,6 +100,8 @@ export default function AppInfo() {
               type="name"
               value={app.appInfo.appName}
               onChange={(value) => handleInput(value,"name")}
+              validationKey="appName"
+              required={true}
             />
           </div>
            <div className="w-[calc(100%-56px)]">

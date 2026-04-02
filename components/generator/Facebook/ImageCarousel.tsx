@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { LuPencil } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import UploadIcon from "@/components/icons/upload-icon";
@@ -32,6 +32,17 @@ export default function ImageCarousel({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const dragCounter = useRef(0);
+
+  // Prevent browser from opening dropped files in a new tab when dropped outside the zone
+  useEffect(() => {
+    const preventDefault = (e: DragEvent) => e.preventDefault();
+    document.addEventListener("dragover", preventDefault);
+    document.addEventListener("drop", preventDefault);
+    return () => {
+      document.removeEventListener("dragover", preventDefault);
+      document.removeEventListener("drop", preventDefault);
+    };
+  }, []);
 
   const validateFile = (file: File): string | null => {
     const validTypes = [
@@ -126,31 +137,39 @@ export default function ImageCarousel({
 
     if (!canUploadMore && !editingId) return;
 
-    const file = e.dataTransfer.files?.[0];
-    if (!file) return;
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    if (!droppedFiles.length) return;
 
-    const error = validateFile(file);
-    if (error) {
-      setUploadError(error);
-      return;
-    }
+    // When editing, only replace one image; otherwise upload up to remaining slots
+    const remainingSlots = maxImages - images.length;
+    const filesToProcess = editingId
+      ? droppedFiles.slice(0, 1)
+      : droppedFiles.slice(0, remainingSlots);
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const imageData = {
-        id: editingId || Date.now().toString(),
-        url: event.target?.result as string,
-        name: file.name,
-      };
-      if (editingId) {
-        onUpdateImage(editingId, imageData);
-        setEditingId(null);
-      } else {
-        onAddImage(imageData);
+    filesToProcess.forEach((file, index) => {
+      const error = validateFile(file);
+      if (error) {
+        setUploadError(error);
+        return;
       }
-      setUploadError("");
-    };
-    reader.readAsDataURL(file);
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageData = {
+          id: editingId || `${Date.now()}-${index}`,
+          url: event.target?.result as string,
+          name: file.name,
+        };
+        if (editingId) {
+          onUpdateImage(editingId, imageData);
+          setEditingId(null);
+        } else {
+          onAddImage(imageData);
+        }
+        setUploadError("");
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   return (

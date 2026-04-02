@@ -128,7 +128,7 @@ function validatePdf(
   const { pdfFile } = state.pdf;
 
   if (!pdfFile || !pdfFile.trim()) {
-    const message = "Please upload a PDF file.";
+    const message = "This field is required and cannot be left blank.";
     errors.push({
       field: "PDF File",
       message,
@@ -145,7 +145,7 @@ function validateImages(
   const { images } = state.images;
 
   if (!images || images.length === 0) {
-    const message = "Please upload at least one image.";
+    const message = "This field is required and cannot be left blank.";
     errors.push({
       field: "Images",
       message,
@@ -159,28 +159,15 @@ function validateSocialMedia(
   errors: ValidationError[],
   fieldErrors: { [key: string]: string }
 ) {
-  const { socialChannels } = state.social;
+  const { socialInfo } = state.social;
 
-  if (!socialChannels || socialChannels.length === 0) {
-    const message = "Please add at least one social media channel.";
+  if (!socialInfo.headLine || !socialInfo.headLine.trim()) {
+    const message = "This field is required and cannot be left blank.";
     errors.push({
-      field: "Social Channels",
+      field: "Headline",
       message,
     });
-    fieldErrors["socialChannels"] = message;
-  } else {
-    // Validate that each channel has a URL
-    const channelsWithoutUrl = socialChannels.filter(
-      (channel) => !channel.url || !channel.url.trim()
-    );
-    if (channelsWithoutUrl.length > 0) {
-      const message = "All social media channels must have a URL.";
-      errors.push({
-        field: "Social Channels",
-        message,
-      });
-      fieldErrors["socialChannels"] = message;
-    }
+    fieldErrors["socialHeadline"] = message;
   }
 }
 
@@ -192,7 +179,7 @@ function validateVideo(
   const { videos } = state.video;
 
   if (!videos || videos.length === 0) {
-    const message = "Please add at least one video.";
+    const message = "This field is required and cannot be left blank.";
     errors.push({
       field: "Videos",
       message,
@@ -274,28 +261,15 @@ function validateApp(
   errors: ValidationError[],
   fieldErrors: { [key: string]: string }
 ) {
-  const { appStoreLinks } = state.app;
+  const { appInfo } = state.app;
 
-  if (!appStoreLinks || appStoreLinks.length === 0) {
-    const message = "Please add at least one app store link.";
+  if (!appInfo.appName || !appInfo.appName.trim()) {
+    const message = "This field is required and cannot be left blank.";
     errors.push({
-      field: "App Store Links",
+      field: "App Name",
       message,
     });
-    fieldErrors["appStoreLinks"] = message;
-  } else {
-    // Validate that each link has a URL
-    const linksWithoutUrl = appStoreLinks.filter(
-      (link) => !link.storeUrl || !link.storeUrl.trim()
-    );
-    if (linksWithoutUrl.length > 0) {
-      const message = "All app store links must have a URL.";
-      errors.push({
-        field: "App Store Links",
-        message,
-      });
-      fieldErrors["appStoreLinks"] = message;
-    }
+    fieldErrors["appName"] = message;
   }
 }
 

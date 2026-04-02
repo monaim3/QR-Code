@@ -12,6 +12,9 @@ import { addSection, createSectionId, removeSection } from "@/store/slices/menuS
 export default function Menu() {
   const dispatch = useAppDispatch();
   const sections = useAppSelector((state) => state.menu.sections);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const hasMenuError = showErrors && !!validationErrors.menuItems;
   const [activeSectionId, setActiveSectionId] = useState<string | null>(
     () => sections[0]?.id ?? null,
   );
@@ -46,7 +49,7 @@ export default function Menu() {
 
   return (
     <div className="w-full">
-      <Accordion title="Menu" description="Input your menu" defaultOpen={true}>
+      <Accordion title="Menu" description="Input your menu" defaultOpen={true} forceOpen={hasMenuError}>
         <div className="desktop:space-y-8 space-y-6">
           {sections.map((section, index) => (
             <Fragment key={section.id}>
@@ -82,6 +85,14 @@ export default function Menu() {
             </button>
           </div>
         </div>
+        {hasMenuError && (
+          <p
+            className="text-sm text-red-500 mt-2"
+            data-validation-error="true"
+          >
+            {validationErrors.menuItems}
+          </p>
+        )}
       </Accordion>
 
       {/* Delete section confirmation */}

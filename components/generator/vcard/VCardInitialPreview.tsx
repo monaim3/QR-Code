@@ -1,6 +1,6 @@
 import PlusCircle from "@/components/icons/plus-circle";
-import User from "@/components/icons/user";
 import InitialPreviewCard from "../businessPage/InitailPreviewCard";
+import Image from "next/image";
 import Phone from "@/components/icons/phone";
 import Briefcase from "@/components/icons/briefcase";
 import FileText from "@/components/icons/file-text";
@@ -13,8 +13,14 @@ export default function VCardInitialPreview() {
 
       <div className="flex flex-col items-center gap-2 stretch relative z-[2]">
         {/* Image */}
-        <div className="flex w-[108px] h-[108px] justify-center items-center gap-2 aspect-square rounded-full bg-[var(--Generator-Background)] border-4 border-white mx-auto">
-          <User />
+        <div className="flex w-[104px] h-[104px] justify-center items-center rounded-full border-4 border-white mx-auto overflow-hidden">
+          <Image
+            src="/images/generator_img/vcardAvatar.webp"
+            alt="vCard Avatar"
+            width={100}
+            height={100}
+            className="w-full h-full object-cover object-top rounded-full"
+          />
         </div>
 
         {/* Name */}

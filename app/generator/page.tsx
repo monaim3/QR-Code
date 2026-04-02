@@ -20,17 +20,17 @@ import WifiQr from "@/components/icons/wifi-qr";
 import CreateArrow from "@/components/icons/create_arrow";
 import { useRef, useState } from "react";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
-import PdfPreView from "@/components/generator/pdf/pdf-preview";
-import ImagesPreview from "@/components/generator/Images/ImagesPreview";
-import SocialPreView from "@/components/generator/socialMedia/social-preview";
-import VideoPreView from "@/components/generator/video/video-preview";
-import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPreview";
-import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
-import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
-import WifiPreview from "@/components/generator/Wifi/WifiPreview";
-import AppPreView from "@/components/generator/app/app-preview";
-import MenuPreview from "@/components/generator/menu/MenuPreview";
-import VCardPreview from "@/components/generator/vcard/VCardPreview";
+import PdfInitialPreview from "@/components/generator/pdf/PdfInitialPreview";
+import ImagesInitialPreview from "@/components/generator/Images/ImagesInitialPreview";
+import SocialInitialPreview from "@/components/generator/socialMedia/SocialInitialPreview";
+import VideoInitialPreview from "@/components/generator/video/VideoInitialPreview";
+import SimpleTextInitialPreview from "@/components/generator/SimpleText/SimpleTextInitialPreview";
+import FacebookInitialPreview from "@/components/generator/Facebook/FacebookInitialPreview";
+import WifiInitialPreview from "@/components/generator/Wifi/WifiInitialPreview";
+import AppInitialPreview from "@/components/generator/app/AppInitialPreview";
+import VCardInitialPreview from "@/components/generator/vcard/VCardInitialPreview";
+import BusinessInitialPreview from "@/components/generator/businessPage/BusinessInitialPreview";
+import MenuInitialPreview from "@/components/generator/menu/InitialPreview";
 const qrTypes = [
   {
     id: "website-url",
@@ -46,7 +46,7 @@ const qrTypes = [
     description: "Share your electronic business card",
     href: "/generator/vcard",
     icon: <VcardQr />,
-    mobilePreview: <VCardPreview />,
+    mobilePreview: <VCardInitialPreview />,
   },
   {
     id: "pdf",
@@ -54,7 +54,7 @@ const qrTypes = [
     description: "Show a PDF",
     href: "/generator/pdf",
     icon: <PdfQr />,
-    mobilePreview: <PdfPreView />,
+    mobilePreview: <PdfInitialPreview />,
   },
   {
     id: "images",
@@ -62,7 +62,7 @@ const qrTypes = [
     description: "Display an image gallery",
     href: "/generator/images",
     icon: <ImagesQr />,
-    mobilePreview: <ImagesPreview />,
+    mobilePreview: <ImagesInitialPreview />,
   },
   {
     id: "social-media",
@@ -70,7 +70,7 @@ const qrTypes = [
     description: "Share your social media channels",
     href: "/generator/social-media",
     icon: <SocialQr />,
-    mobilePreview: <SocialPreView />,
+    mobilePreview: <SocialInitialPreview />,
   },
   {
     id: "video",
@@ -78,7 +78,7 @@ const qrTypes = [
     description: "Share one or multiple videos",
     href: "/generator/video",
     icon: <VideoQr />,
-    mobilePreview: <VideoPreView />,
+    mobilePreview: <VideoInitialPreview />,
   },
   {
     id: "simple-text",
@@ -86,7 +86,7 @@ const qrTypes = [
     description: "Display a body of text",
     href: "/generator/simple-text",
     icon: <SimpleTextQr />,
-    mobilePreview: <SimpleTextPreview />,
+    mobilePreview: <SimpleTextInitialPreview />,
   },
   {
     id: "business-page",
@@ -94,7 +94,7 @@ const qrTypes = [
     description: "Share your business information",
     href: "/generator/business-page",
     icon: <BusinessQr />,
-    mobilePreview: <BusinessPreview />,
+    mobilePreview: <BusinessInitialPreview />,
   },
   {
     id: "facebook",
@@ -102,7 +102,7 @@ const qrTypes = [
     description: "Share your Facebook page",
     href: "/generator/facebook",
     icon: <FacebookQr />,
-    mobilePreview: <FacebookPreview />,
+    mobilePreview: <FacebookInitialPreview />,
   },
   {
     id: "wifi",
@@ -110,7 +110,7 @@ const qrTypes = [
     description: "Connect to a wireless network",
     href: "/generator/wifi",
     icon: <WifiQr />,
-    mobilePreview: <WifiPreview />,
+    mobilePreview: <WifiInitialPreview />,
   },
   {
     id: "app",
@@ -118,7 +118,7 @@ const qrTypes = [
     description: "Link to the iOS App Store/Google Play",
     href: "/generator/app",
     icon: <AppQr />,
-    mobilePreview: <AppPreView />,
+    mobilePreview: <AppInitialPreview />,
   },
   {
     id: "menu",
@@ -126,7 +126,7 @@ const qrTypes = [
     description: "Create a digital restaurant menu",
     href: "/generator/menu",
     icon: <MenuQr />,
-    mobilePreview: <MenuPreview />,
+    mobilePreview: <MenuInitialPreview />,
   },
 ];
 

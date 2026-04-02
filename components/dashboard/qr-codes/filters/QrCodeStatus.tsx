@@ -53,12 +53,16 @@ export default function QrCodeStatus({ selected, setSelected }: Props) {
             </Tooltip>
           )}
 
-          <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktopMd:truncate desktopLg:truncate desktopMd:max-w-[120px] desktopLg:max-w-[150px]">
-            QR Code status{selected && ":"}
-            <span className="ml-1 text-[var(--Blue)] font-semibold">
-              {displayLabel}
+          <div className="flex items-center gap-1 min-w-0">
+            <span className="text-[var(--Grey)] text-[14px] leading-[22px] whitespace-nowrap shrink-0">
+              QR Code status{selected && ":"}
             </span>
-          </span>
+            {selected && (
+              <span className="text-[var(--Blue)] font-semibold text-[14px] leading-[22px] truncate">
+                {displayLabel}
+              </span>
+            )}
+          </div>
         </div>
         {isOpen ? (
           <ChevronUpSmall className="text-[var(--Grey)]" />

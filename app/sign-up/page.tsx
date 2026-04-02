@@ -6,7 +6,9 @@ import SignupBody from "./body";
 export default function Signup() {
   return (
     <div className="bg-[var(--Generator-Background)]">
-      <LogoHeader />
+      <Suspense fallback={<div className="w-full desktop:bg-[#F5F6FA] bg-white z-50 desktop:h-[72px] h-16" />}>
+        <LogoHeader />
+      </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
         <SignupBody />
       </Suspense>

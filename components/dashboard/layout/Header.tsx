@@ -20,7 +20,7 @@ export default function DashboardHeader() {
     { icon: QrCode5, label: "QR Codes", href: "/qr-codes" },
     { icon: User, label: "Account", href: "/account" },
     { icon: CreditCards, label: "Billing", href: "/billing" },
-    { icon: Support, label: "Help", href: "/help-center" },
+    { icon: Support, label: "Help", href: "/help" },
   ];
 
   return (
@@ -70,6 +70,7 @@ export default function DashboardHeader() {
                 icon={item.icon}
                 label={item.label}
                 href={item.href}
+                onClick={() => setIsDrawerOpen(false)}
                 collapsed={false}
                 isLastItems={index === navItems.length - 1}
               />

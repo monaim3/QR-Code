@@ -73,13 +73,15 @@ export default function BreadcrumbFooter() {
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
 
-        // Wait for accordion to expand, then scroll to first error field
+        // Wait for accordion to expand (400ms animation), then scroll to first error field
         setTimeout(() => {
-          const firstError = document.querySelector<HTMLElement>('[aria-invalid="true"]');
+          const firstError = document.querySelector<HTMLElement>(
+            '[aria-invalid="true"], [data-validation-error="true"]'
+          );
           if (firstError) {
             firstError.scrollIntoView({ behavior: "smooth", block: "center" });
           }
-        }, 300);
+        }, 600);
         return;
       }
 

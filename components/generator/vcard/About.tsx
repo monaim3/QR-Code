@@ -35,12 +35,17 @@ export default function About() {
   const handleClick = (section: string) =>
     setActiveSection(activeSection === section ? "" : section);
 
+  const hasVCardError = Object.values(SECTION_FIELD_MAP)
+    .flat()
+    .some((f) => validationErrors[f]);
+
   return (
     <div className="w-full">
       <Accordion
         title="About you"
         description="Fill in the information you would like to showcase in your vCard"
         defaultOpen={true}
+        forceOpen={showErrors && hasVCardError}
       >
         <div className="space-y-2">
           {/* Personal information */}
