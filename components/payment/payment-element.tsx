@@ -6,7 +6,6 @@ import Paypal from "../icons/pay-pal";
 import ApplePay from "../icons/apple-pay";
 import SecurityCheck from "../icons/security-check";
 import Nortion from "../icons/nortion";
-import ArrowRight from "../icons/arrow-right";
 import PayPalText from "../icons/paypal-text";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -156,25 +155,35 @@ export default function CheckoutElement() {
                     text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
               />
               {/* Card brand icons */}
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-[6px]">
                 {/* Visa */}
-                <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="38" height="24" rx="6" fill="white" stroke="#E6E6E6" strokeWidth="1"/>
-                  <text x="19" y="16" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="11" fill="#1A1F71" letterSpacing="1">VISA</text>
-                </svg>
+                <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white" style={{ border: "1px solid #CDD0DB80" }}>
+                  <svg width="34" height="12" viewBox="0 0 34 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="11" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="13" fill="#1A1F71" fontStyle="italic" letterSpacing="1">VISA</text>
+                  </svg>
+                </div>
                 {/* Mastercard */}
-                <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="38" height="24" rx="6" fill="white" stroke="#E6E6E6" strokeWidth="1"/>
-                  <circle cx="14.5" cy="12" r="5.5" fill="#EB001B"/>
-                  <circle cx="23.5" cy="12" r="5.5" fill="#F79E1B"/>
-                  <path d="M19 7.52a5.5 5.5 0 010 8.96A5.5 5.5 0 0119 7.52z" fill="#FF5F00"/>
-                </svg>
+                <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white" style={{ border: "1px solid #CDD0DB80" }}>
+                  <svg width="30" height="20" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="10" r="9" fill="#EB001B"/>
+                    <circle cx="20" cy="10" r="9" fill="#F79E1B"/>
+                    <path d="M15 2.8a9 9 0 010 14.4A9 9 0 0115 2.8z" fill="#FF5F00"/>
+                  </svg>
+                </div>
                 {/* American Express */}
-                <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="38" height="24" rx="6" fill="#2557D6"/>
-                  <text x="19" y="11" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="5.5" fill="white" letterSpacing="0.3">AMERICAN</text>
-                  <text x="19" y="18" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="5.5" fill="white" letterSpacing="0.3">EXPRESS</text>
-                </svg>
+                <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white overflow-hidden" style={{ border: "1px solid #CDD0DB80" }}>
+                  <svg width="36" height="22" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <pattern id="amex-grid" width="4" height="4" patternUnits="userSpaceOnUse">
+                        <path d="M 4 0 L 0 0 0 4" fill="none" stroke="#0088BB" strokeWidth="0.5"/>
+                      </pattern>
+                    </defs>
+                    <rect width="44" height="28" rx="4" fill="#0077A6"/>
+                    <rect width="44" height="28" rx="4" fill="url(#amex-grid)"/>
+                    <text x="22" y="12" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="6.2" fill="white" letterSpacing="0.6" stroke="#005F87" strokeWidth="0.3">AMERICAN</text>
+                    <text x="22" y="21.5" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="6.2" fill="white" letterSpacing="0.6" stroke="#005F87" strokeWidth="0.3">EXPRESS</text>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -210,7 +219,7 @@ export default function CheckoutElement() {
                       focus:border-[var(--Blue)] outline-none transition-colors
                       text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
                 />
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--Grey)]">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--Black)]">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
                     <path d="M2 9H22" stroke="currentColor" strokeWidth="1.5"/>
