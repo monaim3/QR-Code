@@ -1,4 +1,5 @@
 import { RootState } from "@/store";
+import { urlValidationSchema } from "@/lib/validators/validators";
 
 export interface ValidationError {
   field: string;
@@ -79,27 +80,11 @@ function validateWebsiteUrl(
 ) {
   const { websiteUrl } = state.preview;
 
-  if (!websiteUrl || !websiteUrl.trim()) {
-    const message = "This field is required and cannot be left blank.";
-    errors.push({
-      field: "Website URL",
-      message,
-    });
+  const result = urlValidationSchema.safeParse(websiteUrl ?? "");
+  if (!result.success) {
+    const message = result.error.issues[0].message;
+    errors.push({ field: "Website URL", message });
     fieldErrors["websiteUrl"] = message;
-  } else {
-    // Validate URL format
-    try {
-      new URL(
-        websiteUrl.startsWith("http") ? websiteUrl : `https://${websiteUrl}`
-      );
-    } catch {
-      const message = "Please enter a valid URL";
-      errors.push({
-        field: "Website URL",
-        message,
-      });
-      fieldErrors["websiteUrl"] = message;
-    }
   }
 }
 
