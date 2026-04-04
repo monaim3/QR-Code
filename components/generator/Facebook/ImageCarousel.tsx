@@ -64,43 +64,51 @@ export default function ImageCarousel({
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    if (!files.length) return;
 
-    const error = validateFile(file);
-    if (error) {
-      setUploadError(error);
-      return;
-    }
-
-    if (images.length >= maxImages && !editingId) {
-      setUploadError(`Maximum ${maxImages} images allowed`);
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const imageData = {
-        id: editingId || Date.now().toString(),
-        url: event.target?.result as string,
-        name: file.name,
-      };
-
-      if (editingId) {
-        onUpdateImage(editingId, imageData);
+    if (editingId) {
+      // Replacing one image — only process the first file
+      const file = files[0];
+      const error = validateFile(file);
+      if (error) { setUploadError(error); return; }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        onUpdateImage(editingId, {
+          id: editingId,
+          url: event.target?.result as string,
+          name: file.name,
+        });
         setEditingId(null);
-      } else {
-        onAddImage(imageData);
-      }
-      setUploadError("");
-    };
-    reader.readAsDataURL(file);
+        setUploadError("");
+      };
+      reader.readAsDataURL(file);
+    } else {
+      const remainingSlots = maxImages - images.length;
+      if (remainingSlots <= 0) { setUploadError(`Maximum ${maxImages} images allowed`); return; }
+      files.slice(0, remainingSlots).forEach((file, index) => {
+        const error = validateFile(file);
+        if (error) { setUploadError(error); return; }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          onAddImage({
+            id: `${Date.now()}-${index}`,
+            url: event.target?.result as string,
+            name: file.name,
+          });
+          setUploadError("");
+        };
+        reader.readAsDataURL(file);
+      });
+    }
     e.target.value = "";
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleEdit = (id: string) => {
     setEditingId(id);
-    document.getElementById("image-carousel-upload")?.click();
+    fileInputRef.current?.click();
   };
 
   const handleDelete = (id: string) => {
@@ -198,17 +206,17 @@ export default function ImageCarousel({
         }`}
       >
         <input
+          ref={fileInputRef}
           type="file"
-          id="image-carousel-upload"
           accept="image/jpeg,image/jpg,image/png,image/svg+xml"
+          multiple
           onChange={handleFileUpload}
           className="hidden"
-          disabled={!canUploadMore && !editingId}
         />
 
-        <label
-          htmlFor="image-carousel-upload"
-          className={`cursor-pointer flex gap-6 items-center ${!canUploadMore && !editingId ? "opacity-50 cursor-not-allowed" : ""}`}
+        <div
+          onClick={() => { if (canUploadMore || editingId) fileInputRef.current?.click(); }}
+          className={`flex gap-6 items-center ${canUploadMore || editingId ? "cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
         >
           <div className="w-[72px] h-16 lg:w-20 lg:h-20 p-2 lg:p-4 border flex justify-center items-center rounded-full">
             <UploadIcon />
@@ -222,7 +230,7 @@ export default function ImageCarousel({
               Maximum size per image: {maxSizeMB}MB
             </p>
           </div>
-        </label>
+        </div>
       </div>
 
       {uploadError && (
