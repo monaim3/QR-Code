@@ -61,7 +61,7 @@ export default function LoginBody() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="text-[var(--Dark-gray)] cursor-pointer bg-transparent p-0 leading-none"
+                    className="cursor-pointer bg-transparent p-0 leading-none"
                   >
                     {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                   </button>
