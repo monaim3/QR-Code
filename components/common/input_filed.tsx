@@ -32,7 +32,7 @@ export default function InputField({
     <div className="relative">
       {/* Leading icon */}
       {leading && (
-        <div className="flex items-center absolute left-[17px] top-1/2 -translate-y-1/2 text-gray-400">
+        <div className="flex items-center absolute left-[17px] top-1/2 -translate-y-1/2 text-[#79809A]">
           {leading}
           <div className="w-px mx-[16px] h-6 bg-gray-300"></div>
         </div>
@@ -76,7 +76,7 @@ export default function InputField({
       />
       {/* Trailing icon/button */}
       {trailing && (
-        <div className="absolute leading-[0] right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400">
+        <div className="absolute leading-[0] right-4 top-1/2 -translate-y-1/2 cursor-pointer text-[#79809A]">
           {trailing}
         </div>
       )}

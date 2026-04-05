@@ -13,14 +13,13 @@ export default function PreviewQRButtons({
     <div className="flex items-center justify-center gap-2">
       <button
         onClick={() => onTabChange("preview")}
-        className={`border border-transparent py-3 px-6 rounded-full font-medium font-roboto  transition-all duration-300 ease-in-out ${
+        className={`py-3 px-6 rounded-[30px] transition-all duration-300 ease-in-out ${
           activeTab === "preview"
-            ? "border border-transparent bg-[var(--Blue)] text-white  hover:bg-[var(--Blue-hover)]"
-            : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
+            ? "bg-[var(--Blue)] border border-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
+            : "bg-white border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
         }`}
       >
-        <div className="flex items-center justify-center gap-2">
-          <svg
+        <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -29,32 +28,27 @@ export default function PreviewQRButtons({
           >
             <path
               d="M14.3633 7.3633C14.566 7.64752 14.6673 7.78962 14.6673 7.99998C14.6673 8.21034 14.566 8.35244 14.3633 8.63666C13.4526 9.91369 11.1268 12.6666 8.00065 12.6666C4.8745 12.6666 2.54872 9.91369 1.63801 8.63666C1.43533 8.35244 1.33398 8.21034 1.33398 7.99998C1.33398 7.78962 1.43533 7.64752 1.63801 7.3633C2.54871 6.08627 4.8745 3.33331 8.00065 3.33331C11.1268 3.33331 13.4526 6.08627 14.3633 7.3633Z"
-              stroke={activeTab === "preview" ? "white" : "#01A56D"}
+              stroke={activeTab === "preview" ? "white" : "#3F3E3E"}
               strokeWidth="1.2"
               strokeLinecap="round"
             />
             <path
               d="M10.0007 7.99998C10.0007 6.89541 9.10522 5.99998 8.00065 5.99998C6.89608 5.99998 6.00065 6.89541 6.00065 7.99998C6.00065 9.10455 6.89608 9.99998 8.00065 9.99998C9.10522 9.99998 10.0007 9.10455 10.0007 7.99998Z"
-              stroke={activeTab === "preview" ? "white" : "#01A56D"}
+              stroke={activeTab === "preview" ? "white" : "#3F3E3E"}
               strokeWidth="1.2"
               strokeLinecap="round"
             />
           </svg>
-          <span className="text-sm leading-[22px] font-medium font-roboto">
-            Preview
-          </span>
-        </div>
       </button>
       <button
         onClick={() => onTabChange("qrcode")}
-        className={`border border-transparent py-3 px-6 rounded-full font-medium font-roboto transition-all duration-300 ease-in-out ${
+        className={`p-3 rounded-full transition-all duration-300 ease-in-out ${
           activeTab === "qrcode"
-            ? "border border-transparent text-white  bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
-            : "bg-white text-[var(--Blue)] border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
+            ? "bg-[var(--Blue)] border border-[var(--Blue)] hover:bg-[var(--Blue-hover)]"
+            : "bg-white border border-[var(--Boarder-Grey)] hover:border-[var(--Blue)]"
         }`}
       >
-        <div className="flex items-center justify-center gap-2">
-          <svg
+        <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -66,10 +60,6 @@ export default function PreviewQRButtons({
               fill={activeTab === "qrcode" ? "white" : "#01A56D"}
             />
           </svg>
-          <span className={`text-sm leading-[22px] font-medium font-roboto  $`}>
-            QR code
-          </span>
-        </div>
       </button>
     </div>
   );
