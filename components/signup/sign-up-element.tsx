@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { signupUser } from '@/store/slices/auth-slice';
+import { useAppDispatch } from "@/store/hooks";
+
 
 const signUpSchema = z.object({
   email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
@@ -31,6 +34,7 @@ export default function SignUpElements({
 }: SignUpProps) {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const { control, handleSubmit, formState } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -44,11 +48,33 @@ export default function SignUpElements({
 
   const onSubmit = async (data: SignUpForm) => {
     try {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      const payload = {
+      email: data.email,
+      password: data.password,
+      language: "en",
+      timezone: timezone,
+      isUnlockFlow: false,
+      token: "string",
+    };
+
+     const resultAction = await dispatch(signupUser(payload));
+
+     if (signupUser.fulfilled.match(resultAction)) {
+      console.log("Signup successful:", resultAction.payload);
       router.push("/pricing");
+    }
+
+    if (signupUser.rejected.match(resultAction)) {
+      console.error("Signup failed:", resultAction.payload);
+    }
+  
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div
       className={`flex flex-col w-full ${withRightPannel ? "desktop:w-1/2" : "desktop:w-full"} max-h-full ${paddingRight ? "desktop:pr-8" : "desktop:pr-0"}`}

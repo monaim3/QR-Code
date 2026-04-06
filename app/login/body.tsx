@@ -1,18 +1,60 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Form } from "lucide-react";
 import Container from "../../components/common/parent-container";
 import InputField from "../../components/common/input_filed";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { loginUser } from '@/store/slices/auth-slice';
+import { useAppDispatch } from "@/store/hooks";
+import { useRouter } from "next/navigation";
+
+const loginSchema = z.object({
+  email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginBody() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = () => {
-    alert(`Email: ${email}\nPassword: ${password}`);
-  };
+  const { control, handleSubmit, formState } = useForm<LoginForm>({
+      resolver: zodResolver(loginSchema),
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+    });
+  
+  const { errors, isSubmitting } = formState;
+
+  const onSubmit = async (data: LoginForm) => {
+      try {
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+      
+     const resultAction = await dispatch(loginUser(payload));
+
+     if (loginUser.fulfilled.match(resultAction)) {
+           console.log("Login successful:", resultAction.payload);
+           router.push("/");
+         }
+     
+         if (loginUser.rejected.match(resultAction)) {
+           console.log("Login failed:", resultAction.payload);
+         }
+    
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   return (
     <Container>
@@ -40,51 +82,71 @@ export default function LoginBody() {
             </h1>
 
             {/* Form */}
-            <div className="w-full flex flex-col gap-4">
-              {/* Email */}
-              <InputField
-                value={email}
-                onChange={setEmail}
-                placeholder="Enter your email"
-                type="email"
-                leading={<Mail size={20} />}
-              />
-
-              {/* Password */}
-              <InputField
-                value={password}
-                onChange={setPassword}
-                placeholder="Enter your password"
-                type={showPassword ? "text" : "password"}
-                leading={<Lock size={20} />}
-                trailing={
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="cursor-pointer bg-transparent p-0 leading-none"
-                  >
-                    {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-                  </button>
-                }
-              />
-            </div>
-            {/* Login Button */}
-            <button
-              onClick={handleSubmit}
-              className="
-                w-full
-                h-12
-                rounded-[10px]
-                bg-[#01A56D]
-                hover:bg-[#01915F]
-                text-white
-                text-[16px]
-                font-medium
-                transition-colors
-              "
-            >
-              Log in
-            </button>
+                <form
+                   onSubmit={handleSubmit(onSubmit)}
+                   noValidate
+                   className="w-full flex flex-col gap-4"
+                 >
+                   <Controller
+                     name="email"
+                     control={control}
+                     render={({ field, fieldState }) => (
+                       <div className="flex flex-col gap-1">
+                         <InputField
+                           value={field.value}
+                           onChange={field.onChange}
+                           placeholder="Enter your email"
+                           type="email"
+                           leading={<Mail size={20} />}
+                           error={!!fieldState.error}
+                         />
+                         {fieldState.error && (
+                           <span className="text-[var(--error)] text-[12px] leading-[20px]">
+                             {fieldState.error.message}
+                           </span>
+                         )}
+                       </div>
+                     )}
+                   />
+           
+                   <Controller
+                     name="password"
+                     control={control}
+                     render={({ field, fieldState }) => (
+                       <div className="flex flex-col gap-1">
+                         <InputField
+                           value={field.value}
+                           onChange={field.onChange}
+                           placeholder="Enter your password"
+                           type={showPassword ? "text" : "password"}
+                           leading={<Lock size={20} />}
+                           desktopWidth={424}
+                           trailing={
+                             <button
+                               type="button"
+                               onClick={() => setShowPassword(!showPassword)}
+                             >
+                               {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                             </button>
+                           }
+                           error={!!fieldState.error}
+                         />
+                         {fieldState.error && (
+                           <span className="text-[var(--error)] text-[12px] leading-[20px]">
+                             {fieldState.error.message}
+                           </span>
+                         )}
+                       </div>
+                     )}
+                   />
+           
+                   <button
+                     type="submit"
+                     className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
+                   >
+                     Login
+                   </button>
+                </form>
 
             {/* Forgot Password */}
             <div className="text-center text-[14px] leading-[22px]">

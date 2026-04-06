@@ -14,6 +14,7 @@ import businessSlice from "./slices/businessSlice";
 import videoSlice from "./slices/video-slice";
 import imagesReducer from "./slices/imagesSlice";
 import validationReducer from "./slices/validationSlice";
+import authSlice from "./slices/auth-slice";
 
 export const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ export const store = configureStore({
     video: videoSlice,
     images: imagesReducer,
     validation: validationReducer,
+    auth: authSlice,
   },
 });
 
