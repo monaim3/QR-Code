@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import DashboardMenuIcon from "@/components/icons/menu";
 import Close from "@/components/icons/close";
@@ -14,6 +15,23 @@ import LogOut from "@/components/icons/log-out";
 
 export default function DashboardHeader() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isDrawerOpen]);
+
+  const handleLogout = () => {
+    setIsDrawerOpen(false);
+    router.push("/");
+  };
 
   const navItems = [
     { icon: ChartBarSquare, label: "Analytics", href: "/analytics" },
@@ -79,7 +97,7 @@ export default function DashboardHeader() {
 
           <div className="flex flex-col justify-end items-start px-5 self-stretch">
             <div className="py-5 border-t border-[var(--boarder-grey-50)] w-full">
-              <button className="flex items-center gap-4">
+              <button onClick={handleLogout} className="flex items-center gap-4">
                 <span className="flex-shrink-0">
                   <LogOut />
                 </span>

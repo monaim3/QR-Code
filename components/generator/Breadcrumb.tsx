@@ -109,7 +109,7 @@ export default function Breadcrumb({
         >
           <button
             onClick={() => handleStepClick(step)}
-            disabled={step.number > currentStep}
+            disabled={step.number > currentStep || step.number === currentStep}
             className="flex items-center gap-2 disabled:cursor-not-allowed group"
           >
             <div
