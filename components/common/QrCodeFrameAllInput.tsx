@@ -65,7 +65,7 @@ const QrCodeFrameAllInput = ({
         </div>
 
         <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-6  pt-4 lg:pt-0  pb-4 lg:pb-8 relative ">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-3  pt-4 lg:pt-0  pb-4 lg:pb-8 relative ">
             <ColorInput
               label="Background color"
               color={

@@ -26,6 +26,7 @@ const config = {
         tablet: { min: "740px", max: "1219px" },
         tabletMd: { min: "740px", max: "840px" },
         tabletLg: { min: "841px" },
+        desktopSm: "1020px",
         desktopDashboard: "1220px",
         desktopMd: { min: "1220px", max: "1335px" },
         desktopLg: { min: "1336px", max: "1665px" },

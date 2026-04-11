@@ -29,7 +29,7 @@ export default function ContactUsBody() {
       <Container className="flex items-center justify-center pt-[16px] desktop:pt-[96px] pb-[80px] desktop:pb-[160px]">
         <div style={{ fontFamily: "var(--font-poppins)" }}>
           {/* Outer Card */}
-          <div className="w-full max-w-full bg-white rounded-[12px] p-6 desktop:p-10 shadow-card flex flex-col desktop:flex-row items-stretch justify-between gap-6 desktop:gap-10">
+          <div className="w-full max-w-full bg-white rounded-[12px] p-6 desktopSm:p-10 shadow-card flex flex-col desktopSm:flex-row items-stretch justify-between gap-6 desktopSm:gap-10">
             {/* Left Panel */}
             <ContactUsInputForm />
             {/* Right Panel */}
