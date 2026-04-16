@@ -36,7 +36,7 @@ export default function SimpleDropdown(): React.ReactElement {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full h-[48px] rounded-[10px] px-4 py-2 flex justify-between items-center bg-white ring-1 ring-[var(--Boarder-Grey)] hover:ring-2"
       >
-        <span className="text-4 leading-6 font-regular text-[var(--Dark-gray)]">{selected ? selected.label : "Select a subject..."}</span>
+        <span className="text-4 leading-6 font-regular text-[var(--Dark-gray)] whitespace-nowrap overflow-hidden text-ellipsis">{selected ? selected.label : "Select a subject..."}</span>
         <span>{isOpen ? <ChevronUp className="text-[var(--Dark-gray)] h-4 w-4"/> : <ChevronDown className="text-[var(--Dark-gray)] h-4 w-4"/>}</span> 
       </button>
 

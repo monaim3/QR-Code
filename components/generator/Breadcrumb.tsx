@@ -30,7 +30,7 @@ const mobileSteps: BreadcrumbStep[] = [
 
 const priceAndPlanData: BreadcrumbStep[] = [
   { number: 1, label: "QR Ready", path: "/generator/customize" },
-  { number: 2, label: "Plan Selection", path: "/prices" },
+  { number: 2, label: "Plan Selection", path: "/pricing" },
   { number: 3, label: "Payment Details", path: "/checkout" },
 ];
 
