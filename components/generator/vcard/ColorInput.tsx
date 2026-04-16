@@ -21,9 +21,10 @@ export default function ColorInput({ label, color, onChange }: Props) {
     if (!triggerRef.current) return;
     const rect = triggerRef.current.getBoundingClientRect();
     const spaceBelow = window.innerHeight - rect.bottom;
-    const top = spaceBelow >= pickerHeight + 8
-      ? rect.bottom + 8
-      : rect.top - pickerHeight - 8;
+    const top =
+      spaceBelow >= pickerHeight + 8
+        ? rect.bottom + 8
+        : rect.top - pickerHeight - 8;
 
     setPickerStyle({
       position: "fixed",
@@ -60,7 +61,7 @@ export default function ColorInput({ label, color, onChange }: Props) {
 
   return (
     <div className="flex flex-col items-start gap-2 p-0 flex-1">
-      <p className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
+      <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
         {label}
       </p>
 
@@ -88,7 +89,8 @@ export default function ColorInput({ label, color, onChange }: Props) {
         />
       </div>
 
-      {showPicker && typeof window !== "undefined" &&
+      {showPicker &&
+        typeof window !== "undefined" &&
         createPortal(
           <div ref={pickerContainerRef} style={pickerStyle}>
             <ColorPicker
@@ -97,7 +99,7 @@ export default function ColorInput({ label, color, onChange }: Props) {
               setShowPicker={setShowPicker}
             />
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );

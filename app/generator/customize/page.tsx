@@ -478,7 +478,7 @@ export default function QRCodeCustomize() {
               >
                 <div className="flex flex-col lg:flex-row gap-6 desktop:gap-[72px]">
                   <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
-                    <label className="block text-base font-medium ">
+                    <label className="block text-base font-semibold ">
                       Corner frames style
                     </label>
                     <div className="flex flex-row gap-4">
