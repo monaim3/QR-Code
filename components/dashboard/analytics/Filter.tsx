@@ -49,7 +49,7 @@ export default function AnalyticsFilter() {
       <div
         className={`flex-col desktopDashboard:flex-row items-center gap-4 justify-between w-full bg-white desktopDashboard:bg-transparent p-4 desktopDashboard:p-0 rounded-[var(--Corner-Radius-10)] desktopDashboard:rounded-none ${isDrawerOpen ? "flex" : "hidden desktopDashboard:flex"} animate-in fade-in zoom-in duration-150`}
       >
-        <div className="flex flex-col desktopDashboard:flex-row items-center gap-4 desktopDashboard:w-auto w-full">
+        <div className="flex flex-wrap flex-col desktopDashboard:flex-row items-center gap-4 desktopDashboard:w-auto w-full">
           <QrCodeSearchDropdown
             search={searchName}
             setSearch={setSearchName}
