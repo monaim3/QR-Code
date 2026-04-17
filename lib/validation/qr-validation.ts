@@ -20,7 +20,7 @@ export interface ValidationResult {
  */
 export function validateQRData(
   state: RootState,
-  qrType: string
+  qrType: string,
 ): ValidationResult {
   const errors: ValidationError[] = [];
   const fieldErrors: { [key: string]: string } = {};
@@ -76,7 +76,7 @@ export function validateQRData(
 function validateWebsiteUrl(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { websiteUrl } = state.preview;
 
@@ -91,7 +91,7 @@ function validateWebsiteUrl(
 function validateVCard(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { personalInfo } = state.vCard;
 
@@ -108,7 +108,7 @@ function validateVCard(
 function validatePdf(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { pdfFile } = state.pdf;
 
@@ -125,7 +125,7 @@ function validatePdf(
 function validateImages(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { images } = state.images;
 
@@ -142,7 +142,7 @@ function validateImages(
 function validateSocialMedia(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { socialInfo } = state.social;
 
@@ -159,7 +159,7 @@ function validateSocialMedia(
 function validateVideo(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { videos } = state.video;
 
@@ -176,7 +176,7 @@ function validateVideo(
 function validateSimpleText(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { Text } = state.simpleText;
 
@@ -193,7 +193,7 @@ function validateSimpleText(
 function validateBusinessPage(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { businessInfo } = state.business;
 
@@ -210,7 +210,7 @@ function validateBusinessPage(
 function validateFacebook(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { FacebookUrl } = state.facebook;
 
@@ -227,7 +227,7 @@ function validateFacebook(
 function validateWifi(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { NetworkName } = state.wifi;
 
@@ -244,9 +244,9 @@ function validateWifi(
 function validateApp(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
-  const { appInfo } = state.app;
+  const { appInfo, appStoreLinks } = state.app;
 
   if (!appInfo.appName || !appInfo.appName.trim()) {
     const message = "This field is required and cannot be left blank.";
@@ -256,12 +256,30 @@ function validateApp(
     });
     fieldErrors["appName"] = message;
   }
+
+  if (!appStoreLinks || appStoreLinks.length === 0) {
+    const message = "This field is required and cannot be left blank.";
+    errors.push({
+      field: "App Store Links",
+      message,
+    });
+    fieldErrors["appStoreLinks"] = message;
+  } else {
+    appStoreLinks.forEach((link, index) => {
+      const result = urlValidationSchema.safeParse(link.storeUrl ?? "");
+      if (!result.success) {
+        const message = result.error.issues[0].message;
+        errors.push({ field: `Store URL ${index}`, message });
+        fieldErrors[`appStoreUrl_${index}`] = message;
+      }
+    });
+  }
 }
 
 function validateMenu(
   state: RootState,
   errors: ValidationError[],
-  fieldErrors: { [key: string]: string }
+  fieldErrors: { [key: string]: string },
 ) {
   const { restaurantInfo, sections } = state.menu;
 
@@ -276,7 +294,7 @@ function validateMenu(
 
   // Check if there's at least one section with products
   const hasProducts = sections.some(
-    (section) => section.products && section.products.length > 0
+    (section) => section.products && section.products.length > 0,
   );
 
   if (!hasProducts) {
@@ -288,4 +306,3 @@ function validateMenu(
     fieldErrors["menuItems"] = message;
   }
 }
-

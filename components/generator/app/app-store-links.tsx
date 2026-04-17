@@ -13,6 +13,8 @@ import { moveLinkToAppStore, moveLinkToAppLinks, setStoreLinks } from "@/store/s
 export default function AppStoreLink() {
     const dispatch = useAppDispatch();
     const app = useAppSelector((state) => state.app);
+    const validationErrors = useAppSelector((state) => state.validation.errors);
+    const showErrors = useAppSelector((state) => state.validation.showErrors);
 
     return (
      <div className="w-full">
@@ -20,6 +22,7 @@ export default function AppStoreLink() {
         title="App store platform links*"
         description="Choose at least one store below and add a link to your app"
         defaultOpen={true}
+        forceOpen={showErrors && (!!validationErrors.appStoreLinks || Object.keys(validationErrors).some(k => k.startsWith("appStoreUrl_")))}
       >
         <div className="space-y-2">
             <div className="flex items-start justify-start gap-4">
@@ -45,6 +48,11 @@ export default function AppStoreLink() {
                      </button>
                 })}
             </div>
+            {showErrors && validationErrors.appStoreLinks && (
+              <p className="text-[var(--error)] text-[12px] leading-[20px] mt-1" data-validation-error="true" aria-invalid="true">
+                {validationErrors.appStoreLinks}
+              </p>
+            )}
             <div className="flex flex-col h-max w-full pt-6 desktop:pt-8">
             {app.appStoreLinks.map((button, index)=>{
                 return <div 
@@ -78,6 +86,7 @@ export default function AppStoreLink() {
                 id={`url-${button.id}`}
                 value={button.storeUrl}
                 onChange={(v) => dispatch(setStoreLinks({link: v,index: index}))}
+                validationKey={`appStoreUrl_${index}`}
                />
                 <button
                 onClick={() => dispatch(moveLinkToAppLinks(button.id))}
