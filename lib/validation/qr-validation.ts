@@ -150,15 +150,31 @@ function validateSocialMedia(
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
 ) {
-  const { socialInfo } = state.social;
+  const { socialInfo, socialChannels } = state.social;
 
   if (!socialInfo.headLine || !socialInfo.headLine.trim()) {
     const message = "This field is required and cannot be left blank.";
-    errors.push({
-      field: "Headline",
-      message,
-    });
+    errors.push({ field: "Headline", message });
     fieldErrors["socialHeadline"] = message;
+  }
+
+  if (!socialChannels || socialChannels.length === 0) {
+    const message = "Please add at least one social network.";
+    errors.push({ field: "Social Networks", message });
+    fieldErrors["socialChannels"] = message;
+  }
+
+  if (state.social.customFormOpen) {
+    if (!state.social.customFormName.trim()) {
+      const message = "This field is required and cannot be left blank.";
+      errors.push({ field: "Custom Link Name", message });
+      fieldErrors["socialCustomName"] = message;
+    }
+    if (!state.social.customFormUrl.trim()) {
+      const message = "This field is required and cannot be left blank.";
+      errors.push({ field: "Custom Link URL", message });
+      fieldErrors["socialCustomUrl"] = message;
+    }
   }
 }
 
