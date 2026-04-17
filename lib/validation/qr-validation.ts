@@ -212,7 +212,13 @@ function validateFacebook(
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
 ) {
-  const { FacebookUrl } = state.facebook;
+  const { FacebookUrl, Title, images, buttons } = state.facebook;
+
+  if (!Title || !Title.trim()) {
+    const message = "This field is required and cannot be left blank.";
+    errors.push({ field: "Title", message });
+    fieldErrors["facebookTitle"] = message;
+  }
 
   if (!FacebookUrl || !FacebookUrl.trim()) {
     const message = "This field is required and cannot be left blank.";
@@ -222,6 +228,26 @@ function validateFacebook(
     });
     fieldErrors["facebookUrl"] = message;
   }
+
+  if (!images || images.length === 0) {
+    const message = "This field is required and cannot be left blank.";
+    errors.push({ field: "Facebook Images", message });
+    fieldErrors["facebookImages"] = message;
+  }
+
+  buttons.forEach((button, index) => {
+    if (!button.buttonText || !button.buttonText.trim()) {
+      const message = "This field is required and cannot be left blank.";
+      errors.push({ field: `Button Text ${index}`, message });
+      fieldErrors[`facebookButtonText_${index}`] = message;
+    }
+    const urlResult = urlValidationSchema.safeParse(button.url ?? "");
+    if (!urlResult.success) {
+      const message = urlResult.error.issues[0].message;
+      errors.push({ field: `Button URL ${index}`, message });
+      fieldErrors[`facebookButtonUrl_${index}`] = message;
+    }
+  });
 }
 
 function validateWifi(

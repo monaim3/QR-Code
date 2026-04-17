@@ -37,24 +37,12 @@ export default function InputUrl({
     validationKey && showErrors ? validationErrors[validationKey] : "";
   const displayError = validationError || error;
 
-  const isValidUrl = (url: string) => {
-    if (!url) return true;
-
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
   const handleChange = (inputValue: string) => {
     onChange(inputValue);
     if (validationKey) dispatch(clearFieldError(validationKey));
 
     if (onError) {
       const result = urlValidationSchema.safeParse(inputValue);
-
       if (!result.success) {
         onError(result.error.issues[0].message);
       } else {
@@ -66,10 +54,9 @@ export default function InputUrl({
   const handleBlur = () => {
     setIsFocused(false);
     if (onError) {
-      if (value && !isValidUrl(value)) {
-        onError("You have entered an invalid link. Please try again.");
-      } else if (required && !value) {
-        onError("This field is required.");
+      const result = urlValidationSchema.safeParse(value ?? "");
+      if (!result.success) {
+        onError(result.error.issues[0].message);
       } else {
         onError("");
       }
