@@ -54,6 +54,7 @@ import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
 import { setShare } from "@/store/slices/imagesSlice";
 import ImagesPreview from "@/components/generator/Images/ImagesPreview";
+import { RequiredTextInput } from "@/components/common/RequiredInput";
 
 export default function Images() {
   const dispatch = useAppDispatch();
@@ -299,15 +300,18 @@ export default function Images() {
               title="Image gallery information"
               description="Provide a headline, URL and short description for your image gallery"
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.imagesHeadline}
             >
               <div>
                 <div className="flex flex-col gap-4 lg:flex-row  lg:gap-12 items-start justify-center mb-4">
-                  <TextInput
+                  <RequiredTextInput
                     label="Headline"
                     value={Name}
                     onChange={(value) => dispatch(setName(value))}
                     placeholder="e.g. Sunset photos"
                     maxLength={100}
+                    required
+                    validationKey="imagesHeadline"
                   />
 
                   <InputUrl

@@ -127,7 +127,7 @@ function validateImages(
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
 ) {
-  const { images } = state.images;
+  const { images, Name } = state.images;
 
   if (!images || images.length === 0) {
     const message = "This field is required and cannot be left blank.";
@@ -136,6 +136,12 @@ function validateImages(
       message,
     });
     fieldErrors["images"] = message;
+  }
+
+  if (!Name || !Name.trim()) {
+    const message = "This field is required and cannot be left blank.";
+    errors.push({ field: "Headline", message });
+    fieldErrors["imagesHeadline"] = message;
   }
 }
 
