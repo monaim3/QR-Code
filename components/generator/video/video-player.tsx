@@ -32,7 +32,8 @@ export default function UnifiedVideoPlayer({
     if (trimmedUrl.includes("youtube.com") || trimmedUrl.includes("youtu.be")) {
       return { type: "youtube", url: trimmedUrl };
     }
-    if (trimmedUrl.startsWith("http")) return { type: "remote", url: trimmedUrl };
+    if (trimmedUrl.startsWith("http"))
+      return { type: "remote", url: trimmedUrl };
     return { type: "local", url: trimmedUrl };
   }, [url]);
 
@@ -42,8 +43,11 @@ export default function UnifiedVideoPlayer({
     const u = videoSource.url;
     let videoId = "";
     if (u.includes("watch?v=")) videoId = u.split("watch?v=")[1].split("&")[0];
-    else if (u.includes("youtu.be/")) videoId = u.split("youtu.be/")[1].split("?")[0];
-    return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
+    else if (u.includes("youtu.be/"))
+      videoId = u.split("youtu.be/")[1].split("?")[0];
+    return videoId
+      ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+      : null;
   }, [videoSource]);
 
   const displayedThumbnail =
@@ -151,16 +155,7 @@ export default function UnifiedVideoPlayer({
             ) : (
               <span className="text-gray-500">Click to play</span>
             )}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`h-10 w-10 text-white ${!canPlay ? "opacity-50" : ""}`}
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
+            <PlayCircle className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
           </div>
         )
       ) : (
