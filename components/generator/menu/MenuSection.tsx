@@ -10,6 +10,7 @@ import {
   addProduct,
   createProductIdPublic,
 } from "@/store/slices/menuSlice";
+import { clearFieldError } from "@/store/slices/validationSlice";
 import type { MenuSection as MenuSectionType } from "@/types/menu";
 import { useState } from "react";
 
@@ -68,6 +69,7 @@ export default function MenuSection({
   const handleAddProduct = () => {
     const newProductId = createProductIdPublic();
     dispatch(addProduct({ sectionId: section.id, productId: newProductId }));
+    dispatch(clearFieldError("menuItems"));
     setActiveProductId(newProductId);
   };
 

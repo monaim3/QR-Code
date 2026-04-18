@@ -31,4 +31,7 @@ export interface SocialSlice {
   isDefault: boolean;
   qrCodeName: string;
   isPreviewWelcomeScreen: boolean,
+  customFormOpen: boolean;
+  customFormName: string;
+  customFormUrl: string;
 }

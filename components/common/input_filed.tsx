@@ -10,6 +10,7 @@ interface InputFieldProps {
   trailing?: ReactNode; // icon/button at the end
   desktopWidth?: number;
   error?: boolean;
+  success?: boolean;
 }
 
 export default function InputField({
@@ -21,6 +22,7 @@ export default function InputField({
   trailing,
   desktopWidth = 336,
   error = false,
+  success = false,
 }: InputFieldProps) {
   const [show, setShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -58,15 +60,19 @@ export default function InputField({
           border
           ${
             isFocused
-              ? "border-[var(--Blue)] ring-2 ring-[var(--Blue)]"
+              ? error
+                ? "border-[var(--error)] ring-2 ring-[var(--error)]"
+                : success
+                ? "border-green-500 ring-2 ring-green-500"
+                : "border-[var(--Blue)] ring-2 ring-[var(--Blue)]"
               : error
               ? "border-[var(--error)] ring-2 ring-[var(--error)]"
+              : success
+              ? "border-green-500 ring-2 ring-green-500"
               : "border-[var(--Boarder-Grey)]"
           }
           rounded-[10px]
           focus:outline-none
-          focus:ring-2
-          focus:ring-[var(--Blue)]
           text-gray-900
           placeholder:text-[var(--placeholder-grey)]
         `}

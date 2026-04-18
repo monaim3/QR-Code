@@ -52,6 +52,7 @@ import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
 import Welcome from "@/components/generator/vcard/Welcome";
 import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import { RequiredTextInput } from "@/components/common/RequiredInput";
+import { clearFieldError } from "@/store/slices/validationSlice";
 
 export default function Facebook() {
   const dispatch = useAppDispatch();
@@ -223,6 +224,7 @@ export default function Facebook() {
               title="Design and customize"
               description="Choose your color scheme"
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.facebookImages}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -273,11 +275,12 @@ export default function Facebook() {
                   maxImages={10}
                   maxSizeMB={5}
                   images={images}
-                  onAddImage={(image) => dispatch(addImage(image))}
+                  onAddImage={(image) => { dispatch(addImage(image)); dispatch(clearFieldError("facebookImages")); }}
                   onRemoveImage={(id) => dispatch(removeImage(id))}
                   onUpdateImage={(id, image) =>
                     dispatch(updateImage({ id, image }))
                   }
+                  validationError={showErrors ? validationErrors.facebookImages : undefined}
                 />
               </div>
             </Accordion>
@@ -322,6 +325,7 @@ export default function Facebook() {
                       placeholder="e.g. Photojournist"
                       maxLength={100}
                       required
+                      validationKey="facebookTitle"
                     />
                     <InputUrl
                       label="Website"
@@ -338,7 +342,7 @@ export default function Facebook() {
                   </div>
 
                   <div className="space-y-4 mt-6">
-                    {buttons.map((button) => (
+                    {buttons.map((button, index) => (
                       <ButtonInput
                         key={button.id}
                         id={button.id}
@@ -359,6 +363,8 @@ export default function Facebook() {
                         onUrlError={(error) =>
                           handleButtonUrlError(button.id, error)
                         }
+                        buttonTextValidationKey={`facebookButtonText_${index}`}
+                        urlValidationKey={`facebookButtonUrl_${index}`}
                       />
                     ))}
                   </div>

@@ -34,6 +34,7 @@ export default function SignUpElements({
 
   const { control, handleSubmit, formState } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -83,6 +84,7 @@ export default function SignUpElements({
                 type="email"
                 leading={<Mail size={20} />}
                 error={!!fieldState.error}
+                success={fieldState.isDirty && !fieldState.error}
               />
               {fieldState.error && (
                 <span className="text-[var(--error)] text-[12px] leading-[20px]">
@@ -114,6 +116,7 @@ export default function SignUpElements({
                   </button>
                 }
                 error={!!fieldState.error}
+                success={fieldState.isDirty && !fieldState.error}
               />
               {fieldState.error && (
                 <span className="text-[var(--error)] text-[12px] leading-[20px]">
