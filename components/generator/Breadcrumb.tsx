@@ -94,8 +94,10 @@ export default function Breadcrumb({
     data = steps;
   }
 
+  const isGeneratorFlow = !priceAndPlanSteps && !dashboardSteps && !dashboardCreateQr;
+
   const handleStepClick = (step: BreadcrumbStep) => {
-    if (step.number <= currentStep) {
+    if (!isGeneratorFlow && step.number <= currentStep) {
       router.push(step.path);
     }
   };
@@ -109,8 +111,8 @@ export default function Breadcrumb({
         >
           <button
             onClick={() => handleStepClick(step)}
-            disabled={step.number > currentStep || step.number === currentStep}
-            className="flex items-center gap-2 disabled:cursor-not-allowed group"
+            disabled={isGeneratorFlow || step.number > currentStep || step.number === currentStep}
+            className="flex items-center gap-2 disabled:cursor-default group"
           >
             <div
               className={`flex items-center justify-center w-7 h-7 rounded-full text-[14px] font-medium transition-colors ${
