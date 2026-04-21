@@ -23,10 +23,10 @@ export default function MobilePreviewModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto">
+      <div className="fixed inset-0 bg-black/60" onClick={onClose} />
 
-      <div className="relative w-full max-w-md mx-4">
+      <div className="relative w-full max-w-md mx-4 mt-12 mb-8">
         <button
           onClick={onClose}
           className="absolute -top-8 right-0 flex items-center gap-2 z-10"
@@ -36,10 +36,10 @@ export default function MobilePreviewModal({
           </span>
           <CloseCircle className="text-white w-6 h-6" />
         </button>
-        <div className="relative bg-white rounded-[var(--Corner-Radius-10)] max-h-[90vh] overflow-y-auto shadow-lg">
+        <div className="relative bg-white rounded-[var(--Corner-Radius-10)] shadow-lg">
           <div className="flex flex-col items-center py-6 px-8 gap-4">
             <PreviewQRButtons activeTab={activeTab} onTabChange={onTabChange} />
-            <MobileFrame size="desktop">
+            <MobileFrame>
               <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
                 {children}
               </div>
