@@ -112,6 +112,17 @@ const LogoSelector = ({
     }
   };
 
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+    const syntheticEvent = {
+      target: { files: [file] },
+    } as unknown as React.ChangeEvent<HTMLInputElement>;
+    handleFileUpload(syntheticEvent);
+  };
+
   const handleEdit = () => {
     document.getElementById("logo-upload")?.click();
   };
@@ -163,6 +174,9 @@ const LogoSelector = ({
           Upload your own logo
         </label>
         <div
+          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onDrop={handleDrop}
           className={`border-2 border-dashed rounded-lg p-4 lg:p-6 transition-colors ${
             uploadError
               ? "border-red-500 bg-red-50"

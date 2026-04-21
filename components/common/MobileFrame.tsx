@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 interface MobileFrameProps {
   children: ReactNode;
-  size?: "desktop" | "desktopDashboard";
+  size?: "desktop" | "desktopDashboard" | "modal";
 }
 
 export default function MobileFrame({
@@ -11,8 +11,10 @@ export default function MobileFrame({
 }: MobileFrameProps) {
   const dimensions =
     size === "desktop"
-      ? { width: "w-[280px]", height: "h-[560px]"}
-      : { width: "w-[235px]", height: "h-[483px]", marginTop: "mt-0" };
+      ? { width: "w-[280px]", height: "h-[560px]" }
+      : size === "modal"
+        ? { width: "w-[210px]", height: "h-[420px]" }
+        : { width: "w-[235px]", height: "h-[483px]", marginTop: "mt-0" };
 
   return (
     <div

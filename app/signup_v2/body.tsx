@@ -47,7 +47,7 @@ export default function SignupV2Body() {
           >
             <QrCode4 />
             <span className="text-[var(--Black)] font-roboto text-2xl font-bold leading-8">
-              QRCenter
+              QR Center
             </span>
           </Link>
         </div>

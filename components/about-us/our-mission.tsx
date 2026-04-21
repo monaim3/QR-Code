@@ -49,7 +49,7 @@ export default function OurMission() {
       <div className="flex flex-col pt-[80px] desktop:pt-[160px]">
         <div className="flex flex-col desktop:flex-row items-center justify-center gap-[56px]">
           <div className="order-2 desktop:order-1 flex-1">
-            <img src="/images/our-mission-banner.svg" alt="Our Mission" />
+            <img src="/images/generator_img/mission.svg" alt="Our Mission" />
           </div>
           <div className="order-1 desktop:order-2 flex flex-col flex-1 max-w-full">
             <h2 className="text-[24px] desktop:text-[32px] font-bold leading-[32px] desktop:leading-[40px]">
