@@ -25,18 +25,20 @@ export default function PdfUploadScreen() {
         defaultOpen={true}
         forceOpen={hasPdfError}
       >
-        <PdfUpload
-          onCustomLogoUpload={handleImageChange}
-          //onPreview={handlePreview}
-        />
-        {hasPdfError && (
-          <p
-            className="text-sm text-red-500 mt-2"
-            data-validation-error="true"
-          >
-            {validationErrors.pdfFile}
-          </p>
-        )}
+        <div className="flex flex-col gap-1">
+          <PdfUpload
+            onCustomLogoUpload={handleImageChange}
+            //onPreview={handlePreview}
+          />
+          {hasPdfError && (
+            <p
+              className="text-sm text-red-500"
+              data-validation-error="true"
+            >
+              {validationErrors.pdfFile}
+            </p>
+          )}
+        </div>
       </Accordion>
     </div>
   );
