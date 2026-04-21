@@ -9,11 +9,16 @@ import { setIsPreviewWelcomeScreen } from "@/store/slices/vCardSlice";
 import { useDispatch } from "react-redux";
 import { IoShareSocialOutline } from "react-icons/io5";
 import ImageCarouselViewer from "../Facebook/PreviewImageCarousel";
+import ShareModal from "@/components/modals/share-modal";
 
 const ImagesPreview: React.FC = () => {
   const dispatch = useDispatch();
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [carouselStartIndex, setCarouselStartIndex] = useState(0);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [previewRootEl, setPreviewRootEl] = useState<HTMLDivElement | null>(
+    null,
+  );
 
   const name = useAppSelector((state) => state.images.Name);
   const title = useAppSelector((state) => state.images.Title);
@@ -107,6 +112,10 @@ const ImagesPreview: React.FC = () => {
     );
   }
 
+  const handleCloseShareModal = () => {
+    setIsShareModalOpen(false);
+  };
+
   return (
     <ScrollArea className="w-full h-full">
       <div
@@ -122,7 +131,10 @@ const ImagesPreview: React.FC = () => {
           />
         )}
       </div>
-      <div className="w-full h-full relative rounded-[32px] overflow-hidden bg-white pb-4">
+      <div
+        ref={setPreviewRootEl}
+        className="w-full h-full min-h-[544px] relative rounded-[32px] overflow-hidden bg-white pb-4"
+      >
         <div
           className="absolute top-0 left-0 right-0 h-[300px]"
           style={{ backgroundColor: primaryColor }}
@@ -196,7 +208,7 @@ const ImagesPreview: React.FC = () => {
                 >
                   {/* Second Image - Left side */}
                   {stackImages[1] && (
-                    <div 
+                    <div
                       className="absolute -left-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -215,7 +227,7 @@ const ImagesPreview: React.FC = () => {
 
                   {/* Third Image - Right side */}
                   {stackImages[2] && (
-                    <div 
+                    <div
                       className="absolute -right-2 w-[40%] bg-white overflow-hidden rounded-lg shadow-md z-3 top-[20px] bottom-[20px]"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -350,12 +362,19 @@ const ImagesPreview: React.FC = () => {
                 borderColor:
                   secondaryColor === "#FFFFFF" ? "#000000" : secondaryColor,
               }}
+              onClick={() => setIsShareModalOpen(true)}
             >
               <IoShareSocialOutline size={16} />
             </button>
           )}
         </div>
       </div>
+
+      <ShareModal
+        open={isShareModalOpen}
+        onClose={handleCloseShareModal}
+        portalContainer={previewRootEl ?? undefined}
+      />
     </ScrollArea>
   );
 };
