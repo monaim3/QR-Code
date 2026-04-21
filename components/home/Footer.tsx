@@ -34,7 +34,7 @@ export default function Footer() {
                       className="w-11 h-11"
                     />
                     <span className="text-2xl md:text-[34px] font-bold text-white">
-                      QRCenter
+                      QR Center
                     </span>
                   </div>
                 </Link>
