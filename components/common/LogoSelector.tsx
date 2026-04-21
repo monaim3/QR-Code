@@ -126,7 +126,7 @@ const LogoSelector = ({
 
   return (
     <div className="w-full space-y-4">
-      <label className="block text-base font-medium text-gray-900">
+      <label className="block text-base font-semibold text-gray-900">
         Select logo
       </label>
 
@@ -159,7 +159,7 @@ const LogoSelector = ({
       </div>
 
       <div>
-        <label className="block text-base font-medium text-gray-700 mb-3">
+        <label className="block text-base font-semibold text-gray-700 mb-3">
           Upload your own logo
         </label>
         <div
@@ -230,7 +230,7 @@ const LogoSelector = ({
               </div>
 
               <div>
-                <p className="text-base font-medium text-gray-600">
+                <p className="text-base font-semibold text-gray-600">
                   Upload image (jpg, png, svg)
                 </p>
                 <p className="text-sm text-left text-gray-500 mt-1">

@@ -23,7 +23,7 @@ export const TextInput = ({
     <div className="w-full">
       <label
         htmlFor={inputId}
-        className="block mb-2 text-[16px] leading-[24px] font-medium text-[var(--Black)]"
+        className="block mb-2 text-[16px] leading-[24px] font-semibold text-[var(--Black)]"
       >
         {label}
         <span>{required ? "*" : ""}</span>

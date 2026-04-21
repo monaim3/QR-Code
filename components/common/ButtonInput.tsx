@@ -13,6 +13,8 @@ interface ButtonInputProps {
   onUrlChange?: (value: string) => void;
   onButtonTextError?: (error: string) => void;
   onUrlError?: (error: string) => void;
+  buttonTextValidationKey?: string;
+  urlValidationKey?: string;
 }
 
 export default function ButtonInput({
@@ -26,6 +28,8 @@ export default function ButtonInput({
   onUrlChange,
   onButtonTextError,
   onUrlError,
+  buttonTextValidationKey,
+  urlValidationKey,
 }: ButtonInputProps) {
   return (
     <div className="flex gap-4 items-start w-full bg-[#F8F9F9] p-4 rounded-[var(--Corner-Radius-10)] ">
@@ -40,6 +44,7 @@ export default function ButtonInput({
           }}
           placeholder="e.g. Click here"
           maxLength={100}
+          validationKey={buttonTextValidationKey}
         />
         <InputUrl
           label="URL"
@@ -58,6 +63,7 @@ export default function ButtonInput({
               onUrlError(error);
             }
           }}
+          validationKey={urlValidationKey}
         />
       </div>
       <button

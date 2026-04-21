@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
-import { ChevronLeft } from "lucide-react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 interface ImageCarouselProps {
@@ -15,70 +14,73 @@ const ImageCarouselViewer: React.FC<ImageCarouselProps> = ({
   onClose,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
 
+  const pointerStartXRef = useRef(0);
+  const activePointerIdRef = useRef<number | null>(null);
+
   const minSwipeDistance = 50;
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-    setIsDragging(true);
-  };
+  const endDrag = (
+    e: React.PointerEvent<HTMLDivElement>,
+    endClientX: number
+  ) => {
+    if (e.pointerId !== activePointerIdRef.current) return;
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const currentTouch = e.targetTouches[0].clientX;
-    setTouchEnd(currentTouch);
-    setDragOffset(currentTouch - touchStart);
-  };
-
-  const handleTouchEnd = () => {
-    if (!isDragging) return;
-
-    const distance = touchStart - touchEnd;
+    const distance = pointerStartXRef.current - endClientX;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
-    if (isLeftSwipe && currentIndex < images.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
+    setCurrentIndex((idx) => {
+      if (isLeftSwipe && idx < images.length - 1) return idx + 1;
+      if (isRightSwipe && idx > 0) return idx - 1;
+      return idx;
+    });
 
-    if (isRightSwipe && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+    activePointerIdRef.current = null;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {
+      /* capture may already be released */
     }
-
     setIsDragging(false);
     setDragOffset(0);
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setTouchStart(e.clientX);
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    activePointerIdRef.current = e.pointerId;
+    pointerStartXRef.current = e.clientX;
+    e.currentTarget.setPointerCapture(e.pointerId);
     setIsDragging(true);
+    setDragOffset(0);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const currentMouse = e.clientX;
-    setTouchEnd(currentMouse);
-    setDragOffset(currentMouse - touchStart);
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerId !== activePointerIdRef.current) return;
+    setDragOffset(e.clientX - pointerStartXRef.current);
   };
 
-  const handleMouseUp = () => {
-    if (!isDragging) return;
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    endDrag(e, e.clientX);
+  };
 
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe && currentIndex < images.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+  const handlePointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerId !== activePointerIdRef.current) return;
+    activePointerIdRef.current = null;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {
+      /* ignore */
     }
+    setIsDragging(false);
+    setDragOffset(0);
+  };
 
-    if (isRightSwipe && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-
+  const handleLostPointerCapture = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerId !== activePointerIdRef.current) return;
+    activePointerIdRef.current = null;
     setIsDragging(false);
     setDragOffset(0);
   };
@@ -103,18 +105,12 @@ const ImageCarouselViewer: React.FC<ImageCarouselProps> = ({
       {/* Image Container */}
       <div className=" flex items-center justify-center px-6">
         <div
-          className="w-full relative cursor-grab active:cursor-grabbing"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={() => {
-            if (isDragging) {
-              handleMouseUp();
-            }
-          }}
+          className="w-full relative cursor-grab active:cursor-grabbing touch-pan-y select-none"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
+          onLostPointerCapture={handleLostPointerCapture}
         >
           <div
             className="relative w-full aspect-[3/4] transition-transform duration-300 ease-out"
@@ -127,7 +123,8 @@ const ImageCarouselViewer: React.FC<ImageCarouselProps> = ({
                 src={images[currentIndex].url}
                 alt={images[currentIndex].name}
                 fill
-                className="object-cover"
+                className="object-cover pointer-events-none"
+                draggable={false}
                 unoptimized
                 priority
               />

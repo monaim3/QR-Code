@@ -21,7 +21,11 @@ interface Props {
   }) => void;
 }
 
-export default function Filters({ allSelected, onSelectAll, onFilterChange }: Props) {
+export default function Filters({
+  allSelected,
+  onSelectAll,
+  onFilterChange,
+}: Props) {
   const [query, setQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
@@ -50,7 +54,7 @@ export default function Filters({ allSelected, onSelectAll, onFilterChange }: Pr
   const totalFilter = Number(Boolean(selectedStatus)) + selectedTypes.length;
 
   return (
-    <div className="flex items-center gap-4 px-4 py-4 desktopDashboard:py-0 desktopDashboard:h-10 h-[72px] w-full bg-white desktopDashboard:bg-transparent rounded-[var(--Corner-Radius-10)] desktopDashboard:rounded-none">
+    <div className="flex flex-wrap items-center gap-4 px-4 py-4 desktopDashboard:py-2 desktopDashboard:min-h-10 min-h-[72px] w-full bg-white desktopDashboard:bg-transparent rounded-[var(--Corner-Radius-10)] desktopDashboard:rounded-none">
       <div className="shrink-0">
         <CheckBox checked={allSelected} onChange={onSelectAll} />
       </div>

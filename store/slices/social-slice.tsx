@@ -86,6 +86,9 @@ const initialState: SocialSlice = {
   isDefault: true,
   qrCodeName: "",
   isPreviewWelcomeScreen: false,
+  customFormOpen: false,
+  customFormName: "",
+  customFormUrl: "",
 };
 
 const pdfSlice = createSlice({
@@ -164,6 +167,19 @@ const pdfSlice = createSlice({
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
+    setCustomFormOpen: (state, action: PayloadAction<boolean>) => {
+      state.customFormOpen = action.payload;
+      if (!action.payload) {
+        state.customFormName = "";
+        state.customFormUrl = "";
+      }
+    },
+    setCustomFormName: (state, action: PayloadAction<string>) => {
+      state.customFormName = action.payload;
+    },
+    setCustomFormUrl: (state, action: PayloadAction<string>) => {
+      state.customFormUrl = action.payload;
+    },
     addCarouselImage: (state, action: PayloadAction<string>) => {
       state.carousels.push(action.payload);
       state.isDefault = false;
@@ -203,5 +219,8 @@ export const {
   removeCarouselImage,
   editCarouselImage,
   setActiveColorIndex,
+  setCustomFormOpen,
+  setCustomFormName,
+  setCustomFormUrl,
 } = pdfSlice.actions;
 export default pdfSlice.reducer;

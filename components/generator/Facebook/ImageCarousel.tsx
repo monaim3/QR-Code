@@ -14,10 +14,11 @@ interface ImageItem {
 interface ImageCarouselProps {
   maxImages?: number;
   maxSizeMB?: number;
-  images: ImageItem[]; // Prop থেকে receive করবে
-  onAddImage: (image: ImageItem) => void; // Callback
-  onRemoveImage: (id: string) => void; // Callback
-  onUpdateImage: (id: string, image: ImageItem) => void; // Callback
+  images: ImageItem[];
+  onAddImage: (image: ImageItem) => void;
+  onRemoveImage: (id: string) => void;
+  onUpdateImage: (id: string, image: ImageItem) => void;
+  validationError?: string;
 }
 
 export default function ImageCarousel({
@@ -27,6 +28,7 @@ export default function ImageCarousel({
   onAddImage,
   onRemoveImage,
   onUpdateImage,
+  validationError,
 }: ImageCarouselProps) {
   const [uploadError, setUploadError] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -71,7 +73,10 @@ export default function ImageCarousel({
       // Replacing one image — only process the first file
       const file = files[0];
       const error = validateFile(file);
-      if (error) { setUploadError(error); return; }
+      if (error) {
+        setUploadError(error);
+        return;
+      }
       const reader = new FileReader();
       reader.onload = (event) => {
         onUpdateImage(editingId, {
@@ -85,10 +90,16 @@ export default function ImageCarousel({
       reader.readAsDataURL(file);
     } else {
       const remainingSlots = maxImages - images.length;
-      if (remainingSlots <= 0) { setUploadError(`Maximum ${maxImages} images allowed`); return; }
+      if (remainingSlots <= 0) {
+        setUploadError(`Maximum ${maxImages} images allowed`);
+        return;
+      }
       files.slice(0, remainingSlots).forEach((file, index) => {
         const error = validateFile(file);
-        if (error) { setUploadError(error); return; }
+        if (error) {
+          setUploadError(error);
+          return;
+        }
         const reader = new FileReader();
         reader.onload = (event) => {
           onAddImage({
@@ -183,7 +194,7 @@ export default function ImageCarousel({
   return (
     <div className="w-full">
       <label className="block text-lg leading-[26px] font-bold text-[var(--Black)] ">
-        Image carousel
+        Image carousel *
       </label>
       <p className="text-sm leading-[22px] text-[var(--breadcrumb)] font-normal mb-6">
         Upload up to {maxImages} images
@@ -215,7 +226,9 @@ export default function ImageCarousel({
         />
 
         <div
-          onClick={() => { if (canUploadMore || editingId) fileInputRef.current?.click(); }}
+          onClick={() => {
+            if (canUploadMore || editingId) fileInputRef.current?.click();
+          }}
           className={`flex gap-6 items-center ${canUploadMore || editingId ? "cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
         >
           <div className="w-[72px] h-16 lg:w-20 lg:h-20 p-2 lg:p-4 border flex justify-center items-center rounded-full">
@@ -235,6 +248,15 @@ export default function ImageCarousel({
 
       {uploadError && (
         <p className="text-sm text-red-600 mt-2">{uploadError}</p>
+      )}
+      {validationError && !uploadError && (
+        <p
+          className="text-sm text-red-500 mt-2"
+          data-validation-error="true"
+          aria-invalid="true"
+        >
+          {validationError}
+        </p>
       )}
 
       {/* Image Grid */}

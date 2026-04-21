@@ -2,12 +2,17 @@
 
 import Accordion from "@/components/common/Accordion";
 import MenuSection from "./MenuSection";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Plus from "@/components/icons/plus";
 import DeleteModal from "./DeleteModal";
 import ReorderModal from "./ReorderModal";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addSection, createSectionId, removeSection } from "@/store/slices/menuSlice";
+import {
+  addSection,
+  createSectionId,
+  removeSection,
+} from "@/store/slices/menuSlice";
+import { setFieldError, clearFieldError } from "@/store/slices/validationSlice";
 
 export default function Menu() {
   const dispatch = useAppDispatch();
@@ -15,12 +20,32 @@ export default function Menu() {
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const hasMenuError = showErrors && !!validationErrors.menuItems;
+
+  useEffect(() => {
+    if (!showErrors) return;
+    const hasProducts = sections.some(
+      (s) => s.products && s.products.length > 0,
+    );
+    if (hasProducts) {
+      dispatch(clearFieldError("menuItems"));
+    } else {
+      dispatch(
+        setFieldError({
+          field: "menuItems",
+          error: "This field is required and cannot be left blank.",
+        }),
+      );
+    }
+  }, [sections, showErrors, dispatch]);
+
   const [activeSectionId, setActiveSectionId] = useState<string | null>(
     () => sections[0]?.id ?? null,
   );
   const effectiveActiveSectionId =
     sections.length === 1 ? activeSectionId : (activeSectionId ?? null);
-  const [deleteModalSectionId, setDeleteModalSectionId] = useState<string | null>(null);
+  const [deleteModalSectionId, setDeleteModalSectionId] = useState<
+    string | null
+  >(null);
   const [reorderModal, setReorderModal] = useState<
     { mode: "sections" } | { mode: "products"; sectionId: string } | null
   >(null);
@@ -32,7 +57,9 @@ export default function Menu() {
   };
 
   const handleSectionClick = (sectionId: string) => {
-    setActiveSectionId(effectiveActiveSectionId === sectionId ? null : sectionId);
+    setActiveSectionId(
+      effectiveActiveSectionId === sectionId ? null : sectionId,
+    );
   };
 
   const handleDeleteSectionClick = (sectionId: string) => {
@@ -49,7 +76,12 @@ export default function Menu() {
 
   return (
     <div className="w-full">
-      <Accordion title="Menu" description="Input your menu" defaultOpen={true} forceOpen={hasMenuError}>
+      <Accordion
+        title="Menu"
+        description="Input your menu"
+        defaultOpen={true}
+        forceOpen={hasMenuError}
+      >
         <div className="desktop:space-y-8 space-y-6">
           {sections.map((section, index) => (
             <Fragment key={section.id}>
@@ -86,10 +118,7 @@ export default function Menu() {
           </div>
         </div>
         {hasMenuError && (
-          <p
-            className="text-sm text-red-500 mt-2"
-            data-validation-error="true"
-          >
+          <p className="text-sm text-red-500 mt-2" data-validation-error="true">
             {validationErrors.menuItems}
           </p>
         )}
@@ -105,7 +134,9 @@ export default function Menu() {
         open={!!reorderModal}
         onClose={() => setReorderModal(null)}
         mode={reorderModal?.mode ?? "sections"}
-        sectionId={reorderModal?.mode === "products" ? reorderModal.sectionId : undefined}
+        sectionId={
+          reorderModal?.mode === "products" ? reorderModal.sectionId : undefined
+        }
       />
     </div>
   );
