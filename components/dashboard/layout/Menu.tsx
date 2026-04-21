@@ -23,14 +23,19 @@ export default function Menu() {
   };
 
   const navItems = [
-    { icon: ChartBarSquare, label: "Analytics", href: "/analytics" },
-    { icon: QrCode5, label: "QR Codes", href: "/qr-codes" },
-    { icon: User, label: "Account", href: "/account" },
-    { icon: CreditCards, label: "Billing", href: "/billing" },
+    { icon: ChartBarSquare, label: "Analytics", href: "/cabinet/analytics" },
+    { icon: QrCode5, label: "QR Codes", href: "/cabinet/qr-codes" },
+    { icon: User, label: "Account", href: "/cabinet/account" },
+    { icon: CreditCards, label: "Billing", href: "/cabinet/billing" },
   ];
 
   const utilityLinks = [
-    { icon: Support, label: "Help", href: "/help", onClick: () => {} },
+    {
+      icon: Support,
+      label: "Help",
+      href: "/cabinet/contact-us",
+      onClick: () => {},
+    },
     { icon: LogOut, label: "Log out", href: "/", onClick: () => {} },
   ];
 

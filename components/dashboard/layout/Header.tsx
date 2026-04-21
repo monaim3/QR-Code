@@ -34,11 +34,11 @@ export default function DashboardHeader() {
   };
 
   const navItems = [
-    { icon: ChartBarSquare, label: "Analytics", href: "/analytics" },
-    { icon: QrCode5, label: "QR Codes", href: "/qr-codes" },
-    { icon: User, label: "Account", href: "/account" },
-    { icon: CreditCards, label: "Billing", href: "/billing" },
-    { icon: Support, label: "Help", href: "/help" },
+    { icon: ChartBarSquare, label: "Analytics", href: "/cabinet/analytics" },
+    { icon: QrCode5, label: "QR Codes", href: "/cabinet/qr-codes" },
+    { icon: User, label: "Account", href: "/cabinet/account" },
+    { icon: CreditCards, label: "Billing", href: "/cabinet/billing" },
+    { icon: Support, label: "Help", href: "/cabinet/contact-us" },
   ];
 
   return (
@@ -97,7 +97,10 @@ export default function DashboardHeader() {
 
           <div className="flex flex-col justify-end items-start px-5 self-stretch">
             <div className="py-5 border-t border-[var(--boarder-grey-50)] w-full">
-              <button onClick={handleLogout} className="flex items-center gap-4">
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-4"
+              >
                 <span className="flex-shrink-0">
                   <LogOut />
                 </span>
