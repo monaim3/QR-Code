@@ -15,38 +15,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const languages = [
-  { value: "cs", label: "Čeština" },
-  { value: "da", label: "Dansk" },
-  { value: "de", label: "Deutsch" },
-  { value: "et", label: "Eesti" },
-  { value: "en", label: "English" },
-  { value: "es", label: "Español" },
-  { value: "fil", label: "Filipino" },
-  { value: "fr", label: "Français" },
-  { value: "hr", label: "Hrvatski" },
-  { value: "id", label: "Indonesia" },
-  { value: "it", label: "Italiano" },
-  { value: "lv", label: "Latviešu" },
-  { value: "lt", label: "Lietuvių" },
-  { value: "hu", label: "Magyar" },
-  { value: "ms", label: "Melayu" },
-  { value: "nl", label: "Nederlands" },
-  { value: "no", label: "Norsk" },
-  { value: "pl", label: "Polski" },
-  { value: "pt", label: "Português" },
-  { value: "ro", label: "Română" },
-  { value: "sk", label: "Slovenčina" },
-  { value: "sl", label: "Slovenščina" },
-  { value: "fi", label: "Suomi" },
-  { value: "sv", label: "Svenska" },
-  { value: "vi", label: "Tiếng Việt" },
-  { value: "tr", label: "Türkçe" },
-  { value: "el", label: "Ελληνικά" },
-  { value: "uk", label: "Українська" },
-  { value: "th", label: "ไทย" },
-  { value: "ko", label: "한국어" },
-];
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { RootState } from "@/store";
+import { setLanguage, fetchTranslations } from "@/store/slices/i18nSlice";
+import { LanguageCode, languages } from "@/constants/languages";
+import { t } from "@/utils/t";
+
 
 interface LanguageSelectorProps {
   textClass?: string;
@@ -67,10 +41,33 @@ export default function LanguageSelector({
   mobileDrawer = false,
   fromHeader = true,
 }: LanguageSelectorProps): React.JSX.Element {
+  const dispatch = useAppDispatch();
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("en");
+  const value = useAppSelector((state) => state.i18n.language);
   const [search, setSearch] = React.useState("");
   const [isExpanded, setIsExpanded] = React.useState(false);
+
+  const { language, translations } = useAppSelector(
+  (state) => state.i18n
+);
+
+
+  const changeLanguage = (lang: LanguageCode) => {
+  // 1. update UI instantly
+  dispatch(setLanguage(lang));
+
+   localStorage.setItem("lang", lang);
+
+  // 2. check cache
+  const alreadyLoaded = translations?.[lang];
+
+  // 3. fetch only if not available
+  if (!alreadyLoaded) {
+    dispatch(fetchTranslations(lang));
+  }
+  console.log("LANG:", value);
+console.log("TRANSLATIONS:", translations);
+};
 
   return (
     <>
@@ -151,7 +148,7 @@ export default function LanguageSelector({
                             key={lang.value}
                             value={lang.value}
                             onSelect={(currentValue) => {
-                              setValue(currentValue);
+                              changeLanguage(currentValue as LanguageCode);
                               setOpen(false);
                             }}
                             className="group px-4 py-1 text-[14px] leading-[22px] cursor-pointer
@@ -215,7 +212,7 @@ export default function LanguageSelector({
                       <button
                         key={language.value}
                         onClick={() => {
-                          setValue(language.value);
+                          changeLanguage(language.value as LanguageCode);
                           setIsExpanded(false);
                         }}
                         className={cn(

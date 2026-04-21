@@ -16,6 +16,7 @@ import ModalController from "@/components/modals/modal-controller";
 import { Toaster } from "@/components/ui/sonner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import I18nInitializer from "@/components/i18n/I18nInitializer";
 
 /* -------------------- Google Fonts -------------------- */
 const geistSans = Geist({
@@ -78,6 +79,8 @@ export default function RootLayout({
     >
       <body className="antialiased font-sans">
         <ReduxProvider>
+          <I18nInitializer />
+
           {children}
 
           {/* Sonner Toast */}
