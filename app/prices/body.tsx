@@ -131,7 +131,7 @@ const PricingPage: React.FC = () => {
           {/* Breadcrumb */}
           <div className="h-[54px] w-full bg-white desktop:bg-transparent">
             <nav className="w-full desktop:max-w-[1256px] mx-auto relative px-5 flex items-center gap-[8px] leading-[22px] py-[16px]">
-              <span className="text-[14px] font-regular">QRCenter</span>
+              <span className="text-[14px] font-regular">QR Center</span>
               <ChevronRight className={`w-5 h-5 text-[#79809A]`} />
               <span className="text-[14px] font-regular text-[var(--Blue)]">
                 Prices

@@ -110,7 +110,7 @@ export default function CancelSubscriptionPage() {
             aria-label="Go back"
           >
             <span className="text-[var(--Black)] text-[14px] leading-[22px] font-regular">
-              QRCenter
+              QR Center
             </span>
           </button>
           <ChevronRight size={20} className="text-gray-500" />
