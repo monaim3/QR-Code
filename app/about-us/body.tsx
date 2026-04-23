@@ -36,58 +36,26 @@ export default function AboutUsBody() {
         <Container className="w-full max-w-full">
           {/* Main content */}
           <div className="flex flex-col w-full h-full pt-[29px] desktop:pt-[120px]">
-            <div className="flex flex-col items-center desktop:flex-row w-full min-w-full h-[480px]">
-              {/* Left half */}
+            <div className="flex flex-col items-center desktop:flex-row w-full min-w-full h-auto desktop:h-[480px]">
+              {/* Left half - desktop only */}
               <div className="hidden desktop:block relative z-10">
                 <AboutUsLeftElement />
               </div>
 
               {/* Right half */}
-              <div className="order-1 desktop:order-2 desktop:flex-1 h-full flex items-center justify-center">
-                <div className="relative flex justify-between">
-                  <div
-                    className="w-[412px] h-[412px] rounded-full flex items-center justify-center overflow-hidden"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(155,162,251,0.1) 0%, rgba(247,249,252,0.1) 100%)",
-                    }}
-                  >
-                    <div
-                      className="w-[254px] h-[254px] rounded-full"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(155,162,251,0.2) 0%, rgba(247,249,252,0.2) 100%)",
-                      }}
-                    ></div>
-                  </div>
-                  <div className="absolute top-[91px] bottom-[161px] left-[126px] right-[126px] desktop:top-[108px] desktop:bottom-[44px] desktop:left-[-21px] desktop:right-[173px]">
-                    <Image
-                      src="/images/home/scan.svg"
-                      alt="QR Scan"
-                      width={260}
-                      height={260}
-                      className="w-[160px] h-[160px] desktop:w-[260px] desktop:h-[260px] drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
-                    />
-                  </div>
-                  <div className="absolute top-[22px] bottom-[350px] left-[61px] right-[311px] desktop:top-[-12px] desktop:bottom-[376px] desktop:left-[-8px] desktop:right-[372] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
-                    <Wifi />
-                  </div>
-                  <div className="absolute top-[203px] bottom-[169px] mobile:left-[55px] right-[317px] desktop:top-[195px] desktop:bottom-[169px] desktop:right-[536px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
-                    <LinkIcon />
-                  </div>
-                  <div className="mobile:hidden desktop:absolute desktop:top-[145px] desktop:bottom-[219px] desktop:left-[264px] desktop:right-[100px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
-                    <VideoCamera />
-                  </div>
-                  <div className="absolute top-[117px] bottom-[255px] left-[325px] right-[48px] desktop:top-[31px] desktop:bottom-[339px] desktop:left-[407px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
-                    <ImageIcon />
-                  </div>
-                  <div className="mobile:hidden desktop:absolute desktop:top-[300.17px] desktop:bottom-[68.17px] desktop:left-[355.33px] desktop:right-[40.42px] h-[48px] w-[48px] bg-white flex items-center justify-center rounded-full">
-                    <RestaurantIcon />
-                  </div>
-                  <div className="absolute desktop:hidden top-[291px] left-[31px] right-[31px]">
-                    <AboutUsLeftElement />
-                  </div>
-                </div>
+              <div className="order-1 desktop:order-2 desktop:flex-1 h-full flex items-center justify-center min-w-0">
+                <Image
+                  src="/images/generator_img/aboutqr.svg"
+                  alt="QR Scan"
+                  width={592}
+                  height={480}
+                  className="w-full max-w-[592px] h-auto drop-shadow-[0_1.385px_22.154px_rgba(63,72,103,0.08)]"
+                />
+              </div>
+
+              {/* Mobile text - hidden on desktop */}
+              <div className="block desktop:hidden order-2 w-full mt-6">
+                <AboutUsLeftElement />
               </div>
             </div>
             <div className="flex pt-[120px] pb-[59px] items-center gap-6">
