@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { setLanguage, fetchTranslations } from "@/store/slices/i18nSlice";
 import { LanguageCode, languages } from "@/constants/languages";
-import { t } from "@/utils/t";
+import { storage } from "@/utils/storage";
 
 
 interface LanguageSelectorProps {
@@ -56,7 +56,9 @@ export default function LanguageSelector({
   // 1. update UI instantly
   dispatch(setLanguage(lang));
 
-   localStorage.setItem("lang", lang);
+   storage.setI18nCache({
+    language: lang,
+  });
 
   // 2. check cache
   const alreadyLoaded = translations?.[lang];
