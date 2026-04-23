@@ -42,7 +42,7 @@ export default function QRFrameGallery({
                   }`}
                   onClick={() => setSelectedFrameIndex(index)}
                 >
-                  <Frame></Frame>
+                  <Frame className="w-full h-full" />
                 </div>
               );
             })}
@@ -61,7 +61,7 @@ export default function QRFrameGallery({
                   }`}
                   onClick={() => setSelectedFrameIndex(index + 16)}
                 >
-                  <Frame></Frame>
+                  <Frame className="w-full h-full" />
                 </div>
               );
             })}
