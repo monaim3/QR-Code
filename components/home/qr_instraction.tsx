@@ -1,15 +1,18 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Container from "../common/parent-container";
+import { useT } from "@/utils/t";
 
 export default function QrInstruction() {
+  const t = useT();
   return (
     <section className="bg-white py-16 lg:py-40">
     <Container>
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-2 mb-10 desktop:mb-20">
           <h2 className="font-bold text-center text-[var(--Black)] text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px]">
-            How to create your custom QR code?
+           {t("public__how_to_section__title")}
           </h2>
           <p className="font-regular text-center text-[var(--Dark-gray)] text-base leading-6">
             Turn ordinary links into powerful visual connections
@@ -36,7 +39,7 @@ export default function QrInstruction() {
 
         <div className="hidden lg:block">
           <a href="/generator" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-[32px] inline-block transition-all duration-300 ease-linear
-          ">Create QR code</a>
+          ">{t("public__dashboard__shared__cta_button")}</a>
         </div>
       </div>
     </Container>

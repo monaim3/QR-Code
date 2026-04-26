@@ -21,7 +21,7 @@ export default function CongratulationPage() {
         </p>
         <p className="text-[16px] leading-[24px] font-regular text-[var(--Black)] text-center mt-[8px]">
           Your account has been created successfully, you now have access to
-          myqrcode.com and all its functions.
+          qrcenter.com and all its functions.
         </p>
         {/* Button */}
         <button

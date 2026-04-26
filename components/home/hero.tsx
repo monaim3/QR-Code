@@ -2,8 +2,12 @@
 import Link from "next/link";
 import Container from "../common/parent-container";
 import { motion, AnimatePresence } from "framer-motion";
+import { useT } from "@/utils/t";
 
 export default function Hero() {
+
+   const t = useT();
+
   return (
     <section className="bg-[#F5F6FA] pt-16 desktop:pt-[120px]">
       <Container className="px-0 desktop:px-5">
@@ -18,7 +22,7 @@ export default function Hero() {
             </p>
           </div>
           <Link href="/generator" className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
-           ">Create QR code</Link>
+           ">{t("public__dashboard__shared__cta_button")}</Link>
           {/* image stack */}
           <div className="pt-24 desktop:pt-28 w-full">
               <div className="relative w-full">

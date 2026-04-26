@@ -5,6 +5,7 @@ import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import Container from "../common/parent-container";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useT } from "@/utils/t";
 
 class QrType {
   id: number;
@@ -34,97 +35,97 @@ class QrType {
 const QrTypeData = [
   new QrType(
     1,
-    "Website Url",
+    "public__api__messages__qr-categories__url__title",
     "/images/qr_types/website_url.svg",
-    "Your QR code will open any URL, website or webpage you link it to. By simply scanning your unique QR code with a smartphone, users will conveniently open the webpage you chose. Easy, fast, professional!",
+    "public__qr_types_section__website_url__description",
     "/images/qr_types/half_device_website.webp",
     "/generator/website-url"
   ),
   new QrType(
     2,
-    "Vcard",
+    "public__api__messages__qr-categories__vCard__title",
     "/images/qr_types/vcard.svg",
-    "Enhance the value of your electronic business card by adding a QR code. This gives viewers an easy way to access more information about you or your company. An added bonus: you can edit the QR content whenever you like.",
+    "public__qr_types_section__vcard__description",
     "/images/qr_types/half_device_vcard.webp",
     "/generator/vcard"
   ),
   new QrType(
     3,
-    "PDF",
+    "public__api__messages__qr-categories__pdf__title",
     "/images/qr_types/pdf.svg",
-    "Put all the information that matters at your clients' and customers' fingertips. With a customizable QR code, they can access PDF files rich with content. And after a quick download, they can easily share or save.",
+    "public__qr_types_section__pdf__description",
     "/images/qr_types/half_device_pdf.webp",
     "/generator/pdf"
   ),
   new QrType(
     4,
-    "Images",
+    "public__api__messages__qr-categories__images__title",
     "/images/qr_types/Images.svg",
-    "If you're in an industry that relies heavily on images to promote your brand, why not use a QR code to link to an image gallery in a snap? Showcase real estate, consumer goods, food and furniture with ease.",
+    "public__qr_types_section__images__description",
     "/images/qr_types/half_device_image.webp",
     "/generator/images"
   ),
   new QrType(
     5,
-    "Social Media",
+    "public__api__messages__qr-categories__socialMedia__title",
     "/images/qr_types/social_media.svg",
-    "One QR code can open the door to all of your social media channels. Make it simple for users to follow you on Facebook, Instagram, Twitter or wherever they like to hang out online.",
+    "public__qr_types_section__social_media__description",
     "/images/qr_types/half_device_socialmedia.webp",
     "/generator/social-media"
   ),
   new QrType(
     6,
-    "Video",
+    "public__api__messages__qr-categories__video__title",
     "/images/qr_types/video.svg",
-    "Add a QR code to a brochure, poster, mailer or any other platform to unlock instant access to video content. Make your print media more dynamic, capture attention and boost your brand appeal.",
+    "public__qr_types_section__video__description",
     "/images/qr_types/half_device_video.webp",
     "/generator/video"
   ),
   new QrType(
     7,
-    "Simple Text",
+    "public__api__messages__qr-categories__plainText__title",
     "/images/qr_types/simple_text.svg",
-    "From product descriptions to serial numbers to information cards, any text can be accessed immediately with a custom QR code. Make your product more engaging and change the content in real time.",
+    "public__qr_types_section__plain_text__description",
     "/images/qr_types/half_device_text.webp",
     "/generator/simple-text"
   ),
   new QrType(
     8,
-    "Business Pages",
+    "public__api__messages__qr-categories__businessPage__title",
     "/images/qr_types/business_page.svg",
-    "Showcase your company information with a business page QR code. This simple, streamlined landing page can include your business details, opening hours and any other key info. Add a button to make booking an appointment effortless.",
+    "public__qr_types_section__business__description",
     "/images/qr_types/half_device_business.webp",
     "/generator/business-page"
   ),
   new QrType(
     9,
-    "Facebook",
+    "public__api__messages__qr-categories__facebook__title",
     "/images/qr_types/facebook.svg",
-    "Want more likes and shares? Boost the impact of your print media by adding a QR code that links to your Facebook page. It's all about new ways to build your audience.",
+    "public__qr_types_section__facebook__description",
     "/images/qr_types/half_device_facebook.webp",
     "/generator/facebook"
   ),
   new QrType(
     10,
-    "WiFi",
+    "public__api__messages__qr-categories__wifi__title",
     "/images/qr_types/wi_fi.svg",
-    "Avoid password problems by using a QR code to unlock Wi-Fi access. With a quick scan, customers can easily get on to your network. Fewer interruptions and super-fast connections will keep everyone happy.",
+    "public__qr_types_section__wifi__description",
     "/images/qr_types/half_device_wifi.webp",
     "/generator/wifi"
   ),
   new QrType(
     11,
-    "App",
+    "public__api__messages__qr-categories__app__title",
     "/images/qr_types/app.svg",
-    "By scanning a single QR code, anyone can install your app instantly from the App Store or Google Play. Full customization lets you match your code's appearance to your brand so you stand out from the competition.",
+    "public__qr_types_section__app__description",
     "/images/qr_types/half_device_app.webp",
     "/generator/app"
   ),
   new QrType(
     12,
-    "Menu",
+    "public__api__messages__qr-categories__menu__title",
     "/images/qr_types/menu.svg",
-    "Own a restaurant or bar? Use a QR code to link to a digital menu and make it easy to access your food and drink offering. You can make menu changes at any time, so it's always up to date.",
+    "public__qr_types_section__menu__description",
     "/images/qr_types/half_device_menue.webp",
     "/generator/menu"
   ),
@@ -167,6 +168,8 @@ export default function QrTypes() {
       }
     }
   };
+
+   const t = useT();
 
   return (
     <section className="bg-[radial-gradient(circle,#334A56,#2F3E46)] desktop:py-40 py-16">
@@ -268,7 +271,7 @@ export default function QrTypes() {
 
                     {/* Full text */}
                     <span className="text-[14px] leading-[22px] font-sans font-normal flex-shrink-0">
-                      {qr.title}
+                      {t(qr.title)}
                     </span>
                   </button>
                 );
@@ -327,7 +330,7 @@ export default function QrTypes() {
                     transition={{ duration: 0.4, ease: "linear" }}
                     className="text-[20px] leading-[28px] font-bold text-center desktop:text-left text-white pb-2 desktop:text-[24px] desktop:leading-[32px]"
                   >
-                    {QrTypeData.find((qr) => qr.id === activeTab)?.title}
+                    {t(QrTypeData.find((qr) => qr.id === activeTab)?.title ?? "")}
                   </motion.h3>
 
                   <motion.p
@@ -337,10 +340,7 @@ export default function QrTypes() {
                     transition={{ duration: 0.4, ease: "linear" }}
                     className="text-[14px] leading-[22px] font-normal text-center desktop:text-start text-white pb-4"
                   >
-                    {
-                      QrTypeData.find((qr) => qr.id === activeTab)
-                        ?.contentDescription
-                    }
+                    {t(QrTypeData.find((qr) => qr.id === activeTab)?.contentDescription ?? "")}
                   </motion.p>
 
                   <motion.button
@@ -356,7 +356,7 @@ export default function QrTypes() {
                   transition={{ duration: 0.3, ease: "linear" }}
                   className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-3 px-8 w-full text-center desktop:w-auto inline-block transition-all duration-300 ease-linear"
                 >
-                  Create QR code
+                 {t("public__dashboard__shared__cta_button")}
                 </motion.button>
 
 
