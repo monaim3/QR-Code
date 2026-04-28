@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "start": "next start -p 9091",
     "build": "NEXT_DISABLE_TURBOPACK=1 next build",
     "lint": "eslint"
   },
