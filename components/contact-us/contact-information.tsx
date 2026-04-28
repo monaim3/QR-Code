@@ -13,7 +13,7 @@ const contactInfo = [
   },
   {
     id: 3,
-    title: "Address",
+    title: "Locations",
     subTitle: "1287 Market Street, Suite 402, San Francisco, CA 94103, USA",
   },
 ];
