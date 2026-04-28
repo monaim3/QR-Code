@@ -9,6 +9,7 @@ import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import ChevronDownSmall from "@/components/icons/chevron-down-small";
 import CheckBox from "../qr-codes/filters/CheckBox";
 import CloseCircle from "@/components/icons/close-circle";
+import { useT } from "@/utils/t";
 
 const options = [
   { label: "Italian Restaurant", value: "italian" },
@@ -28,6 +29,7 @@ export default function QrCodeSearchDropdown({
   selected,
   setSelected,
 }: Props) {
+  const t = useT();
   const [open, setOpen] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -103,7 +105,11 @@ export default function QrCodeSearchDropdown({
                   ref={inputRef}
                   autoFocus={open}
                   placeholder={
-                    selected.length === 0 ? "Type the name to search" : ""
+                    selected.length === 0
+                      ? t(
+                          "public__dashboard__analytics__filter__qr_placeholder",
+                        )
+                      : ""
                   }
                   className="flex-1 min-w-[50px] outline-none text-[14px] leading-[22px] text-[var(--Grey)] placeholder:text-[var(--Grey)]"
                   value={search}
@@ -131,7 +137,7 @@ export default function QrCodeSearchDropdown({
                   renderSelectedBadge()
                 ) : (
                   <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-                    QR code name
+                    {t("public__qr__statistics__filter__qr__title")}
                   </p>
                 )}
               </div>
@@ -184,7 +190,7 @@ export default function QrCodeSearchDropdown({
               })
             ) : (
               <div className="h-10 flex items-center justify-center text-[14px] leading-[22px] text-[var(--Grey)]">
-                No options available
+                {t("public__select_dropdown__no_options_available")}
               </div>
             )}
           </div>

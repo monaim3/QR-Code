@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CustomTooltip, { TooltipPayload } from "./CustomTooltip";
+import { useT } from "@/utils/t";
 
 const days = [
   "Monday",
@@ -28,12 +29,13 @@ const data: Record<string, number> = {
 };
 
 export default function ScanHeatmap() {
+  const t = useT();
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
 
   return (
     <div className="flex flex-col items-start gap-6 p-6 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
       <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-        Scans by time of the day
+        {t("public__dashboard__analytics__heatmap_card__title")}
       </h4>
 
       <div className="h-[608px] w-full flex">

@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import Download from "@/components/icons/download";
 import Close from "@/components/icons/close";
+import { useT } from "@/utils/t";
 
 export default function ExportData() {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const options = ["Download CSV", "Download XLSX"];
+  const options = [
+    t("public__qr__statistics__filter__download__csv"),
+    t("public__qr__statistics__filter__download__xlsx"),
+  ];
 
   const handleSelect = (option: string) => {
     setIsOpen(false);
@@ -34,7 +39,7 @@ export default function ExportData() {
       >
         <Download className="text-[var(--Dark-gray)]" />
         <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-          Export Data
+          {t("public__qr__statistics__download")}
         </span>
       </button>
 

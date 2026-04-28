@@ -1,16 +1,20 @@
+"use client";
 import DonutCharts from "@/components/dashboard/analytics/DonutCharts";
 import AnalyticsFilter from "@/components/dashboard/analytics/Filter";
 import KPIs from "@/components/dashboard/analytics/KPIs";
 import ScanActivity from "@/components/dashboard/analytics/ScanActivity";
 import ScanHeatmap from "@/components/dashboard/analytics/ScanHeatmap";
+import { useT } from "@/utils/t";
 
 export default function Analytics() {
+  const t = useT();
+
   return (
     <>
       {/* Header */}
       <div className="flex items-center justify-between gap-8 self-stretch">
         <h2 className="font-bold text-[var(--Black)] text-[24px] leading-[var(--Typeface-Line-height-Heading-3)]">
-          Analytics
+          {t("public__dashboard__analytics_title")}
         </h2>
       </div>
 

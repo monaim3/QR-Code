@@ -8,8 +8,10 @@ import DropDownFilter from "./DropDownFilter";
 import { useState } from "react";
 import AdjustmentsHorizontal from "@/components/icons/adjustments-horizontal";
 import Close from "@/components/icons/close";
+import { useT } from "@/utils/t";
 
 export default function AnalyticsFilter() {
+  const t = useT();
   const [searchName, setSearchName] = useState("");
   const [selectedName, setSelectedName] = useState<string[]>([]);
   const [selectedOs, setSelectedOs] = useState<string[]>([]);
@@ -58,7 +60,7 @@ export default function AnalyticsFilter() {
           />
           <DropDownFilter
             options={["Windows", "Mac", "Linux", "Android", "iOS"]}
-            label="Operating systems"
+            label={t("public__qr__statistics__filter__os__title")}
             selected={selectedOs}
             setSelected={setSelectedOs}
           />
@@ -70,13 +72,13 @@ export default function AnalyticsFilter() {
               "Australia",
               "New Zealand",
             ]}
-            label="Countries"
+            label={t("public__qr__statistics__filter__countries__title")}
             selected={selectedCountry}
             setSelected={setSelectedCountry}
           />
           <DropDownFilter
             options={["New York", "Los Angeles", "Chicago", "Houston", "Miami"]}
-            label="Cities"
+            label={t("public__qr__statistics__filter__cities__title")}
             selected={selectedCity}
             setSelected={setSelectedCity}
           />
@@ -99,7 +101,8 @@ export default function AnalyticsFilter() {
             onClick={() => setIsDrawerOpen(false)}
             className="text-[var(--Dark-gray)] text-[14px] leading-[22px] flex items-center gap-2 desktopDashboard:hidden"
           >
-            Close filters <Close />
+            {t("public__dashboard__analytics__controls__close_filters")}{" "}
+            <Close />
           </button>
         </div>
       </div>
