@@ -1,4 +1,5 @@
-import { LanguageCode } from "../../myqr/constants/languages";
+
+import { LanguageCode } from "@/constants/languages";
 
 export interface Translations {
   [key: string]: string;
