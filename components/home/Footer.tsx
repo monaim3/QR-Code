@@ -201,7 +201,7 @@ export default function Footer() {
             />
             <div className="desktop:text-right">
               <span className="text-white text-sm leading-[22px]">
-                {new Date().getFullYear()} © QRCenter.com™ All rights reserved
+                © {new Date().getFullYear()} QRcenter.com™. All rights reserved
               </span>
             </div>
           </div>
