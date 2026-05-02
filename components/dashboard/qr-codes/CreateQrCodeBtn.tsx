@@ -1,7 +1,10 @@
 import PlusCircle from "@/components/icons/plus-circle";
 import Link from "next/link";
+import { useT } from "@/utils/t";
 
 export default function CreateQrCodeBtn() {
+  const t = useT();
+
   return (
     <Link
       href="/qr-codes/generator"
@@ -12,7 +15,7 @@ export default function CreateQrCodeBtn() {
         className="text-white desktopDashboard:text-[18px] text-[14px] desktopDashboard:font-semibold
   desktopDashboard:leading-[26px] leading-[22px]"
       >
-        Create QR Code
+        {t("public__dashboard__shared__cta_button")}
       </span>
     </Link>
   );

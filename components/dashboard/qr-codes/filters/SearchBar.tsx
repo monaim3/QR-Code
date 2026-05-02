@@ -2,6 +2,7 @@ import { useState } from "react";
 import CloseCircle from "@/components/icons/close-circle";
 import Search from "@/components/icons/search";
 import Tooltip from "@/components/dashboard/Tooltip";
+import { useT } from "@/utils/t";
 
 interface Props {
   query: string;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function SearchBar({ query, setQuery }: Props) {
+  const t = useT();
   const [isFocused, setIsFocused] = useState(false);
 
   return (

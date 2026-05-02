@@ -8,19 +8,21 @@ import {
 } from "@/components/ui/popover";
 import { ChartData } from "./DonutChartCard";
 import Close from "@/components/icons/close";
+import { useT } from "@/utils/t";
 
 interface Props {
   data: ChartData[];
 }
 
 export default function DonutChartPopover({ data }: Props) {
+  const t = useT();
   const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button className="text-[var(--Blue)] text-[14px] leading-[22px] font-bold">
-          Show more
+          {t("public__dashboard__analytics__scans_by_field_card__more_button")}
         </button>
       </PopoverTrigger>
       <PopoverContent

@@ -8,12 +8,14 @@ import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { signupUser } from '@/store/slices/auth-slice';
+import { signupUser } from "@/store/slices/auth-slice";
 import { useAppDispatch } from "@/store/hooks";
 
-
 const signUpSchema = z.object({
-  email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
+  email: z
+    .string()
+    .min(1, "This field is required and cannot be left blank.")
+    .email("You have entered an invalid email address. Please try again."),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
@@ -52,25 +54,24 @@ export default function SignUpElements({
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
       const payload = {
-      email: data.email,
-      password: data.password,
-      language: "en",
-      timezone: timezone,
-      isUnlockFlow: false,
-      token: "string",
-    };
+        email: data.email,
+        password: data.password,
+        language: "en",
+        timezone: timezone,
+        isUnlockFlow: false,
+        token: "string",
+      };
 
-     const resultAction = await dispatch(signupUser(payload));
+      const resultAction = await dispatch(signupUser(payload));
 
-     if (signupUser.fulfilled.match(resultAction)) {
-      console.log("Signup successful:", resultAction.payload);
-      router.push("/pricing");
-    }
+      if (signupUser.fulfilled.match(resultAction)) {
+        console.log("Signup successful:", resultAction.payload);
+        router.push("/generator");
+      }
 
-    if (signupUser.rejected.match(resultAction)) {
-      console.error("Signup failed:", resultAction.payload);
-    }
-  
+      if (signupUser.rejected.match(resultAction)) {
+        console.error("Signup failed:", resultAction.payload);
+      }
     } catch (error) {
       console.error(error);
     }

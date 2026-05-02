@@ -1,4 +1,5 @@
 import FilterAlt from "@/components/icons/filter-alt";
+import { useT } from "@/utils/t";
 
 interface Props {
   disabled?: boolean;
@@ -11,6 +12,8 @@ export default function ClearFilter({
   onClick,
   isHidden = true,
 }: Props) {
+  const t = useT();
+
   return (
     <div
       className={`flex-col items-end flex-1 ml-auto  ${isHidden && "desktopDashboard:flex hidden"}`}
@@ -23,7 +26,9 @@ export default function ClearFilter({
         }`}
         onClick={onClick}
       >
-        <span className="leading-[22px] font-roboto">Clear filters</span>
+        <span className="leading-[22px] font-roboto">
+          {t("public__dashboard__qr_table__controls__clear_filters")}
+        </span>
 
         <div className="shrink-0">
           <FilterAlt />

@@ -20,7 +20,7 @@ interface PricingPlan {
 const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
   return (
     <div className="flex flex-col bg-white p-[24px] desktop:p-[32px] shadow-card rounded-[12px] hover:shadow-xl transition-shadow duration-300">
-      <div className="flex flex-row item-start justify-between desktop:flex-col w-full max-w-full">
+      <div className="flex flex-row item-center justify-between lg:flex-col w-full max-w-full">
         <h3
           className="
             text-[var(--Black)]
@@ -28,12 +28,12 @@ const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
             font-medium
             text-[20px] 
             leading-[28px]
-            desktop:text-[24px]
-            desktop:leading-[32px]"
+            lg:text-[24px]
+            lg:leading-[32px]"
         >
           {plan.title}
         </h3>
-        <div className="desktop:pt-[16px] flex justify-center items-center">
+        <div className="lg:pt-[16px] flex justify-center items-center">
           <span
             className="
             text-[var(--Black)]
@@ -151,7 +151,7 @@ const PricingPage: React.FC = () => {
                   </div>
                   <Link
                     href="/generator"
-                    className="hidden desktop:flex bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
+                    className="hidden desktop:flex bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 transition-all duration-300 ease-linear
             "
                   >
                     Create QR code
@@ -160,7 +160,7 @@ const PricingPage: React.FC = () => {
               </div>
 
               {/* Pricing Cards */}
-              <div className="pt-[71px] desktop:pt-[56px] pb-[120px] grid md:grid-cols-2 lg:grid-cols-3 gap-[24px] desktop:gap-[32px]">
+              <div className="pt-[71px] desktop:pt-[56px] pb-[120px] grid lg:grid-cols-3 gap-[24px] desktop:gap-[32px]">
                 {plans.map((plan, index) => (
                   <PricingCard key={index} plan={plan} />
                 ))}

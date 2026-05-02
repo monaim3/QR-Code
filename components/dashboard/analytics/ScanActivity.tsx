@@ -13,8 +13,10 @@ import {
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
 import LineChart1 from "@/components/icons/line-chart 1";
+import { useT } from "@/utils/t";
 
 export default function ScanActivity() {
+  const t = useT();
   const [selectedPeriod, setSelectedPeriod] = useState("day");
 
   const handlePeriodClick = (value: string) => {
@@ -47,7 +49,7 @@ export default function ScanActivity() {
       <div className="w-full flex flex-col desktopDashboard:flex-row tablet:flex-row items-start gap-4 self-stretch">
         <div className="flex flex-col items-start gap-1 flex-1">
           <h4 className="text-[var(--Black)] font-bold text-[18px] leading-[26px]">
-            Scan activity
+            {t("public__dashboard__analytics__activity_card__title")}
           </h4>
           <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
             25 February 2024 - 25 March 2024
@@ -56,25 +58,27 @@ export default function ScanActivity() {
 
         <div className="flex desktopDashboard:justify-end items-center gap-2 flex-wrap">
           <Chip
-            label="Day"
+            label={t("public__dashboard__analytics__activity_card__day")}
             selectedPeriod={selectedPeriod}
             value="day"
             onClick={handlePeriodClick}
           />
           <Chip
-            label="Week"
+            label={t(
+              "public__dashboard__analytics__activity_card__group_by__weeks",
+            )}
             selectedPeriod={selectedPeriod}
             value="week"
             onClick={handlePeriodClick}
           />
           <Chip
-            label="Month"
+            label={t("public__dashboard__analytics__activity_card__month")}
             selectedPeriod={selectedPeriod}
             value="month"
             onClick={handlePeriodClick}
           />
           <Chip
-            label="Year"
+            label={t("public__dashboard__analytics__activity_card__year")}
             selectedPeriod={selectedPeriod}
             value="year"
             onClick={handlePeriodClick}
@@ -138,10 +142,14 @@ export default function ScanActivity() {
 
             <div className="flex flex-col items-center gap-1 font-roboto">
               <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-                No data to display
+                {t(
+                  "public__dashboard__analytics__scans_by_field_card__empty_title",
+                )}
               </h4>
               <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px]">
-                Not enough data to show statistics
+                {t(
+                  "public__dashboard__analytics__scans_by_field_card__empty_description",
+                )}
               </p>
             </div>
           </div>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/chart";
 import DonutChartPopover from "./DonutChartPopover";
 import DonutTooltip from "./DonutTooltip";
+import { useT } from "@/utils/t";
 
 export interface ChartData {
   name: string;
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export default function DonutChartCard({ title, data }: Props) {
+  const t = useT();
   const [selectedPeriod, setSelectedPeriod] = useState("%");
 
   const total = data.reduce((acc, item) => acc + item.scans, 0);
@@ -162,10 +164,14 @@ export default function DonutChartCard({ title, data }: Props) {
         ) : (
           <div className="flex flex-col items-center justify-center gap-1 w-full">
             <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-              No data to display
+              {t(
+                "public__dashboard__analytics__scans_by_field_card__empty_title",
+              )}
             </h4>
             <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px]">
-              Not enough data to show statistics
+              {t(
+                "public__dashboard__analytics__scans_by_field_card__empty_description",
+              )}
             </p>
           </div>
         )}

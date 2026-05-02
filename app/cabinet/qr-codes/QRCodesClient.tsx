@@ -11,6 +11,7 @@ import NoResults from "@/components/dashboard/qr-codes/table/NoResults";
 import SubscribeBanner from "@/components/dashboard/qr-codes/SubscribeBanner";
 import ReviewBanner from "@/components/dashboard/qr-codes/ReviewBanner";
 import { useSearchParams } from "next/navigation";
+import { useT } from "@/utils/t";
 
 const initialQrData: QRCodeItem[] = [
   {
@@ -61,6 +62,7 @@ const initialQrData: QRCodeItem[] = [
 ];
 
 export default function QrCodesClient() {
+  const t = useT();
   const [qrData, setQrData] = useState<QRCodeItem[]>(initialQrData);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [filters, setFilters] = useState<{
@@ -87,7 +89,7 @@ export default function QrCodesClient() {
     if (filters.query.trim()) {
       const queryLower = filters.query.toLowerCase().trim();
       filtered = filtered.filter((item) =>
-        item.title.toLowerCase().includes(queryLower)
+        item.title.toLowerCase().includes(queryLower),
       );
     }
 
@@ -98,9 +100,7 @@ export default function QrCodesClient() {
 
     // Filter by types
     if (filters.types.length > 0) {
-      filtered = filtered.filter((item) =>
-        filters.types.includes(item.type)
-      );
+      filtered = filtered.filter((item) => filters.types.includes(item.type));
     }
 
     // Sort data
@@ -190,14 +190,15 @@ export default function QrCodesClient() {
 
   const selectedCount = selectedIds.size;
   const hasSelection = selectedCount > 0;
-  const allSelected = selectedCount === filteredQrData.length && filteredQrData.length > 0;
+  const allSelected =
+    selectedCount === filteredQrData.length && filteredQrData.length > 0;
 
   return (
     <>
       {/* Header */}
       <div className="flex items-center justify-between desktopDashboard:gap-8 gap-4 self-stretch">
         <h2 className="font-bold text-[var(--Black)] desktopDashboard:text-[24px] text-[20px] desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
-          QR Codes
+          {t("public__dashboard__sidebar__link_groups__qr_codes")}
         </h2>
         <CreateQrCodeBtn />
       </div>

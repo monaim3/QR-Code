@@ -50,8 +50,10 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { useEffect, useState } from "react";
+import { useT } from "@/utils/t";
 
 export function DateRangePicker() {
+  const t = useT();
   const [date, setDate] = useState<DateRange | undefined>({
     from: startOfToday(),
     to: endOfToday(),
@@ -103,11 +105,11 @@ export function DateRangePicker() {
 
   const presets = [
     {
-      label: "Today",
+      label: t("public__dashboard__analytics__date_range__today"),
       getValue: () => ({ from: startOfToday(), to: endOfToday() }),
     },
     {
-      label: "Yesterday",
+      label: t("public__dashboard__analytics__date_range__yesterday"),
       getValue: () => ({
         from: subDays(startOfToday(), 1),
         to: subDays(endOfToday(), 1),
@@ -142,7 +144,7 @@ export function DateRangePicker() {
       }),
     },
     {
-      label: "All time",
+      label: t("public__dashboard__analytics__date_range__all_time"),
       getValue: () => ({ from: new Date(2020, 0, 1), to: startOfToday() }),
     },
   ];
@@ -173,7 +175,7 @@ export function DateRangePicker() {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="!w-[calc(100vw-40px)] max-w-[100vw] tablet:!w-[calc(100vw-64px)] desktopDashboard:!w-auto desktopDashboard:max-w-none desktopDashboard:p-6 p-4 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]] absolute left-[-16px] desktopDashboard:left-0 top-6 desktopDashboard:top-auto"
+        className="!w-[calc(100vw-40px)] max-w-[100vw] tablet:!w-[calc(100vw-64px)] desktopDashboard:!w-auto desktopDashboard:max-w-none desktopDashboard:p-6 p-4 flex gap-6 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]] absolute left-[-16px] desktopDashboard:left-0 top-6 desktopDashboard:top-auto shadow"
         align="start"
       >
         {/* Sidebar Presets */}

@@ -44,7 +44,7 @@ function SimpleFooter() {
             </Link>
           </nav>
           <p className="text-[13px] leading-[20px] text-[#3F3E3E] opacity-70 whitespace-nowrap">
-            {new Date().getFullYear()} © QRCenter.com™ All rights reserved
+            © {new Date().getFullYear()} QRcenter.com™. All rights reserved
           </p>
         </div>
       </Container>
@@ -52,7 +52,11 @@ function SimpleFooter() {
   );
 }
 
-export default function WhatIsOpenQrLayout({ children }: { children: ReactNode }) {
+export default function WhatIsOpenQrLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <div className="min-h-screen flex flex-col">
       <SimpleHeader />
