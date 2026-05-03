@@ -5,7 +5,7 @@ import Container from "@/components/common/parent-container";
 
 function SimpleHeader() {
   return (
-    <header className="w-full bg-[#F5F6FA] border-b border-black">
+    <header className="w-full bg-[#F5F6FA] border-b border-[#CDD0DB]/50 desktop:border-black">
       <Container>
         <div className="flex items-center h-16 desktop:h-[72px]">
           <Logo />
@@ -17,7 +17,7 @@ function SimpleHeader() {
 
 function SimpleFooter() {
   return (
-    <footer className="w-full border-t border-black">
+    <footer className="w-full border-t border-[#CDD0DB]/50 desktop:border-black">
       <Container>
         {/* Desktop: links left + copyright right | Mobile: stacked centered */}
         <div className="flex flex-col desktop:flex-row desktop:items-center desktop:justify-between gap-3 py-5 items-center text-center desktop:text-left">
@@ -56,7 +56,7 @@ export default function WhatIsOpenQrLayout({ children }: { children: ReactNode }
   return (
     <div className="min-h-screen flex flex-col">
       <SimpleHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 flex flex-col">{children}</main>
       <SimpleFooter />
     </div>
   );
