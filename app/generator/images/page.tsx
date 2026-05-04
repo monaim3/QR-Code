@@ -55,6 +55,7 @@ import { CheckboxInput } from "@/components/common/CheckboxInput";
 import { setShare } from "@/store/slices/imagesSlice";
 import ImagesPreview from "@/components/generator/Images/ImagesPreview";
 import { RequiredTextInput } from "@/components/common/RequiredInput";
+import { clearFieldError } from "@/store/slices/validationSlice";
 
 export default function Images() {
   const dispatch = useAppDispatch();
@@ -76,6 +77,12 @@ export default function Images() {
   const buttons = useAppSelector((state) => state.images.buttons);
   const images = useAppSelector((state) => state.images.images);
   const share = useAppSelector((state) => state.images.Share);
+
+  useEffect(() => {
+    if (images.length > 0 && validationErrors.images) {
+      dispatch(clearFieldError("images"));
+    }
+  }, [images.length]);
   const lastButton = useAppSelector(
     (state) => state.images.buttons[state.images.buttons.length - 1],
   );
@@ -227,7 +234,7 @@ export default function Images() {
               title="Design and customize"
               description="Choose your color scheme"
               defaultOpen={true}
-              forceOpen={hasImagesError}
+              forceOpen={hasImagesError && images.length === 0}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -278,16 +285,17 @@ export default function Images() {
                   maxImages={10}
                   maxSizeMB={5}
                   images={images}
-                  onAddImage={(image) => dispatch(addImage(image))}
+                  onAddImage={(image) => { dispatch(addImage(image)); dispatch(clearFieldError("images")); }}
                   onRemoveImage={(id) => dispatch(removeImage(id))}
                   onUpdateImage={(id, image) =>
                     dispatch(updateImage({ id, image }))
                   }
                 />
-                {hasImagesError && (
+                {hasImagesError && images.length === 0 && (
                   <p
                     className="text-sm text-red-500 mt-2"
                     data-validation-error="true"
+                    aria-invalid="true"
                   >
                     {validationErrors.images}
                   </p>

@@ -249,7 +249,7 @@ export default function ImageCarousel({
       {uploadError && (
         <p className="text-sm text-red-600 mt-2">{uploadError}</p>
       )}
-      {validationError && !uploadError && (
+      {validationError && !uploadError && images.length === 0 && (
         <p
           className="text-sm text-red-500 mt-2"
           data-validation-error="true"

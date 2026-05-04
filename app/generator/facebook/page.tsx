@@ -73,6 +73,13 @@ export default function Facebook() {
   const errorWebsite = useAppSelector((state) => state.facebook.ErrorWebsite);
   const buttons = useAppSelector((state) => state.facebook.buttons);
   const images = useAppSelector((state) => state.facebook.images);
+
+  useEffect(() => {
+    if (images.length > 0 && validationErrors.facebookImages) {
+      dispatch(clearFieldError("facebookImages"));
+    }
+  }, [images.length]);
+
   const lastButton = useAppSelector(
     (state) => state.facebook.buttons[state.facebook.buttons.length - 1],
   );
@@ -224,7 +231,7 @@ export default function Facebook() {
               title="Design and customize"
               description="Choose your color scheme"
               defaultOpen={true}
-              forceOpen={showErrors && !!validationErrors.facebookImages}
+              forceOpen={showErrors && images.length === 0 && !!validationErrors.facebookImages}
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -280,7 +287,7 @@ export default function Facebook() {
                   onUpdateImage={(id, image) =>
                     dispatch(updateImage({ id, image }))
                   }
-                  validationError={showErrors ? validationErrors.facebookImages : undefined}
+                  validationError={showErrors && images.length === 0 ? validationErrors.facebookImages : undefined}
                 />
               </div>
             </Accordion>
