@@ -18,6 +18,7 @@ import Netlifix from "../icons/netlifix";
 import Tooltip from "./Tooltip";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
+import { useT } from "@/utils/t";
 
 type LogoType = {
   id: string;
@@ -71,7 +72,7 @@ const LogoSelector = ({
     onCustomLogoUpload(null);
     setUploadError("");
   };
-
+  const t = useT();
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -138,7 +139,7 @@ const LogoSelector = ({
   return (
     <div className="w-full space-y-4">
       <label className="block text-base font-semibold text-gray-900">
-        Select logo
+        {t("generator__design_form__logo_section__select_logo")}
       </label>
 
       <div
@@ -171,11 +172,17 @@ const LogoSelector = ({
 
       <div>
         <label className="block text-base font-semibold text-gray-700 mb-3">
-          Upload your own logo
+          {t("generator__design_form__logo_section__upload_label")}
         </label>
         <div
-          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
-          onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          onDragEnter={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
           onDrop={handleDrop}
           className={`border-2 border-dashed rounded-lg p-4 lg:p-6 transition-colors ${
             uploadError
@@ -245,10 +252,10 @@ const LogoSelector = ({
 
               <div>
                 <p className="text-base font-semibold text-gray-600">
-                  Upload image (jpg, png, svg)
+                  {t("ui__file_upload__upload_image")}
                 </p>
                 <p className="text-sm text-left text-gray-500 mt-1">
-                  Maximum size: 5MB
+                  {t("generator__content_form_section__social__max_image_size")}
                 </p>
               </div>
             </label>

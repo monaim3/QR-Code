@@ -19,11 +19,13 @@ import Container from "@/components/common/parent-container";
 import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import Breadcrumb from "@/components/generator/Breadcrumb";
+import { useT } from "@/utils/t";
 
 const urlSchema = z.string().url("Please enter a valid URL");
 
 export default function WebsiteUrlPage() {
   const dispatch = useAppDispatch();
+  const t = useT();
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
@@ -105,7 +107,7 @@ export default function WebsiteUrlPage() {
                   {<Breadcrumb useMobileSteps={true} />}
                 </div>
                 <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block">
-                  Add content to the Website URL QR code
+                  {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__website__title"))}
                 </h1>
                 <div className="flex-1 flex flex-col gap-4">
                   <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
@@ -115,10 +117,10 @@ export default function WebsiteUrlPage() {
                     >
                       <div className="flex flex-col items-start">
                         <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
-                          Website address
+                          {t("generator__step_1__qr_type__website_url__title")}
                         </h3>
                         <p className="text-sm leading-[22px] text-[var(--Dark-gray)]">
-                          Enter the URL to which the QR code will link
+                          {t("generator__step_1__qr_type__website_url__description")}
                         </p>
                       </div>
                       <motion.div
@@ -147,7 +149,7 @@ export default function WebsiteUrlPage() {
                                 htmlFor="website-url"
                                 className="text-[16px] leading-[24px] font-medium font-roboto text-[var(--Black)]"
                               >
-                                Website URL*
+                                {t("generator__step_1__qr_type__website_url__label")}
                               </label>
                               <input
                                 id="website-url"
@@ -158,7 +160,7 @@ export default function WebsiteUrlPage() {
                                 }
                                 onFocus={() => setIsUrlFocused(true)}
                                 onBlur={handleUrlBlur}
-                                placeholder="e.g. www.mywebsite.com"
+                                placeholder={t("generator__step_1__qr_type__website_url__placeholder")}
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
                                   urlError
                                     ? "border-red-500 focus:border-red-500"
