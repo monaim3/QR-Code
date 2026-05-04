@@ -9,6 +9,7 @@ import Input from "@/components/generator/vcard/Input";
 export default function DocumentInfo() {
     const dispatch = useAppDispatch();
     const pdf = useAppSelector((state) => state.pdf);
+    const showPdfOnly = pdf.showPdfOnly;
 
     const handleInput = (value: string | null, lavel:string) => {
         if(value != null && lavel === "companyName"){
@@ -50,6 +51,7 @@ export default function DocumentInfo() {
         title="Document information"
         description="Provide information about your PDF file"
         defaultOpen={true}
+        disabled={showPdfOnly}
       >
         <div className="space-y-2">
 

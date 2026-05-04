@@ -9,6 +9,7 @@ type AccordionProps = {
   description?: string;
   defaultOpen?: boolean;
   forceOpen?: boolean;
+  disabled?: boolean;
 };
 export default function Accordion({
   children,
@@ -16,21 +17,27 @@ export default function Accordion({
   description,
   defaultOpen = false,
   forceOpen,
+  disabled = false,
 }: AccordionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   useEffect(() => {
     if (forceOpen) setIsOpen(true);
   }, [forceOpen]);
+
+  useEffect(() => {
+    if (disabled) setIsOpen(false);
+  }, [disabled]);
   return (
     <>
       <div className="bg-[var(--Generator-Background)]">
         <div className="">
           <div className="flex flex-col desktop:flex-row gap-8">
             <div className="flex-1 flex flex-col gap-4">
-              <div className="w-full bg-white rounded-xl shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
+              <div className={`w-full bg-white rounded-xl shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] ${disabled ? "opacity-40 pointer-events-none" : ""}`}>
                 <button
-                  onClick={() => setIsOpen(!isOpen)}
+                  onClick={() => !disabled && setIsOpen(!isOpen)}
+                  disabled={disabled}
                   className="w-full flex items-start justify-between px-4 md:px-8 py-4"
                 >
                   <div className="flex flex-col items-start">

@@ -52,6 +52,20 @@ export default function PdfPreView(){
       }, 1000);
     }, [pdf.isPreviewWelcomeScreen, dispatch]);
 
+    if (pdf.showPdfOnly) {
+      return (
+        <div className="w-full h-full overflow-hidden rounded-[32px]">
+          {pdf.pdfFile ? (
+            <PdfViewer file={pdf.pdfFile} />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gray-50">
+              <p className="text-[12px] text-[var(--Dark-gray)] text-center px-4">No PDF uploaded yet</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+
     return (
         <ScrollArea className="w-full h-full relative">
             <div

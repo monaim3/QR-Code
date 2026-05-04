@@ -52,6 +52,7 @@ const initialState: PdfSlice = {
   qrCodeName: "",
   defaultState: true,
   isPreviewWelcomeScreen: false,
+  showPdfOnly: false,
 };
 
 const pdfSlice = createSlice({
@@ -92,6 +93,9 @@ const pdfSlice = createSlice({
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
+    setShowPdfOnly: (state, action: PayloadAction<boolean>) => {
+      state.showPdfOnly = action.payload;
+    },
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
     },
@@ -107,6 +111,7 @@ export const {
   setDocInfo,
   setWelcomeScreen,
   setIsPreviewWelcomeScreen,
+  setShowPdfOnly,
   setActiveColorIndex,
 } = pdfSlice.actions;
 export default pdfSlice.reducer;
