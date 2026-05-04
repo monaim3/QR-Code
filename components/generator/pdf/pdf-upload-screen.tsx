@@ -28,6 +28,7 @@ export default function PdfUploadScreen() {
         <div className="flex flex-col gap-1">
           <PdfUpload
             onCustomLogoUpload={handleImageChange}
+            hasError={hasPdfError}
             //onPreview={handlePreview}
           />
           {hasPdfError && (
