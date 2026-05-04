@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { LanguageCode } from "@/constants/languages";
 import { I18nState, Translations } from "@/types/i18nTypes";
 import { api } from "../../lib/api";
+import enTranslations from "@/store/data/en";
 
 // 🔹 Response type
 interface FetchResponse {
@@ -15,7 +16,9 @@ const initialState: I18nState & {
   error: string | null;
 } = {
   language: "en",
-  translations: {},
+  translations: {
+    en: enTranslations,
+  },
   loading: false,
   error: null,
 };
