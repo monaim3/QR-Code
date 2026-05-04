@@ -201,12 +201,20 @@ function validateVideo(
   const { videos } = state.video;
 
   if (!videos || videos.length === 0) {
-    const message = "This field is required and cannot be left blank.";
+    const message = "At least one video is required.";
     errors.push({
       field: "Videos",
       message,
     });
     fieldErrors["videos"] = message;
+  } else {
+    videos.forEach((video, index) => {
+      if (!video.title || !video.title.trim()) {
+        const message = "This field is required and cannot be left blank.";
+        errors.push({ field: "Video Title", message });
+        fieldErrors[`videoTitle_${index}`] = message;
+      }
+    });
   }
 }
 

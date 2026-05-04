@@ -76,6 +76,8 @@ export default function BreadcrumbFooter() {
 
         if (pathname.includes("/social-media") && validationResult.fieldErrors.socialChannels) {
           setToastMessage(validationResult.fieldErrors.socialChannels);
+        } else if (pathname.includes("/video") && validationResult.fieldErrors.videos) {
+          setToastMessage(validationResult.fieldErrors.videos);
         } else {
           setTimeout(() => {
             const firstError = document.querySelector<HTMLElement>(
