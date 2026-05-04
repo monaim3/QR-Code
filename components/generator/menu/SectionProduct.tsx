@@ -4,7 +4,7 @@ import MenuAccordion from "./MenuAccordion";
 import ImageUpload from "../vcard/ImageUpload";
 import Input from "../vcard/Input";
 import { allergens } from "@/lib/menu";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { updateProduct, removeProduct } from "@/store/slices/menuSlice";
 import type { MenuProduct } from "@/types/menu";
 
@@ -30,6 +30,8 @@ export default function SectionProduct({
   onDeleted,
 }: Props) {
   const dispatch = useAppDispatch();
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
 
   const productTitle =
     product.name.trim() !== "" ? product.name : `Product ${productIndex + 1}`;
@@ -79,6 +81,7 @@ export default function SectionProduct({
         isVisible={product.isVisible}
         hideBtnText="Hide product"
         isOpen={isOpen}
+        forceOpen={showErrors && !!validationErrors[`productName_${product.id}`]}
         onClick={onClick}
         showReorder={showReorder}
         onReorderClick={onOpenReorderModal}
@@ -94,6 +97,7 @@ export default function SectionProduct({
               placeholder="e.g. Eggs Benedict"
               id={`pro-name-${product.id}`}
               value={product.name}
+              validationKey={`productName_${product.id}`}
               onChange={(value) =>
                 dispatch(
                   updateProduct({

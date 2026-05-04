@@ -329,16 +329,8 @@ function validateMenu(
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
 ) {
-  const { restaurantInfo, sections } = state.menu;
-
-  if (!restaurantInfo.name || !restaurantInfo.name.trim()) {
-    const message = "This field is required and cannot be left blank.";
-    errors.push({
-      field: "Restaurant Name",
-      message,
-    });
-    fieldErrors["restaurantName"] = message;
-  }
+  const { sections } = state.menu;
+  const requiredMsg = "This field is required and cannot be left blank.";
 
   // Check if there's at least one section with products
   const hasProducts = sections.some(
@@ -347,10 +339,20 @@ function validateMenu(
 
   if (!hasProducts) {
     const message = "Please add at least one menu item.";
-    errors.push({
-      field: "Menu Items",
-      message,
-    });
+    errors.push({ field: "Menu Items", message });
     fieldErrors["menuItems"] = message;
   }
+
+  sections.forEach((section) => {
+    if (!section.name || !section.name.trim()) {
+      errors.push({ field: "Section Name", message: requiredMsg });
+      fieldErrors[`sectionName_${section.id}`] = requiredMsg;
+    }
+    section.products.forEach((product) => {
+      if (!product.name || !product.name.trim()) {
+        errors.push({ field: "Product Name", message: requiredMsg });
+        fieldErrors[`productName_${product.id}`] = requiredMsg;
+      }
+    });
+  });
 }
