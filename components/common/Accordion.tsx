@@ -10,6 +10,7 @@ type AccordionProps = {
   defaultOpen?: boolean;
   forceOpen?: boolean;
   disabled?: boolean;
+  required?: boolean;
 };
 export default function Accordion({
   children,
@@ -18,6 +19,7 @@ export default function Accordion({
   defaultOpen = false,
   forceOpen,
   disabled = false,
+  required = false,
 }: AccordionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -42,7 +44,7 @@ export default function Accordion({
                 >
                   <div className="flex flex-col items-start">
                     <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
-                      {title}
+                      {title}{required && <span className="text-[var(--Black)] ml-0.5">*</span>}
                     </h3>
                     <p className="text-sm leading-[22px] text-[var(--Dark-gray)] text-left">
                       {description}

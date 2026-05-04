@@ -159,9 +159,24 @@ function validateSocialMedia(
   }
 
   if (!socialChannels || socialChannels.length === 0) {
-    const message = "Please add at least one social network.";
+    const message = "At least 1 social media link is required.";
     errors.push({ field: "Social Networks", message });
     fieldErrors["socialChannels"] = message;
+  } else {
+    socialChannels.forEach((channel) => {
+      if (!channel.url || !channel.url.trim()) {
+        const message = "This field is required and cannot be left blank.";
+        errors.push({ field: "Social URL", message });
+        fieldErrors[`socialUrl_${channel.id}`] = message;
+      } else {
+        const result = urlValidationSchema.safeParse(channel.url);
+        if (!result.success) {
+          const message = "You have entered an invalid link.";
+          errors.push({ field: "Social URL", message });
+          fieldErrors[`socialUrl_${channel.id}`] = message;
+        }
+      }
+    });
   }
 
   if (state.social.customFormOpen) {

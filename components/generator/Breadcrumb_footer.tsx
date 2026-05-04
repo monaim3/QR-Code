@@ -12,6 +12,7 @@ import {
   clearAllErrors,
 } from "@/store/slices/validationSlice";
 
+import ErrorToast from "../common/ErrorToast";
 import MobilePreviewModal from "./Mobile_Preview_Modal";
 import Container from "../common/parent-container";
 import WebsiteUrlPreview from "./Website_Url_Preview";
@@ -34,6 +35,7 @@ export default function BreadcrumbFooter() {
   const pathname = usePathname();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.preview.activeTab);
@@ -69,19 +71,21 @@ export default function BreadcrumbFooter() {
       const validationResult = validateQRData(reduxState, qrType);
 
       if (!validationResult.isValid) {
-        // Dispatch errors to Redux
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
 
-        // Wait for accordion to expand (400ms animation), then scroll to first error field
-        setTimeout(() => {
-          const firstError = document.querySelector<HTMLElement>(
-            '[aria-invalid="true"], [data-validation-error="true"]'
-          );
-          if (firstError) {
-            firstError.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        }, 600);
+        if (pathname.includes("/social-media") && validationResult.fieldErrors.socialChannels) {
+          setToastMessage(validationResult.fieldErrors.socialChannels);
+        } else {
+          setTimeout(() => {
+            const firstError = document.querySelector<HTMLElement>(
+              '[aria-invalid="true"], [data-validation-error="true"]'
+            );
+            if (firstError) {
+              firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+          }, 600);
+        }
         return;
       }
 
@@ -222,6 +226,9 @@ export default function BreadcrumbFooter() {
 
   return (
     <>
+      {toastMessage && (
+        <ErrorToast message={toastMessage} onClose={() => setToastMessage(null)} />
+      )}
       <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-[var(--Boarder-Grey)] pt-4 pb-8 lg:pb-4 z-40">
         <Container>
           <div className="flex items-center gap-4 desktop:gap-0 desktop:justify-between ">
