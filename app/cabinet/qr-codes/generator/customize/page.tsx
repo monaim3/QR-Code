@@ -45,6 +45,7 @@ import CustomizeQRDisplay from "@/components/common/CustomizeQRDisplay";
 import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { usePathname, useRouter } from "next/navigation";
 import Breadcrumb from "@/components/generator/Breadcrumb";
+import { useT } from "@/utils/t";
 import AppPreView from "@/components/generator/app/app-preview";
 import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import ImagesPreview from "@/components/generator/Images/ImagesPreview";
@@ -58,6 +59,7 @@ export default function QRCodeCustomize() {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const t = useT();
   const [view, setView] = useState<"preview" | "qrCode">("qrCode");
   const [patternTransparentBg, setPatternTransparentBg] = useState(false);
 

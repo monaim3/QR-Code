@@ -51,9 +51,7 @@ export const CheckboxInput = ({
       </div>
       <label
         htmlFor={id}
-        className={`text-sm leading-[22px] font-normal cursor-pointer select-none transition-colors duration-200 ${
-          checked ? "text-[var(--Black)]" : "text-[#7f8083]"
-        }`}
+        className="text-sm leading-[22px] font-normal cursor-pointer select-none text-[var(--Black)]"
       >
         {label}
       </label>

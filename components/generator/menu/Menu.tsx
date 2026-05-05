@@ -83,12 +83,19 @@ export default function Menu() {
         forceOpen={hasMenuError}
       >
         <div className="desktop:space-y-8 space-y-6">
-          {sections.map((section, index) => (
+          {sections.map((section, index) => {
+            const sectionHasError =
+              showErrors &&
+              (!!validationErrors[`sectionName_${section.id}`] ||
+                section.products.some(
+                  (p) => !!validationErrors[`productName_${p.id}`],
+                ));
+            return (
             <Fragment key={section.id}>
               <MenuSection
                 section={section}
                 sectionIndex={index}
-                isOpen={effectiveActiveSectionId === section.id}
+                isOpen={effectiveActiveSectionId === section.id || sectionHasError}
                 onClick={() => handleSectionClick(section.id)}
                 onDelete={() => handleDeleteSectionClick(section.id)}
                 showReorder={sections.length > 1}
@@ -101,7 +108,8 @@ export default function Menu() {
                 <div className="h-[1px] w-full bg-[var(--boarder-grey-50)]" />
               )}
             </Fragment>
-          ))}
+            );
+          })}
 
           {/* Add New Section */}
           <div

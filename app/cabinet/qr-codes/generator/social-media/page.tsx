@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
+import { useT } from "@/utils/t";
 import DesignCustomize from "@/components/generator/socialMedia/design-customize";
 import NameQrCode from "@/components/generator/pdf/qrCode-name";
 import MobileFrame from "@/components/common/MobileFrame";
@@ -13,6 +14,7 @@ import Information from "@/components/generator/socialMedia/information";
 import SocialLinks from "@/components/generator/socialMedia/social-links";
 
 export default function GeneratorSocialMedia() {
+    const t = useT();
     const [view, setView] = useState<"preview" | "qrCode">("preview");
     const qrRef = useRef<HTMLDivElement>(null);
     const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -54,7 +56,7 @@ export default function GeneratorSocialMedia() {
             <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the Social Media QR code
+            {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__social_media__title"))}
           </h3>
           <div className="w-full flex flex-col gap-4">
             {/* Mobile Breadcrumb */}
@@ -91,7 +93,7 @@ export default function GeneratorSocialMedia() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  Preview
+                  {t("generator__preview_switch__preview")}
                 </span>
               </button>
               <button
@@ -103,7 +105,7 @@ export default function GeneratorSocialMedia() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  QR code
+                  {t("generator__preview_switch__qr")}
                 </span>
               </button>
             </div>

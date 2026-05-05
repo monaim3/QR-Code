@@ -74,21 +74,13 @@ export default function Addvideos() {
             </div>
             <div className="w-full">
               <VideoUpload />
-              {hasVideoError && (
-                <p
-                  className="text-sm text-red-500 mt-2"
-                  data-validation-error="true"
-                >
-                  {validationErrors.videos}
-                </p>
-              )}
             </div>
             <div className="w-full max-w-full">
               {video.videos.map((vid, index) => {
                 return (
                   <div
                     key={index}
-                    className="w-full flex flex-col bg-[var(--Generator-Background)] desktop:flex-row gap-4 items-center desktop:items-end justify-center rounded-[12px] p-4 mb-2"
+                    className="w-full flex flex-col bg-[var(--Generator-Background)] desktop:flex-row gap-4 items-center desktop:items-start justify-center rounded-[12px] p-4 mb-2"
                   >
                     <div className="flex flex-row items-center justify-between w-full">
                       <UnifiedVideoPlayer
@@ -128,6 +120,7 @@ export default function Addvideos() {
                         id={`title-${index}`}
                         type="title"
                         value={vid.title}
+                        validationKey={`videoTitle_${index}`}
                         onChange={(value) =>
                           dispatch(
                             setVideoTitleByIndex({ index, title: value }),

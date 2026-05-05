@@ -58,8 +58,10 @@ import SocialPreView from "@/components/generator/socialMedia/social-preview";
 import VideoPreView from "@/components/generator/video/video-preview";
 import WifiPreview from "@/components/generator/Wifi/WifiPreview";
 import ColorInput from "@/components/generator/vcard/ColorInput";
+import { useT } from "@/utils/t";
 
 export default function QRCodeCustomize() {
+  const t = useT();
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -350,12 +352,12 @@ export default function QRCodeCustomize() {
               {<Breadcrumb useMobileSteps={true} />}
             </div>
             <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900 mb-4">
-              Customize design for the Website URL QR code
+              {t("generator__content_form__customize_design__title")}
             </h1>
             <div className="flex-1 flex flex-col gap-4">
               <Accordion
-                title="QR code frame"
-                description="Frames improve your QR code visibility, leading to more scans"
+                title={t("generator__content_form_section__customize__qr_frame__title")}
+                description={t("generator__content_form_section__customize__qr_frame__description")}
                 defaultOpen={true}
               >
                 <QRFrameGallery
@@ -392,13 +394,13 @@ export default function QRCodeCustomize() {
               </Accordion>
 
               <Accordion
-                title="QR code pattern"
-                description="Select a pattern for your QR code and choose colors"
+                title={t("generator__content_form_section__customize__qr_pattern__title")}
+                description={t("generator__content_form_section__customize__qr_pattern__description")}
                 defaultOpen={true}
               >
                 <div className="w-full">
                   <label className="block text-lg font-bold leading-[26px] text-[#0A0909]">
-                    Pattern style
+                    {t("generator__content_form_section__customize__qr_pattern__style_label")}
                   </label>
                   <div className="flex gap-4 p-0.5 pt-4 overflow-x-auto desktop:overflow-visible flex-wrap">
                     {patternOptions.map((pattern) => (
@@ -415,7 +417,7 @@ export default function QRCodeCustomize() {
                 <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
                   <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
                     <ColorInput
-                      label="Dot color"
+                      label={t("generator__content_form_section__customize__qr_pattern__dot_color")}
                       color={dotColor}
                       onChange={(color: string) =>
                         dispatch(setDotColor(color.toUpperCase()))
@@ -441,13 +443,13 @@ export default function QRCodeCustomize() {
                     >
                       <p className="flex gap-2">
                         <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                          Swap the colours
+                          {t("generator__content_form_section__customize__swap_button")}
                         </span>
                         <Swap />
                       </p>
                     </button>
                     <ColorInput
-                      label="Background color"
+                      label={t("generator__content_form_section__customize__qr_pattern__background_color")}
                       color={
                         patternTransparentBg ? "Transparent" : backgroundColor
                       }
@@ -461,7 +463,7 @@ export default function QRCodeCustomize() {
                   </div>
                   <div className="flex items-center gap-2 px-6 pb-4">
                     <CheckboxInput
-                      label="Transparent background"
+                      label={t("generator__content_form_section__customize__qr_pattern__transparent_bg")}
                       checked={patternTransparentBg}
                       onChange={handleTransparentChange}
                       id="pattern-transparent-bg"
@@ -472,14 +474,14 @@ export default function QRCodeCustomize() {
               </Accordion>
 
               <Accordion
-                title="QR code corners"
-                description="Choose your QR code corner style"
+                title={t("generator__content_form_section__customize__qr_corners__title")}
+                description={t("generator__content_form_section__customize__qr_corners__description")}
                 defaultOpen={true}
               >
                 <div className="flex flex-col lg:flex-row gap-6 desktop:gap-[72px]">
                   <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
                     <label className="block text-base font-semibold ">
-                      Corner frames style
+                      {t("generator__content_form_section__customize__qr_corners__frame_style")}
                     </label>
                     <div className="flex flex-row gap-4">
                       {cornerFrameOptions.map((style) => {
@@ -500,7 +502,7 @@ export default function QRCodeCustomize() {
 
                   <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
                     <label className="block  text-base font-semibold ">
-                      Corner dots type
+                      {t("generator__content_form_section__customize__qr_corners__dot_type")}
                     </label>
                     <div className="flex flex-row gap-4">
                       {cornerDotOptions.map((style) => (
@@ -518,7 +520,7 @@ export default function QRCodeCustomize() {
                 <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
                   <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
                     <ColorInput
-                      label="Corner frames color"
+                      label={t("generator__content_form_section__customize__qr_corners__frame_color")}
                       color={cornerFrameColor}
                       onChange={(color: string) =>
                         dispatch(setCornerFrameColor(color))
@@ -545,13 +547,13 @@ export default function QRCodeCustomize() {
                     >
                       <p className="flex gap-2">
                         <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                          Swap the colours
+                          {t("generator__content_form_section__customize__swap_button")}
                         </span>
                         <Swap className="text-2xl" />
                       </p>
                     </button>
                     <ColorInput
-                      label="Corner dots color"
+                      label={t("generator__content_form_section__customize__qr_corners__dot_color")}
                       color={cornerDotColor}
                       onChange={(color: string) =>
                         dispatch(setCornerDotColor(color))
@@ -562,8 +564,8 @@ export default function QRCodeCustomize() {
               </Accordion>
 
               <Accordion
-                title="Logo"
-                description="Personalize your QR code by adding a logo or image"
+                title={t("generator__content_form_section__customize__logo__title")}
+                description={t("generator__content_form_section__customize__logo__description")}
                 defaultOpen={true}
               >
                 <LogoSelector
@@ -597,7 +599,7 @@ export default function QRCodeCustomize() {
                   }`}
                 >
                   <span className="text-sm leading-[22px] font-medium font-roboto">
-                    Preview
+                    {t("generator__preview_switch__preview")}
                   </span>
                 </button>
                 <button
@@ -609,7 +611,7 @@ export default function QRCodeCustomize() {
                   }`}
                 >
                   <span className="text-sm leading-[22px] font-medium font-roboto">
-                    QR code
+                    {t("generator__preview_switch__qr")}
                   </span>
                 </button>
               </div>

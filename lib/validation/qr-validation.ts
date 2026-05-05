@@ -159,9 +159,24 @@ function validateSocialMedia(
   }
 
   if (!socialChannels || socialChannels.length === 0) {
-    const message = "Please add at least one social network.";
+    const message = "At least 1 social media link is required.";
     errors.push({ field: "Social Networks", message });
     fieldErrors["socialChannels"] = message;
+  } else {
+    socialChannels.forEach((channel) => {
+      if (!channel.url || !channel.url.trim()) {
+        const message = "This field is required and cannot be left blank.";
+        errors.push({ field: "Social URL", message });
+        fieldErrors[`socialUrl_${channel.id}`] = message;
+      } else {
+        const result = urlValidationSchema.safeParse(channel.url);
+        if (!result.success) {
+          const message = "You have entered an invalid link.";
+          errors.push({ field: "Social URL", message });
+          fieldErrors[`socialUrl_${channel.id}`] = message;
+        }
+      }
+    });
   }
 
   if (state.social.customFormOpen) {
@@ -186,12 +201,20 @@ function validateVideo(
   const { videos } = state.video;
 
   if (!videos || videos.length === 0) {
-    const message = "This field is required and cannot be left blank.";
+    const message = "At least one video is required.";
     errors.push({
       field: "Videos",
       message,
     });
     fieldErrors["videos"] = message;
+  } else {
+    videos.forEach((video, index) => {
+      if (!video.title || !video.title.trim()) {
+        const message = "This field is required and cannot be left blank.";
+        errors.push({ field: "Video Title", message });
+        fieldErrors[`videoTitle_${index}`] = message;
+      }
+    });
   }
 }
 
@@ -329,16 +352,8 @@ function validateMenu(
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
 ) {
-  const { restaurantInfo, sections } = state.menu;
-
-  if (!restaurantInfo.name || !restaurantInfo.name.trim()) {
-    const message = "This field is required and cannot be left blank.";
-    errors.push({
-      field: "Restaurant Name",
-      message,
-    });
-    fieldErrors["restaurantName"] = message;
-  }
+  const { sections } = state.menu;
+  const requiredMsg = "This field is required and cannot be left blank.";
 
   // Check if there's at least one section with products
   const hasProducts = sections.some(
@@ -347,10 +362,20 @@ function validateMenu(
 
   if (!hasProducts) {
     const message = "Please add at least one menu item.";
-    errors.push({
-      field: "Menu Items",
-      message,
-    });
+    errors.push({ field: "Menu Items", message });
     fieldErrors["menuItems"] = message;
   }
+
+  sections.forEach((section) => {
+    if (!section.name || !section.name.trim()) {
+      errors.push({ field: "Section Name", message: requiredMsg });
+      fieldErrors[`sectionName_${section.id}`] = requiredMsg;
+    }
+    section.products.forEach((product) => {
+      if (!product.name || !product.name.trim()) {
+        errors.push({ field: "Product Name", message: requiredMsg });
+        fieldErrors[`productName_${product.id}`] = requiredMsg;
+      }
+    });
+  });
 }

@@ -16,6 +16,7 @@ import VideoQr from "@/components/icons/video-qr";
 import WebsiteUrlQr from "@/components/icons/website-url-qr";
 import WifiQr from "@/components/icons/wifi-qr";
 import { useRef, useState } from "react";
+import { useT } from "@/utils/t";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import { cn } from "@/lib/utils";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
@@ -31,112 +32,113 @@ import AppPreView from "@/components/generator/app/app-preview";
 import MenuPreview from "@/components/generator/menu/MenuPreview";
 import VCardPreview from "@/components/generator/vcard/VCardPreview";
 
-const qrTypes = [
-  {
-    id: "website-url",
-    title: "Website URL",
-    description: "Link to a website of your choice",
-    href: "/qr-codes/generator/website-url",
-    icon: <WebsiteUrlQr />,
-    mobilePreview: <WebsiteUrlPreview url={""} />,
-  },
-  {
-    id: "vcard",
-    title: "vCard",
-    description: "Share your electronic business card",
-    href: "/qr-codes/generator/vcard",
-    icon: <VcardQr />,
-    mobilePreview: <VCardPreview />,
-  },
-  {
-    id: "pdf",
-    title: "PDF",
-    description: "Show a PDF",
-    href: "/qr-codes/generator/pdf",
-    icon: <PdfQr />,
-    mobilePreview: <PdfPreView />,
-  },
-  {
-    id: "images",
-    title: "Images",
-    description: "Display an image gallery",
-    href: "/qr-codes/generator/images",
-    icon: <ImagesQr />,
-    mobilePreview: <ImagesPreview />,
-  },
-  {
-    id: "social-media",
-    title: "Social Media",
-    description: "Share your social media channels",
-    href: "/qr-codes/generator/social-media",
-    icon: <SocialQr />,
-    mobilePreview: <SocialPreView />,
-  },
-  {
-    id: "video",
-    title: "Video",
-    description: "Share one or multiple videos",
-    href: "/qr-codes/generator/video",
-    icon: <VideoQr />,
-    mobilePreview: <VideoPreView />,
-  },
-  {
-    id: "simple-text",
-    title: "Simple Text",
-    description: "Display a body of text",
-    href: "/qr-codes/generator/simple-text",
-    icon: <SimpleTextQr />,
-    mobilePreview: <SimpleTextPreview />,
-  },
-  {
-    id: "business-page",
-    title: "Business Page",
-    description: "Share your business information",
-    href: "/qr-codes/generator/business-page",
-    icon: <BusinessQr />,
-    mobilePreview: <BusinessPreview />,
-  },
-  {
-    id: "facebook",
-    title: "Facebook",
-    description: "Share your Facebook page",
-    href: "/qr-codes/generator/facebook",
-    icon: <FacebookQr />,
-    mobilePreview: <FacebookPreview />,
-  },
-  {
-    id: "wifi",
-    title: "Wi-Fi",
-    description: "Connect to a wireless network",
-    href: "/qr-codes/generator/wifi",
-    icon: <WifiQr />,
-    mobilePreview: <WifiPreview />,
-  },
-  {
-    id: "app",
-    title: "App",
-    description: "Link to the iOS App Store/Google Play",
-    href: "/qr-codes/generator/app",
-    icon: <AppQr />,
-    mobilePreview: <AppPreView />,
-  },
-  {
-    id: "menu",
-    title: "Menu",
-    description: "Create a digital restaurant menu",
-    href: "/qr-codes/generator/menu",
-    icon: <MenuQr />,
-    mobilePreview: <MenuPreview />,
-  },
-];
-
 export default function DashboardGenerator() {
+  const t = useT();
+
+  const qrTypes = [
+    {
+      id: "website-url",
+      title: t("generator__step_1__qr_type_cards__url__title"),
+      description: t("generator__step_1__qr_type_cards__url__description"),
+      href: "/qr-codes/generator/website-url",
+      icon: <WebsiteUrlQr />,
+      mobilePreview: <WebsiteUrlPreview url={""} />,
+    },
+    {
+      id: "vcard",
+      title: t("generator__step_1__qr_type_cards__vcard__title"),
+      description: t("generator__step_1__qr_type_cards__vcard__description"),
+      href: "/qr-codes/generator/vcard",
+      icon: <VcardQr />,
+      mobilePreview: <VCardPreview />,
+    },
+    {
+      id: "pdf",
+      title: t("generator__step_1__qr_type_cards__pdf__title"),
+      description: t("generator__step_1__qr_type_cards__pdf__description__changed"),
+      href: "/qr-codes/generator/pdf",
+      icon: <PdfQr />,
+      mobilePreview: <PdfPreView />,
+    },
+    {
+      id: "images",
+      title: t("generator__step_1__qr_type_cards__images__title"),
+      description: t("generator__step_1__qr_type_cards__images__description"),
+      href: "/qr-codes/generator/images",
+      icon: <ImagesQr />,
+      mobilePreview: <ImagesPreview />,
+    },
+    {
+      id: "social-media",
+      title: t("generator__step_1__qr_type_cards__social_media__title"),
+      description: t("generator__step_1__qr_type_cards__social_media__description__changed"),
+      href: "/qr-codes/generator/social-media",
+      icon: <SocialQr />,
+      mobilePreview: <SocialPreView />,
+    },
+    {
+      id: "video",
+      title: t("generator__step_1__qr_type_cards__video__title"),
+      description: t("generator__step_1__qr_type_cards__video__description"),
+      href: "/qr-codes/generator/video",
+      icon: <VideoQr />,
+      mobilePreview: <VideoPreView />,
+    },
+    {
+      id: "simple-text",
+      title: t("generator__step_1__qr_type_cards__plain_text__title"),
+      description: t("generator__step_1__qr_type_cards__plain_text__description"),
+      href: "/qr-codes/generator/simple-text",
+      icon: <SimpleTextQr />,
+      mobilePreview: <SimpleTextPreview />,
+    },
+    {
+      id: "business-page",
+      title: t("generator__step_1__qr_type_cards__business_page__title"),
+      description: t("generator__step_1__qr_type_cards__business_page__description__changed"),
+      href: "/qr-codes/generator/business-page",
+      icon: <BusinessQr />,
+      mobilePreview: <BusinessPreview />,
+    },
+    {
+      id: "facebook",
+      title: t("generator__step_1__qr_type_cards__facebook__title"),
+      description: t("generator__step_1__qr_type_cards__facebook__description__changed"),
+      href: "/qr-codes/generator/facebook",
+      icon: <FacebookQr />,
+      mobilePreview: <FacebookPreview />,
+    },
+    {
+      id: "wifi",
+      title: t("generator__step_1__qr_type_cards__wifi__title"),
+      description: t("generator__step_1__qr_type_cards__wifi__description"),
+      href: "/qr-codes/generator/wifi",
+      icon: <WifiQr />,
+      mobilePreview: <WifiPreview />,
+    },
+    {
+      id: "app",
+      title: t("generator__step_1__qr_type_cards__app__title"),
+      description: t("generator__step_1__qr_type_cards__app__description"),
+      href: "/qr-codes/generator/app",
+      icon: <AppQr />,
+      mobilePreview: <AppPreView />,
+    },
+    {
+      id: "menu",
+      title: t("generator__step_1__qr_type_cards__menu__title"),
+      description: t("generator__step_1__qr_type_cards__menu__description"),
+      href: "/qr-codes/generator/menu",
+      icon: <MenuQr />,
+      mobilePreview: <MenuPreview />,
+    },
+  ];
+
   const [hoveredType, setHoveredType] = useState<string | null>(null);
   const [isLeaving, setIsLeaving] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (typeId: string) => {
-    // Clear any existing timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -189,7 +191,7 @@ export default function DashboardGenerator() {
                 "pt-6 desktop:pt-0 text-[24px] desktop:text-[32px] font-bold text-[var(--Black)] leading-[32px] desktop:leading-[40px] desktop:mb-[32px] hidden desktop:block",
               )}
             >
-              Choose QR code type
+              {t("generator__step_1__title")}
             </h1>
             <div className="block desktop:hidden">
               {<Breadcrumb useMobileSteps={true} />}

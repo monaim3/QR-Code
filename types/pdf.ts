@@ -21,4 +21,5 @@ export interface PdfSlice {
   qrCodeName: string;
   defaultState: boolean;
   isPreviewWelcomeScreen: boolean,
+  showPdfOnly: boolean;
 }
