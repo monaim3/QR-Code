@@ -86,7 +86,7 @@ export default function Facebook() {
   const handleFacebookUrl = (value: string) => {
     dispatch(setFacebookUrl(value));
   };
-
+  console.log(" ~ file: page.tsx:86 ~ Facebook ~ facebookUrl:", facebookUrl);
   // Button handlers
   const handleButtonTextChange = (id: string, value: string) => {
     dispatch(updateButtonText({ id, value }));
@@ -202,7 +202,10 @@ export default function Facebook() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__facebook__title"))}
+            {t("generator__content_form__title").replace(
+              "{type}",
+              t("generator__step_1__qr_type_cards__facebook__title"),
+            )}
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -213,7 +216,9 @@ export default function Facebook() {
           <div className="w-full">
             <Accordion
               title={t("generator__content_form_section__design__title")}
-              description={t("generator__content_form_section__design__description")}
+              description={t(
+                "generator__content_form_section__design__description",
+              )}
               defaultOpen={true}
             >
               <div className="space-y-8">
@@ -235,7 +240,9 @@ export default function Facebook() {
                 {/* Color Picker */}
                 <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
                   <ColorInput
-                    label={t("generator__content_form_section__design__primary_color")}
+                    label={t(
+                      "generator__content_form_section__design__primary_color",
+                    )}
                     color={vCard.primaryColor}
                     onChange={(v) => handleColorChange(v, vCard.secondaryColor)}
                   />
@@ -246,7 +253,9 @@ export default function Facebook() {
                       className="flex items-center gap-2 p-2 flex-1"
                     >
                       <span className="text-[var(--Grey)] text-[14px] leading-[22px] desktop:hidden">
-                        {t("generator__content_form_section__design__swap_button")}
+                        {t(
+                          "generator__content_form_section__design__swap_button",
+                        )}
                       </span>
 
                       <div className="rotate-90 desktop:rotate-0">
@@ -256,7 +265,9 @@ export default function Facebook() {
                   </div>
 
                   <ColorInput
-                    label={t("generator__content_form_section__design__secondary_color")}
+                    label={t(
+                      "generator__content_form_section__design__secondary_color",
+                    )}
                     color={vCard.secondaryColor}
                     onChange={(v) => handleColorChange(vCard.primaryColor, v)}
                   />
@@ -276,15 +287,23 @@ export default function Facebook() {
           </div>
           <div className="w-full ">
             <Accordion
-              title={t("generator__content_form_section__facebook_information__title")}
-              description={t("generator__content_form_section__facebook_information__description")}
+              title={t(
+                "generator__content_form_section__facebook_information__title",
+              )}
+              description={t(
+                "generator__content_form_section__facebook_information__description",
+              )}
               defaultOpen={true}
             >
               <div>
                 <div className="flex gap-12 items-start justify-center ">
                   <InputUrl
-                    label={t("generator__content_form_section__facebook_information__url__label")}
-                    placeholder={t("generator__content_form_section__facebook_information__url__placeholder")}
+                    label={t(
+                      "generator__content_form_section__facebook_information__url__label",
+                    )}
+                    placeholder={t(
+                      "generator__content_form_section__facebook_information__url__placeholder",
+                    )}
                     id="facebook-link"
                     value={facebookUrl}
                     onChange={handleFacebookUrl}
@@ -293,10 +312,14 @@ export default function Facebook() {
                     onError={(errorMsg) => dispatch(setError(errorMsg))}
                   />
                   <TextInput
-                    label={t("generator__content_form_section__facebook_information__name__label")}
+                    label={t(
+                      "generator__content_form_section__facebook_information__name__label",
+                    )}
                     value={Name}
                     onChange={(value) => dispatch(setName(value))}
-                    placeholder={t("generator__content_form_section__facebook_information__name__placeholder")}
+                    placeholder={t(
+                      "generator__content_form_section__facebook_information__name__placeholder",
+                    )}
                     maxLength={100}
                   />
                 </div>
@@ -306,16 +329,24 @@ export default function Facebook() {
                     className={`flex gap-12 items-start justify-center ${error ? "mt-6" : ""} `}
                   >
                     <TextInput
-                      label={t("generator__content_form_section__facebook_information__title_field__label")}
+                      label={t(
+                        "generator__content_form_section__facebook_information__title_field__label",
+                      )}
                       value={title}
                       onChange={(value) => dispatch(setTitle(value))}
-                      placeholder={t("generator__content_form_section__facebook_information__title_field__placeholder")}
+                      placeholder={t(
+                        "generator__content_form_section__facebook_information__title_field__placeholder",
+                      )}
                       maxLength={100}
                       required
                     />
                     <InputUrl
-                      label={t("generator__content_form_section__facebook_information__website__label")}
-                      placeholder={t("generator__content_form_section__facebook_information__website__placeholder")}
+                      label={t(
+                        "generator__content_form_section__facebook_information__website__label",
+                      )}
+                      placeholder={t(
+                        "generator__content_form_section__facebook_information__website__placeholder",
+                      )}
                       id="website-link"
                       value={website}
                       onChange={(value) => dispatch(setWebsite(value))}
@@ -364,7 +395,11 @@ export default function Facebook() {
                       className="flex px-4 py-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] text-[var(--Dark-grey)] font-medium text-[14px] leading-[22px]"
                     >
                       <Plus size={16} />
-                      <span className="ml-2">{t("generator__content_form_section__images_information__add_button")}</span>
+                      <span className="ml-2">
+                        {t(
+                          "generator__content_form_section__images_information__add_button",
+                        )}
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -377,7 +412,9 @@ export default function Facebook() {
           </div>
           <QRCodeNameAccordion
             title={t("generator__content_form_section__qr_name__title")}
-            description={t("generator__content_form_section__qr_name__description")}
+            description={t(
+              "generator__content_form_section__qr_name__description",
+            )}
             value={qrCodeName}
             onChange={handleQrNameChange}
             error={qrNameError}
