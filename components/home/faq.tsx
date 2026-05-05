@@ -12,6 +12,8 @@ import React, { useState } from "react";
 import Container from "../common/parent-container";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import { useT } from "@/utils/t";
+import { useTranslationRich } from "@/utils/useTranslationRich";
 
 class FaqTabItem {
   id: number;
@@ -36,36 +38,32 @@ class FaqItem {
 }
 
 const FaqData: FaqTabItem[] = [
-  new FaqTabItem(1, "Basics", [
+  new FaqTabItem(1, "public__landing__faq__tabs__basics", [
     new FaqItem(
-      "What is a QR code generator?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__first_question",
+      "public__faq_section__tab_basics__first_answer"
     ),
     new FaqItem(
-      "Can anyone generate a QR code?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__second_question",
+      "public__faq_section__tab_basics__second_answer"
     ),
     new FaqItem(
-      "Is QRCenter QR code generator free?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__third_question",
+      "public__faq_section__tab_basics__third_answer"
     ),
     new FaqItem(
-      "Can I use QRCenter QR code generator for commercial purposes?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
-    ),
-    new FaqItem(
-      "How do I get a QR code for my business?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__fourth_question",
+      "public__faq_section__tab_basics__fourth_answer"
     ),
   ]),
-  new FaqTabItem(2, "Generating", [
+  new FaqTabItem(2, "public__landing__faq__tabs__generating", [
     new FaqItem(
-      "Can anyone generate a QR code?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__second_question",
+      "public__faq_section__tab_basics__second_answer"
     ),
     new FaqItem(
-      "Is QRCenter QR code generator free?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__third_question",
+      "public__faq_section__tab_basics__third_answer"
     ),
     new FaqItem(
       "Can I use QRCenter QR code generator for commercial purposes?",
@@ -80,7 +78,7 @@ const FaqData: FaqTabItem[] = [
       "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
     ),
   ]),
-  new FaqTabItem(3, "Printing", [
+  new FaqTabItem(3, "public__landing__faq__tabs__printing_and_scanning", [
     new FaqItem(
       "How do I get a QR code for my business?",
       "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
@@ -105,6 +103,10 @@ const FaqData: FaqTabItem[] = [
 ];
 
 export default function Faq() {
+
+  const t = useT();
+  const { tr } = useTranslationRich();
+
   const [activeTab, setActiveTab] = useState(FaqData[0].id);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
@@ -130,9 +132,16 @@ const handleItemClick = (index: number) => {
       <Container>
         <div className="flex flex-col items-center justify-center max-w-[800] m-auto">
           <div className="flex flex-col items-center justify-center gap-2 mb-10">
-            <h2 className="font-bold text-center text-[24px] leading-8 desktop:text-[32px] desktop:leading-10 text-[var(--Black)]">Frequently asked questions</h2>
-            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">Looking for answers? Check if you can find them here or <Link href="/contact-us" className="text-[var(--Blue)] underline">contact us</Link>
-            </p>
+            <h2 className="font-bold text-center text-[24px] leading-8 desktop:text-[32px] desktop:leading-10 text-[var(--Black)]">{t('public__faq__page_title')}</h2>
+            <p className="text-[16px] leading-[24px] font-regular text-center text-grey">
+    {tr("public__landing__faq__description", {
+      contactLink: (children) => (
+        <Link href="/contact-us" className="text-[var(--Blue)] underline">
+          {children}
+        </Link>
+      ),
+    })}
+  </p>
           </div>
 
         <div className="relative w-full desktop:w-[350px]">
@@ -143,7 +152,7 @@ const handleItemClick = (index: number) => {
       >
         <span>
           {activeTab
-            ? FaqData.find((tab) => tab.id === activeTab)?.tabName
+            ? (t(FaqData.find((tab) => tab.id === activeTab)?.tabName || "Select Tab"))
             : "Select Tab"}
         </span>
         <ChevronDown
@@ -186,7 +195,7 @@ const handleItemClick = (index: number) => {
                         : "text-[var(--Dark-gray)] hover:bg-[#9BA2FB]/10"
                     )}
                   >
-                    <span>{tab.tabName}</span>
+                    <span>{t(tab.tabName)}</span>
                     {isActive && <Check className="size-4 text-[var(--Blue)]" />}
                   </div>
                 </button>
@@ -251,7 +260,7 @@ const handleItemClick = (index: number) => {
                     }
                   `}
                 >
-                  {faq.tabName}
+                  {t(faq.tabName)}
                 </span>
               </button>
 
@@ -275,7 +284,7 @@ const handleItemClick = (index: number) => {
                 onClick={() => handleItemClick(index)}
                 className="p-6 text-[var(--Black)] text-[18px] leading-[26px] font-sans font-bold items-center rounded-[12px]"
                 >
-                  {item.question}
+                  {t(item.question)}
                 </AccordionTrigger>
 
                 <AnimatePresence initial={false}>
@@ -288,9 +297,10 @@ const handleItemClick = (index: number) => {
                       transition={{ duration: 0.35, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 text-[var(--Dark-gray)] text-[16px] leading-[24px]">
-                        {item.answer}
-                      </div>
+                      <div
+  className="px-6 pb-6 text-[var(--Dark-gray)] text-[16px] leading-[24px]"
+  dangerouslySetInnerHTML={{ __html: t(item.answer) }}
+/>
                     </motion.div>
                   )}
                 </AnimatePresence>
