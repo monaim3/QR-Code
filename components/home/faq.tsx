@@ -58,12 +58,12 @@ const FaqData: FaqTabItem[] = [
   ]),
   new FaqTabItem(2, "public__landing__faq__tabs__generating", [
     new FaqItem(
-      "Can anyone generate a QR code?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__second_question",
+      "public__faq_section__tab_basics__second_answer"
     ),
     new FaqItem(
-      "Is QRCenter QR code generator free?",
-      "A QR code generator is software which can be used to create customized QR codes that store data which can be read by QR code scanners. QRCenter’s QR Code Generator allows you to generate QR codes for vCards, links, mobile apps, PDF files, and more. QR codes are a crucial way to communicate with clients and individuals, especially when you consider 89 million device users engaged with QR codes in 2022 alone."
+      "public__faq_section__tab_basics__third_question",
+      "public__faq_section__tab_basics__third_answer"
     ),
     new FaqItem(
       "Can I use QRCenter QR code generator for commercial purposes?",
