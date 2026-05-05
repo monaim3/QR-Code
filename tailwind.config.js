@@ -51,10 +51,15 @@ const config = {
             boxShadow: "0 0 0 0 rgba(1, 165, 109, 0)",
           },
         },
+        "slide-in-right": {
+          "0%": { transform: "translateX(120%)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
       },
       animation: {
         marquee: "marquee 20s linear infinite",
         "pulse-cta": "pulse-cta 2s ease-out infinite",
+        "slide-in-right": "slide-in-right 0.3s ease-out forwards",
       },
     },
   },

@@ -108,6 +108,7 @@ export default function MenuSection({
             id={`section-name-${section.id}`}
             value={section.name}
             onChange={handleSectionNameChange}
+            validationKey={`sectionName_${section.id}`}
           />
 
           <Input

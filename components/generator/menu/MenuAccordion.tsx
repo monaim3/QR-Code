@@ -9,6 +9,7 @@ interface Props {
   title: string;
   isVisible: boolean;
   isOpen: boolean;
+  forceOpen?: boolean;
   onClick: () => void;
   children: React.ReactNode;
   showReorder?: boolean;
@@ -22,6 +23,7 @@ export default function MenuAccordion({
   title,
   isVisible,
   isOpen,
+  forceOpen = false,
   onClick,
   children,
   showReorder = true,
@@ -30,6 +32,7 @@ export default function MenuAccordion({
   onPreview,
   hideBtnText,
 }: Props) {
+  const effectivelyOpen = isOpen || forceOpen;
   return (
     <div className="w-full">
       <div
@@ -40,7 +43,7 @@ export default function MenuAccordion({
           onClick={isVisible ? onClick : undefined}
         >
           <motion.div
-            animate={{ rotate: isOpen ? 90 : 0 }}
+            animate={{ rotate: effectivelyOpen ? 90 : 0 }}
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           >
             <Arrow />
@@ -102,9 +105,9 @@ export default function MenuAccordion({
       <motion.div
         initial={false}
         animate={{
-          gridTemplateRows: isOpen ? "1fr" : "0fr",
-          opacity: isOpen ? 1 : 0,
-          marginTop: isOpen ? 32 : 0,
+          gridTemplateRows: effectivelyOpen ? "1fr" : "0fr",
+          opacity: effectivelyOpen ? 1 : 0,
+          marginTop: effectivelyOpen ? 32 : 0,
         }}
         transition={{
           gridTemplateRows: {

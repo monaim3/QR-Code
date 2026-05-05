@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, Check } from "lucide-react";
+import { useT } from "@/utils/t";
 
 interface EncryptionDropdownProps {
   value: string;
@@ -10,6 +11,7 @@ const SelectDropDown: React.FC<EncryptionDropdownProps> = ({
   value,
   onChange,
 }) => {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +44,7 @@ const SelectDropDown: React.FC<EncryptionDropdownProps> = ({
   return (
     <div className="w-full" ref={dropdownRef}>
       <label className="block text-[16px] leading-[24px] font-medium text-[var(--Black)] mb-2">
-        Encryption type
+        {t("generator__step_1__qr_type__wifi_encryption__label")}
       </label>
 
       <div className="relative">

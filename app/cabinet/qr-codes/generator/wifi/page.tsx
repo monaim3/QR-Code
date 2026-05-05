@@ -25,9 +25,11 @@ import { TextInput } from "@/components/common/TextInput";
 import SelectDropDown from "@/components/generator/Wifi/SelectDropDown";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
 import WifiPreview from "@/components/generator/Wifi/WifiPreview";
+import { useT } from "@/utils/t";
 
 export default function Wifi() {
   const dispatch = useAppDispatch();
+  const t = useT();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -121,7 +123,7 @@ export default function Wifi() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the WiFi QR code
+            {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__wifi__title"))}
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -131,26 +133,26 @@ export default function Wifi() {
           </div>
           <div className="w-full ">
             <Accordion
-              title="Wi-Fi"
-              description="Provide your Wi-fi name, the type of encryption and your password"
+              title={t("generator__step_1__qr_type_cards__wifi__title")}
+              description={t("generator__step_1__qr_type_cards__wifi__subtitle")}
               defaultOpen={true}
             >
               <div className="flex flex-col gap-6">
                 <div>
                   <RequiredTextInput
-                    label="Network name"
+                    label={t("generator__step_1__qr_type__wifi_ssid__label")}
                     value={wifi}
                     onChange={handleChange}
-                    placeholder="e.g. My Wi-Fi"
+                    placeholder={t("generator__step_1__qr_type__wifi_ssid__placeholder")}
                     maxLength={100}
                   />
                 </div>
                 <div className="flex gap-12 items-center justify-center">
                   <TextInput
-                    label="Password"
+                    label={t("generator__step_1__qr_type__wifi_password__label")}
                     value={wifiPassword}
                     onChange={handlePass}
-                    placeholder="e.g. 12345678"
+                    placeholder={t("generator__step_1__qr_type__wifi_password__placeholder")}
                     maxLength={100}
                   />
                   <SelectDropDown
@@ -160,7 +162,7 @@ export default function Wifi() {
                 </div>
                 <div className="">
                   <CheckboxInput
-                    label="Hidden network"
+                    label={t("generator__step_1__qr_type__wifi_hidden__label")}
                     onChange={() => dispatch(setHiddenNetwork(!wifiHidden))}
                     id="hide-ssid"
                     checked={wifiHidden}
@@ -170,8 +172,8 @@ export default function Wifi() {
             </Accordion>
           </div>
           <QRCodeNameAccordion
-            title="Name of the QR code"
-            description="Give a name to your QR code"
+            title={t("generator__content_form_section__qr_name__title")}
+            description={t("generator__content_form_section__qr_name__description")}
             value={qrCodeName}
             onChange={handleQrNameChange}
             error={qrNameError}
@@ -191,7 +193,7 @@ export default function Wifi() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium ">
-                  Preview
+                  {t("generator__preview_switch__preview")}
                 </span>
               </button>
               <button
@@ -203,7 +205,7 @@ export default function Wifi() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium ">
-                  QR code
+                  {t("generator__preview_switch__qr")}
                 </span>
               </button>
             </div>

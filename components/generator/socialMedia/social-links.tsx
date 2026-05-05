@@ -105,6 +105,7 @@ export default function SocialLinks() {
         title="Social networks"
         description="Click on the icons below to add social media channels you’d like to display"
         defaultOpen={true}
+        required={true}
         forceOpen={showErrors && !!(validationErrors.socialChannels || validationErrors.socialCustomName || validationErrors.socialCustomUrl)}
       >
         <div className="space-y-6">
@@ -124,11 +125,7 @@ export default function SocialLinks() {
               ))}
             </div>
           </div>
-          {showErrors && validationErrors.socialChannels && (
-            <p className="text-sm text-red-500" data-validation-error="true">
-              {validationErrors.socialChannels}
-            </p>
-          )}
+
           <div className="space-y-2">
             {social.socialChannels.map((socialChannel) => {
               return (

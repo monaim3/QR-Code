@@ -58,12 +58,15 @@ export default function DesignCustomize() {
     );
   };
 
+  const showPdfOnly = useAppSelector((state) => state.pdf.showPdfOnly);
+
   return (
     <div className="w-full">
       <Accordion
         title="Design and customize"
         description="Choose your color scheme"
         defaultOpen={true}
+        disabled={showPdfOnly}
       >
         <div className="space-y-8">
           {/* Color palette */}

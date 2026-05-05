@@ -21,10 +21,12 @@ import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import Breadcrumb from "../../../components/generator/Breadcrumb";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import { urlValidationSchema } from "@/lib/validators/validators";
+import { useT } from "@/utils/t";
 
 const urlSchema = z.string().url("Please enter a valid URL");
 
 export default function WebsiteUrlPage() {
+  const t = useT();
   const dispatch = useAppDispatch();
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
@@ -123,7 +125,7 @@ export default function WebsiteUrlPage() {
                   {<Breadcrumb useMobileSteps={true} />}
                 </div>
                 <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block">
-                  Add content to the Website URL QR code
+                  {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__url__title"))}
                 </h1>
                 <div className="flex-1 flex flex-col gap-4">
                   <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
@@ -133,10 +135,10 @@ export default function WebsiteUrlPage() {
                     >
                       <div className="flex flex-col items-start">
                         <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
-                          Website address
+                          {t("generator__content_form_section__website__url_title")}
                         </h3>
                         <p className="text-sm leading-[22px] text-[var(--Dark-gray)]">
-                          Enter the URL to which the QR code will link
+                          {t("generator__content_form_section__website__url_caption")}
                         </p>
                       </div>
                       <motion.div
@@ -165,7 +167,7 @@ export default function WebsiteUrlPage() {
                                 htmlFor="website-url"
                                 className="text-[16px] leading-[24px] font-medium font-roboto text-[var(--Black)]"
                               >
-                                Website URL*
+                                {t("generator__content_form_section__website__url_label")}*
                               </label>
                               <input
                                 id="website-url"
@@ -176,7 +178,7 @@ export default function WebsiteUrlPage() {
                                 }
                                 onFocus={() => setIsUrlFocused(true)}
                                 // onBlur={handleUrlBlur}
-                                placeholder="e.g. www.mywebsite.com"
+                                placeholder={t("generator__content_form_section__website__url_placeholder")}
                                 aria-invalid={!!(urlError || (showErrors && validationErrors.websiteUrl))}
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
                                   urlError ||
@@ -201,8 +203,8 @@ export default function WebsiteUrlPage() {
                     </AnimatePresence>
                   </div>
                   <QRCodeNameAccordion
-                    title="QR code name"
-                    description="Set a name for your QR code"
+                    title={t("generator__content_form_section__qr_name__title__changed")}
+                    description={t("generator__content_form_section__qr_name__description__changed")}
                     value={qrCodeName}
                     onChange={handleQrNameChange}
                     error={qrNameError}

@@ -9,12 +9,14 @@ interface PdfUploadProps {
   onCustomLogoUpload?: (fileUrl: string | null) => void;
   onLogoChange?: (fileUrl: string | null) => void;
   onPreview?: () => void;
+  hasError?: boolean;
 }
 
 export default function PdfUpload({
   onCustomLogoUpload,
   onLogoChange,
   onPreview,
+  hasError = false,
 }: PdfUploadProps) {
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyFile.pdf");
@@ -99,7 +101,7 @@ export default function PdfUpload({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={`border-[1.5px] border-dashed rounded-[var(--Corner-Radius-10)] p-4 lg:p-6 transition-color duration-300 bg-white hover:bg-[#F7F9FC] ${
-          uploadError
+          uploadError || (hasError && !pdfUrl)
             ? "border-[var(--error)]"
             : pdfUrl
               ? "border-[var(--Blue)]"

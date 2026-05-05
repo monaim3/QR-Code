@@ -5,6 +5,7 @@ import { updateSocialChannel } from "@/store/slices/social-slice";
 import {
  SocialChannel,
 } from "@/types/social";
+import { clearFieldError } from "@/store/slices/validationSlice";
 
 interface Props {
   channel: SocialChannel;
@@ -14,6 +15,9 @@ interface Props {
 export default function SocialInputCard({ channel, handleDelete }: Props) {
   const dispatch = useAppDispatch();
   const social = useAppSelector((state) => state.social);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const urlError = showErrors ? validationErrors[`socialUrl_${channel.id}`] : undefined;
 
   let findChannel;
   let ChannelIcon: React.ComponentType | undefined;
@@ -37,6 +41,7 @@ export default function SocialInputCard({ channel, handleDelete }: Props) {
 
   const handleUrlChange = (value: string) => {
     dispatch(updateSocialChannel({ id: channel.id, changes: { url: value } }));
+    if (value.trim()) dispatch(clearFieldError(`socialUrl_${channel.id}`));
   };
 
   const handleDescriptionChange = (value: string) => {
@@ -57,13 +62,19 @@ export default function SocialInputCard({ channel, handleDelete }: Props) {
       </div>
 
       <div className="flex items-start gap-2 flex-1 w-full desktop:w-auto">
-        <input
-          type="url"
-          placeholder="URL"
-          value={url}
-          onChange={(e) => handleUrlChange(e.target.value)}
-          className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"
-        />
+        <div className="flex flex-col flex-1 w-[calc(100%-56px)]">
+          <input
+            type="url"
+            placeholder="URL"
+            value={url}
+            onChange={(e) => handleUrlChange(e.target.value)}
+            aria-invalid={!!urlError}
+            className={`flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] w-full ${urlError ? "border-red-500" : "border-[var(--Boarder-Grey)]"}`}
+          />
+          {urlError && (
+            <p className="text-sm text-red-500 mt-1">{urlError}</p>
+          )}
+        </div>
 
         <input
           type="des"

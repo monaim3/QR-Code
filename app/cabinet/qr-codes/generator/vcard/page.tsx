@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
+import { useT } from "@/utils/t";
 import About from "@/components/generator/vcard/About";
 import DesignCustomize from "@/components/generator/vcard/DesignCustomize";
 import NameQrCode from "@/components/generator/vcard/NameQrCode";
@@ -13,6 +14,7 @@ import VCardPreview from "@/components/generator/vcard/VCardPreview";
 import QRCodeStyling, { Options } from "qr-code-styling";
 
 export default function GeneratorVCard() {
+  const t = useT();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -55,7 +57,7 @@ export default function GeneratorVCard() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the vCard QR code
+            {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__vcard__title"))}
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -93,7 +95,7 @@ export default function GeneratorVCard() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  Preview
+                  {t("generator__preview_switch__preview")}
                 </span>
               </button>
               <button
@@ -105,7 +107,7 @@ export default function GeneratorVCard() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  QR code
+                  {t("generator__preview_switch__qr")}
                 </span>
               </button>
             </div>

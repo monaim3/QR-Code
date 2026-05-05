@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
+import { useT } from "@/utils/t";
 import AppInfo from "@/components/generator/app/app-info";
 import AppDesignCustomize from "@/components/generator/app/design-customize";
 import NameQrCode from "@/components/generator/app/qrCode-name";
@@ -13,13 +14,14 @@ import AppPreView from "@/components/generator/app/app-preview";
 import AppStoreLink from "@/components/generator/app/app-store-links";
 
 export default function GeneratorApp() {
+    const t = useT();
     const [view, setView] = useState<"preview" | "qrCode">("preview");
     const qrRef = useRef<HTMLDivElement>(null);
     const qrCodeRef = useRef<QRCodeStyling | null>(null);
 
      useEffect(() => {
         if (view !== "qrCode" || !qrRef.current) return;
-    
+
         const qrOptions: Options = {
           type: "svg",
           data: "https://www.example.com/",
@@ -54,7 +56,7 @@ export default function GeneratorApp() {
             <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the App QR code
+            {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__app__title"))}
           </h3>
           <div className="w-full flex flex-col gap-4">
             {/* Mobile Breadcrumb */}
@@ -91,7 +93,7 @@ export default function GeneratorApp() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  Preview
+                  {t("generator__preview_switch__preview")}
                 </span>
               </button>
               <button
@@ -103,7 +105,7 @@ export default function GeneratorApp() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  QR code
+                  {t("generator__preview_switch__qr")}
                 </span>
               </button>
             </div>

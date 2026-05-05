@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useT } from "@/utils/t";
 
 interface QRCodeNameAccordionProps {
   title: string;
@@ -19,6 +20,7 @@ export default function QRCodeNameAccordion({
   onChange,
   error,
 }: QRCodeNameAccordionProps) {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -61,7 +63,7 @@ export default function QRCodeNameAccordion({
                   htmlFor="qr-code-name"
                   className="text-sm font-medium text-[var(--Black)] font-roboto"
                 >
-                  Name your QR code
+                  {t("generator__content_form_section__qr_name__field_label")}
                 </label>
                 <input
                   id="qr-code-name"
@@ -70,7 +72,7 @@ export default function QRCodeNameAccordion({
                   onChange={(e) => onChange(e.target.value)}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
-                  placeholder="e.g. My Website QR"
+                  placeholder={t("generator__content_form_section__qr_name__field_placeholder")}
                   className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none  focus:outline-none focus:ring-2 focus:ring-[var(--Blue)]
           focus:border-[var(--Blue)]  ${
             error

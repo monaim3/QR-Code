@@ -52,6 +52,14 @@ export default function PdfPreView(){
       }, 1000);
     }, [pdf.isPreviewWelcomeScreen, dispatch]);
 
+    if (pdf.showPdfOnly) {
+      return (
+        <div className="w-full h-full overflow-hidden rounded-[32px]">
+          {pdf.pdfFile && <PdfViewer file={pdf.pdfFile} />}
+        </div>
+      );
+    }
+
     return (
         <ScrollArea className="w-full h-full relative">
             <div

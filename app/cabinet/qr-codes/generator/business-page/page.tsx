@@ -5,6 +5,7 @@ import QRCodeStyling, { Options } from "qr-code-styling";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import MobileFrame from "@/components/common/MobileFrame";
+import { useT } from "@/utils/t";
 import BusinessDesignCustomize from "@/components/generator/businessPage/BusinessDesignCustomize";
 import BusinessInfo from "@/components/generator/businessPage/BusinessInfo";
 import OpeningHours from "@/components/generator/businessPage/OpeningHours";
@@ -18,6 +19,7 @@ import Facilities from "@/components/generator/businessPage/Facilities";
 import BusinessPreview from "@/components/generator/businessPage/BusinessPreview";
 
 export default function BusinessPage() {
+  const t = useT();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -60,7 +62,7 @@ export default function BusinessPage() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the Business Page QR code
+            {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__business_page__title"))}
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -113,7 +115,7 @@ export default function BusinessPage() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  Preview
+                  {t("generator__preview_switch__preview")}
                 </span>
               </button>
               <button
@@ -125,7 +127,7 @@ export default function BusinessPage() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium font-roboto">
-                  QR code
+                  {t("generator__preview_switch__qr")}
                 </span>
               </button>
             </div>

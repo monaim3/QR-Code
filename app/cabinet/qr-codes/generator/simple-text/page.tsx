@@ -16,9 +16,11 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Accordion from "@/components/common/Accordion";
 import Textarea from "@/components/generator/SimpleText/TextArea";
 import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPreview";
+import { useT } from "@/utils/t";
 
 export default function SimpleText() {
   const dispatch = useAppDispatch();
+  const t = useT();
   const [view, setView] = useState<"preview" | "qrCode">("preview");
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -71,7 +73,7 @@ export default function SimpleText() {
         <div className="flex flex-col items-start gap-4 desktop:pt-[56px] desktop:pb-[160px] pb-[120px] px-0 flex-1">
           {/* Heading */}
           <h3 className="text-[var(--Black)] font-bold text-[24px] leading-[var(--Typeface-Line-height-Heading-3)] hidden desktop:block">
-            Add content to the Simple Text QR code
+            {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__plain_text__title"))}
           </h3>
           <div className="w-full">
             {/* Mobile Breadcrumb */}
@@ -81,14 +83,14 @@ export default function SimpleText() {
           </div>
           <div className="w-full">
             <Accordion
-              title="Simple text"
-              description="Enter the text that you want displayed when a user scans your QR code"
+              title={t("generator__step_1__qr_type__plain_text__title")}
+              description={t("generator__step_1__qr_type__plain_text__description")}
               defaultOpen={true}
             >
               <div>
                 <Textarea
-                  label="Text"
-                  placeholder=" e.g. The concert will take place at 9pm on October 12"
+                  label={t("generator__step_1__qr_type__plain_text__label")}
+                  placeholder={t("generator__step_1__qr_type__plain_text__placeholder")}
                   id="description"
                   value={simpleText}
                   onChange={handleChange}
@@ -98,8 +100,8 @@ export default function SimpleText() {
             </Accordion>
           </div>
           <QRCodeNameAccordion
-            title="Name of the QR code"
-            description="Give a name to your QR code"
+            title={t("generator__content_form_section__qr_name__title")}
+            description={t("generator__content_form_section__qr_name__description")}
             value={qrCodeName}
             onChange={handleQrNameChange}
             error={qrNameError}
@@ -119,7 +121,7 @@ export default function SimpleText() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium ">
-                  Preview
+                  {t("generator__preview_switch__preview")}
                 </span>
               </button>
               <button
@@ -131,7 +133,7 @@ export default function SimpleText() {
                 }`}
               >
                 <span className="text-sm leading-[22px] font-medium ">
-                  QR code
+                  {t("generator__preview_switch__qr")}
                 </span>
               </button>
             </div>

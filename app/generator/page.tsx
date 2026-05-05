@@ -15,10 +15,10 @@ import VcardQr from "@/components/icons/vcard-qr";
 import VideoQr from "@/components/icons/video-qr";
 import WebsiteUrlQr from "@/components/icons/website-url-qr";
 import Breadcrumb from "../../components/generator/Breadcrumb";
-
 import WifiQr from "@/components/icons/wifi-qr";
 import CreateArrow from "@/components/icons/create_arrow";
 import { useRef, useState } from "react";
+import { useT } from "@/utils/t";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import PdfInitialPreview from "@/components/generator/pdf/PdfInitialPreview";
 import ImagesInitialPreview from "@/components/generator/Images/ImagesInitialPreview";
@@ -31,104 +31,6 @@ import AppInitialPreview from "@/components/generator/app/AppInitialPreview";
 import VCardInitialPreview from "@/components/generator/vcard/VCardInitialPreview";
 import BusinessInitialPreview from "@/components/generator/businessPage/BusinessInitialPreview";
 import MenuInitialPreview from "@/components/generator/menu/InitialPreview";
-const qrTypes = [
-  {
-    id: "website-url",
-    title: "Website URL",
-    description: "Link to a website of your choice",
-    href: "/generator/website-url",
-    icon: <WebsiteUrlQr />,
-    mobilePreview: <WebsiteUrlPreview url={""} />,
-  },
-  {
-    id: "vcard",
-    title: "vCard",
-    description: "Share your electronic business card",
-    href: "/generator/vcard",
-    icon: <VcardQr />,
-    mobilePreview: <VCardInitialPreview />,
-  },
-  {
-    id: "pdf",
-    title: "PDF",
-    description: "Show a PDF",
-    href: "/generator/pdf",
-    icon: <PdfQr />,
-    mobilePreview: <PdfInitialPreview />,
-  },
-  {
-    id: "images",
-    title: "Images",
-    description: "Display an image gallery",
-    href: "/generator/images",
-    icon: <ImagesQr />,
-    mobilePreview: <ImagesInitialPreview />,
-  },
-  {
-    id: "social-media",
-    title: "Social Media",
-    description: "Share your social media channels",
-    href: "/generator/social-media",
-    icon: <SocialQr />,
-    mobilePreview: <SocialInitialPreview />,
-  },
-  {
-    id: "video",
-    title: "Video",
-    description: "Share one or multiple videos",
-    href: "/generator/video",
-    icon: <VideoQr />,
-    mobilePreview: <VideoInitialPreview />,
-  },
-  {
-    id: "simple-text",
-    title: "Simple Text",
-    description: "Display a body of text",
-    href: "/generator/simple-text",
-    icon: <SimpleTextQr />,
-    mobilePreview: <SimpleTextInitialPreview />,
-  },
-  {
-    id: "business-page",
-    title: "Business Page",
-    description: "Share your business information",
-    href: "/generator/business-page",
-    icon: <BusinessQr />,
-    mobilePreview: <BusinessInitialPreview />,
-  },
-  {
-    id: "facebook",
-    title: "Facebook",
-    description: "Share your Facebook page",
-    href: "/generator/facebook",
-    icon: <FacebookQr />,
-    mobilePreview: <FacebookInitialPreview />,
-  },
-  {
-    id: "wifi",
-    title: "Wi-Fi",
-    description: "Connect to a wireless network",
-    href: "/generator/wifi",
-    icon: <WifiQr />,
-    mobilePreview: <WifiInitialPreview />,
-  },
-  {
-    id: "app",
-    title: "App",
-    description: "Link to the iOS App Store/Google Play",
-    href: "/generator/app",
-    icon: <AppQr />,
-    mobilePreview: <AppInitialPreview />,
-  },
-  {
-    id: "menu",
-    title: "Menu",
-    description: "Create a digital restaurant menu",
-    href: "/generator/menu",
-    icon: <MenuQr />,
-    mobilePreview: <MenuInitialPreview />,
-  },
-];
 
 interface ArrowProps {
   hideOnMobile?: boolean;
@@ -143,7 +45,7 @@ function Arrow({ hideOnMobile = false }: ArrowProps) {
     <div
       className={cn(
         "absolute top-[102px] left-[-50px] arrow-create-page",
-        hideOnMobile && "hidden lg:block", // hidden on mobile if prop is true
+        hideOnMobile && "hidden lg:block",
       )}
     >
       <CreateArrow />
@@ -158,14 +60,114 @@ interface GeneratorProps {
 
 export default function GeneratorPage({
   showArrow = false,
-  title = "Choose QR code type",
+  title,
 }: GeneratorProps) {
+  const t = useT();
+
+  const qrTypes = [
+    {
+      id: "website-url",
+      title: t("generator__step_1__qr_type_cards__url__title"),
+      description: t("generator__step_1__qr_type_cards__url__description"),
+      href: "/generator/website-url",
+      icon: <WebsiteUrlQr />,
+      mobilePreview: <WebsiteUrlPreview url={""} />,
+    },
+    {
+      id: "vcard",
+      title: t("generator__step_1__qr_type_cards__vcard__title"),
+      description: t("generator__step_1__qr_type_cards__vcard__description"),
+      href: "/generator/vcard",
+      icon: <VcardQr />,
+      mobilePreview: <VCardInitialPreview />,
+    },
+    {
+      id: "pdf",
+      title: t("generator__step_1__qr_type_cards__pdf__title"),
+      description: t("generator__step_1__qr_type_cards__pdf__description__changed"),
+      href: "/generator/pdf",
+      icon: <PdfQr />,
+      mobilePreview: <PdfInitialPreview />,
+    },
+    {
+      id: "images",
+      title: t("generator__step_1__qr_type_cards__images__title"),
+      description: t("generator__step_1__qr_type_cards__images__description"),
+      href: "/generator/images",
+      icon: <ImagesQr />,
+      mobilePreview: <ImagesInitialPreview />,
+    },
+    {
+      id: "social-media",
+      title: t("generator__step_1__qr_type_cards__social_media__title"),
+      description: t("generator__step_1__qr_type_cards__social_media__description__changed"),
+      href: "/generator/social-media",
+      icon: <SocialQr />,
+      mobilePreview: <SocialInitialPreview />,
+    },
+    {
+      id: "video",
+      title: t("generator__step_1__qr_type_cards__video__title"),
+      description: t("generator__step_1__qr_type_cards__video__description"),
+      href: "/generator/video",
+      icon: <VideoQr />,
+      mobilePreview: <VideoInitialPreview />,
+    },
+    {
+      id: "simple-text",
+      title: t("generator__step_1__qr_type_cards__plain_text__title"),
+      description: t("generator__step_1__qr_type_cards__plain_text__description"),
+      href: "/generator/simple-text",
+      icon: <SimpleTextQr />,
+      mobilePreview: <SimpleTextInitialPreview />,
+    },
+    {
+      id: "business-page",
+      title: t("generator__step_1__qr_type_cards__business_page__title"),
+      description: t("generator__step_1__qr_type_cards__business_page__description__changed"),
+      href: "/generator/business-page",
+      icon: <BusinessQr />,
+      mobilePreview: <BusinessInitialPreview />,
+    },
+    {
+      id: "facebook",
+      title: t("generator__step_1__qr_type_cards__facebook__title"),
+      description: t("generator__step_1__qr_type_cards__facebook__description__changed"),
+      href: "/generator/facebook",
+      icon: <FacebookQr />,
+      mobilePreview: <FacebookInitialPreview />,
+    },
+    {
+      id: "wifi",
+      title: t("generator__step_1__qr_type_cards__wifi__title"),
+      description: t("generator__step_1__qr_type_cards__wifi__description"),
+      href: "/generator/wifi",
+      icon: <WifiQr />,
+      mobilePreview: <WifiInitialPreview />,
+    },
+    {
+      id: "app",
+      title: t("generator__step_1__qr_type_cards__app__title"),
+      description: t("generator__step_1__qr_type_cards__app__description"),
+      href: "/generator/app",
+      icon: <AppQr />,
+      mobilePreview: <AppInitialPreview />,
+    },
+    {
+      id: "menu",
+      title: t("generator__step_1__qr_type_cards__menu__title"),
+      description: t("generator__step_1__qr_type_cards__menu__description"),
+      href: "/generator/menu",
+      icon: <MenuQr />,
+      mobilePreview: <MenuInitialPreview />,
+    },
+  ];
+
   const [hoveredType, setHoveredType] = useState<string | null>(null);
   const [isLeaving, setIsLeaving] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (typeId: string) => {
-    // Clear any existing timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -212,7 +214,6 @@ export default function GeneratorPage({
   return (
     <div className="bg-[var(--Generator-Background)] pb-20 desktop:pb-28 min-h-[calc(100vh-73px)]">
       <div className="desktop:max-w-[1256px] desktop:mx-auto relative">
-        {/* Arrow: hide on mobile */}
         {showArrow ? <Arrow hideOnMobile /> : <div></div>}
         <Container>
           <div>
@@ -222,7 +223,7 @@ export default function GeneratorPage({
                 showArrow ? "block" : "hidden desktop:block",
               )}
             >
-              {title}
+              {title ?? t("generator__step_1__title")}
             </h1>
             <div className="block desktop:hidden">
               {<Breadcrumb useMobileSteps={true} />}
