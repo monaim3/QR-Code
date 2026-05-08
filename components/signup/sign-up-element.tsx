@@ -66,7 +66,7 @@ export default function SignUpElements({
 
       if (signupUser.fulfilled.match(resultAction)) {
         console.log("Signup successful:", resultAction.payload);
-        router.push("/generator");
+        router.push("/pricing");
       }
 
       if (signupUser.rejected.match(resultAction)) {

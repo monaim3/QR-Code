@@ -85,6 +85,7 @@ const authSlice = createSlice({
           // ✅ persist in localStorage
           storage.setUser(action.payload.user);
           storage.setToken(action.payload.accessToken);
+          document.cookie = `token=${action.payload.accessToken}; path=/`;
         }
       )
       .addCase(signupUser.rejected, (state, action) => {
@@ -104,6 +105,7 @@ const authSlice = createSlice({
           state.token = action.payload.accessToken;
           storage.setUser(action.payload.user);
           storage.setToken(action.payload.accessToken);
+          document.cookie = `token=${action.payload.accessToken}; path=/`;
         }
       )
       .addCase(loginUser.rejected, (state, action) => {
