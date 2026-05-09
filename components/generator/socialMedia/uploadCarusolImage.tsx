@@ -4,10 +4,8 @@ import { useState, useRef, useCallback, useId } from "react";
 import UploadIcon from "@/components/icons/upload-icon";
 import ImageCropper from "@/components/generator/vcard/ImageCropper";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  addCarouselImage,
-} from "@/store/slices/social-slice";
-
+import { addCarouselImage } from "@/store/slices/social-slice";
+import { useT } from "@/utils/t";
 interface ImageUploadProps {
   onCustomLogoUpload?: (logo: string | null) => void;
   onLogoChange?: (logo: string | null) => void;
@@ -15,7 +13,7 @@ interface ImageUploadProps {
   label?: string;
   aspectRatio?: number;
   editIndex?: number | null;
-  onEditComplete?: (newImage: string, index: number) => void; 
+  onEditComplete?: (newImage: string, index: number) => void;
 }
 
 export default function ImageUpload({
@@ -35,6 +33,7 @@ export default function ImageUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = `image-upload-${useId().replace(/:/g, "-")}`;
 
+  const t = useT();
   const validateAndProcessFile = useCallback((file: File) => {
     // Validate file type
     const validTypes = [
@@ -186,9 +185,9 @@ export default function ImageUpload({
     <div className="flex flex-col gap-0">
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
         {label}
-         <p className="text-[14px] leading-[22px] font-regular text-[var(--Dark-gray)] mb-[24px]">
-        Upload up to 10 images
-      </p>
+        <p className="text-[14px] leading-[22px] font-regular text-[var(--Dark-gray)] mb-[24px]">
+          Upload up to 10 images
+        </p>
       </label>
       <div
         onDragEnter={handleDragEnter}
@@ -211,25 +210,24 @@ export default function ImageUpload({
           onChange={handleFileUpload}
           className="hidden"
         />
-          <label
-            htmlFor={id}
-            className="cursor-pointer flex gap-6 items-center"
-          >
-            <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white">
-              <div className="w-full h-full flex items-center justify-center rounded-full bg-[#F7F9FC] p-4">
-                <UploadIcon />
-              </div>
+        <label htmlFor={id} className="cursor-pointer flex gap-6 items-center">
+          <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white">
+            <div className="w-full h-full flex items-center justify-center rounded-full bg-[#F7F9FC] p-4">
+              <UploadIcon />
             </div>
+          </div>
 
-            <div className="space-y-1">
-              <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
-                Upload image (jpg, png, svg)
-              </p>
-              <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
-                Maximum size: 5MB
-              </p>
-            </div>
-          </label>
+          <div className="space-y-1">
+            <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
+              {t(
+                "generator__content_form_section__about__personal_section__upload_image",
+              )}
+            </p>
+            <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
+              Maximum size: 5MB
+            </p>
+          </div>
+        </label>
       </div>
       {uploadError && (
         <p className="text-[12px] leading-[20px] text-[var(--error)] mt-2">

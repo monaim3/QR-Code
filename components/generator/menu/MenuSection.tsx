@@ -36,7 +36,9 @@ export default function MenuSection({
   onOpenProductReorder,
 }: Props) {
   const dispatch = useAppDispatch();
-  const [activeProductId, setActiveProductId] = useState<string | null>(null);
+  const [activeProductId, setActiveProductId] = useState<string | null>(
+    section.products[0]?.id ?? null,
+  );
   // When only one product, use activeProductId so user can collapse it
   const effectiveActiveProductId =
     section.products.length === 1 ? activeProductId : (activeProductId ?? null);

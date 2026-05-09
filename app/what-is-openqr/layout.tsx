@@ -20,8 +20,8 @@ function SimpleFooter() {
     <footer className="w-full border-t border-[#CDD0DB]/50 desktop:border-black">
       <Container>
         {/* Desktop: links left + copyright right | Mobile: stacked centered */}
-        <div className="flex flex-col desktop:flex-row desktop:items-center desktop:justify-between gap-3 py-5 items-center text-center desktop:text-left">
-          <nav className="flex flex-col desktop:flex-row desktop:items-center gap-3 desktop:gap-0">
+        <div className="flex flex-col desktop:flex-row desktop:items-center desktop:justify-between gap-8 desktop:gap-3 py-8 desktop:py-5 items-center text-center desktop:text-left">
+          <nav className="flex flex-col desktop:flex-row desktop:items-center gap-4 desktop:gap-0">
             <Link
               href="/about-us"
               className="text-[14px] leading-[22px] text-[#3F3E3E] desktop:px-4 desktop:pl-0 hover:underline"

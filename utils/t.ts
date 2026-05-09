@@ -7,9 +7,16 @@ export const useT = () => {
     (state: RootState) => state.i18n
   );
 
-  return (key: string) => {
+  return (key: string, params?: Record<string, string>) => {
     const dict = translations?.[language];
+    let str = dict?.[key] ?? translations?.en?.[key] ?? key;
 
-    return dict?.[key] ?? translations?.en?.[key] ?? key;
+    if (params) {
+      Object.entries(params).forEach(([k, v]) => {
+        str = str.replace(new RegExp(`\\{${k}\\}`, "g"), v);
+      });
+    }
+
+    return str;
   };
 };

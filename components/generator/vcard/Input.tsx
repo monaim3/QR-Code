@@ -24,14 +24,16 @@ export default function Input({
   onChange = () => {},
   onBlur,
   validationKey,
+  required,
   error,
 }: Props) {
   const dispatch = useAppDispatch();
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const [isFocused, setIsFocused] = useState(false);
-  
-  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
+
+  const validationError =
+    validationKey && showErrors ? validationErrors[validationKey] : "";
   const hasError = validationError || error;
 
   return (
@@ -41,15 +43,22 @@ export default function Input({
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"
       >
         {label}
+        {required && <span className="text-black text-500 ml-0.5">*</span>}
       </label>
       <input
         type={type}
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => { onChange(e.target.value); if (validationKey) dispatch(clearFieldError(validationKey)); }}
+        onChange={(e) => {
+          onChange(e.target.value);
+          if (validationKey) dispatch(clearFieldError(validationKey));
+        }}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => { setIsFocused(false); onBlur?.(); }}
+        onBlur={() => {
+          setIsFocused(false);
+          onBlur?.();
+        }}
         onInvalid={(e) => e.preventDefault()}
         aria-invalid={!!hasError}
         className={`h-12 py-2 px-4 text-[var(--Black)] text-[16px] leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border transition-colors outline-none w-full ${

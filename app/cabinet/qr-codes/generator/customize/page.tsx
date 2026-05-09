@@ -55,6 +55,21 @@ import SocialPreView from "@/components/generator/socialMedia/social-preview";
 import VideoPreView from "@/components/generator/video/video-preview";
 import WifiPreview from "@/components/generator/Wifi/WifiPreview";
 
+const QR_TYPE_LABELS: Record<string, string> = {
+  "app": "App",
+  "business-page": "Business Page",
+  "facebook": "Facebook",
+  "images": "Images",
+  "menu": "Menu",
+  "pdf": "PDF",
+  "simple-text": "Simple Text",
+  "social-media": "Social Media",
+  "vcard": "vCard",
+  "video": "Video",
+  "website-url": "Website URL",
+  "wifi": "Wi-Fi",
+};
+
 export default function QRCodeCustomize() {
   const pathname = usePathname();
   const router = useRouter();
@@ -62,6 +77,7 @@ export default function QRCodeCustomize() {
   const t = useT();
   const [view, setView] = useState<"preview" | "qrCode">("qrCode");
   const [patternTransparentBg, setPatternTransparentBg] = useState(false);
+  const [qrTypeLabel, setQrTypeLabel] = useState("");
 
   const mobileQrRef = useRef<HTMLDivElement>(null);
   const staticQrRef = useRef<HTMLDivElement>(null);
@@ -182,6 +198,11 @@ export default function QRCodeCustomize() {
 
   const selectedFrame = QRFrameArray[selectedFrameIndex];
   const SelectedFrameComponent = selectedFrame.frame;
+
+  useEffect(() => {
+    const slug = localStorage.getItem("qrType") ?? "";
+    setQrTypeLabel(QR_TYPE_LABELS[slug] ?? slug);
+  }, []);
 
   // Desktop preview QR code update - EXACT SAME AS REFERENCE
   useEffect(() => {
@@ -346,7 +367,7 @@ export default function QRCodeCustomize() {
               {<Breadcrumb useMobileSteps={true} />}
             </div>
             <h1 className="hidden lg:block text-2xl font-Poppins font-bold text-gray-900 mb-4">
-              Customize design for the Website URL QR code
+              {t("generator__design_form__title", { type: qrTypeLabel })}
             </h1>
             <div className="flex-1 flex flex-col gap-4">
               <Accordion

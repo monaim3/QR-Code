@@ -41,8 +41,9 @@ function createEmptySection(id?: string): MenuSection {
   };
 }
 
-/** Stable ID for the initial section so server and client HTML match (SSR hydration). */
+/** Stable IDs for the initial section/product so server and client HTML match (SSR hydration). */
 const INITIAL_SECTION_ID = "section-initial";
+const INITIAL_PRODUCT_ID = "product-initial";
 
 const palette = [
   {
@@ -88,7 +89,12 @@ const initialState: MenuSlice = {
   welcomeScreen: "",
   qrCodeName: "",
   isPreviewWelcomeScreen: false,
-  sections: [createEmptySection(INITIAL_SECTION_ID)],
+  sections: [
+    {
+      ...createEmptySection(INITIAL_SECTION_ID),
+      products: [createEmptyProduct(INITIAL_PRODUCT_ID)],
+    },
+  ],
 };
 
 const menuSlice = createSlice({

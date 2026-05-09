@@ -21,12 +21,14 @@ import {
 import { useState, useRef, useCallback } from "react";
 import ImageUpload from "@/components/generator/socialMedia/uploadCarusolImage";
 import Carousel from "./image-carousel";
+import { useT } from "@/utils/t";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const social = useAppSelector((state) => state.social);
   const isActive = social.activeColorIndex;
   const [imageIndex, setimageIndex] = useState(0);
+  const t = useT();
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [isCropping, setIsCropping] = useState(false);
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
@@ -73,70 +75,73 @@ export default function DesignCustomize() {
     );
   };
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleFile = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-     setimageIndex(index);
-     validateAndProcessFile(file);
+    setimageIndex(index);
+    validateAndProcessFile(file);
   };
 
   const validateAndProcessFile = useCallback((file: File) => {
-      // Validate file type
-      const validTypes = [
-        "image/jpeg",
-        "image/jpg",
-        "image/png",
-        "image/svg+xml",
-      ];
-      if (!validTypes.includes(file.type)) {
-        setUploadError("Please upload a valid image file (jpg, png, svg)");
-        return;
-      }
-  
-      // Validate file size (5MB)
-      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-      if (file.size > maxSize) {
-        setUploadError("Image size must be less than 5MB");
-        return;
-      }
-      setUploadError("");
-  
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result;
-        if (result && typeof result === "string") {
-          // Check dimensions for non-SVG images
-          if (!file.type.includes("svg")) {
-            const img = new Image();
-            img.onload = () => {
-              if (img.width > 2048 || img.height > 2048) {
-                setUploadError(
-                  "Image dimensions must be smaller than or equal to 2048 x 2048",
-                );
-                return;
-              }
-              // Open cropper with the image
-              setImageToCrop(result);
-              setIsCropping(true);
-            };
-            img.onerror = () => {
-              setUploadError("Failed to load image");
-            };
-            img.src = result;
-          } else {
-            // For SVG, open cropper directly
+    // Validate file type
+    const validTypes = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/svg+xml",
+    ];
+    if (!validTypes.includes(file.type)) {
+      setUploadError("Please upload a valid image file (jpg, png, svg)");
+      return;
+    }
+
+    // Validate file size (5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    if (file.size > maxSize) {
+      setUploadError("Image size must be less than 5MB");
+      return;
+    }
+    setUploadError("");
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (result && typeof result === "string") {
+        // Check dimensions for non-SVG images
+        if (!file.type.includes("svg")) {
+          const img = new Image();
+          img.onload = () => {
+            if (img.width > 2048 || img.height > 2048) {
+              setUploadError(
+                "Image dimensions must be smaller than or equal to 2048 x 2048",
+              );
+              return;
+            }
+            // Open cropper with the image
             setImageToCrop(result);
             setIsCropping(true);
-          }
+          };
+          img.onerror = () => {
+            setUploadError("Failed to load image");
+          };
+          img.src = result;
+        } else {
+          // For SVG, open cropper directly
+          setImageToCrop(result);
+          setIsCropping(true);
         }
-      };
-      reader.onerror = () => {
-        setUploadError("Failed to read file");
-      };
-      reader.readAsDataURL(file);
-    }, []);
+      }
+    };
+    reader.onerror = () => {
+      setUploadError("Failed to read file");
+    };
+    reader.readAsDataURL(file);
+  }, []);
 
-    const handleClose = () => {
+  const handleClose = () => {
     setIsCropping(false);
     // Clean up the image source if user cancels (only blob URLs need cleanup)
     // if (!customLogo && imageToCrop && imageToCrop.startsWith("blob:")) {
@@ -151,20 +156,21 @@ export default function DesignCustomize() {
     if (imageToCrop && imageToCrop.startsWith("blob:")) {
       URL.revokeObjectURL(imageToCrop);
     }
-    dispatch(editCarouselImage({index: imageIndex,newImage: croppedImageUrl}));
+    dispatch(
+      editCarouselImage({ index: imageIndex, newImage: croppedImageUrl }),
+    );
     setImageToCrop(null);
   };
 
   const handleImageDelete = (value: string | null) => {
     dispatch(removeCarouselImage(value || ""));
-  }
-
+  };
 
   return (
     <div className="w-full">
       <Accordion
-        title="Design and customize"
-        description="Choose your color scheme"
+        title={t("generator__content_form_section__design__title")}
+        description={t("generator__content_form_section__design__description")}
         defaultOpen={true}
       >
         <div className="space-y-8">
@@ -186,7 +192,9 @@ export default function DesignCustomize() {
           {/* Color Picker */}
           <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
             <ColorInput
-              label="Primary color"
+              label={t(
+                "generator__content_form_section__design__primary_color",
+              )}
               color={social.primaryColor}
               onChange={(v) => handleColorChange(v, social.secondaryColor)}
             />
@@ -207,62 +215,64 @@ export default function DesignCustomize() {
             </div>
 
             <ColorInput
-              label="Secondary color"
+              label={t(
+                "generator__content_form_section__design__secondary_color",
+              )}
               color={social.secondaryColor}
               onChange={(v) => handleColorChange(social.primaryColor, v)}
             />
           </div>
           <div>
-            <ImageUpload
-             onCustomLogoUpload={()=>{}}
-            />
+            <ImageUpload onCustomLogoUpload={() => {}} />
           </div>
           <div className="grid grid-cols-5 gap-4">
-          {social?.carousels?.map((image,index)=> {
-            return <div 
-            key={`carousel-${index}`}
-            className="flex flex-col items-center hustify-center">
-              <div className="border border-[var(--Boarder-Grey)] rounded-[12px]">
-                <img
-                src={image}
-                alt={image}
-                width={80}
-                height={80}
-                className="w-[150px] h-[150px] object-cover rounded-[12px] p-1"
-              />
-              </div>
-              <div className="w-[150px] flex gap-2 items-center mt-2">
-              {/* Pencil button */}
-              <div className="relative flex-1 h-[35px]">
-                <label
-                  htmlFor={`file-${index}`}
-                  className="flex items-center justify-center w-full h-full border border-[var(--Boarder-Grey)] rounded-[6px] cursor-pointer bg-white"
+            {social?.carousels?.map((image, index) => {
+              return (
+                <div
+                  key={`carousel-${index}`}
+                  className="flex flex-col items-center hustify-center"
                 >
-                  <LuPencil className="text-[var(--Grey)]" />
-                </label>
-                <input
-                  id={`file-${index}`}
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleFile(e, index)}
-                  className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                />
-              </div>
+                  <div className="border border-[var(--Boarder-Grey)] rounded-[12px]">
+                    <img
+                      src={image}
+                      alt={image}
+                      width={80}
+                      height={80}
+                      className="w-[150px] h-[150px] object-cover rounded-[12px] p-1"
+                    />
+                  </div>
+                  <div className="w-[150px] flex gap-2 items-center mt-2">
+                    {/* Pencil button */}
+                    <div className="relative flex-1 h-[35px]">
+                      <label
+                        htmlFor={`file-${index}`}
+                        className="flex items-center justify-center w-full h-full border border-[var(--Boarder-Grey)] rounded-[6px] cursor-pointer bg-white"
+                      >
+                        <LuPencil className="text-[var(--Grey)]" />
+                      </label>
+                      <input
+                        id={`file-${index}`}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFile(e, index)}
+                        className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </div>
 
-              {/* Delete button */}
-              <div
-                onClick={() => handleImageDelete(image)}
-                id={`button-${index}`}
-                className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center"
-              >
-                <RiDeleteBinLine className="text-[var(--Grey)]" />
-              </div>
-            </div>
-
-            </div>
-          })}
-        </div>
-         <ImageCropper
+                    {/* Delete button */}
+                    <div
+                      onClick={() => handleImageDelete(image)}
+                      id={`button-${index}`}
+                      className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center"
+                    >
+                      <RiDeleteBinLine className="text-[var(--Grey)]" />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <ImageCropper
             open={isCropping}
             onClose={handleClose}
             imageSrc={imageToCrop}
