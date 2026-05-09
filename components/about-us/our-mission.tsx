@@ -83,6 +83,13 @@ export default function OurMission() {
             </div>
           </div>
         </div>
+        <div className="py-12 desktop:hidden">
+          <img
+            src="/images/our-mission-banner.svg"
+            alt="Our Mission Banner"
+            className="w-full rounded-[12px]"
+          />
+        </div>
         <div className="w-full max-w-full flex flex-col desktop:flex-row justify-between pt-[56px] gap-8 border-b-[1px] border-[var(--Boarder-Grey)] pb-[80px] desktop:pb-[160px]">
           {footers.map((footer, index) => {
             return (

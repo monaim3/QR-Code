@@ -8,6 +8,7 @@ import TrashAlt from "@/components/icons/trash-alt";
 import HamburgerIcon from "@/components/icons/hamburger-icon";
 import { useState } from "react";
 import SwapVideoModal from "@/components/generator/video/video-swap-modal";
+import { z } from "zod";
 import {
   addVideo,
   setVideoTitleByIndex,
@@ -15,8 +16,11 @@ import {
   removeVideo,
 } from "@/store/slices/video-slice";
 
+const urlSchema = z.string().url();
+
 export default function Addvideos() {
   const [videoUrl, setVideoUrl] = useState("");
+  const [videoUrlError, setVideoUrlError] = useState("");
   const [openSwap, setOpenSwap] = useState(false);
   const dispatch = useAppDispatch();
   const video = useAppSelector((state) => state.video);
@@ -24,7 +28,24 @@ export default function Addvideos() {
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const hasVideoError = showErrors && !!validationErrors.videos;
 
+  const handleVideoUrlChange = (value: string) => {
+    setVideoUrl(value);
+    if (!value.trim()) {
+      setVideoUrlError("");
+    } else {
+      const result = urlSchema.safeParse(value);
+      if (!result.success) setVideoUrlError("Please enter a valid URL");
+      else setVideoUrlError("");
+    }
+  };
+
   const handleAddVideo = () => {
+    if (!videoUrl.trim()) return;
+    const result = urlSchema.safeParse(videoUrl);
+    if (!result.success) {
+      setVideoUrlError("Please enter a valid URL");
+      return;
+    }
     const id = video.videos.length > 0 ? video.videos.length + 1 : 1;
     dispatch(
       addVideo({
@@ -36,6 +57,7 @@ export default function Addvideos() {
       }),
     );
     setVideoUrl("");
+    setVideoUrlError("");
   };
 
   const handleDeleteVideo = (index: number) => {
@@ -55,19 +77,23 @@ export default function Addvideos() {
         forceOpen={hasVideoError}
       >
         <div className="space-y-2">
+          {hasVideoError && (
+            <div data-validation-error="true" />
+          )}
           <div className="flex flex-col items-start justify-center gap-8 w-full">
-            <div className="flex w-full max-w-full gap-4 items-end">
+            <div className="flex w-full max-w-full gap-4 items-start">
               <Input
                 label="Video URL"
                 placeholder="e.g. https://youtube.com"
                 id="video-title"
                 type="video-title"
                 value={videoUrl}
-                onChange={(value) => setVideoUrl(value)}
+                onChange={handleVideoUrlChange}
+                error={videoUrlError}
               />
               <button
                 onClick={handleAddVideo}
-                className="px-4 py-3 h-[48px] bg-[var(--Blue)] text-white rounded-[12px] hover:bg-[var(--Blue-hover)]"
+                className="mt-8 shrink-0 px-4 py-3 h-[48px] bg-[var(--Blue)] text-white rounded-[12px] hover:bg-[var(--Blue-hover)]"
               >
                 Add
               </button>

@@ -8,7 +8,7 @@ import CompanyDetails from "./CompanyDetails";
 import Summary from "./Summary";
 import Address from "./Address";
 import { useAppSelector } from "@/store/hooks";
-
+import { useT } from "@/utils/t";
 const SECTION_FIELD_MAP: Record<string, string[]> = {
   personal: ["fullName"],
   contact: ["email", "phoneNumber"],
@@ -22,6 +22,7 @@ export default function About() {
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
 
+  const t = useT();
   useEffect(() => {
     if (!showErrors) return;
     for (const [section, fields] of Object.entries(SECTION_FIELD_MAP)) {
@@ -42,8 +43,8 @@ export default function About() {
   return (
     <div className="w-full">
       <Accordion
-        title="About you"
-        description="Fill in the information you would like to showcase in your vCard"
+        title={t("generator__content_form_section__about__title")}
+        description={t("generator__content_form_section__about__description")}
         defaultOpen={true}
         forceOpen={showErrors && hasVCardError}
       >

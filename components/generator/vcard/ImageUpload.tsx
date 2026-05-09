@@ -7,7 +7,7 @@ import { LuPencil } from "react-icons/lu";
 import UploadIcon from "@/components/icons/upload-icon";
 import ImageCropper from "./ImageCropper";
 import Eye from "@/components/icons/eye";
-
+import { useT } from "@/utils/t";
 interface ImageUploadProps {
   /** Current image URL from Redux/parent – used to show preview when component remounts */
   value?: string | null;
@@ -26,6 +26,7 @@ export default function ImageUpload({
   label = "Image",
   aspectRatio = 1,
 }: ImageUploadProps) {
+  const t = useT();
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyLogo.svg");
   const [customLogo, setCustomLogo] = useState("");
@@ -269,10 +270,12 @@ export default function ImageUpload({
 
             <div className="space-y-1">
               <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
-                Upload image (jpg, png, svg)
+                {t(
+                  "generator__content_form_section__about__personal_section__upload_image",
+                )}
               </p>
               <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
-                Maximum size: 5MB
+                {t("generator__content_form_section__social__max_image_size")}
               </p>
             </div>
           </label>

@@ -11,11 +11,13 @@ import {
 } from "@/store/slices/menuSlice";
 import ColorBtn from "../vcard/ColorBtn";
 import ColorInput from "../vcard/ColorInput";
+import { useT } from "@/utils/t";
 
 export default function MenuDesignCustomize() {
   const dispatch = useAppDispatch();
   const menu = useAppSelector((state) => state.menu);
   const isActive = menu.activeColorIndex;
+  const t = useT();
 
   const handleSwap = () => {
     const temp = menu.primaryColor;
@@ -61,8 +63,8 @@ export default function MenuDesignCustomize() {
   return (
     <div className="w-full">
       <Accordion
-        title="Design and customize"
-        description="Choose your color scheme"
+        title={t("generator__content_form_section__design__title")}
+        description={t("generator__content_form_section__design__description")}
         defaultOpen={true}
       >
         <div className="space-y-8">
@@ -84,7 +86,9 @@ export default function MenuDesignCustomize() {
           {/* Color Picker */}
           <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
             <ColorInput
-              label="Primary color"
+              label={t(
+                "generator__content_form_section__design__primary_color",
+              )}
               color={menu.primaryColor}
               onChange={(v) => handleColorChange(v, menu.secondaryColor)}
             />
@@ -105,7 +109,9 @@ export default function MenuDesignCustomize() {
             </div>
 
             <ColorInput
-              label="Secondary color"
+              label={t(
+                "generator__content_form_section__design__secondary_color",
+              )}
               color={menu.secondaryColor}
               onChange={(v) => handleColorChange(menu.primaryColor, v)}
             />

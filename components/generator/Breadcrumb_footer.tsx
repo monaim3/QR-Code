@@ -78,16 +78,16 @@ export default function BreadcrumbFooter() {
           setToastMessage(validationResult.fieldErrors.socialChannels);
         } else if (pathname.includes("/video") && validationResult.fieldErrors.videos) {
           setToastMessage(validationResult.fieldErrors.videos);
-        } else {
-          setTimeout(() => {
-            const firstError = document.querySelector<HTMLElement>(
-              '[aria-invalid="true"], [data-validation-error="true"]'
-            );
-            if (firstError) {
-              firstError.scrollIntoView({ behavior: "smooth", block: "center" });
-            }
-          }, 600);
         }
+
+        setTimeout(() => {
+          const firstError = document.querySelector<HTMLElement>(
+            '[aria-invalid="true"], [data-validation-error="true"]'
+          );
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 600);
         return;
       }
 
