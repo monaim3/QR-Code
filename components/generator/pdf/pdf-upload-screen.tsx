@@ -3,6 +3,7 @@ import PdfUpload from "@/components/generator/pdf/pdf-upload";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setPdfFile, setShowPdfOnly } from "@/store/slices/pdf-slice";
+import { clearFieldError } from "@/store/slices/validationSlice";
 
 export default function PdfUploadScreen() {
   const dispatch = useAppDispatch();
@@ -13,6 +14,7 @@ export default function PdfUploadScreen() {
 
   const handleImageChange = (value: string | null) => {
     dispatch(setPdfFile(value || ""));
+    if (value) dispatch(clearFieldError("pdfFile"));
   };
 
 //   const handlePreview = () => {
