@@ -14,11 +14,14 @@ import {
   setActiveColorIndex,
 } from "@/store/slices/businessSlice";
 
+import { useT } from "@/utils/t";
+
 export default function BusinessDesignCustomize() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
   const isActive = business.activeColorIndex;
 
+  const t = useT();
   const handleSwap = () => {
     const temp = business.primaryColor;
     dispatch(setPrimaryColor(business.secondaryColor));
@@ -67,8 +70,8 @@ export default function BusinessDesignCustomize() {
   return (
     <div className="w-full">
       <Accordion
-        title="Design and customize"
-        description="Choose your color scheme"
+        title={t("generator__content_form_section__design__title")}
+        description={t("generator__content_form_section__design__description")}
         defaultOpen={true}
       >
         <div className="space-y-8">
@@ -90,7 +93,9 @@ export default function BusinessDesignCustomize() {
           {/* Color Picker */}
           <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
             <ColorInput
-              label="Primary color"
+              label={t(
+                "generator__content_form_section__design__primary_color",
+              )}
               color={business.primaryColor}
               onChange={(v) => handleColorChange(v, business.secondaryColor)}
             />
@@ -111,7 +116,9 @@ export default function BusinessDesignCustomize() {
             </div>
 
             <ColorInput
-              label="Secondary color"
+              label={t(
+                "generator__content_form_section__design__secondary_color",
+              )}
               color={business.secondaryColor}
               onChange={(v) => handleColorChange(business.primaryColor, v)}
             />

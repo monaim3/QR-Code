@@ -11,12 +11,13 @@ import {
   setSecondaryColor,
   setActiveColorIndex,
 } from "@/store/slices/video-slice";
+import { useT } from "@/utils/t";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const video = useAppSelector((state) => state.video);
   const isActive = video.activeColorIndex;
-
+  const t = useT();
   const handleSwap = () => {
     const temp = video.primaryColor;
     dispatch(setPrimaryColor(video.secondaryColor));
@@ -61,8 +62,8 @@ export default function DesignCustomize() {
   return (
     <div className="w-full">
       <Accordion
-        title="Design and customize"
-        description="Choose your color scheme"
+        title={t("generator__content_form_section__design__title")}
+        description={t("generator__content_form_section__design__description")}
         defaultOpen={true}
       >
         <div className="space-y-8">
@@ -84,7 +85,9 @@ export default function DesignCustomize() {
           {/* Color Picker */}
           <div className="desktop:p-6 p-4 bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)] flex flex-col desktop:flex-row desktop:items-end items-center gap-4 w-full">
             <ColorInput
-              label="Primary color"
+              label={t(
+                "generator__content_form_section__design__primary_color",
+              )}
               color={video.primaryColor}
               onChange={(v) => handleColorChange(v, video.secondaryColor)}
             />
@@ -105,7 +108,9 @@ export default function DesignCustomize() {
             </div>
 
             <ColorInput
-              label="Secondary color"
+              label={t(
+                "generator__content_form_section__design__secondary_color",
+              )}
               color={video.secondaryColor}
               onChange={(v) => handleColorChange(video.primaryColor, v)}
             />
