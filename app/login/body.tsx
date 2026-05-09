@@ -46,7 +46,7 @@ export default function LoginBody() {
 
      if (loginUser.fulfilled.match(resultAction)) {
            console.log("Login successful:", resultAction.payload);
-           router.push("/");
+           router.push("/cabinet/qr-codes");
          }
      
          if (loginUser.rejected.match(resultAction)) {
