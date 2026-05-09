@@ -30,7 +30,7 @@ export default function AboutUsBody() {
       <section className="bg-[var(--Generator-Background)] overflow-hidden">
         <Container className="w-full max-w-full">
           {/* Main content */}
-          <div className="flex flex-col w-full py-[29px] desktop:py-[120px]">
+          <div className="flex flex-col w-full pt-[29px] pb-[120px] desktop:py-[120px]">
             <div className="flex flex-col items-center desktop:flex-row w-full min-w-full h-auto desktop:h-[480px]">
               {/* Left half - desktop only */}
               <div className="hidden desktop:block relative z-10">
@@ -71,7 +71,7 @@ export default function AboutUsBody() {
               </div>
 
               {/* Mobile text - hidden on desktop */}
-              <div className="block desktop:hidden order-2 w-full mt-6">
+              <div className="block desktop:hidden order-2 w-full mt-14">
                 <AboutUsLeftElement />
               </div>
             </div>
