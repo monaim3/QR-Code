@@ -12,7 +12,7 @@ import {
   updateAltEmail,
 } from "@/store/slices/vCardSlice";
 import TrashAlt from "@/components/icons/trash-alt";
-
+import { useT } from "@/utils/t";
 interface Props {
   onClick: () => void;
   isOpen: boolean;
@@ -55,13 +55,24 @@ export default function ContactDetails({ onClick, isOpen }: Props) {
     dispatch(updateAltEmail({ index, value }));
   };
 
+  const t = useT();
   return (
-    <AboutAccordion title="Contact details" isOpen={isOpen} onClick={onClick}>
+    <AboutAccordion
+      title={t(
+        "generator__content_form_section__about__contact_section__title",
+      )}
+      isOpen={isOpen}
+      onClick={onClick}
+    >
       <div className="flex desktop:flex-row flex-col items-start desktop:gap-8 gap-4 flex-1">
         <div className="flex-1 w-full">
           <Input
-            label="Phone number"
-            placeholder="e.g. +1809999999"
+            label={t(
+              "generator__content_form_section__about__contact_section__phone",
+            )}
+            placeholder={t(
+              "generator__content_form_section__about__contact_section__phone_placeholder",
+            )}
             id="phoneNumber"
             type="tel"
             value={vCard.contactDetails.phoneNumber}
@@ -71,8 +82,12 @@ export default function ContactDetails({ onClick, isOpen }: Props) {
         <div className="flex items-end gap-2 flex-1 w-full">
           <div className="flex-1 min-w-0">
             <Input
-              label="Alternative phone number"
-              placeholder="e.g. +1809999999"
+              label={t(
+                "generator__content_form_section__about__contact_section__alt_phone",
+              )}
+              placeholder={t(
+                "generator__content_form_section__about__contact_section__alt_phone_placeholder",
+              )}
               id="altPhoneNumber"
               type="tel"
               value={vCard.contactDetails.altPhoneNumber}
@@ -114,8 +129,12 @@ export default function ContactDetails({ onClick, isOpen }: Props) {
       <div className="flex desktop:flex-row flex-col items-start desktop:gap-8 gap-4 flex-1">
         <div className="flex-1 w-full">
           <Input
-            label="Website"
-            placeholder="e.g. www.pauljones.com"
+            label={t(
+              "generator__content_form_section__about__contact_section__website",
+            )}
+            placeholder={t(
+              "generator__content_form_section__pdf__website_placeholder",
+            )}
             id="website"
             type="url"
             value={vCard.contactDetails.website}
@@ -125,8 +144,12 @@ export default function ContactDetails({ onClick, isOpen }: Props) {
         <div className="flex items-end gap-2 flex-1 w-full">
           <div className="flex-1 min-w-0">
             <Input
-              label="Email"
-              placeholder="e.g. name@email.com"
+              label={t(
+                "generator__qr_content_screen__vcard_type__sections__contact__email",
+              )}
+              placeholder={t(
+                "generator__content_form_section__about__contact_section__email__placeholder",
+              )}
               id="email"
               type="email"
               value={vCard.contactDetails.email}

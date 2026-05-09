@@ -16,7 +16,7 @@ import TrashAlt from "@/components/icons/trash-alt";
 import ImageUpload from "./ImageUpload";
 import { useState } from "react";
 import { urlValidationSchema } from "@/lib/validators/validators";
-
+import { useT } from "@/utils/t";
 export default function Social() {
   const dispatch = useAppDispatch();
   const vCard = useAppSelector((state) => state.vCard);
@@ -27,6 +27,7 @@ export default function Social() {
   const [logo, setLogo] = useState<string | null>(null);
   const [nameError, setNameError] = useState("");
   const [urlError, setUrlError] = useState("");
+  const t = useT();
 
   const handleChannelToggle = (channelId: string) => {
     const channel = socialChannels.find((ch) => ch.id === channelId);
@@ -37,7 +38,9 @@ export default function Social() {
     if (isActive) {
       dispatch(removeSocialChannel(channel.id));
     } else {
-      dispatch(addSocialChannel({ id: channel.id, name: channel.name, url: "" }));
+      dispatch(
+        addSocialChannel({ id: channel.id, name: channel.name, url: "" }),
+      );
     }
   };
 
@@ -62,32 +65,47 @@ export default function Social() {
   };
 
   const validateUrl = (value: string): string => {
-    if (!value.trim()) return "This field is required and cannot be left blank.";
+    if (!value.trim())
+      return t(
+        "generator__content_form_section__social__input__url_error_required",
+      );
     const result = urlValidationSchema.safeParse(value);
     return result.success ? "" : result.error.issues[0].message;
   };
 
   const handleAddCustom = () => {
-    const nErr = name.trim() ? "" : "This field is required and cannot be left blank.";
+    const nErr = name.trim()
+      ? ""
+      : t(
+          "generator__content_form_section__social__input__name_error_required",
+        );
     const uErr = validateUrl(url);
     setNameError(nErr);
     setUrlError(uErr);
     if (nErr || uErr) return;
-    dispatch(addSocialChannel({ id: `custom-${Date.now()}`, name, url, description, icon: logo ?? undefined }));
+    dispatch(
+      addSocialChannel({
+        id: `custom-${Date.now()}`,
+        name,
+        url,
+        description,
+        icon: logo ?? undefined,
+      }),
+    );
     resetForm();
   };
 
   return (
     <div className="w-full">
       <Accordion
-        title="Social networks"
-        description="Click on the icons below to add social media channels you'd like to display"
+        title={t("generator__content_form_section__social__title_required")}
+        description={t("generator__content_form_section__social__description")}
         defaultOpen={true}
       >
         <div className="space-y-6">
           <div className="space-y-2">
             <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
-              Add social channels
+              {t("generator__content_form_section__social__label")}
             </p>
 
             <div className="flex desktop:flex-wrap items-center content-center gap-4 self-stretch overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
@@ -104,7 +122,9 @@ export default function Social() {
 
           <div className="space-y-2">
             {vCard.socialChannels.map((socialChannel) => {
-              const predefined = socialChannels.find((ch) => ch.id === socialChannel.id);
+              const predefined = socialChannels.find(
+                (ch) => ch.id === socialChannel.id,
+              );
               if (predefined) {
                 return (
                   <SocialInputCard
@@ -122,7 +142,11 @@ export default function Social() {
                 >
                   <div className="flex items-center gap-2 w-[280px]">
                     {socialChannel.icon && (
-                      <img src={socialChannel.icon} alt={socialChannel.name} className="w-[40px] h-[40px] object-contain" />
+                      <img
+                        src={socialChannel.icon}
+                        alt={socialChannel.name}
+                        className="w-[40px] h-[40px] object-contain"
+                      />
                     )}
                     <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
                       {socialChannel.name}
@@ -134,7 +158,12 @@ export default function Social() {
                       placeholder="URL"
                       value={socialChannel.url}
                       onChange={(e) =>
-                        dispatch(updateSocialChannel({ id: socialChannel.id, changes: { url: e.target.value } }))
+                        dispatch(
+                          updateSocialChannel({
+                            id: socialChannel.id,
+                            changes: { url: e.target.value },
+                          }),
+                        )
                       }
                       className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"
                     />
@@ -143,7 +172,12 @@ export default function Social() {
                       placeholder="Description"
                       value={socialChannel.description ?? ""}
                       onChange={(e) =>
-                        dispatch(updateSocialChannel({ id: socialChannel.id, changes: { description: e.target.value } }))
+                        dispatch(
+                          updateSocialChannel({
+                            id: socialChannel.id,
+                            changes: { description: e.target.value },
+                          }),
+                        )
                       }
                       className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"
                     />
@@ -170,22 +204,39 @@ export default function Social() {
           </button>
 
           <div className={`${add ? "block" : "hidden"} space-y-2`}>
-            <ImageUpload label="Add social logo" value={logo} onCustomLogoUpload={setLogo} />
+            <ImageUpload
+              label={t(
+                "generator__content_form_section__social__add_social__image",
+              )}
+              value={logo}
+              onCustomLogoUpload={setLogo}
+            />
             <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
               <div className="w-[calc(100%-56px)]">
                 <Input
-                  label="Name*"
-                  placeholder="e.g. My social media"
+                  label={t(
+                    "generator__content_form_section__social__input__name_label",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__social__input__name_placeholder",
+                  )}
                   id="custom-social-name"
                   value={name}
-                  onChange={(value) => { setName(value); if (value.trim()) setNameError(""); }}
+                  onChange={(value) => {
+                    setName(value);
+                    if (value.trim()) setNameError("");
+                  }}
                   error={nameError}
                 />
               </div>
               <div className="w-[calc(100%-56px)]">
                 <Input
-                  label="URL*"
-                  placeholder="e.g. https://pauljones.com"
+                  label={t(
+                    "generator__content_form_section__social__input__url_label",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__social__input__url_placeholder",
+                  )}
                   id="custom-social-url"
                   value={url}
                   onChange={(value) => {
@@ -204,8 +255,12 @@ export default function Social() {
             <div className="flex flex-col desktop:flex-row items-start desktop:items-center justify-center gap-4">
               <div className="w-full pt-4 pb-4">
                 <Input
-                  label="Description"
-                  placeholder="e.g. My profile"
+                  label={t(
+                    "generator__content_form_section__social__input__description_label",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__social__input__description_placeholder",
+                  )}
                   id="custom-social-description"
                   value={description}
                   onChange={(value) => setDescription(value)}

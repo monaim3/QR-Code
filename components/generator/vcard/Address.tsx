@@ -6,7 +6,7 @@ import Input from "./Input";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setAddress, setAddressUrl } from "@/store/slices/vCardSlice";
 import InputResetModal from "./InputResetModal";
-
+import { useT } from "@/utils/t";
 interface Props {
   onClick: () => void;
   isOpen: boolean;
@@ -18,7 +18,7 @@ export default function Address({ onClick, isOpen }: Props) {
   const [pendingIsManual, setPendingIsManual] = useState<boolean | null>(null);
   const dispatch = useAppDispatch();
   const vCard = useAppSelector((state) => state.vCard);
-
+  const t = useT();
   const handleAddressChange = (value: string, id: string) => {
     dispatch(
       setAddress({
@@ -86,19 +86,25 @@ export default function Address({ onClick, isOpen }: Props) {
 
   return (
     <>
-      <AboutAccordion title="Address" isOpen={isOpen} onClick={onClick}>
+      <AboutAccordion
+        title={t("public__contact_us__info__address_label")}
+        isOpen={isOpen}
+        onClick={onClick}
+      >
         <div className="flex items-center gap-4 pb-2">
           <button
             onClick={() => handleModeChange(true)}
             className={`flex h-10 justify-center items-center gap-2 px-6 py-1 rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)] text-[16px] leading-[22px] transition-all duration-300 ease-linear ${isManual ? "bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]" : "bg-white text-[var(--Blue)]"} flex-1 desktop:flex-none`}
           >
-            Manual
+            {t(
+              "generator__content_form_section__about__address_section__manual_button",
+            )}
           </button>
           <button
             onClick={() => handleModeChange(false)}
             className={`flex h-10 justify-center items-center gap-2 px-6 py-1 rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)] text-[16px] leading-[22px] transition-all duration-300 ease-linear ${isManual ? "bg-white text-[var(--Blue)]" : "bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]"} flex-1 desktop:flex-none`}
           >
-            URL
+            {t("generator__content_form_section__about__address_section__url")}
           </button>
         </div>
 
@@ -106,14 +112,18 @@ export default function Address({ onClick, isOpen }: Props) {
           <>
             <div className="flex desktop:flex-row flex-col items-start desktop:gap-8 gap-4 flex-1">
               <Input
-                label="Street"
+                label={t(
+                  "generator__content_form_section__about__address_section__street",
+                )}
                 placeholder="e.g. Spring Avenue, 9/18"
                 id="street"
                 value={vCard.street}
                 onChange={(value) => handleAddressChange(value, "street")}
               />
               <Input
-                label="Postal code"
+                label={t(
+                  "generator__content_form_section__about__address_section__postal_code",
+                )}
                 placeholder="e.g. 10005"
                 id="postal-code"
                 value={vCard.postalCode}
@@ -122,15 +132,21 @@ export default function Address({ onClick, isOpen }: Props) {
             </div>
             <div className="flex desktop:flex-row flex-col items-start desktop:gap-8 gap-4 flex-1">
               <Input
-                label="City"
-                placeholder="e.g. New York City"
+                label={t("public__dashboard__account__billing_info__city")}
+                placeholder={t(
+                  "generator__content_form_section__about__address_section__city__placeholder",
+                )}
                 id="city"
                 value={vCard.city}
                 onChange={(value) => handleAddressChange(value, "city")}
               />
               <Input
-                label="State"
-                placeholder="e.g. New York"
+                label={t(
+                  "generator__content_form_section__about__address_section__state",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__about__address_section__state__placeholder",
+                )}
                 id="state"
                 value={vCard.state}
                 onChange={(value) => handleAddressChange(value, "state")}
@@ -138,8 +154,12 @@ export default function Address({ onClick, isOpen }: Props) {
             </div>
 
             <Input
-              label="Country"
-              placeholder="e.g. United States"
+              label={t(
+                "generator__content_form_section__about__address_section__country",
+              )}
+              placeholder={t(
+                "generator__content_form_section__about__address_section__country__placeholder",
+              )}
               id="country"
               value={vCard.country}
               onChange={(value) => handleAddressChange(value, "country")}
@@ -148,8 +168,12 @@ export default function Address({ onClick, isOpen }: Props) {
         ) : (
           <>
             <Input
-              label="URL"
-              placeholder="e.g. www.google.com/maps/search"
+              label={t(
+                "generator__content_form_section__about__address_section__url",
+              )}
+              placeholder={t(
+                "generator__content_form_section__about__address_section__url__placeholder",
+              )}
               id="add-url"
               type="url"
               value={vCard.addressUrl}
