@@ -1,5 +1,6 @@
+"use client";
 import Container from "@/components/common/parent-container";
-import Image from "next/image";
+import { useT } from "@/utils/t";
 
 class CustomerReviewProps {
   customerName: string;
@@ -42,15 +43,18 @@ const CustomerReviews: CustomerReviewProps[] = [
 ];
 
 export default function CustomerReview() {
+
+    const t = useT();
+
   return (
     <section className="bg-white desktop:py-40 py-16">
       <Container>
         <div className="flex flex-col items-center justify-center gap-1 default:gap-2 mb-10 desktop:mb-14">
           <h2 className="font-bold text-center text-[24px] leading-8 desktop:text-[32px] desktop:leading-10 text-[var(--Black)]">
-            Customer reviews
+            {t("public__reviews_section__title")}
           </h2>
           <p className="text-[16px] leading-[24px] font-regular text-center text-[var(--Dark-gray)]">
-            See what others are saying about QRCenter
+            {t("public__about_us__description")}
           </p>
         </div>
         <div className="grid grid-cols-1 desktop:grid-cols-3 gap-8">

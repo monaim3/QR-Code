@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useT } from "@/utils/t";
 
 interface CheckInboxModalProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ export default function CheckInboxModal({
   onClose,
 }: CheckInboxModalProps) {
   const router = useRouter();
+  const t = useT();
 
   const handleSubmit = () => {
     onClose();
@@ -43,11 +45,10 @@ export default function CheckInboxModal({
         >
           <div className="flex flex-col items-center text-center w-full">
             <h2 className="text-[20px] desktop:text-[24px] leading-[32px] font-bold text-[var(--Black)]">
-              Check your inbox
+              {t("auth__check_inbox__title")}
             </h2>
             <p className="text-[16px] leading-[24px] font-regular text-[var(--Dark-gray)] mt-2">
-              If an account with that email address exists, we have sent an
-              email with the instructions to recover your password.
+              {t("auth__check_inbox__description")}
             </p>
           </div>
 
@@ -56,7 +57,7 @@ export default function CheckInboxModal({
             onClick={handleSubmit}
             className="mt-[24px] w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[26px] font-medium rounded-[10px] transition-colors duration-200"
           >
-            Log in
+            {t("auth__common__login_submit")}
           </button>
         </div>
       </div>

@@ -4,7 +4,7 @@ export const renderTranslation = (
   text: string,
   components: Record<string, (children: React.ReactNode) => React.ReactNode>
 ): React.ReactNode => {
-  const regex = /<(\w+)>(.*?)<\/\1>/g;
+  const regex = /<(\w+)>([^<]*)<\/\1>/g;
 
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;

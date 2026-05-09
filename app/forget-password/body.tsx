@@ -8,6 +8,7 @@ import CheckInboxModal from "../../components/modals/check-inbox-modal";
 import { z } from "zod";
 import { forgotPassword } from '@/store/slices/auth-slice';
 import { useAppDispatch } from "@/store/hooks";
+import { useT } from "@/utils/t";
 
 const emailSchema = z
   .string()
@@ -15,6 +16,7 @@ const emailSchema = z
   .email("You have entered an invalid email address. Please try again.");
 
 export default function ForgetPasswordBody() {
+  const t = useT();
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -42,10 +44,10 @@ export default function ForgetPasswordBody() {
     <Container className="flex flex-col items-center justify-center min-h-[calc(100vh-72px)]">
       <div className="flex flex-col items-center justify-start bg-white rounded-[12px] shadow-card max-w-[350px] desktop:max-w-[400px] p-[24px] desktop:p-[32px]">
         <p className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--black)] center">
-          Recover password
+          {t("auth__recover_password__title")}
         </p>
         <p className="text-[16px] leading-[24px] font-regular text-[var(--Black)] text-center mt-[8px]">
-          Enter your email and we will send you a link to reset your password
+          {t("auth__recover_password__description")}
         </p>
         <div className="relative w-full desktop:flex-1 mt-[24px]">
           {/* Email Input */}
@@ -57,7 +59,7 @@ export default function ForgetPasswordBody() {
                 setEmailError("");
               }
             }}
-            placeholder="Enter your email"
+            placeholder={t("auth__common__input_login_placeholder")}
             type="email"
             leading={<Mail size={20} />}
             error={Boolean(emailError)}
@@ -73,7 +75,7 @@ export default function ForgetPasswordBody() {
           onClick={handleSubmit}
           className="mt-[16px] w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] leading-[16px] font-medium rounded-[10px] transition-colors duration-300"
         >
-          Send reset link
+          {t("auth__recover_password__submit")}
         </button>
 
         <CheckInboxModal
@@ -82,7 +84,7 @@ export default function ForgetPasswordBody() {
         />
       </div>
       <div className="mt-6">
-        <BackButtonWithText />
+        <BackButtonWithText title={t("public__dashboard__delete__qr_code__modal_cancel")}/>
       </div>
     </Container>
   );

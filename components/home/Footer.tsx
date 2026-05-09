@@ -4,8 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import LanguageSelector from "../common/language_dropdown";
 import { usePathname, useRouter } from "next/navigation";
+import { useT } from "@/utils/t";
 
 export default function Footer() {
+  const t = useT();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,9 +41,7 @@ export default function Footer() {
                   </div>
                 </Link>
                 <p className="text-white/60 text-1">
-                  Create personalized dynamic QR codes with ease. Boost their
-                  effectiveness using advanced analytics and branding tools, and
-                  modify your QR codes at any time.
+                  {t("public__landing__bottom_banner__description")}
                 </p>
               </div>
 
@@ -57,7 +57,7 @@ export default function Footer() {
                   className=" bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 inline-block transition-all duration-300 ease-linear
                  "
                 >
-                  Create QR code
+                  {t("public__dashboard__shared__cta_button")}
                 </Link>
               </div>
             </div>
@@ -67,7 +67,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 desktop:grid-cols-2 gap-8 desktop:gap-20 text-center desktop:text-left">
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">
-                Help
+                {t("public__dashboard__sidebar__link_groups__help")}
               </h3>
               <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <ul className="grid grid-cols-1 gap-4">
@@ -76,7 +76,7 @@ export default function Footer() {
                       href="/contact-us"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      Contact us
+                      {t("public__contact_us__title")}
                     </Link>
                   </li>
                   <li>
@@ -84,7 +84,7 @@ export default function Footer() {
                       href="/cancel-subscription"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      Cancel subscription
+                      {t("public__dashboard__billing__cancel_subscription__button")}
                     </Link>
                   </li>
                 </ul>
@@ -95,7 +95,7 @@ export default function Footer() {
                       href="/generator"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      Create QR code
+                      {t("public__dashboard__shared__cta_button")}
                     </Link>
                   </li>
                   <li>
@@ -103,7 +103,7 @@ export default function Footer() {
                       href="/faq"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      FAQ
+                      {t("public__footer__link_groups__help__faq")}
                     </Link>
                   </li>
                 </ul>
@@ -111,7 +111,7 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="text-white text-lg font-bold leading-[26px]">
-                Company
+                {t("public__dashboard__account__billing_info__section_company")}
               </h3>
               <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
                 <ul className="grid grid-cols-1 gap-4">
@@ -120,7 +120,7 @@ export default function Footer() {
                       href="/prices"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      Prices
+                      {t("public__qr__breadcrumbs__prices")}
                     </Link>
                   </li>
                   <li>
@@ -128,7 +128,7 @@ export default function Footer() {
                       href="/about-us"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      About us
+                      {t("public__breadcrumbs__about_us")}
                     </Link>
                   </li>
                 </ul>
@@ -138,7 +138,7 @@ export default function Footer() {
                       href="/terms-of-use"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      Terms and conditions
+                      {t("auth__signup__terms")}
                     </Link>
                   </li>
                   <li>
@@ -146,7 +146,7 @@ export default function Footer() {
                       href="/privacy-policy"
                       className="text-white/60 text-sm hover:text-white transition-colors leading-[22px]"
                     >
-                      Privacy policy
+                      {t("auth__signup__privacy_policy")}
                     </Link>
                   </li>
                 </ul>

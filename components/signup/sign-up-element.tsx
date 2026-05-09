@@ -10,6 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signupUser } from "@/store/slices/auth-slice";
 import { useAppDispatch } from "@/store/hooks";
+import { useT } from "@/utils/t";
+import { useTranslationRich } from "@/utils/useTranslationRich";
 
 const signUpSchema = z.object({
   email: z
@@ -34,6 +36,8 @@ export default function SignUpElements({
   paddingRight = true,
   fromDirect = false,
 }: SignUpProps) {
+  const t = useT();
+  const { tr } = useTranslationRich();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -82,15 +86,15 @@ export default function SignUpElements({
       className={`flex flex-col w-full ${withRightPannel ? "desktop:w-1/2" : "desktop:w-full"} max-h-full ${paddingRight ? "desktop:pr-8" : "desktop:pr-0"}`}
     >
       <h1 className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
-        {fromDirect
-          ? "Sign up"
-          : "Create a FREE account to download, edit and manage your QR codes"}
+        {t(fromDirect
+          ? "auth__login__cta_signup_action"
+          : "public__qr__page__landing__seo__signup__description")}
       </h1>
 
       <p className="mt-2 text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
-        {fromDirect
-          ? "Create a FREE account to download, edit and manage your QR codes"
-          : "Join millions of users already using the smartest QR Code Generator!"}
+        {t(fromDirect
+          ? "public__qr__page__landing__seo__signup__description"
+          : "auth__signup_welcome__description")}
       </p>
 
       {/* Form */}
@@ -107,7 +111,7 @@ export default function SignUpElements({
               <InputField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Enter your email"
+                placeholder={t("auth__common__input_login_placeholder")}
                 type="email"
                 leading={<Mail size={20} />}
                 error={!!fieldState.error}
@@ -130,7 +134,7 @@ export default function SignUpElements({
               <InputField
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Enter your password"
+                placeholder={t("auth__common__input_password_placeholder")}
                 type={showPassword ? "text" : "password"}
                 leading={<Lock size={20} />}
                 desktopWidth={424}
@@ -158,7 +162,7 @@ export default function SignUpElements({
           type="submit"
           className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
         >
-          Create Account
+          {t("auth__signup__submit")}
         </button>
       </form>
 
@@ -166,7 +170,7 @@ export default function SignUpElements({
       <div className="w-full flex items-center gap-[16px] mt-[32px]">
         <div className="flex-1 h-px bg-[var(--boarder-grey-50)]" />
         <span className="text-[var(--Grey)] text-[16px] leading-[24px] font-normal">
-          OR
+          {t("auth__common__separator_title")}
         </span>
         <div className="flex-1 h-px bg-[var(--boarder-grey-50)]" />
       </div>
@@ -198,7 +202,7 @@ export default function SignUpElements({
               />
             </svg>
             <p className="text-[14px] leading-[22px] pl-[8px] font-medium">
-              Continue with Google
+              {t("auth__signup__social_google")}
             </p>
           </button>
 
@@ -211,7 +215,7 @@ export default function SignUpElements({
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
             </svg>
             <p className="text-[14px] leading-[22px] pl-[8px] font-medium">
-              Continue with Facebook
+              {t("auth__signup__social_facebook")}
             </p>
           </button>
 
@@ -224,7 +228,7 @@ export default function SignUpElements({
               <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
             </svg>
             <p className="text-[14px] leading-[22px] pl-[8px] font-medium">
-              Continue with Apple
+              {t("auth__signup__social_apple")}
             </p>
           </button>
         </div>
@@ -308,26 +312,29 @@ export default function SignUpElements({
       {/* Login Link */}
       <div className="text-center desktop:text-start mt-[32px]">
         <span className="text-[14px] font-normal leading-[22px] text-gray-600">
-          Already have an account?
+          {t("auth__signup__cta")}
         </span>
         <Link
           href="/login"
           className="text-[14px] text-[#01A56D] leading-[22px] font-medium pl-[8px] hover:underline"
         >
-          Log In
+          {t("auth__common__login_submit")}
         </Link>
       </div>
 
       <div className="text-[12px] leading-[20px] font-normal text-[#3F3E3E] font-body_text pt-[32px] text-center desktop:text-start justify-center desktop:justify-start">
-        By clicking "Create account", you confirm that you have read and consent
-        to our{" "}
-        <Link href="/terms-of-use" className="text-[#01A56D] underline">
-          Terms and conditions
-        </Link>{" "}
-        and{" "}
-        <Link href="/privacy-policy" className="text-[#01A56D] underline">
-          Privacy policy
-        </Link>
+        {tr("auth__signup__disclaimer", {
+        terms: (children) => (
+          <Link href="/terms-of-use" className="text-[#01A56D] underline">
+            {children}
+          </Link>
+        ),
+        privacy: (children) => (
+          <Link href="/privacy-policy" className="text-[#01A56D] underline">
+            {children}
+          </Link>
+        ),
+      })}
       </div>
     </div>
   );

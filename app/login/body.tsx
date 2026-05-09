@@ -10,6 +10,7 @@ import { z } from "zod";
 import { loginUser } from '@/store/slices/auth-slice';
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
+import { useT } from "@/utils/t";
 
 const loginSchema = z.object({
   email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
@@ -19,6 +20,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginBody() {
+  const t = useT();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +80,7 @@ export default function LoginBody() {
           <div className="w-full flex flex-col gap-6">
             {/* Title */}
             <h1 className="text-[24px] font-bold leading-[32px] text-center text-[var(--Black)]">
-              Welcome back!
+              {t("auth__login__title")}
             </h1>
 
             {/* Form */}
@@ -95,7 +97,7 @@ export default function LoginBody() {
                          <InputField
                            value={field.value}
                            onChange={field.onChange}
-                           placeholder="Enter your email"
+                           placeholder={t("auth__common__input_login_placeholder")}
                            type="email"
                            leading={<Mail size={20} />}
                            error={!!fieldState.error}
@@ -117,7 +119,7 @@ export default function LoginBody() {
                          <InputField
                            value={field.value}
                            onChange={field.onChange}
-                           placeholder="Enter your password"
+                           placeholder={t("auth__common__input_password_placeholder")}
                            type={showPassword ? "text" : "password"}
                            leading={<Lock size={20} />}
                            desktopWidth={424}
@@ -144,18 +146,18 @@ export default function LoginBody() {
                      type="submit"
                      className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
                    >
-                     Login
+                     {t("auth__common__login_submit")}
                    </button>
                 </form>
 
             {/* Forgot Password */}
             <div className="text-center text-[14px] leading-[22px]">
-              <span className="text-[#3F3E3E]">Forgot your password? </span>
+              <span className="text-[#3F3E3E]">{t("auth__login__cta_forgot")} </span>
               <Link
                 href="/forget-password"
                 className="text-[#01A56D] font-medium hover:underline"
               >
-                Click here
+                {t("auth__login__cta_forgot_action")}
               </Link>
             </div>
           </div>
@@ -164,7 +166,7 @@ export default function LoginBody() {
           <div className="w-full flex items-center gap-[16px]">
             <div className="flex-1 h-px bg-[#D3D8EB]" />
             <span className="text-[16px] leading-[24px] text-[var(--Grey)]">
-              OR
+              {t("auth__common__separator_title")}
             </span>
             <div className="flex-1 h-px bg-[#D3D8EB]" />
           </div>
@@ -247,12 +249,12 @@ export default function LoginBody() {
 
           {/* Sign Up */}
           <div className="text-center text-[14px] leading-[22px]">
-            <span className="text-[#3F3E3E]">Don&apos;t have an account? </span>
+            <span className="text-[#3F3E3E]">{t("auth__login__cta_signup")}</span>
             <Link
               href="/sign-up"
               className="text-[#01A56D] font-medium hover:underline"
             >
-              Sign up
+              {t("auth__login__cta_signup_action")}
             </Link>
           </div>
         </div>

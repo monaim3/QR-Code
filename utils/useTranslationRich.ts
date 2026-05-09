@@ -6,11 +6,24 @@ export const useTranslationRich = () => {
 
   const t = (key: string) => translations[language]?.[key] || key;
 
+   // ✅ ADD HERE (inside hook)
+  const resolveKeys = (text: string) => {
+    return text.replace(/\{([^}]+)\}/g, (_, key) => {
+      return translations[language]?.[key] || key;
+    });
+  };
+
   const tr = (
     key: string,
-    components: Record<string, (children: React.ReactNode) => React.ReactNode>
+    components: Record<
+      string,
+      (children: React.ReactNode) => React.ReactNode
+    >
   ) => {
-    return renderTranslation(t(key), components);
+    const raw = t(key);
+    const resolved = resolveKeys(raw);
+
+    return renderTranslation(resolved, components);
   };
 
   return { t, tr };
