@@ -6,6 +6,8 @@ import { Mail } from "lucide-react";
 import BackButtonWithText from "../../components/common/back_button_with_text";
 import CheckInboxModal from "../../components/modals/check-inbox-modal";
 import { z } from "zod";
+import { forgotPassword } from '@/store/slices/auth-slice';
+import { useAppDispatch } from "@/store/hooks";
 
 const emailSchema = z
   .string()
@@ -13,18 +15,27 @@ const emailSchema = z
   .email("You have entered an invalid email address. Please try again.");
 
 export default function ForgetPasswordBody() {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async ()  => {
     const result = emailSchema.safeParse(email);
     if (!result.success) {
       setEmailError(result.error.issues[0].message);
       return;
+    }else{
+      const resultAction = await dispatch(
+      forgotPassword({
+        email,
+      })
+    );
+    if (forgotPassword.fulfilled.match(resultAction)) {
+      setEmailError("");
+      setIsModalOpen(true);
     }
-    setEmailError("");
-    setIsModalOpen(true);
+   }
   };
 
   return (
