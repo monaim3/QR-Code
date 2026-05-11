@@ -48,7 +48,7 @@ export default function OurMission() {
     <Container className="px-5">
       <div className="flex flex-col pt-[80px] desktop:pt-[160px]">
         <div className="flex flex-col desktop:flex-row items-center justify-center gap-12 desktop:gap-[56px]">
-          <div className="order-2 desktop:order-1 flex-1">
+          <div className="hidden desktop:block order-2 desktop:order-1 flex-1">
             <img src="/images/generator_img/mission.svg" alt="Our Mission" />
           </div>
           <div className="order-1 desktop:order-2 flex flex-col flex-1 max-w-full">
@@ -88,7 +88,7 @@ export default function OurMission() {
         </div>
         <div className="py-12 desktop:hidden">
           <img
-            src="/images/our-mission-banner.svg"
+            src="/images/generator_img/about-women.png"
             alt="Our Mission Banner"
             className="w-full rounded-[12px]"
           />
