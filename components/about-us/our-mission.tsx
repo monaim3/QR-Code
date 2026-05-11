@@ -86,19 +86,19 @@ export default function OurMission() {
             </div>
           </div>
         </div>
-        <div className="py-12 desktop:hidden">
+        <div className="pt-12 desktop:hidden">
           <img
             src="/images/generator_img/about-women.png"
             alt="Our Mission Banner"
             className="w-full rounded-[12px]"
           />
         </div>
-        <div className="w-full max-w-full flex flex-col desktop:flex-row justify-between pt-[56px] gap-8 border-b-[1px] border-[var(--Boarder-Grey)] pb-[80px] desktop:pb-[160px]">
+        <div className="w-full max-w-full flex flex-col desktop:flex-row justify-between pt-[56px] gap-4 desktop:gap-8 border-b-[1px] border-[var(--Boarder-Grey)] pb-[80px] desktop:pb-[160px]">
           {footers.map((footer, index) => {
             return (
               <div
                 key={index}
-                className="bg-[var(--boarder-grey-50)] h-[102px] w-full max-w-full flex items-center justify-start p-6 rounded-[12px] gap-6"
+                className="bg-[#F7F9FC] desktop:bg-[var(--boarder-grey-50)] h-[102px] w-full max-w-full flex items-center justify-start p-6 rounded-[12px] gap-6"
               >
                 {footer.id == 1 ? (
                   <Users />
