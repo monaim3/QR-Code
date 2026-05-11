@@ -47,7 +47,7 @@ export default function OurMission() {
   return (
     <Container className="px-5">
       <div className="flex flex-col pt-[80px] desktop:pt-[160px]">
-        <div className="flex flex-col desktop:flex-row items-center justify-center gap-[56px]">
+        <div className="flex flex-col desktop:flex-row items-center justify-center gap-12 desktop:gap-[56px]">
           <div className="order-2 desktop:order-1 flex-1">
             <img src="/images/generator_img/mission.svg" alt="Our Mission" />
           </div>
@@ -66,11 +66,14 @@ export default function OurMission() {
               rely on QRCenter to unlock the potential of QR codes. Jump on
               board and let us show all the cool things QR tech can do!
             </p>
-            <div className="pt-[24px]">
+            <div className="pt-[24px] ">
               <AvatarGroup className="">
                 {userList.map((image, index) => {
                   return (
-                    <Avatar key={index}>
+                    <Avatar
+                      key={index}
+                      style={{ zIndex: userList.length - index }}
+                    >
                       <Avatar>
                         <AvatarImage src={image} alt="User avatar" />
                         <AvatarFallback>CN</AvatarFallback>
