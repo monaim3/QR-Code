@@ -72,9 +72,10 @@ export default function OurMission() {
                   return (
                     <Avatar
                       key={index}
+                      className="!size-14"
                       style={{ zIndex: userList.length - index }}
                     >
-                      <Avatar>
+                      <Avatar className="!size-14">
                         <AvatarImage src={image} alt="User avatar" />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
