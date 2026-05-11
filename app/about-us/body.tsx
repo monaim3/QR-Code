@@ -71,7 +71,7 @@ export default function AboutUsBody() {
               </div>
 
               {/* Mobile text - hidden on desktop */}
-              <div className="block desktop:hidden order-2 w-full mt-14">
+              <div className="block desktop:hidden order-2 w-full desktop:mt-14 ">
                 <AboutUsLeftElement />
               </div>
             </div>

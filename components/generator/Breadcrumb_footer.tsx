@@ -78,6 +78,8 @@ export default function BreadcrumbFooter() {
           setToastMessage(validationResult.fieldErrors.socialChannels);
         } else if (pathname.includes("/video") && validationResult.fieldErrors.videos) {
           setToastMessage(validationResult.fieldErrors.videos);
+        } else if (pathname.includes("/menu") && validationResult.fieldErrors.menuItems) {
+          setToastMessage(validationResult.fieldErrors.menuItems);
         }
 
         setTimeout(() => {
