@@ -35,6 +35,13 @@ const qrApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    publishGuestQrCode: builder.mutation({
+      query: (id) => ({
+        url: `/qr-codes/publish/${id}`,
+        method: "PUT",
+      }),
+    }),
   }),
 });
 
@@ -43,4 +50,5 @@ export const {
   useGetGuestQrCodeQuery,
   useUpdateGuestQrCodeMutation,
   useUploadFileMutation,
+  usePublishGuestQrCodeMutation,
 } = qrApi;
