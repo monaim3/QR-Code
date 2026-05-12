@@ -33,7 +33,7 @@ interface GoogleLoginPayload {
   token: string;
 }
 
-interface GoogleSignUpPayload {
+export interface GoogleSignUpPayload {
   token: string;
   language: string;
   timezone: string;
@@ -407,7 +407,7 @@ const authSlice = createSlice({
     state.loading = false;
     state.error = action.payload || "Apple login failed"; 
   });
-  
+
   },
 });
 
