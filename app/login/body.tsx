@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Mail, Lock, Eye, EyeOff, Form } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Container from "../../components/common/parent-container";
 import InputField from "../../components/common/input_filed";
 import { useForm, Controller } from "react-hook-form";
@@ -362,7 +362,7 @@ const handleAppleClick = async () => {
           <div className="flex gap-4 text-center text-[14px] leading-[22px]">
             <span className="text-[#3F3E3E]">{t("auth__login__cta_signup")}</span>
             <Link
-              href="/sign-up"
+              href="/sign-up?from=login"
               className="text-[#01A56D] font-medium hover:underline"
             >
               {t("auth__login__cta_signup_action")}

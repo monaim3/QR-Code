@@ -8,10 +8,13 @@ import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { signupUser } from "@/store/slices/auth-slice";
+import { signupUser, googleSignUp, facebookSignUp, appleSignUp, GoogleSignUpPayload } from "@/store/slices/auth-slice";
 import { useAppDispatch } from "@/store/hooks";
 import { useT } from "@/utils/t";
 import { useTranslationRich } from "@/utils/useTranslationRich";
+import { useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
+
 
 const signUpSchema = z.object({
   email: z
@@ -41,6 +44,12 @@ export default function SignUpElements({
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const googleInitialized = useRef(false);
+  const facebookInitialized = useRef(false);
+  const appleInitialized = useRef(false);
+  const searchParams = useSearchParams();
+  const from = searchParams.get("from");
+  const isFromLogin = from === "login";
 
   const { control, handleSubmit, formState } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -70,7 +79,11 @@ export default function SignUpElements({
 
       if (signupUser.fulfilled.match(resultAction)) {
         console.log("Signup successful:", resultAction.payload);
-        router.push("/pricing");
+        if (isFromLogin) {
+          router.push("/prices");
+        } else {
+          router.push("/pricing");
+        }
       }
 
       if (signupUser.rejected.match(resultAction)) {
@@ -78,6 +91,146 @@ export default function SignUpElements({
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    // Google init
+    if (!googleInitialized.current) {
+      googleInitialized.current = true;
+      // @ts-ignore
+      window.google?.accounts.id.initialize({
+        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+        callback: async (response: { credential: string }) => {
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const payload: GoogleSignUpPayload = {
+              token: response.credential,
+              language: "en",
+              timezone: timezone,
+              isUnlockFlow: false,
+              type: "google",
+            };
+          const resultAction = await dispatch(googleSignUp(payload));
+          if (googleSignUp.fulfilled.match(resultAction)) {
+            if (isFromLogin) {
+              router.push("/prices");
+            } else {
+              router.push("/pricing");
+            }
+          }
+        },
+      });
+    }
+  
+    // Facebook init
+  if (!facebookInitialized.current) {
+    facebookInitialized.current = true;
+  
+    // @ts-ignore
+    window.fbAsyncInit = function () {
+      // @ts-ignore
+      FB.init({
+        appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
+        cookie: true,
+        xfbml: true,
+        version: "v19.0",
+      });
+      // @ts-ignore
+      window.fbReady = true; // ← mark as ready after init
+    };
+  
+    const script = document.createElement("script");
+    script.src = "https://connect.facebook.net/en_US/sdk.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+   }
+  
+   // Apple init
+  if (!appleInitialized.current) {
+    appleInitialized.current = true;
+  
+    // @ts-ignore
+    window.AppleID?.auth.init({
+      clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID!,
+      scope: "name email",
+      redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI!,
+      usePopup: true, // ← popup mode, no redirect needed
+    });
+   }
+  }, []);
+
+  const handleGoogleClick = () => {
+    // @ts-ignore
+    window.google?.accounts.id.prompt();
+  };
+  
+  const handleFacebookClick = () => {
+    // @ts-ignore
+    if (!window.fbReady) {
+      console.warn("Facebook SDK not ready yet, please try again.");
+      return;
+    }
+  
+    // @ts-ignore
+    FB.login(
+      (response: { authResponse?: { accessToken: string }; status: string }) => {
+        if (response.authResponse?.accessToken) {
+          handleFacebookToken(response.authResponse.accessToken);
+        }
+      },
+      { scope: "public_profile,email" }
+    );
+  };
+  
+  const handleFacebookToken = async (accessToken: string) => {
+     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const payload: GoogleSignUpPayload = {
+              token: accessToken,
+              language: "en",
+              timezone: timezone,
+              isUnlockFlow: false,
+              type: "google",
+      };
+    const resultAction = await dispatch(facebookSignUp(payload));
+    if (facebookSignUp.fulfilled.match(resultAction)) {
+      if (isFromLogin) {
+          router.push("/prices");
+      } else {
+          router.push("/pricing");
+      }
+    }
+  };
+  
+  const handleAppleClick = async () => {
+    try {
+      // @ts-ignore
+      const response = await window.AppleID.auth.signIn();
+  
+      // response.authorization.id_token is the token to send to backend
+      if (response.authorization?.id_token) {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const payload: GoogleSignUpPayload = {
+              token: response.authorization.id_token,
+              language: "en",
+              timezone: timezone,
+              isUnlockFlow: false,
+              type: "google",
+      };
+        const resultAction = await dispatch(
+          appleSignUp(payload)
+        );
+  
+        if (appleSignUp.fulfilled.match(resultAction)) {
+          if (isFromLogin) {
+              router.push("/prices");
+            } else {
+              router.push("/pricing");
+            }
+        }
+      }
+    } catch (err) {
+      console.error("Apple sign in failed:", err);
     }
   };
 
@@ -180,7 +333,7 @@ export default function SignUpElements({
         <div className="flex flex-col gap-4 w-full mt-[32px]">
           {/* Google */}
           <button
-            onClick={() => alert("Google sign in clicked")}
+            onClick={handleGoogleClick}
             className="flex items-center justify-center w-full h-[48px] py-[12px] border border-[var(--Boarder-Grey)] rounded-[10px] hover:shadow-lg transition-colors duration-200"
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24">
@@ -208,7 +361,7 @@ export default function SignUpElements({
 
           {/* Facebook */}
           <button
-            onClick={() => alert("Facebook sign in clicked")}
+            onClick={handleFacebookClick}
             className="flex items-center justify-center w-full h-[48px] py-[12px] border border-[var(--Boarder-Grey)] rounded-[10px] hover:shadow-lg transition-colors duration-200"
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#1877F2">
@@ -221,7 +374,7 @@ export default function SignUpElements({
 
           {/* Apple */}
           <button
-            onClick={() => alert("Apple sign in clicked")}
+            onClick={handleAppleClick}
             className="flex items-center justify-center w-full h-[48px] py-[12px] border border-[var(--Boarder-Grey)] rounded-[10px] hover:shadow-lg transition-colors duration-200"
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#000">
