@@ -61,7 +61,7 @@ export default function Header({
   return (
     <header
       className={cn(
-        "w-full desktop:bg-[#F5F6FA] bg-white relative z-50 var(--font-poppins)",
+        "w-full desktop:bg-[#F5F6FA] bg-white relative z-50 var(--font-poppins) border-b border-[#D3D8EB] desktop:border-b-0",
         className,
       )}
     >

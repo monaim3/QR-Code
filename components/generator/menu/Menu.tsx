@@ -12,14 +12,13 @@ import {
   createSectionId,
   removeSection,
 } from "@/store/slices/menuSlice";
-import { setFieldError, clearFieldError } from "@/store/slices/validationSlice";
+import { clearFieldError } from "@/store/slices/validationSlice";
 
 export default function Menu() {
   const dispatch = useAppDispatch();
   const sections = useAppSelector((state) => state.menu.sections);
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
-  const hasMenuError = showErrors && !!validationErrors.menuItems;
 
   useEffect(() => {
     if (!showErrors) return;
@@ -28,13 +27,6 @@ export default function Menu() {
     );
     if (hasProducts) {
       dispatch(clearFieldError("menuItems"));
-    } else {
-      dispatch(
-        setFieldError({
-          field: "menuItems",
-          error: "This field is required and cannot be left blank.",
-        }),
-      );
     }
   }, [sections, showErrors, dispatch]);
 
@@ -80,7 +72,7 @@ export default function Menu() {
         title="Menu"
         description="Input your menu"
         defaultOpen={true}
-        forceOpen={hasMenuError}
+        forceOpen={false}
       >
         <div className="desktop:space-y-8 space-y-6">
           {sections.map((section, index) => {
@@ -125,11 +117,6 @@ export default function Menu() {
             </button>
           </div>
         </div>
-        {hasMenuError && (
-          <p className="text-sm text-red-500 mt-2" data-validation-error="true">
-            {validationErrors.menuItems}
-          </p>
-        )}
       </Accordion>
 
       {/* Delete section confirmation */}
