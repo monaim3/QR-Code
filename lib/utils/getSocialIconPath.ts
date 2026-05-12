@@ -1,6 +1,4 @@
-export function getSocialIconPath(
-  selectedLogo?: string | null,
-): string | null {
+export function getSocialIconPath(selectedLogo?: string | null): string | null {
   if (!selectedLogo) return null;
 
   let normalized: string;
@@ -50,4 +48,3 @@ export function getSocialIconPath(
 
   return `/icons/socials/${normalized}.svg`;
 }
-
