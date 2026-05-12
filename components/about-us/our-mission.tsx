@@ -47,8 +47,8 @@ export default function OurMission() {
   return (
     <Container className="px-5">
       <div className="flex flex-col pt-[80px] desktop:pt-[160px]">
-        <div className="flex flex-col desktop:flex-row items-center justify-center gap-[56px]">
-          <div className="order-2 desktop:order-1 flex-1">
+        <div className="flex flex-col desktop:flex-row items-center justify-center gap-12 desktop:gap-[56px]">
+          <div className="hidden desktop:block order-2 desktop:order-1 flex-1">
             <img src="/images/generator_img/mission.svg" alt="Our Mission" />
           </div>
           <div className="order-1 desktop:order-2 flex flex-col flex-1 max-w-full">
@@ -66,12 +66,16 @@ export default function OurMission() {
               rely on QRCenter to unlock the potential of QR codes. Jump on
               board and let us show all the cool things QR tech can do!
             </p>
-            <div className="pt-[24px]">
+            <div className="pt-[24px] ">
               <AvatarGroup className="">
                 {userList.map((image, index) => {
                   return (
-                    <Avatar key={index}>
-                      <Avatar>
+                    <Avatar
+                      key={index}
+                      className="!size-14"
+                      style={{ zIndex: userList.length - index }}
+                    >
+                      <Avatar className="!size-14">
                         <AvatarImage src={image} alt="User avatar" />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
@@ -83,19 +87,19 @@ export default function OurMission() {
             </div>
           </div>
         </div>
-        <div className="py-12 desktop:hidden">
+        <div className="pt-12 desktop:hidden">
           <img
-            src="/images/our-mission-banner.svg"
+            src="/images/generator_img/about-women.png"
             alt="Our Mission Banner"
             className="w-full rounded-[12px]"
           />
         </div>
-        <div className="w-full max-w-full flex flex-col desktop:flex-row justify-between pt-[56px] gap-8 border-b-[1px] border-[var(--Boarder-Grey)] pb-[80px] desktop:pb-[160px]">
+        <div className="w-full max-w-full flex flex-col desktop:flex-row justify-between pt-[56px] gap-4 desktop:gap-8 border-b-[1px] border-[var(--Boarder-Grey)] pb-[80px] desktop:pb-[160px]">
           {footers.map((footer, index) => {
             return (
               <div
                 key={index}
-                className="bg-[var(--boarder-grey-50)] h-[102px] w-full max-w-full flex items-center justify-start p-6 rounded-[12px] gap-6"
+                className="bg-[#F7F9FC] desktop:bg-[var(--boarder-grey-50)] h-[102px] w-full max-w-full flex items-center justify-start p-6 rounded-[12px] gap-6"
               >
                 {footer.id == 1 ? (
                   <Users />

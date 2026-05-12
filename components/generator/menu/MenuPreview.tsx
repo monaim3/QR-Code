@@ -27,6 +27,7 @@ export default function MenuPreview() {
   const effectiveActiveId = activeSectionId ?? visibleSections[0]?.id ?? null;
 
   // Show initial preview until any menu state is changed
+  const firstProduct = menu.sections[0]?.products[0];
   const isInitialState =
     !menu.restaurantInfo.name &&
     !menu.restaurantInfo.description &&
@@ -36,7 +37,11 @@ export default function MenuPreview() {
     !menu.welcomeScreen &&
     menu.sections.length === 1 &&
     menu.sections[0].name === "" &&
-    menu.sections[0].products.length === 0;
+    (menu.sections[0].products.length === 0 ||
+      (menu.sections[0].products.length === 1 &&
+        firstProduct?.name === "" &&
+        !firstProduct?.image &&
+        firstProduct?.price === ""));
 
   const handleTabClick = useCallback((sectionId: string) => {
     setActiveSectionId(sectionId);
