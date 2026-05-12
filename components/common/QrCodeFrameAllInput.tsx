@@ -8,7 +8,7 @@ import Swap from "../icons/swap";
 import { useAppSelector } from "@/store/hooks";
 import { QRFrameArray } from "./QRFrameArray";
 import ColorInput from "../generator/vcard/ColorInput";
-
+import { useT } from "@/utils/t";
 const QrCodeFrameAllInput = ({
   frameText,
   setFrameText,
@@ -45,19 +45,24 @@ const QrCodeFrameAllInput = ({
     setFrameBackgroundColor(frameTextColor);
     setFrameTextColor(temp);
   };
+  const t = useT();
   return (
     <div className="!mt-0 md:!mt-0">
       <div className=" bg-[#F8F9FC] rounded-xl shadow-sm p-4 desktop:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-[72px] mb-2 lg:mb-6">
           <TextInput
-            label="Frame text"
+            label={t("generator__design_form__frame_section__frame_text_label")}
             value={frameText}
             onChange={setFrameText}
-            placeholder="Scan me!"
+            placeholder={t(
+              "generator__design_form__frame_section__frame_text_placeholder",
+            )}
           />
 
           <ColorInput
-            label="Frame color"
+            label={t(
+              "generator__design_form__frame_section__frame_color_label",
+            )}
             color={frameColor}
             onChange={setFrameColor}
             // disabled={selectedFrameIndex === 1}
@@ -67,7 +72,9 @@ const QrCodeFrameAllInput = ({
         <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
           <div className="flex flex-col lg:flex-row lg:items-end justify-center gap-4 lg:gap-3  pt-4 lg:pt-0  pb-4 lg:pb-8 relative ">
             <ColorInput
-              label="Background color"
+              label={t(
+                "generator__design_form__frame_section__background_color_label",
+              )}
               color={
                 transparentBg ? "Transparent" : (frameBackgroundColor ?? "")
               }
@@ -97,7 +104,9 @@ const QrCodeFrameAllInput = ({
             </button>
 
             <ColorInput
-              label="Text color"
+              label={t(
+                "generator__design_form__frame_section__text_color_label",
+              )}
               color={
                 frameTextColor
                   ? frameTextColor
@@ -111,7 +120,9 @@ const QrCodeFrameAllInput = ({
         </div>
 
         <CheckboxInput
-          label="Transparent background"
+          label={t(
+            "generator__design_form__frame_section__transparent_background",
+          )}
           checked={transparentBg}
           onChange={setTransparentBg}
           id="frame-transparent-bg"

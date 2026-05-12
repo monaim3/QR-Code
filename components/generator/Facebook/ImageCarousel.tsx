@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { LuPencil } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import UploadIcon from "@/components/icons/upload-icon";
-
+import { useT } from "@/utils/t";
 interface ImageItem {
   id: string;
   url: string;
@@ -45,6 +45,7 @@ export default function ImageCarousel({
       document.removeEventListener("drop", preventDefault);
     };
   }, []);
+  const t = useT();
 
   const validateFile = (file: File): string | null => {
     const validTypes = [
@@ -194,10 +195,12 @@ export default function ImageCarousel({
   return (
     <div className="w-full">
       <label className="block text-lg leading-[26px] font-bold text-[var(--Black)] ">
-        Image carousel *
+        {t("generator__images_content_form__images__label_required")}
       </label>
       <p className="text-sm leading-[22px] text-[var(--breadcrumb)] font-normal mb-6">
-        Upload up to {maxImages} images
+        {t("generator__images_content_form__images__description", {
+          count: String(maxImages),
+        })}
       </p>
 
       {/* Upload Area */}
@@ -237,10 +240,10 @@ export default function ImageCarousel({
 
           <div>
             <p className="text-base font-medium text-gray-600">
-              Upload images (jpg, png, svg)
+              {t("generator__images_content_form__images__upload_images")}{" "}
             </p>
             <p className="text-sm text-left text-gray-500 mt-1">
-              Maximum size per image: {maxSizeMB}MB
+              {t("generator__images_content_form__images__max_size", { size: String(maxSizeMB) })}
             </p>
           </div>
         </div>

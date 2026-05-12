@@ -70,7 +70,7 @@ export default function InputUrl({
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"
       >
         {label}
-        {required && <span className="text-black ml-1">*</span>}
+        {/* {required && <span className="text-black ml-1">*</span>} */}
       </label>
       <input
         type={type}

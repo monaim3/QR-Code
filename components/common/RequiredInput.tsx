@@ -34,7 +34,8 @@ export const RequiredTextInput = ({
 
   const inputId = id ?? label.replace(/\s+/g, "-").toLowerCase();
 
-  const validationError = validationKey && showErrors ? validationErrors[validationKey] : "";
+  const validationError =
+    validationKey && showErrors ? validationErrors[validationKey] : "";
   const showError = (required && touched && !value.trim()) || validationError;
 
   const handleBlur = () => {
@@ -55,7 +56,7 @@ export const RequiredTextInput = ({
         className="block mb-2 text-[16px] leading-[24px] font-medium text-[#000000]"
       >
         {label}
-        {required && <span className="text-black">*</span>}
+        {/* {required && <span className="text-black">*</span>} */}
       </label>
 
       <input
