@@ -8,21 +8,13 @@ import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-<<<<<<< HEAD
-import { signupUser } from "@/store/slices/auth-slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { useT } from "@/utils/t";
 import { useTranslationRich } from "@/utils/useTranslationRich";
 import { usePublishGuestQrCodeMutation } from "@/store/api/qrApi";
-=======
 import { signupUser, googleSignUp, facebookSignUp, appleSignUp, GoogleSignUpPayload } from "@/store/slices/auth-slice";
-import { useAppDispatch } from "@/store/hooks";
 import { useT } from "@/utils/t";
-import { useTranslationRich } from "@/utils/useTranslationRich";
 import { useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
 
->>>>>>> auth
 
 const signUpSchema = z.object({
   email: z
@@ -39,6 +31,7 @@ interface SignUpProps {
   withRightPannel?: boolean;
   paddingRight?: boolean;
   fromDirect?: boolean;
+  from?: boolean;
 }
 
 export default function SignUpElements({
@@ -46,23 +39,19 @@ export default function SignUpElements({
   withRightPannel = true,
   paddingRight = true,
   fromDirect = false,
+  from = false,
 }: SignUpProps) {
   const t = useT();
   const { tr } = useTranslationRich();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
-<<<<<<< HEAD
   const qrId = useAppSelector((state) => state.qr.qrId);
   const [publishGuestQrCode] = usePublishGuestQrCodeMutation();
-=======
   const googleInitialized = useRef(false);
   const facebookInitialized = useRef(false);
   const appleInitialized = useRef(false);
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
-  const isFromLogin = from === "login";
->>>>>>> auth
+  const isFromLogin = from;
 
   const { control, handleSubmit, formState } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -91,17 +80,12 @@ export default function SignUpElements({
       const resultAction = await dispatch(signupUser(payload));
 
       if (signupUser.fulfilled.match(resultAction)) {
-<<<<<<< HEAD
-        publishGuestQrCode(qrId!);
-        router.push("/pricing");
-=======
         console.log("Signup successful:", resultAction.payload);
         if (isFromLogin) {
           router.push("/prices");
         } else {
           router.push("/pricing");
         }
->>>>>>> auth
       }
 
       if (signupUser.rejected.match(resultAction)) {

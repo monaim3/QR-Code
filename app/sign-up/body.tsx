@@ -5,6 +5,7 @@ import SignUpReadyQr from "../../components/signup/sign-up-ready-qr";
 import SignupDirectBody from "../signup_direct/body";
 import { useSearchParams } from "next/navigation";
 
+
 export default function SignupBody() {
   const searchParams = useSearchParams();
   const isOnboardingFlow = searchParams.get("onboarding-flow") === "true";
@@ -32,7 +33,7 @@ export default function SignupBody() {
         >
           {/* Left Panel */}
 
-          <SignUpElements />
+          <SignUpElements from={searchParams.get("from") === "login"} />
 
           {/* Right Panel */}
           <SignUpReadyQr />
