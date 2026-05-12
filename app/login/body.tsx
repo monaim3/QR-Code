@@ -7,7 +7,7 @@ import InputField from "../../components/common/input_filed";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { loginUser, googleLogin } from '@/store/slices/auth-slice';
+import { loginUser, googleLogin, facebookLogin } from '@/store/slices/auth-slice';
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useT } from "@/utils/t";
@@ -26,6 +26,7 @@ export default function LoginBody() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const googleInitialized = useRef(false);
+  const facebookInitialized = useRef(false);
 
   const { control, handleSubmit, formState } = useForm<LoginForm>({
       resolver: zodResolver(loginSchema),
@@ -60,26 +61,75 @@ export default function LoginBody() {
       }
     };
 
-    // google login 
-    useEffect(() => {
-      if (googleInitialized.current) return; // ← skip if already initialized
-  googleInitialized.current = true;
-  // @ts-ignore
-  window.google?.accounts.id.initialize({
-    client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-    callback: async (response: { credential: string }) => {
-      const resultAction = await dispatch(googleLogin({ token: response.credential }));
+useEffect(() => {
+  // Google init
+  if (!googleInitialized.current) {
+    googleInitialized.current = true;
+    // @ts-ignore
+    window.google?.accounts.id.initialize({
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      callback: async (response: { credential: string }) => {
+        const resultAction = await dispatch(googleLogin({ token: response.credential }));
+        if (googleLogin.fulfilled.match(resultAction)) {
+          router.push("/cabinet/qr-codes");
+        }
+      },
+    });
+  }
 
-      if (googleLogin.fulfilled.match(resultAction)) {
-        router.push("/cabinet/qr-codes");
-      }
-    },
-  });
+  // Facebook init
+if (!facebookInitialized.current) {
+  facebookInitialized.current = true;
+
+  // @ts-ignore
+  window.fbAsyncInit = function () {
+    // @ts-ignore
+    FB.init({
+      appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
+      cookie: true,
+      xfbml: true,
+      version: "v19.0",
+    });
+    // @ts-ignore
+    window.fbReady = true; // ← mark as ready after init
+  };
+
+  const script = document.createElement("script");
+  script.src = "https://connect.facebook.net/en_US/sdk.js";
+  script.async = true;
+  script.defer = true;
+  document.body.appendChild(script);
+ }
 }, []);
 
 const handleGoogleClick = () => {
   // @ts-ignore
   window.google?.accounts.id.prompt();
+};
+
+const handleFacebookClick = () => {
+  // @ts-ignore
+  if (!window.fbReady) {
+    console.warn("Facebook SDK not ready yet, please try again.");
+    return;
+  }
+
+  // @ts-ignore
+  FB.login(
+    (response: { authResponse?: { accessToken: string }; status: string }) => {
+      if (response.authResponse?.accessToken) {
+        handleFacebookToken(response.authResponse.accessToken);
+      }
+    },
+    { scope: "public_profile,email" }
+  );
+};
+
+const handleFacebookToken = async (accessToken: string) => {
+  const resultAction = await dispatch(facebookLogin({ token: accessToken }));
+  if (facebookLogin.fulfilled.match(resultAction)) {
+    router.push("/cabinet/qr-codes");
+  }
 };
 
   return (
@@ -234,6 +284,7 @@ const handleGoogleClick = () => {
 
             {/* Facebook */}
             <button
+             onClick={handleFacebookClick}
               className="
                 h-12
                 rounded-[10px]

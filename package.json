@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --experimental-https",
     "start": "next start -p 9091",
     "build": "NEXT_DISABLE_TURBOPACK=1 next build",
     "lint": "eslint"

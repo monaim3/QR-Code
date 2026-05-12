@@ -30,7 +30,7 @@ interface ForgotPasswordPayload {
 }
 
 interface GoogleLoginPayload {
-  token: string; // Google id_token
+  token: string;
 }
 
 interface GoogleSignUpPayload {
@@ -128,6 +128,33 @@ export const googleLogin = createAsyncThunk<
   }
 });
 
+// ✅ Facebook Signup thunk
+export const facebookSignUp = createAsyncThunk<
+  AuthResponse,
+  GoogleSignUpPayload,
+  { rejectValue: string }
+>("auth/facebookSignUp", async (data, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/auth/facebook-signup", data);
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err?.message || "Facebook signup failed");
+  }
+});
+
+// ✅ Facebook Login thunk
+export const facebookLogin = createAsyncThunk<
+  AuthResponse,
+  GoogleLoginPayload,
+  { rejectValue: string }
+>("auth/facebookLogin", async (data, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/auth/facebook-login", data);
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err?.message || "Facebook login failed");
+  }
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -264,8 +291,54 @@ const authSlice = createSlice({
     state.loading = false;
     state.error = action.payload || "Google login failed";
   });
+
+    // =========================
+    // Facebook Signup cases
+    // =========================
+
+    builder
+  .addCase(facebookSignUp.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(facebookSignUp.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+    state.loading = false;
+    state.user = action.payload.user;
+    state.token = action.payload.accessToken;
+    storage.setUser(action.payload.user);
+    storage.setToken(action.payload.accessToken);
+    document.cookie = `token=${action.payload.accessToken}; path=/`;
+  })
+  .addCase(facebookSignUp.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload || "Facebook signup failed";
+  });
+
+    // =========================
+    // Facebook Login cases
+    // =========================
+
+  builder
+  .addCase(facebookLogin.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(facebookLogin.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+    state.loading = false;
+    state.user = action.payload.user;
+    state.token = action.payload.accessToken;
+    storage.setUser(action.payload.user);
+    storage.setToken(action.payload.accessToken);
+    document.cookie = `token=${action.payload.accessToken}; path=/`;
+  })
+  .addCase(facebookLogin.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload || "Facebook login failed";
+  });
+
   },
 });
+
 
 export const {
   logout,
