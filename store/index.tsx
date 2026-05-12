@@ -16,6 +16,7 @@ import imagesReducer from "./slices/imagesSlice";
 import validationReducer from "./slices/validationSlice";
 import authSlice from "./slices/auth-slice";
 import i18nReducer from "./slices/i18nSlice";
+import { baseApi } from "./api/baseApi";
 
 export const store = configureStore({
   reducer: {
@@ -36,7 +37,11 @@ export const store = configureStore({
     validation: validationReducer,
     auth: authSlice,
     i18n: i18nReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

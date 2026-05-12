@@ -30,6 +30,13 @@ import PdfPreView from "./pdf/pdf-preview";
 import SocialPreView from "./socialMedia/social-preview";
 import VideoPreView from "./video/video-preview";
 import AppPreView from "./app/app-preview";
+import { getSocialIconPath } from "@/lib/utils/getSocialIconPath";
+import {
+  useCreateGuestQrCodeMutation,
+  useGetGuestQrCodeQuery,
+  useUpdateGuestQrCodeMutation,
+} from "@/store/api/qrApi";
+import { setQrId } from "@/store/slices/qrSlice";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -41,6 +48,15 @@ export default function BreadcrumbFooter() {
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const reduxState = useAppSelector((state) => state);
+  const qrName = useAppSelector((state) => state.preview.qrCodeName);
+  const qrId = useAppSelector((state) => state.qr.qrId);
+  const qrCode = useAppSelector((state) => state.qr);
+
+  const [createGuestQrCode] = useCreateGuestQrCodeMutation();
+  const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
+  const { data: guestQrCode } = useGetGuestQrCodeQuery(qrId, {
+    skip: !qrId,
+  });
 
   const getCurrentStep = (): number => {
     // Check most specific paths first
@@ -62,7 +78,7 @@ export default function BreadcrumbFooter() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === 2) {
       // Get QR type from pathname
       const qrType = pathname.split("/")[2];
@@ -74,15 +90,21 @@ export default function BreadcrumbFooter() {
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
 
-        if (pathname.includes("/social-media") && validationResult.fieldErrors.socialChannels) {
+        if (
+          pathname.includes("/social-media") &&
+          validationResult.fieldErrors.socialChannels
+        ) {
           setToastMessage(validationResult.fieldErrors.socialChannels);
-        } else if (pathname.includes("/video") && validationResult.fieldErrors.videos) {
+        } else if (
+          pathname.includes("/video") &&
+          validationResult.fieldErrors.videos
+        ) {
           setToastMessage(validationResult.fieldErrors.videos);
         }
 
         setTimeout(() => {
           const firstError = document.querySelector<HTMLElement>(
-            '[aria-invalid="true"], [data-validation-error="true"]'
+            '[aria-invalid="true"], [data-validation-error="true"]',
           );
           if (firstError) {
             firstError.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -91,11 +113,98 @@ export default function BreadcrumbFooter() {
         return;
       }
 
+      // API call
+      if (qrType === "website-url") {
+        const response = await createGuestQrCode({
+          name: qrName,
+          content: { type: "url", url: websiteUrl },
+        });
+
+        if ("data" in response) {
+          const qrId = response.data.id;
+          dispatch(setQrId(qrId));
+        }
+      }
+
       // Clear any previous errors
       dispatch(clearAllErrors());
       localStorage.setItem("qrType", qrType);
       router.push("/generator/customize");
     } else if (currentStep === 3) {
+      // Update the guest QR code
+      if (qrId) {
+        const qrDesign = {
+          frame: {
+            type:
+              qrCode.selectedFrameIndex === 0
+                ? "default"
+                : qrCode.selectedFrameIndex.toString(),
+            text: qrCode.frameText,
+            color: qrCode.frameColor,
+            textColor: qrCode.frameTextColor,
+            background: qrCode.frameBackgroundColor.toLowerCase(),
+          },
+          width: 210,
+          height: 210,
+          type: "svg",
+          data: "",
+          image: {
+            selected: getSocialIconPath(qrCode.selectedLogo),
+            // uploaded: {
+            //   publicId: "string",
+            //   resourceType: "string",
+            //   format: "string",
+            //   bytes: 0,
+            //   key: "string",
+            //   bucketRootUrl: "string",
+            //   storageProvider: "cloudinary",
+            //   hasAutoTransformation: "not_yet_applied",
+            // },
+            uploaded: null,
+          },
+          margin: 0,
+          qrOptions: {
+            mode: "Byte",
+            typeNumber: 0,
+            errorCorrectionLevel: "Q",
+            byteModeStringEncoding: "UTF-8",
+          },
+          imageOptions: {
+            margin: 0,
+            imageSize: 0.5,
+            hideBackgroundDots: true,
+          },
+          dotsOptions: {
+            type: qrCode.patternStyle,
+            color: qrCode.dotColor,
+          },
+          cornersSquareOptions: {
+            color: qrCode.cornerFrameColor,
+            ...(qrCode.cornerFrameStyleUI !== "none" && {
+              type: qrCode.cornerFrameStyleUI,
+            }),
+          },
+          cornersDotOptions: {
+            color: qrCode.cornerDotColor,
+            ...(qrCode.cornerDotTypeUI !== "none" && {
+              type: qrCode.cornerDotTypeUI,
+            }),
+          },
+          backgroundOptions: {
+            color: qrCode.backgroundColor,
+          },
+        };
+
+        await updateGuestQrCode({
+          id: qrId!,
+          payload: {
+            qrDesign,
+            name: guestQrCode.name,
+            content: guestQrCode.content,
+          },
+        });
+      }
+
       router.push("/sign-up?onboarding-flow=true");
     }
   };
@@ -229,7 +338,10 @@ export default function BreadcrumbFooter() {
   return (
     <>
       {toastMessage && (
-        <ErrorToast message={toastMessage} onClose={() => setToastMessage(null)} />
+        <ErrorToast
+          message={toastMessage}
+          onClose={() => setToastMessage(null)}
+        />
       )}
       <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-[var(--Boarder-Grey)] pt-4 pb-8 lg:pb-4 z-40">
         <Container>

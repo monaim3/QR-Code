@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { z } from "zod";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   setWebsiteUrl,
@@ -10,7 +9,6 @@ import {
 } from "@/store/slices/previewSlice";
 import { clearFieldError } from "@/store/slices/validationSlice";
 import { motion, AnimatePresence } from "framer-motion";
-import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { ChevronDown } from "lucide-react";
 import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
 import PreviewQRButtons from "@/components/generator/Preview_QR_Buttons";
@@ -22,8 +20,6 @@ import Breadcrumb from "../../../components/generator/Breadcrumb";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import { urlValidationSchema } from "@/lib/validators/validators";
 import { useT } from "@/utils/t";
-
-const urlSchema = z.string().url("Please enter a valid URL");
 
 export default function WebsiteUrlPage() {
   const t = useT();
@@ -38,15 +34,13 @@ export default function WebsiteUrlPage() {
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
   const [urlError, setUrlError] = useState("");
-  const [qrNameError, setQrNameError] = useState("");
   const [isUrlFocused, setIsUrlFocused] = useState(false);
-  const [isUrlAccordionOpen, setIsUrlAccordionOpen] = useState(true);
-
-  useEffect(() => {
-    if (showErrors && validationErrors.websiteUrl) {
-      setIsUrlAccordionOpen(true);
-    }
-  }, [showErrors, validationErrors.websiteUrl]);
+  const [userWantsUrlAccordionOpen, setUserWantsUrlAccordionOpen] =
+    useState(true);
+  const showWebsiteUrlValidationError =
+    showErrors && Boolean(validationErrors.websiteUrl);
+  const isUrlAccordionOpen =
+    showWebsiteUrlValidationError || userWantsUrlAccordionOpen;
 
   const handleUrlChange = (value: string) => {
     dispatch(setWebsiteUrl(value));
@@ -125,20 +119,29 @@ export default function WebsiteUrlPage() {
                   {<Breadcrumb useMobileSteps={true} />}
                 </div>
                 <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block">
-                  {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__url__title"))}
+                  {t("generator__content_form__title").replace(
+                    "{type}",
+                    t("generator__step_1__qr_type_cards__url__title"),
+                  )}
                 </h1>
                 <div className="flex-1 flex flex-col gap-4">
                   <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
                     <button
-                      onClick={() => setIsUrlAccordionOpen(!isUrlAccordionOpen)}
+                      onClick={() =>
+                        setUserWantsUrlAccordionOpen(!userWantsUrlAccordionOpen)
+                      }
                       className="w-full flex items-center justify-between px-4 md:px-8 py-4"
                     >
                       <div className="flex flex-col items-start">
                         <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
-                          {t("generator__content_form_section__website__url_title")}
+                          {t(
+                            "generator__content_form_section__website__url_title",
+                          )}
                         </h3>
                         <p className="text-sm leading-[22px] text-[var(--Dark-gray)]">
-                          {t("generator__content_form_section__website__url_caption")}
+                          {t(
+                            "generator__content_form_section__website__url_caption",
+                          )}
                         </p>
                       </div>
                       <motion.div
@@ -167,7 +170,10 @@ export default function WebsiteUrlPage() {
                                 htmlFor="website-url"
                                 className="text-[16px] leading-[24px] font-medium font-roboto text-[var(--Black)]"
                               >
-                                {t("generator__content_form_section__website__url_label")}*
+                                {t(
+                                  "generator__content_form_section__website__url_label",
+                                )}
+                                *
                               </label>
                               <input
                                 id="website-url"
@@ -178,8 +184,15 @@ export default function WebsiteUrlPage() {
                                 }
                                 onFocus={() => setIsUrlFocused(true)}
                                 // onBlur={handleUrlBlur}
-                                placeholder={t("generator__content_form_section__website__url_placeholder")}
-                                aria-invalid={!!(urlError || (showErrors && validationErrors.websiteUrl))}
+                                placeholder={t(
+                                  "generator__content_form_section__website__url_placeholder",
+                                )}
+                                aria-invalid={
+                                  !!(
+                                    urlError ||
+                                    (showErrors && validationErrors.websiteUrl)
+                                  )
+                                }
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
                                   urlError ||
                                   (showErrors && validationErrors.websiteUrl)
@@ -203,11 +216,14 @@ export default function WebsiteUrlPage() {
                     </AnimatePresence>
                   </div>
                   <QRCodeNameAccordion
-                    title={t("generator__content_form_section__qr_name__title__changed")}
-                    description={t("generator__content_form_section__qr_name__description__changed")}
+                    title={t(
+                      "generator__content_form_section__qr_name__title__changed",
+                    )}
+                    description={t(
+                      "generator__content_form_section__qr_name__description__changed",
+                    )}
                     value={qrCodeName}
                     onChange={handleQrNameChange}
-                    error={qrNameError}
                   />
                 </div>
               </div>
