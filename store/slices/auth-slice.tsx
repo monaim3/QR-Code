@@ -156,6 +156,34 @@ export const facebookLogin = createAsyncThunk<
   }
 });
 
+// ✅ Apple Signup thunk
+export const appleSignUp = createAsyncThunk<
+  AuthResponse,
+  GoogleSignUpPayload,
+  { rejectValue: string }
+>("auth/appleSignUp", async (data, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/auth/apple-signup", data);
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err?.message || "Apple signup failed");
+  }
+});
+
+// ✅ Apple Login thunk
+export const appleLogin = createAsyncThunk<
+  AuthResponse,
+  GoogleLoginPayload,
+  { rejectValue: string }
+>("auth/appleLogin", async (data, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/auth/apple-login", data);
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err?.message || "Apple login failed");
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -336,6 +364,50 @@ const authSlice = createSlice({
     state.error = action.payload || "Facebook login failed";
   });
 
+    // =========================
+    // Apple Signup cases
+    // =========================
+
+    builder
+  .addCase(appleSignUp.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(appleSignUp.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+    state.loading = false;
+    state.user = action.payload.user;
+    state.token = action.payload.accessToken;
+    storage.setUser(action.payload.user);
+    storage.setToken(action.payload.accessToken);
+    document.cookie = `token=${action.payload.accessToken}; path=/`;
+  })
+  .addCase(appleSignUp.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload || "Apple signup failed";
+  });
+
+    // =========================
+    // Apple Login cases
+    // =========================
+
+  builder
+  .addCase(appleLogin.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(appleLogin.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+    state.loading = false;
+    state.user = action.payload.user;
+    state.token = action.payload.accessToken;
+    storage.setUser(action.payload.user);
+    storage.setToken(action.payload.accessToken);
+    document.cookie = `token=${action.payload.accessToken}; path=/`;
+  })
+  .addCase(appleLogin.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload || "Apple login failed"; 
+  });
+  
   },
 });
 

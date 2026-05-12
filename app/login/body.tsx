@@ -7,7 +7,7 @@ import InputField from "../../components/common/input_filed";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { loginUser, googleLogin, facebookLogin } from '@/store/slices/auth-slice';
+import { loginUser, googleLogin, facebookLogin, appleLogin } from '@/store/slices/auth-slice';
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useT } from "@/utils/t";
@@ -27,6 +27,7 @@ export default function LoginBody() {
   const [showPassword, setShowPassword] = useState(false);
   const googleInitialized = useRef(false);
   const facebookInitialized = useRef(false);
+  const appleInitialized = useRef(false);
 
   const { control, handleSubmit, formState } = useForm<LoginForm>({
       resolver: zodResolver(loginSchema),
@@ -100,6 +101,19 @@ if (!facebookInitialized.current) {
   script.defer = true;
   document.body.appendChild(script);
  }
+
+ // Apple init
+if (!appleInitialized.current) {
+  appleInitialized.current = true;
+
+  // @ts-ignore
+  window.AppleID?.auth.init({
+    clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID!,
+    scope: "name email",
+    redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI!,
+    usePopup: true, // ← popup mode, no redirect needed
+  });
+ }
 }, []);
 
 const handleGoogleClick = () => {
@@ -129,6 +143,26 @@ const handleFacebookToken = async (accessToken: string) => {
   const resultAction = await dispatch(facebookLogin({ token: accessToken }));
   if (facebookLogin.fulfilled.match(resultAction)) {
     router.push("/cabinet/qr-codes");
+  }
+};
+
+const handleAppleClick = async () => {
+  try {
+    // @ts-ignore
+    const response = await window.AppleID.auth.signIn();
+
+    // response.authorization.id_token is the token to send to backend
+    if (response.authorization?.id_token) {
+      const resultAction = await dispatch(
+        appleLogin({ token: response.authorization.id_token })
+      );
+
+      if (appleLogin.fulfilled.match(resultAction)) {
+        router.push("/cabinet/qr-codes");
+      }
+    }
+  } catch (err) {
+    console.error("Apple sign in failed:", err);
   }
 };
 
@@ -304,6 +338,7 @@ const handleFacebookToken = async (accessToken: string) => {
 
             {/* Apple */}
             <button
+              onClick={handleAppleClick}
               className="
                 h-12
                 rounded-[10px]
