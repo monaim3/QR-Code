@@ -7,10 +7,11 @@ import InputField from "../../components/common/input_filed";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { loginUser } from '@/store/slices/auth-slice';
+import { loginUser, googleLogin } from '@/store/slices/auth-slice';
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useT } from "@/utils/t";
+import { useEffect, useRef } from "react";
 
 const loginSchema = z.object({
   email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
@@ -24,6 +25,7 @@ export default function LoginBody() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const googleInitialized = useRef(false);
 
   const { control, handleSubmit, formState } = useForm<LoginForm>({
       resolver: zodResolver(loginSchema),
@@ -57,6 +59,28 @@ export default function LoginBody() {
         console.error(error);
       }
     };
+
+    // google login 
+    useEffect(() => {
+      if (googleInitialized.current) return; // ← skip if already initialized
+  googleInitialized.current = true;
+  // @ts-ignore
+  window.google?.accounts.id.initialize({
+    client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+    callback: async (response: { credential: string }) => {
+      const resultAction = await dispatch(googleLogin({ token: response.credential }));
+
+      if (googleLogin.fulfilled.match(resultAction)) {
+        router.push("/cabinet/qr-codes");
+      }
+    },
+  });
+}, []);
+
+const handleGoogleClick = () => {
+  // @ts-ignore
+  window.google?.accounts.id.prompt();
+};
 
   return (
     <Container>
@@ -151,7 +175,7 @@ export default function LoginBody() {
                 </form>
 
             {/* Forgot Password */}
-            <div className="text-center text-[14px] leading-[22px]">
+            <div className="flex gap-4 text-center text-[14px] leading-[22px]">
               <span className="text-[#3F3E3E]">{t("auth__login__cta_forgot")} </span>
               <Link
                 href="/forget-password"
@@ -175,6 +199,7 @@ export default function LoginBody() {
           <div className="w-full grid grid-cols-3 gap-[16px]">
             {/* Google */}
             <button
+             onClick={handleGoogleClick}
               className="
                 h-12
                 rounded-[10px]
@@ -248,7 +273,7 @@ export default function LoginBody() {
           </div>
 
           {/* Sign Up */}
-          <div className="text-center text-[14px] leading-[22px]">
+          <div className="flex gap-4 text-center text-[14px] leading-[22px]">
             <span className="text-[#3F3E3E]">{t("auth__login__cta_signup")}</span>
             <Link
               href="/sign-up"

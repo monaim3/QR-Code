@@ -29,6 +29,18 @@ interface ForgotPasswordPayload {
   email: string;
 }
 
+interface GoogleLoginPayload {
+  token: string; // Google id_token
+}
+
+interface GoogleSignUpPayload {
+  token: string;
+  language: string;
+  timezone: string;
+  isUnlockFlow: boolean;
+  type: string;
+}
+
 interface AuthState {
   user: User | null;
   token: string | null;
@@ -86,6 +98,36 @@ export const forgotPassword = createAsyncThunk<
     return rejectWithValue(err?.message || "Forgot password failed");
   }
 });
+
+// ✅ Google Signup thunk
+
+export const googleSignUp = createAsyncThunk<
+  AuthResponse,
+  GoogleSignUpPayload,
+  { rejectValue: string }
+>("auth/googleSignUp", async (data, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/auth/google-signup", data);
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err?.message || "Google signup failed");
+  }
+});
+
+// ✅ Google Login thunk
+export const googleLogin = createAsyncThunk<
+  AuthResponse,
+  GoogleLoginPayload,
+  { rejectValue: string }
+>("auth/googleLogin", async (data, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/auth/google-login", data);
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err?.message || "Google login failed");
+  }
+});
+
 
 const authSlice = createSlice({
   name: "auth",
@@ -180,6 +222,48 @@ const authSlice = createSlice({
         state.error =
           action.payload || "Failed to send forgot password email";
       });
+
+    // =========================
+    // Google Signup cases
+    // =========================
+    builder
+  .addCase(googleSignUp.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(googleSignUp.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+    state.loading = false;
+    state.user = action.payload.user;
+    state.token = action.payload.accessToken;
+    storage.setUser(action.payload.user);
+    storage.setToken(action.payload.accessToken);
+    document.cookie = `token=${action.payload.accessToken}; path=/`;
+  })
+  .addCase(googleSignUp.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload || "Google signup failed";
+  });
+
+    // =========================
+    // Google Login cases
+    // =========================
+    builder
+  .addCase(googleLogin.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(googleLogin.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+    state.loading = false;
+    state.user = action.payload.user;
+    state.token = action.payload.accessToken;
+    storage.setUser(action.payload.user);
+    storage.setToken(action.payload.accessToken);
+    document.cookie = `token=${action.payload.accessToken}; path=/`;
+  })
+  .addCase(googleLogin.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload || "Google login failed";
+  });
   },
 });
 
