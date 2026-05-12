@@ -1,16 +1,17 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Mail, Lock, Eye, EyeOff, Form } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Container from "../../components/common/parent-container";
 import InputField from "../../components/common/input_filed";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { loginUser } from '@/store/slices/auth-slice';
+import { loginUser, googleLogin, facebookLogin, appleLogin } from '@/store/slices/auth-slice';
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useT } from "@/utils/t";
+import { useEffect, useRef } from "react";
 
 const loginSchema = z.object({
   email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
@@ -24,6 +25,9 @@ export default function LoginBody() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const googleInitialized = useRef(false);
+  const facebookInitialized = useRef(false);
+  const appleInitialized = useRef(false);
 
   const { control, handleSubmit, formState } = useForm<LoginForm>({
       resolver: zodResolver(loginSchema),
@@ -57,6 +61,110 @@ export default function LoginBody() {
         console.error(error);
       }
     };
+
+useEffect(() => {
+  // Google init
+  if (!googleInitialized.current) {
+    googleInitialized.current = true;
+    // @ts-ignore
+    window.google?.accounts.id.initialize({
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      callback: async (response: { credential: string }) => {
+        const resultAction = await dispatch(googleLogin({ token: response.credential }));
+        if (googleLogin.fulfilled.match(resultAction)) {
+          router.push("/cabinet/qr-codes");
+        }
+      },
+    });
+  }
+
+  // Facebook init
+if (!facebookInitialized.current) {
+  facebookInitialized.current = true;
+
+  // @ts-ignore
+  window.fbAsyncInit = function () {
+    // @ts-ignore
+    FB.init({
+      appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
+      cookie: true,
+      xfbml: true,
+      version: "v19.0",
+    });
+    // @ts-ignore
+    window.fbReady = true; // ← mark as ready after init
+  };
+
+  const script = document.createElement("script");
+  script.src = "https://connect.facebook.net/en_US/sdk.js";
+  script.async = true;
+  script.defer = true;
+  document.body.appendChild(script);
+ }
+
+ // Apple init
+if (!appleInitialized.current) {
+  appleInitialized.current = true;
+
+  // @ts-ignore
+  window.AppleID?.auth.init({
+    clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID!,
+    scope: "name email",
+    redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI!,
+    usePopup: true, // ← popup mode, no redirect needed
+  });
+ }
+}, []);
+
+const handleGoogleClick = () => {
+  // @ts-ignore
+  window.google?.accounts.id.prompt();
+};
+
+const handleFacebookClick = () => {
+  // @ts-ignore
+  if (!window.fbReady) {
+    console.warn("Facebook SDK not ready yet, please try again.");
+    return;
+  }
+
+  // @ts-ignore
+  FB.login(
+    (response: { authResponse?: { accessToken: string }; status: string }) => {
+      if (response.authResponse?.accessToken) {
+        handleFacebookToken(response.authResponse.accessToken);
+      }
+    },
+    { scope: "public_profile,email" }
+  );
+};
+
+const handleFacebookToken = async (accessToken: string) => {
+  const resultAction = await dispatch(facebookLogin({ token: accessToken }));
+  if (facebookLogin.fulfilled.match(resultAction)) {
+    router.push("/cabinet/qr-codes");
+  }
+};
+
+const handleAppleClick = async () => {
+  try {
+    // @ts-ignore
+    const response = await window.AppleID.auth.signIn();
+
+    // response.authorization.id_token is the token to send to backend
+    if (response.authorization?.id_token) {
+      const resultAction = await dispatch(
+        appleLogin({ token: response.authorization.id_token })
+      );
+
+      if (appleLogin.fulfilled.match(resultAction)) {
+        router.push("/cabinet/qr-codes");
+      }
+    }
+  } catch (err) {
+    console.error("Apple sign in failed:", err);
+  }
+};
 
   return (
     <Container>
@@ -151,7 +259,7 @@ export default function LoginBody() {
                 </form>
 
             {/* Forgot Password */}
-            <div className="text-center text-[14px] leading-[22px]">
+            <div className="flex gap-4 text-center text-[14px] leading-[22px]">
               <span className="text-[#3F3E3E]">{t("auth__login__cta_forgot")} </span>
               <Link
                 href="/forget-password"
@@ -175,6 +283,7 @@ export default function LoginBody() {
           <div className="w-full grid grid-cols-3 gap-[16px]">
             {/* Google */}
             <button
+             onClick={handleGoogleClick}
               className="
                 h-12
                 rounded-[10px]
@@ -209,6 +318,7 @@ export default function LoginBody() {
 
             {/* Facebook */}
             <button
+             onClick={handleFacebookClick}
               className="
                 h-12
                 rounded-[10px]
@@ -228,6 +338,7 @@ export default function LoginBody() {
 
             {/* Apple */}
             <button
+              onClick={handleAppleClick}
               className="
                 h-12
                 rounded-[10px]
@@ -248,10 +359,10 @@ export default function LoginBody() {
           </div>
 
           {/* Sign Up */}
-          <div className="text-center text-[14px] leading-[22px]">
+          <div className="flex gap-4 text-center text-[14px] leading-[22px]">
             <span className="text-[#3F3E3E]">{t("auth__login__cta_signup")}</span>
             <Link
-              href="/sign-up"
+              href="/sign-up?from=login"
               className="text-[#01A56D] font-medium hover:underline"
             >
               {t("auth__login__cta_signup_action")}
