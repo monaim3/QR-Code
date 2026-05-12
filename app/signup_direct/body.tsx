@@ -2,15 +2,13 @@
 import Container from "../../components/common/parent-container";
 import SignUpElements from "../../components/signup/sign-up-element";
 
-
 export default function SignupDirectBody() {
-
   return (
-    <Container
-      className="flex items-center justify-center pt-14 desktop:pt-[48px] pb-8 desktop:pb-[160px]">
-        <div style={{ fontFamily: "var(--font-poppins)" }}>
-      {/* Outer Card */}
-      <div className="
+    <Container className="flex items-center justify-center pt-14 desktop:pt-[48px] pb-8 desktop:pb-[160px]">
+      <div style={{ fontFamily: "var(--font-poppins)" }}>
+        {/* Outer Card */}
+        <div
+          className="
        w-full max-w-[488px]
         bg-white
         rounded-[12px]
@@ -20,10 +18,15 @@ export default function SignupDirectBody() {
         flex flex-col desktop:flex-row
         items-start
         overflow-hidden
-      ">
-      {/* Left Panel */}
-       <SignUpElements withRightPannel={false} paddingRight={false} fromDirect={true}/>
-      </div>
+      "
+        >
+          {/* Left Panel */}
+          <SignUpElements
+            withRightPannel={false}
+            paddingRight={false}
+            fromDirect={true}
+          />
+        </div>
       </div>
     </Container>
   );

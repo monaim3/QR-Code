@@ -30,6 +30,16 @@ import PdfPreView from "./pdf/pdf-preview";
 import SocialPreView from "./socialMedia/social-preview";
 import VideoPreView from "./video/video-preview";
 import AppPreView from "./app/app-preview";
+import { buildGuestQrDesign } from "@/lib/generator/buildGuestQrDesign";
+import { buildGuestQrStep2Payload } from "@/lib/generator/buildGuestQrStep2Payload";
+import { getStep2ValidationToastMessage } from "@/lib/utils/getStep2ValidationToastMessage";
+import { scheduleScrollToFirstValidationError } from "@/lib/utils/scheduleScrollToFirstValidationError";
+import {
+  useCreateGuestQrCodeMutation,
+  useGetGuestQrCodeQuery,
+  useUpdateGuestQrCodeMutation,
+} from "@/store/api/qrApi";
+import { setQrId } from "@/store/slices/qrSlice";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -41,6 +51,17 @@ export default function BreadcrumbFooter() {
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const reduxState = useAppSelector((state) => state);
+  const qrName = useAppSelector((state) => state.preview.qrCodeName);
+  const qrId = useAppSelector((state) => state.qr.qrId);
+  const qrCode = useAppSelector((state) => state.qr);
+  const simpleText = useAppSelector((state) => state.simpleText.Text);
+  const vCard = useAppSelector((state) => state.vCard);
+
+  const [createGuestQrCode] = useCreateGuestQrCodeMutation();
+  const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
+  const { data: guestQrCode } = useGetGuestQrCodeQuery(qrId, {
+    skip: !qrId,
+  });
 
   const getCurrentStep = (): number => {
     // Check most specific paths first
@@ -62,42 +83,56 @@ export default function BreadcrumbFooter() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === 2) {
-      // Get QR type from pathname
       const qrType = pathname.split("/")[2];
-
-      // Validate the form data
       const validationResult = validateQRData(reduxState, qrType);
 
       if (!validationResult.isValid) {
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
 
-        if (pathname.includes("/social-media") && validationResult.fieldErrors.socialChannels) {
-          setToastMessage(validationResult.fieldErrors.socialChannels);
-        } else if (pathname.includes("/video") && validationResult.fieldErrors.videos) {
-          setToastMessage(validationResult.fieldErrors.videos);
-        } else if (pathname.includes("/menu") && validationResult.fieldErrors.menuItems) {
-          setToastMessage(validationResult.fieldErrors.menuItems);
-        }
+        const toast = getStep2ValidationToastMessage(
+          pathname,
+          validationResult.fieldErrors,
+        );
+        if (toast) setToastMessage(toast);
 
-        setTimeout(() => {
-          const firstError = document.querySelector<HTMLElement>(
-            '[aria-invalid="true"], [data-validation-error="true"]'
-          );
-          if (firstError) {
-            firstError.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        }, 600);
+        scheduleScrollToFirstValidationError();
         return;
       }
 
-      // Clear any previous errors
+      const createPayload = buildGuestQrStep2Payload(qrType, {
+        qrName,
+        websiteUrl,
+        simpleText,
+        vCard,
+      });
+
+      if (createPayload) {
+        const response = await createGuestQrCode(createPayload);
+        if ("data" in response) {
+          dispatch(setQrId(response.data.id));
+        }
+      }
+
       dispatch(clearAllErrors());
       localStorage.setItem("qrType", qrType);
       router.push("/generator/customize");
     } else if (currentStep === 3) {
+      if (qrId && guestQrCode) {
+        const qrDesign = buildGuestQrDesign(qrCode);
+
+        await updateGuestQrCode({
+          id: qrId,
+          payload: {
+            qrDesign,
+            name: guestQrCode.name,
+            content: guestQrCode.content,
+          },
+        });
+      }
+
       router.push("/sign-up?onboarding-flow=true");
     }
   };
@@ -231,7 +266,10 @@ export default function BreadcrumbFooter() {
   return (
     <>
       {toastMessage && (
-        <ErrorToast message={toastMessage} onClose={() => setToastMessage(null)} />
+        <ErrorToast
+          message={toastMessage}
+          onClose={() => setToastMessage(null)}
+        />
       )}
       <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-[var(--Boarder-Grey)] pt-4 pb-8 lg:pb-4 z-40">
         <Container>

@@ -22,6 +22,7 @@ interface QRState {
   customLogoName: string;
   cornerFrameStyleUI: string;
   cornerDotTypeUI: string;
+  qrId?: string; // Optional field to store QR code ID from backend
 }
 
 const initialState: QRState = {
@@ -46,6 +47,7 @@ const initialState: QRState = {
   customLogoName: "",
   cornerFrameStyleUI: "none",
   cornerDotTypeUI: "none",
+  qrId: "",
 };
 
 const qrSlice = createSlice({
@@ -123,6 +125,9 @@ const qrSlice = createSlice({
     setCustomLogoName: (state, action: PayloadAction<string>) => {
       state.customLogoName = action.payload;
     },
+    setQrId: (state, action: PayloadAction<string>) => {
+      state.qrId = action.payload;
+    },
   },
 });
 
@@ -148,6 +153,7 @@ export const {
   setCustomLogoName,
   setCornerFrameStyleUI,
   setCornerDotTypeUI,
+  setQrId,
 } = qrSlice.actions;
 
 export default qrSlice.reducer;

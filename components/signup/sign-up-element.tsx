@@ -9,9 +9,10 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signupUser } from "@/store/slices/auth-slice";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useT } from "@/utils/t";
 import { useTranslationRich } from "@/utils/useTranslationRich";
+import { usePublishGuestQrCodeMutation } from "@/store/api/qrApi";
 
 const signUpSchema = z.object({
   email: z
@@ -41,6 +42,8 @@ export default function SignUpElements({
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const qrId = useAppSelector((state) => state.qr.qrId);
+  const [publishGuestQrCode] = usePublishGuestQrCodeMutation();
 
   const { control, handleSubmit, formState } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -69,7 +72,7 @@ export default function SignUpElements({
       const resultAction = await dispatch(signupUser(payload));
 
       if (signupUser.fulfilled.match(resultAction)) {
-        console.log("Signup successful:", resultAction.payload);
+        publishGuestQrCode(qrId!);
         router.push("/pricing");
       }
 
@@ -86,15 +89,19 @@ export default function SignUpElements({
       className={`flex flex-col w-full ${withRightPannel ? "desktop:w-1/2" : "desktop:w-full"} max-h-full ${paddingRight ? "desktop:pr-8" : "desktop:pr-0"}`}
     >
       <h1 className="text-[20px] leading-[28px] desktop:text-[24px] desktop:leading-[32px] font-bold text-center desktop:text-start text-[#0A0909] tracking-[0%]">
-        {t(fromDirect
-          ? "auth__login__cta_signup_action"
-          : "public__qr__page__landing__seo__signup__description")}
+        {t(
+          fromDirect
+            ? "auth__login__cta_signup_action"
+            : "public__qr__page__landing__seo__signup__description",
+        )}
       </h1>
 
       <p className="mt-2 text-[16px] font-normal leading-[24px] text-center desktop:text-start text-[#3F3E3E] font-body_text">
-        {t(fromDirect
-          ? "public__qr__page__landing__seo__signup__description"
-          : "auth__signup_welcome__description")}
+        {t(
+          fromDirect
+            ? "public__qr__page__landing__seo__signup__description"
+            : "auth__signup_welcome__description",
+        )}
       </p>
 
       {/* Form */}
@@ -324,17 +331,17 @@ export default function SignUpElements({
 
       <div className="text-[12px] leading-[20px] font-normal text-[#3F3E3E] font-body_text pt-[32px] text-center desktop:text-start justify-center desktop:justify-start">
         {tr("auth__signup__disclaimer", {
-        terms: (children) => (
-          <Link href="/terms-of-use" className="text-[#01A56D] underline">
-            {children}
-          </Link>
-        ),
-        privacy: (children) => (
-          <Link href="/privacy-policy" className="text-[#01A56D] underline">
-            {children}
-          </Link>
-        ),
-      })}
+          terms: (children) => (
+            <Link href="/terms-of-use" className="text-[#01A56D] underline">
+              {children}
+            </Link>
+          ),
+          privacy: (children) => (
+            <Link href="/privacy-policy" className="text-[#01A56D] underline">
+              {children}
+            </Link>
+          ),
+        })}
       </div>
     </div>
   );

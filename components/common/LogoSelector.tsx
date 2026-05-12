@@ -92,7 +92,7 @@ const LogoSelector = ({
         }
 
         const reader = new FileReader();
-        reader.onload = (event) => {
+        reader.onload = async (event) => {
           const result = event.target?.result;
           if (result && typeof result === "string") {
             onCustomLogoUpload(result);
