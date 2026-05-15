@@ -13,10 +13,13 @@ import LogOut from "@/components/icons/log-out";
 import DashboardMenuIcon from "@/components/icons/menu";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleCollapsed } from "@/store/slices/sidebarSlice";
+import { logoutUser } from "@/store/slices/auth-slice";
+import { useRouter } from "next/navigation";
 
 export default function Menu() {
   const dispatch = useAppDispatch();
   const collapsed = useAppSelector((state) => state.sidebar.collapsed);
+  const router = useRouter();
 
   const toggleCollapse = () => {
     dispatch(toggleCollapsed());
@@ -36,7 +39,13 @@ export default function Menu() {
       href: "/cabinet/contact-us",
       onClick: () => {},
     },
-    { icon: LogOut, label: "Log out", href: "/", onClick: () => {} },
+    { icon: LogOut, 
+      label: "Log out",
+       href: "/", 
+       onClick: async () => {
+        await dispatch(logoutUser());
+        router.push("/");
+       } },
   ];
 
   return (

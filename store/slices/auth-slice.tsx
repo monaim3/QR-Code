@@ -184,6 +184,19 @@ export const appleLogin = createAsyncThunk<
   }
 });
 
+// ✅ Logout thunk
+export const logoutUser = createAsyncThunk(
+  "auth/logoutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      await api.post("/auth/logout", undefined);
+    } catch (err: any) {
+      return rejectWithValue(err?.message || "Logout failed");
+    }
+  }
+);
+
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -406,6 +419,30 @@ const authSlice = createSlice({
   .addCase(appleLogin.rejected, (state, action) => {
     state.loading = false;
     state.error = action.payload || "Apple login failed"; 
+  });
+
+    // =========================
+    // Logout cases
+    // =========================
+    builder
+  .addCase(logoutUser.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(logoutUser.fulfilled, (state) => {
+    state.loading = false;
+
+    state.user = null;
+    state.token = null;
+
+    storage.clear();
+
+    document.cookie =
+      "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  })
+  .addCase(logoutUser.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload || "Logout failed";
   });
 
   },

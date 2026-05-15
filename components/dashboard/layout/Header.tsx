@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
@@ -12,10 +11,13 @@ import CreditCards from "@/components/icons/credit-cards";
 import Support from "@/components/icons/support";
 import MenuItem from "./MenuItem";
 import LogOut from "@/components/icons/log-out";
+import { useAppDispatch } from "@/store/hooks";
+import { logoutUser } from "@/store/slices/auth-slice";
 
 export default function DashboardHeader() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isDrawerOpen) {
@@ -28,8 +30,9 @@ export default function DashboardHeader() {
     };
   }, [isDrawerOpen]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsDrawerOpen(false);
+    await dispatch(logoutUser());
     router.push("/");
   };
 
