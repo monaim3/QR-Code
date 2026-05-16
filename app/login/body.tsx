@@ -12,6 +12,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useT } from "@/utils/t";
 import { useEffect, useRef } from "react";
+import { useAppSelector } from "@/store/hooks";
 
 const loginSchema = z.object({
   email: z.string().min(1, "This field is required and cannot be left blank.").email("You have entered an invalid email address. Please try again."),
@@ -28,6 +29,8 @@ export default function LoginBody() {
   const googleInitialized = useRef(false);
   const facebookInitialized = useRef(false);
   const appleInitialized = useRef(false);
+
+  const { error, loading } = useAppSelector((state) => state.auth);
 
   const { control, handleSubmit, formState } = useForm<LoginForm>({
       resolver: zodResolver(loginSchema),
@@ -252,10 +255,39 @@ const handleAppleClick = async () => {
            
                    <button
                      type="submit"
-                     className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
+                     className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2 flex items-center justify-center"
                    >
-                     {t("auth__common__login_submit")}
+                    {loading ? (
+                       <svg
+                          className="animate-spin h-8 w-8 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          />
+                        </svg>
+                    ) : (
+                      t("auth__common__login_submit")
+                    )}
                    </button>
+
+                  {error && (
+                    <span className="text-[var(--error)] text-[12px] leading-[20px] text-start">
+                      Email or password is incorrect.
+                    </span>
+                  )}
                 </form>
 
             {/* Forgot Password */}

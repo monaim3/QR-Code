@@ -442,7 +442,11 @@ const authSlice = createSlice({
   })
   .addCase(logoutUser.rejected, (state, action) => {
     state.loading = false;
-    state.error = action.payload || "Logout failed";
+    state.error = "Logout failed";
+    state.user = null;
+    state.token = null;
+    storage.clear();
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
   });
 
   },
