@@ -19,6 +19,9 @@ import Tooltip from "./Tooltip";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
 import { useT } from "@/utils/t";
+import { useUploadFileMutation } from "@/store/api/qrApi";
+import { useAppDispatch } from "@/store/hooks";
+import { setUploadedLogo } from "@/store/slices/qrSlice";
 
 type LogoType = {
   id: string;
@@ -45,6 +48,8 @@ const LogoSelector = ({
 }: LogoSelectorProps) => {
   const [uploadError, setUploadError] = useState("");
   const fileName = customLogoName || "MyLogo.svg";
+  const [uploadFile] = useUploadFileMutation();
+  const dispatch = useAppDispatch();
 
   const socialLogos: LogoType[] = [
     { id: "twitter", name: "Twitter", Icon: Twitter },
@@ -70,6 +75,7 @@ const LogoSelector = ({
       onLogoChange(logo.id); // Pass logo ID instead of entire object
     }
     onCustomLogoUpload(null);
+    dispatch(setUploadedLogo(null));
     setUploadError("");
   };
   const t = useT();
@@ -87,6 +93,7 @@ const LogoSelector = ({
             "Image dimensions must be smaller than or equal to 2048 x 2048",
           );
           onCustomLogoUpload(null);
+          dispatch(setUploadedLogo(null));
           URL.revokeObjectURL(objectUrl);
           return;
         }
@@ -96,6 +103,21 @@ const LogoSelector = ({
           const result = event.target?.result;
           if (result && typeof result === "string") {
             onCustomLogoUpload(result);
+            const response = await uploadFile(file);
+            if ("data" in response) {
+              const logoData = {
+                bucketRootUrl: response.data.location.split(
+                  `/${response.data.bucket}`,
+                )[0],
+                bytes: response.data.bytes,
+                format: response.data.format,
+                key: response.data.key,
+                publicId: response.data.publicId,
+                resourceType: response.data.resourceType,
+                storageProvider: response.data.storageProvider,
+              };
+              dispatch(setUploadedLogo(logoData));
+            }
             onLogoChange(null);
           }
         };
@@ -106,6 +128,7 @@ const LogoSelector = ({
       img.onerror = () => {
         setUploadError("Failed to load image");
         onCustomLogoUpload(null);
+        dispatch(setUploadedLogo(null));
         URL.revokeObjectURL(objectUrl);
       };
 
@@ -130,6 +153,7 @@ const LogoSelector = ({
 
   const handleDelete = () => {
     onCustomLogoUpload(null);
+    dispatch(setUploadedLogo(null));
     onCustomLogoNameChange?.("");
     setUploadError("");
     const input = document.getElementById("logo-upload") as HTMLInputElement;
