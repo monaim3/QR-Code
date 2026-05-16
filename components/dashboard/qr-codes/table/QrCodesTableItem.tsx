@@ -5,21 +5,21 @@ import QrCode from "./QrCode";
 import QrInfo from "./QrInfo";
 import PauseCircle from "@/components/icons/pause-circle";
 import Actions from "./Actions";
-import { QRCodeItem } from "@/types/qr-code";
+import { QrCode as qrData } from "@/types/generatedQr";
 import MoreAction from "./MoreAction";
 import { getStatusStyles, normalizeUrl } from "@/lib/utils";
 import Edit from "@/components/icons/edit";
 import LinkAlt01 from "@/components/icons/link-alt-01";
 
 interface Props {
-  item: QRCodeItem;
+  item: qrData;
   isSelected: boolean;
   onToggleSelection: (id: string) => void;
-  onEditName: (item: QRCodeItem) => void;
-  onEditUrl: (item: QRCodeItem) => void;
-  onShareModal: (item: QRCodeItem) => void;
-  onCustomDownloadModal: (item: QRCodeItem) => void;
-  onQrPreviewModal: (item: QRCodeItem) => void;
+  onEditName: (item: qrData) => void;
+  onEditUrl: (item: qrData) => void;
+  onShareModal: (item: qrData) => void;
+  onCustomDownloadModal: (item: qrData) => void;
+  onQrPreviewModal: (item: qrData) => void;
 }
 
 export default function QrCodesTableItem({
@@ -47,7 +47,8 @@ export default function QrCodesTableItem({
           </div>
           <Tooltip text="Click to scan">
             <QrCode
-              thumbnail={item.thumbnail}
+              thumbnail={''}
+              qrCodeData={item}
               onQrPreviewModal={() => onQrPreviewModal(item)}
             />
           </Tooltip>
@@ -65,7 +66,7 @@ export default function QrCodesTableItem({
         {/* Scans */}
         <div className="flex flex-col items-start">
           <h3 className="text-[var(--Black)] text-[24px] font-bold leading-[var(--Typeface-Line-height-Heading-3)] text-center w-[64px]">
-            {item.scans}
+            {item.scansAmount}
           </h3>
           <p className="text-[var(--Grey)] text-center text-[14px] leading-[22px] w-[64px]">
             Scans
@@ -80,12 +81,12 @@ export default function QrCodesTableItem({
           <p className="text-[var(--Black)] text-[14px] leading-[22px]">
             Created: {item.createdAt}
           </p>
-          {item.lastModified && (
+          {item.updatedAt && (
             <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-              Last modified: {item.lastModified}
+              Last modified: {item.updatedAt}
             </p>
           )}
-          {item.lastModified && (
+          {item.updatedAt && (
             <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
               RECENTLY MODIFIED
             </p>
@@ -97,7 +98,7 @@ export default function QrCodesTableItem({
 
         {/* Status */}
         <div className="flex items-center justify-center gap-2 w-[80px] shrink-0">
-          {item.status === "Paused" ? (
+          {item.disabled === true ? (
             <>
               <PauseCircle className="text-[var(--Grey)]" />
               <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
@@ -106,11 +107,11 @@ export default function QrCodesTableItem({
             </>
           ) : (
             <>
-              <Circle className={getStatusStyles(item.status)} />
+              <Circle className={getStatusStyles(item.disabled === false ? "Active" : "Paused")} />
               <span
-                className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.status)}`}
+                className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.disabled === false ? "Active" : "Paused")}`}
               >
-                {item.status}
+                {item.disabled === false ? "Active" : "Paused"}
               </span>
             </>
           )}
@@ -133,7 +134,8 @@ export default function QrCodesTableItem({
           <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
 
           <QrCode
-            thumbnail={item.thumbnail}
+            thumbnail={''}
+            qrCodeData={item}
             onQrPreviewModal={() => onQrPreviewModal(item)}
           />
 
@@ -159,7 +161,7 @@ export default function QrCodesTableItem({
 
           <div className="flex items-center gap-2 flex-1">
             <h4 className="text-[var(--Black)] text-[16px] font-semibold leading-[24px]">
-              {item.title}
+              {item.name}
             </h4>
             <button onClick={() => onEditName(item)}>
               <Edit className="text-[var(--Grey)]" />
@@ -175,21 +177,22 @@ export default function QrCodesTableItem({
 
         <div className="flex items-center gap-4 self-stretch">
           <QrCode
-            thumbnail={item.thumbnail}
+            thumbnail={''}
+            qrCodeData={item}
             onQrPreviewModal={() => onQrPreviewModal(item)}
           />
 
           <div className="flex flex-col items-start gap-1 flex-1">
             {/* Type */}
             <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-              Type <span className="text-[var(--Black)]">{item.type}</span>
+              Type <span className="text-[var(--Black)]">{item.content.type}</span>
             </p>
 
             <div className="flex items-center gap-4 self-stretch">
               {/* Scans */}
               <p className="text-[var(--Grey)] text-[14px] leading-[22px] desktopDashboard:hidden">
                 <span className="text-[var(--Black)] font-semibold">
-                  {item.scans}
+                  {item.scansAmount}
                 </span>{" "}
                 scans
               </p>
@@ -199,7 +202,7 @@ export default function QrCodesTableItem({
 
               {/* Status */}
               <div className="desktopDashboard:hidden flex items-center justify-center gap-2 py-2 shrink-0">
-                {item.status === "Paused" ? (
+                {item.disabled === true ? (
                   <>
                     <PauseCircle className="text-[var(--Grey)]" />
                     <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
@@ -208,11 +211,11 @@ export default function QrCodesTableItem({
                   </>
                 ) : (
                   <>
-                    <Circle className={getStatusStyles(item.status)} />
+                    <Circle className={getStatusStyles(item.disabled === false ? "Active" : "Paused")} />
                     <span
-                      className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.status)}`}
+                      className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.disabled === false ? "Active" : "Paused")}`}
                     >
-                      {item.status}
+                      {item.disabled === false ? "Active" : "Paused"}
                     </span>
                   </>
                 )}
@@ -227,10 +230,10 @@ export default function QrCodesTableItem({
         </div>
 
         {/* Website link */}
-        {item.destinationUrl && (
+        {item.content.url && (
           <div className="flex items-center gap-1">
             <a
-              href={normalizeUrl(item.destinationUrl)}
+              href={normalizeUrl(item.content.url)}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -238,7 +241,7 @@ export default function QrCodesTableItem({
             </a>
             <div className="flex items-center gap-2">
               <p className="text-[var(--Dark-Grey)] text-[14px] leading-[22px]">
-                {item.destinationUrl}
+                {item.content.url}
               </p>
               <button onClick={() => onEditUrl(item)}>
                 <Edit className="text-[var(--Grey)]" />

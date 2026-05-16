@@ -8,22 +8,22 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { QRCodeItem } from "@/types/qr-code";
+import { QrCode as qrData } from "@/types/generatedQr";
 
 interface Props {
   open: boolean;
   onClose: () => void;
   onSave: (newName: string) => void;
-  item?: QRCodeItem | null;
+  item?: qrData | null;
 }
 
 export default function NameEditModal({ open, onClose, onSave, item }: Props) {
-  const [name, setName] = useState(item?.title || "");
+  const [name, setName] = useState(item?.name || "");
 
   // Reset name when modal opens/closes or item changes
   useEffect(() => {
     if (open && item) {
-      setName(item.title || "");
+      setName(item.name || "");
     }
   }, [open, item]);
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { QRCodeItem } from "@/types/qr-code";
 import QrCodesTableItem from "./QrCodesTableItem";
 import NameEditModal from "./NameEditModal";
 import UrlEditModal from "./UrlEditModal";
@@ -10,12 +9,13 @@ import CustomDownloadModal from "./CustomDownloadModal";
 import QrPreviewModal from "./QrPreviewModal";
 import DownloadQrCodeModal from "./DownloadQrCodeModal";
 import { useSearchParams } from "next/navigation";
+import { QrCode as qrData } from "@/types/generatedQr";
 
 interface Props {
-  qrData: QRCodeItem[];
+  qrData: qrData[];
   selectedIds: Set<string>;
   onToggleSelection: (id: string) => void;
-  onUpdateQrCode: (id: string, updates: Partial<QRCodeItem>) => void;
+  onUpdateQrCode: (id: string, updates: Partial<qrData>) => void;
 }
 
 export default function QrCodesTable({
@@ -24,14 +24,13 @@ export default function QrCodesTable({
   onToggleSelection,
   onUpdateQrCode,
 }: Props) {
-  const [selectedItem, setSelectedItem] = useState<QRCodeItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<qrData | null>(null);
   const [isUrlEditing, setIsUrlEditing] = useState(false);
   const [isNameEditing, setIsNameEditing] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [isCustomDownloadModalOpen, setIsCustomDownloadModalOpen] =
-    useState(false);
+  const [isCustomDownloadModalOpen, setIsCustomDownloadModalOpen] = useState(false);
   const [isQrPreviewModalOpen, setIsQrPreviewModalOpen] = useState(false);
-  const [localQrData, setLocalQrData] = useState<QRCodeItem[]>(qrData);
+  const [localQrData, setLocalQrData] = useState<qrData[]>(qrData);
   const searchParams = useSearchParams();
   const downloadModalParam = searchParams.get("download-modal");
   const [isDownloadModal, setIsDownloadModal] = useState(downloadModalParam === "true");
@@ -47,11 +46,11 @@ export default function QrCodesTable({
     // Update local state immediately
     setLocalQrData((prevData) =>
       prevData.map((item) =>
-        item.id === selectedItem.id ? { ...item, title: newName } : item
+        item.id === selectedItem.id ? { ...item, name: newName } : item
       )
     );
     // Call parent update function
-    onUpdateQrCode(selectedItem.id, { title: newName });
+    onUpdateQrCode(selectedItem.id, { name: newName });
     setIsNameEditing(false);
     setSelectedItem(null);
   }, [selectedItem, onUpdateQrCode]);
@@ -66,7 +65,7 @@ export default function QrCodesTable({
       )
     );
     // Call parent update function
-    onUpdateQrCode(selectedItem.id, { destinationUrl: newUrl });
+    onUpdateQrCode(selectedItem.id, { content: { ...selectedItem.content, url: newUrl } });
     setIsUrlEditing(false);
     setSelectedItem(null);
   }, [selectedItem, onUpdateQrCode]);
@@ -77,7 +76,7 @@ export default function QrCodesTable({
   }, []);
 
   // Handle edit name request from child
-  const handleEditName = useCallback((item: QRCodeItem) => {
+  const handleEditName = useCallback((item: qrData) => {
     setIsShareModalOpen(false);
     setIsCustomDownloadModalOpen(false);
     setIsQrPreviewModalOpen(false);
@@ -87,7 +86,7 @@ export default function QrCodesTable({
   }, []);
 
   // Handle edit url request from child
-  const handleEditUrl = useCallback((item: QRCodeItem) => {
+  const handleEditUrl = useCallback((item: qrData) => {
     setIsNameEditing(false);
     setIsShareModalOpen(false);
     setIsCustomDownloadModalOpen(false);
@@ -97,7 +96,7 @@ export default function QrCodesTable({
   }, []);
 
   // Handle share modal request from child
-  const handleShareModal = useCallback((item: QRCodeItem) => {
+  const handleShareModal = useCallback((item: qrData) => {
     setIsNameEditing(false);
     setIsUrlEditing(false);
     setIsCustomDownloadModalOpen(false);
@@ -113,7 +112,7 @@ export default function QrCodesTable({
   }, []);
 
   // Handle custom download modal request from child
-  const handleCustomDownloadModal = useCallback((item: QRCodeItem) => {
+  const handleCustomDownloadModal = useCallback((item: qrData) => {
     setIsNameEditing(false);
     setIsUrlEditing(false);
     setIsShareModalOpen(false);
@@ -141,7 +140,7 @@ export default function QrCodesTable({
   }, []);
 
   // Handle qr preview modal request from child
-  const handleQrPreviewModal = useCallback((item: QRCodeItem) => {
+  const handleQrPreviewModal = useCallback((item: qrData) => {
     setIsNameEditing(false);
     setIsUrlEditing(false);
     setIsShareModalOpen(false);

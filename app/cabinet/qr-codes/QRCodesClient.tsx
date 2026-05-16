@@ -12,58 +12,62 @@ import SubscribeBanner from "@/components/dashboard/qr-codes/SubscribeBanner";
 import ReviewBanner from "@/components/dashboard/qr-codes/ReviewBanner";
 import { useSearchParams } from "next/navigation";
 import { useT } from "@/utils/t";
+import { useGetQrCodesQuery } from "@/store/api/qrCodesApi";
+import { QrCode as qrData } from "@/types/generatedQr";
 
-const initialQrData: QRCodeItem[] = [
-  {
-    id: "1",
-    title: "Italian Restaurant",
-    thumbnail: "/images/dev/dev-qr-1.svg",
-    shortUrl: "myqrcode.com/erTWEssq",
-    type: "Website URL",
-    destinationUrl: "www.italian-restaurant.com",
-    scans: 256,
-    createdAt: "Jun 27, 2023",
-    lastModified: "Feb 12, 2024",
-    status: "Active",
-  },
-  {
-    id: "2",
-    title: "Product campaign",
-    thumbnail: "/images/dev/dev-qr-2.svg",
-    shortUrl: "myqrcode.com/opWerasd",
-    type: "Video",
-    scans: 329,
-    createdAt: "Jun 20, 2023",
-    lastModified: "Feb 10, 2024",
-    status: "Paused",
-  },
-  {
-    id: "3",
-    title: "Screenshot tool",
-    thumbnail: "/images/dev/dev-qr-3.svg",
-    shortUrl: "myqrcode.com/imsTRqwa",
-    type: "Business",
-    scans: 81,
-    createdAt: "Jun 20, 2023",
-    lastModified: "Feb 10, 2024",
-    status: "Active",
-  },
-  {
-    id: "4",
-    title: "Texas Restaurant",
-    thumbnail: "/images/dev/dev-qr-3.svg",
-    shortUrl: "myqrcode.com/opWerasd",
-    type: "Website",
-    destinationUrl: "www.texas-restaurant.com",
-    scans: 27,
-    createdAt: "Jun 20, 2023",
-    status: "Active",
-  },
-];
+
+// const initialQrData: QRCodeItem[] = [
+//   {
+//     id: "1",
+//     title: "Italian Restaurant",
+//     thumbnail: "/images/dev/dev-qr-1.svg",
+//     shortUrl: "myqrcode.com/erTWEssq",
+//     type: "Website URL",
+//     destinationUrl: "www.italian-restaurant.com",
+//     scans: 256,
+//     createdAt: "Jun 27, 2023",
+//     lastModified: "Feb 12, 2024",
+//     status: "Active",
+//   },
+//   {
+//     id: "2",
+//     title: "Product campaign",
+//     thumbnail: "/images/dev/dev-qr-2.svg",
+//     shortUrl: "myqrcode.com/opWerasd",
+//     type: "Video",
+//     scans: 329,
+//     createdAt: "Jun 20, 2023",
+//     lastModified: "Feb 10, 2024",
+//     status: "Paused",
+//   },
+//   {
+//     id: "3",
+//     title: "Screenshot tool",
+//     thumbnail: "/images/dev/dev-qr-3.svg",
+//     shortUrl: "myqrcode.com/imsTRqwa",
+//     type: "Business",
+//     scans: 81,
+//     createdAt: "Jun 20, 2023",
+//     lastModified: "Feb 10, 2024",
+//     status: "Active",
+//   },
+//   {
+//     id: "4",
+//     title: "Texas Restaurant",
+//     thumbnail: "/images/dev/dev-qr-3.svg",
+//     shortUrl: "myqrcode.com/opWerasd",
+//     type: "Website",
+//     destinationUrl: "www.texas-restaurant.com",
+//     scans: 27,
+//     createdAt: "Jun 20, 2023",
+//     status: "Active",
+//   },
+// ];
 
 export default function QrCodesClient() {
+  const { data, isLoading, isError } = useGetQrCodesQuery();
   const t = useT();
-  const [qrData, setQrData] = useState<QRCodeItem[]>(initialQrData);
+  const [qrData, setQrData] = useState<qrData[]>(data || []);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [filters, setFilters] = useState<{
     query: string;
@@ -89,34 +93,37 @@ export default function QrCodesClient() {
     if (filters.query.trim()) {
       const queryLower = filters.query.toLowerCase().trim();
       filtered = filtered.filter((item) =>
-        item.title.toLowerCase().includes(queryLower),
+        item.name.toLowerCase().includes(queryLower),
       );
     }
 
     // Filter by status
     if (filters.status) {
-      filtered = filtered.filter((item) => item.status === filters.status);
+      filtered = filtered.filter((item)=>{
+        const itemStatus = item.disabled === false ? "Active" : "Paused";
+        return itemStatus === filters.status;
+      });
     }
 
     // Filter by types
     if (filters.types.length > 0) {
-      filtered = filtered.filter((item) => filters.types.includes(item.type));
+      filtered = filtered.filter((item) => filters.types.includes(item.content.type));
     }
 
     // Sort data
     if (filters.sortBy) {
       switch (filters.sortBy) {
         case "name-asc":
-          filtered.sort((a, b) => a.title.localeCompare(b.title));
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
           break;
         case "name-desc":
-          filtered.sort((a, b) => b.title.localeCompare(a.title));
+          filtered.sort((a, b) => b.name.localeCompare(a.name));
           break;
         case "scans-asc":
-          filtered.sort((a, b) => a.scans - b.scans);
+          filtered.sort((a, b) => Number(a.scansAmount) - Number(b.scansAmount));
           break;
         case "scans-desc":
-          filtered.sort((a, b) => b.scans - a.scans);
+          filtered.sort((a, b) => Number(b.scansAmount) - Number(a.scansAmount));
           break;
         case "date-asc":
           filtered.sort((a, b) => {
@@ -190,8 +197,7 @@ export default function QrCodesClient() {
 
   const selectedCount = selectedIds.size;
   const hasSelection = selectedCount > 0;
-  const allSelected =
-    selectedCount === filteredQrData.length && filteredQrData.length > 0;
+  const allSelected = selectedCount === filteredQrData.length && filteredQrData.length > 0;
 
   return (
     <>
@@ -227,7 +233,7 @@ export default function QrCodesClient() {
           <>
             {/* Table */}
             <QrCodesTable
-              qrData={filteredQrData}
+              qrData={data || []}
               selectedIds={selectedIds}
               onToggleSelection={handleToggleSelection}
               onUpdateQrCode={handleUpdateQrCode}

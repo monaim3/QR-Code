@@ -5,13 +5,13 @@ import Eye from "@/components/icons/eye";
 import LinkAlt01 from "@/components/icons/link-alt-01";
 import PauseCircle from "@/components/icons/pause-circle";
 import { getStatusStyles, normalizeUrl } from "@/lib/utils";
-import { QRCodeItem } from "@/types/qr-code";
+import { QrCode as qrData } from "@/types/generatedQr";
 
 interface Props {
-  item: QRCodeItem;
-  onEditName: (item: QRCodeItem) => void;
-  onEditUrl: (item: QRCodeItem) => void;
-  onQrPreviewModal: (item: QRCodeItem) => void;
+  item: qrData;
+  onEditName: (item: qrData) => void;
+  onEditUrl: (item: qrData) => void;
+  onQrPreviewModal: (item: qrData) => void;
 }
 
 export default function QrInfo({
@@ -21,7 +21,7 @@ export default function QrInfo({
   onQrPreviewModal,
 }: Props) {
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(item.shortUrl);
+    await navigator.clipboard.writeText(item.content.url);
   };
 
   return (
@@ -29,7 +29,7 @@ export default function QrInfo({
       {/* Name */}
       <div className="flex items-center gap-2">
         <h4 className="text-[var(--Black)] text-[18px] font-bold leading-[var(--Typeface-Line-height-Heading-4)]">
-          {item.title}
+          {item.name}
         </h4>
         <button onClick={() => onEditName(item)}>
           <Edit className="text-[var(--Grey)]" />
@@ -42,7 +42,7 @@ export default function QrInfo({
           <Eye className="text-[var(--Dark-gray)] cursor-pointer" />
         </button>
         <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-          {item.shortUrl}
+          {item.content.url}
         </p>
         <button onClick={handleCopy}>
           <Copy className="text-[var(--Grey)]" />
@@ -52,7 +52,7 @@ export default function QrInfo({
       <div className="flex items-center gap-4">
         {/* Type */}
         <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-          Type <span className="text-[var(--Black)]">{item.type}</span>
+          Type <span className="text-[var(--Black)]">{item.content.type}</span>
         </p>
 
         {/* Line */}
@@ -61,7 +61,7 @@ export default function QrInfo({
         {/* Scans */}
         <p className="text-[var(--Grey)] text-[14px] leading-[22px] desktopDashboard:hidden">
           <span className="text-[var(--Black)] font-semibold">
-            {item.scans}
+            {item.scansAmount}
           </span>{" "}
           scans
         </p>
@@ -71,7 +71,7 @@ export default function QrInfo({
 
         {/* Status */}
         <div className="desktopDashboard:hidden flex items-center justify-center gap-2 py-2 shrink-0">
-          {item.status === "Paused" ? (
+          {item.disabled === true ? (
             <>
               <PauseCircle className="text-[var(--Grey)]" />
               <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
@@ -80,11 +80,11 @@ export default function QrInfo({
             </>
           ) : (
             <>
-              <Circle className={getStatusStyles(item.status)} />
+              <Circle className={getStatusStyles(item.disabled === false ? "Active" : "Paused")} />
               <span
-                className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.status)}`}
+                className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.disabled === false ? "Active" : "Paused")}`}
               >
-                {item.status}
+                {item.disabled === false ? "Active" : "Paused"}
               </span>
             </>
           )}
@@ -100,10 +100,10 @@ export default function QrInfo({
       </div>
 
       {/* Website link */}
-      {item.destinationUrl && (
+      {item.content.url && (
         <div className="flex items-center gap-1">
           <a
-            href={normalizeUrl(item.destinationUrl)}
+            href={normalizeUrl(item.content.url)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -111,7 +111,7 @@ export default function QrInfo({
           </a>
           <div className="flex items-center gap-2">
             <p className="text-[var(--Dark-Grey)] font-roboto text-[14px] leading-[22px]">
-              {item.destinationUrl}
+              {item.content.url}
             </p>
             <button onClick={() => onEditUrl(item)}>
               <Edit className="text-[var(--Grey)]" />

@@ -7,13 +7,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { QRCodeItem } from "@/types/qr-code";
+import { QrCode as qrData } from "@/types/generatedQr";
 import { useEffect, useState } from "react";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  item?: QRCodeItem | null;
+  item?: qrData | null;
 }
 
 export default function ShareQRModal({ open, onClose, item }: Props) {
@@ -21,7 +21,7 @@ export default function ShareQRModal({ open, onClose, item }: Props) {
 
   const handleCopy = async () => {
     if (!item) return;
-    await navigator.clipboard.writeText(item.shortUrl);
+    await navigator.clipboard.writeText(item.content.url);
     setMessage("The link has been copied!");
   };
 
@@ -54,7 +54,7 @@ export default function ShareQRModal({ open, onClose, item }: Props) {
         <div className="flex flex-row items-center gap-2 relative">
           <Input
             readOnly
-            value={item?.shortUrl || ""}
+            value={item?.content?.url || ""}
             className="py-2 px-4 h-10 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] focus:ring-0 focus:outline-0 focus-visible:outline-none focus-visible:ring-0 focus:outline-none text-[var(--Black)] !text-[14px] !leading-[22px]"
           />
 
