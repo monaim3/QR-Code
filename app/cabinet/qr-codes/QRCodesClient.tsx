@@ -15,55 +15,6 @@ import { useT } from "@/utils/t";
 import { useGetQrCodesQuery } from "@/store/api/qrCodesApi";
 import { QrCode as qrData } from "@/types/generatedQr";
 
-
-// const initialQrData: QRCodeItem[] = [
-//   {
-//     id: "1",
-//     title: "Italian Restaurant",
-//     thumbnail: "/images/dev/dev-qr-1.svg",
-//     shortUrl: "myqrcode.com/erTWEssq",
-//     type: "Website URL",
-//     destinationUrl: "www.italian-restaurant.com",
-//     scans: 256,
-//     createdAt: "Jun 27, 2023",
-//     lastModified: "Feb 12, 2024",
-//     status: "Active",
-//   },
-//   {
-//     id: "2",
-//     title: "Product campaign",
-//     thumbnail: "/images/dev/dev-qr-2.svg",
-//     shortUrl: "myqrcode.com/opWerasd",
-//     type: "Video",
-//     scans: 329,
-//     createdAt: "Jun 20, 2023",
-//     lastModified: "Feb 10, 2024",
-//     status: "Paused",
-//   },
-//   {
-//     id: "3",
-//     title: "Screenshot tool",
-//     thumbnail: "/images/dev/dev-qr-3.svg",
-//     shortUrl: "myqrcode.com/imsTRqwa",
-//     type: "Business",
-//     scans: 81,
-//     createdAt: "Jun 20, 2023",
-//     lastModified: "Feb 10, 2024",
-//     status: "Active",
-//   },
-//   {
-//     id: "4",
-//     title: "Texas Restaurant",
-//     thumbnail: "/images/dev/dev-qr-3.svg",
-//     shortUrl: "myqrcode.com/opWerasd",
-//     type: "Website",
-//     destinationUrl: "www.texas-restaurant.com",
-//     scans: 27,
-//     createdAt: "Jun 20, 2023",
-//     status: "Active",
-//   },
-// ];
-
 export default function QrCodesClient() {
   const { data, isLoading, isError } = useGetQrCodesQuery();
   const t = useT();
