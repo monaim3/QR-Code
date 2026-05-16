@@ -42,25 +42,23 @@ export function buildGuestQrStep2Payload(
           profile: {
             name: vCard.personalInfo.fullName,
             surname: "",
-            image: {
-              publicId: "",
-              resourceType: "",
-              format: "",
-              bytes: 0,
-            },
+            image: vCard.personalInfo.uploadedImage,
           },
           contacts: {
             phoneNumber: [
               vCard.contactDetails.phoneNumber,
               vCard.contactDetails.altPhoneNumber,
               ...vCard.contactDetails.altPhoneNumbers,
-            ] as string[],
+            ].filter(Boolean) as string[],
+
             alternativePhoneNumber: "",
+
             website: vCard.contactDetails.website,
+
             email: [
               vCard.contactDetails.email,
               ...vCard.contactDetails.altEmails,
-            ] as string[],
+            ].filter(Boolean) as string[],
           },
           company: {
             name: vCard.companyName,
@@ -78,23 +76,27 @@ export function buildGuestQrStep2Payload(
                   country: vCard.country,
                 }),
           },
-          links: [
-            ...vCard.socialChannels.map((channel) => ({
-              name: channel.name,
-              url: channel.url,
-              description: "",
-              logo: {
-                provider: "none",
-                src: `/qr-code-generator/social-networks/${channel.id}.svg`,
-              },
-            })),
-          ],
-          loaderImage: {
-            publicId: "",
-            resourceType: "",
-            format: "",
-            bytes: 0,
-          },
+          links: vCard.socialChannels.map((channel) => ({
+            name: channel.name,
+            url: channel.url,
+            description: channel.description || "",
+
+            logo:
+              "uploadedImage" in channel && channel.uploadedImage
+                ? {
+                    bucketRootUrl: channel.uploadedImage.bucketRootUrl,
+                    bytes: channel.uploadedImage.bytes,
+                    format: channel.uploadedImage.format,
+                    provider: channel.uploadedImage.storageProvider,
+                    publicId: channel.uploadedImage.publicId,
+                    resourceType: channel.uploadedImage.resourceType,
+                  }
+                : {
+                    provider: "none",
+                    src: `/qr-code-generator/social-networks/${channel.id}.svg`,
+                  },
+          })),
+          loaderImage: vCard.uploadedWelcomeScreen,
         },
       };
     default:

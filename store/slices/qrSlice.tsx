@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UploadLogoResponse {
+export interface UploadLogoResponse {
   bucketRootUrl: string;
   bytes: number;
   format: string;
