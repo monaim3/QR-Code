@@ -1,4 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UploadLogoResponse } from "./qrSlice";
+
+interface UploadedImage extends UploadLogoResponse {
+  imageId: string;
+}
 
 interface Button {
   id: string;
@@ -8,13 +13,13 @@ interface Button {
   urlError: string;
 }
 
-interface ImageItem {
+export interface ImageItem {
   id: string;
   url: string;
   name: string;
 }
 
-interface facebookState {
+export interface facebookState {
   FacebookUrl: string;
   Name: string;
   Error: string;
@@ -26,6 +31,7 @@ interface facebookState {
   primaryColor: string;
   secondaryColor: string;
   hasColorChanged: boolean;
+  uploadedImages: UploadedImage[];
 }
 
 const initialState: facebookState = {
@@ -40,6 +46,7 @@ const initialState: facebookState = {
   primaryColor: "#EB7986",
   secondaryColor: "#FFFFFF",
   hasColorChanged: false,
+  uploadedImages: [],
 };
 
 const facebookSlice = createSlice({
@@ -148,6 +155,29 @@ const facebookSlice = createSlice({
         state.images[index] = action.payload.image;
       }
     },
+
+    setUploadedImages: (state, action: PayloadAction<UploadedImage>) => {
+      state.uploadedImages = [...state.uploadedImages, action.payload];
+    },
+    removeUploadedImage: (state, action: PayloadAction<string>) => {
+      state.uploadedImages = state.uploadedImages.filter(
+        (item) => item.imageId !== action.payload,
+      );
+    },
+    updateUploadedImage: (
+      state,
+      action: PayloadAction<{ id: string; uploadedImage: UploadLogoResponse }>,
+    ) => {
+      state.uploadedImages = state.uploadedImages.map((item) =>
+        item.imageId === action.payload.id
+          ? {
+              ...item,
+              ...action.payload.uploadedImage,
+              imageId: action.payload.id,
+            }
+          : item,
+      );
+    },
   },
 });
 
@@ -170,6 +200,9 @@ export const {
   setPrimaryColor,
   setSecondaryColor,
   setHasColorChanged,
+  setUploadedImages,
+  removeUploadedImage,
+  updateUploadedImage,
 } = facebookSlice.actions;
 
 export default facebookSlice.reducer;

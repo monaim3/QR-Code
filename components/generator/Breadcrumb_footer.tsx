@@ -60,6 +60,7 @@ export default function BreadcrumbFooter() {
   const images = useAppSelector((state) => state.images);
   const wifi = useAppSelector((state) => state.wifi);
   const social = useAppSelector((state) => state.social);
+  const facebook = useAppSelector((state) => state.facebook);
 
   const [createGuestQrCode] = useCreateGuestQrCodeMutation();
   const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
@@ -115,6 +116,7 @@ export default function BreadcrumbFooter() {
         images,
         wifi,
         social,
+        facebook,
       });
 
       if (createPayload) {
