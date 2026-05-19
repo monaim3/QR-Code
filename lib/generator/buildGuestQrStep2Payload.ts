@@ -1,6 +1,7 @@
 import { facebookState } from "@/store/slices/facebookSlice";
 import { imageState } from "@/store/slices/imagesSlice";
 import { wifiState } from "@/store/slices/wifiSlice";
+import { AppSlice } from "@/types/app";
 import { PdfSlice } from "@/types/pdf";
 import { SocialSlice } from "@/types/social";
 import { VCardSlice } from "@/types/vCard";
@@ -22,6 +23,7 @@ type Step2Input = {
   social: SocialSlice;
   facebook: facebookState;
   video: VideoSlice;
+  app: AppSlice;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -40,6 +42,7 @@ export function buildGuestQrStep2Payload(
     social,
     facebook,
     video,
+    app,
   } = input;
 
   switch (qrType) {
@@ -277,6 +280,33 @@ export function buildGuestQrStep2Payload(
                 ? { uploaded: vid.uploaded, url: null }
                 : { uploaded: null, url: vid.url },
             })) || [],
+        },
+      };
+    case "app":
+      return {
+        name: app.qrCodeName,
+        content: {
+          type: "app",
+          appInfo: {
+            buttons:
+              app.appInfo.buttons?.map((button) => ({
+                title: button.text,
+                url: button.url,
+              })) || [],
+            description: app.appInfo.description,
+            developer: app.appInfo.developer,
+            name: app.appInfo.appName,
+            logo: app.appInfo.uploadedImage,
+          },
+          colors: {
+            primary: app.primaryColor,
+            secondary: app.secondaryColor,
+          },
+          platformLinks: app.appStoreLinks.map((link) => ({
+            name: link.storeName,
+            url: link.storeUrl,
+          })),
+          loaderImage: app.uploadedWelcomeScreen,
         },
       };
     default:
