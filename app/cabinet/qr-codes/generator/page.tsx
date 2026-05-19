@@ -40,7 +40,7 @@ export default function DashboardGenerator() {
       id: "website-url",
       title: t("generator__step_1__qr_type_cards__url__title"),
       description: t("generator__step_1__qr_type_cards__url__description"),
-      href: "/qr-codes/generator/website-url",
+      href: "/cabinet/qr-codes/generator/website-url",
       icon: <WebsiteUrlQr />,
       mobilePreview: <WebsiteUrlPreview url={""} />,
     },

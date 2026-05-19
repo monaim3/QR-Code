@@ -11,13 +11,16 @@ import Close from "@/components/icons/close";
 import ShareAndroid from "@/components/icons/share-android";
 import Download from "@/components/icons/download";
 import { useRouter } from "next/navigation";
+import { useDeleteQrCodesMutation } from "@/store/api/qrCodesApi";
 
 interface Props {
+   id: string;
   onCustomDownloadModal: () => void;
   onShareModal: () => void;
 }
 
 export default function MoreAction({
+  id,
   onCustomDownloadModal,
   onShareModal,
 }: Props) {
@@ -27,6 +30,7 @@ export default function MoreAction({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
+  const [deleteQrCodes, { isLoading }] = useDeleteQrCodesMutation();
 
   const options = [
     {
@@ -70,6 +74,11 @@ export default function MoreAction({
       case "Edit":
         router.push("/qr-codes/edit");
         break;
+        case "Delete":
+          handleDelete(id);
+          break;
+      default:
+        break;
     }
     setIsOpen(false);
   };
@@ -105,6 +114,18 @@ export default function MoreAction({
     setIsOpen(!isOpen);
   };
 
+  const handleDelete = async (id: string) => {
+  try {
+    console.log("Deleting QR code with ID:", id);
+    const response = await deleteQrCodes({
+      ids: [id],
+    }).unwrap();
+
+    console.log(response.message);
+  } catch (error) {
+    console.error(error);
+  }
+  };
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

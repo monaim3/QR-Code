@@ -47,7 +47,7 @@ async function handler(
 
   let body: BodyInit | undefined = undefined;
 
-  if (req.method !== "GET" && req.method !== "DELETE") {
+  if (req.method !== "GET") {
     if (isFormData) {
       // Let fetch set its own content-type with boundary
       body = await req.formData();

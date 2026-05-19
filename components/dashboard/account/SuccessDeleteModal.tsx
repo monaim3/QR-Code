@@ -30,7 +30,9 @@ export default function SuccessDeleteModal({ open, onClose }: Props) {
         </DialogHeader>
 
         <div className="flex justify-center items-start">
-          <button className="flex justify-center items-center px-4 py-2 rounded-[var(--Corner-Radius-10)] text-white bg-[var(--Blue)] text-[14px] leading-[22px] w-[120px]">
+          <button 
+          onClick={onClose}
+          className="flex justify-center items-center px-4 py-2 rounded-[var(--Corner-Radius-10)] text-white bg-[var(--Blue)] text-[14px] leading-[22px] w-[120px]">
             OK
           </button>
         </div>

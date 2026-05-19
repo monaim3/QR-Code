@@ -1,50 +1,43 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import AccountDeleteModal from "./AccountDeleteModal";
 import DeleteAccount from "./forms/DeleteAccount";
 import EmailAddress from "./forms/EmailAddress";
 import LanguageTimeZone from "./forms/LanguageTimeZone";
 import SuccessDeleteModal from "./SuccessDeleteModal";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { storage } from "@/utils/storage";
 
 export default function Settings() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const searchParams = useSearchParams();
-  const deleteAccount = searchParams.get("delete");
-
-  const handleCloseModal = () => {
-    setIsDeleteModalOpen(false);
-  };
-
-  const handleCloseSuccessModal = () => {
-    setIsSuccessModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (deleteAccount === "confirm") {
-      setTimeout(() => {
-        setIsDeleteModalOpen(true);
-      }, 0);
-    } else if (deleteAccount === "success") {
-      setTimeout(() => {
-        setIsSuccessModalOpen(true);
-      }, 0);
-    }
-  }, [deleteAccount, setIsDeleteModalOpen, setIsSuccessModalOpen]);
+  const router = useRouter();
 
   return (
     <>
       <LanguageTimeZone />
       <EmailAddress />
-      <DeleteAccount />
 
-      {/* Modal */}
-      <AccountDeleteModal open={isDeleteModalOpen} onClose={handleCloseModal} />
+      <DeleteAccount onDeleteClick={() => setIsDeleteModalOpen(true)} />
+
+      <AccountDeleteModal
+        open={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onSuccess={() => {
+          setIsDeleteModalOpen(false);
+          setIsSuccessModalOpen(true);
+        }}
+      />
+
       <SuccessDeleteModal
         open={isSuccessModalOpen}
-        onClose={handleCloseSuccessModal}
+        onClose={() => {
+          setIsSuccessModalOpen(false);
+          storage.clear();
+          document.cookie ="token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          router.push("/");
+        }}
       />
     </>
   );

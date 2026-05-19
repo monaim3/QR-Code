@@ -57,7 +57,7 @@ export default function CreateFooterBreadcrumb() {
 
   const handleBack = () => {
     if (currentStep === 2) {
-      router.push("/qr-codes/generator");
+      router.push("/cabinet/qr-codes/generator");
     } else if (currentStep === 3) {
       router.back();
     }
@@ -84,12 +84,12 @@ export default function CreateFooterBreadcrumb() {
       // Clear any previous errors
       dispatch(clearAllErrors());
       localStorage.setItem("qrType", qrType);
-      router.push("/qr-codes/generator/customize");
+      router.push("/cabinet/qr-codes/generator/customize");
     }
   };
 
   const handleExits = () => {
-    router.push("/qr-codes");
+    router.push("/cabinet/qr-codes");
   };
 
   const handleTabChange = (tab: "preview" | "qrcode") => {

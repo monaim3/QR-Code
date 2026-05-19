@@ -434,11 +434,8 @@ const authSlice = createSlice({
 
     state.user = null;
     state.token = null;
-
     storage.clear();
-
-    document.cookie =
-      "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie ="token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
   })
   .addCase(logoutUser.rejected, (state, action) => {
     state.loading = false;
