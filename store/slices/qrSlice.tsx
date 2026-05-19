@@ -1,5 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface UploadLogoResponse {
+  bucketRootUrl: string;
+  bytes: number;
+  format: string;
+  key: string;
+  publicId: string;
+  resourceType: string;
+  storageProvider: string;
+}
+
 interface QRState {
   selectedFrameIndex: number;
   frameText: string;
@@ -23,6 +33,8 @@ interface QRState {
   cornerFrameStyleUI: string;
   cornerDotTypeUI: string;
   qrId?: string; // Optional field to store QR code ID from backend
+  qrUri?: string; // Optional field to store QR code URI from backend
+  uploadedLogo: UploadLogoResponse | null;
 }
 
 const initialState: QRState = {
@@ -48,6 +60,8 @@ const initialState: QRState = {
   cornerFrameStyleUI: "none",
   cornerDotTypeUI: "none",
   qrId: "",
+  qrUri: "",
+  uploadedLogo: null,
 };
 
 const qrSlice = createSlice({
@@ -128,6 +142,15 @@ const qrSlice = createSlice({
     setQrId: (state, action: PayloadAction<string>) => {
       state.qrId = action.payload;
     },
+    setQrUri: (state, action: PayloadAction<string>) => {
+      state.qrUri = action.payload;
+    },
+    setUploadedLogo: (
+      state,
+      action: PayloadAction<UploadLogoResponse | null>,
+    ) => {
+      state.uploadedLogo = action.payload;
+    },
   },
 });
 
@@ -154,6 +177,8 @@ export const {
   setCornerFrameStyleUI,
   setCornerDotTypeUI,
   setQrId,
+  setQrUri,
+  setUploadedLogo,
 } = qrSlice.actions;
 
 export default qrSlice.reducer;

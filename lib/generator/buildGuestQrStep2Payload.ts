@@ -1,3 +1,6 @@
+import { imageState } from "@/store/slices/imagesSlice";
+import { wifiState } from "@/store/slices/wifiSlice";
+import { PdfSlice } from "@/types/pdf";
 import { VCardSlice } from "@/types/vCard";
 
 export type GuestQrCreatePayload = {
@@ -10,6 +13,9 @@ type Step2Input = {
   websiteUrl: string;
   simpleText: string;
   vCard: VCardSlice;
+  pdf: PdfSlice;
+  images: imageState;
+  wifi: wifiState;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -17,7 +23,7 @@ export function buildGuestQrStep2Payload(
   qrType: string,
   input: Step2Input,
 ): GuestQrCreatePayload | null {
-  const { qrName, websiteUrl, simpleText, vCard } = input;
+  const { qrName, websiteUrl, simpleText, vCard, pdf, images, wifi } = input;
 
   switch (qrType) {
     case "website-url":
@@ -42,25 +48,23 @@ export function buildGuestQrStep2Payload(
           profile: {
             name: vCard.personalInfo.fullName,
             surname: "",
-            image: {
-              publicId: "",
-              resourceType: "",
-              format: "",
-              bytes: 0,
-            },
+            image: vCard.personalInfo.uploadedImage,
           },
           contacts: {
             phoneNumber: [
               vCard.contactDetails.phoneNumber,
               vCard.contactDetails.altPhoneNumber,
               ...vCard.contactDetails.altPhoneNumbers,
-            ] as string[],
+            ].filter(Boolean) as string[],
+
             alternativePhoneNumber: "",
+
             website: vCard.contactDetails.website,
+
             email: [
               vCard.contactDetails.email,
               ...vCard.contactDetails.altEmails,
-            ] as string[],
+            ].filter(Boolean) as string[],
           },
           company: {
             name: vCard.companyName,
@@ -78,23 +82,86 @@ export function buildGuestQrStep2Payload(
                   country: vCard.country,
                 }),
           },
-          links: [
-            ...vCard.socialChannels.map((channel) => ({
-              name: channel.name,
-              url: channel.url,
-              description: "",
-              logo: {
-                provider: "none",
-                src: `/qr-code-generator/social-networks/${channel.id}.svg`,
-              },
-            })),
-          ],
-          loaderImage: {
-            publicId: "",
-            resourceType: "",
-            format: "",
-            bytes: 0,
+          links: vCard.socialChannels.map((channel) => ({
+            name: channel.name,
+            url: channel.url,
+            description: channel.description || "",
+
+            logo:
+              "uploadedImage" in channel && channel.uploadedImage
+                ? {
+                    bucketRootUrl: channel.uploadedImage.bucketRootUrl,
+                    bytes: channel.uploadedImage.bytes,
+                    format: channel.uploadedImage.format,
+                    provider: channel.uploadedImage.storageProvider,
+                    publicId: channel.uploadedImage.publicId,
+                    resourceType: channel.uploadedImage.resourceType,
+                  }
+                : {
+                    provider: "none",
+                    src: `/qr-code-generator/social-networks/${channel.id}.svg`,
+                  },
+          })),
+          loaderImage: vCard.uploadedWelcomeScreen,
+        },
+      };
+    case "pdf":
+      return {
+        name: pdf.qrCodeName,
+        content: {
+          type: "pdf",
+          colors: {
+            primary: pdf.primaryColor,
+            secondary: pdf.secondaryColor,
           },
+          file: pdf.uploadedPdfFile,
+          company: {
+            name: pdf.documentInfo.companyName,
+            title: pdf.documentInfo.title,
+            website: pdf.documentInfo.website,
+            description: pdf.documentInfo.fileDescription,
+          },
+          isDirect: pdf.showPdfOnly,
+          loaderImage: pdf.uploadedWelcomeScreen,
+        },
+      };
+    case "images":
+      return {
+        name: qrName,
+        content: {
+          type: "images",
+          buttons:
+            images.buttons.length > 0
+              ? images.buttons.map((button) => ({
+                  title: button.buttonText,
+                  url: button.url,
+                }))
+              : [],
+          colors: {
+            primary: images.primaryColor,
+            secondary: images.secondaryColor,
+          },
+          gallery:
+            images.uploadedImages?.map(({ imageId: _, ...image }) => image) ||
+            [],
+          info: {
+            headline: images.Name,
+            website: images.Website,
+            description: images.Title,
+          },
+          isShareable: images.Share,
+          loaderImage: vCard.uploadedWelcomeScreen,
+        },
+      };
+    case "wifi":
+      return {
+        name: qrName,
+        content: {
+          type: "wifi",
+          encryption: wifi.EncryptionType,
+          hidden: wifi.HiddenNetwork,
+          password: wifi.Password,
+          ssid: wifi.NetworkName,
         },
       };
     default:

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { set } from "date-fns";
+import { UploadLogoResponse } from "./qrSlice";
 
 interface Button {
   id: string;
@@ -15,7 +15,11 @@ interface ImageItem {
   name: string;
 }
 
-interface imageState {
+interface UploadedImage extends UploadLogoResponse {
+  imageId: string;
+}
+
+export interface imageState {
   FacebookUrl: string;
   Name: string;
   Error: string;
@@ -28,6 +32,7 @@ interface imageState {
   secondaryColor: string;
   Share: boolean;
   hasColorChanged: boolean;
+  uploadedImages: UploadedImage[];
 }
 
 const initialState: imageState = {
@@ -43,6 +48,7 @@ const initialState: imageState = {
   secondaryColor: "#FFFFFF",
   Share: false,
   hasColorChanged: false,
+  uploadedImages: [],
 };
 
 const imagesSlice = createSlice({
@@ -153,6 +159,29 @@ const imagesSlice = createSlice({
         state.images[index] = action.payload.image;
       }
     },
+
+    setUploadedImages: (state, action: PayloadAction<UploadedImage>) => {
+      state.uploadedImages = [...state.uploadedImages, action.payload];
+    },
+    removeUploadedImage: (state, action: PayloadAction<string>) => {
+      state.uploadedImages = state.uploadedImages.filter(
+        (item) => item.imageId !== action.payload,
+      );
+    },
+    updateUploadedImage: (
+      state,
+      action: PayloadAction<{ id: string; uploadedImage: UploadLogoResponse }>,
+    ) => {
+      state.uploadedImages = state.uploadedImages.map((item) =>
+        item.imageId === action.payload.id
+          ? {
+              ...item,
+              ...action.payload.uploadedImage,
+              imageId: action.payload.id,
+            }
+          : item,
+      );
+    },
   },
 });
 
@@ -176,6 +205,9 @@ export const {
   setSecondaryColor,
   setShare,
   setHasColorChanged,
+  setUploadedImages,
+  removeUploadedImage,
+  updateUploadedImage,
 } = imagesSlice.actions;
 
 export default imagesSlice.reducer;

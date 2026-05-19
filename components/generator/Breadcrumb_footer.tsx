@@ -39,7 +39,7 @@ import {
   useGetGuestQrCodeQuery,
   useUpdateGuestQrCodeMutation,
 } from "@/store/api/qrApi";
-import { setQrId } from "@/store/slices/qrSlice";
+import { setQrId, setQrUri } from "@/store/slices/qrSlice";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -56,6 +56,9 @@ export default function BreadcrumbFooter() {
   const qrCode = useAppSelector((state) => state.qr);
   const simpleText = useAppSelector((state) => state.simpleText.Text);
   const vCard = useAppSelector((state) => state.vCard);
+  const pdf = useAppSelector((state) => state.pdf);
+  const images = useAppSelector((state) => state.images);
+  const wifi = useAppSelector((state) => state.wifi);
 
   const [createGuestQrCode] = useCreateGuestQrCodeMutation();
   const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
@@ -107,12 +110,16 @@ export default function BreadcrumbFooter() {
         websiteUrl,
         simpleText,
         vCard,
+        pdf,
+        images,
+        wifi,
       });
 
       if (createPayload) {
         const response = await createGuestQrCode(createPayload);
         if ("data" in response) {
           dispatch(setQrId(response.data.id));
+          dispatch(setQrUri(response.data.uri));
         }
       }
 

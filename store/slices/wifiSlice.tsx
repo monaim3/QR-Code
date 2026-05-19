@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface wifiState {
+export interface wifiState {
   NetworkName: string;
   Password: string;
   EncryptionType: string;
@@ -10,7 +10,7 @@ interface wifiState {
 const initialState: wifiState = {
   NetworkName: "",
   Password: "",
-  EncryptionType: "WPA / WPA2",
+  EncryptionType: "WPA",
   HiddenNetwork: false,
 };
 

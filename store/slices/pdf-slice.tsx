@@ -1,9 +1,7 @@
-import {
-  ColorPalette,
-  PdfSlice,
-  DocumentInfo,
-} from "@/types/pdf";
+import { ColorPalette, PdfSlice, DocumentInfo } from "@/types/pdf";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UploadLogoResponse } from "./qrSlice";
+import { ProfileImage } from "@/types/vCard";
 
 const palette = [
   {
@@ -36,6 +34,13 @@ const palette = [
   },
 ];
 
+const emptyUploadedImage = {
+  publicId: "",
+  resourceType: "",
+  format: "",
+  bytes: 0,
+};
+
 const initialState: PdfSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
@@ -53,6 +58,8 @@ const initialState: PdfSlice = {
   defaultState: true,
   isPreviewWelcomeScreen: false,
   showPdfOnly: false,
+  uploadedWelcomeScreen: emptyUploadedImage,
+  uploadedPdfFile: null,
 };
 
 const pdfSlice = createSlice({
@@ -68,27 +75,27 @@ const pdfSlice = createSlice({
     },
     setPrimaryColor: (state, action: PayloadAction<string>) => {
       state.primaryColor = action.payload;
-       state.defaultState = false;
+      state.defaultState = false;
     },
     setSecondaryColor: (state, action: PayloadAction<string>) => {
       state.secondaryColor = action.payload;
-       state.defaultState = false;
+      state.defaultState = false;
     },
     setPdfFile: (state, action: PayloadAction<string>) => {
-        state.pdfFile = action.payload;
-         state.defaultState = false;
+      state.pdfFile = action.payload;
+      state.defaultState = false;
     },
     setDocInfo: (state, action: PayloadAction<DocumentInfo>) => {
       state.documentInfo = action.payload;
-       state.defaultState = false;
+      state.defaultState = false;
     },
     setWelcomeScreen: (state, action: PayloadAction<string>) => {
       state.welcomeScreen = action.payload;
-       state.defaultState = false;
+      state.defaultState = false;
     },
     setQrCodeName: (state, action: PayloadAction<string>) => {
       state.qrCodeName = action.payload;
-       state.defaultState = false;
+      state.defaultState = false;
     },
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
@@ -98,6 +105,18 @@ const pdfSlice = createSlice({
     },
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
+    },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
+    },
+    setUploadedPdfFile: (
+      state,
+      action: PayloadAction<UploadLogoResponse | null>,
+    ) => {
+      state.uploadedPdfFile = action.payload;
     },
   },
 });
@@ -113,5 +132,7 @@ export const {
   setIsPreviewWelcomeScreen,
   setShowPdfOnly,
   setActiveColorIndex,
+  setUploadedWelcomeScreen,
+  setUploadedPdfFile,
 } = pdfSlice.actions;
 export default pdfSlice.reducer;
