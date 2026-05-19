@@ -126,7 +126,9 @@ export default function BusinessDesignCustomize() {
 
           {/* Add Image */}
           <ImageUpload
-            label="Add image"
+            label={t(
+              "generator__content_form_section__business_page_screen__add_image",
+            )}
             value={business.businessImage}
             onCustomLogoUpload={handleImageChange}
             aspectRatio={1.7647}

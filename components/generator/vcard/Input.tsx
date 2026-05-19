@@ -43,7 +43,7 @@ export default function Input({
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"
       >
         {label}
-        {required && <span className="text-black text-500 ml-0.5">*</span>}
+        {/* {required && <span className="text-black text-500 ml-0.5">*</span>} */}
       </label>
       <input
         type={type}

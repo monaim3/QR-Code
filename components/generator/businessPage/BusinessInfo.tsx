@@ -10,6 +10,7 @@ import {
 import Plus from "@/components/icons/plus";
 import TrashAlt from "@/components/icons/trash-alt";
 
+import { useT } from "@/utils/t";
 export default function BusinessInfo() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
@@ -24,12 +25,14 @@ export default function BusinessInfo() {
       }),
     );
   };
-
+  const t = useT();
   return (
     <div className="w-full">
       <Accordion
-        title="Business information"
-        description="Provide details about your business"
+        title={t("generator__content_form_section__business_info__title")}
+        description={t(
+          "generator__content_form_section__business_info__description",
+        )}
         defaultOpen={true}
         forceOpen={showErrors && !!validationErrors.companyName}
       >
@@ -37,8 +40,12 @@ export default function BusinessInfo() {
           <div className="space-y-4">
             <div className="flex flex-col desktop:flex-row items-start desktop:gap-12 gap-4 self-stretch">
               <Input
-                label="Company name*"
-                placeholder="e.g. My company"
+                label={t(
+                  "generator__content_form_section__business_info__input__company_name_label",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__business_info__input__company_name_description",
+                )}
                 id="business-company-name"
                 value={business.businessInfo.companyName}
                 onChange={(v) => handleChange(v, "companyName")}
@@ -46,8 +53,12 @@ export default function BusinessInfo() {
                 required={true}
               />
               <Input
-                label="Title"
-                placeholder="e.g. Animation Studio"
+                label={t(
+                  "generator__content_form_section__business_info__input__title_label",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__business_info__input__title_placeholder",
+                )}
                 id="business-title"
                 value={business.businessInfo.title}
                 onChange={(v) => handleChange(v, "title")}
@@ -55,8 +66,12 @@ export default function BusinessInfo() {
             </div>
 
             <Input
-              label="Subtitle"
-              placeholder="e.g. Creating animated videos since 1994"
+              label={t(
+                "generator__content_form_section__business_info__input__subtitle_label",
+              )}
+              placeholder={t(
+                "generator__content_form_section__business_info__input__subtitle_placeholder",
+              )}
               id="business-subtitle"
               value={business.businessInfo.subTitle}
               onChange={(v) => handleChange(v, "subTitle")}
@@ -72,8 +87,12 @@ export default function BusinessInfo() {
                   className="flex flex-col desktop:flex-row desktop:p-6 p-4 justify-center items-end gap-4 self-stretch bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)]"
                 >
                   <Input
-                    label="Button text*"
-                    placeholder="e.g. Click here"
+                    label={t(
+                      "generator__content_form_section__images_information__button_text__label",
+                    )}
+                    placeholder={t(
+                      "generator__content_form_section__images_information__button_text__placeholder",
+                    )}
                     id={`button-text-${btn.id}`}
                     value={btn.text}
                     onChange={(v) =>
@@ -124,7 +143,9 @@ export default function BusinessInfo() {
             className="flex h-10 px-4 py-2 justify-center items-center gap-2 border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-10)] text-[var(--Dark-gray)] font-medium text-[14px] leading-[22px]"
           >
             <Plus />
-            <span>Add button</span>
+            <span>
+              {t("generator__content_form_section__business_info__add_button")}
+            </span>
           </button>
         </div>
       </Accordion>
