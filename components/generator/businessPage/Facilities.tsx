@@ -2,7 +2,7 @@ import Accordion from "@/components/common/Accordion";
 import { facilities } from "@/lib/business";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setFacilities } from "@/store/slices/businessSlice";
-
+import { useT } from "@/utils/t";
 export default function Facilities() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
@@ -14,12 +14,16 @@ export default function Facilities() {
 
     dispatch(setFacilities(newFacilities));
   };
-
+  const t = useT();
   return (
     <div className="w-full">
       <Accordion
-        title="Facilities"
-        description="Select relevant icons below to showcase business facilities"
+        title={t(
+          "generator__qr_content_screen__business_page_type__sections__facilities__title",
+        )}
+        description={t(
+          "generator__content_form_section__facilities__description",
+        )}
         defaultOpen={true}
       >
         <div className="flex items-center content-center gap-4 self-stretch flex-wrap">
@@ -35,7 +39,7 @@ export default function Facilities() {
               >
                 <Icon />
                 <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]"></span>
-                {facility.name}
+                {t(facility.name)}
               </button>
             );
           })}

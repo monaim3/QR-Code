@@ -13,6 +13,7 @@ import {
 } from "@/store/slices/businessSlice";
 import TrashAlt from "@/components/icons/trash-alt";
 
+import { useT } from "@/utils/t";
 export default function ContactInfo() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
@@ -49,18 +50,24 @@ export default function ContactInfo() {
   const handleUpdateAltEmail = (index: number, value: string) => {
     dispatch(updateAltEmail({ index, value }));
   };
-
+  const t = useT();
   return (
     <div className="w-full">
       <Accordion
-        title="Contact information"
-        description="Provide contact details"
+        title={t("generator__content_form_section__contact_info__title")}
+        description={t(
+          "generator__content_form_section__contact_info__description",
+        )}
         defaultOpen={true}
       >
         <div className="desktop:space-y-8 space-y-6">
           <Input
-            label="Full name"
-            placeholder="e.g. Mike Smith"
+            label={t(
+              "generator__content_form_section__about__personal_section__full_name",
+            )}
+            placeholder={t(
+              "generator__content_form_section__contact_info_section__full_name__placeholder",
+            )}
             id="full-name"
             value={business.contactInfo.fullName}
             onChange={(value) => handleChange(value, "fullName")}
@@ -69,8 +76,12 @@ export default function ContactInfo() {
           <div className="desktop:flex desktop:items-start desktop:gap-12 space-y-4 desktop:space-y-0 desktop:flex-1 w-full">
             <div className="flex-1">
               <Input
-                label="Phone number"
-                placeholder="e.g. +1809999999"
+                label={t(
+                  "generator__content_form_section__about__contact_section__phone",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__about__contact_section__phone_placeholder",
+                )}
                 id="phoneNumber"
                 type="tel"
                 value={business.contactInfo.phoneNumber}
@@ -81,8 +92,12 @@ export default function ContactInfo() {
             <div className="flex items-end gap-2 flex-1 w-full">
               <div className="w-[calc(100%-56px)]">
                 <Input
-                  label="Alternative phone number"
-                  placeholder="e.g. +1809999999"
+                  label={t(
+                    "generator__content_form_section__about__contact_section__alt_phone",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__about__contact_section__phone_placeholder",
+                  )}
                   id="altPhoneNumber"
                   type="tel"
                   value={business.contactInfo.altPhoneNumber}
@@ -124,8 +139,10 @@ export default function ContactInfo() {
           <div className="desktop:flex desktop:items-start desktop:gap-12 space-y-4 desktop:space-y-0 desktop:flex-1 w-full">
             <div className="flex-1">
               <Input
-                label="Website"
-                placeholder="e.g. www.pauljones.com"
+                label={t(
+                  "generator__content_form_section__about__contact_section__website",
+                )}
+                placeholder={t("ui__input_placeholders__url")}
                 id="website"
                 type="url"
                 value={business.contactInfo.website}
@@ -136,8 +153,12 @@ export default function ContactInfo() {
             <div className="flex items-end gap-2 flex-1 w-full">
               <div className="w-[calc(100%-56px)]">
                 <Input
-                  label="Email"
-                  placeholder="e.g. name@email.com"
+                  label={t(
+                    "generator__content_form_section__about__contact_section__email",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__about__contact_section__email__placeholder",
+                  )}
                   id="email"
                   type="email"
                   value={business.contactInfo.email}

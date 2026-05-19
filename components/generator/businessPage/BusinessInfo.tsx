@@ -86,30 +86,36 @@ export default function BusinessInfo() {
                   key={btn.id}
                   className="flex flex-col desktop:flex-row desktop:p-6 p-4 justify-center items-end gap-4 self-stretch bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)]"
                 >
-                  <Input
-                    label={t(
-                      "generator__content_form_section__images_information__button_text__label",
-                    )}
-                    placeholder={t(
-                      "generator__content_form_section__images_information__button_text__placeholder",
-                    )}
-                    id={`button-text-${btn.id}`}
-                    value={btn.text}
-                    onChange={(v) =>
-                      dispatch(
-                        updateBusinessButton({
-                          id: btn.id,
-                          updates: { text: v },
-                        }),
-                      )
-                    }
-                  />
+                  <div className="flex-1 w-full">
+                    <Input
+                      label={t(
+                        "generator__content_form_section__images_information__button_text__label",
+                      )}
+                      placeholder={t(
+                        "generator__content_form_section__images_information__button_text__placeholder",
+                      )}
+                      id={`button-text-${btn.id}`}
+                      value={btn.text}
+                      onChange={(v) =>
+                        dispatch(
+                          updateBusinessButton({
+                            id: btn.id,
+                            updates: { text: v },
+                          }),
+                        )
+                      }
+                    />
+                  </div>
 
                   <div className="flex-1 flex items-end desktop:gap-4 gap-2 w-full">
                     <div className="w-[calc(100%-56px)]">
                       <Input
-                        label="URL*"
-                        placeholder="e.g. https://pauljones.com"
+                        label={t(
+                          "generator__content_form_section__images_information__button_url__label",
+                        )}
+                        placeholder={t(
+                          "generator__content_form_section__social__input__url_placeholder",
+                        )}
                         id={`button-url-${btn.id}`}
                         type="url"
                         value={btn.url}

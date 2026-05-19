@@ -10,6 +10,7 @@ import {
 } from "@/store/slices/businessSlice";
 import SocialInputCard from "./SocialInputCard";
 
+import { useT } from "@/utils/t";
 export default function SocialNetworks() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
@@ -28,7 +29,7 @@ export default function SocialNetworks() {
       );
     }
   };
-
+  const t = useT();
   const handleDelete = (channelId: string) => {
     dispatch(removeSocialChannel(channelId));
   };
@@ -42,14 +43,14 @@ export default function SocialNetworks() {
   return (
     <div className="w-full">
       <Accordion
-        title="Social networks"
-        description="Click on the icons below to add social media channels you’d like to display"
+        title={t("generator__content_form_section__social__title")}
+        description={t("generator__content_form_section__social__description")}
         defaultOpen={true}
       >
         <div className="space-y-6">
           <div className="space-y-2">
             <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
-              Add social channels
+              {t("generator__content_form_section__social__label")}
             </p>
 
             <div className="flex desktop:flex-wrap items-center content-center gap-4 self-stretch overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
