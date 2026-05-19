@@ -1,3 +1,4 @@
+import { imageState } from "@/store/slices/imagesSlice";
 import { PdfSlice } from "@/types/pdf";
 import { VCardSlice } from "@/types/vCard";
 
@@ -12,6 +13,7 @@ type Step2Input = {
   simpleText: string;
   vCard: VCardSlice;
   pdf: PdfSlice;
+  images: imageState;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -19,7 +21,7 @@ export function buildGuestQrStep2Payload(
   qrType: string,
   input: Step2Input,
 ): GuestQrCreatePayload | null {
-  const { qrName, websiteUrl, simpleText, vCard, pdf } = input;
+  const { qrName, websiteUrl, simpleText, vCard, pdf, images } = input;
 
   switch (qrType) {
     case "website-url":
@@ -119,6 +121,34 @@ export function buildGuestQrStep2Payload(
           },
           isDirect: pdf.showPdfOnly,
           loaderImage: pdf.uploadedWelcomeScreen,
+        },
+      };
+    case "images":
+      return {
+        name: qrName,
+        content: {
+          type: "images",
+          buttons:
+            images.buttons.length > 0
+              ? images.buttons.map((button) => ({
+                  title: button.buttonText,
+                  url: button.url,
+                }))
+              : [],
+          colors: {
+            primary: images.primaryColor,
+            secondary: images.secondaryColor,
+          },
+          gallery:
+            images.uploadedImages?.map(({ imageId: _, ...image }) => image) ||
+            [],
+          info: {
+            headline: images.Name,
+            website: images.Website,
+            description: images.Title,
+          },
+          isShareable: images.Share,
+          loaderImage: vCard.uploadedWelcomeScreen,
         },
       };
     default:
