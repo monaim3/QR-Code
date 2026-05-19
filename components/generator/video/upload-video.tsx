@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addVideo } from "@/store/slices/video-slice";
 import UploadIcon from "@/components/icons/upload-icon";
 import FileVideo from "@/components/icons/file-video";
+import { useT } from "@/utils/t";
 
 interface VideoUploadProps {
   onVideoUpload?: (video: string | null) => void;
@@ -28,38 +29,45 @@ export default function VideoUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = `video-upload-${useId().replace(/:/g, "-")}`;
 
-  const validateAndProcessFile = useCallback((file: File) => {
-    // Validate file type
-    const validTypes = ["video/mp4", "video/webm", "video/ogg"];
-    if (!validTypes.includes(file.type)) {
-      setUploadError("Please upload a valid video file (mp4, webm, ogg)");
-      return;
-    }
+  const t = useT();
 
-    // Validate file size (50MB)
-    const maxSize = 50 * 1024 * 1024; // 50MB
-    if (file.size > maxSize) {
-      setUploadError("Video size must be less than 50MB");
-      return;
-    }
+  const validateAndProcessFile = useCallback(
+    (file: File) => {
+      // Validate file type
+      const validTypes = ["video/mp4", "video/webm", "video/ogg"];
+      if (!validTypes.includes(file.type)) {
+        setUploadError("Please upload a valid video file (mp4, webm, ogg)");
+        return;
+      }
 
-    setFileName(file.name);
-    setUploadError("");
+      // Validate file size (50MB)
+      const maxSize = 50 * 1024 * 1024; // 50MB
+      if (file.size > maxSize) {
+        setUploadError("Video size must be less than 50MB");
+        return;
+      }
 
-    // Create a blob URL for preview
-    const videoURL = URL.createObjectURL(file);
-    setVideoSrc(videoURL);
-    onVideoUpload?.(videoURL);
+      setFileName(file.name);
+      setUploadError("");
 
-    // Add video to Redux carousel
-    dispatch(addVideo({
-        ...video.videos,
-        id: video.videos.length > 0 ? video.videos.length + 1 : 1,
-        url: videoURL,
-        title: "",
-        description: "",
-    }));
-  }, [dispatch, onVideoUpload]);
+      // Create a blob URL for preview
+      const videoURL = URL.createObjectURL(file);
+      setVideoSrc(videoURL);
+      onVideoUpload?.(videoURL);
+
+      // Add video to Redux carousel
+      dispatch(
+        addVideo({
+          ...video.videos,
+          id: video.videos.length > 0 ? video.videos.length + 1 : 1,
+          url: videoURL,
+          title: "",
+          description: "",
+        }),
+      );
+    },
+    [dispatch, onVideoUpload],
+  );
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -128,8 +136,8 @@ export default function VideoUpload({
           uploadError
             ? "border-[var(--error)]"
             : videoSrc || fileName !== "MyVideo.mp4"
-            ? "border-[var(--Blue)]"
-            : "border-[var(--Blue)]"
+              ? "border-[var(--Blue)]"
+              : "border-[var(--Blue)]"
         }`}
       >
         <input
@@ -150,10 +158,10 @@ export default function VideoUpload({
 
           <div className="space-y-1">
             <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
-              Upload videos from your device
+              {t("generator__content_form_section__videos__headline__label")}
             </p>
             <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
-             Maximum size: 100MB
+              {t("generator__content_form_section__about__personal_section__max_image_size", { size: "100" })}
             </p>
           </div>
         </label>

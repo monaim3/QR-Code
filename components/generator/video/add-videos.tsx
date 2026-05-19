@@ -16,6 +16,7 @@ import {
   removeVideo,
 } from "@/store/slices/video-slice";
 
+import { useT } from "@/utils/t";
 const urlSchema = z.string().url();
 
 export default function Addvideos() {
@@ -28,6 +29,7 @@ export default function Addvideos() {
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const hasVideoError = showErrors && !!validationErrors.videos;
 
+  const t = useT();
   const handleVideoUrlChange = (value: string) => {
     setVideoUrl(value);
     if (!value.trim()) {
@@ -71,20 +73,22 @@ export default function Addvideos() {
   return (
     <div className="w-full">
       <Accordion
-        title="Add videos*"
-        description="Upload or provide links to your videos - you can add up to 10 videos"
+        title={t("generator__content_form_section__videos__title")}
+        description={t("generator__content_form_section__videos__subtitle")}
         defaultOpen={true}
         forceOpen={hasVideoError}
       >
         <div className="space-y-2">
-          {hasVideoError && (
-            <div data-validation-error="true" />
-          )}
+          {hasVideoError && <div data-validation-error="true" />}
           <div className="flex flex-col items-start justify-center gap-8 w-full">
             <div className="flex w-full max-w-full gap-4 items-start">
               <Input
-                label="Video URL"
-                placeholder="e.g. https://youtube.com"
+                label={t(
+                  "generator__content_form_section__videos__input__label",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__videos__input__placeholder",
+                )}
                 id="video-title"
                 type="video-title"
                 value={videoUrl}
@@ -95,7 +99,7 @@ export default function Addvideos() {
                 onClick={handleAddVideo}
                 className="mt-8 shrink-0 px-4 py-3 h-[48px] bg-[var(--Blue)] text-white rounded-[12px] hover:bg-[var(--Blue-hover)]"
               >
-                Add
+                {t("generator__content_form_section__videos__button")}
               </button>
             </div>
             <div className="w-full">

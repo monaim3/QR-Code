@@ -5,6 +5,7 @@ import {
   setIsPreviewWelcomeScreen,
   setWelcomeScreen,
 } from "@/store/slices/video-slice";
+import { useT } from "@/utils/t";
 
 export default function Welcome() {
   const dispatch = useAppDispatch();
@@ -18,11 +19,14 @@ export default function Welcome() {
     dispatch(setIsPreviewWelcomeScreen(true));
   };
 
+  const t = useT();
   return (
     <div className="w-full">
       <Accordion
-        title="Welcome screen"
-        description="Display a custom logo while your page is loading"
+        title={t("generator__content_form_section__welcome_screen__title")}
+        description={t(
+          "generator__content_form_section__welcome_screen__description",
+        )}
         defaultOpen={true}
       >
         <ImageUpload
