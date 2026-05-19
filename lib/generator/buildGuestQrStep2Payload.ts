@@ -1,4 +1,5 @@
 import { imageState } from "@/store/slices/imagesSlice";
+import { wifiState } from "@/store/slices/wifiSlice";
 import { PdfSlice } from "@/types/pdf";
 import { VCardSlice } from "@/types/vCard";
 
@@ -14,6 +15,7 @@ type Step2Input = {
   vCard: VCardSlice;
   pdf: PdfSlice;
   images: imageState;
+  wifi: wifiState;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -21,7 +23,7 @@ export function buildGuestQrStep2Payload(
   qrType: string,
   input: Step2Input,
 ): GuestQrCreatePayload | null {
-  const { qrName, websiteUrl, simpleText, vCard, pdf, images } = input;
+  const { qrName, websiteUrl, simpleText, vCard, pdf, images, wifi } = input;
 
   switch (qrType) {
     case "website-url":
@@ -149,6 +151,17 @@ export function buildGuestQrStep2Payload(
           },
           isShareable: images.Share,
           loaderImage: vCard.uploadedWelcomeScreen,
+        },
+      };
+    case "wifi":
+      return {
+        name: qrName,
+        content: {
+          type: "wifi",
+          encryption: wifi.EncryptionType,
+          hidden: wifi.HiddenNetwork,
+          password: wifi.Password,
+          ssid: wifi.NetworkName,
         },
       };
     default:

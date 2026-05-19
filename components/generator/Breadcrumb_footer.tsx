@@ -58,6 +58,7 @@ export default function BreadcrumbFooter() {
   const vCard = useAppSelector((state) => state.vCard);
   const pdf = useAppSelector((state) => state.pdf);
   const images = useAppSelector((state) => state.images);
+  const wifi = useAppSelector((state) => state.wifi);
 
   const [createGuestQrCode] = useCreateGuestQrCodeMutation();
   const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
@@ -111,6 +112,7 @@ export default function BreadcrumbFooter() {
         vCard,
         pdf,
         images,
+        wifi,
       });
 
       if (createPayload) {
