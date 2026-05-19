@@ -172,6 +172,8 @@ export default function QrCodesTableItem({
 
           {/* More */}
           <MoreAction
+            key={item.id}
+            id={item.id}
             onCustomDownloadModal={() => onCustomDownloadModal(item)}
             onShareModal={() => onShareModal(item)}
           />
