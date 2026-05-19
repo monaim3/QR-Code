@@ -1,6 +1,8 @@
+import { facebookState } from "@/store/slices/facebookSlice";
 import { imageState } from "@/store/slices/imagesSlice";
 import { wifiState } from "@/store/slices/wifiSlice";
 import { PdfSlice } from "@/types/pdf";
+import { SocialSlice } from "@/types/social";
 import { VCardSlice } from "@/types/vCard";
 
 export type GuestQrCreatePayload = {
@@ -16,6 +18,8 @@ type Step2Input = {
   pdf: PdfSlice;
   images: imageState;
   wifi: wifiState;
+  social: SocialSlice;
+  facebook: facebookState;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -23,7 +27,17 @@ export function buildGuestQrStep2Payload(
   qrType: string,
   input: Step2Input,
 ): GuestQrCreatePayload | null {
-  const { qrName, websiteUrl, simpleText, vCard, pdf, images, wifi } = input;
+  const {
+    qrName,
+    websiteUrl,
+    simpleText,
+    vCard,
+    pdf,
+    images,
+    wifi,
+    social,
+    facebook,
+  } = input;
 
   switch (qrType) {
     case "website-url":
@@ -164,6 +178,74 @@ export function buildGuestQrStep2Payload(
           ssid: wifi.NetworkName,
         },
       };
+    case "social-media":
+      return {
+        name: pdf.qrCodeName,
+        content: {
+          type: "socialMedia",
+          colors: {
+            primary: social.primaryColor,
+            secondary: social.secondaryColor,
+          },
+          gallery:
+            images.uploadedImages?.map(({ imageId: _, ...image }) => image) ||
+            [],
+          info: {
+            headline: social.socialInfo.headLine,
+            description: social.socialInfo.description,
+          },
+          loaderImage: social.uploadedWelcomeScreen,
+          socials: social.socialChannels.map((channel) => ({
+            name: channel.name,
+            url: channel.url,
+            description: channel.description || "",
+
+            logo:
+              "uploadedImage" in channel && channel.uploadedImage
+                ? {
+                    bucketRootUrl: channel.uploadedImage.bucketRootUrl,
+                    bytes: channel.uploadedImage.bytes,
+                    format: channel.uploadedImage.format,
+                    provider: channel.uploadedImage.storageProvider,
+                    publicId: channel.uploadedImage.publicId,
+                    resourceType: channel.uploadedImage.resourceType,
+                  }
+                : {
+                    provider: "none",
+                    src: `/qr-code-generator/social-networks/${channel.id}.svg`,
+                  },
+          })),
+        },
+      };
+    case "facebook": {
+      return {
+        name: qrName,
+        content: {
+          type: "facebook",
+          buttons:
+            facebook.buttons.length > 0
+              ? facebook.buttons.map((button) => ({
+                  title: button.buttonText,
+                  url: button.url,
+                }))
+              : [],
+          colors: {
+            primary: facebook.primaryColor,
+            secondary: facebook.secondaryColor,
+          },
+          gallery:
+            facebook.uploadedImages?.map(({ imageId: _, ...image }) => image) ||
+            [],
+          info: {
+            name: facebook.Name,
+            title: facebook.Title,
+            url: facebook.FacebookUrl,
+            website: facebook.Website,
+          },
+          loaderImage: vCard.uploadedWelcomeScreen,
+        },
+      };
+    }
     default:
       return null;
   }

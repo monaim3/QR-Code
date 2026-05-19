@@ -1,21 +1,28 @@
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
+import { ProfileImage } from "./vCard";
 
 export interface ColorPalette {
   primary: string;
   secondary: string;
 }
 
-export interface socialInfo{
- headLine: string,
- description: string,
+export interface socialInfo {
+  headLine: string;
+  description: string;
 }
 
 export interface SocialChannel {
   id: string;
   name: string;
-  isIcon: boolean, 
+  isIcon: boolean;
   url: string | null;
-  icon:  string | null,
-  description: string | null,
+  icon: string | null;
+  description: string | null;
+  uploadedImage?: UploadLogoResponse;
+}
+
+export interface UploadedImage extends UploadLogoResponse {
+  imageId: number;
 }
 
 export interface SocialSlice {
@@ -23,15 +30,17 @@ export interface SocialSlice {
   primaryColor: string;
   secondaryColor: string;
   activeColorIndex: number;
-  socialInfo: socialInfo,
-  carousels: string[],
-  availableChannels: SocialChannel[],
+  socialInfo: socialInfo;
+  carousels: string[];
+  availableChannels: SocialChannel[];
   socialChannels: SocialChannel[];
   welcomeScreen: string;
   isDefault: boolean;
   qrCodeName: string;
-  isPreviewWelcomeScreen: boolean,
+  isPreviewWelcomeScreen: boolean;
   customFormOpen: boolean;
   customFormName: string;
   customFormUrl: string;
+  uploadedImages: UploadedImage[];
+  uploadedWelcomeScreen: ProfileImage | UploadLogoResponse;
 }

@@ -3,8 +3,11 @@ import {
   SocialSlice,
   socialInfo,
   SocialChannel,
+  UploadedImage,
 } from "@/types/social";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UploadLogoResponse } from "./qrSlice";
+import { ProfileImage } from "@/types/vCard";
 
 const palette = [
   {
@@ -38,37 +41,240 @@ const palette = [
 ];
 
 const socialChannels: SocialChannel[] = [
-  { id: "facebook", name: "Facebook", icon: "facebook", isIcon: true, url: "", description: "" },
-  { id: "instagram", name: "Instagram", icon: "instagram", isIcon: true, url: "", description: "" },
-  { id: "twitter", name: "Twitter", icon: "twitter", isIcon: true, url: "", description: "" },
+  {
+    id: "facebook",
+    name: "Facebook",
+    icon: "facebook",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    icon: "instagram",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "twitter",
+    name: "Twitter",
+    icon: "twitter",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
   { id: "x", name: "X", icon: "x", isIcon: true, url: "", description: "" },
-  { id: "whatsapp", name: "WhatsApp", icon: "whatsapp", isIcon: true, url: "", description: "" },
-  { id: "tiktok", name: "TikTok", icon: "tiktok", isIcon: true, url: "", description: "" },
-  { id: "snapchat", name: "Snapchat", icon: "snapchat", isIcon: true, url: "", description: "" },
-  { id: "youtube", name: "YouTube", icon: "youtube", isIcon: true, url: "", description: "" },
-  { id: "telegram", name: "Telegram", icon: "telegram", isIcon: true, url: "", description: "" },
-  { id: "messenger", name: "Messenger", icon: "messenger", isIcon: true, url: "", description: "" },
-  { id: "yelp", name: "Yelp", icon: "yelp", isIcon: true, url: "", description: "" },
-  { id: "google-reviews", name: "Google Reviews", icon: "google-reviews", isIcon: true, url: "", description: "" },
-  { id: "pinterest", name: "Pinterest", icon: "pinterest", isIcon: true, url: "", description: "" },
-  { id: "linkedin", name: "Linkedin", icon: "linkedin", isIcon: true, url: "", description: "" },
-  { id: "xing", name: "Xing", icon: "xing", isIcon: true, url: "", description: "" },
-  { id: "dribbble", name: "Dribbble", icon: "dribbble", isIcon: true, url: "", description: "" },
-  { id: "trip-advisor", name: "TripAdvisor", icon: "trip-advisor", isIcon: true, url: "", description: "" },
-  { id: "line", name: "Line", icon: "line", isIcon: true, url: "", description: "" },
-  { id: "reddit", name: "Reddit", icon: "reddit", isIcon: true, url: "", description: "" },
-  { id: "viber", name: "Viber", icon: "viber", isIcon: true, url: "", description: "" },
-  { id: "tumblr", name: "Tumblr", icon: "tumblr", isIcon: true, url: "", description: "" },
-  { id: "github", name: "GitHub", icon: "github", isIcon: true, url: "", description: "" },
-  { id: "door-dash", name: "DoorDash", icon: "door-dash", isIcon: true, url: "", description: "" },
+  {
+    id: "whatsapp",
+    name: "WhatsApp",
+    icon: "whatsapp",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "tiktok",
+    name: "TikTok",
+    icon: "tiktok",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "snapchat",
+    name: "Snapchat",
+    icon: "snapchat",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "youtube",
+    name: "YouTube",
+    icon: "youtube",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "telegram",
+    name: "Telegram",
+    icon: "telegram",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "messenger",
+    name: "Messenger",
+    icon: "messenger",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "yelp",
+    name: "Yelp",
+    icon: "yelp",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "google-reviews",
+    name: "Google Reviews",
+    icon: "google-reviews",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "pinterest",
+    name: "Pinterest",
+    icon: "pinterest",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "linkedin",
+    name: "Linkedin",
+    icon: "linkedin",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "xing",
+    name: "Xing",
+    icon: "xing",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "dribbble",
+    name: "Dribbble",
+    icon: "dribbble",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "trip-advisor",
+    name: "TripAdvisor",
+    icon: "trip-advisor",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "line",
+    name: "Line",
+    icon: "line",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "reddit",
+    name: "Reddit",
+    icon: "reddit",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "viber",
+    name: "Viber",
+    icon: "viber",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "tumblr",
+    name: "Tumblr",
+    icon: "tumblr",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "github",
+    name: "GitHub",
+    icon: "github",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "door-dash",
+    name: "DoorDash",
+    icon: "door-dash",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
   { id: "vk", name: "VK", icon: "vk", isIcon: true, url: "", description: "" },
-  { id: "signal", name: "Signal", icon: "signal", isIcon: true, url: "", description: "" },
-  { id: "outlook", name: "Outlook", icon: "outlook", isIcon: true, url: "", description: "" },
-  { id: "apple", name: "Apple", icon: "apple", isIcon: true, url: "", description: "" },
-  { id: "gmail", name: "Gmail", icon: "gmail", isIcon: true, url: "", description: "" },
-  { id: "netflix", name: "Netflix", icon: "netflix", isIcon: true, url: "", description: "" },
-  { id: "web", name: "Web", icon: "web", isIcon: true, url: "", description: "" },
+  {
+    id: "signal",
+    name: "Signal",
+    icon: "signal",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "outlook",
+    name: "Outlook",
+    icon: "outlook",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "apple",
+    name: "Apple",
+    icon: "apple",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "gmail",
+    name: "Gmail",
+    icon: "gmail",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "netflix",
+    name: "Netflix",
+    icon: "netflix",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
+  {
+    id: "web",
+    name: "Web",
+    icon: "web",
+    isIcon: true,
+    url: "",
+    description: "",
+  },
 ];
+
+const emptyUploadedImage = {
+  publicId: "",
+  resourceType: "",
+  format: "",
+  bytes: 0,
+};
 
 const initialState: SocialSlice = {
   colorPalette: palette,
@@ -77,8 +283,8 @@ const initialState: SocialSlice = {
   activeColorIndex: 0,
   carousels: [],
   socialInfo: {
-   headLine: "",
-   description: "",
+    headLine: "",
+    description: "",
   },
   availableChannels: socialChannels,
   socialChannels: [],
@@ -89,6 +295,8 @@ const initialState: SocialSlice = {
   customFormOpen: false,
   customFormName: "",
   customFormUrl: "",
+  uploadedImages: [],
+  uploadedWelcomeScreen: emptyUploadedImage,
 };
 
 const pdfSlice = createSlice({
@@ -123,46 +331,54 @@ const pdfSlice = createSlice({
       state.isDefault = false;
     },
     addToSocialChannels: (state, action: PayloadAction<string>) => {
-    const channelId = action.payload;
-    const indexInSocial = state.socialChannels.findIndex(c => c.id === channelId);
+      const channelId = action.payload;
+      const indexInSocial = state.socialChannels.findIndex(
+        (c) => c.id === channelId,
+      );
 
-    if (indexInSocial !== -1) {
+      if (indexInSocial !== -1) {
         // If it exists, remove it (toggle off)
         state.socialChannels.splice(indexInSocial, 1);
-       
-    } else {
+      } else {
         // If it doesn't exist, find in availableChannels and add
-        const channel = state.availableChannels.find(c => c.id === channelId);
+        const channel = state.availableChannels.find((c) => c.id === channelId);
         if (channel) {
-        state.socialChannels.push({ ...channel });
+          state.socialChannels.push({ ...channel });
         }
-         state.isDefault = false;
-    }
+        state.isDefault = false;
+      }
     },
     removeFromSocialChannels: (state, action: PayloadAction<string>) => {
-      const index = state.socialChannels.findIndex(c => c.id === action.payload);
+      const index = state.socialChannels.findIndex(
+        (c) => c.id === action.payload,
+      );
       if (index !== -1) {
         state.socialChannels.splice(index, 1);
       }
     },
-    updateSocialChannel: (state,action: PayloadAction<{ id: string; changes: Partial<SocialChannel> }>) => {
-    const { id, changes } = action.payload;
+    updateSocialChannel: (
+      state,
+      action: PayloadAction<{ id: string; changes: Partial<SocialChannel> }>,
+    ) => {
+      const { id, changes } = action.payload;
 
-    const index = state.socialChannels.findIndex(c => c.id === id);
-    if (index !== -1) {
-            state.socialChannels[index] = {
-            ...state.socialChannels[index],
-            ...changes,
+      const index = state.socialChannels.findIndex((c) => c.id === id);
+      if (index !== -1) {
+        state.socialChannels[index] = {
+          ...state.socialChannels[index],
+          ...changes,
         };
       }
       state.isDefault = false;
     },
-    addCustomSocialChannel: (state, action: PayloadAction<SocialChannel> ) => {
-    const exists = state.socialChannels.some(c => c.id === action.payload.id);
-    if (!exists) {
-      state.socialChannels.push(action.payload);
-     }
-     state.isDefault = false;
+    addCustomSocialChannel: (state, action: PayloadAction<SocialChannel>) => {
+      const exists = state.socialChannels.some(
+        (c) => c.id === action.payload.id,
+      );
+      if (!exists) {
+        state.socialChannels.push(action.payload);
+      }
+      state.isDefault = false;
     },
     setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
@@ -185,11 +401,11 @@ const pdfSlice = createSlice({
       state.isDefault = false;
     },
     removeCarouselImage: (state, action: PayloadAction<string>) => {
-      state.carousels = state.carousels.filter(img => img !== action.payload);
+      state.carousels = state.carousels.filter((img) => img !== action.payload);
     },
     editCarouselImage: (
       state,
-      action: PayloadAction<{ index: number; newImage: string }>
+      action: PayloadAction<{ index: number; newImage: string }>,
     ) => {
       const { index, newImage } = action.payload;
 
@@ -199,6 +415,34 @@ const pdfSlice = createSlice({
     },
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
+    },
+    setUploadedImages: (state, action: PayloadAction<UploadedImage>) => {
+      state.uploadedImages = [...state.uploadedImages, action.payload];
+    },
+    removeUploadedImage: (state, action: PayloadAction<number>) => {
+      state.uploadedImages = state.uploadedImages.filter(
+        (item) => item.imageId !== action.payload,
+      );
+    },
+    updateUploadedImage: (
+      state,
+      action: PayloadAction<{ id: number; uploadedImage: UploadLogoResponse }>,
+    ) => {
+      state.uploadedImages = state.uploadedImages.map((item) =>
+        item.imageId === action.payload.id
+          ? {
+              ...item,
+              ...action.payload.uploadedImage,
+              imageId: action.payload.id,
+            }
+          : item,
+      );
+    },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
     },
   },
 });
@@ -222,5 +466,9 @@ export const {
   setCustomFormOpen,
   setCustomFormName,
   setCustomFormUrl,
+  setUploadedImages,
+  removeUploadedImage,
+  updateUploadedImage,
+  setUploadedWelcomeScreen,
 } = pdfSlice.actions;
 export default pdfSlice.reducer;
