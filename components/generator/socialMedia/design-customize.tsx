@@ -12,27 +12,33 @@ import {
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
-  setWelcomeScreen,
-  setIsPreviewWelcomeScreen,
   removeCarouselImage,
   editCarouselImage,
   setActiveColorIndex,
+  setUploadedImages,
+  removeUploadedImage,
+  updateUploadedImage,
 } from "@/store/slices/social-slice";
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
+import Image from "next/image";
 import ImageUpload from "@/components/generator/socialMedia/uploadCarusolImage";
-import Carousel from "./image-carousel";
 import { useT } from "@/utils/t";
+import { useUploadFileMutation } from "@/store/api/qrApi";
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
 
 export default function DesignCustomize() {
   const dispatch = useAppDispatch();
   const social = useAppSelector((state) => state.social);
+  const socialUploadedImages = useAppSelector(
+    (state) => state.social.uploadedImages,
+  );
   const isActive = social.activeColorIndex;
-  const [imageIndex, setimageIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
   const t = useT();
-  const fileRef = useRef<HTMLInputElement | null>(null);
   const [isCropping, setIsCropping] = useState(false);
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState("");
+  const [uploadFile] = useUploadFileMutation();
 
   const handleSwap = () => {
     const temp = social.primaryColor;
@@ -81,7 +87,7 @@ export default function DesignCustomize() {
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setimageIndex(index);
+    setImageIndex(index);
     validateAndProcessFile(file);
   };
 
@@ -112,7 +118,7 @@ export default function DesignCustomize() {
       if (result && typeof result === "string") {
         // Check dimensions for non-SVG images
         if (!file.type.includes("svg")) {
-          const img = new Image();
+          const img = document.createElement("img") as HTMLImageElement;
           img.onload = () => {
             if (img.width > 2048 || img.height > 2048) {
               setUploadError(
@@ -143,14 +149,34 @@ export default function DesignCustomize() {
 
   const handleClose = () => {
     setIsCropping(false);
-    // Clean up the image source if user cancels (only blob URLs need cleanup)
-    // if (!customLogo && imageToCrop && imageToCrop.startsWith("blob:")) {
-    //   URL.revokeObjectURL(imageToCrop);
-    // }
     setImageToCrop(null);
   };
 
-  const handleCropComplete = (croppedImageUrl: string) => {
+  const uploadImageFile = async (imageUrl: string) => {
+    const blob = await fetch(imageUrl).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    if (!("data" in result) || !result.data) {
+      throw new Error("Image upload failed");
+    }
+
+    return {
+      bucketRootUrl: result.data.location.split(`/${result.data.bucket}`)[0],
+      bytes: result.data.bytes,
+      format: result.data.format,
+      key: result.data.key,
+      publicId: result.data.publicId,
+      resourceType: result.data.resourceType,
+      storageProvider: result.data.storageProvider,
+    } as UploadLogoResponse;
+  };
+
+  const handleCropComplete = async (croppedImageUrl: string) => {
     setIsCropping(false);
     // Clean up the original image (only blob URLs need cleanup)
     if (imageToCrop && imageToCrop.startsWith("blob:")) {
@@ -159,11 +185,34 @@ export default function DesignCustomize() {
     dispatch(
       editCarouselImage({ index: imageIndex, newImage: croppedImageUrl }),
     );
+
+    const uploadedImage = await uploadImageFile(croppedImageUrl);
+    const existingImage = socialUploadedImages.find(
+      (item) => item.imageId === imageIndex,
+    );
+
+    if (existingImage) {
+      dispatch(
+        updateUploadedImage({
+          id: imageIndex,
+          uploadedImage,
+        }),
+      );
+    } else {
+      dispatch(
+        setUploadedImages({
+          ...uploadedImage,
+          imageId: imageIndex,
+        }),
+      );
+    }
+
     setImageToCrop(null);
   };
 
-  const handleImageDelete = (value: string | null) => {
+  const handleImageDelete = (index: number, value: string | null) => {
     dispatch(removeCarouselImage(value || ""));
+    dispatch(removeUploadedImage(index));
   };
 
   return (
@@ -224,6 +273,9 @@ export default function DesignCustomize() {
           </div>
           <div>
             <ImageUpload onCustomLogoUpload={() => {}} />
+            {uploadError && (
+              <p className="text-sm text-red-500 mt-2">{uploadError}</p>
+            )}
           </div>
           <div className="grid grid-cols-5 gap-4">
             {social?.carousels?.map((image, index) => {
@@ -233,11 +285,11 @@ export default function DesignCustomize() {
                   className="flex flex-col items-center hustify-center"
                 >
                   <div className="border border-[var(--Boarder-Grey)] rounded-[12px]">
-                    <img
+                    <Image
                       src={image}
-                      alt={image}
-                      width={80}
-                      height={80}
+                      alt={`Carousel ${index + 1}`}
+                      width={150}
+                      height={150}
                       className="w-[150px] h-[150px] object-cover rounded-[12px] p-1"
                     />
                   </div>
@@ -261,7 +313,7 @@ export default function DesignCustomize() {
 
                     {/* Delete button */}
                     <div
-                      onClick={() => handleImageDelete(image)}
+                      onClick={() => handleImageDelete(index, image)}
                       id={`button-${index}`}
                       className="flex flex-1 h-[35px] border border-[var(--Boarder-Grey)] rounded-[6px] items-center justify-center"
                     >

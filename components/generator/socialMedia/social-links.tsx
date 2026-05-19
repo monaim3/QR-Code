@@ -20,16 +20,19 @@ import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
 import TrashAlt from "@/components/icons/trash-alt";
 import { SocialChannel } from "@/types/social";
+import { useUploadFileMutation } from "@/store/api/qrApi";
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
 
 export default function SocialLinks() {
   const dispatch = useAppDispatch();
   const social = useAppSelector((state) => state.social);
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
-  const [description, setDescription] = useState('');
-  const [logo, setLogo] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [urlError, setUrlError] = useState('');
+  const [description, setDescription] = useState("");
+  const [logo, setLogo] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [urlError, setUrlError] = useState("");
+  const [uploadFile] = useUploadFileMutation();
 
   const handleChannelToggle = (channelId: string) => {
     const channel = socialChannels.find((ch) => ch.id === channelId);
@@ -71,7 +74,7 @@ export default function SocialLinks() {
     setUrlError("");
   };
 
-  const handleAddButton = () => {
+  const handleAddButton = async () => {
     const trimmedName = social.customFormName.trim();
     const trimmedUrl = social.customFormUrl.trim();
     let hasError = false;
@@ -86,19 +89,43 @@ export default function SocialLinks() {
     }
     if (hasError) return;
 
+    const blob = await fetch(logo).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    const uploadedImage: UploadLogoResponse | undefined =
+      "data" in result
+        ? {
+            bucketRootUrl: result.data.location.split(
+              `/${result.data.bucket}`,
+            )[0],
+            bytes: result.data.bytes,
+            format: result.data.format,
+            key: (result.data as { key?: string }).key ?? "",
+            publicId: result.data.publicId,
+            resourceType: result.data.resourceType,
+            storageProvider: result.data.storageProvider,
+          }
+        : undefined;
+
     const customLinks: SocialChannel = {
       id: social.customFormName,
       name: social.customFormName,
       isIcon: false,
       url: social.customFormUrl,
       icon: logo,
-      description: description,
+      description,
+      uploadedImage,
     };
     dispatch(addCustomSocialChannel(customLinks));
     dispatch(clearFieldError("socialChannels"));
     handleCloseForm();
   };
-        
+
   return (
     <div className="w-full">
       <Accordion
@@ -106,7 +133,14 @@ export default function SocialLinks() {
         description="Click on the icons below to add social media channels you’d like to display"
         defaultOpen={true}
         required={true}
-        forceOpen={showErrors && !!(validationErrors.socialChannels || validationErrors.socialCustomName || validationErrors.socialCustomUrl)}
+        forceOpen={
+          showErrors &&
+          !!(
+            validationErrors.socialChannels ||
+            validationErrors.socialCustomName ||
+            validationErrors.socialCustomUrl
+          )
+        }
       >
         <div className="space-y-6">
           <div className="space-y-2">
@@ -137,7 +171,7 @@ export default function SocialLinks() {
               );
             })}
           </div>
-           <button
+          <button
             onClick={handleOpenForm}
             className={`
                 ${social.customFormOpen ? "hidden" : "flex"}
@@ -153,56 +187,68 @@ export default function SocialLinks() {
                 w-max
                 cursor-pointer
                 select-none`}
-            >
+          >
             <Plus />
             <span className="text-[14px] leading-[22px] font-medium text-[var(--Dark-gray)]">
-                Add more
+              Add more
             </span>
-            </button>
+          </button>
 
-          <div className={`${social.customFormOpen ? "block" : "hidden"} space-y-2`}>
-           <ImageUpload label="Add social logo" value={logo || null} onCustomLogoUpload={handleImageChange} />
-           <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
-            <div className="w-[calc(100%-56px)]">
-            <Input
-              label="Name*"
-              placeholder="e.g. My social media"
-              id="Name"
-              type="name"
-              value={social.customFormName}
-              onChange={(value) => { dispatch(setCustomFormName(value)); if (value.trim()) setNameError(""); }}
-              error={nameError}
-              validationKey="socialCustomName"
+          <div
+            className={`${social.customFormOpen ? "block" : "hidden"} space-y-2`}
+          >
+            <ImageUpload
+              label="Add social logo"
+              value={logo || null}
+              onCustomLogoUpload={handleImageChange}
             />
-          </div>
-           <div className="w-[calc(100%-56px)]">
-            <Input
-              label="URL*"
-              placeholder="e.g. https://pauljones.com"
-              id="Url"
-              type="url"
-              value={social.customFormUrl}
-              onChange={(value) => { dispatch(setCustomFormUrl(value)); if (value.trim()) setUrlError(""); }}
-              error={urlError}
-              validationKey="socialCustomUrl"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col desktop:flex-row items-start desktop:items-center justify-center gap-4">
-         <div className="w-full pt-4 pb-4">
-            <Input
-              label="Description"
-              placeholder="e.g. My profile"
-              id="description"
-              type="des"
-              value={description}
-              onChange={(value) => setDescription(value)}
-            />
-         </div>
-         <div className="flex flex-row gap-4 items-start">
-         <button
-            onClick={handleAddButton}
-            className={`
+            <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
+              <div className="w-[calc(100%-56px)]">
+                <Input
+                  label="Name*"
+                  placeholder="e.g. My social media"
+                  id="Name"
+                  type="name"
+                  value={social.customFormName}
+                  onChange={(value) => {
+                    dispatch(setCustomFormName(value));
+                    if (value.trim()) setNameError("");
+                  }}
+                  error={nameError}
+                  validationKey="socialCustomName"
+                />
+              </div>
+              <div className="w-[calc(100%-56px)]">
+                <Input
+                  label="URL*"
+                  placeholder="e.g. https://pauljones.com"
+                  id="Url"
+                  type="url"
+                  value={social.customFormUrl}
+                  onChange={(value) => {
+                    dispatch(setCustomFormUrl(value));
+                    if (value.trim()) setUrlError("");
+                  }}
+                  error={urlError}
+                  validationKey="socialCustomUrl"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col desktop:flex-row items-start desktop:items-center justify-center gap-4">
+              <div className="w-full pt-4 pb-4">
+                <Input
+                  label="Description"
+                  placeholder="e.g. My profile"
+                  id="description"
+                  type="des"
+                  value={description}
+                  onChange={(value) => setDescription(value)}
+                />
+              </div>
+              <div className="flex flex-row gap-4 items-start">
+                <button
+                  onClick={handleAddButton}
+                  className={`
                 flex
                 h-[48px]
                 px-4 py-2
@@ -216,20 +262,21 @@ export default function SocialLinks() {
                 w-max
                 cursor-pointer
                 select-none`}
-            >
-            <span className="text-[14px] leading-[22px] font-medium text-white px-8 py-2">
-                Add
-            </span>
-         </button>
-          <div
-          onClick={handleCloseForm}
-          id="del"
-          className={`flex items-center justify-center h-[48px] desktop:mt-[30px] border rounded-[6px] px-4`}>
-            <TrashAlt/>
-         </div>
-         </div>
-        </div>
-        </div>
+                >
+                  <span className="text-[14px] leading-[22px] font-medium text-white px-8 py-2">
+                    Add
+                  </span>
+                </button>
+                <div
+                  onClick={handleCloseForm}
+                  id="del"
+                  className={`flex items-center justify-center h-[48px] desktop:mt-[30px] border rounded-[6px] px-4`}
+                >
+                  <TrashAlt />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Accordion>
     </div>
