@@ -2,10 +2,12 @@ import {
   ColorPalette,
   ContactDetails,
   PersonalInfo,
+  ProfileImage,
   SocialChannel,
   VCardSlice,
 } from "@/types/vCard";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UploadLogoResponse } from "./qrSlice";
 
 const palette = [
   {
@@ -38,6 +40,13 @@ const palette = [
   },
 ];
 
+const emptyUploadedImage = {
+  publicId: "",
+  resourceType: "",
+  format: "",
+  bytes: 0,
+};
+
 const initialState: VCardSlice = {
   colorPalette: palette,
   primaryColor: "#6594FF",
@@ -46,6 +55,7 @@ const initialState: VCardSlice = {
   personalInfo: {
     fullName: "",
     image: null,
+    uploadedImage: emptyUploadedImage,
   },
   contactDetails: {
     phoneNumber: "",
@@ -68,6 +78,7 @@ const initialState: VCardSlice = {
   welcomeScreen: "",
   qrCodeName: "",
   isPreviewWelcomeScreen: false,
+  uploadedWelcomeScreen: emptyUploadedImage,
 };
 
 /** True when vCard matches initial state (show initial preview). Mirrors BusinessPreview pattern. */
@@ -195,7 +206,14 @@ const vCardSlice = createSlice({
     },
     addSocialChannel: (
       state,
-      action: PayloadAction<{ id: string; name: string; url: string; description?: string; icon?: string }>,
+      action: PayloadAction<{
+        id: string;
+        name: string;
+        url: string;
+        description?: string;
+        icon?: string;
+        uploadedImage?: UploadLogoResponse;
+      }>,
     ) => {
       const existingIndex = state.socialChannels.findIndex(
         (channel) => channel.id === action.payload.id,
@@ -237,6 +255,12 @@ const vCardSlice = createSlice({
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
     },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
+    },
   },
 });
 
@@ -266,5 +290,6 @@ export const {
   updateSocialChannel,
   setIsPreviewWelcomeScreen,
   setActiveColorIndex,
+  setUploadedWelcomeScreen,
 } = vCardSlice.actions;
 export default vCardSlice.reducer;

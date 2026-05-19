@@ -1,11 +1,21 @@
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
+
 export interface ColorPalette {
   primary: string;
   secondary: string;
 }
 
+export interface ProfileImage {
+  publicId: string;
+  resourceType: string;
+  format: string;
+  bytes: number;
+}
+
 export interface PersonalInfo {
   fullName: string;
   image: string | null;
+  uploadedImage: ProfileImage | UploadLogoResponse;
 }
 
 export interface ContactDetails {
@@ -23,6 +33,7 @@ export interface SocialChannel {
   url: string;
   description?: string;
   icon?: string;
+  uploadedImage?: UploadLogoResponse;
 }
 
 export interface VCardSlice {
@@ -45,4 +56,5 @@ export interface VCardSlice {
   welcomeScreen: string;
   qrCodeName: string;
   isPreviewWelcomeScreen: boolean;
+  uploadedWelcomeScreen: ProfileImage | UploadLogoResponse;
 }

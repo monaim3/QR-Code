@@ -5,7 +5,7 @@ import { LuPencil } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import UploadIcon from "@/components/icons/upload-icon";
 
-interface ImageItem {
+export interface ImageItem {
   id: string;
   url: string;
   name: string;
