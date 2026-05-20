@@ -1,10 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  ColorPalette,
-  VideoSlice,
-  VideoInfo,
-  video,
-} from "@/types/video";
+import { ColorPalette, VideoSlice, VideoInfo, video } from "@/types/video";
+import { ProfileImage } from "@/types/vCard";
+import { UploadLogoResponse } from "./qrSlice";
 
 const palette: ColorPalette[] = [
   { primary: "#6594FF", secondary: "#FFFFFF" },
@@ -15,6 +12,13 @@ const palette: ColorPalette[] = [
   { primary: "#6ECD9D", secondary: "#242420" },
   { primary: "#FACB67", secondary: "#FFFFFF" },
 ];
+
+const emptyUploadedImage = {
+  publicId: "",
+  resourceType: "",
+  format: "",
+  bytes: 0,
+};
 
 const initialState: VideoSlice = {
   colorPalette: palette,
@@ -32,6 +36,7 @@ const initialState: VideoSlice = {
   welcomeScreen: "",
   qrCodeName: "",
   isPreviewWelcomeScreen: false,
+  uploadedWelcomeScreen: emptyUploadedImage,
 };
 
 const videoSlice = createSlice({
@@ -41,7 +46,7 @@ const videoSlice = createSlice({
     /** 🎨 Colors */
     setColorPalette: (
       state,
-      action: PayloadAction<{ index: number; color: ColorPalette }>
+      action: PayloadAction<{ index: number; color: ColorPalette }>,
     ) => {
       state.colorPalette[action.payload.index] = action.payload.color;
       state.isDefault = false;
@@ -73,62 +78,65 @@ const videoSlice = createSlice({
       state.isDefault = false;
     },
 
-    setVideoButtons: (
-      state,
-      action: PayloadAction<VideoInfo["buttons"]>
-    ) => {
+    setVideoButtons: (state, action: PayloadAction<VideoInfo["buttons"]>) => {
       state.videoInfo.buttons = action.payload;
       state.isDefault = false;
     },
 
-    setVideoInfoButtonTitle: (state, action: PayloadAction<{index: number, title: string}>) => {
+    setVideoInfoButtonTitle: (
+      state,
+      action: PayloadAction<{ index: number; title: string }>,
+    ) => {
       const { index, title } = action.payload;
       if (state.videoInfo.buttons[index]) {
         state.videoInfo.buttons[index].text = title;
       }
-       state.isDefault = false;
+      state.isDefault = false;
     },
-    setVideoInfoButtonUrl: (state, action: PayloadAction<{index: number, url: string}>) => {
+    setVideoInfoButtonUrl: (
+      state,
+      action: PayloadAction<{ index: number; url: string }>,
+    ) => {
       const { index, url } = action.payload;
       if (state.videoInfo.buttons[index]) {
         state.videoInfo.buttons[index].url = url;
       }
-       state.isDefault = false;
+      state.isDefault = false;
     },
     /** 📹 Videos list */
     setVideos: (state, action: PayloadAction<video[]>) => {
       state.videos = action.payload;
-       state.isDefault = false;
+      state.isDefault = false;
     },
 
     addVideo: (state, action: PayloadAction<video>) => {
       state.videos.push(action.payload);
-       state.isDefault = false;
+      state.isDefault = false;
     },
 
-  setVideoTitleByIndex: (
-    state,
-    action: PayloadAction<{ index: number; title: string }>
-  ) => {
-    const { index, title } = action.payload;
-    if (state.videos[index]) {
-      state.videos[index].title = title;
-    }
-     state.isDefault = false;
-  },
-   setVideoDescriptionByIndex: (
-    state,
-    action: PayloadAction<{ index: number; description: string }>
-  ) => {
-    const { index, description } = action.payload;
-    if (state.videos[index]) {
-      state.videos[index].description = description;
-    }
-     state.isDefault = false;
-   },
-   swapVideos: (
+    setVideoTitleByIndex: (
       state,
-      action: PayloadAction<{ fromIndex: number; toIndex: number }>
+      action: PayloadAction<{ index: number; title: string }>,
+    ) => {
+      const { index, title } = action.payload;
+      if (state.videos[index]) {
+        state.videos[index].title = title;
+      }
+      state.isDefault = false;
+    },
+    setVideoDescriptionByIndex: (
+      state,
+      action: PayloadAction<{ index: number; description: string }>,
+    ) => {
+      const { index, description } = action.payload;
+      if (state.videos[index]) {
+        state.videos[index].description = description;
+      }
+      state.isDefault = false;
+    },
+    swapVideos: (
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>,
     ) => {
       const { fromIndex, toIndex } = action.payload;
       const videos = state.videos;
@@ -140,8 +148,8 @@ const videoSlice = createSlice({
         toIndex < 0 ||
         toIndex >= videos.length
       )
-       state.isDefault = false;
-       return;
+        state.isDefault = false;
+      return;
     },
 
     removeVideo: (state, action: PayloadAction<number>) => {
@@ -152,7 +160,7 @@ const videoSlice = createSlice({
     /** 🧭 UI / Flags */
     setIsShare: (state, action: PayloadAction<boolean>) => {
       state.isShare = action.payload;
-       state.isDefault = false;
+      state.isDefault = false;
     },
 
     setWelcomeScreen: (state, action: PayloadAction<string>) => {
@@ -164,10 +172,7 @@ const videoSlice = createSlice({
       state.isDefault = false;
     },
 
-    setIsPreviewWelcomeScreen: (
-      state,
-      action: PayloadAction<boolean>
-    ) => {
+    setIsPreviewWelcomeScreen: (state, action: PayloadAction<boolean>) => {
       state.isPreviewWelcomeScreen = action.payload;
     },
 
@@ -175,6 +180,25 @@ const videoSlice = createSlice({
     resetSocialState: () => initialState,
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
+    },
+    updateUploadedVideo: (
+      state,
+      action: PayloadAction<{ id: number; video: video }>,
+    ) => {
+      const { id, video } = action.payload;
+      const index = state.videos.findIndex((v) => v.id === id);
+      if (index !== -1) {
+        state.videos[index] = {
+          ...state.videos[index],
+          uploaded: video.uploaded,
+        };
+      }
+    },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
     },
   },
 });
@@ -201,6 +225,8 @@ export const {
   setVideoInfoButtonUrl,
   resetSocialState,
   setActiveColorIndex,
+  updateUploadedVideo,
+  setUploadedWelcomeScreen,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;

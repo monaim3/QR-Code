@@ -61,6 +61,8 @@ export default function BreadcrumbFooter() {
   const wifi = useAppSelector((state) => state.wifi);
   const social = useAppSelector((state) => state.social);
   const facebook = useAppSelector((state) => state.facebook);
+  const video = useAppSelector((state) => state.video);
+  const app = useAppSelector((state) => state.app);
 
   const [createGuestQrCode] = useCreateGuestQrCodeMutation();
   const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
@@ -117,6 +119,8 @@ export default function BreadcrumbFooter() {
         wifi,
         social,
         facebook,
+        video,
+        app,
       });
 
       if (createPayload) {

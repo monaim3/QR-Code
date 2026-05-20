@@ -1,9 +1,11 @@
 import { facebookState } from "@/store/slices/facebookSlice";
 import { imageState } from "@/store/slices/imagesSlice";
 import { wifiState } from "@/store/slices/wifiSlice";
+import { AppSlice } from "@/types/app";
 import { PdfSlice } from "@/types/pdf";
 import { SocialSlice } from "@/types/social";
 import { VCardSlice } from "@/types/vCard";
+import { VideoSlice } from "@/types/video";
 
 export type GuestQrCreatePayload = {
   name: string;
@@ -20,6 +22,8 @@ type Step2Input = {
   wifi: wifiState;
   social: SocialSlice;
   facebook: facebookState;
+  video: VideoSlice;
+  app: AppSlice;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -37,6 +41,8 @@ export function buildGuestQrStep2Payload(
     wifi,
     social,
     facebook,
+    video,
+    app,
   } = input;
 
   switch (qrType) {
@@ -217,7 +223,7 @@ export function buildGuestQrStep2Payload(
           })),
         },
       };
-    case "facebook": {
+    case "facebook":
       return {
         name: qrName,
         content: {
@@ -245,7 +251,64 @@ export function buildGuestQrStep2Payload(
           loaderImage: vCard.uploadedWelcomeScreen,
         },
       };
-    }
+
+    case "video":
+      return {
+        name: video.qrCodeName,
+        content: {
+          type: "video",
+          colors: {
+            primary: video.primaryColor,
+            secondary: video.secondaryColor,
+          },
+          info: {
+            buttons:
+              video.videoInfo.buttons?.map((button) => ({
+                title: button.text,
+                url: button.url,
+              })) || [],
+            description: video.videoInfo.description,
+            title: video.videoInfo.title,
+          },
+          isShareable: video.isShare,
+          loaderImage: video.uploadedWelcomeScreen,
+          videos:
+            video.videos?.map((vid) => ({
+              name: vid.title,
+              description: vid.description,
+              source: vid.uploaded
+                ? { uploaded: vid.uploaded, url: null }
+                : { uploaded: null, url: vid.url },
+            })) || [],
+        },
+      };
+    case "app":
+      return {
+        name: app.qrCodeName,
+        content: {
+          type: "app",
+          appInfo: {
+            buttons:
+              app.appInfo.buttons?.map((button) => ({
+                title: button.text,
+                url: button.url,
+              })) || [],
+            description: app.appInfo.description,
+            developer: app.appInfo.developer,
+            name: app.appInfo.appName,
+            logo: app.appInfo.uploadedImage,
+          },
+          colors: {
+            primary: app.primaryColor,
+            secondary: app.secondaryColor,
+          },
+          platformLinks: app.appStoreLinks.map((link) => ({
+            name: link.storeName,
+            url: link.storeUrl,
+          })),
+          loaderImage: app.uploadedWelcomeScreen,
+        },
+      };
     default:
       return null;
   }

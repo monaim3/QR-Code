@@ -1,11 +1,7 @@
-import {
-  ColorPalette,
-  AppSlice,
-  AppInfo,
-  AppLinks,
-} from "@/types/app";
+import { ColorPalette, AppSlice, AppInfo, AppLinks } from "@/types/app";
+import { ProfileImage } from "@/types/vCard";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stat } from "fs";
+import { UploadLogoResponse } from "./qrSlice";
 
 const palette = [
   {
@@ -41,29 +37,36 @@ const palette = [
 const storeDefaultLink = [
   {
     id: 0,
-    storeName: "appStore",
+    storeName: "apple",
     title: "App Store",
-    storeUrl: '',
+    storeUrl: "",
   },
   {
     id: 1,
-    storeName: "goolgePlay",
-    title: "Goolge Play",
-    storeUrl: '',
+    storeName: "google",
+    title: "Google Play",
+    storeUrl: "",
   },
   {
     id: 2,
     storeName: "amazon",
     title: "Amazon",
-    storeUrl: '',
+    storeUrl: "",
   },
   {
     id: 3,
     storeName: "xiaomi",
-    title: "Xioami",
-    storeUrl: '',
+    title: "Xiaomi",
+    storeUrl: "",
   },
 ];
+
+const emptyUploadedImage = {
+  publicId: "",
+  resourceType: "",
+  format: "",
+  bytes: 0,
+};
 
 const initialState: AppSlice = {
   colorPalette: palette,
@@ -71,11 +74,12 @@ const initialState: AppSlice = {
   secondaryColor: "#FFFFFF",
   activeColorIndex: 0,
   appInfo: {
-    image: '',
-    appName: '',
-    developer: '',
-    description: '',
+    image: "",
+    appName: "",
+    developer: "",
+    description: "",
     buttons: [],
+    uploadedImage: emptyUploadedImage,
   },
   appLinks: storeDefaultLink,
   appStoreLinks: [],
@@ -83,6 +87,7 @@ const initialState: AppSlice = {
   qrCodeName: "",
   appDefaultState: true,
   isPreviewWelcomeScreen: false,
+  uploadedWelcomeScreen: emptyUploadedImage,
 };
 
 const appSlice = createSlice({
@@ -109,28 +114,35 @@ const appSlice = createSlice({
       state.appDefaultState = false;
     },
     setAppLinks: (state, action: PayloadAction<AppLinks[]>) => {
-     state.appLinks = action.payload;
-     state.appDefaultState = false;
+      state.appLinks = action.payload;
+      state.appDefaultState = false;
     },
-    setStoreLinks: (state, action: PayloadAction<{link: string,index:number}>) => {
-     state.appStoreLinks[action.payload.index].storeUrl = action.payload.link;
-     state.appDefaultState = false;
+    setStoreLinks: (
+      state,
+      action: PayloadAction<{ link: string; index: number }>,
+    ) => {
+      state.appStoreLinks[action.payload.index].storeUrl = action.payload.link;
+      state.appDefaultState = false;
     },
     moveLinkToAppStore: (state, action: PayloadAction<number>) => {
-      const index = state.appLinks.findIndex(item => item.id === action.payload);
+      const index = state.appLinks.findIndex(
+        (item) => item.id === action.payload,
+      );
       if (index !== -1) {
         const [item] = state.appLinks.splice(index, 1);
         state.appStoreLinks.push(item);
         state.appDefaultState = false;
       }
-    },      
+    },
     moveLinkToAppLinks: (state, action: PayloadAction<number>) => {
-     const index = state.appStoreLinks.findIndex(item => item.id === action.payload);
+      const index = state.appStoreLinks.findIndex(
+        (item) => item.id === action.payload,
+      );
       if (index !== -1) {
         const [item] = state.appStoreLinks.splice(index, 1);
 
         // insert at original position using the id
-        const insertIndex = item.id; 
+        const insertIndex = item.id;
         state.appLinks.splice(insertIndex, 0, item);
         state.appDefaultState = false;
       }
@@ -149,6 +161,12 @@ const appSlice = createSlice({
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
     },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
+    },
   },
 });
 
@@ -165,5 +183,6 @@ export const {
   setWelcomeScreen,
   setIsPreviewWelcomeScreen,
   setActiveColorIndex,
+  setUploadedWelcomeScreen,
 } = appSlice.actions;
 export default appSlice.reducer;

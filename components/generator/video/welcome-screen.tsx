@@ -6,12 +6,12 @@ import {
   setIsPreviewWelcomeScreen,
   setWelcomeScreen,
   setUploadedWelcomeScreen,
-} from "@/store/slices/app-slice";
+} from "@/store/slices/video-slice";
 import { useT } from "@/utils/t";
 
 export default function Welcome() {
   const dispatch = useAppDispatch();
-  const welcomeScreen = useAppSelector((state) => state.app.welcomeScreen);
+  const welcomeScreen = useAppSelector((state) => state.video.welcomeScreen);
   const [uploadFile] = useUploadFileMutation();
   const t = useT();
 
