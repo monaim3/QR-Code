@@ -28,7 +28,6 @@ export default function Logo({ noLink }: Props) {
   const content = (
     <>
       <QrCode4 />
-
       <span className="text-[var(--Black)] text-2xl font-bold leading-8">
         QRCenter
       </span>
