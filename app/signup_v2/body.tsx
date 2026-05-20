@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import { useState } from "react";
 import SignUpElements from "../../components/signup/sign-up-element";
 import CurverLine from "../../components/icons/curved-line";
@@ -54,7 +55,9 @@ export default function SignupV2Body() {
 
         <div className="flex flex-col items-center justify-center px-[20px] desktop:px-0 pb-14 pt-[120px] desktop:pt-[86px] desktop:max-w-[520px]">
           <div className="bg-white desktop:bg-transparent shadow-card desktop:shadow-none px-4 py-6 desktop:p-0 desktop:pr-12 rounded-[10px]">
-            <SignUpElements socialRow={true} withRightPannel={false} />
+            <Suspense fallback={null}>
+              <SignUpElements socialRow={true} withRightPannel={false} />
+            </Suspense>
           </div>
         </div>
         {/* <div className="h-[120px]"></div> */}

@@ -7,7 +7,7 @@ import { useT } from "@/utils/t";
 import VideoInfo from "@/components/generator/video/video-info";
 import DesignCustomize from "@/components/generator/video/design-customize";
 import NameQrCode from "@/components/generator/video/qrCode-name";
-import Welcome from "@/components/generator/video/welcom-screen";
+import Welcome  from "@/components/generator/video/welcome-screen";
 import MobileFrame from "@/components/common/MobileFrame";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import VideoPreView from "@/components/generator/video/video-preview";

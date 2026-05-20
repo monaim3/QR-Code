@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import Container from "../../components/common/parent-container";
 import SignUpElements from "../../components/signup/sign-up-element";
 
@@ -21,11 +22,14 @@ export default function SignupDirectBody() {
       "
         >
           {/* Left Panel */}
-          <SignUpElements
-            withRightPannel={false}
-            paddingRight={false}
-            fromDirect={true}
-          />
+          <Suspense fallback={null}>
+            <SignUpElements
+              withRightPannel={false}
+              paddingRight={false}
+              fromDirect={true}
+            />
+          </Suspense>
+      
         </div>
       </div>
     </Container>
