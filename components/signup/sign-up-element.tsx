@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import InputField from "../../components/common/input_filed";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 // {for validation}
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -57,6 +57,10 @@ export default function SignUpElements({
   const facebookInitialized = useRef(false);
   const appleInitialized = useRef(false);
   const isFromLogin = from;
+  const searchParams = useSearchParams();
+  const isOnboardingFlow = searchParams.get("onboarding-flow") === "true";
+
+  const { error, loading } = useAppSelector((state) => state.auth);
 
   const { control, handleSubmit, formState } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -86,11 +90,10 @@ export default function SignUpElements({
 
       if (signupUser.fulfilled.match(resultAction)) {
         publishGuestQrCode(qrId!);
-
-        if (isFromLogin) {
-          router.push("/prices");
+        if (isOnboardingFlow) {
+           router.push("/pricing");
         } else {
-          router.push("/pricing");
+         router.push("/prices");
         }
       }
 
@@ -326,10 +329,38 @@ export default function SignUpElements({
 
         <button
           type="submit"
-          className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
+          className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2 flex items-center justify-center"
         >
-          {t("auth__signup__submit")}
+          {loading ? (
+            <svg
+                          className="animate-spin h-8 w-8 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          />
+            </svg>
+         ) : (
+            t("auth__signup__submit")
+          )}
         </button>
+        {error && (
+          <span className="text-[var(--error)] text-[12px] leading-[20px] text-start">
+               {error.includes('providersUserAlreadyExists') ? 'User is already registered with this email.' : 'Something went wrong. Please try again.'}
+          </span>
+        )}
       </form>
 
       {/* Divider */}

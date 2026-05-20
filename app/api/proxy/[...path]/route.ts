@@ -17,7 +17,8 @@ async function handler(
   // AUTH HEADER
   // -------------------------
   const authHeader = req.headers.get("authorization");
-  if (authHeader) {
+  const isLogout = pathStr.includes("auth/logout");
+  if (authHeader && !isLogout) {
     headers["Authorization"] = authHeader;
   }
 
@@ -33,7 +34,7 @@ async function handler(
   // COOKIE HANDLING
   // -------------------------
   const cookie = req.headers.get("cookie");
-  if (cookie && (!pathStr.startsWith("auth") || pathStr.includes("auth/logout"))) {
+  if (cookie) {
     headers["cookie"] = cookie;
   }
 
@@ -41,43 +42,47 @@ async function handler(
   // BODY HANDLING
   // -------------------------
   const contentType = req.headers.get("content-type") || "";
-  const isFormData = contentType.includes("multipart/form-data");
-  const isJson = contentType.includes("application/json");
-  const isText = contentType.includes("text/");
+const isFormData = contentType.includes("multipart/form-data");
+const isJson = contentType.includes("application/json");
+const isText = contentType.includes("text/");
 
-  let body: BodyInit | undefined = undefined;
+let body: BodyInit | undefined = undefined;
 
-  if (req.method !== "GET") {
-    if (isFormData) {
-      // Let fetch set its own content-type with boundary
-      body = await req.formData();
-    } else if (isJson) {
-      const text = await req.text();
-      if (text) {
-        headers["Content-Type"] = "application/json";
-        body = text;
-      }
-    } else if (isText) {
-      const text = await req.text();
-      if (text) {
-        headers["Content-Type"] = contentType;
-        body = text;
-      }
-    } else if (contentType.includes("application/x-www-form-urlencoded")) {
-      const text = await req.text();
-      if (text) {
-        headers["Content-Type"] = "application/x-www-form-urlencoded";
-        body = text;
-      }
-    } else {
-      // fallback: forward raw body as-is
-      const text = await req.text();
-      if (text) {
-        if (contentType) headers["Content-Type"] = contentType;
-        body = text;
-      }
+if (req.method !== "GET") {
+  if (isFormData) {
+    body = await req.formData();
+  } else if (isJson) {
+    const text = await req.text();
+
+    headers["Content-Type"] = "application/json";
+
+    // ✅ allow empty string
+    body = text;
+  } else if (isText) {
+    const text = await req.text();
+
+    headers["Content-Type"] = contentType;
+
+    body = text;
+  } else if (
+    contentType.includes("application/x-www-form-urlencoded")
+  ) {
+    const text = await req.text();
+
+    headers["Content-Type"] =
+      "application/x-www-form-urlencoded";
+
+    body = text;
+  } else {
+    const text = await req.text();
+
+    if (contentType) {
+      headers["Content-Type"] = contentType;
     }
+
+    body = text;
   }
+}
 
 console.log("[proxy] forwarding to:", targetUrl);
 console.log("[proxy] headers sent to backend:", JSON.stringify(headers, null, 2));
@@ -100,11 +105,19 @@ console.log("[proxy] method:", req.method);
   // -------------------------
   // RESPONSE
   // -------------------------
+  const responseHeaders = new Headers({
+    "Content-Type": resContentType || "application/json",
+  });
+
+  // Forward Set-Cookie headers so browser stores refresh-token & CF_Authorization on localhost
+  const setCookieValues = res.headers.getSetCookie();
+  for (const cookie of setCookieValues) {
+    responseHeaders.append("Set-Cookie", cookie);
+  }
+
   return new NextResponse(resBody, {
     status: res.status,
-    headers: {
-      "Content-Type": resContentType || "application/json",
-    },
+    headers: responseHeaders,
   });
 }
 

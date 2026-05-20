@@ -13,13 +13,14 @@ import LogOut from "@/components/icons/log-out";
 import DashboardMenuIcon from "@/components/icons/menu";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleCollapsed } from "@/store/slices/sidebarSlice";
-import { logoutUser } from "@/store/slices/auth-slice";
 import { useRouter } from "next/navigation";
+import { useLogoutUserMutation } from "@/store/api/accountApi";
 
 export default function Menu() {
   const dispatch = useAppDispatch();
   const collapsed = useAppSelector((state) => state.sidebar.collapsed);
   const router = useRouter();
+  const [logoutUser, { isLoading }] = useLogoutUserMutation();
 
   const toggleCollapse = () => {
     dispatch(toggleCollapsed());
@@ -43,7 +44,7 @@ export default function Menu() {
       label: "Log out",
        href: "/", 
        onClick: async () => {
-        await dispatch(logoutUser());
+        await logoutUser().unwrap();
         router.push("/");
        } },
   ];
