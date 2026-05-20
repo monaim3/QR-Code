@@ -53,7 +53,7 @@ export default function LoginBody() {
 
      if (loginUser.fulfilled.match(resultAction)) {
            console.log("Login successful:", resultAction.payload);
-           router.push("/cabinet/qr-codes");
+           window.location.href = "/cabinet/qr-codes";;
          }
      
          if (loginUser.rejected.match(resultAction)) {
@@ -75,7 +75,7 @@ useEffect(() => {
       callback: async (response: { credential: string }) => {
         const resultAction = await dispatch(googleLogin({ token: response.credential }));
         if (googleLogin.fulfilled.match(resultAction)) {
-          router.push("/cabinet/qr-codes");
+          window.location.href = "/cabinet/qr-codes";;
         }
       },
     });
@@ -145,7 +145,7 @@ const handleFacebookClick = () => {
 const handleFacebookToken = async (accessToken: string) => {
   const resultAction = await dispatch(facebookLogin({ token: accessToken }));
   if (facebookLogin.fulfilled.match(resultAction)) {
-    router.push("/cabinet/qr-codes");
+    window.location.href = "/cabinet/qr-codes";;
   }
 };
 
@@ -161,7 +161,7 @@ const handleAppleClick = async () => {
       );
 
       if (appleLogin.fulfilled.match(resultAction)) {
-        router.push("/cabinet/qr-codes");
+        window.location.href = "/cabinet/qr-codes";;
       }
     }
   } catch (err) {

@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import DashboardMenuIcon from "@/components/icons/menu";
 import Close from "@/components/icons/close";
@@ -16,7 +15,6 @@ import { logoutUser } from "@/store/slices/auth-slice";
 
 export default function DashboardHeader() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const router = useRouter();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -33,7 +31,7 @@ export default function DashboardHeader() {
   const handleLogout = async () => {
     setIsDrawerOpen(false);
     await dispatch(logoutUser());
-    router.push("/");
+    window.location.href = "/";
   };
 
   const navItems = [

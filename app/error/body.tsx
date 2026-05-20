@@ -6,7 +6,6 @@ import WebsiteUrl from "@/components/icons/website-url-qr";
 import Vcard from "@/components/icons/vcard-qr";
 import Pdf from "@/components/icons/pdf-qr";
 import ImageIcon from "@/components/icons/Images-qr";
-import { useRouter } from "next/navigation";
 
 const QrType = [
     {
@@ -37,10 +36,9 @@ const QrType = [
 
 export default function ErrorBody() {
 
-    const router = useRouter();
 
     const handleRoute = () => {
-        router.push("/");
+        window.location.href = "/";
     };
     return (
         <div className="h-full w-full bg-[var(--Generator-Background)]">

@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Mail, ChevronRight, Loader2, CheckCircle2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import Container from "@/components/common/parent-container";
 import InputField from "../../components/common/input_filed";
 import EmailIcon from "../../components/icons/email";
@@ -16,7 +15,6 @@ interface FormState {
 
 // Main Component
 export default function CancelSubscriptionPage() {
-  const router = useRouter();
   const [formState, setFormState] = useState<FormState>({
     email: "",
     isSubmitting: false,
@@ -97,7 +95,7 @@ export default function CancelSubscriptionPage() {
   };
 
   const handleGoHome = () => {
-    router.push("/");
+    window.location.href = "/";
   };
 
   return (

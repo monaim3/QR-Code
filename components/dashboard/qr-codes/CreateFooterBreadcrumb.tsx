@@ -89,7 +89,7 @@ export default function CreateFooterBreadcrumb() {
   };
 
   const handleExits = () => {
-    router.push("/cabinet/qr-codes");
+    window.location.href = "/cabinet/qr-codes";;
   };
 
   const handleTabChange = (tab: "preview" | "qrcode") => {
