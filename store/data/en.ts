@@ -796,7 +796,7 @@ const enTranslations = {
   "generator__content_form_section__app__description": "Provide details about your app",
   "generator__content_form_section__app__description__placeholder": "e.g. Financial app",
   "generator__content_form_section__app__developer__placeholder": "e.g. Jones & John",
-  "generator__content_form_section__app__name__label": "App name",
+  "generator__content_form_section__app__name__label": "App name*",
   "generator__content_form_section__app__name__placeholder": "e.g. My App",
   "generator__content_form_section__app__platforms__amazon": "Amazon",
   "generator__content_form_section__app__platforms__amazon__label": "e.g. https://amazon.com/my-app",
