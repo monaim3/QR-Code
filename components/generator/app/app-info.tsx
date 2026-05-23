@@ -126,8 +126,12 @@ export default function AppInfo() {
           </div>
           <div className="w-full pt-4 pb-4">
             <Input
-              label="Description"
-              placeholder="e.g. Financial app"
+              label={t(
+                "generator__content_form_section__menu__products__description_label",
+              )}
+              placeholder={t(
+                "generator__content_form_section__app__description__placeholder",
+              )}
               id="description"
               type="des"
               value={app.appInfo.description}
@@ -140,8 +144,12 @@ export default function AppInfo() {
                 <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2">
                   <div className="w-full pt-4 pb-4">
                     <Input
-                      label="Button Text*"
-                      placeholder="e.g. Click here"
+                      label={t(
+                        "generator__content_form_section__images_information__button_text__label",
+                      )}
+                      placeholder={t(
+                        "generator__content_form_section__images_information__button_text__placeholder",
+                      )}
                       id="bt"
                       type="btch"
                       value={app.appInfo.buttons[index].text}
@@ -150,8 +158,12 @@ export default function AppInfo() {
                   </div>
                   <div className="w-full pt-4 pb-4 flex items-end justify-end gap-6">
                     <Input
-                      label="URL*"
-                      placeholder="e.g. pauljhon.com"
+                      label={t(
+                        "generator__content_form_section__social__input__url_label",
+                      )}
+                      placeholder={t(
+                        "generator__content_form_section__social__input__url_placeholder",
+                      )}
                       id="url"
                       type="url"
                       value={app.appInfo.buttons[index].url}
@@ -188,7 +200,9 @@ export default function AppInfo() {
           >
             <Plus />
             <span className="text-[14px] leading-[22px] font-medium text-[var(--Dark-gray)]">
-              Add Button
+              {t(
+                "generator__content_form_section__videos_information__add_button",
+              )}
             </span>
           </button>
         </div>

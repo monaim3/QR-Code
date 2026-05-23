@@ -18,11 +18,13 @@ export default function MenuQrName() {
     <div className="w-full">
       <Accordion
         title={t("generator__content_form_section__qr_name__title")}
-        description="Give a name to your QR code"
+        description={t("generator__content_form_section__qr_name__description")}
       >
         <Input
-          label="Name your QR code"
-          placeholder="e.g. My first QR code"
+          label={t("generator__content_form_section__qr_name__field_label")}
+          placeholder={t(
+            "generator__content_form_section__qr_name__field_placeholder",
+          )}
           id="qrName"
           value={menu.qrCodeName}
           onChange={handleChange}

@@ -7,8 +7,10 @@ import { useEffect, useRef, useCallback, useState } from "react";
 import { setIsPreviewWelcomeScreen } from "@/store/slices/menuSlice";
 import ArrowLeft from "@/components/icons/arrow-left";
 import PreviewSectionCard from "./PreviewSectionCard";
+import { useT } from "@/utils/t";
 
 export default function MenuPreview() {
+  const t = useT();
   const [isMenuView, setIsMenuView] = useState(true);
   const dispatch = useAppDispatch();
   const menu = useAppSelector((state) => state.menu);
@@ -174,7 +176,7 @@ export default function MenuPreview() {
                   .map((section, index) => (
                     <PreviewCard
                       key={section.id}
-                      title={section.name || "Section " + (index + 1)}
+                      title={section.name || t("generator__content_form_section__menu__sections__default_name") + " " + (index + 1)}
                       borderColor={menu.secondaryColor}
                       onClick={() => handleClickMenu(section.id)}
                     />
