@@ -67,4 +67,5 @@ export interface BusinessSlice {
   qrCodeName: string;
   isPreviewWelcomeScreen: boolean;
   uploadedBusinessImage: ProfileImage | UploadLogoResponse;
+  uploadedWelcomeScreen: ProfileImage | UploadLogoResponse;
 }

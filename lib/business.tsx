@@ -20,7 +20,7 @@ interface Facilities {
 
 export const facilities: Facilities[] = [
   {
-    id: "wi-fi",
+    id: "wifi",
     name: "Wi-Fi",
     icon: Wifi,
   },
@@ -40,7 +40,7 @@ export const facilities: Facilities[] = [
     icon: Taxi,
   },
   {
-    id: "wheelchair",
+    id: "accessible",
     name: "Accessible",
     icon: Wheelchair,
   },
@@ -50,7 +50,7 @@ export const facilities: Facilities[] = [
     icon: Bed,
   },
   {
-    id: "wc",
+    id: "toilet",
     name: "Toilet",
     icon: Wc,
   },
@@ -70,7 +70,7 @@ export const facilities: Facilities[] = [
     icon: Bar,
   },
   {
-    id: "dog",
+    id: "petFriendly",
     name: "Pet-friendly",
     icon: Dog,
   },

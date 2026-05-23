@@ -73,7 +73,7 @@ export default function BusinessInfo() {
                 >
                   <div className="flex-1">
                     <Input
-                      label="Button text*"
+                      label="Button text"
                       placeholder="e.g. Click here"
                       id={`button-text-${btn.id}`}
                       value={btn.text}
@@ -85,13 +85,15 @@ export default function BusinessInfo() {
                           }),
                         )
                       }
+                      validationKey={`businessButtonText_${btn.id}`}
+                      required={true}
                     />
                   </div>
 
                   <div className="flex-1 flex items-end desktop:gap-4 gap-2 w-full">
                     <div className="w-[calc(100%-56px)]">
                       <Input
-                        label="URL*"
+                        label="URL"
                         placeholder="e.g. https://pauljones.com"
                         id={`button-url-${btn.id}`}
                         type="url"
@@ -104,6 +106,8 @@ export default function BusinessInfo() {
                             }),
                           )
                         }
+                        validationKey={`businessButtonUrl_${btn.id}`}
+                        required={true}
                       />
                     </div>
                     <button

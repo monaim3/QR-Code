@@ -98,6 +98,7 @@ const initialState: BusinessSlice = {
   qrCodeName: "",
   isPreviewWelcomeScreen: false,
   uploadedBusinessImage: emptyUploadedImage,
+  uploadedWelcomeScreen: emptyUploadedImage,
 };
 
 const menuSlice = createSlice({
@@ -350,6 +351,12 @@ const menuSlice = createSlice({
     ) => {
       state.uploadedBusinessImage = action.payload;
     },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
+    },
   },
 });
 
@@ -394,5 +401,6 @@ export const {
   setIsPreviewWelcomeScreen,
   setActiveColorIndex,
   setUploadedBusinessImage,
+  setUploadedWelcomeScreen,
 } = menuSlice.actions;
 export default menuSlice.reducer;
