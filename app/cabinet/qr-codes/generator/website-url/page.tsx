@@ -55,7 +55,7 @@ export default function WebsiteUrlPage() {
   const handleUrlBlur = () => {
     setIsUrlFocused(false);
     if (!websiteUrl.trim()) {
-      setUrlError("This field is required and cannot be left blank.");
+      setUrlError(t("ui__field_validation_errors__generic__required"));
     } else {
       const result = urlSchema.safeParse(websiteUrl);
       if (!result.success) {

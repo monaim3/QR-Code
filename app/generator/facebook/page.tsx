@@ -330,7 +330,7 @@ export default function Facebook() {
                   <InputUrl
                     label={t(
                       "generator__content_form_section__facebook__url__label",
-                    )}
+                    ) + " *"}
                     placeholder={t(
                       "generator__content_form_section__facebook__url__placeholder",
                     )}

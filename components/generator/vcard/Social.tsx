@@ -199,7 +199,7 @@ export default function Social() {
           >
             <Plus />
             <span className="text-[14px] leading-[22px] font-medium text-[var(--Dark-gray)]">
-              Add more
+              {t("generator__content_form_section__social__add_button")}
             </span>
           </button>
 
@@ -272,7 +272,7 @@ export default function Social() {
                   className="flex h-[48px] px-4 py-2 desktop:mt-[30px] justify-center items-center gap-2 rounded-[10px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] w-max cursor-pointer select-none"
                 >
                   <span className="text-[14px] leading-[22px] font-medium text-white px-8 py-2">
-                    Add
+                    {t("generator__content_form_section__social__add__button")}
                   </span>
                 </button>
                 <div

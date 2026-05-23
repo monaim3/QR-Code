@@ -18,6 +18,12 @@ export interface ValidationResult {
  * @param qrType The type of QR code being validated
  * @returns Validation result with any errors
  */
+function getT(state: RootState) {
+  const { language, translations } = state.i18n;
+  return (key: string) =>
+    translations?.[language]?.[key] ?? translations?.en?.[key] ?? key;
+}
+
 export function validateQRData(
   state: RootState,
   qrType: string,
@@ -25,42 +31,44 @@ export function validateQRData(
   const errors: ValidationError[] = [];
   const fieldErrors: { [key: string]: string } = {};
 
+  const t = getT(state);
+
   switch (qrType) {
     case "website-url":
-      validateWebsiteUrl(state, errors, fieldErrors);
+      validateWebsiteUrl(state, errors, fieldErrors, t);
       break;
     case "vcard":
-      validateVCard(state, errors, fieldErrors);
+      validateVCard(state, errors, fieldErrors, t);
       break;
     case "pdf":
-      validatePdf(state, errors, fieldErrors);
+      validatePdf(state, errors, fieldErrors, t);
       break;
     case "images":
-      validateImages(state, errors, fieldErrors);
+      validateImages(state, errors, fieldErrors, t);
       break;
     case "social-media":
-      validateSocialMedia(state, errors, fieldErrors);
+      validateSocialMedia(state, errors, fieldErrors, t);
       break;
     case "video":
-      validateVideo(state, errors, fieldErrors);
+      validateVideo(state, errors, fieldErrors, t);
       break;
     case "simple-text":
-      validateSimpleText(state, errors, fieldErrors);
+      validateSimpleText(state, errors, fieldErrors, t);
       break;
     case "business-page":
-      validateBusinessPage(state, errors, fieldErrors);
+      validateBusinessPage(state, errors, fieldErrors, t);
       break;
     case "facebook":
-      validateFacebook(state, errors, fieldErrors);
+      validateFacebook(state, errors, fieldErrors, t);
       break;
     case "wifi":
-      validateWifi(state, errors, fieldErrors);
+      validateWifi(state, errors, fieldErrors, t);
       break;
     case "app":
-      validateApp(state, errors, fieldErrors);
+      validateApp(state, errors, fieldErrors, t);
       break;
     case "menu":
-      validateMenu(state, errors, fieldErrors);
+      validateMenu(state, errors, fieldErrors, t);
       break;
     default:
       break;
@@ -77,10 +85,18 @@ function validateWebsiteUrl(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { websiteUrl } = state.preview;
 
-  const result = urlValidationSchema.safeParse(websiteUrl ?? "");
+  if (!websiteUrl || !websiteUrl.trim()) {
+    const message = t("ui__field_validation_errors__generic__required");
+    errors.push({ field: "Website URL", message });
+    fieldErrors["websiteUrl"] = message;
+    return;
+  }
+
+  const result = urlValidationSchema.safeParse(websiteUrl);
   if (!result.success) {
     const message = result.error.issues[0].message;
     errors.push({ field: "Website URL", message });
@@ -92,11 +108,12 @@ function validateVCard(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { personalInfo } = state.vCard;
 
   if (!personalInfo.fullName || !personalInfo.fullName.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "Full Name",
       message,
@@ -109,11 +126,12 @@ function validatePdf(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { pdfFile } = state.pdf;
 
   if (!pdfFile || !pdfFile.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "PDF File",
       message,
@@ -126,11 +144,12 @@ function validateImages(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { images, Name } = state.images;
 
   if (!images || images.length === 0) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "Images",
       message,
@@ -139,7 +158,7 @@ function validateImages(
   }
 
   if (!Name || !Name.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({ field: "Headline", message });
     fieldErrors["imagesHeadline"] = message;
   }
@@ -149,11 +168,12 @@ function validateSocialMedia(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { socialInfo, socialChannels } = state.social;
 
   if (!socialInfo.headLine || !socialInfo.headLine.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({ field: "Headline", message });
     fieldErrors["socialHeadline"] = message;
   }
@@ -165,7 +185,7 @@ function validateSocialMedia(
   } else {
     socialChannels.forEach((channel) => {
       if (!channel.url || !channel.url.trim()) {
-        const message = "This field is required and cannot be left blank.";
+        const message = t("ui__field_validation_errors__generic__required");
         errors.push({ field: "Social URL", message });
         fieldErrors[`socialUrl_${channel.id}`] = message;
       } else {
@@ -181,12 +201,12 @@ function validateSocialMedia(
 
   if (state.social.customFormOpen) {
     if (!state.social.customFormName.trim()) {
-      const message = "This field is required and cannot be left blank.";
+      const message = t("ui__field_validation_errors__generic__required");
       errors.push({ field: "Custom Link Name", message });
       fieldErrors["socialCustomName"] = message;
     }
     if (!state.social.customFormUrl.trim()) {
-      const message = "This field is required and cannot be left blank.";
+      const message = t("ui__field_validation_errors__generic__required");
       errors.push({ field: "Custom Link URL", message });
       fieldErrors["socialCustomUrl"] = message;
     }
@@ -197,11 +217,12 @@ function validateVideo(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { videos } = state.video;
 
   if (!videos || videos.length === 0) {
-    const message = "At least one video is required.";
+    const message = t("generator__content_form_section__videos__no_video_error");
     errors.push({
       field: "Videos",
       message,
@@ -210,7 +231,7 @@ function validateVideo(
   } else {
     videos.forEach((video, index) => {
       if (!video.title || !video.title.trim()) {
-        const message = "This field is required and cannot be left blank.";
+        const message = t("ui__field_validation_errors__generic__required");
         errors.push({ field: "Video Title", message });
         fieldErrors[`videoTitle_${index}`] = message;
       }
@@ -222,11 +243,12 @@ function validateSimpleText(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { Text } = state.simpleText;
 
   if (!Text || !Text.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "Text",
       message,
@@ -239,11 +261,12 @@ function validateBusinessPage(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { businessInfo } = state.business;
 
   if (!businessInfo.companyName || !businessInfo.companyName.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "Company Name",
       message,
@@ -256,17 +279,18 @@ function validateFacebook(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { FacebookUrl, Title, images, buttons } = state.facebook;
 
   if (!Title || !Title.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({ field: "Title", message });
     fieldErrors["facebookTitle"] = message;
   }
 
   if (!FacebookUrl || !FacebookUrl.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "Facebook URL",
       message,
@@ -275,14 +299,14 @@ function validateFacebook(
   }
 
   if (!images || images.length === 0) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({ field: "Facebook Images", message });
     fieldErrors["facebookImages"] = message;
   }
 
   buttons.forEach((button, index) => {
     if (!button.buttonText || !button.buttonText.trim()) {
-      const message = "This field is required and cannot be left blank.";
+      const message = t("ui__field_validation_errors__generic__required");
       errors.push({ field: `Button Text ${index}`, message });
       fieldErrors[`facebookButtonText_${index}`] = message;
     }
@@ -299,11 +323,12 @@ function validateWifi(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { NetworkName } = state.wifi;
 
   if (!NetworkName || !NetworkName.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "Network Name",
       message,
@@ -316,11 +341,12 @@ function validateApp(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { appInfo, appStoreLinks } = state.app;
 
   if (!appInfo.appName || !appInfo.appName.trim()) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "App Name",
       message,
@@ -329,7 +355,7 @@ function validateApp(
   }
 
   if (!appStoreLinks || appStoreLinks.length === 0) {
-    const message = "This field is required and cannot be left blank.";
+    const message = t("ui__field_validation_errors__generic__required");
     errors.push({
       field: "App Store Links",
       message,
@@ -351,9 +377,10 @@ function validateMenu(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
+  t: (key: string) => string,
 ) {
   const { sections } = state.menu;
-  const requiredMsg = "This field is required and cannot be left blank.";
+  const requiredMsg = t("ui__field_validation_errors__generic__required");
 
   // Check if there's at least one section with products
   const hasProducts = sections.some(
