@@ -409,7 +409,7 @@ export default function Images() {
                       "generator__content_form_section__images_information__website__label",
                     )}
                     placeholder={t(
-                      "generator__content_form_section__images_information__website__placeholder",
+                      "generator__content_form_section__social__input__url_placeholder",
                     )}
                     id="website"
                     value={website}

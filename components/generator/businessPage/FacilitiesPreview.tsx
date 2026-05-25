@@ -2,9 +2,11 @@ import StarAlt from "@/components/icons/star-alt";
 import PreviewAccordion from "../PreviewAccordion";
 import { useAppSelector } from "@/store/hooks";
 import { facilities } from "@/lib/business";
+import { useT } from "@/utils/t";
 
 export default function FacilitiesPreview() {
   const business = useAppSelector((state) => state.business);
+  const t = useT();
 
   const selectedFacilities = facilities.filter((f) =>
     business.facilities.includes(f.id),
@@ -27,7 +29,7 @@ export default function FacilitiesPreview() {
             >
               <Icon />
               <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                {facility.name}
+                {t(facility.name)}
               </span>
             </div>
           );

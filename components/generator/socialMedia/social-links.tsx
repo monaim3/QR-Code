@@ -23,11 +23,13 @@ import { SocialChannel } from "@/types/social";
 import { useUploadFileMutation } from "@/store/api/qrApi";
 import { UploadLogoResponse } from "@/store/slices/qrSlice";
 
+import { useT } from "@/utils/t";
 export default function SocialLinks() {
   const dispatch = useAppDispatch();
   const social = useAppSelector((state) => state.social);
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const t = useT();
   const [description, setDescription] = useState("");
   const [logo, setLogo] = useState("");
   const [nameError, setNameError] = useState("");
@@ -129,8 +131,8 @@ export default function SocialLinks() {
   return (
     <div className="w-full">
       <Accordion
-        title="Social networks"
-        description="Click on the icons below to add social media channels you’d like to display"
+        title={t("generator__content_form_section__social__title")}
+        description={t("generator__content_form_section__social__description")}
         defaultOpen={true}
         required={true}
         forceOpen={
@@ -145,7 +147,7 @@ export default function SocialLinks() {
         <div className="space-y-6">
           <div className="space-y-2">
             <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
-              Add social channels
+              {t("generator__content_form_section__social__label")}{" "}
             </p>
 
             <div className="flex desktop:flex-wrap items-center content-center gap-4 self-stretch overflow-x-auto desktop:overflow-x-visible pb-4 desktop:pb-0 pt-[2px] px-[2px] desktop:pt-0 desktop:px-0">
@@ -190,7 +192,7 @@ export default function SocialLinks() {
           >
             <Plus />
             <span className="text-[14px] leading-[22px] font-medium text-[var(--Dark-gray)]">
-              Add more
+              {t("generator__content_form_section__social__add_button")}
             </span>
           </button>
 
@@ -205,8 +207,12 @@ export default function SocialLinks() {
             <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
               <div className="w-[calc(100%-56px)]">
                 <Input
-                  label="Name*"
-                  placeholder="e.g. My social media"
+                  label={t(
+                    "generator__content_form_section__social__input__name_label",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__social__input__name_placeholder",
+                  )}
                   id="Name"
                   type="name"
                   value={social.customFormName}
@@ -220,8 +226,12 @@ export default function SocialLinks() {
               </div>
               <div className="w-[calc(100%-56px)]">
                 <Input
-                  label="URL*"
-                  placeholder="e.g. https://pauljones.com"
+                  label={t(
+                    "generator__content_form_section__social__input__url_label",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__social__input__url_placeholder",
+                  )}
                   id="Url"
                   type="url"
                   value={social.customFormUrl}
@@ -237,8 +247,12 @@ export default function SocialLinks() {
             <div className="flex flex-col desktop:flex-row items-start desktop:items-center justify-center gap-4">
               <div className="w-full pt-4 pb-4">
                 <Input
-                  label="Description"
-                  placeholder="e.g. My profile"
+                  label={t(
+                    "generator__content_form_section__social__input__description_label",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__social__input__description_placeholder",
+                  )}
                   id="description"
                   type="des"
                   value={description}
@@ -264,7 +278,7 @@ export default function SocialLinks() {
                 select-none`}
                 >
                   <span className="text-[14px] leading-[22px] font-medium text-white px-8 py-2">
-                    Add
+                    {t("generator__content_form_section__social__add__button")}
                   </span>
                 </button>
                 <div

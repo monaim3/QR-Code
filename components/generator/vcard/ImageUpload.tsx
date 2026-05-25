@@ -23,10 +23,11 @@ export default function ImageUpload({
   onCustomLogoUpload,
   onLogoChange,
   onPreview,
-  label = "Image",
+  label,
   aspectRatio = 1,
 }: ImageUploadProps) {
   const t = useT();
+  const effectiveLabel = label ?? t("generator__content_form_section__welcome_screen__image");
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyLogo.svg");
   const [customLogo, setCustomLogo] = useState("");
@@ -179,7 +180,7 @@ export default function ImageUpload({
   return (
     <div className="flex flex-col gap-2">
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
-        {label}
+        {effectiveLabel}
       </label>
       <div
         onDragEnter={handleDragEnter}

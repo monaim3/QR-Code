@@ -8,6 +8,7 @@ import {
 } from "@/store/slices/businessSlice";
 import { useUploadFileMutation } from "@/store/api/qrApi";
 
+import { useT } from "@/utils/t";
 export default function BusinessWelcomeScreen() {
   const dispatch = useAppDispatch();
   const welcomeScreen = useAppSelector((state) => state.business.welcomeScreen);
@@ -59,11 +60,14 @@ export default function BusinessWelcomeScreen() {
     dispatch(setIsPreviewWelcomeScreen(true));
   };
 
+  const t = useT();
   return (
     <div className="w-full">
       <Accordion
-        title="Welcome screen"
-        description="Display a custom logo while your page is loading"
+        title={t("generator__content_form_section__welcome_screen__title")}
+        description={t(
+          "generator__content_form_section__welcome_screen__description",
+        )}
         defaultOpen={true}
       >
         <ImageUpload

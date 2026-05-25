@@ -53,14 +53,17 @@ export default function Textarea({
         className="text-[var(--Black)] text-[16px] leading-[24px] font-medium"
       >
         {label}
-        {required && <span className="text-black">*</span>}
+        {/* {required && <span className="text-black">*</span>} */}
       </label>
       <textarea
         ref={textareaRef}
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => { onChange(e.target.value); if (validationKey) dispatch(clearFieldError(validationKey)); }}
+        onChange={(e) => {
+          onChange(e.target.value);
+          if (validationKey) dispatch(clearFieldError(validationKey));
+        }}
         maxLength={maxLength}
         rows={rows}
         className={`py-2 px-4 text-[var(--Black)] text-[16px] font-normal leading-[24px] placeholder:text-[var(--Grey)] rounded-[var(--Corner-Radius-10)] border bg-[var(--White)] focus:outline-none resize-none overflow-hidden ${

@@ -2,7 +2,7 @@ import TrashAlt from "@/components/icons/trash-alt";
 import { socialChannels } from "@/lib/socialChannels";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { updateSocialChannelUrl } from "@/store/slices/businessSlice";
-
+import { useT } from "@/utils/t";
 interface Props {
   channelId: string;
   handleDelete: () => void;
@@ -24,7 +24,7 @@ export default function SocialInputCard({ channelId, handleDelete }: Props) {
   const handleUrlChange = (value: string) => {
     dispatch(updateSocialChannelUrl({ id: channel.id, url: value }));
   };
-
+  const t = useT();
   return (
     <div
       key={channelId}
@@ -40,7 +40,9 @@ export default function SocialInputCard({ channelId, handleDelete }: Props) {
       <div className="flex items-start gap-2 flex-1 w-full desktop:w-auto">
         <input
           type="url"
-          placeholder="e.g. https://social-media.com"
+          placeholder={t(
+            "generator__content_form_section__social__input_placeholder",
+          )}
           value={url}
           onChange={(e) => handleUrlChange(e.target.value)}
           className="flex h-12 px-4 py-2 items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] placeholder:text-[var(--Grey)] placeholder:text-[16px] placeholder:leading-[24px] focus:outline-none text-[var(--Black)] text-[16px] leading-[24px] flex-1 w-[calc(100%-56px)]"

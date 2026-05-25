@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useT } from "@/utils/t";
 
 interface ErrorToastProps {
   message: string;
@@ -8,6 +9,7 @@ interface ErrorToastProps {
 }
 
 export default function ErrorToast({ message, onClose }: ErrorToastProps) {
+  const t = useT();
   useEffect(() => {
     const timer = setTimeout(onClose, 5000);
     return () => clearTimeout(timer);
@@ -37,7 +39,7 @@ export default function ErrorToast({ message, onClose }: ErrorToastProps) {
             className="text-[14px] leading-[22px] font-semibold"
             style={{ color: "#FD4255" }}
           >
-            Error
+            {t("ui__toast__title__error")}
           </p>
           <p className="text-[13px] leading-[20px] text-[var(--Dark-gray)]">
             {message}

@@ -6,6 +6,7 @@ import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
 import Plus from "@/components/icons/plus";
 import TrashAlt from "@/components/icons/trash-alt";
+import { useT } from "@/utils/t";
 import { useUploadFileMutation } from "@/store/api/qrApi";
 
 export default function AppInfo() {
@@ -123,11 +124,12 @@ export default function AppInfo() {
     );
   };
 
+  const t = useT();
   return (
     <div className="w-full">
       <Accordion
-        title="App information"
-        description="Provide details about your app"
+        title={t("generator__content_form_section__app__title")}
+        description={t("generator__content_form_section__app__description")}
         defaultOpen={true}
         forceOpen={showErrors && !!validationErrors.appName}
       >
@@ -139,8 +141,12 @@ export default function AppInfo() {
           <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
             <div className="w-[calc(100%-56px)]">
               <Input
-                label="App Name"
-                placeholder="e.g. My App"
+                label={
+                  t("generator__content_form_section__app__name__label") + "*"
+                }
+                placeholder={t(
+                  "generator__content_form_section__app__name__placeholder",
+                )}
                 id="App Name"
                 type="name"
                 value={app.appInfo.appName}
@@ -151,8 +157,12 @@ export default function AppInfo() {
             </div>
             <div className="w-[calc(100%-56px)]">
               <Input
-                label="Developer"
-                placeholder="e.g. Jones & John"
+                label={t(
+                  "generator__content_form_section__videos_information__developer__label",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__app__developer__placeholder",
+                )}
                 id="developer"
                 type="dev"
                 value={app.appInfo.developer}
@@ -162,8 +172,12 @@ export default function AppInfo() {
           </div>
           <div className="w-full pt-4 pb-4">
             <Input
-              label="Description"
-              placeholder="e.g. Financial app"
+              label={t(
+                "generator__content_form_section__menu__products__description_label",
+              )}
+              placeholder={t(
+                "generator__content_form_section__app__description__placeholder",
+              )}
               id="description"
               type="des"
               value={app.appInfo.description}
@@ -179,8 +193,12 @@ export default function AppInfo() {
                 >
                   <div className="w-full pt-4 pb-4">
                     <Input
-                      label="Button Text*"
-                      placeholder="e.g. Click here"
+                      label={t(
+                        "generator__content_form_section__images_information__button_text__label",
+                      )}
+                      placeholder={t(
+                        "generator__content_form_section__images_information__button_text__placeholder",
+                      )}
                       id="bt"
                       type="btch"
                       value={app.appInfo.buttons[index].text}
@@ -189,8 +207,12 @@ export default function AppInfo() {
                   </div>
                   <div className="w-full pt-4 pb-4 flex items-end justify-end gap-6">
                     <Input
-                      label="URL*"
-                      placeholder="e.g. pauljhon.com"
+                      label={t(
+                        "generator__content_form_section__social__input__url_label",
+                      )}
+                      placeholder={t(
+                        "generator__content_form_section__social__input__url_placeholder",
+                      )}
                       id="url"
                       type="url"
                       value={app.appInfo.buttons[index].url}
@@ -227,7 +249,9 @@ export default function AppInfo() {
           >
             <Plus />
             <span className="text-[14px] leading-[22px] font-medium text-[var(--Dark-gray)]">
-              Add Button
+              {t(
+                "generator__content_form_section__videos_information__add_button",
+              )}
             </span>
           </button>
         </div>

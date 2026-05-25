@@ -7,7 +7,7 @@ import AppStoreIcon from "@/components/icons/app-store";
 import PlayStoreIcon from "@/components/icons/play-store";
 import AmazonStore from "@/components/icons/amazon-store";
 import MiLogo from "@/components/icons/mi-logo";
-
+import { useT } from "@/utils/t";
 import {
   moveLinkToAppStore,
   moveLinkToAppLinks,
@@ -19,12 +19,15 @@ export default function AppStoreLink() {
   const app = useAppSelector((state) => state.app);
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const t = useT();
 
   return (
     <div className="w-full">
       <Accordion
-        title="App store platform links*"
-        description="Choose at least one store below and add a link to your app"
+        title={t("generator__content_form_section__platform__title")}
+        description={t(
+          "generator__content_form_section__platform__description",
+        )}
         defaultOpen={true}
         forceOpen={
           showErrors &&

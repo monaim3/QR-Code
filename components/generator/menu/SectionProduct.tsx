@@ -11,6 +11,7 @@ import {
   setUploadedProductImage,
 } from "@/store/slices/menuSlice";
 import type { MenuProduct } from "@/types/menu";
+import { useT } from "@/utils/t";
 import { useUploadFileMutation } from "@/store/api/qrApi";
 
 interface Props {
@@ -135,7 +136,7 @@ export default function SectionProduct({
       }),
     );
   };
-
+  const t = useT();
   return (
     <div className="flex flex-col justify-center items-start gap-8 desktop:p-6 p-4 self-stretch bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)]">
       <MenuAccordion
@@ -162,8 +163,14 @@ export default function SectionProduct({
 
           <div className="space-y-4">
             <Input
-              label="Product name*"
-              placeholder="e.g. Eggs Benedict"
+              label={
+                t(
+                  "generator__content_form_section__menu__products__name_label",
+                ) + " *"
+              }
+              placeholder={t(
+                "generator__content_form_section__menu__products__name_placeholder",
+              )}
               id={`pro-name-${product.id}`}
               value={product.name}
               validationKey={`productName_${product.id}`}
@@ -180,8 +187,12 @@ export default function SectionProduct({
 
             <div className="flex flex-col desktop:flex-row items-start desktop:gap-8 gap-4 self-stretch">
               <Input
-                label="Name translation"
-                placeholder="e.g. Enter item name translation"
+                label={t(
+                  "generator__content_form_section__menu__products__translation_label",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__menu__products__description_placeholder",
+                )}
                 id={`pro-name-tr-${product.id}`}
                 value={product.nameTranslation}
                 onChange={(value) =>
@@ -195,8 +206,12 @@ export default function SectionProduct({
                 }
               />
               <Input
-                label="Description"
-                placeholder="e.g. Served with sourdough toast"
+                label={t(
+                  "generator__content_form_section__menu__restaurant_info__description",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__menu__products__translation_description_placeholder",
+                )}
                 id={`pro-desc-${product.id}`}
                 value={product.description}
                 onChange={(value) =>
@@ -213,8 +228,12 @@ export default function SectionProduct({
 
             <div className="flex flex-col desktop:flex-row items-start desktop:gap-8 gap-4 self-stretch">
               <Input
-                label="Description translation"
-                placeholder="e.g. Translation if needed"
+                label={t(
+                  "generator__content_form_section__menu__sections__translation_description_label",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__menu__sections__translation_description_placeholder",
+                )}
                 id={`pro-desc-tr-${product.id}`}
                 value={product.descriptionTranslation}
                 onChange={(value) =>
@@ -228,8 +247,12 @@ export default function SectionProduct({
                 }
               />
               <Input
-                label="Price"
-                placeholder="e.g. 10 €"
+                label={t(
+                  "generator__content_form_section__menu__products__price_label",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__menu__products__price_placeholder",
+                )}
                 id={`pro-price-${product.id}`}
                 value={product.price}
                 onChange={(value) =>
@@ -247,7 +270,9 @@ export default function SectionProduct({
 
           <div className="space-y-4">
             <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">
-              Allergens present
+              {t(
+                "generator__content_form_section__menu__products__allergens_label",
+              )}
             </p>
 
             <div className="flex items-center content-center gap-4 self-stretch flex-wrap">
@@ -263,7 +288,7 @@ export default function SectionProduct({
                   >
                     <Icon />
                     <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]"></span>
-                    {allergen.name}
+                    {t(allergen.name)}
                   </button>
                 );
               })}

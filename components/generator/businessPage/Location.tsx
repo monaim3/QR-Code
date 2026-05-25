@@ -4,7 +4,7 @@ import Input from "../vcard/Input";
 import { setAddress, setAddressUrl } from "@/store/slices/businessSlice";
 import InputResetModal from "../vcard/InputResetModal";
 import { useState } from "react";
-
+import { useT } from "@/utils/t";
 export default function Location() {
   const [isManual, setIsManual] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,7 +71,7 @@ export default function Location() {
       setPendingIsManual(null);
     }
   };
-
+  const t = useT();
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setPendingIsManual(null);
@@ -80,8 +80,12 @@ export default function Location() {
   return (
     <div className="w-full">
       <Accordion
-        title="Location"
-        description="Provide your business address if you have one"
+        title={t(
+          "generator__qr_content_screen__business_page_type__sections__location__title",
+        )}
+        description={t(
+          "generator__content_form_section__location__description",
+        )}
         defaultOpen={true}
       >
         <div className="desktop:space-y-8 space-y-6">
@@ -90,13 +94,17 @@ export default function Location() {
               onClick={() => handleModeChange(true)}
               className={`flex h-10 justify-center items-center gap-2 px-6 py-1 rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)] text-[16px] leading-[22px] transition-all duration-300 ease-linear ${isManual ? "bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]" : "bg-white text-[var(--Blue)]"} flex-1 desktop:flex-none`}
             >
-              Manual
+              {t(
+                "generator__content_form_section__about__address_section__manual_button",
+              )}
             </button>
             <button
               onClick={() => handleModeChange(false)}
               className={`flex h-10 justify-center items-center gap-2 px-6 py-1 rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)] text-[16px] leading-[22px] transition-all duration-300 ease-linear ${isManual ? "bg-white text-[var(--Blue)]" : "bg-[var(--Blue)] text-white hover:bg-[var(--Blue-hover)]"} flex-1 desktop:flex-none`}
             >
-              URL
+              {t(
+                "generator__content_form_section__about__address_section__url",
+              )}
             </button>
           </div>
 
@@ -104,15 +112,23 @@ export default function Location() {
             <>
               <div className="flex desktop:flex-row flex-col items-start desktop:gap-12 gap-4 flex-1">
                 <Input
-                  label="Street"
-                  placeholder="e.g. Spring Avenue, 9/18"
+                  label={t(
+                    "generator__content_form_section__about__address_section__street",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__about__address_section__street__placeholder",
+                  )}
                   id="street"
                   value={business.street}
                   onChange={(value) => handleAddressChange(value, "street")}
                 />
                 <Input
-                  label="Postal code"
-                  placeholder="e.g. 10005"
+                  label={t(
+                    "generator__content_form_section__about__address_section__postal_code",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__about__address_section__postal_code__placeholder",
+                  )}
                   id="postal-code"
                   value={business.postalCode}
                   onChange={(value) => handleAddressChange(value, "postalCode")}
@@ -120,15 +136,23 @@ export default function Location() {
               </div>
               <div className="flex desktop:flex-row flex-col items-start desktop:gap-12 gap-4 flex-1">
                 <Input
-                  label="City"
-                  placeholder="e.g. New York City"
+                  label={t(
+                    "generator__content_form_section__about__address_section__city",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__about__address_section__city__placeholder",
+                  )}
                   id="city"
                   value={business.city}
                   onChange={(value) => handleAddressChange(value, "city")}
                 />
                 <Input
-                  label="State"
-                  placeholder="e.g. New York"
+                  label={t(
+                    "generator__content_form_section__about__address_section__state",
+                  )}
+                  placeholder={t(
+                    "generator__content_form_section__about__address_section__state__placeholder",
+                  )}
                   id="state"
                   value={business.state}
                   onChange={(value) => handleAddressChange(value, "state")}
@@ -136,8 +160,12 @@ export default function Location() {
               </div>
 
               <Input
-                label="Country"
-                placeholder="e.g. United States"
+                label={t(
+                  "generator__content_form_section__about__address_section__country",
+                )}
+                placeholder={t(
+                  "generator__content_form_section__about__address_section__country__placeholder",
+                )}
                 id="country"
                 value={business.country}
                 onChange={(value) => handleAddressChange(value, "country")}

@@ -86,7 +86,7 @@ export default function ContactDetails({ onClick, isOpen }: Props) {
                 "generator__content_form_section__about__contact_section__alt_phone",
               )}
               placeholder={t(
-                "generator__content_form_section__about__contact_section__alt_phone_placeholder",
+                "generator__content_form_section__about__contact_section__phone_placeholder",
               )}
               id="altPhoneNumber"
               type="tel"

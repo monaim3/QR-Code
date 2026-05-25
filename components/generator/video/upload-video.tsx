@@ -4,6 +4,7 @@ import { useState, useRef, useId } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addVideo, updateUploadedVideo } from "@/store/slices/video-slice";
 import FileVideo from "@/components/icons/file-video";
+import { useT } from "@/utils/t";
 import { useUploadFileMutation } from "@/store/api/qrApi";
 
 interface VideoUploadProps {
@@ -17,6 +18,7 @@ export default function VideoUpload({ onVideoUpload }: VideoUploadProps) {
   const [fileName, setFileName] = useState("MyVideo.mp4");
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const [uploadFile] = useUploadFileMutation();
+  const t = useT();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = `video-upload-${useId().replace(/:/g, "-")}`;
@@ -153,10 +155,13 @@ export default function VideoUpload({ onVideoUpload }: VideoUploadProps) {
 
           <div className="space-y-1">
             <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
-              Upload videos from your device
+              {t("generator__content_form_section__videos__headline__label")}
             </p>
             <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
-              Maximum size: 100MB
+              {t(
+                "generator__content_form_section__about__personal_section__max_image_size",
+                { size: "100" },
+              )}
             </p>
           </div>
         </label>

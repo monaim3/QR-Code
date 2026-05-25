@@ -380,11 +380,9 @@ export default function Facebook() {
           </div>
           <div className="w-full ">
             <Accordion
-              title={t(
-                "generator__content_form_section__facebook_information__title",
-              )}
+              title={t("generator__content_form_section__facebook__title")}
               description={t(
-                "generator__content_form_section__facebook_information__description",
+                "generator__content_form_section__facebook__description",
               )}
               defaultOpen={true}
               forceOpen={showErrors && !!validationErrors.facebookUrl}
@@ -392,11 +390,13 @@ export default function Facebook() {
               <div className="space-y-4">
                 <div className="flex flex-col gap-4 lg:flex-row lg:gap-12 items-start justify-center ">
                   <InputUrl
-                    label={t(
-                      "generator__content_form_section__facebook_information__url__label",
-                    )}
+                    label={
+                      t(
+                        "generator__content_form_section__facebook__url__label",
+                      ) + " *"
+                    }
                     placeholder={t(
-                      "generator__content_form_section__facebook_information__url__placeholder",
+                      "generator__content_form_section__facebook__url__placeholder",
                     )}
                     id="facebook-link"
                     value={facebookUrl}
@@ -408,12 +408,12 @@ export default function Facebook() {
                   />
                   <TextInput
                     label={t(
-                      "generator__content_form_section__facebook_information__name__label",
+                      "generator__content_form_section__facebook__name__label",
                     )}
                     value={Name}
                     onChange={(value) => dispatch(setName(value))}
                     placeholder={t(
-                      "generator__content_form_section__facebook_information__name__placeholder",
+                      "generator__content_form_section__facebook__name__placeholder",
                     )}
                     maxLength={100}
                   />
@@ -425,12 +425,12 @@ export default function Facebook() {
                   >
                     <RequiredTextInput
                       label={t(
-                        "generator__content_form_section__facebook_information__title_field__label",
+                        "generator__content_form_section__videos__name_text__label",
                       )}
                       value={title}
                       onChange={(value) => dispatch(setTitle(value))}
                       placeholder={t(
-                        "generator__content_form_section__facebook_information__title_field__placeholder",
+                        "generator__content_form_section__facebook__title__placeholder",
                       )}
                       maxLength={100}
                       required
@@ -438,10 +438,10 @@ export default function Facebook() {
                     />
                     <InputUrl
                       label={t(
-                        "generator__content_form_section__facebook_information__website__label",
+                        "generator__content_form_section__images_information__website__label",
                       )}
                       placeholder={t(
-                        "generator__content_form_section__facebook_information__website__placeholder",
+                        "generator__content_form_section__facebook__website__placeholder",
                       )}
                       id="website-link"
                       value={website}

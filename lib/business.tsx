@@ -21,67 +21,67 @@ interface Facilities {
 export const facilities: Facilities[] = [
   {
     id: "wifi",
-    name: "Wi-Fi",
+    name: "generator__content_form_section__facilities__wi-fi",
     icon: Wifi,
   },
   {
     id: "train",
-    name: "Train",
+    name: "generator__content_form_section__facilities__train",
     icon: Train,
   },
   {
     id: "seat",
-    name: "Seating",
+    name: "generator__content_form_section__facilities__seating",
     icon: Seat,
   },
   {
     id: "taxi",
-    name: "Taxi",
+    name: "generator__content_form_section__facilities__taxi",
     icon: Taxi,
   },
   {
     id: "accessible",
-    name: "Accessible",
+    name: "generator__content_form_section__facilities__accessible",
     icon: Wheelchair,
   },
   {
     id: "bed",
-    name: "Accommodation",
+    name: "generator__content_form_section__facilities__accomodation",
     icon: Bed,
   },
   {
     id: "toilet",
-    name: "Toilet",
+    name: "generator__content_form_section__facilities__toilet",
     icon: Wc,
   },
   {
     id: "cafe",
-    name: "Cafe",
+    name: "generator__content_form_section__facilities__coffee",
     icon: Cafe,
   },
   {
     id: "Child",
-    name: "Child-friendly",
+    name: "generator__content_form_section__facilities__child_friendly",
     icon: Child,
   },
   {
     id: "bar",
-    name: "Bar",
+    name: "generator__content_form_section__facilities__bar",
     icon: Bar,
   },
   {
     id: "petFriendly",
-    name: "Pet-friendly",
+    name: "generator__content_form_section__facilities__pet_friendly",
     icon: Dog,
   },
   {
     id: "restaurant",
-    name: "Restaurant",
+    name: "generator__content_form_section__facilities__restaurant",
     icon: Restaurant,
   },
   {
     id: "parking",
-    name: "Parking",
+    name: "generator__content_form_section__facilities__parking",
     icon: Parking,
   },
 ];

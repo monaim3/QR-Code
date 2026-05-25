@@ -13,6 +13,7 @@ import {
 import { clearFieldError } from "@/store/slices/validationSlice";
 import type { MenuSection as MenuSectionType } from "@/types/menu";
 import { useState } from "react";
+import { useT } from "@/utils/t";
 
 interface Props {
   section: MenuSectionType;
@@ -90,6 +91,7 @@ export default function MenuSection({
     );
   };
 
+  const t = useT();
   return (
     <MenuAccordion
       title={sectionTitle}
@@ -105,8 +107,12 @@ export default function MenuSection({
       <div className="flex flex-col items-start gap-4 self-stretch">
         <div className="flex flex-col desktop:flex-row items-start desktop:gap-12 gap-4 self-stretch">
           <Input
-            label="Name of section*"
-            placeholder="e.g. Breakfast"
+            label={t(
+              "generator__content_form_section__menu__sections__name_label",
+            )}
+            placeholder={t(
+              "generator__content_form_section__menu__sections__name_placeholder",
+            )}
             id={`section-name-${section.id}`}
             value={section.name}
             onChange={handleSectionNameChange}
@@ -114,8 +120,12 @@ export default function MenuSection({
           />
 
           <Input
-            label="Name translation"
-            placeholder="Enter name translation"
+            label={t(
+              "generator__content_form_section__menu__sections__translation_label",
+            )}
+            placeholder={t(
+              "generator__content_form_section__menu__sections__translation_placeholder",
+            )}
             id={`tr-name-${section.id}`}
             value={section.nameTranslation}
             onChange={handleSectionNameTranslationChange}
@@ -124,16 +134,24 @@ export default function MenuSection({
 
         <div className="flex flex-col desktop:flex-row items-start desktop:gap-12 gap-4 self-stretch">
           <Input
-            label="Description of section"
-            placeholder="e.g. Fresh breakfast available until midnig..."
+            label={t(
+              "generator__content_form_section__menu__sections__description_label",
+            )}
+            placeholder={t(
+              "generator__content_form_section__menu__sections__description_placeholder",
+            )}
             id={`section-desc-${section.id}`}
             value={section.description}
             onChange={handleSectionDescriptionChange}
           />
 
           <Input
-            label="Description translation"
-            placeholder="e.g. Enter description translation"
+            label={t(
+              "generator__content_form_section__menu__sections__translation_description_label",
+            )}
+            placeholder={t(
+              "generator__content_form_section__menu__sections__translation_description_placeholder",
+            )}
             id={`tr-desc-${section.id}`}
             value={section.descriptionTranslation}
             onChange={handleSectionDescriptionTranslationChange}
@@ -168,7 +186,11 @@ export default function MenuSection({
             className="flex h-10 px-4 py-2 justify-center items-center gap-2 border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-10)] text-[var(--Dark-gray)] text-[14px] leading-[22px]"
           >
             <Plus />
-            Add product
+            <span>
+              {t(
+                "generator__content_form_section__menu__sections__add_product",
+              )}
+            </span>
           </button>
         </div>
       </div>

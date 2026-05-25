@@ -8,6 +8,7 @@ import {
   setUploadedPdfFile,
 } from "@/store/slices/pdf-slice";
 import { clearFieldError } from "@/store/slices/validationSlice";
+import { useT } from "@/utils/t";
 import { useUploadFileMutation } from "@/store/api/qrApi";
 
 export default function PdfUploadScreen() {
@@ -57,12 +58,15 @@ export default function PdfUploadScreen() {
   //   const handlePreview = () => {
   //     dispatch(setIsPreviewWelcomeScreen(true));
   //   };
+  const t = useT();
 
   return (
     <div className="w-full">
       <Accordion
-        title="PDF file*"
-        description="Upload your PDF file"
+        title={t("generator__content_form_section__pdf__file_title")}
+        description={t(
+          "generator__content_form_section__pdf__file_description",
+        )}
         defaultOpen={true}
         forceOpen={hasPdfError}
       >
@@ -79,7 +83,7 @@ export default function PdfUploadScreen() {
           )}
           <CheckboxInput
             id="show-pdf-only"
-            label="Show PDF file only (full screen)"
+            label={t("generator__content_form_section__pdf__full_screen")}
             checked={showPdfOnly}
             onChange={(checked) => dispatch(setShowPdfOnly(checked))}
             bgColor="#01A56D"

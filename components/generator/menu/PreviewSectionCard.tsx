@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { MenuSection } from "@/types/menu";
 import Image from "next/image";
 import { allergens as allergensList } from "@/lib/menu";
+import { useT } from "@/utils/t";
 
 interface Props {
   section: MenuSection;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function PreviewSectionCard({ section, index }: Props) {
+  const t = useT();
   return (
     <div className="space-y-4 bg-white rounded-[var(--Corner-Radius-6)] shadow-[0_4px_14px_0_rgba(54,66,140,0.16)] p-4 w-[220px] overflow-hidden">
       {/* Heading */}
@@ -111,7 +113,7 @@ export default function PreviewSectionCard({ section, index }: Props) {
                       >
                         <Icon />
                         <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                          {allergen.name}
+                          {t(allergen.name)}
                         </span>
                       </button>
                     );

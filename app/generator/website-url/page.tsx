@@ -47,9 +47,12 @@ export default function WebsiteUrlPage() {
     dispatch(setWebsiteUrl(value));
     dispatch(clearFieldError("websiteUrl"));
 
-    // Validate with Zod
-    const result = urlValidationSchema.safeParse(value);
+    if (!value.trim()) {
+      setUrlError(t("ui__field_validation_errors__generic__required"));
+      return;
+    }
 
+    const result = urlValidationSchema.safeParse(value);
     if (!result.success) {
       setUrlError(result.error.issues[0].message);
     } else {

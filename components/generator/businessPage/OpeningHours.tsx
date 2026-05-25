@@ -18,26 +18,11 @@ import {
 import Plus from "@/components/icons/plus";
 import TrashAlt from "@/components/icons/trash-alt";
 import TimeSlotCard from "./TimeSlotCard";
-
+import { useT } from "@/utils/t";
 type Format = {
   title: string;
   value: TimeFormat;
 };
-
-const formats: Format[] = [
-  {
-    title: "AM/PM",
-    value: "AM/PM",
-  },
-  {
-    title: "24 hrs",
-    value: "24-hour",
-  },
-  {
-    title: "Open 24/7",
-    value: "24/7",
-  },
-];
 
 export default function OpeningHours() {
   const dispatch = useAppDispatch();
@@ -47,7 +32,26 @@ export default function OpeningHours() {
   const handleChangeFormat = (value: TimeFormat) => {
     dispatch(setTimeFormat(value));
   };
+  const t = useT();
 
+  const formats: Format[] = [
+    {
+      title: t("generator__content_form_section__opening_hours__tabs__am_pm"),
+      value: "AM/PM",
+    },
+    {
+      title: t(
+        "generator__content_form_section__opening_hours__tabs__24h_format",
+      ),
+      value: "24-hour",
+    },
+    {
+      title: t(
+        "generator__content_form_section__opening_hours__tabs__open_24h",
+      ),
+      value: "24/7",
+    },
+  ];
   const handleWeeklyTimeChange = (
     status: "open" | "close",
     slotIndex: 0 | 1,
@@ -143,8 +147,10 @@ export default function OpeningHours() {
   return (
     <div className="w-full">
       <Accordion
-        title="Opening hours"
-        description="If applicable, provide your business hours"
+        title={t("generator__content_form_section__opening_hours__title")}
+        description={t(
+          "generator__content_form_section__opening_hours__description",
+        )}
         defaultOpen={true}
       >
         <div className="desktop:space-y-8 space-y-6">
@@ -173,7 +179,11 @@ export default function OpeningHours() {
                       checked={business.useWeekdaysTemplate}
                       onChange={handleMondayFridayToggle}
                     />
-                    <p>Monday - Friday</p>
+                    <p>
+                      {t(
+                        "generator__content_form_section__opening__hours_section__daynames__monday_friday",
+                      )}
+                    </p>
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -239,7 +249,9 @@ export default function OpeningHours() {
               <div className="flex items-center gap-4 w-full">
                 <div className="flex-1 h-[1px] bg-[var(--boarder-grey-50)]" />
                 <div className="text-[var(--Grey)] text-[16px] leading-[24px]">
-                  OR
+                  {t(
+                    "generator__content_form_section__opening_hours__or_separator",
+                  )}
                 </div>
                 <div className="flex-1 h-[1px] bg-[var(--boarder-grey-50)]" />
               </div>
@@ -248,15 +260,15 @@ export default function OpeningHours() {
               <div className="w-full space-y-2">
                 {(
                   [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                    "Sunday",
+                    { key: "Monday", label: t("generator__content_form_section__opening__hours_section__daynames__monday") },
+                    { key: "Tuesday", label: t("generator__content_form_section__opening__hours_section__daynames__tuesday") },
+                    { key: "Wednesday", label: t("generator__content_form_section__opening__hours_section__daynames__wednesday") },
+                    { key: "Thursday", label: t("generator__content_form_section__opening__hours_section__daynames__thursday") },
+                    { key: "Friday", label: t("generator__content_form_section__opening__hours_section__daynames__friday") },
+                    { key: "Saturday", label: t("generator__content_form_section__opening__hours_section__daynames__saturday") },
+                    { key: "Sunday", label: t("generator__content_form_section__opening__hours_section__daynames__sunday") },
                   ] as const
-                ).map((day) => {
+                ).map(({ key: day, label: dayLabel }) => {
                   const entry = business.openingHours.find(
                     (h) => h.day === day,
                   );
@@ -264,7 +276,7 @@ export default function OpeningHours() {
                   return (
                     <TimeSlotCard
                       key={day}
-                      day={day}
+                      day={dayLabel}
                       timeFormat={timeFormat}
                       isChecked={isChecked}
                       onToggle={() => handleDayToggle(day, !isChecked)}

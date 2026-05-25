@@ -13,7 +13,7 @@ import {
   removeSection,
 } from "@/store/slices/menuSlice";
 import { clearFieldError } from "@/store/slices/validationSlice";
-
+import { useT } from "@/utils/t";
 export default function Menu() {
   const dispatch = useAppDispatch();
   const sections = useAppSelector((state) => state.menu.sections);
@@ -65,12 +65,12 @@ export default function Menu() {
       setDeleteModalSectionId(null);
     }
   };
-
+  const t = useT();
   return (
     <div className="w-full">
       <Accordion
-        title="Menu"
-        description="Input your menu"
+        title={t("generator__step_1__qr_type_cards__menu__title")}
+        description={t("generator__content_form_section__menu__description")}
         defaultOpen={true}
         forceOpen={false}
       >
@@ -83,23 +83,27 @@ export default function Menu() {
                   (p) => !!validationErrors[`productName_${p.id}`],
                 ));
             return (
-            <Fragment key={section.id}>
-              <MenuSection
-                section={section}
-                sectionIndex={index}
-                isOpen={effectiveActiveSectionId === section.id || sectionHasError}
-                onClick={() => handleSectionClick(section.id)}
-                onDelete={() => handleDeleteSectionClick(section.id)}
-                showReorder={sections.length > 1}
-                onOpenReorderModal={() => setReorderModal({ mode: "sections" })}
-                onOpenProductReorder={(sectionId) =>
-                  setReorderModal({ mode: "products", sectionId })
-                }
-              />
-              {sections.length > 1 && index < sections.length - 1 && (
-                <div className="h-[1px] w-full bg-[var(--boarder-grey-50)]" />
-              )}
-            </Fragment>
+              <Fragment key={section.id}>
+                <MenuSection
+                  section={section}
+                  sectionIndex={index}
+                  isOpen={
+                    effectiveActiveSectionId === section.id || sectionHasError
+                  }
+                  onClick={() => handleSectionClick(section.id)}
+                  onDelete={() => handleDeleteSectionClick(section.id)}
+                  showReorder={sections.length > 1}
+                  onOpenReorderModal={() =>
+                    setReorderModal({ mode: "sections" })
+                  }
+                  onOpenProductReorder={(sectionId) =>
+                    setReorderModal({ mode: "products", sectionId })
+                  }
+                />
+                {sections.length > 1 && index < sections.length - 1 && (
+                  <div className="h-[1px] w-full bg-[var(--boarder-grey-50)]" />
+                )}
+              </Fragment>
             );
           })}
 
@@ -113,7 +117,7 @@ export default function Menu() {
               className="flex h-10 px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white font-medium text-[14px] leading-[22px]"
             >
               <Plus />
-              Add new section
+              {t("generator__content_form_section__menu__add_new_section")}
             </button>
           </div>
         </div>

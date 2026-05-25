@@ -1,7 +1,7 @@
 import { Trash2 } from "lucide-react";
 import InputUrl from "./InputUrl";
 import { RequiredTextInput } from "./RequiredInput";
-
+import { useT } from "@/utils/t";
 interface ButtonInputProps {
   id: string;
   buttonText: string;
@@ -31,24 +31,31 @@ export default function ButtonInput({
   buttonTextValidationKey,
   urlValidationKey,
 }: ButtonInputProps) {
+  const t = useT();
   return (
     <div className="flex gap-4 items-start w-full bg-[#F8F9F9] p-4 rounded-[var(--Corner-Radius-10)] ">
       <div className="flex flex-col gap-4 lg:flex-row  lg:gap-6 items-start flex-1">
         <RequiredTextInput
-          label="Button text"
+          label={t(
+            "generator__content_form_section__images_information__button_text__label",
+          )}
           value={buttonText}
           onChange={(value) => {
             if (onButtonTextChange) {
               onButtonTextChange(value);
             }
           }}
-          placeholder="e.g. Click here"
+          placeholder={t(
+            "generator__content_form_section__images_information__button_text__placeholder",
+          )}
           maxLength={100}
           validationKey={buttonTextValidationKey}
         />
         <InputUrl
-          label="URL"
-          placeholder="e.g. pauljones.com"
+          label={t(
+            "generator__content_form_section__images_information__button_url__label",
+          )}
+          placeholder={t("ui__input_placeholders__url")}
           id={`button-url-${id}`}
           value={url}
           onChange={(value) => {

@@ -9,5 +9,8 @@ export function getStep2ValidationToastMessage(
   if (pathname.includes("/video") && fieldErrors.videos) {
     return fieldErrors.videos;
   }
+  if (pathname.includes("/menu") && fieldErrors.menuItems) {
+    return fieldErrors.menuItems;
+  }
   return undefined;
 }

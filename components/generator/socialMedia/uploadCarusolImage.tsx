@@ -39,6 +39,8 @@ export default function ImageUpload({
   const social = useAppSelector((state) => state.social);
 
   const t = useT();
+  const effectiveLabel =
+    label ?? t("generator__images_content_form__images__label");
   const validateAndProcessFile = useCallback((file: File) => {
     // Validate file type
     const validTypes = [
@@ -92,6 +94,7 @@ export default function ImageUpload({
         }
       }
     };
+
     reader.onerror = () => {
       setUploadError("Failed to read file");
     };
@@ -202,9 +205,11 @@ export default function ImageUpload({
   return (
     <div className="flex flex-col gap-0">
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
-        {label}
+        {effectiveLabel}
         <p className="text-[14px] leading-[22px] font-regular text-[var(--Dark-gray)] mb-[24px]">
-          Upload up to 10 images
+          {t("generator__images_content_form__images__description", {
+            count: "10",
+          })}
         </p>
       </label>
       <div
@@ -242,7 +247,7 @@ export default function ImageUpload({
               )}
             </p>
             <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
-              Maximum size: 5MB
+              {t("generator__content_form_section__social__max_image_size")}
             </p>
           </div>
         </label>

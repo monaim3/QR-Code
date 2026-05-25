@@ -4,6 +4,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
 import UploadIcon from "@/components/icons/upload-icon";
 import Eye from "@/components/icons/eye";
+import { useT } from "@/utils/t";
 
 interface PdfUploadProps {
   onCustomLogoUpload?: (fileUrl: string | null) => void;
@@ -24,28 +25,31 @@ export default function PdfUpload({
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const validateAndProcessFile = useCallback((file: File) => {
-    // ✅ Validate PDF
-    if (file.type !== "application/pdf") {
-      setUploadError("Please upload a valid PDF file");
-      return;
-    }
+  const validateAndProcessFile = useCallback(
+    (file: File) => {
+      // ✅ Validate PDF
+      if (file.type !== "application/pdf") {
+        setUploadError("Please upload a valid PDF file");
+        return;
+      }
 
-    // ✅ Validate file size (20MB)
-    const maxSize = 20 * 1024 * 1024;
-    if (file.size > maxSize) {
-      setUploadError("PDF size must be less than 20MB");
-      return;
-    }
+      // ✅ Validate file size (20MB)
+      const maxSize = 20 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setUploadError("PDF size must be less than 20MB");
+        return;
+      }
 
-    setUploadError("");
-    setFileName(file.name);
+      setUploadError("");
+      setFileName(file.name);
 
-    const fileUrl = URL.createObjectURL(file);
-    setPdfUrl(fileUrl);
-    onCustomLogoUpload?.(fileUrl);
-    onLogoChange?.(fileUrl);
-  }, [onCustomLogoUpload, onLogoChange]);
+      const fileUrl = URL.createObjectURL(file);
+      setPdfUrl(fileUrl);
+      onCustomLogoUpload?.(fileUrl);
+      onLogoChange?.(fileUrl);
+    },
+    [onCustomLogoUpload, onLogoChange],
+  );
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -86,13 +90,13 @@ export default function PdfUpload({
       const file = e.dataTransfer.files?.[0];
       if (file) validateAndProcessFile(file);
     },
-    [validateAndProcessFile]
+    [validateAndProcessFile],
   );
-
+  const t = useT();
   return (
     <div className="flex flex-col gap-2">
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
-        Upload your file
+        {t("generator__content_form_section__pdf_screen__title")}
       </label>
 
       <div
@@ -170,10 +174,10 @@ export default function PdfUpload({
 
             <div className="space-y-1">
               <p className="text-[16px] leading-[24px] font-medium text-[var(--Black)]">
-               Upload your PDF file
+                {t("generator__content_form_section__pdf__file_description")}
               </p>
               <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
-                Maximum size: 20MB
+                {t("generator__content_form_section__pdf__max_file_size", { size: "20" })}
               </p>
             </div>
           </label>
