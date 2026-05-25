@@ -9,6 +9,7 @@ import Download from "@/components/icons/download";
 import { QrCode as qrData } from "@/types/generatedQr";
 import Image from "next/image";
 import AlertTriangle from "@/components/icons/alert-triangle";
+import QrCodePreview from "./QrCodePreview";
 
 interface Props {
   open: boolean;
@@ -38,15 +39,7 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
         </DialogHeader>
 
         <div className="flex flex-col items-center justify-center gap-4">
-          {/* {item?.thumbnail && (
-            <Image
-              src={item.thumbnail}
-              alt="QR Code"
-              width={144}
-              height={144}
-              className="h-[160px]"
-            />
-          )} */}
+          <QrCodePreview qrCodeData={item as qrData} />
           <p className="text-[#3D75F3] text-[14px] leading-[22px] text-center">
             {item?.content.url}
           </p>

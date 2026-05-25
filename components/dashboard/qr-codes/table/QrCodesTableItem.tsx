@@ -36,6 +36,14 @@ export default function QrCodesTableItem({
     onToggleSelection(item.id);
   };
 
+  const formattedDate = (date: string) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <>
       {/* Desktop */}
@@ -47,7 +55,7 @@ export default function QrCodesTableItem({
           </div>
           <Tooltip text="Click to scan">
             <QrCode
-              thumbnail={''}
+              thumbnail={""}
               qrCodeData={item}
               onQrPreviewModal={() => onQrPreviewModal(item)}
             />
@@ -79,11 +87,11 @@ export default function QrCodesTableItem({
         {/* Info */}
         <div className="flex flex-col justify-center items-start font-roboto gap-1 shrink-0 w-[180px]">
           <p className="text-[var(--Black)] text-[14px] leading-[22px]">
-            Created: {item.createdAt}
+            Created: {formattedDate(item.createdAt)}
           </p>
           {item.updatedAt && (
             <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-              Last modified: {item.updatedAt}
+              Last modified: {formattedDate(item.updatedAt)}
             </p>
           )}
           {item.updatedAt && (
@@ -107,7 +115,11 @@ export default function QrCodesTableItem({
             </>
           ) : (
             <>
-              <Circle className={getStatusStyles(item.disabled === false ? "Active" : "Paused")} />
+              <Circle
+                className={getStatusStyles(
+                  item.disabled === false ? "Active" : "Paused",
+                )}
+              />
               <span
                 className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.disabled === false ? "Active" : "Paused")}`}
               >
@@ -134,7 +146,7 @@ export default function QrCodesTableItem({
           <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
 
           <QrCode
-            thumbnail={''}
+            thumbnail={""}
             qrCodeData={item}
             onQrPreviewModal={() => onQrPreviewModal(item)}
           />
@@ -181,7 +193,7 @@ export default function QrCodesTableItem({
 
         <div className="flex items-center gap-4 self-stretch">
           <QrCode
-            thumbnail={''}
+            thumbnail={""}
             qrCodeData={item}
             onQrPreviewModal={() => onQrPreviewModal(item)}
           />
@@ -189,7 +201,8 @@ export default function QrCodesTableItem({
           <div className="flex flex-col items-start gap-1 flex-1">
             {/* Type */}
             <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-              Type <span className="text-[var(--Black)]">{item.content.type}</span>
+              Type{" "}
+              <span className="text-[var(--Black)]">{item.content.type}</span>
             </p>
 
             <div className="flex items-center gap-4 self-stretch">
@@ -215,7 +228,11 @@ export default function QrCodesTableItem({
                   </>
                 ) : (
                   <>
-                    <Circle className={getStatusStyles(item.disabled === false ? "Active" : "Paused")} />
+                    <Circle
+                      className={getStatusStyles(
+                        item.disabled === false ? "Active" : "Paused",
+                      )}
+                    />
                     <span
                       className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.disabled === false ? "Active" : "Paused")}`}
                     >

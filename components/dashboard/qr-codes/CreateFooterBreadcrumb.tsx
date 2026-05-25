@@ -6,7 +6,11 @@ import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setActiveTab } from "@/store/slices/previewSlice";
 import { validateQRData } from "@/lib/validation/qr-validation";
-import { setErrors, setShowErrors, clearAllErrors } from "@/store/slices/validationSlice";
+import {
+  setErrors,
+  setShowErrors,
+  clearAllErrors,
+} from "@/store/slices/validationSlice";
 
 import MobilePreviewModal from "@/components/generator/Mobile_Preview_Modal";
 import Container from "@/components/common/parent-container";
@@ -26,6 +30,15 @@ import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPrevi
 import SocialPreView from "@/components/generator/socialMedia/social-preview";
 import VideoPreView from "@/components/generator/video/video-preview";
 import WifiPreview from "@/components/generator/Wifi/WifiPreview";
+import {
+  useCreateQrCodeMutation,
+  useGetQrCodeQuery,
+  usePublishGuestQrCodeMutation,
+  useUpdateQrCodeMutation,
+} from "@/store/api/qrApi";
+import { buildGuestQrStep2Payload } from "@/lib/generator/buildGuestQrStep2Payload";
+import { setQrId, setQrUri } from "@/store/slices/qrSlice";
+import { buildGuestQrDesign } from "@/lib/generator/buildGuestQrDesign";
 
 export default function CreateFooterBreadcrumb() {
   const pathname = usePathname();
@@ -37,6 +50,27 @@ export default function CreateFooterBreadcrumb() {
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const collapsed = useAppSelector((state) => state.sidebar.collapsed);
   const reduxState = useAppSelector((state) => state);
+  const qrName = useAppSelector((state) => state.preview.qrCodeName);
+  const qrId = useAppSelector((state) => state.qr.qrId);
+  const qrCode = useAppSelector((state) => state.qr);
+  const simpleText = useAppSelector((state) => state.simpleText.Text);
+  const vCard = useAppSelector((state) => state.vCard);
+  const pdf = useAppSelector((state) => state.pdf);
+  const images = useAppSelector((state) => state.images);
+  const wifi = useAppSelector((state) => state.wifi);
+  const social = useAppSelector((state) => state.social);
+  const facebook = useAppSelector((state) => state.facebook);
+  const video = useAppSelector((state) => state.video);
+  const app = useAppSelector((state) => state.app);
+  const business = useAppSelector((state) => state.business);
+  const menu = useAppSelector((state) => state.menu);
+
+  const [createQrCode] = useCreateQrCodeMutation();
+  const [updateQrCode] = useUpdateQrCodeMutation();
+  const { data: newQrCode } = useGetQrCodeQuery(qrId, {
+    skip: !qrId,
+  });
+  const [publishGuestQrCode] = usePublishGuestQrCodeMutation();
 
   const desktopPositionClasses = collapsed
     ? "desktopDashboard:left-[72px] left-0 desktopDashboard:max-w-[calc(100vw-72px)] max-w-full"
@@ -63,33 +97,74 @@ export default function CreateFooterBreadcrumb() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === 2) {
       // Get QR type from pathname
-      const qrType = pathname.split("/")[3];
-      
+      const qrType = pathname.split("/")[4];
+
       // Validate the form data
       const validationResult = validateQRData(reduxState, qrType);
-      
+
       if (!validationResult.isValid) {
         // Dispatch errors to Redux
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
-        
+
         // Scroll to top to show error
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
-      
+
+      const createPayload = buildGuestQrStep2Payload(qrType, {
+        qrName,
+        websiteUrl,
+        simpleText,
+        vCard,
+        pdf,
+        images,
+        wifi,
+        social,
+        facebook,
+        video,
+        app,
+        business,
+        menu,
+      });
+
+      if (createPayload) {
+        const response = await createQrCode(createPayload);
+        if ("data" in response) {
+          dispatch(setQrId(response.data.id));
+          dispatch(setQrUri(response.data.uri));
+        }
+      }
+
       // Clear any previous errors
       dispatch(clearAllErrors());
       localStorage.setItem("qrType", qrType);
       router.push("/cabinet/qr-codes/generator/customize");
+    } else if (currentStep === 3) {
+      if (qrId && newQrCode) {
+        const qrDesign = buildGuestQrDesign(qrCode);
+
+        await updateQrCode({
+          id: qrId,
+          payload: {
+            qrDesign,
+            name: newQrCode.name,
+            content: newQrCode.content,
+          },
+        });
+
+        await publishGuestQrCode(qrId);
+      }
+
+      router.push("/cabinet/qr-codes");
     }
   };
 
   const handleExits = () => {
-    window.location.href = "/cabinet/qr-codes";;
+    window.location.href = "/cabinet/qr-codes";
   };
 
   const handleTabChange = (tab: "preview" | "qrcode") => {
@@ -196,7 +271,7 @@ export default function CreateFooterBreadcrumb() {
               )}
               {currentStep === 3 && (
                 <button
-                  // onClick={handleNext}
+                  onClick={handleNext}
                   className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
                 >
                   Complete
