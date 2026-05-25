@@ -5,7 +5,9 @@ import {
   MenuSection,
   MenuProduct,
 } from "@/types/menu";
+import { ProfileImage } from "@/types/vCard";
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import { UploadLogoResponse } from "./qrSlice";
 
 export function createSectionId() {
   return `section-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -16,6 +18,14 @@ function createProductId() {
 export function createProductIdPublic() {
   return createProductId();
 }
+
+const emptyUploadedImage = {
+  publicId: "",
+  resourceType: "",
+  format: "",
+  bytes: 0,
+};
+
 function createEmptyProduct(id?: string): MenuProduct {
   return {
     id: id ?? createProductId(),
@@ -27,6 +37,7 @@ function createEmptyProduct(id?: string): MenuProduct {
     image: null,
     allergens: [],
     isVisible: true,
+    uploadedProductImage: emptyUploadedImage,
   };
 }
 function createEmptySection(id?: string): MenuSection {
@@ -95,6 +106,8 @@ const initialState: MenuSlice = {
       products: [createEmptyProduct(INITIAL_PRODUCT_ID)],
     },
   ],
+  uploadedRestaurantImage: emptyUploadedImage,
+  uploadedWelcomeScreen: emptyUploadedImage,
 };
 
 const menuSlice = createSlice({
@@ -247,6 +260,38 @@ const menuSlice = createSlice({
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
     },
+    setUploadedRestaurantImage: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedRestaurantImage = action.payload;
+    },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
+    },
+    setUploadedProductImage: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        productId: string;
+        uploadedImage: ProfileImage | UploadLogoResponse;
+      }>,
+    ) => {
+      const section = state.sections.find(
+        (s) => s.id === action.payload.sectionId,
+      );
+      if (section) {
+        const product = section.products.find(
+          (p) => p.id === action.payload.productId,
+        );
+        if (product) {
+          product.uploadedProductImage = action.payload.uploadedImage;
+        }
+      }
+    },
   },
 });
 
@@ -269,5 +314,8 @@ export const {
   reorderProducts,
   setProductsOrder,
   setActiveColorIndex,
+  setUploadedRestaurantImage,
+  setUploadedWelcomeScreen,
+  setUploadedProductImage,
 } = menuSlice.actions;
 export default menuSlice.reducer;

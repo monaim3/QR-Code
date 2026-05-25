@@ -2,6 +2,8 @@ import { facebookState } from "@/store/slices/facebookSlice";
 import { imageState } from "@/store/slices/imagesSlice";
 import { wifiState } from "@/store/slices/wifiSlice";
 import { AppSlice } from "@/types/app";
+import { BusinessSlice } from "@/types/business";
+import { MenuSlice } from "@/types/menu";
 import { PdfSlice } from "@/types/pdf";
 import { SocialSlice } from "@/types/social";
 import { VCardSlice } from "@/types/vCard";
@@ -24,6 +26,8 @@ type Step2Input = {
   facebook: facebookState;
   video: VideoSlice;
   app: AppSlice;
+  business: BusinessSlice;
+  menu: MenuSlice;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -43,6 +47,8 @@ export function buildGuestQrStep2Payload(
     facebook,
     video,
     app,
+    business,
+    menu,
   } = input;
 
   switch (qrType) {
@@ -307,6 +313,111 @@ export function buildGuestQrStep2Payload(
             url: link.storeUrl,
           })),
           loaderImage: app.uploadedWelcomeScreen,
+        },
+      };
+    case "business-page":
+      return {
+        name: business.qrCodeName,
+        content: {
+          type: "businessPage",
+          address: business.addressUrl
+            ? { url: business.addressUrl }
+            : {
+                street: business.street,
+                postalCode: business.postalCode,
+                city: business.city,
+                state: business.state,
+                country: business.country,
+              },
+          buttons:
+            business.businessInfo.buttons?.map((button) => ({
+              title: button.text,
+              url: button.url,
+            })) || [],
+          colors: {
+            primary: business.primaryColor,
+            secondary: business.secondaryColor,
+          },
+          company: {
+            name: business.businessInfo.companyName,
+            summary: business.businessInfo.subTitle,
+            tagline: business.businessInfo.title,
+          },
+          contactDetails: {
+            name: business.contactInfo.fullName,
+            surname: "",
+          },
+          contacts: {
+            phoneNumber: [
+              business.contactInfo.phoneNumber,
+              business.contactInfo.altPhoneNumber,
+              ...business.contactInfo.altPhoneNumbers,
+            ].filter(Boolean) as string[],
+            alternativePhoneNumber: "",
+            website: business.contactInfo.website,
+            email: [
+              business.contactInfo.email,
+              ...business.contactInfo.altEmails,
+            ].filter(Boolean) as string[],
+          },
+          facilities: business.facilities,
+          image: business.uploadedBusinessImage,
+          links:
+            business.socialChannels?.map((channel) => ({
+              name: channel.name,
+              url: channel.url,
+            })) ?? [],
+          loaderImage: business.uploadedWelcomeScreen,
+          schedule: {
+            // isAm: business.timeFormat === "AM/PM",
+            // isOpen247: business.timeFormat === "24/7",
+            isAm: false,
+            isOpen247: true,
+            friday: null,
+            monday: null,
+            saturday: null,
+            sunday: null,
+            thursday: null,
+            tuesday: null,
+            wednesday: null,
+          },
+          summary: business.summary,
+        },
+      };
+    case "menu":
+      return {
+        name: menu.qrCodeName,
+        content: {
+          type: "menu",
+          colors: {
+            primary: menu.primaryColor,
+            secondary: menu.secondaryColor,
+          },
+          info: {
+            name: menu.restaurantInfo.name,
+            description: menu.restaurantInfo.description,
+            image: menu.uploadedRestaurantImage,
+          },
+          loaderImage: menu.uploadedWelcomeScreen,
+          sections:
+            menu.sections.map((section) => ({
+              name: section.name,
+              nameTranslation: section.nameTranslation,
+              description: section.description,
+              descriptionTranslation: section.descriptionTranslation,
+              visible: section.isVisible,
+              products:
+                section.products?.map((product) => ({
+                  image: product.uploadedProductImage,
+                  name: product.name,
+                  nameTranslation: product.nameTranslation,
+                  description: product.description,
+                  descriptionTranslation: product.descriptionTranslation,
+                  price: product.price,
+                  allergens: product.allergens,
+                  visible: product.isVisible,
+                })) ?? [],
+            })) ?? [],
         },
       };
     default:

@@ -9,8 +9,9 @@ import {
   TimeFormat,
 } from "@/types/business";
 import { ColorPalette } from "@/types/menu";
-import { SocialChannel } from "@/types/vCard";
+import { ProfileImage, SocialChannel } from "@/types/vCard";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UploadLogoResponse } from "./qrSlice";
 
 function createButtonId() {
   return `button-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -46,6 +47,13 @@ const palette = [
     secondary: "#FFFFFF",
   },
 ];
+
+const emptyUploadedImage = {
+  publicId: "",
+  resourceType: "",
+  format: "",
+  bytes: 0,
+};
 
 const initialState: BusinessSlice = {
   colorPalette: palette,
@@ -89,6 +97,8 @@ const initialState: BusinessSlice = {
   welcomeScreen: "",
   qrCodeName: "",
   isPreviewWelcomeScreen: false,
+  uploadedBusinessImage: emptyUploadedImage,
+  uploadedWelcomeScreen: emptyUploadedImage,
 };
 
 const menuSlice = createSlice({
@@ -313,7 +323,9 @@ const menuSlice = createSlice({
         times: OpeningTime["times"];
       }>,
     ) => {
-      const entry = state.openingHours.find((h) => h.day === action.payload.day);
+      const entry = state.openingHours.find(
+        (h) => h.day === action.payload.day,
+      );
       if (entry) {
         entry.times = action.payload.times;
       }
@@ -332,6 +344,18 @@ const menuSlice = createSlice({
     },
     setActiveColorIndex: (state, action: PayloadAction<number>) => {
       state.activeColorIndex = action.payload;
+    },
+    setUploadedBusinessImage: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedBusinessImage = action.payload;
+    },
+    setUploadedWelcomeScreen: (
+      state,
+      action: PayloadAction<ProfileImage | UploadLogoResponse>,
+    ) => {
+      state.uploadedWelcomeScreen = action.payload;
     },
   },
 });
@@ -376,5 +400,7 @@ export const {
   setQrCodeName,
   setIsPreviewWelcomeScreen,
   setActiveColorIndex,
+  setUploadedBusinessImage,
+  setUploadedWelcomeScreen,
 } = menuSlice.actions;
 export default menuSlice.reducer;

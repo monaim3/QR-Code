@@ -37,7 +37,7 @@ export default function BusinessInfo() {
           <div className="space-y-4">
             <div className="flex flex-col desktop:flex-row items-start desktop:gap-12 gap-4 self-stretch">
               <Input
-                label="Company name*"
+                label="Company name"
                 placeholder="e.g. My company"
                 id="business-company-name"
                 value={business.businessInfo.companyName}
@@ -71,25 +71,29 @@ export default function BusinessInfo() {
                   key={btn.id}
                   className="flex flex-col desktop:flex-row desktop:p-6 p-4 justify-center items-end gap-4 self-stretch bg-[var(--light-grey-70)] rounded-[var(--Corner-Radius-10)]"
                 >
-                  <Input
-                    label="Button text*"
-                    placeholder="e.g. Click here"
-                    id={`button-text-${btn.id}`}
-                    value={btn.text}
-                    onChange={(v) =>
-                      dispatch(
-                        updateBusinessButton({
-                          id: btn.id,
-                          updates: { text: v },
-                        }),
-                      )
-                    }
-                  />
+                  <div className="flex-1">
+                    <Input
+                      label="Button text"
+                      placeholder="e.g. Click here"
+                      id={`button-text-${btn.id}`}
+                      value={btn.text}
+                      onChange={(v) =>
+                        dispatch(
+                          updateBusinessButton({
+                            id: btn.id,
+                            updates: { text: v },
+                          }),
+                        )
+                      }
+                      validationKey={`businessButtonText_${btn.id}`}
+                      required={true}
+                    />
+                  </div>
 
                   <div className="flex-1 flex items-end desktop:gap-4 gap-2 w-full">
                     <div className="w-[calc(100%-56px)]">
                       <Input
-                        label="URL*"
+                        label="URL"
                         placeholder="e.g. https://pauljones.com"
                         id={`button-url-${btn.id}`}
                         type="url"
@@ -102,6 +106,8 @@ export default function BusinessInfo() {
                             }),
                           )
                         }
+                        validationKey={`businessButtonUrl_${btn.id}`}
+                        required={true}
                       />
                     </div>
                     <button

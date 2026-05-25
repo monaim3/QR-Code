@@ -5,8 +5,13 @@ import ImageUpload from "../vcard/ImageUpload";
 import Input from "../vcard/Input";
 import { allergens } from "@/lib/menu";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { updateProduct, removeProduct } from "@/store/slices/menuSlice";
+import {
+  updateProduct,
+  removeProduct,
+  setUploadedProductImage,
+} from "@/store/slices/menuSlice";
 import type { MenuProduct } from "@/types/menu";
+import { useUploadFileMutation } from "@/store/api/qrApi";
 
 interface Props {
   sectionId: string;
@@ -32,6 +37,7 @@ export default function SectionProduct({
   const dispatch = useAppDispatch();
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const [uploadFile] = useUploadFileMutation();
 
   const productTitle =
     product.name.trim() !== "" ? product.name : `Product ${productIndex + 1}`;
@@ -64,12 +70,68 @@ export default function SectionProduct({
     );
   };
 
-  const handleImageChange = (value: string | null) => {
+  const emptyUploadedImage = {
+    publicId: "",
+    resourceType: "",
+    format: "",
+    bytes: 0,
+  };
+
+  const handleImageChange = async (value: string | null) => {
+    if (!value) {
+      dispatch(
+        updateProduct({
+          sectionId,
+          productId: product.id,
+          updates: { image: "" },
+        }),
+      );
+      dispatch(
+        setUploadedProductImage({
+          sectionId,
+          productId: product.id,
+          uploadedImage: emptyUploadedImage,
+        }),
+      );
+      return;
+    }
+
     dispatch(
       updateProduct({
         sectionId,
         productId: product.id,
         updates: { image: value },
+      }),
+    );
+
+    const blob = await fetch(value).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    const uploadedImage =
+      "data" in result
+        ? {
+            bucketRootUrl: result.data.location.split(
+              `/${result.data.bucket}`,
+            )[0],
+            bytes: result.data.bytes,
+            format: result.data.format,
+            key: result.data.key,
+            publicId: result.data.publicId,
+            resourceType: result.data.resourceType,
+            storageProvider: result.data.storageProvider,
+          }
+        : emptyUploadedImage;
+
+    dispatch(
+      setUploadedProductImage({
+        sectionId,
+        productId: product.id,
+        uploadedImage: uploadedImage,
       }),
     );
   };
@@ -81,7 +143,9 @@ export default function SectionProduct({
         isVisible={product.isVisible}
         hideBtnText="Hide product"
         isOpen={isOpen}
-        forceOpen={showErrors && !!validationErrors[`productName_${product.id}`]}
+        forceOpen={
+          showErrors && !!validationErrors[`productName_${product.id}`]
+        }
         onClick={onClick}
         showReorder={showReorder}
         onReorderClick={onOpenReorderModal}
@@ -89,7 +153,12 @@ export default function SectionProduct({
         onPreview={handleProductVisibilityToggle}
       >
         <div className="desktop:space-y-8 space-y-6">
-          <ImageUpload label="Add image" value={product.image} aspectRatio={1.7647} onCustomLogoUpload={handleImageChange} />
+          <ImageUpload
+            label="Add image"
+            value={product.image}
+            aspectRatio={1.7647}
+            onCustomLogoUpload={handleImageChange}
+          />
 
           <div className="space-y-4">
             <Input

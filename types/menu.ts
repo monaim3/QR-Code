@@ -1,3 +1,6 @@
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
+import { ProfileImage } from "./vCard";
+
 export interface ColorPalette {
   primary: string;
   secondary: string;
@@ -19,6 +22,7 @@ export interface MenuProduct {
   image: string | null;
   allergens: string[];
   isVisible: boolean;
+  uploadedProductImage: ProfileImage | UploadLogoResponse;
 }
 
 export interface MenuSection {
@@ -41,4 +45,6 @@ export interface MenuSlice {
   qrCodeName: string;
   isPreviewWelcomeScreen: boolean;
   sections: MenuSection[];
+  uploadedRestaurantImage: ProfileImage | UploadLogoResponse;
+  uploadedWelcomeScreen: ProfileImage | UploadLogoResponse;
 }
