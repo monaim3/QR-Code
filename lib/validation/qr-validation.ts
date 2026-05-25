@@ -273,6 +273,20 @@ function validateBusinessPage(
     });
     fieldErrors["companyName"] = message;
   }
+
+  businessInfo.buttons.forEach((button, index) => {
+    if (!button.text || !button.text.trim()) {
+      const message = "This field is required and cannot be left blank.";
+      errors.push({ field: `Button Text ${index}`, message });
+      fieldErrors[`businessButtonText_${button.id}`] = message;
+    }
+    const urlResult = urlValidationSchema.safeParse(button.url ?? "");
+    if (!urlResult.success) {
+      const message = urlResult.error.issues[0].message;
+      errors.push({ field: `Button URL ${index}`, message });
+      fieldErrors[`businessButtonUrl_${button.id}`] = message;
+    }
+  });
 }
 
 function validateFacebook(

@@ -43,7 +43,7 @@ export default function VideoPreView() {
     }
   };
 
-  const defaultbutton = [
+  const defaultButton = [
     { text: "Click here", link: "https://www.example.com/" },
   ];
 
@@ -98,7 +98,7 @@ export default function VideoPreView() {
               : video.videoInfo.description}
           </p>
           <div className="w-full max-w-full pt-4">
-            {(video.isDefault ? defaultbutton : video.videoInfo.buttons).map(
+            {(video.isDefault ? defaultButton : video.videoInfo.buttons).map(
               (button, index) => {
                 return (
                   <div
@@ -138,7 +138,7 @@ export default function VideoPreView() {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col items-start justify-center bg-white border border-white rounded-[6px] shadow-card mb-[10px]"
+                    className="flex flex-col items-start justify-center bg-white border border-white rounded-[6px] shadow-card mb-[10px] w-full"
                   >
                     {video.isDefault ? (
                       <div className="relative w-full h-[130px] p-[1px]">
@@ -161,7 +161,7 @@ export default function VideoPreView() {
                         </div>
                       )
                     )}
-                    <p className="text-[14px] leading-[22px] font-medium text-[var(--Black)] px-2 pt-2">
+                    <p className="text-[14px] leading-[22px] font-medium text-[var(--Black)] px-2 pt-2 truncate w-full">
                       {video.isDefault ? "So much joy!" : item.title}
                     </p>
                     <p className="text-[12px] leading-[20px] font-regular text-[var(--Black)] px-2 pb-2">

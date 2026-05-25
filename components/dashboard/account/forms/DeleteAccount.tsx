@@ -2,8 +2,14 @@ import { Button } from "@/components/ui/button";
 import FormSelect from "./FormSelect";
 import SaveButton from "./SaveButton";
 import TrashAlt from "@/components/icons/trash-alt";
+import { useRouter } from "next/navigation";
 
-export default function DeleteAccount() {
+interface Props {
+  onDeleteClick: () => void;
+}
+
+export default function DeleteAccount({ onDeleteClick }: Props) {
+
   return (
     <div className="flex flex-col items-start gap-6 p-6 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
       <div className="flex flex-col gap-2">
@@ -30,7 +36,9 @@ export default function DeleteAccount() {
           ]}
         />
 
-        <Button className="flex w-full h-[38px] px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] bg-[var(--error)] text-white text-[14px] leading-[22px] desktopDashboard:w-[120px] tablet:w-[120px]">
+        <Button 
+        onClick={onDeleteClick}
+        className="flex w-full h-[38px] px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] bg-[var(--error)] text-white text-[14px] leading-[22px] desktopDashboard:w-[120px] tablet:w-[120px]">
           <TrashAlt />
           Delete
         </Button>

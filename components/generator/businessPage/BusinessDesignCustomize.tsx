@@ -12,16 +12,27 @@ import {
   setPrimaryColor,
   setSecondaryColor,
   setActiveColorIndex,
+  setUploadedBusinessImage,
 } from "@/store/slices/businessSlice";
 
 import { useT } from "@/utils/t";
+import { useUploadFileMutation } from "@/store/api/qrApi";
 
 export default function BusinessDesignCustomize() {
   const dispatch = useAppDispatch();
   const business = useAppSelector((state) => state.business);
   const isActive = business.activeColorIndex;
+  const [uploadFile] = useUploadFileMutation();
 
   const t = useT();
+
+  const emptyUploadedImage = {
+    publicId: "",
+    resourceType: "",
+    format: "",
+    bytes: 0,
+  };
+
   const handleSwap = () => {
     const temp = business.primaryColor;
     dispatch(setPrimaryColor(business.secondaryColor));
@@ -63,8 +74,39 @@ export default function BusinessDesignCustomize() {
     );
   };
 
-  const handleImageChange = (value: string | null) => {
+  const handleImageChange = async (value: string | null) => {
+    if (!value) {
+      dispatch(setBusinessImage(""));
+      dispatch(setUploadedBusinessImage(emptyUploadedImage));
+      return;
+    }
+
     dispatch(setBusinessImage(value));
+
+    const blob = await fetch(value).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    const uploadedImage =
+      "data" in result
+        ? {
+            bucketRootUrl: result.data.location.split(
+              `/${result.data.bucket}`,
+            )[0],
+            bytes: result.data.bytes,
+            format: result.data.format,
+            key: result.data.key,
+            publicId: result.data.publicId,
+            resourceType: result.data.resourceType,
+            storageProvider: result.data.storageProvider,
+          }
+        : emptyUploadedImage;
+
+    dispatch(setUploadedBusinessImage(uploadedImage));
   };
 
   return (

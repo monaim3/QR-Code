@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import Container from "../../components/common/parent-container";
 import SignUpElements from "../../components/signup/sign-up-element";
 import SignUpReadyQr from "../../components/signup/sign-up-ready-qr";
@@ -33,7 +34,11 @@ export default function SignupBody() {
         >
           {/* Left Panel */}
 
+          <Suspense fallback={null}>
+
           <SignUpElements from={searchParams.get("from") === "login"} />
+
+          </Suspense>
 
           {/* Right Panel */}
           <SignUpReadyQr />

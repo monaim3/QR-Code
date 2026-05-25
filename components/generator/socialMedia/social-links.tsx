@@ -20,6 +20,8 @@ import ImageUpload from "@/components/generator/vcard/ImageUpload";
 import Input from "@/components/generator/vcard/Input";
 import TrashAlt from "@/components/icons/trash-alt";
 import { SocialChannel } from "@/types/social";
+import { useUploadFileMutation } from "@/store/api/qrApi";
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
 
 import { useT } from "@/utils/t";
 export default function SocialLinks() {
@@ -32,6 +34,7 @@ export default function SocialLinks() {
   const [logo, setLogo] = useState("");
   const [nameError, setNameError] = useState("");
   const [urlError, setUrlError] = useState("");
+  const [uploadFile] = useUploadFileMutation();
 
   const handleChannelToggle = (channelId: string) => {
     const channel = socialChannels.find((ch) => ch.id === channelId);
@@ -73,7 +76,7 @@ export default function SocialLinks() {
     setUrlError("");
   };
 
-  const handleAddButton = () => {
+  const handleAddButton = async () => {
     const trimmedName = social.customFormName.trim();
     const trimmedUrl = social.customFormUrl.trim();
     let hasError = false;
@@ -88,13 +91,37 @@ export default function SocialLinks() {
     }
     if (hasError) return;
 
+    const blob = await fetch(logo).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    const uploadedImage: UploadLogoResponse | undefined =
+      "data" in result
+        ? {
+            bucketRootUrl: result.data.location.split(
+              `/${result.data.bucket}`,
+            )[0],
+            bytes: result.data.bytes,
+            format: result.data.format,
+            key: (result.data as { key?: string }).key ?? "",
+            publicId: result.data.publicId,
+            resourceType: result.data.resourceType,
+            storageProvider: result.data.storageProvider,
+          }
+        : undefined;
+
     const customLinks: SocialChannel = {
       id: social.customFormName,
       name: social.customFormName,
       isIcon: false,
       url: social.customFormUrl,
       icon: logo,
-      description: description,
+      description,
+      uploadedImage,
     };
     dispatch(addCustomSocialChannel(customLinks));
     dispatch(clearFieldError("socialChannels"));

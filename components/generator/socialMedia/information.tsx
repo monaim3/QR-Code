@@ -29,6 +29,7 @@ export default function Information() {
     }
   };
   const t = useT();
+
   return (
     <div className="w-full">
       <Accordion

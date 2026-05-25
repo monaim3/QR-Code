@@ -19,7 +19,7 @@ import {
 import { useT } from "@/utils/t";
 const urlSchema = z.string().url();
 
-export default function Addvideos() {
+export default function AddVideos() {
   const [videoUrl, setVideoUrl] = useState("");
   const [videoUrlError, setVideoUrlError] = useState("");
   const [openSwap, setOpenSwap] = useState(false);
@@ -56,6 +56,7 @@ export default function Addvideos() {
         title: "",
         description: "",
         id: id,
+        uploaded: null,
       }),
     );
     setVideoUrl("");
@@ -110,7 +111,7 @@ export default function Addvideos() {
                 return (
                   <div
                     key={index}
-                    className="w-full flex flex-col bg-[var(--Generator-Background)] desktop:flex-row gap-4 items-center desktop:items-start justify-center rounded-[12px] p-4 mb-2"
+                    className="w-full flex flex-col bg-[var(--Generator-Background)] desktop:flex-row gap-4 items-center desktop:items-end justify-center rounded-[12px] p-4 mb-2"
                   >
                     <div className="flex flex-row items-center justify-between w-full">
                       <UnifiedVideoPlayer
@@ -125,7 +126,7 @@ export default function Addvideos() {
                           key={index}
                           id={index.toString()}
                           onClick={() => handleDeleteVideo(index)}
-                          className="flex items-center justify-center h-[48px] w-[48px] border border-[var(--Boarder-Grey)] bg-[var(--Light-Grey)] rounded-[6px] hover:bg-[var(--Boarder-Grey)] cursor-move flex-shrink-0"
+                          className="flex items-center justify-center h-[48px] w-[48px] border border-[var(--Boarder-Grey)] bg-[var(--Light-Grey)] rounded-[6px] hover:bg-[var(--Boarder-Grey)] flex-shrink-0"
                           aria-label="Drag to reorder"
                         >
                           <TrashAlt />
@@ -181,7 +182,7 @@ export default function Addvideos() {
                         key={index + 2}
                         id={index.toString()}
                         onClick={() => handleDeleteVideo(index)}
-                        className="flex items-center justify-center h-[48px] w-[48px] border border-[var(--Boarder-Grey)] bg-[var(--Light-Grey)] rounded-[6px] hover:bg-[var(--Boarder-Grey)] cursor-move flex-shrink-0"
+                        className="flex items-center justify-center h-[48px] w-[48px] border border-[var(--Boarder-Grey)] bg-[var(--Light-Grey)] rounded-[6px] hover:bg-[var(--Boarder-Grey)] flex-shrink-0"
                         aria-label="Drag to reorder"
                       >
                         <TrashAlt />

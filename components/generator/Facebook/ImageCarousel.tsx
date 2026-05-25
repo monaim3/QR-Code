@@ -5,7 +5,8 @@ import { LuPencil } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import UploadIcon from "@/components/icons/upload-icon";
 import { useT } from "@/utils/t";
-interface ImageItem {
+
+export interface ImageItem {
   id: string;
   url: string;
   name: string;
@@ -243,7 +244,9 @@ export default function ImageCarousel({
               {t("generator__images_content_form__images__upload_images")}{" "}
             </p>
             <p className="text-sm text-left text-gray-500 mt-1">
-              {t("generator__images_content_form__images__max_size", { size: String(maxSizeMB) })}
+              {t("generator__images_content_form__images__max_size", {
+                size: String(maxSizeMB),
+              })}
             </p>
           </div>
         </div>

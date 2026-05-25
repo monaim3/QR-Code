@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import InputField from "../../components/common/input_filed";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 // {for validation}
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,10 +11,15 @@ import { z } from "zod";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useTranslationRich } from "@/utils/useTranslationRich";
 import { usePublishGuestQrCodeMutation } from "@/store/api/qrApi";
-import { signupUser, googleSignUp, facebookSignUp, appleSignUp, GoogleSignUpPayload } from "@/store/slices/auth-slice";
+import {
+  signupUser,
+  googleSignUp,
+  facebookSignUp,
+  appleSignUp,
+  GoogleSignUpPayload,
+} from "@/store/slices/auth-slice";
 import { useT } from "@/utils/t";
 import { useEffect, useRef } from "react";
-
 
 const signUpSchema = z.object({
   email: z
@@ -52,6 +57,10 @@ export default function SignUpElements({
   const facebookInitialized = useRef(false);
   const appleInitialized = useRef(false);
   const isFromLogin = from;
+  const searchParams = useSearchParams();
+  const isOnboardingFlow = searchParams.get("onboarding-flow") === "true";
+
+  const { error, loading } = useAppSelector((state) => state.auth);
 
   const { control, handleSubmit, formState } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -80,11 +89,11 @@ export default function SignUpElements({
       const resultAction = await dispatch(signupUser(payload));
 
       if (signupUser.fulfilled.match(resultAction)) {
-        console.log("Signup successful:", resultAction.payload);
-        if (isFromLogin) {
-          router.push("/prices");
+        publishGuestQrCode(qrId!);
+        if (isOnboardingFlow) {
+           router.push("/pricing");
         } else {
-          router.push("/pricing");
+         router.push("/prices");
         }
       }
 
@@ -106,12 +115,12 @@ export default function SignUpElements({
         callback: async (response: { credential: string }) => {
           const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
           const payload: GoogleSignUpPayload = {
-              token: response.credential,
-              language: "en",
-              timezone: timezone,
-              isUnlockFlow: false,
-              type: "google",
-            };
+            token: response.credential,
+            language: "en",
+            timezone: timezone,
+            isUnlockFlow: false,
+            type: "google",
+          };
           const resultAction = await dispatch(googleSignUp(payload));
           if (googleSignUp.fulfilled.match(resultAction)) {
             if (isFromLogin) {
@@ -123,112 +132,113 @@ export default function SignUpElements({
         },
       });
     }
-  
+
     // Facebook init
-  if (!facebookInitialized.current) {
-    facebookInitialized.current = true;
-  
-    // @ts-ignore
-    window.fbAsyncInit = function () {
+    if (!facebookInitialized.current) {
+      facebookInitialized.current = true;
+
       // @ts-ignore
-      FB.init({
-        appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
-        cookie: true,
-        xfbml: true,
-        version: "v19.0",
+      window.fbAsyncInit = function () {
+        // @ts-ignore
+        FB.init({
+          appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
+          cookie: true,
+          xfbml: true,
+          version: "v19.0",
+        });
+        // @ts-ignore
+        window.fbReady = true; // ← mark as ready after init
+      };
+
+      const script = document.createElement("script");
+      script.src = "https://connect.facebook.net/en_US/sdk.js";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+
+    // Apple init
+    if (!appleInitialized.current) {
+      appleInitialized.current = true;
+
+      // @ts-ignore
+      window.AppleID?.auth.init({
+        clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID!,
+        scope: "name email",
+        redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI!,
+        usePopup: true, // ← popup mode, no redirect needed
       });
-      // @ts-ignore
-      window.fbReady = true; // ← mark as ready after init
-    };
-  
-    const script = document.createElement("script");
-    script.src = "https://connect.facebook.net/en_US/sdk.js";
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-   }
-  
-   // Apple init
-  if (!appleInitialized.current) {
-    appleInitialized.current = true;
-  
-    // @ts-ignore
-    window.AppleID?.auth.init({
-      clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID!,
-      scope: "name email",
-      redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI!,
-      usePopup: true, // ← popup mode, no redirect needed
-    });
-   }
+    }
   }, []);
 
   const handleGoogleClick = () => {
     // @ts-ignore
     window.google?.accounts.id.prompt();
   };
-  
+
   const handleFacebookClick = () => {
     // @ts-ignore
     if (!window.fbReady) {
       console.warn("Facebook SDK not ready yet, please try again.");
       return;
     }
-  
+
     // @ts-ignore
     FB.login(
-      (response: { authResponse?: { accessToken: string }; status: string }) => {
+      (response: {
+        authResponse?: { accessToken: string };
+        status: string;
+      }) => {
         if (response.authResponse?.accessToken) {
           handleFacebookToken(response.authResponse.accessToken);
         }
       },
-      { scope: "public_profile,email" }
+      { scope: "public_profile,email" },
     );
   };
-  
+
   const handleFacebookToken = async (accessToken: string) => {
-     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const payload: GoogleSignUpPayload = {
-              token: accessToken,
-              language: "en",
-              timezone: timezone,
-              isUnlockFlow: false,
-              type: "google",
-      };
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const payload: GoogleSignUpPayload = {
+      token: accessToken,
+      language: "en",
+      timezone: timezone,
+      isUnlockFlow: false,
+      type: "google",
+    };
     const resultAction = await dispatch(facebookSignUp(payload));
     if (facebookSignUp.fulfilled.match(resultAction)) {
       if (isFromLogin) {
-          router.push("/prices");
+        router.push("/prices");
       } else {
-          router.push("/pricing");
+        router.push("/pricing");
       }
     }
   };
-  
+
   const handleAppleClick = async () => {
     try {
       // @ts-ignore
       const response = await window.AppleID.auth.signIn();
-  
+
       // response.authorization.id_token is the token to send to backend
       if (response.authorization?.id_token) {
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const payload: GoogleSignUpPayload = {
-              token: response.authorization.id_token,
-              language: "en",
-              timezone: timezone,
-              isUnlockFlow: false,
-              type: "google",
-      };
-        const resultAction = await dispatch(
-          appleSignUp(payload)
-        );
-  
+        const payload: GoogleSignUpPayload = {
+          token: response.authorization.id_token,
+          language: "en",
+          timezone: timezone,
+          isUnlockFlow: false,
+          type: "google",
+        };
+        const resultAction = await dispatch(appleSignUp(payload));
+
         if (appleSignUp.fulfilled.match(resultAction)) {
           if (isFromLogin) {
-              router.push("/prices");
-            } else {
-              router.push("/pricing");
-            }
+            router.push("/prices");
+          } else {
+            router.push("/pricing");
+          }
         }
       }
     } catch (err) {
@@ -319,10 +329,38 @@ export default function SignUpElements({
 
         <button
           type="submit"
-          className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
+          className="w-full h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2 flex items-center justify-center"
         >
-          {t("auth__signup__submit")}
+          {loading ? (
+            <svg
+                          className="animate-spin h-8 w-8 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          />
+            </svg>
+         ) : (
+            t("auth__signup__submit")
+          )}
         </button>
+        {error && (
+          <span className="text-[var(--error)] text-[12px] leading-[20px] text-start">
+               {error.includes('providersUserAlreadyExists') ? 'User is already registered with this email.' : 'Something went wrong. Please try again.'}
+          </span>
+        )}
       </form>
 
       {/* Divider */}

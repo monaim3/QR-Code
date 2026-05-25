@@ -1,25 +1,28 @@
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
+import { ProfileImage } from "./vCard";
 
 export interface ColorPalette {
   primary: string;
   secondary: string;
 }
 
-export interface Button{
-    text: string,
-    url: string,
+export interface Button {
+  text: string;
+  url: string;
 }
 
-export interface VideoInfo{
- title: string,
- description: string,
- buttons: Button[],
+export interface VideoInfo {
+  title: string;
+  description: string;
+  buttons: Button[];
 }
 
-export interface video{
-  id: number,
-  title: string,
-  description: string,
-  url: string,
+export interface video {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  uploaded?: UploadLogoResponse | null;
 }
 
 export interface VideoSlice {
@@ -27,11 +30,12 @@ export interface VideoSlice {
   primaryColor: string;
   secondaryColor: string;
   activeColorIndex: number;
-  videoInfo: VideoInfo,
-  videos: video[],
+  videoInfo: VideoInfo;
+  videos: video[];
   welcomeScreen: string;
   isShare: boolean;
-  isDefault: boolean
+  isDefault: boolean;
   qrCodeName: string;
-  isPreviewWelcomeScreen: boolean,
+  isPreviewWelcomeScreen: boolean;
+  uploadedWelcomeScreen: ProfileImage | UploadLogoResponse;
 }

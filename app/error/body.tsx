@@ -1,4 +1,5 @@
 
+"use client";
 import Container from "@/components/common/parent-container";
 import Image from "next/image";
 import WebsiteUrl from "@/components/icons/website-url-qr";
@@ -35,6 +36,10 @@ const QrType = [
 
 export default function ErrorBody() {
 
+
+    const handleRoute = () => {
+        window.location.href = "/";
+    };
     return (
         <div className="h-full w-full bg-[var(--Generator-Background)]">
          <Container>
@@ -49,7 +54,10 @@ export default function ErrorBody() {
                 <p className="text-[24px] leading-[32px] desktop:text-[32px] leading-[40px] text-[var(--Black)] font-bold pt-[40px]">
                     Page not found
                 </p>
-                <button className="h-[48px] max-w bg-[var(--Blue)] text-white rounded-[12px] py-2 px-8 mt-[24px]">
+                <button 
+                  onClick={handleRoute}
+                  className="h-[48px] max-w bg-[var(--Blue)] text-white rounded-[12px] py-2 px-8 mt-[24px]"
+                >
                  Go to Homepage
                 </button>
                 <div className="w-full h-[1px] bg-[var(--Boarder-Grey)] my-[80px] desktop:my-[96px]"/>

@@ -1,18 +1,14 @@
-//import Image from "next/image";
 import QrCodeLoader from "./QrCodeLoader";
 import { flushSync } from "react-dom";
 import { useEffect, useRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import { getLogoComponent } from "@/lib/logoRegistry";
 import { QrCode as qr } from "@/types/generatedQr";
-import { useState } from "react";
 import { QRFrameArray } from "@/components/common/QRFrameArray";
 
 interface Props {
   isLoading?: boolean;
-  thumbnail: string;
   qrCodeData?: qr;
-  onQrPreviewModal: () => void;
 }
 
 // Helper: extract clean URL from possible markdown format
@@ -31,13 +27,10 @@ function extractLogoId(selected: string): string | null {
   return selected.split("/").pop()?.replace(".svg", "").toLowerCase() ?? null;
 }
 
-export default function QrCode({
+export default function QrCodePreview({
   isLoading = false,
-  thumbnail,
   qrCodeData,
-  onQrPreviewModal,
 }: Props) {
-
   const mobileQrRef = useRef<SVGGElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
 
@@ -62,12 +55,15 @@ export default function QrCode({
         }
 
         const div = document.createElement("div");
-        div.style.cssText = "position:absolute;left:-9999px;width:60px;height:60px;";
+        div.style.cssText =
+          "position:absolute;left:-9999px;width:60px;height:60px;";
         document.body.appendChild(div);
 
         import("react-dom/client").then(({ createRoot }) => {
           const root = createRoot(div);
-          flushSync(() => { root.render(<LogoComponent />); });
+          flushSync(() => {
+            root.render(<LogoComponent />);
+          });
 
           const svg = div.querySelector("svg");
           if (!svg) {
@@ -96,7 +92,9 @@ export default function QrCode({
           ctx.fill();
 
           const img = new Image();
-          const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+          const svgBlob = new Blob([svgData], {
+            type: "image/svg+xml;charset=utf-8",
+          });
           const url = URL.createObjectURL(svgBlob);
 
           img.onload = () => {
@@ -131,7 +129,8 @@ export default function QrCode({
       const design = qrCodeData?.qrDesign;
       const cornerFrameStyle = design?.cornersSquareOptions?.type;
       const cornerDotType = design?.cornersDotOptions?.type;
-      const isTransparentBg = (design?.backgroundOptions as any)?.transparent ?? false;
+      const isTransparentBg =
+        (design?.backgroundOptions as any)?.transparent ?? false;
 
       // FIX 4: parse markdown URLs
       const cleanUrl = extractUrl(qrCodeData?.content?.url ?? "");
@@ -177,7 +176,8 @@ export default function QrCode({
         if (iconDataUrl) {
           qrOptions.image = iconDataUrl;
           qrOptions.imageOptions = {
-            hideBackgroundDots: design?.imageOptions?.hideBackgroundDots ?? true,
+            hideBackgroundDots:
+              design?.imageOptions?.hideBackgroundDots ?? true,
             imageSize: design?.imageOptions?.imageSize ?? 0.4,
             margin: design?.imageOptions?.margin ?? 0,
           };
@@ -219,10 +219,7 @@ export default function QrCode({
   ]);
 
   return (
-    <div
-      onClick={onQrPreviewModal}
-      className="w-[88px] h-[88px] p-2 border hover:border-2 border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-8)] bg-white shadow-[0_2px_8px_0_rgba(0,0,0,0.08)] cursor-pointer flex flex-col items-center justify-center"
-    >
+    <div className="h-[160px]">
       {isLoading ? (
         <QrCodeLoader />
       ) : (
@@ -245,8 +242,8 @@ export default function QrCode({
                 (selectedFrame.frameColor === "black" ? "#FFFFFF" : "#000000")
               }
               frameColor={qrCodeData?.qrDesign?.frame?.color ?? "#000000"}
-              width={180}
-              height={180}
+              width={160}
+              height={160}
             >
               <svg width="40" height="40" viewBox="0 0 300 300">
                 <g ref={mobileQrRef} />

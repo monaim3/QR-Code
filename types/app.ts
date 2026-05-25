@@ -1,26 +1,30 @@
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
+import { ProfileImage } from "./vCard";
+
 export interface ColorPalette {
   primary: string;
   secondary: string;
 }
 
-export default interface Button{
-  text: string,
-  url: string,
+export default interface Button {
+  text: string;
+  url: string;
 }
 
-export interface AppInfo{
-  image: string | null,
-  appName: string,
-  developer: string,
-  description: string,
-  buttons: Button[],
+export interface AppInfo {
+  image: string | null;
+  appName: string;
+  developer: string;
+  description: string;
+  buttons: Button[];
+  uploadedImage: ProfileImage | UploadLogoResponse;
 }
 
-export interface AppLinks{
-  id: number,
-  storeName: string,
-  title: string,
-  storeUrl: string,
+export interface AppLinks {
+  id: number;
+  storeName: string;
+  title: string;
+  storeUrl: string;
 }
 
 export interface AppSlice {
@@ -31,8 +35,9 @@ export interface AppSlice {
   appInfo: AppInfo;
   welcomeScreen: string;
   qrCodeName: string;
-  appLinks: AppLinks[],
+  appLinks: AppLinks[];
   appStoreLinks: AppLinks[];
   appDefaultState: boolean;
-  isPreviewWelcomeScreen: boolean,
+  isPreviewWelcomeScreen: boolean;
+  uploadedWelcomeScreen: ProfileImage | UploadLogoResponse;
 }

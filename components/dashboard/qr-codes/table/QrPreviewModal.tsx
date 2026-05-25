@@ -6,14 +6,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Download from "@/components/icons/download";
-import { QRCodeItem } from "@/types/qr-code";
+import { QrCode as qrData } from "@/types/generatedQr";
 import Image from "next/image";
 import AlertTriangle from "@/components/icons/alert-triangle";
+import QrCodePreview from "./QrCodePreview";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  item?: QRCodeItem | null;
+  item?: qrData | null;
 }
 
 export default function QrPreviewModal({ open, onClose, item }: Props) {
@@ -21,7 +22,7 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className={`!max-w-[500px] desktopDashboard:gap-10 tablet:gap-10 gap-6 p-6 tablet:p-8 desktopDashboard:p-8 w-[calc(100%-40px)] tablet:!w-full desktopDashboard:!w-full ${
-          item?.status === "Paused"
+          item?.disabled === true
             ? "desktopDashboard:!h-[482px] tablet:!h-[478px] !h-[454px]"
             : "desktopDashboard:!h-[470px] tablet:!h-[466px] !h-[442px]"
         }`}
@@ -38,22 +39,14 @@ export default function QrPreviewModal({ open, onClose, item }: Props) {
         </DialogHeader>
 
         <div className="flex flex-col items-center justify-center gap-4">
-          {item?.thumbnail && (
-            <Image
-              src={item.thumbnail}
-              alt="QR Code"
-              width={144}
-              height={144}
-              className="h-[160px]"
-            />
-          )}
+          <QrCodePreview qrCodeData={item as qrData} />
           <p className="text-[#3D75F3] text-[14px] leading-[22px] text-center">
-            {item?.shortUrl}
+            {item?.content.url}
           </p>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-1 self-stretch">
-          {item?.status === "Paused" ? (
+          {item?.disabled === true ? (
             <>
               <AlertTriangle className="text-[var(--error)]" />
               <p className="text-center text-[var(--error)] text-[16px] leading-[24px]">

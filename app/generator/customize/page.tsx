@@ -111,6 +111,7 @@ export default function QRCodeCustomize() {
     prevBackgroundColor,
     cornerFrameStyleUI,
     cornerDotTypeUI,
+    qrUri,
   } = useAppSelector((state) => state.qr);
 
   const patternOptions = [
@@ -217,7 +218,7 @@ export default function QRCodeCustomize() {
     const updateQRCode = async () => {
       const qrOptions: Options = {
         type: "svg",
-        data: websiteUrl || "https://www.example.com/",
+        data: qrUri ? `myqrcode.mobi/${qrUri}` : "https://www.example.com/",
         margin: 0,
         dotsOptions: {
           color: dotColor,

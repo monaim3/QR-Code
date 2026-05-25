@@ -1,18 +1,19 @@
 import Accordion from "@/components/common/Accordion";
+import ImageUpload from "@/components/generator/vcard/ImageUpload";
+import { useUploadFileMutation } from "@/store/api/qrApi";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import ImageUpload from "../vcard/ImageUpload";
 import {
   setIsPreviewWelcomeScreen,
   setWelcomeScreen,
   setUploadedWelcomeScreen,
-} from "@/store/slices/businessSlice";
-import { useUploadFileMutation } from "@/store/api/qrApi";
-
+} from "@/store/slices/video-slice";
 import { useT } from "@/utils/t";
-export default function BusinessWelcomeScreen() {
+
+export default function Welcome() {
   const dispatch = useAppDispatch();
-  const welcomeScreen = useAppSelector((state) => state.business.welcomeScreen);
+  const welcomeScreen = useAppSelector((state) => state.video.welcomeScreen);
   const [uploadFile] = useUploadFileMutation();
+  const t = useT();
 
   const emptyUploadedImage = {
     publicId: "",
@@ -60,7 +61,6 @@ export default function BusinessWelcomeScreen() {
     dispatch(setIsPreviewWelcomeScreen(true));
   };
 
-  const t = useT();
   return (
     <div className="w-full">
       <Accordion
@@ -74,7 +74,6 @@ export default function BusinessWelcomeScreen() {
           value={welcomeScreen || null}
           onCustomLogoUpload={handleImageChange}
           onPreview={handlePreview}
-          aspectRatio={1}
         />
       </Accordion>
     </div>

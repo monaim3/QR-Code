@@ -30,6 +30,7 @@ export default function WebsiteUrlPage() {
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const qrUri = useAppSelector((state) => state.qr.qrUri);
 
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -85,7 +86,7 @@ export default function WebsiteUrlPage() {
 
     const qrOptions: Options = {
       type: "svg",
-      data: websiteUrl || "https://www.example.com",
+      data: qrUri ? `myqrcode.mobi/${qrUri}` : "https://www.example.com",
       margin: 0,
       width: 300,
       height: 300,
@@ -109,7 +110,7 @@ export default function WebsiteUrlPage() {
         qrCodeRef.current.append(qrRef.current);
       }
     }
-  }, [activeTab, websiteUrl]); // Added websiteUrl as dependency
+  }, [activeTab, qrUri]); // Added websiteUrl and qrUri as dependencies
 
   return (
     <>

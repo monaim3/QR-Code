@@ -17,9 +17,9 @@ const SelectDropDown: React.FC<EncryptionDropdownProps> = ({
 
   const options = [
     { label: "WEP", value: "WEP" },
-    { label: "WPA / WPA2", value: "WPA / WPA2" },
-    { label: "WPA - EAP", value: "WPA - EAP" },
-    { label: "NONE", value: "NONE" },
+    { label: "WPA / WPA2", value: "WPA" },
+    { label: "WPA - EAP", value: "WPA-EAP" },
+    { label: "NONE", value: "nopass" },
   ];
 
   useEffect(() => {
@@ -35,6 +35,9 @@ const SelectDropDown: React.FC<EncryptionDropdownProps> = ({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const selectedLabel =
+    options.find((option) => option.value === value)?.label || value;
 
   const handleSelect = (optionValue: string) => {
     onChange(optionValue);
@@ -57,7 +60,7 @@ const SelectDropDown: React.FC<EncryptionDropdownProps> = ({
           focus:border-transparent
           transition-all duration-200 ease-in-out"
         >
-          <span>{value}</span>
+          <span>{selectedLabel}</span>
           <ChevronDown
             className={`w-4 h-4 text-black transition-transform duration-200 ${
               isOpen ? "transform rotate-180" : ""

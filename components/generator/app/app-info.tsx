@@ -7,17 +7,61 @@ import Input from "@/components/generator/vcard/Input";
 import Plus from "@/components/icons/plus";
 import TrashAlt from "@/components/icons/trash-alt";
 import { useT } from "@/utils/t";
+import { useUploadFileMutation } from "@/store/api/qrApi";
+
 export default function AppInfo() {
   const dispatch = useAppDispatch();
   const app = useAppSelector((state) => state.app);
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const [uploadFile] = useUploadFileMutation();
 
-  const handleImageChange = (value: string | null) => {
+  const emptyUploadedImage = {
+    publicId: "",
+    resourceType: "",
+    format: "",
+    bytes: 0,
+  };
+
+  const handleImageChange = async (value: string | null) => {
+    if (!value) {
+      dispatch(
+        setAppInfo({
+          ...app.appInfo,
+          image: null,
+        }),
+      );
+      return;
+    }
+
+    const blob = await fetch(value).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    const uploadedImage =
+      "data" in result
+        ? {
+            bucketRootUrl: result.data.location.split(
+              `/${result.data.bucket}`,
+            )[0],
+            bytes: result.data.bytes,
+            format: result.data.format,
+            key: result.data.key,
+            publicId: result.data.publicId,
+            resourceType: result.data.resourceType,
+            storageProvider: result.data.storageProvider,
+          }
+        : emptyUploadedImage;
+
     dispatch(
       setAppInfo({
         ...app.appInfo,
         image: value,
+        uploadedImage,
       }),
     );
   };
@@ -143,7 +187,10 @@ export default function AppInfo() {
           <div className="flex flex-col h-max w-full">
             {app.appInfo.buttons.map((button, index) => {
               return (
-                <div className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2">
+                <div
+                  key={index}
+                  className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2"
+                >
                   <div className="w-full pt-4 pb-4">
                     <Input
                       label={t(

@@ -1,12 +1,12 @@
 import ShareAndroid from "@/components/icons/share-android";
 import DownloadAction from "./DownloadAction";
 import MoreAction from "./MoreAction";
-import { QRCodeItem } from "@/types/qr-code";
+import { QrCode as qrData } from "@/types/generatedQr";
 
 interface Props {
-  item: QRCodeItem;
-  onShareModal: (item: QRCodeItem) => void;
-  onCustomDownloadModal: (item: QRCodeItem) => void;
+  item: qrData;
+  onShareModal: (item: qrData) => void;
+  onCustomDownloadModal: (item: qrData) => void;
 }
 
 export default function Actions({
@@ -34,6 +34,8 @@ export default function Actions({
 
       {/* More */}
       <MoreAction
+        key={item.id}
+        id={item.id}
         onCustomDownloadModal={() => onCustomDownloadModal(item)}
         onShareModal={() => onShareModal(item)}
       />

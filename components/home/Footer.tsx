@@ -3,12 +3,11 @@ import Container from "@/components/common/parent-container";
 import Link from "next/link";
 import Image from "next/image";
 import LanguageSelector from "../common/language_dropdown";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useT } from "@/utils/t";
 
 export default function Footer() {
   const t = useT();
-  const router = useRouter();
   const pathname = usePathname();
 
   return (
@@ -23,7 +22,7 @@ export default function Footer() {
                 <Link
                   href="/"
                   onClick={() => {
-                    router.push("/");
+                    window.location.href = "/";
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                 >

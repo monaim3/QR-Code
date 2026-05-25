@@ -39,7 +39,7 @@ import {
   useGetGuestQrCodeQuery,
   useUpdateGuestQrCodeMutation,
 } from "@/store/api/qrApi";
-import { setQrId } from "@/store/slices/qrSlice";
+import { setQrId, setQrUri } from "@/store/slices/qrSlice";
 
 export default function BreadcrumbFooter() {
   const pathname = usePathname();
@@ -56,6 +56,15 @@ export default function BreadcrumbFooter() {
   const qrCode = useAppSelector((state) => state.qr);
   const simpleText = useAppSelector((state) => state.simpleText.Text);
   const vCard = useAppSelector((state) => state.vCard);
+  const pdf = useAppSelector((state) => state.pdf);
+  const images = useAppSelector((state) => state.images);
+  const wifi = useAppSelector((state) => state.wifi);
+  const social = useAppSelector((state) => state.social);
+  const facebook = useAppSelector((state) => state.facebook);
+  const video = useAppSelector((state) => state.video);
+  const app = useAppSelector((state) => state.app);
+  const business = useAppSelector((state) => state.business);
+  const menu = useAppSelector((state) => state.menu);
 
   const [createGuestQrCode] = useCreateGuestQrCodeMutation();
   const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
@@ -107,12 +116,22 @@ export default function BreadcrumbFooter() {
         websiteUrl,
         simpleText,
         vCard,
+        pdf,
+        images,
+        wifi,
+        social,
+        facebook,
+        video,
+        app,
+        business,
+        menu,
       });
 
       if (createPayload) {
         const response = await createGuestQrCode(createPayload);
         if ("data" in response) {
           dispatch(setQrId(response.data.id));
+          dispatch(setQrUri(response.data.uri));
         }
       }
 

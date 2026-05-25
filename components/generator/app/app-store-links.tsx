@@ -39,17 +39,17 @@ export default function AppStoreLink() {
       >
         <div className="space-y-2">
           <div className="flex items-start justify-start gap-4">
-            {app.appLinks.map((appLink, index) => {
+            {app.appLinks.map((appLink) => {
               return (
                 <button
                   key={appLink.id}
                   onClick={() => dispatch(moveLinkToAppStore(appLink.id))}
                 >
-                  {appLink.storeName === "appStore" ? (
+                  {appLink.storeName === "apple" ? (
                     <div className="w-[60px] h-[60px] rounded-[10px] bg-gradient-to-b from-[#18BFFB] to-[#2072F3] flex items-center justify-center">
                       <AppStoreIcon />
                     </div>
-                  ) : appLink.storeName === "goolgePlay" ? (
+                  ) : appLink.storeName === "google" ? (
                     <div className="w-[60px] h-[60px] rounded-[10px] bg-white border border-[var(--Boarder-Grey)] flex items-center justify-center">
                       <PlayStoreIcon />
                     </div>
@@ -83,11 +83,11 @@ export default function AppStoreLink() {
                   className="flex flex-col desktop:flex-row bg-[var(--Generator-Background)] rounded-[10px] px-4 max-w gap-6 mb-2"
                 >
                   <div className="flex gap-2 w-full max-w items-center justify-start">
-                    {button.storeName === "appStore" ? (
+                    {button.storeName === "apple" ? (
                       <div className="w-[60px] h-[60px] rounded-[10px] bg-gradient-to-b from-[#18BFFB] to-[#2072F3] flex items-center justify-center">
                         <AppStoreIcon />
                       </div>
-                    ) : button.storeName === "goolgePlay" ? (
+                    ) : button.storeName === "google" ? (
                       <div className="w-[60px] h-[60px] rounded-[10px] bg-white border border-[var(--Boarder-Grey)] flex items-center justify-center">
                         <PlayStoreIcon />
                       </div>

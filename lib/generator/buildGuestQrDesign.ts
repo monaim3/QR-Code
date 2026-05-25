@@ -6,7 +6,10 @@ type QrSliceState = RootState["qr"];
 export function buildGuestQrDesign(qr: QrSliceState) {
   return {
     frame: {
-      type: qr.selectedFrameIndex === 0 ? "default" : qr.selectedFrameIndex.toString(),
+      type:
+        qr.selectedFrameIndex === 0
+          ? "default"
+          : qr.selectedFrameIndex.toString(),
       text: qr.frameText,
       color: qr.frameColor,
       textColor: qr.frameTextColor,
@@ -18,7 +21,7 @@ export function buildGuestQrDesign(qr: QrSliceState) {
     data: "",
     image: {
       selected: getSocialIconPath(qr.selectedLogo),
-      uploaded: null,
+      uploaded: qr.uploadedLogo,
     },
     margin: 0,
     qrOptions: {

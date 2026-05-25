@@ -1,73 +1,89 @@
 "use client";
 
-import { useState, useRef, useCallback, useId } from "react";
+import { useState, useRef, useId } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addVideo } from "@/store/slices/video-slice";
-import UploadIcon from "@/components/icons/upload-icon";
+import { addVideo, updateUploadedVideo } from "@/store/slices/video-slice";
 import FileVideo from "@/components/icons/file-video";
 import { useT } from "@/utils/t";
+import { useUploadFileMutation } from "@/store/api/qrApi";
 
 interface VideoUploadProps {
   onVideoUpload?: (video: string | null) => void;
-  label?: string;
-  editIndex?: number | null;
-  onEditComplete?: (newVideo: string, index: number) => void;
 }
 
-export default function VideoUpload({
-  onVideoUpload,
-  label = "Video carousel",
-  editIndex = null,
-  onEditComplete,
-}: VideoUploadProps) {
+export default function VideoUpload({ onVideoUpload }: VideoUploadProps) {
   const dispatch = useAppDispatch();
-  const video = useAppSelector((state) => state.video);
+  const videos = useAppSelector((state) => state.video.videos);
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyVideo.mp4");
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const [uploadFile] = useUploadFileMutation();
+  const t = useT();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = `video-upload-${useId().replace(/:/g, "-")}`;
 
-  const t = useT();
+  const validateAndProcessFile = async (file: File) => {
+    // Validate file type
+    const validTypes = ["video/mp4", "video/webm", "video/ogg"];
+    if (!validTypes.includes(file.type)) {
+      setUploadError("Please upload a valid video file (mp4, webm, ogg)");
+      return;
+    }
 
-  const validateAndProcessFile = useCallback(
-    (file: File) => {
-      // Validate file type
-      const validTypes = ["video/mp4", "video/webm", "video/ogg"];
-      if (!validTypes.includes(file.type)) {
-        setUploadError("Please upload a valid video file (mp4, webm, ogg)");
-        return;
-      }
+    // Validate file size (100MB)
+    const maxSize = 100 * 1024 * 1024; // 100MB
+    if (file.size > maxSize) {
+      setUploadError("Video size must be less than 100MB");
+      return;
+    }
 
-      // Validate file size (50MB)
-      const maxSize = 50 * 1024 * 1024; // 50MB
-      if (file.size > maxSize) {
-        setUploadError("Video size must be less than 50MB");
-        return;
-      }
+    setFileName(file.name);
+    setUploadError("");
 
-      setFileName(file.name);
-      setUploadError("");
+    // Create a blob URL for preview
+    const videoURL = URL.createObjectURL(file);
+    setVideoSrc(videoURL);
+    onVideoUpload?.(videoURL);
 
-      // Create a blob URL for preview
-      const videoURL = URL.createObjectURL(file);
-      setVideoSrc(videoURL);
-      onVideoUpload?.(videoURL);
+    // Add video to Redux carousel
+    dispatch(
+      addVideo({
+        id: videos.length > 0 ? videos.length + 1 : 1,
+        url: videoURL,
+        title: file.name,
+        description: "",
+        uploaded: null,
+      }),
+    );
+
+    const result = await uploadFile(file);
+    if ("data" in result) {
+      const uploaded = {
+        bucketRootUrl: result.data.location.split(`/${result.data.bucket}`)[0],
+        bytes: result.data.bytes,
+        format: result.data.format,
+        key: result.data.key,
+        publicId: result.data.publicId,
+        resourceType: result.data.resourceType,
+        storageProvider: result.data.storageProvider,
+      };
 
       // Add video to Redux carousel
       dispatch(
-        addVideo({
-          ...video.videos,
-          id: video.videos.length > 0 ? video.videos.length + 1 : 1,
-          url: videoURL,
-          title: "",
-          description: "",
+        updateUploadedVideo({
+          id: videos.length > 0 ? videos.length + 1 : 1,
+          video: {
+            id: videos.length > 0 ? videos.length + 1 : 1,
+            url: videoURL,
+            title: file.name,
+            description: "",
+            uploaded,
+          },
         }),
       );
-    },
-    [dispatch, onVideoUpload],
-  );
+    }
+  };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -80,50 +96,31 @@ export default function VideoUpload({
     }
   };
 
-  const handleEdit = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  const handleDelete = () => {
-    setVideoSrc(null);
-    setFileName("MyVideo.mp4");
-    setUploadError("");
-    onVideoUpload?.(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
   // Drag and drop handlers
-  const handleDragEnter = useCallback((e: React.DragEvent) => {
+  const handleDragEnter = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-  }, []);
+  };
 
-  const handleDragLeave = useCallback((e: React.DragEvent) => {
+  const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-  }, []);
+  };
 
-  const handleDragOver = useCallback((e: React.DragEvent) => {
+  const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-  }, []);
+  };
 
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-      const files = e.dataTransfer.files;
-      if (files && files.length > 0) {
-        validateAndProcessFile(files[0]);
-      }
-    },
-    [validateAndProcessFile],
-  );
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      validateAndProcessFile(files[0]);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-0">
@@ -161,7 +158,10 @@ export default function VideoUpload({
               {t("generator__content_form_section__videos__headline__label")}
             </p>
             <p className="text-[14px] leading-[22px] text-left text-[var(--Dark-gray)]">
-              {t("generator__content_form_section__about__personal_section__max_image_size", { size: "100" })}
+              {t(
+                "generator__content_form_section__about__personal_section__max_image_size",
+                { size: "100" },
+              )}
             </p>
           </div>
         </label>

@@ -4,8 +4,13 @@ import { useState, useRef, useCallback, useId } from "react";
 import UploadIcon from "@/components/icons/upload-icon";
 import ImageCropper from "@/components/generator/vcard/ImageCropper";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addCarouselImage } from "@/store/slices/social-slice";
+import {
+  addCarouselImage,
+  setUploadedImages,
+} from "@/store/slices/social-slice";
 import { useT } from "@/utils/t";
+import { useUploadFileMutation } from "@/store/api/qrApi";
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
 interface ImageUploadProps {
   onCustomLogoUpload?: (logo: string | null) => void;
   onLogoChange?: (logo: string | null) => void;
@@ -19,12 +24,10 @@ interface ImageUploadProps {
 export default function ImageUpload({
   onCustomLogoUpload,
   onLogoChange,
-  onPreview,
-  label,
+  label = "Image carousel",
   aspectRatio = 1,
 }: ImageUploadProps) {
   const dispatch = useAppDispatch();
-  const social = useAppSelector((state) => state.social);
   const [uploadError, setUploadError] = useState("");
   const [fileName, setFileName] = useState("MyLogo.svg");
   const [customLogo, setCustomLogo] = useState("");
@@ -32,6 +35,8 @@ export default function ImageUpload({
   const [imageToCrop, setImageToCrop] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = `image-upload-${useId().replace(/:/g, "-")}`;
+  const [uploadFile] = useUploadFileMutation();
+  const social = useAppSelector((state) => state.social);
 
   const t = useT();
   const effectiveLabel =
@@ -107,22 +112,28 @@ export default function ImageUpload({
     }
   };
 
-  const handleEdit = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
+  const uploadImageFile = async (imageUrl: string) => {
+    const blob = await fetch(imageUrl).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
 
-  const handleDelete = () => {
-    setCustomLogo("");
-    setFileName("MyLogo.svg");
-    setUploadError("");
-    setImageToCrop(null);
-    onCustomLogoUpload?.(null);
-    onLogoChange?.(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    const result = await uploadFile(file);
+    if (!("data" in result) || !result.data) {
+      throw new Error("Image upload failed");
     }
+
+    return {
+      bucketRootUrl: result.data.location.split(`/${result.data.bucket}`)[0],
+      bytes: result.data.bytes,
+      format: result.data.format,
+      key: result.data.key,
+      publicId: result.data.publicId,
+      resourceType: result.data.resourceType,
+      storageProvider: result.data.storageProvider,
+    } as UploadLogoResponse;
   };
 
   const handleClose = () => {
@@ -134,13 +145,20 @@ export default function ImageUpload({
     setImageToCrop(null);
   };
 
-  const handleCropComplete = (croppedImageUrl: string) => {
+  const handleCropComplete = async (croppedImageUrl: string) => {
     setCustomLogo(croppedImageUrl);
     onCustomLogoUpload?.(croppedImageUrl);
     onLogoChange?.(null);
     setIsCropping(false);
     // Add image to Redux carousel
     dispatch(addCarouselImage(croppedImageUrl));
+    const uploadedImage = await uploadImageFile(croppedImageUrl);
+    dispatch(
+      setUploadedImages({
+        ...uploadedImage,
+        imageId: social.carousels.length,
+      }),
+    );
     // CLEAR ALL LOCAL STATES
     setCustomLogo("");
     setFileName("");
@@ -189,7 +207,9 @@ export default function ImageUpload({
       <label className="text-[var(--Black)] text-[16px] leading-[24px] font-medium">
         {effectiveLabel}
         <p className="text-[14px] leading-[22px] font-regular text-[var(--Dark-gray)] mb-[24px]">
-          {t("generator__images_content_form__images__description", { count: "10" })}
+          {t("generator__images_content_form__images__description", {
+            count: "10",
+          })}
         </p>
       </label>
       <div

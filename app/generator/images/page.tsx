@@ -3,18 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/common/parent-container";
 import Breadcrumb from "@/components/generator/Breadcrumb";
+import { setQrCodeName } from "@/store/slices/previewSlice";
 import {
-  setWebsiteUrl,
-  setQrCodeName,
-  setActiveTab,
-} from "@/store/slices/previewSlice";
-import {
-  setFacebookUrl,
   setName,
   setTitle,
   setWebsite,
   setError,
-  setErrorWebsite,
   addButton,
   removeButton,
   updateButtonText,
@@ -27,6 +21,10 @@ import {
   setPrimaryColor as setFacebookPrimaryColor,
   setSecondaryColor as setFacebookSecondaryColor,
   setHasColorChanged,
+  setUploadedImages,
+  removeUploadedImage,
+  updateUploadedImage,
+  setShare,
 } from "@/store/slices/imagesSlice";
 
 import QRCodeStyling, { Options } from "qr-code-styling";
@@ -48,15 +46,17 @@ import {
 import SwapHorizontal from "@/components/icons/swap-horizontal";
 import ColorInput from "@/components/generator/vcard/ColorInput";
 import ColorBtn from "@/components/generator/vcard/ColorBtn";
-import ImageCarousel from "@/components/generator/Facebook/ImageCarousel";
+import ImageCarousel, {
+  ImageItem,
+} from "@/components/generator/Facebook/ImageCarousel";
 import Welcome from "@/components/generator/vcard/Welcome";
-import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
 import { CheckboxInput } from "@/components/common/CheckboxInput";
-import { setShare } from "@/store/slices/imagesSlice";
 import ImagesPreview from "@/components/generator/Images/ImagesPreview";
 import { RequiredTextInput } from "@/components/common/RequiredInput";
 import { clearFieldError } from "@/store/slices/validationSlice";
 import { useT } from "@/utils/t";
+import type { UploadLogoResponse } from "@/store/slices/qrSlice";
+import { useUploadFileMutation } from "@/store/api/qrApi";
 
 export default function Images() {
   const dispatch = useAppDispatch();
@@ -65,31 +65,54 @@ export default function Images() {
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
-  const activeTab = useAppSelector((state) => state.preview.activeTab);
-  const [qrNameError, setQrNameError] = useState("");
+  const qrNameError = "";
   const validationErrors = useAppSelector((state) => state.validation.errors);
   const showErrors = useAppSelector((state) => state.validation.showErrors);
   const hasImagesError = showErrors && !!validationErrors.images;
-  const facebookUrl = useAppSelector((state) => state.images.FacebookUrl);
   const Name = useAppSelector((state) => state.images.Name);
   const error = useAppSelector((state) => state.images.Error);
   const title = useAppSelector((state) => state.images.Title);
   const website = useAppSelector((state) => state.images.Website);
-  const errorWebsite = useAppSelector((state) => state.images.ErrorWebsite);
   const buttons = useAppSelector((state) => state.images.buttons);
   const images = useAppSelector((state) => state.images.images);
   const share = useAppSelector((state) => state.images.Share);
+  const [uploadError, setUploadError] = useState("");
 
   useEffect(() => {
     if (images.length > 0 && validationErrors.images) {
       dispatch(clearFieldError("images"));
     }
-  }, [images.length]);
+  }, [images.length, validationErrors.images, dispatch]);
   const lastButton = useAppSelector(
     (state) => state.images.buttons[state.images.buttons.length - 1],
   );
   const buttonTextError = lastButton?.buttonTextError || "";
   const buttonUrlError = lastButton?.urlError || "";
+  const [uploadFile] = useUploadFileMutation();
+
+  const uploadImageFile = async (image: ImageItem) => {
+    const blob = await fetch(image.url).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    if (!("data" in result) || !result.data) {
+      throw new Error("Image upload failed");
+    }
+
+    return {
+      bucketRootUrl: result.data.location.split(`/${result.data.bucket}`)[0],
+      bytes: result.data.bytes,
+      format: result.data.format,
+      key: result.data.key,
+      publicId: result.data.publicId,
+      resourceType: result.data.resourceType,
+      storageProvider: result.data.storageProvider,
+    } as UploadLogoResponse;
+  };
 
   const handleAddButton = () => {
     dispatch(addButton());
@@ -101,10 +124,6 @@ export default function Images() {
 
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
-  };
-
-  const handleFacebookUrl = (value: string) => {
-    dispatch(setFacebookUrl(value));
   };
 
   const handleButtonTextChange = (id: string, value: string) => {
@@ -183,6 +202,51 @@ export default function Images() {
       }),
     );
     dispatch(setHasColorChanged(true));
+  };
+
+  const handleAddImage = async (image: ImageItem) => {
+    setUploadError("");
+    dispatch(addImage(image));
+    dispatch(clearFieldError("images"));
+
+    try {
+      const uploadedImage = await uploadImageFile(image);
+      dispatch(
+        setUploadedImages({
+          ...uploadedImage,
+          imageId: image.id,
+        }),
+      );
+    } catch {
+      dispatch(removeImage(image.id));
+      setUploadError(
+        "We couldn’t upload your image. Please try again or choose another image.",
+      );
+    }
+  };
+
+  const handleRemoveImage = (id: string) => {
+    dispatch(removeImage(id));
+    dispatch(removeUploadedImage(id));
+    setUploadError("");
+  };
+
+  const handleUpdateImage = async (id: string, image: ImageItem) => {
+    setUploadError("");
+    const previousImage = images.find((img) => img.id === id);
+
+    try {
+      const uploadedImage = await uploadImageFile(image);
+      dispatch(updateImage({ id, image }));
+      dispatch(updateUploadedImage({ id, uploadedImage }));
+    } catch {
+      if (previousImage) {
+        dispatch(updateImage({ id, image: previousImage }));
+      }
+      setUploadError(
+        "We couldn’t upload the updated image. Please try again or choose another image.",
+      );
+    }
   };
 
   useEffect(() => {
@@ -298,23 +362,17 @@ export default function Images() {
                   maxImages={10}
                   maxSizeMB={5}
                   images={images}
-                  onAddImage={(image) => {
-                    dispatch(addImage(image));
-                    dispatch(clearFieldError("images"));
-                  }}
-                  onRemoveImage={(id) => dispatch(removeImage(id))}
-                  onUpdateImage={(id, image) =>
-                    dispatch(updateImage({ id, image }))
+                  onAddImage={handleAddImage}
+                  onRemoveImage={handleRemoveImage}
+                  onUpdateImage={handleUpdateImage}
+                  validationError={
+                    showErrors && images.length === 0
+                      ? validationErrors.images
+                      : undefined
                   }
                 />
-                {hasImagesError && images.length === 0 && (
-                  <p
-                    className="text-sm text-red-500 mt-2"
-                    data-validation-error="true"
-                    aria-invalid="true"
-                  >
-                    {validationErrors.images}
-                  </p>
+                {uploadError && (
+                  <p className="text-sm text-red-500 mt-2">{uploadError}</p>
                 )}
               </div>
             </Accordion>

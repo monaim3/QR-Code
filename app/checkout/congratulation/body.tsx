@@ -7,7 +7,7 @@ export default function CongratulationPage() {
   const router = useRouter();
 
   const handleRoute = () => {
-    router.push("/qr-codes");
+    window.location.href = "/cabinet/qr-codes";;
   };
 
   return (

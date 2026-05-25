@@ -14,9 +14,12 @@ import Plus from "@/components/icons/plus";
 import Input from "./Input";
 import TrashAlt from "@/components/icons/trash-alt";
 import ImageUpload from "./ImageUpload";
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
 import { useState } from "react";
 import { urlValidationSchema } from "@/lib/validators/validators";
 import { useT } from "@/utils/t";
+import { useUploadFileMutation } from "@/store/api/qrApi";
+import Image from "next/image";
 export default function Social() {
   const dispatch = useAppDispatch();
   const vCard = useAppSelector((state) => state.vCard);
@@ -28,6 +31,7 @@ export default function Social() {
   const [nameError, setNameError] = useState("");
   const [urlError, setUrlError] = useState("");
   const t = useT();
+  const [uploadFile] = useUploadFileMutation();
 
   const handleChannelToggle = (channelId: string) => {
     const channel = socialChannels.find((ch) => ch.id === channelId);
@@ -73,7 +77,7 @@ export default function Social() {
     return result.success ? "" : result.error.issues[0].message;
   };
 
-  const handleAddCustom = () => {
+  const handleAddCustom = async () => {
     const nErr = name.trim()
       ? ""
       : t(
@@ -82,14 +86,38 @@ export default function Social() {
     const uErr = validateUrl(url);
     setNameError(nErr);
     setUrlError(uErr);
-    if (nErr || uErr) return;
+    if (nErr || uErr || !logo) return;
+
+    const blob = await fetch(logo).then((res) => res.blob());
+    const file = new File(
+      [blob],
+      `uploaded-image-${Date.now()}.${blob.type.split("/")[1]}`,
+      { type: blob.type },
+    );
+
+    const result = await uploadFile(file);
+    const uploadedImage: UploadLogoResponse | undefined =
+      "data" in result
+        ? {
+            bucketRootUrl: result.data.location.split(
+              `/${result.data.bucket}`,
+            )[0],
+            bytes: result.data.bytes,
+            format: result.data.format,
+            key: (result.data as { key?: string }).key ?? "",
+            publicId: result.data.publicId,
+            resourceType: result.data.resourceType,
+            storageProvider: result.data.storageProvider,
+          }
+        : undefined;
     dispatch(
       addSocialChannel({
         id: `custom-${Date.now()}`,
         name,
         url,
         description,
-        icon: logo ?? undefined,
+        icon: logo,
+        uploadedImage,
       }),
     );
     resetForm();
@@ -142,10 +170,13 @@ export default function Social() {
                 >
                   <div className="flex items-center gap-2 w-[280px]">
                     {socialChannel.icon && (
-                      <img
+                      <Image
                         src={socialChannel.icon}
                         alt={socialChannel.name}
-                        className="w-[40px] h-[40px] object-contain"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                        loading="lazy"
                       />
                     )}
                     <p className="text-[var(--Black)] font-medium text-[16px] leading-[24px]">

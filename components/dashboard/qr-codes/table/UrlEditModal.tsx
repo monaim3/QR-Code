@@ -7,24 +7,24 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { QRCodeItem } from "@/types/qr-code";
+import { QrCode as qrData } from "@/types/generatedQr";
 import { useState, useEffect } from "react";
 
 interface Props {
   open: boolean;
   onClose: () => void;
   onSave: (newUrl: string) => void;
-  item?: QRCodeItem | null;
+  item?: qrData | null;
 }
 
 export default function UrlEditModal({ open, onClose, onSave, item }: Props) {
   const [error] = useState<string>("");
-  const [url, setUrl] = useState(item?.destinationUrl || "");
+  const [url, setUrl] = useState(item?.content?.url || "");
 
   // Reset URL when modal opens/closes or item changes
   useEffect(() => {
     if (open && item) {
-      setUrl(item.destinationUrl || "");
+      setUrl(item.content?.url || "");
     }
   }, [open, item]);
 

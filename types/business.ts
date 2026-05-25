@@ -1,4 +1,5 @@
-import { ColorPalette, SocialChannel } from "./vCard";
+import { UploadLogoResponse } from "@/store/slices/qrSlice";
+import { ColorPalette, ProfileImage, SocialChannel } from "./vCard";
 
 export interface BusinessButton {
   id: string;
@@ -65,4 +66,6 @@ export interface BusinessSlice {
   welcomeScreen: string;
   qrCodeName: string;
   isPreviewWelcomeScreen: boolean;
+  uploadedBusinessImage: ProfileImage | UploadLogoResponse;
+  uploadedWelcomeScreen: ProfileImage | UploadLogoResponse;
 }

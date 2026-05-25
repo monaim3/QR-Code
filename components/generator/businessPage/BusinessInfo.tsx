@@ -104,6 +104,8 @@ export default function BusinessInfo() {
                           }),
                         )
                       }
+                      validationKey={`businessButtonText_${btn.id}`}
+                      required={true}
                     />
                   </div>
 
@@ -127,6 +129,8 @@ export default function BusinessInfo() {
                             }),
                           )
                         }
+                        validationKey={`businessButtonUrl_${btn.id}`}
+                        required={true}
                       />
                     </div>
                     <button
