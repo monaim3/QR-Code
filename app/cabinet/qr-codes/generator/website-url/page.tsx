@@ -1,45 +1,57 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { z } from "zod";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   setWebsiteUrl,
   setQrCodeName,
   setActiveTab,
 } from "@/store/slices/previewSlice";
+import { clearFieldError } from "@/store/slices/validationSlice";
 import { motion, AnimatePresence } from "framer-motion";
-import QRCodeDisplay from "@/components/generator/QR_Code_Display";
 import { ChevronDown } from "lucide-react";
 import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
 import PreviewQRButtons from "@/components/generator/Preview_QR_Buttons";
 import MobileFrame from "@/components/common/MobileFrame";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import Container from "@/components/common/parent-container";
-import BreadcrumbFooter from "@/components/generator/Breadcrumb_footer";
 import QRCodeStyling, { Options } from "qr-code-styling";
-import Breadcrumb from "@/components/generator/Breadcrumb";
+import { urlValidationSchema } from "@/lib/validators/validators";
 import { useT } from "@/utils/t";
-
-const urlSchema = z.string().url("Please enter a valid URL");
+import Breadcrumb from "@/components/generator/Breadcrumb";
 
 export default function WebsiteUrlPage() {
-  const dispatch = useAppDispatch();
   const t = useT();
+  const dispatch = useAppDispatch();
 
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const qrCodeName = useAppSelector((state) => state.preview.qrCodeName);
   const activeTab = useAppSelector((state) => state.preview.activeTab);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+  const qrUri = useAppSelector((state) => state.qr.qrUri);
+
   const qrRef = useRef<HTMLDivElement>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
   const [urlError, setUrlError] = useState("");
-  const [qrNameError, setQrNameError] = useState("");
   const [isUrlFocused, setIsUrlFocused] = useState(false);
-  const [isUrlAccordionOpen, setIsUrlAccordionOpen] = useState(true);
+  const [userWantsUrlAccordionOpen, setUserWantsUrlAccordionOpen] =
+    useState(true);
+  const showWebsiteUrlValidationError =
+    showErrors && Boolean(validationErrors.websiteUrl);
+  const isUrlAccordionOpen =
+    showWebsiteUrlValidationError || userWantsUrlAccordionOpen;
 
   const handleUrlChange = (value: string) => {
     dispatch(setWebsiteUrl(value));
-    if (urlError) {
+    dispatch(clearFieldError("websiteUrl"));
+
+    // Validate with Zod
+    const result = urlValidationSchema.safeParse(value);
+
+    if (!result.success) {
+      setUrlError(result.error.issues[0].message);
+    } else {
       setUrlError("");
     }
   };
@@ -52,25 +64,13 @@ export default function WebsiteUrlPage() {
     dispatch(setActiveTab(tab));
   };
 
-  const handleUrlBlur = () => {
-    setIsUrlFocused(false);
-    if (!websiteUrl.trim()) {
-      setUrlError("This field is required and cannot be left blank.");
-    } else {
-      const result = urlSchema.safeParse(websiteUrl);
-      if (!result.success) {
-        setUrlError("Please enter a valid URL");
-      }
-    }
-  };
-
   useEffect(() => {
     // Fixed: Check activeTab instead of view
     if (activeTab !== "qrcode" || !qrRef.current) return;
 
     const qrOptions: Options = {
       type: "svg",
-      data: websiteUrl || "https://www.example.com",
+      data: qrUri ? `myqrcode.mobi/${qrUri}` : "https://www.example.com",
       margin: 0,
       width: 300,
       height: 300,
@@ -94,7 +94,7 @@ export default function WebsiteUrlPage() {
         qrCodeRef.current.append(qrRef.current);
       }
     }
-  }, [activeTab, websiteUrl]); // Added websiteUrl as dependency
+  }, [activeTab, qrUri]);
 
   return (
     <>
@@ -107,20 +107,29 @@ export default function WebsiteUrlPage() {
                   {<Breadcrumb useMobileSteps={true} />}
                 </div>
                 <h1 className="text-2xl font-bold text-[var(--Black)] var(--font-poppins) hidden md:block">
-                  {t("generator__content_form__title").replace("{type}", t("generator__step_1__qr_type_cards__website__title"))}
+                  {t("generator__content_form__title").replace(
+                    "{type}",
+                    t("generator__step_1__qr_type_cards__url__title"),
+                  )}
                 </h1>
                 <div className="flex-1 flex flex-col gap-4">
                   <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
                     <button
-                      onClick={() => setIsUrlAccordionOpen(!isUrlAccordionOpen)}
+                      onClick={() =>
+                        setUserWantsUrlAccordionOpen(!userWantsUrlAccordionOpen)
+                      }
                       className="w-full flex items-center justify-between px-4 md:px-8 py-4"
                     >
                       <div className="flex flex-col items-start">
                         <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
-                          {t("generator__step_1__qr_type__website_url__title")}
+                          {t(
+                            "generator__content_form_section__website__url_title",
+                          )}
                         </h3>
                         <p className="text-sm leading-[22px] text-[var(--Dark-gray)]">
-                          {t("generator__step_1__qr_type__website_url__description")}
+                          {t(
+                            "generator__content_form_section__website__url_caption",
+                          )}
                         </p>
                       </div>
                       <motion.div
@@ -149,7 +158,10 @@ export default function WebsiteUrlPage() {
                                 htmlFor="website-url"
                                 className="text-[16px] leading-[24px] font-medium font-roboto text-[var(--Black)]"
                               >
-                                {t("generator__step_1__qr_type__website_url__label")}
+                                {t(
+                                  "generator__content_form_section__website__url_label",
+                                )}
+                                *
                               </label>
                               <input
                                 id="website-url"
@@ -159,19 +171,30 @@ export default function WebsiteUrlPage() {
                                   handleUrlChange(e.target.value)
                                 }
                                 onFocus={() => setIsUrlFocused(true)}
-                                onBlur={handleUrlBlur}
-                                placeholder={t("generator__step_1__qr_type__website_url__placeholder")}
+                                // onBlur={handleUrlBlur}
+                                placeholder={t(
+                                  "generator__content_form_section__website__url_placeholder",
+                                )}
+                                aria-invalid={
+                                  !!(
+                                    urlError ||
+                                    (showErrors && validationErrors.websiteUrl)
+                                  )
+                                }
                                 className={`w-full px-4 py-3 font-roboto rounded-lg border transition-colors outline-none ${
-                                  urlError
-                                    ? "border-red-500 focus:border-red-500"
+                                  urlError ||
+                                  (showErrors && validationErrors.websiteUrl)
+                                    ? "border-red-500 ring-2 ring-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
                                     : isUrlFocused
-                                      ? "border-[var(--Blue)]"
+                                      ? "focus:ring-2 focus:ring-[var(--Blue)] border-[var(--Blue)]"
                                       : "border-[var(--Boarder-Grey)] hover:border-gray-300"
                                 }`}
                               />
-                              {urlError && (
+                              {(urlError ||
+                                (showErrors &&
+                                  validationErrors.websiteUrl)) && (
                                 <p className="text-sm text-red-500 font-roboto">
-                                  {urlError}
+                                  {urlError || validationErrors.websiteUrl}
                                 </p>
                               )}
                             </div>
@@ -181,11 +204,14 @@ export default function WebsiteUrlPage() {
                     </AnimatePresence>
                   </div>
                   <QRCodeNameAccordion
-                    title="QR code name"
-                    description="Set a name for your QR code"
+                    title={t(
+                      "generator__content_form_section__qr_name__title__changed",
+                    )}
+                    description={t(
+                      "generator__content_form_section__qr_name__description__changed",
+                    )}
                     value={qrCodeName}
                     onChange={handleQrNameChange}
-                    error={qrNameError}
                   />
                 </div>
               </div>
@@ -202,7 +228,7 @@ export default function WebsiteUrlPage() {
                       <div className="w-full h-full flex items-center justify-center rounded-[32px]">
                         <div
                           ref={qrRef}
-                          className="w-[154px] h-[154px] flex items-center justify-center"
+                          className="w-[200px] h-[200px] flex items-center justify-center"
                         />
                       </div>
                     )}

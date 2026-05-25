@@ -42,6 +42,28 @@ const qrApi = baseApi.injectEndpoints({
         method: "PUT",
       }),
     }),
+
+    createQrCode: builder.mutation({
+      query: (payload) => ({
+        url: "/qr-codes",
+        method: "POST",
+        body: payload,
+        invalidatesTags: ["QrCodes"],
+      }),
+    }),
+
+    getQrCode: builder.query({
+      query: (id) => `/qr-codes/${id}`,
+    }),
+
+    updateQrCode: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `/qr-codes/${id}`,
+        method: "PUT",
+        body: payload,
+        invalidatesTags: ["QrCodes"],
+      }),
+    }),
   }),
 });
 
@@ -51,4 +73,7 @@ export const {
   useUpdateGuestQrCodeMutation,
   useUploadFileMutation,
   usePublishGuestQrCodeMutation,
+  useCreateQrCodeMutation,
+  useGetQrCodeQuery,
+  useUpdateQrCodeMutation,
 } = qrApi;
