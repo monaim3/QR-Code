@@ -3,6 +3,7 @@ import { imageState } from "@/store/slices/imagesSlice";
 import { wifiState } from "@/store/slices/wifiSlice";
 import { AppSlice } from "@/types/app";
 import { BusinessSlice } from "@/types/business";
+import { MenuSlice } from "@/types/menu";
 import { PdfSlice } from "@/types/pdf";
 import { SocialSlice } from "@/types/social";
 import { VCardSlice } from "@/types/vCard";
@@ -26,6 +27,7 @@ type Step2Input = {
   video: VideoSlice;
   app: AppSlice;
   business: BusinessSlice;
+  menu: MenuSlice;
 };
 
 /** Build POST /qr-codes/guest body for step 2 when the flow creates a guest code. */
@@ -46,6 +48,7 @@ export function buildGuestQrStep2Payload(
     video,
     app,
     business,
+    menu,
   } = input;
 
   switch (qrType) {
@@ -365,8 +368,56 @@ export function buildGuestQrStep2Payload(
               url: channel.url,
             })) ?? [],
           loaderImage: business.uploadedWelcomeScreen,
-          schedule: {},
+          schedule: {
+            // isAm: business.timeFormat === "AM/PM",
+            // isOpen247: business.timeFormat === "24/7",
+            isAm: false,
+            isOpen247: true,
+            friday: null,
+            monday: null,
+            saturday: null,
+            sunday: null,
+            thursday: null,
+            tuesday: null,
+            wednesday: null,
+          },
           summary: business.summary,
+        },
+      };
+    case "menu":
+      return {
+        name: menu.qrCodeName,
+        content: {
+          type: "menu",
+          colors: {
+            primary: menu.primaryColor,
+            secondary: menu.secondaryColor,
+          },
+          info: {
+            name: menu.restaurantInfo.name,
+            description: menu.restaurantInfo.description,
+            image: menu.uploadedRestaurantImage,
+          },
+          loaderImage: menu.uploadedWelcomeScreen,
+          sections:
+            menu.sections.map((section) => ({
+              name: section.name,
+              nameTranslation: section.nameTranslation,
+              description: section.description,
+              descriptionTranslation: section.descriptionTranslation,
+              visible: section.isVisible,
+              products:
+                section.products?.map((product) => ({
+                  image: product.uploadedProductImage,
+                  name: product.name,
+                  nameTranslation: product.nameTranslation,
+                  description: product.description,
+                  descriptionTranslation: product.descriptionTranslation,
+                  price: product.price,
+                  allergens: product.allergens,
+                  visible: product.isVisible,
+                })) ?? [],
+            })) ?? [],
         },
       };
     default:

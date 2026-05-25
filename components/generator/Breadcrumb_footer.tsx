@@ -64,6 +64,7 @@ export default function BreadcrumbFooter() {
   const video = useAppSelector((state) => state.video);
   const app = useAppSelector((state) => state.app);
   const business = useAppSelector((state) => state.business);
+  const menu = useAppSelector((state) => state.menu);
 
   const [createGuestQrCode] = useCreateGuestQrCodeMutation();
   const [updateGuestQrCode] = useUpdateGuestQrCodeMutation();
@@ -123,6 +124,7 @@ export default function BreadcrumbFooter() {
         video,
         app,
         business,
+        menu,
       });
 
       if (createPayload) {
