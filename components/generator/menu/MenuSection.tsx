@@ -109,7 +109,7 @@ export default function MenuSection({
           <Input
             label={t(
               "generator__content_form_section__menu__sections__name_label",
-            )}
+            ) + " *"}
             placeholder={t(
               "generator__content_form_section__menu__sections__name_placeholder",
             )}

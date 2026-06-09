@@ -74,7 +74,7 @@ export default function Wifi() {
               <div className="flex  flex-col lg:gap-6 gap-4">
                 <div>
                   <RequiredTextInput
-                    label={t("generator__step_1__qr_type__wifi_ssid__label")}
+                    label={t("generator__step_1__qr_type__wifi_ssid__label") + " *"}
                     value={wifi}
                     onChange={handleChange}
                     placeholder={t("generator__step_1__qr_type__wifi_ssid__placeholder")}

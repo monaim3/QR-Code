@@ -393,7 +393,7 @@ export default function Images() {
                   <RequiredTextInput
                     label={t(
                       "generator__content_form_section__images_information__headline__label",
-                    )}
+                    ) + " *"}
                     value={Name}
                     onChange={(value) => dispatch(setName(value))}
                     placeholder={t(
