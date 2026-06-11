@@ -56,6 +56,18 @@ const accountApi = baseApi.injectEndpoints({
       },
     }),
 
+    // change email
+    changeEmail: builder.mutation<
+      { message: string },
+      { email: string }
+    >({
+      query: (body) => ({
+        url: "clients/user-settings/change-email",
+        method: "PUT",
+        body,
+      }),
+    }),
+
   }),
 
   overrideExisting: false,
@@ -65,4 +77,5 @@ export const {
   useUpdatePasswordMutation,
   useDeleteAccountMutation,
   useLogoutUserMutation,
+  useChangeEmailMutation,
 } = accountApi;

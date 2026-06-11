@@ -46,7 +46,7 @@ export default function Information() {
               <Input
                 label={t(
                   "generator__content_form_section__images_information__headline__label",
-                )}
+                ) + " *"}
                 placeholder={t(
                   "generator__content_form_section__social_information__headline__placeholder",
                 )}

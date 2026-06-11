@@ -141,9 +141,7 @@ export default function AppInfo() {
           <div className="flex flex-col desktop:flex-row items-start gap-4 desktop:gap-[48px] flex-1 w-full pt-4 desktop:pt-8">
             <div className="w-[calc(100%-56px)]">
               <Input
-                label={
-                  t("generator__content_form_section__app__name__label") + "*"
-                }
+                label={t("generator__content_form_section__app__name__label") + " *"}
                 placeholder={t(
                   "generator__content_form_section__app__name__placeholder",
                 )}
