@@ -83,7 +83,7 @@ export default function PersonalInfo({ onClick, isOpen }: Props) {
       <Input
         label={t(
           "generator__content_form_section__about__personal_section__full_name",
-        )}
+        ) + " *"}
         placeholder="e.g. Jane Cooper"
         id="fullName"
         value={vCard.personalInfo.fullName}

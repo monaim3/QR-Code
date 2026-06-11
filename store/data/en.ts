@@ -1201,7 +1201,7 @@ const enTranslations = {
     "e.g. Financial app",
   generator__content_form_section__app__developer__placeholder:
     "e.g. Jones & John",
-  generator__content_form_section__app__name__label: "App name*",
+  generator__content_form_section__app__name__label: "App name",
   generator__content_form_section__app__name__placeholder: "e.g. My App",
   generator__content_form_section__app__platforms__amazon: "Amazon",
   generator__content_form_section__app__platforms__amazon__label:
@@ -1358,7 +1358,7 @@ const enTranslations = {
   generator__content_form_section__menu__sections__modal__delete_button:
     "Delete",
   generator__content_form_section__menu__sections__name_label:
-    "Name of section *",
+    "Name of section",
   generator__content_form_section__menu__sections__name_placeholder:
     "e.g. Breakfast",
   generator__content_form_section__menu__sections__products_sort_dialog_title:
