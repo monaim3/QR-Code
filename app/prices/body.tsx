@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import Container from "@/components/common/parent-container";
 import CurrenctSelector from "@/components/common/currency_dropdown";
 import Link from "next/link";
 import CheckIcon from "../../components/icons/check-icon";
+import { useGetProductsQuery } from "../../store/api/productApi";
 
 interface PricingFeature {
   text: string;
@@ -69,6 +71,9 @@ const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
 };
 
 const PricingPage: React.FC = () => {
+
+  const { data: products } = useGetProductsQuery('checkout');
+
   const plans: PricingPlan[] = [
     {
       title: "7-Day Limited Access",
