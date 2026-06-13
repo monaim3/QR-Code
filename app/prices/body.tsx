@@ -74,23 +74,24 @@ const PricingPage: React.FC = () => {
 
   const { data: products } = useGetProductsQuery('checkout');
 
+
   const plans: PricingPlan[] = [
     {
-      title: "7-Day Limited Access",
-      price: "$1.45",
+      title: `${products?.[0].productVariables.trialDuration}-${products?.[0].productVariables.trialContext} Limited Access`,
+      price: `${products?.[0].productVariables.currencySymbol}${products?.[0].productVariables.titlePrice}`,
       features: [
         { text: "Create one QR code", included: true },
         { text: "Limited QR code scans", included: true },
         { text: "Limited access to analytics", included: true },
         {
-          text: "After 7 days, auto-renews to $39 every 4 weeks. Cancel anytime.",
+          text: `After ${products?.[0].productVariables.trialDuration} ${products?.[0].productVariables.trialContext}, auto-renews to ${products?.[0].productVariables.currencySymbol}${products?.[0].productVariables.regularPrice} every ${products?.[0].productVariables.regularDuration} ${products?.[0].productVariables.regularContext}. Cancel anytime.`,
           included: true,
         },
       ],
     },
     {
-      title: "7-Day Full Access",
-      price: "$1.95",
+      title: `${products?.[1].productVariables.trialDuration}-${products?.[1].productVariables.trialContext} Full Access`,
+      price: `${products?.[1].productVariables.currencySymbol}${products?.[1].productVariables.titlePrice}`,
       features: [
         { text: "Unlimited QR codes", included: true },
         { text: "Unlimited QR code scans", included: true },
@@ -100,14 +101,14 @@ const PricingPage: React.FC = () => {
         { text: "Full access to all download formats", included: true },
         { text: "Create any type of QR code you need", included: true },
         {
-          text: "After 7 days, auto-renews to $39 every 4 weeks. Cancel anytime.",
+          text: `After ${products?.[1].productVariables.trialDuration} ${products?.[1].productVariables.trialContext}, auto-renews to ${products?.[1].productVariables.currencySymbol}${products?.[1].productVariables.regularPrice} every ${products?.[1].productVariables.regularDuration} ${products?.[1].productVariables.regularContext}. Cancel anytime.`,
           included: true,
         },
       ],
     },
     {
       title: "Yearly Plan",
-      price: "$19",
+      price: `${products?.[2].productVariables.currencySymbol}${products?.[2].productVariables.titlePrice}`,
       period: "/ mo",
       features: [
         { text: "Unlimited QR codes", included: true },
@@ -117,7 +118,7 @@ const PricingPage: React.FC = () => {
         { text: "Unlimited downloads", included: true },
         { text: "Full access to all download formats", included: true },
         { text: "Create any type of QR code you need", included: true },
-        { text: "Pay $228 upfront and save 50%", included: true },
+        { text: `Pay ${products?.[2].productVariables.currencySymbol}${products?.[2].productVariables.regularPrice} upfront and save 50%`, included: true },
         {
           text: "Renews every year. You may cancel anytime.",
           included: true,
