@@ -10,7 +10,12 @@ import {
   setCities,
   clearFilters,
 } from "@/store/slices/analyticsSlice";
-import { useGetAnalyticsFiltersBatchQuery } from "@/store/api/analyticsApi";
+import {
+  useGetQrCodeFiltersQuery,
+  useGetCountriesFiltersQuery,
+  useGetCitiesFiltersQuery,
+  useGetOsFiltersQuery,
+} from "@/store/api/analyticsApi";
 import ClearFilter from "../qr-codes/filters/ClearFilter";
 import { DateRangePicker } from "./DateRangePicker";
 import ExportData from "./ExportData";
@@ -26,9 +31,11 @@ export default function AnalyticsFilter() {
   const { qrCodeIds, os, countries, cities } = useSelector(
     (state: RootState) => state.analytics
   );
-  const language = useSelector((state: RootState) => state.i18n.language);
 
-  const { data: filtersData } = useGetAnalyticsFiltersBatchQuery({ language });
+  const { data: qrCodeOptions } = useGetQrCodeFiltersQuery();
+  const { data: countriesData } = useGetCountriesFiltersQuery();
+  const { data: citiesOptions } = useGetCitiesFiltersQuery();
+  const { data: osOptions } = useGetOsFiltersQuery();
 
   const [searchName, setSearchName] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -42,25 +49,22 @@ export default function AnalyticsFilter() {
     dispatch(setOs(typeof val === "function" ? val(os) : val));
   };
 
-  const setCountriesWrapper: React.Dispatch<
-    React.SetStateAction<string[]>
-  > = (val) => {
+  const setCountriesWrapper: React.Dispatch<React.SetStateAction<string[]>> = (val) => {
     dispatch(setCountries(typeof val === "function" ? val(countries) : val));
   };
 
-  const setCitiesWrapper: React.Dispatch<React.SetStateAction<string[]>> = (
-    val
-  ) => {
+  const setCitiesWrapper: React.Dispatch<React.SetStateAction<string[]>> = (val) => {
     dispatch(setCities(typeof val === "function" ? val(cities) : val));
   };
 
-  const setQrCodeIdsWrapper: React.Dispatch<
-    React.SetStateAction<string[]>
-  > = (val) => {
-    dispatch(
-      setQrCodeIds(typeof val === "function" ? val(qrCodeIds) : val)
-    );
+  const setQrCodeIdsWrapper: React.Dispatch<React.SetStateAction<string[]>> = (val) => {
+    dispatch(setQrCodeIds(typeof val === "function" ? val(qrCodeIds) : val));
   };
+
+  const countriesFilterOptions = (countriesData ?? []).map((c) => ({
+    label: c.displayName,
+    value: c.name,
+  }));
 
   return (
     <div className="flex flex-col items-start desktopDashboard:gap-4 gap-2 self-stretch w-full">
@@ -82,26 +86,26 @@ export default function AnalyticsFilter() {
       >
         <div className="flex flex-wrap flex-col desktopDashboard:flex-row items-center gap-4 desktopDashboard:w-auto w-full">
           <QrCodeSearchDropdown
-            options={filtersData?.qrCodes ?? []}
+            options={(qrCodeOptions ?? []).map((q) => ({ id: q.id, name: q.name }))}
             search={searchName}
             setSearch={setSearchName}
             selected={qrCodeIds}
             setSelected={setQrCodeIdsWrapper}
           />
           <DropDownFilter
-            options={filtersData?.os ?? []}
+            options={osOptions ?? []}
             label={t("public__qr__statistics__filter__os__title")}
             selected={os}
             setSelected={setOsWrapper}
           />
           <DropDownFilter
-            options={filtersData?.countries ?? []}
+            options={countriesFilterOptions}
             label={t("public__qr__statistics__filter__countries__title")}
             selected={countries}
             setSelected={setCountriesWrapper}
           />
           <DropDownFilter
-            options={filtersData?.cities ?? []}
+            options={citiesOptions ?? []}
             label={t("public__qr__statistics__filter__cities__title")}
             selected={cities}
             setSelected={setCitiesWrapper}

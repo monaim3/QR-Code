@@ -24,11 +24,15 @@ export interface AnalyticsBatchResponse {
   }[];
 }
 
-export interface AnalyticsFiltersBatchResponse {
-  qrCodes: { id: string; name: string }[];
-  os: string[];
-  countries: string[];
-  cities: string[];
+export interface QrCodeFilterItem {
+  id: string;
+  name: string;
+  userSettingsJson: object;
+}
+
+export interface CountryFilterItem {
+  name: string;
+  displayName: string;
 }
 
 export interface BatchQueryParams {
@@ -63,17 +67,25 @@ export const analyticsApi = baseApi.injectEndpoints({
       query: (params) =>
         `/clients/analytics/v2/batch?${serializeParams(params)}`,
     }),
-    getAnalyticsFiltersBatch: builder.query<
-      AnalyticsFiltersBatchResponse,
-      { language: string }
-    >({
-      query: ({ language }) =>
-        `/clients/analytics/filters/batch?language=${language}`,
+    getQrCodeFilters: builder.query<QrCodeFilterItem[], void>({
+      query: () => `/clients/analytics/filters/qr-code`,
+    }),
+    getCountriesFilters: builder.query<CountryFilterItem[], void>({
+      query: () => `/clients/analytics/filters/countries`,
+    }),
+    getCitiesFilters: builder.query<string[], void>({
+      query: () => `/clients/analytics/filters/cities`,
+    }),
+    getOsFilters: builder.query<string[], void>({
+      query: () => `/clients/analytics/filters/os`,
     }),
   }),
 });
 
 export const {
   useGetAnalyticsBatchQuery,
-  useGetAnalyticsFiltersBatchQuery,
+  useGetQrCodeFiltersQuery,
+  useGetCountriesFiltersQuery,
+  useGetCitiesFiltersQuery,
+  useGetOsFiltersQuery,
 } = analyticsApi;
