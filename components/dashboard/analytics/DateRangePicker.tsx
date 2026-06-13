@@ -50,10 +50,13 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setDateRange } from "@/store/slices/analyticsSlice";
 import { useT } from "@/utils/t";
 
 export function DateRangePicker() {
   const t = useT();
+  const dispatch = useDispatch();
   const [date, setDate] = useState<DateRange | undefined>({
     from: startOfToday(),
     to: endOfToday(),
@@ -68,6 +71,14 @@ export function DateRangePicker() {
     setDate(newDate);
     if (newDate?.from) {
       setCurrentMonth(newDate.from);
+    }
+    if (newDate?.from && newDate?.to) {
+      dispatch(
+        setDateRange({
+          from: newDate.from.getTime(),
+          to: newDate.to.getTime(),
+        })
+      );
     }
   };
 

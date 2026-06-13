@@ -11,12 +11,13 @@ import CheckBox from "../qr-codes/filters/CheckBox";
 import CloseCircle from "@/components/icons/close-circle";
 import { useT } from "@/utils/t";
 
-const options = [
-  { label: "Italian Restaurant", value: "italian" },
-  { label: "Product campaign", value: "product" },
-];
+export interface QrCodeOption {
+  id: string;
+  name: string;
+}
 
 interface Props {
+  options: QrCodeOption[];
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   selected: string[];
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export default function QrCodeSearchDropdown({
+  options,
   search,
   setSearch,
   selected,
@@ -34,12 +36,12 @@ export default function QrCodeSearchDropdown({
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const filteredOptions = options.filter((opt) =>
-    opt.label.toLowerCase().includes(search.toLowerCase()),
+    opt.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const toggleOption = (val: string) => {
+  const toggleOption = (id: string) => {
     setSelected((prev) =>
-      prev.includes(val) ? prev.filter((i) => i !== val) : [...prev, val],
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
     );
   };
 
@@ -68,8 +70,8 @@ export default function QrCodeSearchDropdown({
   };
 
   const selectedLabels = selected
-    .map((val) => options.find((opt) => opt.value === val)?.label)
-    .filter((label): label is string => label !== undefined);
+    .map((id) => options.find((opt) => opt.id === id)?.name)
+    .filter((name): name is string => name !== undefined);
 
   const displayLabel =
     selectedLabels.length > 1
@@ -91,7 +93,6 @@ export default function QrCodeSearchDropdown({
   return (
     <div className="desktopDashboard:w-[300px] w-full">
       <Popover open={open} onOpenChange={handleOpenChange}>
-        {/* THE INTEGRATED SEARCH BAR TRIGGER */}
         <PopoverTrigger asChild>
           <div
             className="h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] bg-white hover:ring-[var(--Boarder-Grey)] hover:ring-2 transition-colors flex items-center justify-between gap-2 flex-1"
@@ -151,12 +152,10 @@ export default function QrCodeSearchDropdown({
           </div>
         </PopoverTrigger>
 
-        {/* DROPDOWN MENU */}
         <PopoverContent
           align="start"
           className="w-[var(--radix-popover-trigger-width)] p-2 bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]"
           onInteractOutside={(e) => {
-            // Prevent closing when interacting with the input field
             const target = e.target as HTMLElement;
             if (
               target === inputRef.current ||
@@ -169,11 +168,11 @@ export default function QrCodeSearchDropdown({
           <div className="space-y-1">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option) => {
-                const isSelected = selected.includes(option.value);
+                const isSelected = selected.includes(option.id);
                 return (
                   <div
-                    key={option.value}
-                    onClick={() => toggleOption(option.value)}
+                    key={option.id}
+                    onClick={() => toggleOption(option.id)}
                     className={cn(
                       "flex h-10 p-2 items-center gap-2 self-stretch cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors",
                       isSelected
@@ -183,7 +182,7 @@ export default function QrCodeSearchDropdown({
                   >
                     <CheckBox checked={isSelected} />
                     <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                      {option.label}
+                      {option.name}
                     </span>
                   </div>
                 );
