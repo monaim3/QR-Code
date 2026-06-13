@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import Chip from "./Chip";
 import {
   Area,
@@ -14,34 +14,26 @@ import {
 import CustomTooltip from "./CustomTooltip";
 import LineChart1 from "@/components/icons/line-chart 1";
 import { useT } from "@/utils/t";
+import { setScanGroupBy } from "@/store/slices/analyticsSlice";
+import { useGetAnalyticsBatchQuery } from "@/store/api/analyticsApi";
+import { useAnalyticsParams } from "@/utils/useAnalyticsParams";
 
 export default function ScanActivity() {
   const t = useT();
-  const [selectedPeriod, setSelectedPeriod] = useState("day");
+  const dispatch = useDispatch();
+  const params = useAnalyticsParams();
+  const { data } = useGetAnalyticsBatchQuery(params);
+  const { scanGroupBy } = params;
 
-  const handlePeriodClick = (value: string) => {
-    setSelectedPeriod(value);
-  };
+  const chartData = (data?.chart ?? []).map((item) => ({
+    date: item.date,
+    scans: item.scans,
+  }));
 
-  // Sample data based on your image
-  const data = [
-    { date: "28 Feb", scans: 70 },
-    { date: "1 Mar", scans: 30 },
-    { date: "3 Mar", scans: 45 },
-    { date: "5 Mar", scans: 25 },
-    { date: "7 Mar", scans: 35 },
-    { date: "9 Mar", scans: 45 },
-    { date: "11 Mar", scans: 32 },
-    { date: "13 Mar", scans: 42 },
-    { date: "15 Mar", scans: 28 },
-    { date: "17 Mar", scans: 65 },
-    { date: "19 Mar", scans: 58 },
-    { date: "21 Mar", scans: 72 },
-    { date: "23 Mar", scans: 48 },
-    { date: "25 Mar", scans: 55 },
-    { date: "27 Mar", scans: 38 },
-    { date: "29 Mar", scans: 52 },
-  ];
+  const dateLabel =
+    chartData.length > 0
+      ? `${chartData[0].date} - ${chartData[chartData.length - 1].date}`
+      : "";
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 self-stretch rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] p-6 relative">
@@ -52,46 +44,46 @@ export default function ScanActivity() {
             {t("public__dashboard__analytics__activity_card__title")}
           </h4>
           <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-            25 February 2024 - 25 March 2024
+            {dateLabel}
           </p>
         </div>
 
         <div className="flex desktopDashboard:justify-end items-center gap-2 flex-wrap">
           <Chip
             label={t("public__dashboard__analytics__activity_card__day")}
-            selectedPeriod={selectedPeriod}
+            selectedPeriod={scanGroupBy}
             value="day"
-            onClick={handlePeriodClick}
+            onClick={(v) => dispatch(setScanGroupBy(v))}
           />
           <Chip
             label={t(
               "public__dashboard__analytics__activity_card__group_by__weeks",
             )}
-            selectedPeriod={selectedPeriod}
+            selectedPeriod={scanGroupBy}
             value="week"
-            onClick={handlePeriodClick}
+            onClick={(v) => dispatch(setScanGroupBy(v))}
           />
           <Chip
             label={t("public__dashboard__analytics__activity_card__month")}
-            selectedPeriod={selectedPeriod}
+            selectedPeriod={scanGroupBy}
             value="month"
-            onClick={handlePeriodClick}
+            onClick={(v) => dispatch(setScanGroupBy(v))}
           />
           <Chip
             label={t("public__dashboard__analytics__activity_card__year")}
-            selectedPeriod={selectedPeriod}
+            selectedPeriod={scanGroupBy}
             value="year"
-            onClick={handlePeriodClick}
+            onClick={(v) => dispatch(setScanGroupBy(v))}
           />
         </div>
       </div>
 
       {/* Chart */}
       <div className="h-[304px] w-full">
-        {data.length > 0 ? (
+        {chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
-              data={data}
+              data={chartData}
               margin={{ top: 10, right: 10, left: -36, bottom: 0 }}
             >
               <CartesianGrid
@@ -109,7 +101,6 @@ export default function ScanActivity() {
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: "#79809A", fontSize: 12 }}
-                ticks={[0, 20, 40, 60, 80]}
               />
               <Tooltip
                 content={<CustomTooltip />}

@@ -16,6 +16,7 @@ import imagesReducer from "./slices/imagesSlice";
 import validationReducer from "./slices/validationSlice";
 import authSlice from "./slices/auth-slice";
 import i18nReducer from "./slices/i18nSlice";
+import analyticsReducer from "./slices/analyticsSlice";
 import { baseApi } from "./api/baseApi";
 
 export const store = configureStore({
@@ -37,6 +38,7 @@ export const store = configureStore({
     validation: validationReducer,
     auth: authSlice,
     i18n: i18nReducer,
+    analytics: analyticsReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
 

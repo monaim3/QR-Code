@@ -5,8 +5,15 @@ import CloseCircle from "@/components/icons/close-circle";
 import CheckBox from "../qr-codes/filters/CheckBox";
 import Tooltip from "@/components/dashboard/Tooltip";
 
+type DropDownOption = string | { label: string; value: string };
+
+const getLabel = (opt: DropDownOption) =>
+  typeof opt === "string" ? opt : opt.label;
+const getValue = (opt: DropDownOption) =>
+  typeof opt === "string" ? opt : opt.value;
+
 interface Props {
-  options: string[];
+  options: DropDownOption[];
   label: string;
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
@@ -20,12 +27,12 @@ export default function DropDownFilter({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Toggle selection logic
-  const toggleOption = (option: string) => {
-    if (selected.includes(option)) {
-      setSelected(selected.filter((item) => item !== option));
+  const toggleOption = (opt: DropDownOption) => {
+    const val = getValue(opt);
+    if (selected.includes(val)) {
+      setSelected(selected.filter((item) => item !== val));
     } else {
-      setSelected([...selected, option]);
+      setSelected([...selected, val]);
     }
   };
 
@@ -43,11 +50,16 @@ export default function DropDownFilter({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const selectedLabels = selected.map((val) => {
+    const match = options.find((o) => getValue(o) === val);
+    return match ? getLabel(match) : val;
+  });
+
   const displayLabel =
-    selected.length > 0
-      ? selected.length > 2
-        ? selected.slice(0, 2).join(" / ") + " + " + (selected.length - 2)
-        : selected.join(" / ")
+    selectedLabels.length > 0
+      ? selectedLabels.length > 2
+        ? selectedLabels.slice(0, 2).join(" / ") + " + " + (selectedLabels.length - 2)
+        : selectedLabels.join(" / ")
       : "";
 
   return (
@@ -89,10 +101,12 @@ export default function DropDownFilter({
         <div className="absolute z-10 flex flex-col items-start gap-1 min-w-[180px] w-full p-2 mt-[6px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
           {options.length > 0 ? (
             options.map((option) => {
-              const isSelected = selected.includes(option);
+              const val = getValue(option);
+              const lbl = getLabel(option);
+              const isSelected = selected.includes(val);
               return (
                 <div
-                  key={option}
+                  key={val}
                   onClick={() => toggleOption(option)}
                   className={`flex items-center self-stretch h-10 p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors ${
                     isSelected
@@ -100,11 +114,10 @@ export default function DropDownFilter({
                       : "hover:bg-[var(--Light-blue)]"
                   }`}
                 >
-                  {/* Checkbox */}
                   <CheckBox checked={isSelected} />
 
                   <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                    {option}
+                    {lbl}
                   </span>
                 </div>
               );
