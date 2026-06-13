@@ -1,30 +1,65 @@
 "use client";
 
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import {
+  setQrCodeIds,
+  setOs,
+  setCountries,
+  setCities,
+  clearFilters,
+} from "@/store/slices/analyticsSlice";
+import { useGetAnalyticsFiltersBatchQuery } from "@/store/api/analyticsApi";
 import ClearFilter from "../qr-codes/filters/ClearFilter";
 import { DateRangePicker } from "./DateRangePicker";
 import ExportData from "./ExportData";
 import QrCodeSearchDropdown from "./QrCodeSearchDropdown";
 import DropDownFilter from "./DropDownFilter";
-import { useState } from "react";
 import AdjustmentsHorizontal from "@/components/icons/adjustments-horizontal";
 import Close from "@/components/icons/close";
 import { useT } from "@/utils/t";
 
 export default function AnalyticsFilter() {
   const t = useT();
+  const dispatch = useDispatch();
+  const { qrCodeIds, os, countries, cities } = useSelector(
+    (state: RootState) => state.analytics
+  );
+  const language = useSelector((state: RootState) => state.i18n.language);
+
+  const { data: filtersData } = useGetAnalyticsFiltersBatchQuery({ language });
+
   const [searchName, setSearchName] = useState("");
-  const [selectedName, setSelectedName] = useState<string[]>([]);
-  const [selectedOs, setSelectedOs] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<string[]>([]);
-  const [selectedCity, setSelectedCity] = useState<string[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleClearFilter = () => {
+    dispatch(clearFilters());
     setSearchName("");
-    setSelectedName([]);
-    setSelectedOs([]);
-    setSelectedCountry([]);
-    setSelectedCity([]);
+  };
+
+  const setOsWrapper: React.Dispatch<React.SetStateAction<string[]>> = (val) => {
+    dispatch(setOs(typeof val === "function" ? val(os) : val));
+  };
+
+  const setCountriesWrapper: React.Dispatch<
+    React.SetStateAction<string[]>
+  > = (val) => {
+    dispatch(setCountries(typeof val === "function" ? val(countries) : val));
+  };
+
+  const setCitiesWrapper: React.Dispatch<React.SetStateAction<string[]>> = (
+    val
+  ) => {
+    dispatch(setCities(typeof val === "function" ? val(cities) : val));
+  };
+
+  const setQrCodeIdsWrapper: React.Dispatch<
+    React.SetStateAction<string[]>
+  > = (val) => {
+    dispatch(
+      setQrCodeIds(typeof val === "function" ? val(qrCodeIds) : val)
+    );
   };
 
   return (
@@ -39,12 +74,6 @@ export default function AnalyticsFilter() {
           className="desktopDashboard:hidden flex w-10 h-10 p-2 justify-center items-center gap-2 bg-white border border-[var(--Boarder-Grey)] rounded-[var(--Corner-Radius-8)] shrink-0 relative"
         >
           <AdjustmentsHorizontal />
-
-          {/* <div
-          className={`text-[10px] leading-[10px] text-white bg-[var(--Blue)] w-4 h-4 p-[2px] rounded-full flex items-center justify-center absolute -top-2 -right-2 ${totalFilter > 0 ? "block" : "hidden"}`}
-        >
-          {totalFilter}
-        </div> */}
         </button>
       </div>
 
@@ -53,34 +82,29 @@ export default function AnalyticsFilter() {
       >
         <div className="flex flex-wrap flex-col desktopDashboard:flex-row items-center gap-4 desktopDashboard:w-auto w-full">
           <QrCodeSearchDropdown
+            options={filtersData?.qrCodes ?? []}
             search={searchName}
             setSearch={setSearchName}
-            selected={selectedName}
-            setSelected={setSelectedName}
+            selected={qrCodeIds}
+            setSelected={setQrCodeIdsWrapper}
           />
           <DropDownFilter
-            options={["Windows", "Mac", "Linux", "Android", "iOS"]}
+            options={filtersData?.os ?? []}
             label={t("public__qr__statistics__filter__os__title")}
-            selected={selectedOs}
-            setSelected={setSelectedOs}
+            selected={os}
+            setSelected={setOsWrapper}
           />
           <DropDownFilter
-            options={[
-              "United States",
-              "Canada",
-              "United Kingdom",
-              "Australia",
-              "New Zealand",
-            ]}
+            options={filtersData?.countries ?? []}
             label={t("public__qr__statistics__filter__countries__title")}
-            selected={selectedCountry}
-            setSelected={setSelectedCountry}
+            selected={countries}
+            setSelected={setCountriesWrapper}
           />
           <DropDownFilter
-            options={["New York", "Los Angeles", "Chicago", "Houston", "Miami"]}
+            options={filtersData?.cities ?? []}
             label={t("public__qr__statistics__filter__cities__title")}
-            selected={selectedCity}
-            setSelected={setSelectedCity}
+            selected={cities}
+            setSelected={setCitiesWrapper}
           />
         </div>
 
@@ -88,10 +112,10 @@ export default function AnalyticsFilter() {
           <ClearFilter
             disabled={
               !searchName &&
-              !selectedName.length &&
-              !selectedOs.length &&
-              !selectedCountry.length &&
-              !selectedCity.length
+              !qrCodeIds.length &&
+              !os.length &&
+              !countries.length &&
+              !cities.length
             }
             onClick={handleClearFilter}
             isHidden={false}
