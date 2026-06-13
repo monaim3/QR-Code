@@ -67,8 +67,6 @@ export default function LanguageSelector({
   if (!alreadyLoaded) {
     dispatch(fetchTranslations(lang));
   }
-  console.log("LANG:", value);
-console.log("TRANSLATIONS:", translations);
 };
 
   return (

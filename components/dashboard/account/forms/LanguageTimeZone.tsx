@@ -1,7 +1,13 @@
 import FormSelect from "./FormSelect";
 import SaveButton from "./SaveButton";
+import { useGetTimezonesQuery, useGetLanguagesQuery } from "@/store/api/accountApi";
 
 export default function LanguageTimeZone() {
+
+  const { data: languages, isLoading, error } = useGetLanguagesQuery();
+
+  const { data: timezones } = useGetTimezonesQuery({ language: "en" });
+
   return (
     <div className="flex flex-col items-start gap-6 p-6 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
       <div className="flex flex-col gap-2">
@@ -18,11 +24,11 @@ export default function LanguageTimeZone() {
       <div className="flex flex-col items-start gap-4 desktopDashboard:w-[600px] w-full">
         <FormSelect
           label="Language"
-          options={["English", "Español", "Français"]}
+          options={languages?.map((lang) => lang.name) || ["English", "Español", "Français"]}
         />
         <FormSelect
           label="Time zone"
-          options={["America/New York", "Europe/Paris", "Asia/Tokyo"]}
+          options={timezones?.map((tz) => tz.displayName) || ["America/New York", "Europe/Paris", "Asia/Tokyo"]}
         />
 
         <SaveButton />

@@ -68,6 +68,28 @@ const accountApi = baseApi.injectEndpoints({
       }),
     }),
 
+    /// time zone
+    getTimezones: builder.query<
+      { name: string; displayName: string }[],
+      { language?: string }
+    >({
+      query: ({ language = "en" }) => ({
+        url: `clients/user-settings/timezones?language=${language}`,
+        method: "GET",
+      }),
+    }),
+
+    /// available languages
+    getLanguages: builder.query<
+      { code: string; name: string }[],
+      void
+    >({
+      query: () => ({
+        url: "clients/user-settings/languages",
+        method: "GET",
+      }),
+    }),
+
   }),
 
   overrideExisting: false,
@@ -78,4 +100,6 @@ export const {
   useDeleteAccountMutation,
   useLogoutUserMutation,
   useChangeEmailMutation,
+  useGetTimezonesQuery,
+  useGetLanguagesQuery,
 } = accountApi;

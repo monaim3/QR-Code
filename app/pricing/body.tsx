@@ -7,30 +7,34 @@ import PlanAndPricingRightPannelp from "./right-pannel";
 import CurrencySelector from "@/components/common/currency_dropdown.client";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useGetProductsQuery } from "../../store/api/productApi";
 
 export default function SmartQRPlanSelection() {
+
+  const { data: products } = useGetProductsQuery('checkout');
+
   const router = useRouter();
-  const [selectedPlan, setSelectedPlan] = useState("7-day-full");
+  const [selectedPlan, setSelectedPlan] = useState(`${products?.[1].id}`);
 
   const plans = [
     {
-      id: "7-day-limited",
-      name: "7-Day Limited Access",
-      price: 1.45,
+      id: `${products?.[0].id}`,
+      name: `${products?.[0].productVariables.trialDuration}-${products?.[0].productVariables.trialContext} Limited Access`,
+      price: `${products?.[0].productVariables.currencySymbol}${products?.[0].productVariables.titlePrice}`,
       period: null,
       popular: false,
     },
     {
-      id: "7-day-full",
-      name: "7-Day Full Access",
-      price: 1.95,
+      id: `${products?.[1].id}`,
+      name: `${products?.[1].productVariables.trialDuration}-${products?.[1].productVariables.trialContext} Full Access`,
+      price: `${products?.[1].productVariables.currencySymbol}${products?.[1].productVariables.titlePrice}`,
       period: null,
       popular: true,
     },
     {
-      id: "yearly",
+      id: `${products?.[2].id}`,
       name: "Yearly Plan",
-      price: 19,
+      price: `${products?.[2].productVariables.currencySymbol}${products?.[2].productVariables.titlePrice}`,
       period: "/mo",
       popular: false,
     },
@@ -127,7 +131,7 @@ export default function SmartQRPlanSelection() {
                             {/* Right */}
                             <div className="text-right">
                               <span className="text-[18px] leading-[28px] font-regular text-[var(--Black)]">
-                                ${plan.price}
+                                {plan.price}
                               </span>
                               {plan.period && (
                                 <span className="text-[18px] leading-[28px] font-regular text-[var(--Black)]">
