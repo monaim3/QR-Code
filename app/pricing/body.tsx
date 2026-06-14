@@ -13,10 +13,19 @@ import { setCheckoutPriceId } from "@/store/slices/checkoutSlice";
 
 export default function SmartQRPlanSelection() {
 
-  const { data: products } = useGetProductsQuery('checkout');
+  const { data: products, isLoading } = useGetProductsQuery('checkout');
   const dispatch = useAppDispatch();
 
   const router = useRouter();
+
+  if (isLoading || !products || products.length < 3) {
+  return (
+    <div className="min-h-screen bg-[var(--Generator-Background)] flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-[var(--Blue)] border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
+
   const [selectedPlan, setSelectedPlan] = useState(products[1].id);
 
   const plans = [
