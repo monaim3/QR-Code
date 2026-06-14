@@ -23,6 +23,8 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tabs": "^1.1.13",
     "@reduxjs/toolkit": "^2.11.2",
+    "@stripe/react-stripe-js": "^6.6.0",
+    "@stripe/stripe-js": "^9.8.0",
     "@uiw/color-convert": "^2.9.2",
     "@uiw/react-color-hue": "^2.9.2",
     "@uiw/react-color-saturation": "^2.9.2",

@@ -1,3 +1,339 @@
+// "use client";
+// import { useState, ChangeEvent } from "react";
+// import CreditCard from "../icons/credit-card";
+// import Gpay from "../icons/gpay";
+// import Paypal from "../icons/pay-pal";
+// import ApplePay from "../icons/apple-pay";
+// import SecurityCheck from "../icons/security-check";
+// import Nortion from "../icons/nortion";
+// import PayPalText from "../icons/paypal-text";
+// import { useRouter } from "next/navigation";
+// import Link from "next/link";
+
+// type PaymentMethod = {
+//   id: "card" | "gpay" | "paypal" | "applepay";
+//   icon?: string;
+//   label: string;
+//   isGoogle?: boolean;
+//   isPayPal?: boolean;
+//   isApple?: boolean;
+// };
+
+// export default function CheckoutElement() {
+//   const router = useRouter();
+//   const [selectedMethod, setSelectedMethod] =
+//     useState<PaymentMethod["id"]>("card");
+
+//   const [cardNumber, setCardNumber] = useState<string>("");
+//   const [cardholderName, setCardholderName] = useState<string>("");
+//   const [expiryDate, setExpiryDate] = useState<string>("");
+//   const [cvv, setCvv] = useState<string>("");
+
+//   const paymentMethods: PaymentMethod[] = [
+//     { id: "card", icon: "💳", label: "Card" },
+//     { id: "gpay", label: "Pay", isGoogle: true },
+//     // { id: "paypal", label: "PayPal", isPayPal: true },
+//     { id: "applepay", label: "Pay", isApple: true },
+//   ];
+
+//   const formatCardNumber = (value: string): string => {
+//     const cleaned = value.replace(/\s/g, "");
+//     const chunks = cleaned.match(/.{1,4}/g) || [];
+//     return chunks.join(" ");
+//   };
+
+//   const handleCardNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+//     const value = e.target.value.replace(/\s/g, "");
+//     if (value.length <= 16 && /^\d*$/.test(value)) {
+//       setCardNumber(formatCardNumber(value));
+//     }
+//   };
+
+//   const formatExpiryDate = (value: string): string => {
+//     const cleaned = value.replace(/\D/g, "");
+//     if (cleaned.length >= 2) {
+//       return `${cleaned.slice(0, 2)} / ${cleaned.slice(2, 4)}`;
+//     }
+//     return cleaned;
+//   };
+
+//   const handleExpiryChange = (e: ChangeEvent<HTMLInputElement>) => {
+//     const value = e.target.value.replace(/\D/g, "");
+//     if (value.length <= 4) {
+//       setExpiryDate(formatExpiryDate(value));
+//     }
+//   };
+
+//   const handleCvvChange = (e: ChangeEvent<HTMLInputElement>) => {
+//     const value = e.target.value;
+//     if (value.length <= 3 && /^\d*$/.test(value)) {
+//       setCvv(value);
+//     }
+//   };
+
+//   function handleSuccess() {
+//     router.push("/checkout/success");
+//   }
+
+//   return (
+//     <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
+//       {/* Header */}
+//       <div className="flex items-center justify-between pb-[16px] desktop:pb-[24px] border-b-[1px] border-[var(--Boarder-Grey)]">
+//         <h1 className="text-[18px] leading-[26px] font-bold text-[var(--Black)]">
+//           Total due today:
+//         </h1>
+//         <p className="text-[16px] desktop:text-[18px] leading-[26px] font-regular text-[var(--Black)]">
+//           $1.95
+//         </p>
+//       </div>
+
+//       {/* Payment Methods */}
+//       <div className="mt-[16px] desktop:mt-[32px]">
+//         <h2 className="text-[16px] leading-[26px] font-bold text-[var(--Black)] mb-[8px]">
+//           Select payment method:
+//         </h2>
+//         <div className="grid grid-cols-3 gap-[8px] desktop:gap-[16px]">
+//           {paymentMethods.map((method) => (
+//             <button
+//               key={method.id}
+//               type="button"
+//               onClick={() => setSelectedMethod(method.id)}
+//               className={`
+//                   h-[56px] rounded-[10px] transition-all duration-200
+//                   flex items-center justify-center gap-2
+//                   ${
+//                     selectedMethod === method.id
+//                       ? "border-[2px] border-emerald-500 bg-white"
+//                       : "border-[1px] border-[var(--Boarder-Grey)] bg-white hover:border-gray-400"
+//                   }
+//                 `}
+//             >
+//               {method.isGoogle && <Gpay />}
+
+//               {method.isPayPal && <Paypal />}
+
+//               {method.isApple && <ApplePay />}
+
+//               {method.id === "card" && <CreditCard />}
+//             </button>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* Card Details Form */}
+//       {selectedMethod === "card" && (
+//         <div className="mt-[24px] space-y-[16px]">
+//           {/* Cardholder Name */}
+//           <div>
+//             <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
+//               Cardholder&apos;s name
+//             </label>
+//             <input
+//               type="text"
+//               placeholder="e.g. John Doe"
+//               value={cardholderName}
+//               onChange={(e) => setCardholderName(e.target.value)}
+//               className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)] 
+//                   focus:border-[var(--Blue)] outline-none transition-colors
+//                   text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
+//             />
+//           </div>
+
+//           {/* Card Number */}
+//           <div>
+//             <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
+//               Card number
+//             </label>
+//             <div className="relative">
+//               <input
+//                 type="text"
+//                 placeholder="•••• •••• •••• ••••"
+//                 value={cardNumber}
+//                 onChange={handleCardNumberChange}
+//                 className="w-full h-[56px] pl-4 pr-[110px] border-b-[1px] border-[var(--Boarder-Grey)]
+//                     focus:border-[var(--Blue)] outline-none transition-colors
+//                     text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
+//               />
+//               {/* Card brand icons */}
+//               <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-[6px]">
+//                 {/* Visa */}
+//                 <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white" style={{ border: "1px solid #CDD0DB80" }}>
+//                   <svg width="34" height="12" viewBox="0 0 34 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                     <text x="0" y="11" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="13" fill="#1A1F71" fontStyle="italic" letterSpacing="1">VISA</text>
+//                   </svg>
+//                 </div>
+//                 {/* Mastercard */}
+//                 <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white" style={{ border: "1px solid #CDD0DB80" }}>
+//                   <svg width="30" height="20" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                     <circle cx="10" cy="10" r="9" fill="#EB001B"/>
+//                     <circle cx="20" cy="10" r="9" fill="#F79E1B"/>
+//                     <path d="M15 2.8a9 9 0 010 14.4A9 9 0 0115 2.8z" fill="#FF5F00"/>
+//                   </svg>
+//                 </div>
+//                 {/* American Express */}
+//                 <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white overflow-hidden" style={{ border: "1px solid #CDD0DB80" }}>
+//                   <svg width="36" height="22" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                     <defs>
+//                       <pattern id="amex-grid" width="4" height="4" patternUnits="userSpaceOnUse">
+//                         <path d="M 4 0 L 0 0 0 4" fill="none" stroke="#0088BB" strokeWidth="0.5"/>
+//                       </pattern>
+//                     </defs>
+//                     <rect width="44" height="28" rx="4" fill="#0077A6"/>
+//                     <rect width="44" height="28" rx="4" fill="url(#amex-grid)"/>
+//                     <text x="22" y="12" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="6.2" fill="white" letterSpacing="0.6" stroke="#005F87" strokeWidth="0.3">AMERICAN</text>
+//                     <text x="22" y="21.5" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="6.2" fill="white" letterSpacing="0.6" stroke="#005F87" strokeWidth="0.3">EXPRESS</text>
+//                   </svg>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Expiry and CVV */}
+//           <div className="grid grid-cols-2 gap-[16px] desktop:gap-[24px]">
+//             <div>
+//               <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
+//                 Expiration date
+//               </label>
+//               <input
+//                 type="text"
+//                 placeholder="MM / YY"
+//                 value={expiryDate}
+//                 onChange={handleExpiryChange}
+//                 className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
+//                     focus:border-[var(--Blue)] outline-none transition-colors
+//                     text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
+//               />
+//             </div>
+
+//             <div>
+//               <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
+//                 CVV Code
+//               </label>
+//               <div className="relative">
+//                 <input
+//                   type="text"
+//                   placeholder="CVC"
+//                   value={cvv}
+//                   onChange={handleCvvChange}
+//                   className="w-full h-[56px] pl-4 pr-10 border-b-[1px] border-[var(--Boarder-Grey)]
+//                       focus:border-[var(--Blue)] outline-none transition-colors
+//                       text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
+//                 />
+//                 <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--Black)]">
+//                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                     <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+//                     <path d="M2 9H22" stroke="currentColor" strokeWidth="1.5"/>
+//                     <path d="M6 14H10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+//                   </svg>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {selectedMethod === "gpay" && (
+//         <div className="flex flex-col items-center justify-center mt-[24px] w-full h-[272px] desktop:h-[344px]">
+//           <p className="text-[16px] leading-[24px] item-center font-regular">
+//             Click below to pay with Google Pay:
+//           </p>
+//           <div
+//             onClick={() => {
+//               console.log("Google Pay clicked!");
+//             }}
+//             className="h-[48px] w-[300px] rounded-[10px] bg-[white] border-[1px] border-[var(--Boarder-Grey)] hover:border-[var(--Blue)] mt-[24px] flex items-center justify-center transition duration-300"
+//           >
+//             <Gpay />
+//           </div>
+//         </div>
+//       )}
+
+//       {selectedMethod === "paypal" && (
+//         <div className="flex flex-col items-center justify-center mt-[24px] w-full h-[272px] desktop:h-[344px]">
+//           <p className="text-[16px] leading-[24px] item-center font-regular">
+//             Click below to pay with PayPal:
+//           </p>
+//           <div
+//             onClick={() => {
+//               console.log("PayPal clicked!");
+//             }}
+//             className="h-[48px] w-[300px] rounded-[10px] bg-[#FEC438] mt-[24px] flex items-center justify-center transition-opacity duration-300 hover:opacity-80"
+//           >
+//             <PayPalText />
+//           </div>
+//         </div>
+//       )}
+
+//       {selectedMethod === "applepay" && (
+//         <div className="flex flex-col items-center justify-center mt-[24px] w-full h-[272px] desktop:h-[344px]">
+//           <p className="text-[16px] leading-[24px] item-center font-regular">
+//             Click below to pay with PayPal:
+//           </p>
+//           <div
+//             onClick={() => {
+//               console.log("PayPal clicked!");
+//             }}
+//             className="h-[48px] w-[300px] rounded-[10px] bg-[var(--Black)] mt-[24px] flex items-center justify-center transition-opacity duration-300 hover:opacity-80"
+//           >
+//             <ApplePay color="white" />
+//           </div>
+//         </div>
+//       )}
+
+//       <div className="flex items-center justify-between mt-[24px]">
+//         <div className="flex items-center gap-[8px]">
+//           <SecurityCheck />
+//           <p className="text-[16px] leading-[22px] text-[var(--Dark-gray)] font-regular">
+//             Secure checkout
+//           </p>
+//         </div>
+//         <Nortion />
+//       </div>
+
+//       {/* Submit */}
+//       {selectedMethod === "card" && (
+//         <button
+//           onClick={handleSuccess}
+//           type="button"
+//           className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]
+//             text-white font-semibold text-[18px] rounded-[10px] transition-colors"
+//         >
+//           Get my QR code
+//         </button>
+//       )}
+
+//       <div className="mt-[16px] desktop:mt-[24px]">
+//         <p className="text-[12px] leading-[20px] font-regular text-[var(--Grey)]">
+//           By proceeding with payment, you agree to be charged $1.95 now, accept our{" "}
+//           <Link href="/terms-of-use" className="text-[var(--Blue)] underline">
+//             Terms and conditions
+//           </Link>
+//           , and acknowledge that you have read our{" "}
+//           <Link href="/privacy-policy" className="text-[var(--Blue)] underline">
+//             Privacy Policy
+//           </Link>
+//           . Your payment will appear as &quot;qrcenter.com&quot; on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at{" "}
+//           <a href="mailto:support@qrcenter.com" className="text-[var(--Blue)] underline">
+//             support@qrcenter.com
+//           </a>{" "}
+//           or call us at +1-631-892-9925.
+//         </p>
+//       </div>
+//       <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
+//         <button
+//           type="button"
+//           onClick={handleSuccess}
+//           className="w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] transition duration-300 text-white font-semibold rounded-[10px] flex items-center justify-center gap-3"
+//         >
+//           Get my QR code
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+////// ****** new stripe code *****
+
 "use client";
 import { useState, ChangeEvent } from "react";
 import CreditCard from "../icons/credit-card";
@@ -9,6 +345,13 @@ import Nortion from "../icons/nortion";
 import PayPalText from "../icons/paypal-text";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
 
 type PaymentMethod = {
   id: "card" | "gpay" | "paypal" | "applepay";
@@ -19,60 +362,91 @@ type PaymentMethod = {
   isApple?: boolean;
 };
 
+// Styles passed into Stripe's iframe to match your design
+const stripeInputStyle = {
+  style: {
+    base: {
+      fontSize: "16px",
+      lineHeight: "24px",
+      color: "var(--Black)",
+      fontFamily: "inherit",
+      "::placeholder": {
+        color: "var(--Grey)",
+      },
+    },
+    invalid: {
+      color: "#ef4444",
+    },
+  },
+};
+
 export default function CheckoutElement() {
   const router = useRouter();
+  const stripe = useStripe();
+  const elements = useElements();
+
   const [selectedMethod, setSelectedMethod] =
     useState<PaymentMethod["id"]>("card");
-
-  const [cardNumber, setCardNumber] = useState<string>("");
   const [cardholderName, setCardholderName] = useState<string>("");
-  const [expiryDate, setExpiryDate] = useState<string>("");
-  const [cvv, setCvv] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const paymentMethods: PaymentMethod[] = [
     { id: "card", icon: "💳", label: "Card" },
     { id: "gpay", label: "Pay", isGoogle: true },
-    // { id: "paypal", label: "PayPal", isPayPal: true },
     { id: "applepay", label: "Pay", isApple: true },
   ];
 
-  const formatCardNumber = (value: string): string => {
-    const cleaned = value.replace(/\s/g, "");
-    const chunks = cleaned.match(/.{1,4}/g) || [];
-    return chunks.join(" ");
-  };
+  async function handleSuccess() {
+    if (!stripe || !elements) return;
 
-  const handleCardNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\s/g, "");
-    if (value.length <= 16 && /^\d*$/.test(value)) {
-      setCardNumber(formatCardNumber(value));
+    setLoading(true);
+    setError(null);
+
+    try {
+      const cardNumberElement = elements.getElement(CardNumberElement);
+      if (!cardNumberElement) return;
+
+      // 1. Tokenize — card data goes directly to Stripe, never your server
+      const { paymentMethod, error: stripeError } =
+        await stripe.createPaymentMethod({
+          type: "card",
+          card: cardNumberElement,
+          billing_details: { name: cardholderName },
+        });
+
+      if (stripeError) {
+        setError(stripeError.message ?? "Payment failed");
+        return;
+      }
+
+      // 2. Send only pm_xxx to your backend
+      const res = await fetch("/api/your-payment-endpoint", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentMethodId: paymentMethod?.id }),
+      });
+
+      const data = await res.json();
+
+      // 3. Handle 3D Secure if required
+      if (data.requiresAction && data.clientSecret) {
+        const { error: confirmError } = await stripe.confirmCardPayment(
+          data.clientSecret
+        );
+        if (confirmError) {
+          setError(confirmError.message ?? "Payment failed");
+          return;
+        }
+      }
+
+      // 4. Success
+      router.push("/checkout/success");
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const formatExpiryDate = (value: string): string => {
-    const cleaned = value.replace(/\D/g, "");
-    if (cleaned.length >= 2) {
-      return `${cleaned.slice(0, 2)} / ${cleaned.slice(2, 4)}`;
-    }
-    return cleaned;
-  };
-
-  const handleExpiryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, "");
-    if (value.length <= 4) {
-      setExpiryDate(formatExpiryDate(value));
-    }
-  };
-
-  const handleCvvChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length <= 3 && /^\d*$/.test(value)) {
-      setCvv(value);
-    }
-  };
-
-  function handleSuccess() {
-    router.push("/checkout/success");
   }
 
   return (
@@ -99,21 +473,18 @@ export default function CheckoutElement() {
               type="button"
               onClick={() => setSelectedMethod(method.id)}
               className={`
-                  h-[56px] rounded-[10px] transition-all duration-200
-                  flex items-center justify-center gap-2
-                  ${
-                    selectedMethod === method.id
-                      ? "border-[2px] border-emerald-500 bg-white"
-                      : "border-[1px] border-[var(--Boarder-Grey)] bg-white hover:border-gray-400"
-                  }
-                `}
+                h-[56px] rounded-[10px] transition-all duration-200
+                flex items-center justify-center gap-2
+                ${
+                  selectedMethod === method.id
+                    ? "border-[2px] border-emerald-500 bg-white"
+                    : "border-[1px] border-[var(--Boarder-Grey)] bg-white hover:border-gray-400"
+                }
+              `}
             >
               {method.isGoogle && <Gpay />}
-
               {method.isPayPal && <Paypal />}
-
               {method.isApple && <ApplePay />}
-
               {method.id === "card" && <CreditCard />}
             </button>
           ))}
@@ -123,7 +494,7 @@ export default function CheckoutElement() {
       {/* Card Details Form */}
       {selectedMethod === "card" && (
         <div className="mt-[24px] space-y-[16px]">
-          {/* Cardholder Name */}
+          {/* Cardholder Name — normal input, no sensitive data */}
           <div>
             <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
               Cardholder&apos;s name
@@ -133,36 +504,39 @@ export default function CheckoutElement() {
               placeholder="e.g. John Doe"
               value={cardholderName}
               onChange={(e) => setCardholderName(e.target.value)}
-              className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)] 
-                  focus:border-[var(--Blue)] outline-none transition-colors
-                  text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
+              className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
+                focus:border-[var(--Blue)] outline-none transition-colors
+                text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
             />
           </div>
 
-          {/* Card Number */}
+          {/* Card Number — Stripe iframe inside your container */}
           <div>
             <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
               Card number
             </label>
             <div className="relative">
-              <input
-                type="text"
-                placeholder="•••• •••• •••• ••••"
-                value={cardNumber}
-                onChange={handleCardNumberChange}
+              {/* Your existing container styles preserved */}
+              <div
                 className="w-full h-[56px] pl-4 pr-[110px] border-b-[1px] border-[var(--Boarder-Grey)]
-                    focus:border-[var(--Blue)] outline-none transition-colors
-                    text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
-              />
-              {/* Card brand icons */}
+                  focus-within:border-[var(--Blue)] transition-colors flex items-center"
+              >
+                <CardNumberElement
+                  options={{
+                    ...stripeInputStyle,
+                    showIcon: false, // we use your custom icons below
+                    placeholder: "•••• •••• •••• ••••",
+                  }}
+                  className="w-full"
+                />
+              </div>
+              {/* Your existing card brand icons — unchanged */}
               <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-[6px]">
-                {/* Visa */}
                 <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white" style={{ border: "1px solid #CDD0DB80" }}>
                   <svg width="34" height="12" viewBox="0 0 34 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <text x="0" y="11" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="13" fill="#1A1F71" fontStyle="italic" letterSpacing="1">VISA</text>
                   </svg>
                 </div>
-                {/* Mastercard */}
                 <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white" style={{ border: "1px solid #CDD0DB80" }}>
                   <svg width="30" height="20" viewBox="0 0 30 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="10" cy="10" r="9" fill="#EB001B"/>
@@ -170,7 +544,6 @@ export default function CheckoutElement() {
                     <path d="M15 2.8a9 9 0 010 14.4A9 9 0 0115 2.8z" fill="#FF5F00"/>
                   </svg>
                 </div>
-                {/* American Express */}
                 <div className="flex items-center justify-center w-[56px] h-[34px] rounded-full bg-white overflow-hidden" style={{ border: "1px solid #CDD0DB80" }}>
                   <svg width="36" height="22" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -194,15 +567,18 @@ export default function CheckoutElement() {
               <label className="text-[16px] leading-[24px] font-semibold text-[var(--Black)]">
                 Expiration date
               </label>
-              <input
-                type="text"
-                placeholder="MM / YY"
-                value={expiryDate}
-                onChange={handleExpiryChange}
+              <div
                 className="w-full h-[56px] px-4 border-b-[1px] border-[var(--Boarder-Grey)]
-                    focus:border-[var(--Blue)] outline-none transition-colors
-                    text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
-              />
+                  focus-within:border-[var(--Blue)] transition-colors flex items-center"
+              >
+                <CardExpiryElement
+                  options={{
+                    ...stripeInputStyle,
+                    placeholder: "MM / YY",
+                  }}
+                  className="w-full"
+                />
+              </div>
             </div>
 
             <div>
@@ -210,15 +586,19 @@ export default function CheckoutElement() {
                 CVV Code
               </label>
               <div className="relative">
-                <input
-                  type="text"
-                  placeholder="CVC"
-                  value={cvv}
-                  onChange={handleCvvChange}
+                <div
                   className="w-full h-[56px] pl-4 pr-10 border-b-[1px] border-[var(--Boarder-Grey)]
-                      focus:border-[var(--Blue)] outline-none transition-colors
-                      text-[16px] leading-[24px] placeholder:text-[var(--Grey)]"
-                />
+                    focus-within:border-[var(--Blue)] transition-colors flex items-center"
+                >
+                  <CardCvcElement
+                    options={{
+                      ...stripeInputStyle,
+                      placeholder: "CVC",
+                    }}
+                    className="w-full"
+                  />
+                </div>
+                {/* Your existing CVV icon — unchanged */}
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--Black)]">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
@@ -229,6 +609,13 @@ export default function CheckoutElement() {
               </div>
             </div>
           </div>
+
+          {/* Error */}
+          {error && (
+            <span className="text-red-500 text-[14px] leading-[20px]">
+              {error}
+            </span>
+          )}
         </div>
       )}
 
@@ -238,9 +625,7 @@ export default function CheckoutElement() {
             Click below to pay with Google Pay:
           </p>
           <div
-            onClick={() => {
-              console.log("Google Pay clicked!");
-            }}
+            onClick={() => console.log("Google Pay clicked!")}
             className="h-[48px] w-[300px] rounded-[10px] bg-[white] border-[1px] border-[var(--Boarder-Grey)] hover:border-[var(--Blue)] mt-[24px] flex items-center justify-center transition duration-300"
           >
             <Gpay />
@@ -254,9 +639,7 @@ export default function CheckoutElement() {
             Click below to pay with PayPal:
           </p>
           <div
-            onClick={() => {
-              console.log("PayPal clicked!");
-            }}
+            onClick={() => console.log("PayPal clicked!")}
             className="h-[48px] w-[300px] rounded-[10px] bg-[#FEC438] mt-[24px] flex items-center justify-center transition-opacity duration-300 hover:opacity-80"
           >
             <PayPalText />
@@ -267,12 +650,10 @@ export default function CheckoutElement() {
       {selectedMethod === "applepay" && (
         <div className="flex flex-col items-center justify-center mt-[24px] w-full h-[272px] desktop:h-[344px]">
           <p className="text-[16px] leading-[24px] item-center font-regular">
-            Click below to pay with PayPal:
+            Click below to pay with Apple Pay:
           </p>
           <div
-            onClick={() => {
-              console.log("PayPal clicked!");
-            }}
+            onClick={() => console.log("Apple Pay clicked!")}
             className="h-[48px] w-[300px] rounded-[10px] bg-[var(--Black)] mt-[24px] flex items-center justify-center transition-opacity duration-300 hover:opacity-80"
           >
             <ApplePay color="white" />
@@ -294,38 +675,35 @@ export default function CheckoutElement() {
       {selectedMethod === "card" && (
         <button
           onClick={handleSuccess}
+          disabled={loading || !stripe}
           type="button"
           className="hidden desktop:block w-full mt-6 h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)]
-            text-white font-semibold text-[18px] rounded-[10px] transition-colors"
+            text-white font-semibold text-[18px] rounded-[10px] transition-colors disabled:opacity-60"
         >
-          Get my QR code
+          {loading ? "Processing..." : "Get my QR code"}
         </button>
       )}
 
       <div className="mt-[16px] desktop:mt-[24px]">
         <p className="text-[12px] leading-[20px] font-regular text-[var(--Grey)]">
           By proceeding with payment, you agree to be charged $1.95 now, accept our{" "}
-          <Link href="/terms-of-use" className="text-[var(--Blue)] underline">
-            Terms and conditions
-          </Link>
+          <Link href="/terms-of-use" className="text-[var(--Blue)] underline">Terms and conditions</Link>
           , and acknowledge that you have read our{" "}
-          <Link href="/privacy-policy" className="text-[var(--Blue)] underline">
-            Privacy Policy
-          </Link>
+          <Link href="/privacy-policy" className="text-[var(--Blue)] underline">Privacy Policy</Link>
           . Your payment will appear as &quot;qrcenter.com&quot; on your statement. After 7 days, you will be billed $39 every 4 weeks until you cancel your subscription. You can cancel anytime. For any inquiries, contact us at{" "}
-          <a href="mailto:support@qrcenter.com" className="text-[var(--Blue)] underline">
-            support@qrcenter.com
-          </a>{" "}
+          <a href="mailto:support@qrcenter.com" className="text-[var(--Blue)] underline">support@qrcenter.com</a>{" "}
           or call us at +1-631-892-9925.
         </p>
       </div>
+
       <div className="md:hidden fixed bottom-0 left-0 w-full px-[20px] pt-[16px] pb-[32px] bg-white shadow-card z-[9999]">
         <button
           type="button"
           onClick={handleSuccess}
-          className="w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] transition duration-300 text-white font-semibold rounded-[10px] flex items-center justify-center gap-3"
+          disabled={loading || !stripe}
+          className="w-full h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] transition duration-300 text-white font-semibold rounded-[10px] flex items-center justify-center gap-3 disabled:opacity-60"
         >
-          Get my QR code
+          {loading ? "Processing..." : "Get my QR code"}
         </button>
       </div>
     </div>
