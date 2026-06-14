@@ -16,6 +16,7 @@ export interface User {
 const USER_KEY = "user";
 const TOKEN_KEY = "token";
 const I18N_KEY = "i18n_cache";
+const TIMEZONE_KEY = "timezone_cache";
 
 export const storage = {
   /* ---------------- USER ---------------- */
@@ -67,6 +68,7 @@ export const storage = {
   /* ---------------- I18N CACHE ---------------- */
   setI18nCache: (data: any) => {
     if (typeof window !== "undefined") {
+      console.log("💾 setI18nCache:", data);
       localStorage.setItem(I18N_KEY, JSON.stringify(data));
     }
   },
@@ -74,6 +76,7 @@ export const storage = {
   getI18nCache: () => {
     if (typeof window !== "undefined") {
       const data = localStorage.getItem(I18N_KEY);
+       console.log("📦 getI18nCache:", data);
       return data ? JSON.parse(data) : null;
     }
     return null;

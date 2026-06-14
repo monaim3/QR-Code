@@ -1,12 +1,5 @@
 "use client";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Check, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -14,14 +7,18 @@ import { useState } from "react";
 interface Props {
   label: string;
   options?: string[];
+  value?: string | null;
+  onChange?: (value: string) => void;
+  isLoading?: boolean;
 }
 
-export default function FormSelect({ label, options }: Props) {
+export default function FormSelect({ label, options, value, onChange, isLoading }: Props) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [activeOption, setActiveOption] = useState<string | null>(null);
+
+  const activeOption = value ?? null;
 
   const handleChange = (option: string) => {
-    setActiveOption(option);
+    onChange?.(option);
   };
 
   return (
@@ -34,7 +31,7 @@ export default function FormSelect({ label, options }: Props) {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="w-full flex items-center justify-between px-4 py-2 h-[48px] border border-[var(--Boarder-Grey)] rounded-lg text-[var(--Dark-gray)] font-medium"
       >
-        <span>{activeOption || label}</span>
+        <span>{isLoading ? "Loading..." : (activeOption || label)}</span>
         <ChevronDown
           className={cn(
             "size-5 stroke-[var(--Dark-gray)] transition-transform",

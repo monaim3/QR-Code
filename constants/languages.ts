@@ -32,4 +32,5 @@ export const languages = [
 ] as const;
 
 // 🔥 Automatically infer type from values
-export type LanguageCode = typeof languages[number]["value"];
+//export type LanguageCode = typeof languages[number]["value"];
+export type LanguageCode = string;

@@ -3,6 +3,8 @@ import { LanguageCode } from "@/constants/languages";
 import { I18nState, Translations } from "@/types/i18nTypes";
 import { api } from "../../lib/api";
 import enTranslations from "@/store/data/en";
+import { storage } from "@/utils/storage";
+
 
 // 🔹 Response type
 interface FetchResponse {
@@ -10,12 +12,14 @@ interface FetchResponse {
   data: Translations;
 }
 
+const cachedI18n = typeof window !== "undefined" ? storage.getI18nCache() : null;
+
 // 🔹 Initial state
 const initialState: I18nState & {
   loading: boolean;
   error: string | null;
 } = {
-  language: "en",
+  language: (cachedI18n?.language ?? "en") as LanguageCode,
   translations: {
     en: enTranslations,
   },
