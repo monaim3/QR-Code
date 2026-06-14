@@ -8,13 +8,16 @@ import CurrencySelector from "@/components/common/currency_dropdown.client";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useGetProductsQuery } from "../../store/api/productApi";
+import { useAppDispatch } from "@/store/hooks";
+import { setCheckoutPriceId } from "@/store/slices/checkoutSlice";
 
 export default function SmartQRPlanSelection() {
 
   const { data: products } = useGetProductsQuery('checkout');
+  const dispatch = useAppDispatch();
 
   const router = useRouter();
-  const [selectedPlan, setSelectedPlan] = useState(`${products?.[1].id}`);
+  const [selectedPlan, setSelectedPlan] = useState(products[1].id);
 
   const plans = [
     {
@@ -51,6 +54,7 @@ export default function SmartQRPlanSelection() {
   ];
 
   function handleContinue() {
+     dispatch(setCheckoutPriceId(selectedPlan));
     router.push("/checkout");
   }
 

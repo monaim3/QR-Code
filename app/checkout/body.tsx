@@ -1,8 +1,11 @@
 "use client";
+import { loadStripe } from "@stripe/stripe-js";
 import Container from "../../components/common/parent-container";
 import SignUpReadyQr from "../../components/signup/sign-up-ready-qr"
 import CheckoutElement from "../../components/payment/payment-element";
+import { Elements } from "@stripe/react-stripe-js";
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckoutBody() {
 
@@ -25,7 +28,9 @@ export default function CheckoutBody() {
         desktop:gap-[32px]
       ">
         {/* Left Panel */}
-       <CheckoutElement />
+      <Elements stripe={stripePromise}>
+              <CheckoutElement />
+            </Elements>
        {/* Right Panel */}
       <div className="block desktop:hidden h-[16px]"/>
       <SignUpReadyQr showOnMobile={true} />

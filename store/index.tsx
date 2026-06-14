@@ -17,6 +17,7 @@ import validationReducer from "./slices/validationSlice";
 import authSlice from "./slices/auth-slice";
 import i18nReducer from "./slices/i18nSlice";
 import analyticsReducer from "./slices/analyticsSlice";
+import checkoutSlice from "./slices/checkoutSlice";
 import { baseApi } from "./api/baseApi";
 
 export const store = configureStore({
@@ -39,6 +40,7 @@ export const store = configureStore({
     auth: authSlice,
     i18n: i18nReducer,
     analytics: analyticsReducer,
+    checkout: checkoutSlice,
     [baseApi.reducerPath]: baseApi.reducer,
   },
 

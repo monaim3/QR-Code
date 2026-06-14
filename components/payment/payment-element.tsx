@@ -352,6 +352,8 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import { useAppSelector } from "@/store/hooks";
+import { api } from "@/lib/api";
 
 type PaymentMethod = {
   id: "card" | "gpay" | "paypal" | "applepay";
@@ -381,6 +383,7 @@ const stripeInputStyle = {
 };
 
 export default function CheckoutElement() {
+  const priceId = useAppSelector((state) => state.checkout.priceId);
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -397,57 +400,40 @@ export default function CheckoutElement() {
     { id: "applepay", label: "Pay", isApple: true },
   ];
 
-  async function handleSuccess() {
-    if (!stripe || !elements) return;
+ async function handleSuccess() {
+  if (!stripe || !elements || !priceId) return;
+  setLoading(true);
+  setError(null);
 
-    setLoading(true);
-    setError(null);
+  try {
+    const cardNumberElement = elements.getElement(CardNumberElement);
+    if (!cardNumberElement) return;
 
-    try {
-      const cardNumberElement = elements.getElement(CardNumberElement);
-      if (!cardNumberElement) return;
+    const { paymentMethod, error: stripeError } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardNumberElement,
+      billing_details: { name: cardholderName },
+    });
 
-      // 1. Tokenize — card data goes directly to Stripe, never your server
-      const { paymentMethod, error: stripeError } =
-        await stripe.createPaymentMethod({
-          type: "card",
-          card: cardNumberElement,
-          billing_details: { name: cardholderName },
-        });
-
-      if (stripeError) {
-        setError(stripeError.message ?? "Payment failed");
-        return;
-      }
-
-      // 2. Send only pm_xxx to your backend
-      const res = await fetch("/api/your-payment-endpoint", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ paymentMethodId: paymentMethod?.id }),
-      });
-
-      const data = await res.json();
-
-      // 3. Handle 3D Secure if required
-      if (data.requiresAction && data.clientSecret) {
-        const { error: confirmError } = await stripe.confirmCardPayment(
-          data.clientSecret
-        );
-        if (confirmError) {
-          setError(confirmError.message ?? "Payment failed");
-          return;
-        }
-      }
-
-      // 4. Success
-      router.push("/checkout/success");
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    if (stripeError) {
+      setError(stripeError.message ?? "Payment failed");
+      return;
     }
+
+    await api.post("/clients/subscriptions/stripe", {
+      priceId,
+      paymentMethodId: paymentMethod?.id,
+      confirmRemovalPendingPaypalSubscription: true,
+    });
+
+    router.push("/checkout/success");
+
+  } catch (err: any) {
+    setError(err?.message || "Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
   }
+}
 
   return (
     <div className="flex flex-col w-full desktop:w-[456px] max-h-full">
