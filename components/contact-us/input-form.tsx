@@ -11,13 +11,15 @@ import { z } from "zod";
 import { Input } from "../ui/input";
 import SimpleInputField from "../../components/contact-us/input-field";
 import SimpleDropdown from "./subject-selection";
+import { useContactUsMutation } from "@/store/api/supportApi";
+import { SubmitHandler } from "react-hook-form";
 
 const signUpSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
   name: z.string().min(1, "Name is required"),
   surName: z.string().min(1, "Surename is required"),
   message: z.string().min(1, "Message is required"),
+  subject: z.string().min(1, "Subject is required"),
 });
 
 type SignUpForm = z.infer<typeof signUpSchema>;
@@ -33,33 +35,44 @@ export default function ContactUsInputForm({
   withRightPannel = true,
   paddingRight = true,
 }: SignUpProps) {
+  const [contactUs, { isLoading }] = useContactUsMutation();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const { control, handleSubmit, formState } = useForm<SignUpForm>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      name: "",
-      surName: "",
-      message: "",
-    },
-  });
+ const { control, handleSubmit, formState, reset } = useForm<SignUpForm>({
+  resolver: zodResolver(signUpSchema),
+  defaultValues: {
+    email: "",
+    name: "",
+    surName: "",
+    message: "",
+    subject: "GENERAL",
+  },
+});
 
   const { errors, isSubmitting } = formState;
   const [isFocused, setIsFocused] = useState(false);
 
-  const onSubmit = async (data: SignUpForm) => {
-    try {
-      console.log("Form Data:", data);
-      /// signup logic
-      //alert("Account created successfully!");
-      router.push("/prices");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+ const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
+  try {
+    await contactUs({
+      name: data.name,
+      surname: data.surName,
+      email: data.email,
+      message: data.message,
+      subject: data.subject as
+        | "GENERAL"
+        | "TECHNICAL_SUPPORT"
+        | "BILLING"
+        | "SALES",
+    }).unwrap();
+    reset();
+    alert("Your message has been sent successfully!");
+  } catch (error) {
+    console.error(error);
+    alert("An error occurred while sending your message. Please try again later.");
+  }
+};
 
   return (
     <div className={`flex flex-col w-full desktop:flex-3 max-h-full`}>
@@ -169,7 +182,16 @@ export default function ContactUsInputForm({
               )}
             />
           </div>
-          <SimpleDropdown />
+          <Controller
+            name="subject"
+            control={control}
+            render={({ field }) => (
+              <SimpleDropdown
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
         </div>
         <div className="flex flex-col flex-1 gap-2">
           <label
@@ -205,9 +227,10 @@ export default function ContactUsInputForm({
 
         <button
           type="submit"
+          disabled={isLoading}
           className="w-full max-w-[188px] h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
         >
-          Send Message
+           {isLoading ? "Sending..." : "Send Message"}
         </button>
       </form>
     </div>

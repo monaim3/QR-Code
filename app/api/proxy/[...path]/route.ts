@@ -115,6 +115,13 @@ console.log("[proxy] method:", req.method);
     responseHeaders.append("Set-Cookie", cookie);
   }
 
+  if (res.status === 204 || res.status === 205) {
+    return new NextResponse(null, {
+      status: res.status,
+      headers: responseHeaders,
+    });
+  }
+
   return new NextResponse(resBody, {
     status: res.status,
     headers: responseHeaders,
