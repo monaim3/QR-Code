@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useCallback, useEffect } from "react";
 import QrCodesTableItem from "./QrCodesTableItem";
 import NameEditModal from "./NameEditModal";
