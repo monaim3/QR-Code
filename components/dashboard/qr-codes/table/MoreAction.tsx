@@ -11,16 +11,22 @@ import Close from "@/components/icons/close";
 import ShareAndroid from "@/components/icons/share-android";
 import Download from "@/components/icons/download";
 import { useRouter } from "next/navigation";
-import { useDeleteQrCodesMutation } from "@/store/api/qrCodesApi";
+import { useDeleteQrCodesMutation, 
+  useDuplicateQrCodeMutation,
+  useResetQrScansMutation, 
+  useDeactivateQrCodesMutation, 
+  useActivateQrCodesMutation } from "@/store/api/qrCodesApi";
 
 interface Props {
    id: string;
+   active?: boolean;
   onCustomDownloadModal: () => void;
   onShareModal: () => void;
 }
 
 export default function MoreAction({
   id,
+  active,
   onCustomDownloadModal,
   onShareModal,
 }: Props) {
@@ -31,6 +37,10 @@ export default function MoreAction({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
   const [deleteQrCodes, { isLoading }] = useDeleteQrCodesMutation();
+  const [duplicateQrCode] = useDuplicateQrCodeMutation();
+  const [resetQrScans] = useResetQrScansMutation();
+  const [deactivateQrCodes] = useDeactivateQrCodesMutation();
+  const [activateQrCodes] = useActivateQrCodesMutation();
 
   const options = [
     {
@@ -43,7 +53,7 @@ export default function MoreAction({
     },
     {
       icon: <PauseCircle className="text-[var(--Dark-gray)] w-4 h-4" />,
-      label: "Pause",
+      label: active ? "Pause" : "Resume",
     },
     {
       icon: <Copy className="text-[var(--Dark-gray)] w-4 h-4" />,
@@ -76,6 +86,18 @@ export default function MoreAction({
         break;
         case "Delete":
           handleDelete(id);
+          break;
+        case "Duplicate":
+          handleDuplicate(id);
+          break;
+        case "Reset scans":
+          handleResetScans(id);
+          break;
+        case "Pause":
+          handleDeactivate(id);
+          break;
+        case "Resume":
+          handleActivate(id);
           break;
       default:
         break;
@@ -116,7 +138,6 @@ export default function MoreAction({
 
   const handleDelete = async (id: string) => {
   try {
-    console.log("Deleting QR code with ID:", id);
     const response = await deleteQrCodes({
       ids: [id],
     }).unwrap();
@@ -124,6 +145,45 @@ export default function MoreAction({
     console.log(response.message);
   } catch (error) {
     console.error(error);
+  }
+  };
+
+  const handleDuplicate = async (id: string) => {
+  try {
+    await duplicateQrCode({ id }).unwrap();
+    // No need to manually refetch
+  } catch (err) {
+    console.error(err);
+  }
+  };
+
+  const handleResetScans = async (id: string) => {
+  try {
+    await resetQrScans({
+      ids: [id],
+    }).unwrap();
+  } catch (err) {
+    console.error(err);
+  }
+  };
+
+  const handleDeactivate = async (id: string) => {
+  try {
+    await deactivateQrCodes({
+      ids: [id],
+    }).unwrap();
+  } catch (err) {
+    console.error(err);
+  }
+  };
+
+  const handleActivate = async (id: string) => {
+  try {
+    await activateQrCodes({
+      ids: [id],
+    }).unwrap();
+  } catch (err) {
+    console.error(err);
   }
   };
   // Close dropdown when clicking outside
