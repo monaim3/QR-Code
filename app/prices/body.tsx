@@ -6,6 +6,7 @@ import CurrenctSelector from "@/components/common/currency_dropdown";
 import Link from "next/link";
 import CheckIcon from "../../components/icons/check-icon";
 import { useGetProductsQuery } from "../../store/api/productApi";
+import { useT } from "@/utils/t";
 
 interface PricingFeature {
   text: string;
@@ -71,6 +72,8 @@ const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
 };
 
 const PricingPage: React.FC = () => {
+
+  const t = useT();
 
   const { data: products } = useGetProductsQuery('checkout');
 
@@ -149,7 +152,7 @@ const PricingPage: React.FC = () => {
               {/* Header */}
               <div className="flex justify-between items-center pt-[16px] desktop:pt-[80px]">
                 <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-[var(--black)]">
-                  Plans & Pricing
+                  {t("public__qr__page__upgrade__title")}
                 </h1>
                 <div className="flex items-center gap-6">
                   <div className="hidden desktop:flex">
@@ -160,7 +163,7 @@ const PricingPage: React.FC = () => {
                     className="hidden desktop:flex bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 transition-all duration-300 ease-linear
             "
                   >
-                    Create QR code
+                    {t("public__dashboard__shared__cta_button")}
                   </Link>
                 </div>
               </div>

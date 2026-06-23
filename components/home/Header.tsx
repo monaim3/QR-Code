@@ -9,6 +9,7 @@ import LanguageSelector from "../common/language_dropdown";
 import CurrenctSelector from "@/components/common/currency_dropdown";
 import Logo from "../dashboard/layout/Logo";
 import { useT } from "@/utils/t";
+import Cookies from "js-cookie";
 
 class HeaderOptions {
   id: number;
@@ -46,6 +47,8 @@ export default function Header({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const t = useT();
+
+  const isLoggedIn = !!Cookies.get("token");
 
   // Lock body scroll when mobile drawer is open
   useEffect(() => {
@@ -96,12 +99,12 @@ export default function Header({
               )}
               <LanguageSelector />
               {/* Log in Button */}
-              <Link
+              { !isLoggedIn ? <Link
                 href="/login"
                 className="px-4 py-2 text-sm leading-[22px] font-medium text-[var(--Dark-gray)]  hover:bg-[var(--Blue)] rounded-lg border hover:border-[var(--Blue)]  hover:text-white transition-all duration-300 ease-linear flex-shrink-0"
               >
                 {t("public__header__login_button")}
-              </Link>
+              </Link> : <div/>}
             </div>
 
             {/* Currency Dropdown */}

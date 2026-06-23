@@ -6,7 +6,13 @@ export function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  const isCabinetRoute = pathname.startsWith("/cabinet");
+  //const isCabinetRoute = pathname.startsWith("/cabinet");
+
+  const protectedRoutes = ["/cabinet", "/prices", "/pricing"];
+
+   const isProtectedRoute = protectedRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  );
 
   const isAuthPages =
     pathname === "/" ||
@@ -14,8 +20,8 @@ export function middleware(req: NextRequest) {
     pathname === "/sign-up";
 
   // ❌ Not logged in → block dashboard
-  if (!token && isCabinetRoute) {
-    return NextResponse.redirect(new URL("/", req.url));
+  if (!token && isProtectedRoute) {
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   // ✅ Logged in → redirect away from auth pages
@@ -30,5 +36,5 @@ export function middleware(req: NextRequest) {
 
 // 👇 THIS GOES IN SAME FILE (BOTTOM)
 export const config = {
-  matcher: ["/", "/login", "/sign-up", "/cabinet/:path*"],
+  matcher: ["/", "/login", "/sign-up", "/cabinet/:path*", "/prices", "/pricing"],
 };

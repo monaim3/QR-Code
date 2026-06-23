@@ -1,5 +1,6 @@
 import { baseApi } from "./baseApi";
 import { storage } from "@/utils/storage";
+import { Currency } from "@/types/currency";
 
 const accountApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -99,6 +100,14 @@ const accountApi = baseApi.injectEndpoints({
       }),
     }),
 
+    // get currencies
+    getCurrencies: builder.query<Currency[], void>({
+      query: () => ({
+        url: "/common/products/currencies",
+        method: "GET",
+      }),
+    }),
+
   }),
   overrideExisting: true,
 });
@@ -112,4 +121,5 @@ export const {
   useChangeTimezoneMutation,
   useGetLanguagesQuery,
   useChangeLanguageMutation,
+  useGetCurrenciesQuery,
 } = accountApi;
