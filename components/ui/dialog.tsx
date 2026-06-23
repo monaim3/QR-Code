@@ -5,6 +5,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 import { cn } from "@/lib/utils";
 import CloseCircle from "../icons/close-circle";
+import { useT } from "@/utils/t";
 
 function Dialog({
   ...props
@@ -61,6 +62,7 @@ function DialogContent({
   /** When set, the dialog portals here and uses absolute positioning so it stays inside that element (must be `position: relative`). */
   portalContainer?: HTMLElement | null;
 }) {
+  const t = useT();
   const contained = portalContainer != null;
 
   return (
@@ -82,7 +84,7 @@ function DialogContent({
             className="absolute -top-8 right-0 flex items-center gap-2"
           >
             <span className="text-white text-[16px] font-semibold leading-[24px]">
-              Close
+              {t("generator__help_popup__close_button")}
             </span>
             <CloseCircle className="text-white w-6 h-6" />
           </DialogPrimitive.Close>

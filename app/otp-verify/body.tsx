@@ -124,7 +124,7 @@ export default function TwoFactorAuthPage() {
 
             {/* Back Button */}
             <div className="pt-[24px]">
-             <BackButtonWithText title='Back'/>
+             <BackButtonWithText title='auth__common__back'/>
             </div>
 
           </div>

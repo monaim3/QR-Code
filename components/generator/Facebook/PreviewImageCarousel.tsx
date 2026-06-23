@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useT } from "@/utils/t";
 
 interface ImageCarouselProps {
   images: { url: string; name: string }[];
@@ -13,6 +14,7 @@ const ImageCarouselViewer: React.FC<ImageCarouselProps> = ({
   initialIndex = 0,
   onClose,
 }) => {
+  const t = useT();
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
@@ -98,7 +100,7 @@ const ImageCarouselViewer: React.FC<ImageCarouselProps> = ({
           className="flex items-center gap-3 text-gray-700 hover:text-gray-900"
         >
           <FaArrowLeftLong size={18} />
-          <span className="text-sm font-normal">Back</span>
+          <span className="text-sm font-normal">{t("auth__common__back")}</span>
         </button>
       </div>
 

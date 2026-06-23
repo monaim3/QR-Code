@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { helpSteps } from "@/lib/help";
+import { useT } from "@/utils/t";
 
 interface Props {
   open: boolean;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function HelpPopUp({ open, onClose }: Props) {
+  const t = useT();
   const [activeStep, setActiveStep] = useState(1);
 
   const handleClose = () => {
@@ -76,16 +78,16 @@ export default function HelpPopUp({ open, onClose }: Props) {
               className="text-[var(--Blue)] text-[16px] font-medium leading-[24px] self-stretch
 "
             >
-              Step {activeStep} / 5
+              {t("generator__help_popup__progress", { step: String(activeStep), steps: "5" })}
             </p>
 
             <div className="flex flex-col items-start gap-1 self-stretch">
               <DialogTitle className="text-[var(--Black)] font-bold text-[18px] leading-[26px] self-stretch">
-                {helpSteps[activeStep - 1].title}
+                {t(helpSteps[activeStep - 1].title)}
               </DialogTitle>
 
               <p className="min-h-[75px] text-[var(--Dark-gray)] text-[16px] leading-[24px] self-stretch">
-                {helpSteps[activeStep - 1].description}
+                {t(helpSteps[activeStep - 1].description)}
               </p>
             </div>
           </div>
@@ -95,14 +97,14 @@ export default function HelpPopUp({ open, onClose }: Props) {
               onClick={handlePreviousStep}
               className="rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)] flex h-12 px-6 py-2 justify-center items-center gap-2 flex-1 text-[var(--Blue)] text-[18px] font-medium leading-[26px]"
             >
-              {activeStep === 1 ? "Close" : "Back"}
+              {activeStep === 1 ? t("generator__help_popup__close_button") : t("auth__common__back")}
             </Button>
 
             <Button
               onClick={handleNextStep}
               className="rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] flex h-12 px-6 py-2 justify-center items-center gap-2 flex-1 text-white text-[18px] font-medium leading-[26px]"
             >
-              {activeStep === 5 ? "Finish" : "Next"}
+              {activeStep === 5 ? t("generator__help_popup__finish_button") : t("generator__help_popup__next_button")}
             </Button>
           </div>
         </div>
