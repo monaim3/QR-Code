@@ -13,6 +13,7 @@ import SimpleInputField from "../../components/contact-us/input-field";
 import SimpleDropdown from "./subject-selection";
 import { useContactUsMutation } from "@/store/api/supportApi";
 import { SubmitHandler } from "react-hook-form";
+import { useT } from "@/utils/t";
 
 const signUpSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -35,54 +36,56 @@ export default function ContactUsInputForm({
   withRightPannel = true,
   paddingRight = true,
 }: SignUpProps) {
+  const t = useT();
   const [contactUs, { isLoading }] = useContactUsMutation();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
- const { control, handleSubmit, formState, reset } = useForm<SignUpForm>({
-  resolver: zodResolver(signUpSchema),
-  defaultValues: {
-    email: "",
-    name: "",
-    surName: "",
-    message: "",
-    subject: "GENERAL",
-  },
-});
+  const { control, handleSubmit, formState, reset } = useForm<SignUpForm>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: "",
+      name: "",
+      surName: "",
+      message: "",
+      subject: "GENERAL",
+    },
+  });
 
   const { errors, isSubmitting } = formState;
   const [isFocused, setIsFocused] = useState(false);
 
- const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
-  try {
-    await contactUs({
-      name: data.name,
-      surname: data.surName,
-      email: data.email,
-      message: data.message,
-      subject: data.subject as
-        | "GENERAL"
-        | "TECHNICAL_SUPPORT"
-        | "BILLING"
-        | "SALES",
-    }).unwrap();
-    reset();
-    alert("Your message has been sent successfully!");
-  } catch (error) {
-    console.error(error);
-    alert("An error occurred while sending your message. Please try again later.");
-  }
-};
+  const onSubmit: SubmitHandler<SignUpForm> = async (data) => {
+    try {
+      await contactUs({
+        name: data.name,
+        surname: data.surName,
+        email: data.email,
+        message: data.message,
+        subject: data.subject as
+          | "GENERAL"
+          | "TECHNICAL_SUPPORT"
+          | "BILLING"
+          | "SALES",
+      }).unwrap();
+      reset();
+      alert("Your message has been sent successfully!");
+    } catch (error) {
+      console.error(error);
+      alert(
+        "An error occurred while sending your message. Please try again later.",
+      );
+    }
+  };
 
   return (
     <div className={`flex flex-col w-full desktop:flex-3 max-h-full`}>
       <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-start text-[var(--Black)] tracking-[0%]">
-        Contact Us
+        {t("public__get_in_touch__button_title")}
       </h1>
 
       <p className="mt-1 text-[16px] font-normal leading-[24px] text-start text-[#3F3E3E] font-body_text">
-        If you have any questions or concerns, please fill out the form below
-        and our team will reach out to you within a few hours.
+        {t("public__contact_us__description")}
       </p>
 
       {/* Form */}
@@ -97,7 +100,7 @@ export default function ContactUsInputForm({
               htmlFor="name"
               className="text-[16px] leading-[24px] font-semibold"
             >
-              Name*
+              {t("generator__content_form_section__social__input__name_label")}
             </label>
             <Controller
               name="name"
@@ -109,7 +112,9 @@ export default function ContactUsInputForm({
                     id="name"
                     value={field.value}
                     onChange={field.onChange}
-                    placeholder="e.g. John"
+                    placeholder={t(
+                      "public__dashboard__account__billing_info__name_placeholder",
+                    )}
                     type="name"
                     error={!!fieldState.error}
                   />
@@ -127,7 +132,7 @@ export default function ContactUsInputForm({
               htmlFor="surName"
               className="text-[16px] leading-[24px] font-semibold"
             >
-              Surname*
+              {t("public__contact_us__fields__surname__label")}*
             </label>
             <Controller
               name="surName"
@@ -138,7 +143,9 @@ export default function ContactUsInputForm({
                     id="surName"
                     value={field.value}
                     onChange={field.onChange}
-                    placeholder="e.g. John"
+                    placeholder={t(
+                      "public__dashboard__account__billing_info__name_placeholder",
+                    )}
                     type="surName"
                     error={!!fieldState.error}
                   />
@@ -158,7 +165,7 @@ export default function ContactUsInputForm({
               htmlFor="email"
               className="text-[16px] leading-[24px] font-semibold"
             >
-              Email*
+              {t("public__dashboard__account__settings__email__label")}*
             </label>
             <Controller
               name="email"
@@ -169,7 +176,9 @@ export default function ContactUsInputForm({
                     id="email"
                     value={field.value}
                     onChange={field.onChange}
-                    placeholder="e.g. johndoe@mail.com"
+                    placeholder={t(
+                      "public__contact_us__fields__email__placeholder",
+                    )}
                     type="email"
                     error={!!fieldState.error}
                   />
@@ -186,10 +195,7 @@ export default function ContactUsInputForm({
             name="subject"
             control={control}
             render={({ field }) => (
-              <SimpleDropdown
-                value={field.value}
-                onChange={field.onChange}
-              />
+              <SimpleDropdown value={field.value} onChange={field.onChange} />
             )}
           />
         </div>
@@ -198,7 +204,7 @@ export default function ContactUsInputForm({
             htmlFor="message"
             className="text-[16px] leading-[24px] font-semibold"
           >
-            Message*
+            {t("public__contact_us__fields__message__label")}*
           </label>
           <Controller
             name="message"
@@ -210,7 +216,7 @@ export default function ContactUsInputForm({
                   className="w-full"
                   value={field.value}
                   onChange={field.onChange}
-                  placeholder="Message"
+                  placeholder={t("public__contact_us__fields__message__label")}
                   type="message"
                   multiline={true}
                   error={!!fieldState.error}
@@ -230,7 +236,7 @@ export default function ContactUsInputForm({
           disabled={isLoading}
           className="w-full max-w-[188px] h-12 bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white text-[18px] font-medium leading-[16px] rounded-[10px] transition-colors duration-300 mt-2"
         >
-           {isLoading ? "Sending..." : "Send Message"}
+          {isLoading ? "Sending..." : t("public__contact_us__submit_button")}
         </button>
       </form>
     </div>
