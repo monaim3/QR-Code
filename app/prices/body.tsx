@@ -13,6 +13,16 @@ const parseListItems = (html: string): string[] => {
   return matches.map((m) => m.replace(/<\/?li>/g, "").trim());
 };
 
+const getPlanNameKey = (trialDuration?: number) =>
+  trialDuration === 7
+    ? "public__product__monthly_2_price_increased_7__name"
+    : "public__product__monthly_2_price_increased__name";
+
+const getPlanPriceTitleKey = (trialDuration?: number) =>
+  trialDuration === 7
+    ? "public__product__monthly_2_price_increased_7__price_title"
+    : "public__product__monthly_2_price_increased__price_title";
+
 interface PricingFeature {
   text: string;
   included: boolean;
@@ -86,8 +96,8 @@ const PricingPage: React.FC = () => {
 
   const plans: PricingPlan[] = [
     {
-      title: `${p0?.trialDuration}-${p0?.trialContext} Limited Access`,
-      price: `${p0?.currencySymbol}${p0?.titlePrice}`,
+      title: t(getPlanNameKey(p0?.trialDuration)),
+      price: t(getPlanPriceTitleKey(p0?.trialDuration), { titlePrice: `${p0?.currencySymbol}${p0?.titlePrice}` }),
       features: parseListItems(
         t("api__products__monthly_2_price_increased__description__public", {
           trialDuration: String(p0?.trialDuration ?? ""),
