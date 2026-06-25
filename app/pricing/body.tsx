@@ -10,12 +10,24 @@ import { useRouter } from "next/navigation";
 import { useGetProductsQuery } from "../../store/api/productApi";
 import { useAppDispatch } from "@/store/hooks";
 import { setCheckoutPriceId } from "@/store/slices/checkoutSlice";
+import { useT } from "@/utils/t";
+
+const getPlanNameKey = (trialDuration?: number) =>
+  trialDuration === 7
+    ? "public__product__monthly_2_price_increased_7__name"
+    : "public__product__monthly_2_price_increased__name";
+
+const getPlanPriceTitleKey = (trialDuration?: number) =>
+  trialDuration === 7
+    ? "public__product__monthly_2_price_increased_7__price_title"
+    : "public__product__monthly_2_price_increased__price_title";
 
 export default function SmartQRPlanSelection() {
 
   const { data: products, isLoading } = useGetProductsQuery('checkout');
   const dispatch = useAppDispatch();
 
+  const t = useT();
   const router = useRouter();
 
   if (isLoading || !products || products.length < 3) {
@@ -31,8 +43,8 @@ export default function SmartQRPlanSelection() {
   const plans = [
     {
       id: `${products?.[0].id}`,
-      name: `${products?.[0].productVariables.trialDuration}-${products?.[0].productVariables.trialContext} Limited Access`,
-      price: `${products?.[0].productVariables.currencySymbol}${products?.[0].productVariables.titlePrice}`,
+      name: t(getPlanNameKey(products?.[0].productVariables.trialDuration)),
+      price: t(getPlanPriceTitleKey(products?.[0].productVariables.trialDuration), { titlePrice: `${products?.[0].productVariables.currencySymbol}${products?.[0].productVariables.titlePrice}` }),
       period: null,
       popular: false,
     },

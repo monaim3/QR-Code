@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/common/parent-container";
 import {
   Avatar,
@@ -10,6 +12,7 @@ import Users from "../../components/icons/users";
 import AiGenerated from "../../components/icons/ai-generated";
 import Location from "../../components/icons/location";
 import AboutQR from "../../components/icons/about-qr";
+import { useT } from "@/utils/t";
 
 const userList = [
   "/images/users/user1.svg",
@@ -23,27 +26,29 @@ const userList = [
 const footers = [
   {
     id: 1,
-    title: "1M +",
-    subTitle: "Active users",
+    titleKey: "public__about_us__stat_users_number",
+    subTitleKey: "public__about_us__stat_users_label",
   },
   {
     id: 2,
-    title: "4M +",
-    subTitle: "QR Codes generated",
+    titleKey: "public__about_us__stat_qr_codes_number",
+    subTitleKey: "public__about_us__stat_qr_codes_label",
   },
   {
     id: 3,
-    title: "56",
-    subTitle: "Countries",
+    titleKey: "public__about_us__stat_countries_number",
+    subTitleKey: "public__about_us__stat_countries_label",
   },
   {
     id: 4,
-    title: "12",
-    subTitle: "QR Code type",
+    titleKey: "public__about_us__stat_qr_types_number",
+    subTitleKey: "public__about_us__stat_qr_types_label",
   },
 ];
 
 export default function OurMission() {
+  const t = useT();
+
   return (
     <Container className="px-5">
       <div className="flex flex-col pt-[80px] desktop:pt-[160px]">
@@ -53,18 +58,13 @@ export default function OurMission() {
           </div>
           <div className="order-1 desktop:order-2 flex flex-col flex-1 max-w-full">
             <h2 className="text-[24px] desktop:text-[32px] font-bold leading-[32px] desktop:leading-[40px]">
-              Our mission
+              {t("public__about_us__mission_title")}
             </h2>
             <p className="text-[18] leading-[26px] font-regular pt-[8px]">
-              Our mission is to seamlessly connect the physical and digital
-              realms through the power of QR codes. With our user-friendly
-              platform, you can enhance customer experiences, optimize
-              operations, and track the effectiveness of your marketing efforts.
+              {t("public__about_us__mission_description")}
             </p>
             <p className="text-[18] leading-[26px] font-regular pt-[16px]">
-              Join the ever-growing community of millions of happy users who
-              rely on QRCenter to unlock the potential of QR codes. Jump on
-              board and let us show all the cool things QR tech can do!
+              {t("public__about_us__mission_description_2")}
             </p>
             <div className="pt-[24px] ">
               <AvatarGroup className="">
@@ -113,10 +113,10 @@ export default function OurMission() {
                 <div className="h-[48px] w-[1px] bg-[var(--Boarder-Grey)]" />
                 <div className="flex flex-col">
                   <p className="text-[24px] leading-[32px] font-bold">
-                    {footer.title}
+                    {t(footer.titleKey)}
                   </p>
                   <p className="text-[14px] leading-[22px] font-regular">
-                    {footer.subTitle}
+                    {t(footer.subTitleKey)}
                   </p>
                 </div>
               </div>

@@ -50,7 +50,7 @@ export default function QrCodesTableItem({
       <div className="desktopDashboard:flex hidden items-center desktopXl:gap-[64px] desktopLg:gap-6 desktopMd:gap-4 justify-between p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
         {/* Qr Code */}
         <div className="flex items-center gap-4 flex-1">
-          <div className="shrink-0">
+          <div className="shrink-0 relative z-[9999]">
             <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
           </div>
           <Tooltip text="Click to scan">

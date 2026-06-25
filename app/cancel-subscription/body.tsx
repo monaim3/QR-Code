@@ -4,6 +4,18 @@ import { Mail, ChevronRight, Loader2, CheckCircle2 } from "lucide-react";
 import Container from "@/components/common/parent-container";
 import InputField from "../../components/common/input_filed";
 import EmailIcon from "../../components/icons/email";
+import { useT } from "@/utils/t";
+
+const renderWithLink = (str: string, href: string, className: string) => {
+  const parts = str.split(/<link>|<\/link>/);
+  return (
+    <>
+      {parts[0]}
+      <a href={href} className={className}>{parts[1]}</a>
+      {parts[2]}
+    </>
+  );
+};
 
 // Types
 interface FormState {
@@ -15,6 +27,7 @@ interface FormState {
 
 // Main Component
 export default function CancelSubscriptionPage() {
+  const t = useT();
   const [formState, setFormState] = useState<FormState>({
     email: "",
     isSubmitting: false,
@@ -45,7 +58,7 @@ export default function CancelSubscriptionPage() {
       setFormState((prev) => ({
         ...prev,
         status: "error",
-        message: "Email is required",
+        message: t("auth__common__input_login_validation__required"),
       }));
       return;
     }
@@ -113,7 +126,7 @@ export default function CancelSubscriptionPage() {
           </button>
           <ChevronRight size={20} className="text-gray-500" />
           <span className="text-[var(--Blue)] text-[14px] leading-[22px] font-regular">
-            Cancel subscription
+            {t("public__cancel_subscription__form_button")}
           </span>
         </Container>
       </div>
@@ -126,20 +139,16 @@ export default function CancelSubscriptionPage() {
                 {/* Header */}
                 <div>
                   <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)]">
-                    Cancel Your Subscription!
+                    {t("public__cancel_subscription__title")}
                   </h3>
                   <p className="text-[var(--Dark-gray)] font-regular text-[16px] leading-[24px] pt-[8px]">
-                    Easily cancel your subscription by entering the email used
-                    to create your account.
+                    {t("public__cancel_subscription__description")}
                   </p>
                 </div>
                 <div className="h-px w-full bg-[#CDD0DB80] my-[24px] desktop:my-[32px]" />
                 {/* Info Section */}
                 <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px] font-regular">
-                  You may cancel your subscription at any time. Just provide the
-                  email address you used when registering and click on the
-                  &quot;Cancel Subscription&quot; button below. It&apos;s that
-                  easy!
+                  {t("public__cancel_subscription__form_instructions")}
                 </p>
 
                 {/* Input Section */}
@@ -155,11 +164,7 @@ export default function CancelSubscriptionPage() {
                         message: "",
                       }))
                     }
-                    placeholder={
-                      isMobile
-                        ? "Enter your email"
-                        : "Enter your email used for registration"
-                    }
+                    placeholder={t("public__cancel_subscription__form__email_placeholder__text")}
                     type="email"
                     desktopWidth={536}
                     leading={<Mail size={20} />}
@@ -169,7 +174,7 @@ export default function CancelSubscriptionPage() {
                   />
                   {formState.status === "error" && !formState.email.trim() && (
                     <p className="text-[var(--error)] text-[14px] leading-[20px] font-regular -mt-[8px]">
-                      Email is required
+                      {t("auth__common__input_login_validation__required")}
                     </p>
                   )}
 
@@ -192,7 +197,7 @@ export default function CancelSubscriptionPage() {
                         <span>Cancelled</span>
                       </>
                     ) : (
-                      <span>Cancel subscription</span>
+                      <span>{t("public__cancel_subscription__form_button")}</span>
                     )}
                   </button>
                 </div>
@@ -200,21 +205,14 @@ export default function CancelSubscriptionPage() {
                 {/* Help Text */}
                 <div className="pt-[24px] desktop:pt-[32px]">
                   <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px] font-regular">
-                    If you don&apos;t remember which email you used to register,
-                    check your inbox for our welcome mailer. Otherwise, contact
-                    our friendly customer support team{" "}
-                    <a
-                      href="/contact-us"
-                      className="text-[var(--Blue)] hover:underline font-regular"
-                    >
-                      here
-                    </a>
-                    .
+                    {renderWithLink(
+                      t("public__cancel_subscription__ additional_info__email"),
+                      "/contact-us",
+                      "text-[var(--Blue)] hover:underline font-regular"
+                    )}
                   </p>
                   <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px] pt-[16px] font-regular">
-                    You can also cancel your subscription by logging into your
-                    account, going to the &quot;Billing&quot; tab and clicking
-                    &quot;Cancel Subscription&quot;.
+                    {t("public__cancel_subscription__ additional_info__account")}
                   </p>
                 </div>
               </div>
@@ -223,17 +221,16 @@ export default function CancelSubscriptionPage() {
                 <div className="bg-white rounded-[10px] shadow-card max-w-[350px] desktop:max-w-[500px] p-[24px] desktop:p-[32px] flex flex-col items-center">
                   <EmailIcon className="w-[40px] h-[32px] text-[var(--Blue)]" />
                   <h3 className="text-[20px] desktop:text-[24px] leading-[28px] desktop:leading-[32px] font-bold text-[var(--Black)] pt-[16px] desktop:pt-[24px]">
-                    Confirmation required
+                    {t("public__cancel_subscription__confirmation_email__title")}
                   </h3>
                   <p className="text-[var(--Dark-gray)] font-regular text-[16px] leading-[24px] pt-[8px] text-center mb-[16px] desktop:mb-[24px]">
-                    We have sent a confirmation request to your email address if
-                    you have an account with us.
+                    {t("public__cancel_subscription__confirmation_email__description")}
                   </p>
                   <button
                     onClick={handleGoHome}
                     className="w-[160px] h-[48px] bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white font-semibold rounded-[10px] transition-all duration-300 flex items-center justify-center gap-2"
                   >
-                    <span>Ok</span>
+                    <span>{t("public__cancel_subscription__confirmation_email__button")}</span>
                   </button>
                 </div>
               </div>

@@ -1,24 +1,28 @@
+"use client";
+
 import { Mail, Phone, MapPin } from "lucide-react";
+import { useT } from "@/utils/t";
 
 const contactInfo = [
   {
     id: 1,
-    title: "Email",
+    title: "public__dashboard__account__settings__email__label",
     subTitle: "contact@qrpath.com",
   },
   {
     id: 2,
-    title: "Phone",
+    title: "generator__qr_content_screen__vcard_type__sections__contact__mobile_phone",
     subTitle: "+1 (415) 728-3492",
   },
   {
     id: 3,
-    title: "Locations",
+    title: "public__contact_us__info__locations_label",
     subTitle: "1287 Market Street, Suite 402, San Francisco, CA 94103, USA",
   },
 ];
 
 export default function ContactInformation() {
+  const t = useT();
   return (
     <div
       className={`flex desktop:flex-2 flex-col w-full items-start justify-center bg-[#E7F4ED] rounded-[10px] p-6 desktop:py-10 desktop:px-16`}
@@ -40,7 +44,7 @@ export default function ContactInformation() {
               <div className="h-[48px] w-[1px] bg-[var(--Boarder-Grey)]" />
               <div className="flex flex-col items-start justify-start">
                 <p className="w-full text-[18px] leading-[26px] font-bold text-[var(--Black)]">
-                  {info.title}
+                  {t(info.title)}
                 </p>
                 <p className="w-full text-[14px] leading-[22px] font-regular text-[var(--Dark-gray)]">
                   {info.subTitle}

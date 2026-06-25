@@ -200,6 +200,7 @@ export default function QrCodesClient() {
       {hasSelection && (
         <CheckboxBar
           selectedCount={selectedCount}
+          ids={Array.from(selectedIds)}
           onClose={handleClearSelection}
         />
       )}

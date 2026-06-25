@@ -13,10 +13,13 @@ export default function CheckBox({
 }: Props) {
   const [isSelected, setIsSelected] = useState(checked);
 
-  const handleChange = () => {
-    setIsSelected(!isSelected);
-    onChange?.();
-  };
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  setIsSelected(!isSelected);
+  onChange?.();
+};
 
   useEffect(() => {
     setIsSelected(checked);

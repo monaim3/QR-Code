@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import CheckIcon from "../icons/check-icon";
+import { useTranslationRich } from "@/utils/useTranslationRich";
 
 interface BreadcrumbStep {
   number: number;
@@ -16,29 +17,6 @@ interface BreadcrumbProps {
   dashboardCreateQr?: boolean;
 }
 
-const steps: BreadcrumbStep[] = [
-  { number: 1, label: "Choose Type", path: "/generator" },
-  { number: 2, label: "Add Content", path: "/generator/content" },
-  { number: 3, label: "Customize QR Design", path: "/generator/customize" },
-];
-
-const mobileSteps: BreadcrumbStep[] = [
-  { number: 1, label: "Choose QR Code Type", path: "/generator" },
-  { number: 2, label: "Content", path: "/generator/content" },
-  { number: 3, label: "Design", path: "/generator/customize" },
-];
-
-const priceAndPlanData: BreadcrumbStep[] = [
-  { number: 1, label: "QR Ready", path: "/generator/customize" },
-  { number: 2, label: "Plan Selection", path: "/pricing" },
-  { number: 3, label: "Payment Details", path: "/checkout" },
-];
-
-const dashboardData: BreadcrumbStep[] = [
-  { number: 1, label: "Edit content", path: "/qr-codes/edit" },
-  { number: 2, label: "Edit QR design", path: "/qr-codes/edit/customize" },
-];
-
 export default function Breadcrumb({
   useMobileSteps = false,
   priceAndPlanSteps = false,
@@ -47,6 +25,30 @@ export default function Breadcrumb({
 }: BreadcrumbProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const { t } = useTranslationRich();
+
+  const steps: BreadcrumbStep[] = [
+    { number: 1, label: t("generator__stepper__step1_desktop"), path: "/generator" },
+    { number: 2, label: t("generator__stepper__step2_desktop"), path: "/generator/content" },
+    { number: 3, label: t("generator__stepper__step3_desktop"), path: "/generator/customize" },
+  ];
+
+  const mobileSteps: BreadcrumbStep[] = [
+    { number: 1, label: t("generator__stepper__step1_mobile__initial"), path: "/generator" },
+    { number: 2, label: t("generator__stepper__step2_mobile"), path: "/generator/content" },
+    { number: 3, label: t("generator__stepper__step3_mobile"), path: "/generator/customize" },
+  ];
+
+  const priceAndPlanData: BreadcrumbStep[] = [
+    { number: 1, label: t("public__subscription__qr_ready"), path: "/generator/customize" },
+    { number: 2, label: t("public__subscription__plan_selection"), path: "/pricing" },
+    { number: 3, label: t("public__subscription__payment_details"), path: "/checkout" },
+  ];
+
+  const dashboardData: BreadcrumbStep[] = [
+    { number: 1, label: t("generator__stepper__edit_mode__step2"), path: "/qr-codes/edit" },
+    { number: 2, label: t("generator__stepper__edit_mode__step3"), path: "/qr-codes/edit/customize" },
+  ];
 
   const getCurrentStep = (): number => {
     // Check most specific paths first

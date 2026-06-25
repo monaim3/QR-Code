@@ -19,8 +19,10 @@ import BusinessPreview from "@/components/generator/businessPage/BusinessPreview
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import Save from "@/components/icons/save";
 import Close from "@/components/icons/close";
+import { useT } from "@/utils/t";
 
 export default function FooterBreadcrumb() {
+  const t = useT();
   const pathname = usePathname();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -174,7 +176,7 @@ export default function FooterBreadcrumb() {
                 >
                   <ArrowLeft className="size-5 text-[var(--Blue)]" />
                   <span className="hidden md:block text-[var(--Blue)]">
-                    Back
+                    {t("auth__common__back")}
                   </span>
                 </button>
               )}
@@ -183,7 +185,7 @@ export default function FooterBreadcrumb() {
                   onClick={handleNext}
                   className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
                 >
-                  <span>Next</span>
+                  <span>{t("generator__footer__next_button")}</span>
                   <ArrowRight className="size-5" />
                 </button>
               )}

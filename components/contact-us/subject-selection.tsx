@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Check } from "lucide-react";
+import { useT } from "@/utils/t";
 
 interface Option {
   label: string;
@@ -14,17 +15,18 @@ interface SimpleDropdownProps {
 }
 
 const options: Option[] = [
-  { label: "General inquiry", value: "GENERAL" },
-  { label: "Billing question", value: "BILLING" },
-  { label: "Suggested improvement", value: "IMPROVEMENT" },
-  { label: "Technical issue", value: "TECHNICAL_SUPPORT" },
-  { label: "Other", value: "OTHER" },
+  { label: "public__contact_us__subject__options__general", value: "GENERAL" },
+  { label: "public__contact_us__subject__options__billing", value: "BILLING" },
+  { label: "public__contact_us__subject__options__suggestion", value: "IMPROVEMENT" },
+  { label: "public__contact_us__subject__options__technical", value: "TECHNICAL_SUPPORT" },
+  { label: "public__contact_us__subject__options__other", value: "OTHER" },
 ];
 
 export default function SimpleDropdown({
   value,
   onChange,
 }: SimpleDropdownProps): React.ReactElement {
+  const t = useT();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const selected = options.find((option) => option.value === value) ?? null;
@@ -38,7 +40,7 @@ export default function SimpleDropdown({
     <div className="relative w-full flex-1 flex flex-col items-start justify-start gap-2">
       {/* Trigger */}
       <label className="text-[16px] leading-[24px] font-semibold">
-        Subject*
+        {t("public__contact_us__subject__label")}*
       </label>
 
       <button
@@ -47,7 +49,7 @@ export default function SimpleDropdown({
         className="w-full h-[48px] rounded-[10px] px-4 py-2 flex justify-between items-center bg-white ring-1 ring-[var(--Boarder-Grey)] hover:ring-2"
       >
         <span className="text-4 leading-6 font-regular text-[var(--Dark-gray)] whitespace-nowrap overflow-hidden text-ellipsis">
-          {selected ? selected.label : "Select a subject..."}
+          {selected ? t(selected.label) : "Select a subject..."}
         </span>
 
         <span>
@@ -75,7 +77,7 @@ export default function SimpleDropdown({
                     : "hover:bg-[var(--Generator-Background)]"
                 }`}
               >
-                {option.label}
+                {t(option.label)}
 
                 {isSelected && (
                   <Check

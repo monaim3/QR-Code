@@ -24,11 +24,11 @@ class HeaderOptions {
 }
 
 const Options = [
-  new HeaderOptions(1, "QR Code Generator", "/generator"),
-  new HeaderOptions(2, "FAQ", "/faq"),
-  new HeaderOptions(3, "Prices", "/prices"),
-  new HeaderOptions(4, "About us", "/about-us"),
-  new HeaderOptions(5, "Contact us", "/contact-us"),
+  new HeaderOptions(1, "public__footer__link_groups__generators__title", "/generator"),
+  new HeaderOptions(2, "public__footer__link_groups__help__faq", "/faq"),
+  new HeaderOptions(3, "public__qr__breadcrumbs__prices", "/prices"),
+  new HeaderOptions(4, "public__breadcrumbs__about_us", "/about-us"),
+  new HeaderOptions(5, "public__footer__link_groups__help__contact", "/contact-us"),
 ];
 
 interface HeaderProps {
@@ -87,7 +87,7 @@ export default function Header({
                       href={option.path}
                       className="px-4 py-2 text-[14px] leading-[22px] font-regular text-[var(--Dark-gray)]  hover:text-[var(--Blue)] inline-block"
                     >
-                      {option.title}
+                      {t(option.title)}
                     </Link>
                   );
                 })}
@@ -170,15 +170,15 @@ export default function Header({
               <nav className="flex flex-col pb-2">
                 {[
                   {
-                    title: "Contact us",
+                    title: "public__footer__link_groups__help__contact",
                     path: "/contact-us",
                   },
                   {
-                    title: "FAQ",
+                    title: "public__footer__link_groups__help__faq",
                     path: "/faq",
                   },
                   {
-                    title: "Prices",
+                    title: "public__qr__breadcrumbs__prices",
                     path: "/prices",
                   },
                   {
@@ -196,7 +196,7 @@ export default function Header({
                     onClick={() => setIsDrawerOpen(false)}
                     className="py-5 text-[16px] leading-[24px] font-medium text-[var(--Black)] border-b border-[#cdd0db80)]"
                   >
-                    {item.title}
+                    {t(item.title)}
                   </Link>
                 ))}
                 <LanguageSelector layout="gapBetween" mobileDrawer={true} />
