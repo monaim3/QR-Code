@@ -65,109 +65,109 @@ export default function LoginBody() {
       }
     };
 
-useEffect(() => {
-  // Google init
-  if (!googleInitialized.current) {
-    googleInitialized.current = true;
+  useEffect(() => {
+    // Google init
+    if (!googleInitialized.current) {
+      googleInitialized.current = true;
+      // @ts-ignore
+      window.google?.accounts.id.initialize({
+        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+        callback: async (response: { credential: string }) => {
+          const resultAction = await dispatch(googleLogin({ token: response.credential }));
+          if (googleLogin.fulfilled.match(resultAction)) {
+            window.location.href = "/cabinet/qr-codes";;
+          }
+        },
+      });
+    }
+
+    // Facebook init
+  if (!facebookInitialized.current) {
+    facebookInitialized.current = true;
+
     // @ts-ignore
-    window.google?.accounts.id.initialize({
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-      callback: async (response: { credential: string }) => {
-        const resultAction = await dispatch(googleLogin({ token: response.credential }));
-        if (googleLogin.fulfilled.match(resultAction)) {
-          window.location.href = "/cabinet/qr-codes";;
-        }
-      },
-    });
+    window.fbAsyncInit = function () {
+      // @ts-ignore
+      FB.init({
+        appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
+        cookie: true,
+        xfbml: true,
+        version: "v19.0",
+      });
+      // @ts-ignore
+      window.fbReady = true; // ← mark as ready after init
+    };
+
+    const script = document.createElement("script");
+    script.src = "https://connect.facebook.net/en_US/sdk.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
   }
 
-  // Facebook init
-if (!facebookInitialized.current) {
-  facebookInitialized.current = true;
+  // Apple init
+  if (!appleInitialized.current) {
+    appleInitialized.current = true;
 
-  // @ts-ignore
-  window.fbAsyncInit = function () {
     // @ts-ignore
-    FB.init({
-      appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID!,
-      cookie: true,
-      xfbml: true,
-      version: "v19.0",
+    window.AppleID?.auth.init({
+      clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID!,
+      scope: "name email",
+      redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI!,
+      usePopup: true, // ← popup mode, no redirect needed
     });
+  }
+  }, []);
+
+  const handleGoogleClick = () => {
     // @ts-ignore
-    window.fbReady = true; // ← mark as ready after init
+    window.google?.accounts.id.prompt();
   };
 
-  const script = document.createElement("script");
-  script.src = "https://connect.facebook.net/en_US/sdk.js";
-  script.async = true;
-  script.defer = true;
-  document.body.appendChild(script);
- }
-
- // Apple init
-if (!appleInitialized.current) {
-  appleInitialized.current = true;
-
-  // @ts-ignore
-  window.AppleID?.auth.init({
-    clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID!,
-    scope: "name email",
-    redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI!,
-    usePopup: true, // ← popup mode, no redirect needed
-  });
- }
-}, []);
-
-const handleGoogleClick = () => {
-  // @ts-ignore
-  window.google?.accounts.id.prompt();
-};
-
-const handleFacebookClick = () => {
-  // @ts-ignore
-  if (!window.fbReady) {
-    console.warn("Facebook SDK not ready yet, please try again.");
-    return;
-  }
-
-  // @ts-ignore
-  FB.login(
-    (response: { authResponse?: { accessToken: string }; status: string }) => {
-      if (response.authResponse?.accessToken) {
-        handleFacebookToken(response.authResponse.accessToken);
-      }
-    },
-    { scope: "public_profile,email" }
-  );
-};
-
-const handleFacebookToken = async (accessToken: string) => {
-  const resultAction = await dispatch(facebookLogin({ token: accessToken }));
-  if (facebookLogin.fulfilled.match(resultAction)) {
-    window.location.href = "/cabinet/qr-codes";;
-  }
-};
-
-const handleAppleClick = async () => {
-  try {
+  const handleFacebookClick = () => {
     // @ts-ignore
-    const response = await window.AppleID.auth.signIn();
-
-    // response.authorization.id_token is the token to send to backend
-    if (response.authorization?.id_token) {
-      const resultAction = await dispatch(
-        appleLogin({ token: response.authorization.id_token })
-      );
-
-      if (appleLogin.fulfilled.match(resultAction)) {
-        window.location.href = "/cabinet/qr-codes";;
-      }
+    if (!window.fbReady) {
+      console.warn("Facebook SDK not ready yet, please try again.");
+      return;
     }
-  } catch (err) {
-    console.error("Apple sign in failed:", err);
-  }
-};
+
+    // @ts-ignore
+    FB.login(
+      (response: { authResponse?: { accessToken: string }; status: string }) => {
+        if (response.authResponse?.accessToken) {
+          handleFacebookToken(response.authResponse.accessToken);
+        }
+      },
+      { scope: "public_profile,email" }
+    );
+  };
+
+  const handleFacebookToken = async (accessToken: string) => {
+    const resultAction = await dispatch(facebookLogin({ token: accessToken }));
+    if (facebookLogin.fulfilled.match(resultAction)) {
+      window.location.href = "/cabinet/qr-codes";;
+    }
+  };
+
+  const handleAppleClick = async () => {
+    try {
+      // @ts-ignore
+      const response = await window.AppleID.auth.signIn();
+
+      // response.authorization.id_token is the token to send to backend
+      if (response.authorization?.id_token) {
+        const resultAction = await dispatch(
+          appleLogin({ token: response.authorization.id_token })
+        );
+
+        if (appleLogin.fulfilled.match(resultAction)) {
+          window.location.href = "/cabinet/qr-codes";;
+        }
+      }
+    } catch (err) {
+      console.error("Apple sign in failed:", err);
+    }
+  };
 
   return (
     <Container>
