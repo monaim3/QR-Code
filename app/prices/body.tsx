@@ -6,6 +6,22 @@ import CurrenctSelector from "@/components/common/currency_dropdown";
 import Link from "next/link";
 import CheckIcon from "../../components/icons/check-icon";
 import { useGetProductsQuery } from "../../store/api/productApi";
+import { useT } from "@/utils/t";
+
+const parseListItems = (html: string): string[] => {
+  const matches = html.match(/<li>([\s\S]*?)<\/li>/g) ?? [];
+  return matches.map((m) => m.replace(/<\/?li>/g, "").trim());
+};
+
+const getPlanNameKey = (trialDuration?: number) =>
+  trialDuration === 7
+    ? "public__product__monthly_2_price_increased_7__name"
+    : "public__product__monthly_2_price_increased__name";
+
+const getPlanPriceTitleKey = (trialDuration?: number) =>
+  trialDuration === 7
+    ? "public__product__monthly_2_price_increased_7__price_title"
+    : "public__product__monthly_2_price_increased__price_title";
 
 interface PricingFeature {
   text: string;
@@ -28,7 +44,7 @@ const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
             text-[var(--Black)]
             text-center
             font-medium
-            text-[20px] 
+            text-[20px]
             leading-[28px]
             lg:text-[24px]
             lg:leading-[32px]"
@@ -71,59 +87,45 @@ const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
 };
 
 const PricingPage: React.FC = () => {
-
+  const t = useT();
   const { data: products } = useGetProductsQuery('checkout');
 
+  const p0 = products?.[0]?.productVariables;
+  const p1 = products?.[1]?.productVariables;
+  const p2 = products?.[2]?.productVariables;
 
   const plans: PricingPlan[] = [
     {
-      title: `${products?.[0].productVariables.trialDuration}-${products?.[0].productVariables.trialContext} Limited Access`,
-      price: `${products?.[0].productVariables.currencySymbol}${products?.[0].productVariables.titlePrice}`,
-      features: [
-        { text: "Create one QR code", included: true },
-        { text: "Limited QR code scans", included: true },
-        { text: "Limited access to analytics", included: true },
-        {
-          text: `After ${products?.[0].productVariables.trialDuration} ${products?.[0].productVariables.trialContext}, auto-renews to ${products?.[0].productVariables.currencySymbol}${products?.[0].productVariables.regularPrice} every ${products?.[0].productVariables.regularDuration} ${products?.[0].productVariables.regularContext}. Cancel anytime.`,
-          included: true,
-        },
-      ],
+      title: t(getPlanNameKey(p0?.trialDuration)),
+      price: t(getPlanPriceTitleKey(p0?.trialDuration), { titlePrice: `${p0?.currencySymbol}${p0?.titlePrice}` }),
+      features: parseListItems(
+        t("api__products__monthly_2_price_increased__description__public", {
+          trialDuration: String(p0?.trialDuration ?? ""),
+          regularPrice: `${p0?.currencySymbol}${p0?.regularPrice}`,
+          regularDuration: String(p0?.regularDuration ?? ""),
+        })
+      ).map((text) => ({ text, included: true })),
     },
     {
-      title: `${products?.[1].productVariables.trialDuration}-${products?.[1].productVariables.trialContext} Full Access`,
-      price: `${products?.[1].productVariables.currencySymbol}${products?.[1].productVariables.titlePrice}`,
-      features: [
-        { text: "Unlimited QR codes", included: true },
-        { text: "Unlimited QR code scans", included: true },
-        { text: "Unrestricted customization options", included: true },
-        { text: "Unlimited access to analytics", included: true },
-        { text: "Unlimited downloads", included: true },
-        { text: "Full access to all download formats", included: true },
-        { text: "Create any type of QR code you need", included: true },
-        {
-          text: `After ${products?.[1].productVariables.trialDuration} ${products?.[1].productVariables.trialContext}, auto-renews to ${products?.[1].productVariables.currencySymbol}${products?.[1].productVariables.regularPrice} every ${products?.[1].productVariables.regularDuration} ${products?.[1].productVariables.regularContext}. Cancel anytime.`,
-          included: true,
-        },
-      ],
+      title: `${p1?.trialDuration}-${p1?.trialContext} Full Access`,
+      price: `${p1?.currencySymbol}${p1?.titlePrice}`,
+      features: parseListItems(
+        t("api__product__monthly_3_price_increased__description__public", {
+          trialDuration: String(p1?.trialDuration ?? ""),
+          regularPrice: `${p1?.currencySymbol}${p1?.regularPrice}`,
+          regularDuration: String(p1?.regularDuration ?? ""),
+        })
+      ).map((text) => ({ text, included: true })),
     },
     {
       title: "Yearly Plan",
-      price: `${products?.[2].productVariables.currencySymbol}${products?.[2].productVariables.titlePrice}`,
+      price: `${p2?.currencySymbol}${p2?.titlePrice}`,
       period: "/ mo",
-      features: [
-        { text: "Unlimited QR codes", included: true },
-        { text: "Unlimited QR code scans", included: true },
-        { text: "Unrestricted customization options", included: true },
-        { text: "Unlimited access to analytics", included: true },
-        { text: "Unlimited downloads", included: true },
-        { text: "Full access to all download formats", included: true },
-        { text: "Create any type of QR code you need", included: true },
-        { text: `Pay ${products?.[2].productVariables.currencySymbol}${products?.[2].productVariables.regularPrice} upfront and save 50%`, included: true },
-        {
-          text: "Renews every year. You may cancel anytime.",
-          included: true,
-        },
-      ],
+      features: parseListItems(
+        t("api__products__annual_price_increased__description", {
+          regularPrice: `${p2?.currencySymbol}${p2?.regularPrice}`,
+        })
+      ).map((text) => ({ text, included: true })),
     },
   ];
 
@@ -140,7 +142,7 @@ const PricingPage: React.FC = () => {
               <span className="text-[14px] font-regular">QR Center</span>
               <ChevronRight className={`w-5 h-5 text-[#79809A]`} />
               <span className="text-[14px] font-regular text-[var(--Blue)]">
-                Prices
+                {t("public__qr__breadcrumbs__prices")}
               </span>
             </nav>
           </div>
@@ -149,7 +151,7 @@ const PricingPage: React.FC = () => {
               {/* Header */}
               <div className="flex justify-between items-center pt-[16px] desktop:pt-[80px]">
                 <h1 className="text-[24px] leading-[32px] desktop:text-[32px] desktop:leading-[40px] font-bold text-[var(--black)]">
-                  Plans & Pricing
+                  {t("public__qr__page__upgrade__title")}
                 </h1>
                 <div className="flex items-center gap-6">
                   <div className="hidden desktop:flex">
@@ -160,7 +162,7 @@ const PricingPage: React.FC = () => {
                     className="hidden desktop:flex bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 transition-all duration-300 ease-linear
             "
                   >
-                    Create QR code
+                    {t("public__dashboard__shared__cta_button")}
                   </Link>
                 </div>
               </div>
@@ -177,7 +179,7 @@ const PricingPage: React.FC = () => {
                 href="/generator"
                 className="w-full py-3 bg-[var(--Blue)] text-white font-semibold rounded-lg flex items-center justify-center gap-3"
               >
-                Create QR code
+                {t("public__dashboard__shared__cta_button")}
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useT } from "@/utils/t";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +15,7 @@ interface Props {
 }
 
 export default function CancelSubscriptionModal({ open, onClose }: Props) {
+  const t = useT();
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
@@ -35,7 +39,7 @@ export default function CancelSubscriptionModal({ open, onClose }: Props) {
             variant="outline"
             className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] border-[var(--Blue)] text-[var(--Blue)] text-[14px] leading-[22px] bg-white hover:bg-[var(--Blue)] hover:text-white transition-all duration-300 ease-linear"
           >
-            Back
+            {t("auth__common__back")}
           </Button>
           <Button className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear">
             Confirm

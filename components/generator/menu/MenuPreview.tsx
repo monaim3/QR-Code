@@ -198,7 +198,7 @@ export default function MenuPreview() {
                     className="text-[16px] leading-[24px]"
                     style={{ color: menu.secondaryColor }}
                   >
-                    Back
+                    {t("auth__common__back")}
                   </p>
                 </div>
 
