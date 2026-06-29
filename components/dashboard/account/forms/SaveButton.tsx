@@ -1,4 +1,7 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useT } from "@/utils/t";
 
 interface Props {
   onClick?: () => void;
@@ -7,6 +10,8 @@ interface Props {
 }
 
 export default function SaveButton({ onClick, isLoading, error }: Props) {
+  const t = useT();
+
   return (
     <div className="flex flex-col gap-1 w-full desktopDashboard:w-[120px] tablet:w-[120px]">
       <Button
@@ -36,7 +41,7 @@ export default function SaveButton({ onClick, isLoading, error }: Props) {
             />
           </svg>
         ) : (
-          "Save"
+          t("ui__generic__save")
         )}
       </Button>
       {error && (
