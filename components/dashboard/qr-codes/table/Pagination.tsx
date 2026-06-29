@@ -6,36 +6,64 @@ import ChevronLeftSmall from "@/components/icons/chevron-left-small";
 import ChevronRightSmall from "@/components/icons/chevron-right-small";
 import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import Close from "@/components/icons/close";
+import { useT } from "@/utils/t";
+
+const parseTag = (str: string, tag: string): string => {
+  return str.match(new RegExp(`<${tag}>(.*?)<\\/${tag}>`))?.[1] ?? "";
+};
+
+const stripTags = (str: string): string[] => {
+  return str.replace(/<[^>]*>/g, "|||").split("|||").map((s) => s.trim()).filter(Boolean);
+};
 
 export default function Pagination() {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string>("10");
   const [showAbove, setShowAbove] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const options = ["10", "25", "50", "All"];
+  const allLabel = t("public__dashboard__qr_table__pagination__all");
 
-  const handleSelect = (option: string) => {
-    setSelected(option);
+  const options = [
+    { value: "10", label: "10" },
+    { value: "25", label: "25" },
+    { value: "50", label: "50" },
+    { value: "All", label: allLabel },
+  ];
+
+  const entriesStr = t("public__dashboard__qr_table__pagination__entries");
+  const perPageStr = t("public__dashboard__qr_table__pagination__per_page");
+
+  const showingWord = parseTag(entriesStr, "show");
+  const entryParts = stripTags(entriesStr);
+  const toWord = entryParts[1] ?? "to";
+  const ofWord = entryParts[2] ?? "of";
+  const entriesWord = entryParts[3] ?? "entries";
+
+  const showWord = parseTag(perPageStr, "show");
+  const perPageWord = parseTag(perPageStr, "text");
+
+  const selectedLabel = selected === "All" ? allLabel : selected;
+
+  const handleSelect = (value: string) => {
+    setSelected(value);
     setIsOpen(false);
   };
 
   const handleToggleDropdown = () => {
     if (!isOpen && buttonRef.current) {
-      // Check position before opening
       const rect = buttonRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const spaceBelow = viewportHeight - rect.bottom;
-      const dropdownHeight = 200; // Approximate height of dropdown (4 options + padding)
+      const dropdownHeight = 200;
 
-      // If not enough space below, show above
       setShowAbove(spaceBelow < dropdownHeight);
     }
     setIsOpen(!isOpen);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -53,10 +81,10 @@ export default function Pagination() {
     <div className="flex justify-center items-center content-center desktopDashboard:gap-x-10 gap-x-2 flex-wrap w-full pt-2 desktopDashboard:pt-0">
       {/* Portfolio */}
       <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px] flex gap-1">
-        <span className="hidden desktopDashboard:flex">Showing</span>{" "}
-        <span className="text-[var(--Dark-gray)]">1</span> to{" "}
-        <span className="text-[var(--Dark-gray)]">10</span> of{" "}
-        <span className="text-[var(--Dark-gray)]">125</span> entries
+        <span className="hidden desktopDashboard:flex">{showingWord}</span>{" "}
+        <span className="text-[var(--Dark-gray)]">1</span> {toWord}{" "}
+        <span className="text-[var(--Dark-gray)]">10</span> {ofWord}{" "}
+        <span className="text-[var(--Dark-gray)]">125</span> {entriesWord}
       </p>
 
       {/* Mobile Numbers */}
@@ -108,8 +136,8 @@ export default function Pagination() {
           className="flex items-center justify-end gap-2"
         >
           <p className="text-[var(--Grey)] desktopDashboard:text-[14px] text-[12px] desktopDashboard:leading-[22px] leading-[20px] flex gap-1">
-            <span className="hidden desktopDashboard:flex">Show</span>{" "}
-            <span className="text-[var(--Dark-gray)]">{selected}</span> per page
+            <span className="hidden desktopDashboard:flex">{showWord}</span>{" "}
+            <span className="text-[var(--Dark-gray)]">{selectedLabel}</span> {perPageWord}
           </p>
           {isOpen ? (
             <ChevronUpSmall className="text-[var(--Dark-gray)]" />
@@ -125,19 +153,17 @@ export default function Pagination() {
               showAbove ? "bottom-full mb-[13px]" : "top-full mt-[13px]"
             }`}
           >
-            {options.map((option) => {
-              return (
-                <div
-                  key={option}
-                  onClick={() => handleSelect(option)}
-                  className={`flex items-center self-stretch p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
-                >
-                  <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
-                    {option}
-                  </span>
-                </div>
-              );
-            })}
+            {options.map((option) => (
+              <div
+                key={option.value}
+                onClick={() => handleSelect(option.value)}
+                className="flex items-center self-stretch p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]"
+              >
+                <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
+                  {option.label}
+                </span>
+              </div>
+            ))}
           </div>
         )}
 
@@ -161,7 +187,7 @@ export default function Pagination() {
           >
             <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
               <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-                Show {selected} per page
+                {showWord} {selectedLabel} {perPageWord}
               </h4>
 
               <button onClick={() => setIsOpen(false)} aria-label="Close menu">
@@ -173,11 +199,11 @@ export default function Pagination() {
               {options.map((option, i) => (
                 <div
                   key={i}
-                  onClick={() => handleSelect(option)}
-                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] ${selected === option ? "bg-[var(--Generator-Background)]" : "bg-white"}`}
+                  onClick={() => handleSelect(option.value)}
+                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] ${selected === option.value ? "bg-[var(--Generator-Background)]" : "bg-white"}`}
                 >
                   <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
-                    {option}
+                    {option.label}
                   </span>
                 </div>
               ))}

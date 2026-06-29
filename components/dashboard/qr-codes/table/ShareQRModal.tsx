@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { QrCode as qrData } from "@/types/generatedQr";
 import { useEffect, useState } from "react";
+import { useT } from "@/utils/t";
 
 interface Props {
   open: boolean;
@@ -17,12 +18,13 @@ interface Props {
 }
 
 export default function ShareQRModal({ open, onClose, item }: Props) {
+  const t = useT();
   const [message, setMessage] = useState<string>("");
 
   const handleCopy = async () => {
     if (!item) return;
     await navigator.clipboard.writeText(item.content.url);
-    setMessage("The link has been copied!");
+    setMessage(t("generator__share_qr_dialog__success_copy_button"));
   };
 
   useEffect(() => {
@@ -43,11 +45,10 @@ export default function ShareQRModal({ open, onClose, item }: Props) {
       >
         <DialogHeader className="flex flex-col gap-2">
           <DialogTitle className="text-[var(--Black)] text-left text-[20px] font-bold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
-            Share QR code
+            {t("public__dashboard__share__qr_code__modal_title")}
           </DialogTitle>
           <p className="text-[var(--Dark-gray)] text-left text-[16px] leading-[24px]">
-            Share the link below with others (e.g. a printing agency) to
-            download and print the QR code
+            {t("public__dashboard__share__qr_code__modal_description")}
           </p>
         </DialogHeader>
 
@@ -63,7 +64,7 @@ export default function ShareQRModal({ open, onClose, item }: Props) {
             className="h-10 py-2 px-4 flex items-center justify-center gap-2 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear"
           >
             <Copy />
-            Copy
+            {t("public__dashboard__share__qr_code__modal_copy_button")}
           </Button>
 
           {message && (

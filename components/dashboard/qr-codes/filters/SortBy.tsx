@@ -4,6 +4,7 @@ import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import CloseCircle from "@/components/icons/close-circle";
 import RadioButton from "./RadioButton";
 import Tooltip from "@/components/dashboard/Tooltip";
+import { useT } from "@/utils/t";
 
 interface Props {
   selected: string;
@@ -11,24 +12,23 @@ interface Props {
 }
 
 export default function SortBy({ selected, setSelected }: Props) {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const options = [
-    "Name",
-    "Type",
-    "Scans",
-    "Creation date",
-    "Last modified date",
-    "Status",
+    { value: "Name", label: t("public__dashboard__qr_table__controls__sort_name") },
+    { value: "Type", label: t("public__dashboard__qr_table__controls__sort_type") },
+    { value: "Scans", label: t("public__dashboard__qr_table__controls__sort_scans") },
+    { value: "Creation date", label: t("public__dashboard__qr_table__controls__sort_creation_date") },
+    { value: "Last modified date", label: t("public__dashboard__qr_table__controls__sort_updated_date") },
+    { value: "Status", label: t("public__dashboard__qr_table__controls__sort_status") },
   ];
 
-  // Toggle selection logic
-  const handleSelect = (option: string) => {
-    setSelected(option);
+  const handleSelect = (value: string) => {
+    setSelected(value);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -42,7 +42,7 @@ export default function SortBy({ selected, setSelected }: Props) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const displayLabel = selected;
+  const displayLabel = options.find((o) => o.value === selected)?.label ?? selected;
 
   return (
     <div
@@ -65,7 +65,7 @@ export default function SortBy({ selected, setSelected }: Props) {
 
           <div className="flex items-center gap-1 min-w-0">
             <span className="text-[var(--Grey)] text-[14px] leading-[22px] whitespace-nowrap shrink-0">
-              Sort by{selected && ":"}
+              {t("public__dashboard__qr_table__controls__sort_placeholder")}{selected && ":"}
             </span>
             {selected && (
               <span className="text-[var(--Blue)] font-semibold text-[14px] leading-[22px] truncate">
@@ -85,24 +85,23 @@ export default function SortBy({ selected, setSelected }: Props) {
       {isOpen && (
         <div className="absolute z-10 flex flex-col items-start gap-1 w-full p-2 mt-[6px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
           {options.map((option) => {
-            const isSelected = selected === option;
+            const isSelected = selected === option.value;
             return (
               <div
-                key={option}
-                onClick={() => handleSelect(option)}
+                key={option.value}
+                onClick={() => handleSelect(option.value)}
                 className={`flex items-center self-stretch h-10 p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors ${
                   isSelected
                     ? "bg-[var(--Light-blue)]"
                     : "hover:bg-[var(--Light-blue)]"
                 }`}
               >
-                {/* Checkbox */}
                 <div className="shrink-0">
                   <RadioButton checked={isSelected} />
                 </div>
 
                 <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                  {option}
+                  {option.label}
                 </span>
               </div>
             );
