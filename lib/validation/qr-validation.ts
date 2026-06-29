@@ -379,7 +379,9 @@ function validateApp(
     appStoreLinks.forEach((link, index) => {
       const result = urlValidationSchema.safeParse(link.storeUrl ?? "");
       if (!result.success) {
-        const message = result.error.issues[0].message;
+        const message = !link.storeUrl?.trim()
+          ? t("ui__field_validation_errors__generic__required")
+          : result.error.issues[0].message;
         errors.push({ field: `Store URL ${index}`, message });
         fieldErrors[`appStoreUrl_${index}`] = message;
       }

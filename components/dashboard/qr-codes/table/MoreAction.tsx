@@ -52,7 +52,7 @@ export default function MoreAction({
     },
     {
       value: "Analytics",
-      label: "Analytics",
+      label: t("public__dashboard__qr_table__qr_card__download_option__analytics"),
       icon: <ChartBarSquare className="text-[var(--Dark-gray)] w-4 h-4" />,
     },
     {
@@ -266,7 +266,7 @@ export default function MoreAction({
         >
           <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
             <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-              Actions
+              {t("public__dashboard__qr_table__qr_card__actions")}
             </h4>
 
             <button onClick={() => setIsOpen(false)} aria-label="Close menu">
