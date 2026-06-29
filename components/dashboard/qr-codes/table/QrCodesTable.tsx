@@ -193,6 +193,7 @@ export default function QrCodesTable({
       <CustomDownloadModal
         open={isCustomDownloadModalOpen}
         onClose={handleCloseCustomDownloadModal}
+        item={selectedItem}
       />
 
       {/* Qr Preview Modal */}

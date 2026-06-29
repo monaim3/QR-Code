@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { Check } from "lucide-react";
 import Container from "@/components/common/parent-container";
 import CheckIcon from "@/components/icons/check-icon";
@@ -11,6 +10,7 @@ import { useGetProductsQuery } from "../../store/api/productApi";
 import { useAppDispatch } from "@/store/hooks";
 import { setCheckoutPriceId } from "@/store/slices/checkoutSlice";
 import { useT } from "@/utils/t";
+import { useEffect, useState } from "react";
 
 const getPlanNameKey = (trialDuration?: number) =>
   trialDuration === 7
@@ -30,6 +30,15 @@ export default function SmartQRPlanSelection() {
   const t = useT();
   const router = useRouter();
 
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
+
+useEffect(() => {
+  if (products?.[1]?.id && !selectedPlan) {
+    setSelectedPlan(products[1].id);
+  }
+}, [products, selectedPlan]);
+
+
   if (isLoading || !products || products.length < 3) {
   return (
     <div className="min-h-screen bg-[var(--Generator-Background)] flex items-center justify-center">
@@ -37,8 +46,6 @@ export default function SmartQRPlanSelection() {
     </div>
   );
 }
-
-  const [selectedPlan, setSelectedPlan] = useState(products[1].id);
 
   const plans = [
     {
