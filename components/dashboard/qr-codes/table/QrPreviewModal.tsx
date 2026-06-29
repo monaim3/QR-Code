@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,12 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import Download from "@/components/icons/download";
 import { QrCode as qrData } from "@/types/generatedQr";
-import Image from "next/image";
 import AlertTriangle from "@/components/icons/alert-triangle";
-import QrCodePreview from "./QrCodePreview";
-import { useRef } from "react";
-import { toPng, toJpeg, toSvg } from "html-to-image";
-import html2canvas from "html2canvas";
+import QrCodePreview, { QrCodePreviewHandle } from "./QrCodePreview";
+import { downloadQrCode } from "@/lib//qr/qrExportService";
 
 interface Props {
   open: boolean;
@@ -21,47 +21,15 @@ interface Props {
 }
 
 export default function QrPreviewModal({ open, onClose, item }: Props) {
+  const qrRef = useRef<QrCodePreviewHandle>(null);
 
-const exportRef = useRef<HTMLDivElement>(null);
-
-const downloadQr = async (format: "png" | "jpg" | "svg" = "png") => {
-  if (!exportRef.current) return;
-
-  const wrapper = document.createElement("div");
-
-  wrapper.style.padding = "40px 40px";
-  wrapper.style.background = "#fff";
-  wrapper.style.display = "inline-flex";
-  wrapper.style.justifyContent = "center";
-
-  const clone = exportRef.current.cloneNode(true) as HTMLElement;
-  wrapper.appendChild(clone);
-
-  document.body.appendChild(wrapper);
-
-  const options = {
-    pixelRatio: 3,
-    cacheBust: true,
-    backgroundColor: "#ffffff",
+  const handleDownload = async () => {
+    try {
+      await downloadQrCode(qrRef, "JPG", 1024, 1024);
+    } catch (err) {
+      console.error("Download failed:", err);
+    }
   };
-
-  let dataUrl: string;
-
-  if (format === "png") {
-    dataUrl = await toPng(wrapper, options);
-  } else if (format === "jpg") {
-    dataUrl = await toJpeg(wrapper, { ...options, quality: 1 });
-  } else {
-    dataUrl = await toSvg(wrapper, options);
-  }
-
-  document.body.removeChild(wrapper);
-
-  const link = document.createElement("a");
-  link.download = `qr-code-${Date.now()}.${format}`;
-  link.href = dataUrl;
-  link.click();
-};
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -83,8 +51,9 @@ const downloadQr = async (format: "png" | "jpg" | "svg" = "png") => {
           </p>
         </DialogHeader>
 
-        <div ref={exportRef} className="flex flex-col items-center justify-center gap-4">
-          <QrCodePreview qrCodeData={item as qrData} />
+        {/* This IS the preview — ref attached directly, no hidden copy needed */}
+        <div className="flex flex-col items-center justify-center gap-4">
+          <QrCodePreview ref={qrRef} qrCodeData={item as qrData} />
           <p className="text-[#3D75F3] text-[14px] leading-[22px] text-center">
             {item?.content.url}
           </p>
@@ -100,8 +69,9 @@ const downloadQr = async (format: "png" | "jpg" | "svg" = "png") => {
             </>
           ) : (
             <Button
-            onClick={() => downloadQr("jpg")}
-             className="h-10 w-[210px] flex items-center justify-center gap-2 py-2 px-4 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear">
+              onClick={handleDownload}
+              className="h-10 w-[210px] flex items-center justify-center gap-2 py-2 px-4 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear"
+            >
               <Download className="text-white" />
               Download
             </Button>

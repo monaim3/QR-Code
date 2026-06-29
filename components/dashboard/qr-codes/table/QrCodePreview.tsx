@@ -1,6 +1,6 @@
 import QrCodeLoader from "./QrCodeLoader";
 import { flushSync } from "react-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
 import { getLogoComponent } from "@/lib/logoRegistry";
 import { QrCode as qr } from "@/types/generatedQr";
@@ -11,59 +11,78 @@ interface Props {
   qrCodeData?: qr;
 }
 
-// Helper: extract clean URL from possible markdown format
+export interface QrCodePreviewHandle {
+  exportAsPng: (width: number, height: number) => Promise<Blob>;
+  exportAsJpg: (width: number, height: number) => Promise<Blob>;
+  exportAsSvg: () => Promise<Blob>;
+  getContainerElement: () => HTMLDivElement | null;
+}
+
 function extractUrl(raw: string): string {
-  // Matches [text](url) markdown format
   const markdownMatch = raw?.match(/\[.*?\]\((.*?)\)/);
   if (markdownMatch) return markdownMatch[1];
   return raw || "https://www.example.com";
 }
 
-// Helper: extract logo ID from full path like "/icons/socials/Youtube.svg"
 function extractLogoId(selected: string): string | null {
   if (!selected) return null;
-  if (!selected.includes("/")) return selected.toLowerCase(); // already an ID, just lowercase it
-  // "/icons/socials/Youtube.svg" → "youtube"
+  if (!selected.includes("/")) return selected.toLowerCase();
   return selected.split("/").pop()?.replace(".svg", "").toLowerCase() ?? null;
 }
 
-export default function QrCodePreview({
-  isLoading = false,
-  qrCodeData,
-}: Props) {
+const QrCodePreview = forwardRef<QrCodePreviewHandle, Props>(function QrCodePreview(
+  { isLoading = false, qrCodeData },
+  ref
+) {
   const mobileQrRef = useRef<SVGGElement>(null);
   const mobileQrCodeRef = useRef<QRCodeStyling | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedFrameIndex = (() => {
     const type = qrCodeData?.qrDesign?.frame?.type;
     if (!type || type === "default") return 0;
     const idx = Number(type);
-    // Guard: don't exceed QRFrameArray bounds
     return idx < QRFrameArray.length ? idx : 0;
   })();
 
   const selectedFrame = QRFrameArray[selectedFrameIndex];
   const SelectedFrameComponent = selectedFrame.frame;
 
+useImperativeHandle(ref, () => ({
+  getContainerElement: () => containerRef.current,
+
+  exportAsSvg: async (): Promise<Blob> => {
+    if (!containerRef.current) throw new Error("Container not ready");
+    const { captureQrAsBlob } = await import("@/lib/qr/qrCapture");
+    return captureQrAsBlob(containerRef.current, 1024, 1024, "image/svg+xml");
+  },
+
+  exportAsPng: async (width: number, height: number): Promise<Blob> => {
+    if (!containerRef.current) throw new Error("Container not ready");
+    const { captureQrAsBlob } = await import("@/lib/qr/qrCapture");
+    return captureQrAsBlob(containerRef.current, width, height, "image/png");
+  },
+
+  exportAsJpg: async (width: number, height: number): Promise<Blob> => {
+    if (!containerRef.current) throw new Error("Container not ready");
+    const { captureQrAsBlob } = await import("@/lib/qr/qrCapture");
+    return captureQrAsBlob(containerRef.current, width, height, "image/jpeg", 0.95);
+  },
+}));
+
   const createIconImage = (logoId: string): Promise<string | null> => {
     return new Promise((resolve) => {
       try {
         const LogoComponent = getLogoComponent(logoId);
-        if (!LogoComponent) {
-          resolve(null);
-          return;
-        }
+        if (!LogoComponent) { resolve(null); return; }
 
         const div = document.createElement("div");
-        div.style.cssText =
-          "position:absolute;left:-9999px;width:60px;height:60px;";
+        div.style.cssText = "position:absolute;left:-9999px;width:60px;height:60px;";
         document.body.appendChild(div);
 
         import("react-dom/client").then(({ createRoot }) => {
           const root = createRoot(div);
-          flushSync(() => {
-            root.render(<LogoComponent />);
-          });
+          flushSync(() => { root.render(<LogoComponent />); });
 
           const svg = div.querySelector("svg");
           if (!svg) {
@@ -92,9 +111,7 @@ export default function QrCodePreview({
           ctx.fill();
 
           const img = new Image();
-          const svgBlob = new Blob([svgData], {
-            type: "image/svg+xml;charset=utf-8",
-          });
+          const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
           const url = URL.createObjectURL(svgBlob);
 
           img.onload = () => {
@@ -105,14 +122,12 @@ export default function QrCodePreview({
             document.body.removeChild(div);
             resolve(dataUrl);
           };
-
           img.onerror = () => {
             URL.revokeObjectURL(url);
             root.unmount();
             document.body.removeChild(div);
             resolve(null);
           };
-
           img.src = url;
         });
       } catch (error) {
@@ -129,10 +144,7 @@ export default function QrCodePreview({
       const design = qrCodeData?.qrDesign;
       const cornerFrameStyle = design?.cornersSquareOptions?.type;
       const cornerDotType = design?.cornersDotOptions?.type;
-      const isTransparentBg =
-        (design?.backgroundOptions as any)?.transparent ?? false;
-
-      // FIX 4: parse markdown URLs
+      const isTransparentBg = (design?.backgroundOptions as any)?.transparent ?? false;
       const cleanUrl = extractUrl(qrCodeData?.content?.url ?? "");
 
       const qrOptions: Options = {
@@ -144,29 +156,20 @@ export default function QrCodePreview({
           type: design?.dotsOptions?.type as any,
         },
         backgroundOptions: {
-          // FIX 1: transparent bg support
           color: isTransparentBg
             ? "transparent"
             : (design?.backgroundOptions?.color ?? "#FFFFFF"),
         },
-        // FIX 2: guard "none" corner styles
         cornersSquareOptions:
           !cornerFrameStyle || cornerFrameStyle === "none"
             ? undefined
-            : {
-                color: design?.cornersSquareOptions?.color ?? "#000000",
-                type: cornerFrameStyle as any,
-              },
+            : { color: design?.cornersSquareOptions?.color ?? "#000000", type: cornerFrameStyle as any },
         cornersDotOptions:
           !cornerDotType || cornerDotType === "none"
             ? undefined
-            : {
-                color: design?.cornersDotOptions?.color ?? "#000000",
-                type: cornerDotType as any,
-              },
+            : { color: design?.cornersDotOptions?.color ?? "#000000", type: cornerDotType as any },
       };
 
-      // FIX 3: extract logo ID from full SVG path
       const rawSelected = design?.image?.selected || null;
       const selectedLogo = rawSelected ? extractLogoId(rawSelected) : null;
       const customLogo = design?.image?.uploaded || null;
@@ -176,8 +179,7 @@ export default function QrCodePreview({
         if (iconDataUrl) {
           qrOptions.image = iconDataUrl;
           qrOptions.imageOptions = {
-            hideBackgroundDots:
-              design?.imageOptions?.hideBackgroundDots ?? true,
+            hideBackgroundDots: design?.imageOptions?.hideBackgroundDots ?? true,
             imageSize: design?.imageOptions?.imageSize ?? 0.4,
             margin: design?.imageOptions?.margin ?? 0,
           };
@@ -219,7 +221,7 @@ export default function QrCodePreview({
   ]);
 
   return (
-    <div className="h-[160px]">
+    <div ref={containerRef} className="h-[160px]">
       {isLoading ? (
         <QrCodeLoader />
       ) : (
@@ -236,7 +238,6 @@ export default function QrCodePreview({
                   ? "transparent"
                   : (qrCodeData?.qrDesign?.frame?.background ?? "#FFFFFF")
               }
-              // FIX 5: proper textColor fallback
               textColor={
                 qrCodeData?.qrDesign?.frame?.textColor ||
                 (selectedFrame.frameColor === "black" ? "#FFFFFF" : "#000000")
@@ -254,4 +255,6 @@ export default function QrCodePreview({
       )}
     </div>
   );
-}
+});
+
+export default QrCodePreview;

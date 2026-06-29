@@ -12,8 +12,8 @@ import { Label } from "@/components/ui/label";
 import CustomDropDown from "./CustomDropDown";
 import Download from "@/components/icons/download";
 import { QrCode as qrData } from "@/types/generatedQr";
-import QrCodePreview from "./QrCodePreview";
-import { toPng, toJpeg, toSvg } from "html-to-image";
+import QrCodePreview, { QrCodePreviewHandle } from "./QrCodePreview";
+import { downloadQrCode, ExportFormat } from "@/lib/qr/qrExportService";
 
 interface Props {
   open: boolean;
@@ -21,126 +21,32 @@ interface Props {
   item?: qrData | null;
 }
 
-export default function CustomDownloadModal({
-  open,
-  onClose,
-  item,
-}: Props) {
-  const [selectedFileFormat, setSelectedFileFormat] =
-    useState<string>("SVG");
+export default function CustomDownloadModal({ open, onClose, item }: Props) {
+  const [selectedFileFormat, setSelectedFileFormat] = useState<ExportFormat>("SVG");
+  const [selectedSize, setSelectedSize] = useState<string>("1024x1024");
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const [selectedSize, setSelectedSize] =
-    useState<string>("1024x1024");
-
-  const exportRef = useRef<HTMLDivElement>(null);
-
-  const handleSelectFileFormat = (format: string) => {
-    setSelectedFileFormat(format);
-  };
-
-  const handleSelectSize = (size: string) => {
-    setSelectedSize(size);
-  };
+  const qrRef = useRef<QrCodePreviewHandle>(null);
 
   const getDimensions = () => {
     const [width, height] = selectedSize.split("x").map(Number);
-
-    return {
-      width,
-      height,
-    };
-  };
-
-  const downloadQr = async (
-    format: "png" | "jpg" | "svg" = "png",
-    width = 1024,
-    height = 1024
-  ) => {
-    if (!exportRef.current) return;
-
-    const wrapper = document.createElement("div");
-
-    wrapper.style.background = "#ffffff";
-    wrapper.style.padding = "40px";
-    wrapper.style.display = "inline-flex";
-    wrapper.style.alignItems = "center";
-    wrapper.style.justifyContent = "center";
-
-    const clone = exportRef.current.cloneNode(true) as HTMLElement;
-
-    wrapper.appendChild(clone);
-    document.body.appendChild(wrapper);
-
-    try {
-      const options = {
-        width,
-        height,
-        pixelRatio: 1,
-        cacheBust: true,
-        backgroundColor: "#ffffff",
-      };
-
-      let dataUrl = "";
-
-      if (format === "png") {
-        dataUrl = await toPng(wrapper, options);
-      } else if (format === "jpg") {
-        dataUrl = await toJpeg(wrapper, {
-          ...options,
-          quality: 1,
-        });
-      } else {
-        dataUrl = await toSvg(wrapper, options);
-      }
-
-      const link = document.createElement("a");
-
-      link.download = `qr-code-${width}x${height}.${format}`;
-      link.href = dataUrl;
-      link.click();
-    } catch (error) {
-      console.error("Failed to download QR:", error);
-    } finally {
-      document.body.removeChild(wrapper);
-    }
+    return { width, height };
   };
 
   const handleDownload = async () => {
-
-  console.log("item", item);
-  console.log("exportRef", exportRef.current);
-
-
     const { width, height } = getDimensions();
-
-    switch (selectedFileFormat) {
-      case "PNG":
-        await downloadQr("png", width, height);
-        break;
-
-      case "JPG":
-        await downloadQr("jpg", width, height);
-        break;
-
-      case "SVG":
-      case "SVG Tiny (Illustrator)":
-        await downloadQr("svg", width, height);
-        break;
-
-      case "PDF":
-        alert("PDF export is not implemented yet.");
-        break;
-
-      case "EPS":
-        alert("EPS export is not supported.");
-        break;
-
-      default:
-        await downloadQr("png", width, height);
-        break;
+    setIsDownloading(true);
+    setError(null);
+    try {
+      await downloadQrCode(qrRef, selectedFileFormat, width, height);
+      onClose();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Download failed";
+      setError(msg);
+    } finally {
+      setIsDownloading(false);
     }
-
-    onClose();
   };
 
   return (
@@ -154,85 +60,61 @@ export default function CustomDownloadModal({
           <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
             Custom download
           </DialogTitle>
-
           <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
             Select the format to download
           </p>
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* File Type */}
           <div className="flex flex-col items-start gap-2">
             <Label className="text-[var(--Black)] font-rubik font-medium text-[14px] leading-[16px]">
               Type of file
             </Label>
-
             <CustomDropDown
-              options={[
-                "SVG",
-                "PNG",
-                "JPG",
-                "SVG Tiny (Illustrator)",
-                "PDF",
-                "EPS",
-              ]}
+              options={["SVG", "PNG", "JPG", "SVG Tiny (Illustrator)", "PDF", "EPS"]}
               selectedOption={selectedFileFormat}
-              onSelect={handleSelectFileFormat}
+              onSelect={(v) => setSelectedFileFormat(v as ExportFormat)}
             />
           </div>
 
-          {/* Size */}
           <div className="flex flex-col items-start gap-2">
             <Label className="text-[var(--Black)] font-rubik font-medium text-[14px] leading-[16px]">
               Size of the QR code
             </Label>
-
             <CustomDropDown
-              options={[
-                "512x512",
-                "1024x1024",
-                "2048x2048",
-                "4096x4096",
-              ]}
+              options={["512x512", "1024x1024", "2048x2048", "4096x4096"]}
               selectedOption={selectedSize}
-              onSelect={handleSelectSize}
+              onSelect={setSelectedSize}
             />
           </div>
+
+          {error && (
+            <p className="text-[var(--error)] text-[13px]">{error}</p>
+          )}
         </div>
 
         <div className="flex items-center justify-center gap-4 self-stretch">
           <Button
             onClick={onClose}
+            disabled={isDownloading}
             variant="outline"
             className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] border-[var(--Blue)] text-[var(--Blue)] text-[14px] leading-[22px] bg-white hover:bg-[var(--Blue)] hover:text-white transition-all duration-300 ease-linear"
           >
             Cancel
           </Button>
-
           <Button
-            onClick={() => {
-              console.log("DOWNLOAD CLICKED");
-              handleDownload();
-            }}
+            onClick={handleDownload}
+            disabled={isDownloading}
             className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear"
           >
             <Download className="text-white" />
-            Download
+            {isDownloading ? "Downloading..." : "Download"}
           </Button>
         </div>
 
-        {/* Hidden QR for export */}
-        <div
-          ref={exportRef}
-          style={{
-            position: "fixed",
-            left: "-99999px",
-            top: "-99999px",
-            background: "#ffffff",
-            padding: "40px",
-          }}
-        >
-          {item && <QrCodePreview qrCodeData={item} />}
+        {/* Single source of truth — same instance used for preview and export */}
+        <div style={{ position: "fixed", top: "-9999px", left: "-9999px", pointerEvents: "none" }}>
+          {item && <QrCodePreview ref={qrRef} qrCodeData={item} />}
         </div>
       </DialogContent>
     </Dialog>
