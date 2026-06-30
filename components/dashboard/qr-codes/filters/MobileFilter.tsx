@@ -1,6 +1,7 @@
 import Close from "@/components/icons/close";
 import RadioButton from "./RadioButton";
 import { Button } from "@/components/ui/button";
+import { useT } from "@/utils/t";
 
 interface Props {
   isDrawerOpen: boolean;
@@ -25,38 +26,42 @@ export default function MobileFilter({
   setSelectedTypes,
   handleClearFilter,
 }: Props) {
+  const t = useT();
+
   const sortOptions = [
-    "Name",
-    "Type",
-    "Scans",
-    "Creation date",
-    "Last modified date",
-    "Status",
+    { value: "Name", label: t("public__dashboard__qr_table__controls__sort_name") },
+    { value: "Type", label: t("public__dashboard__qr_table__controls__sort_type") },
+    { value: "Scans", label: t("public__dashboard__qr_table__controls__sort_scans") },
+    { value: "Creation date", label: t("public__dashboard__qr_table__controls__sort_creation_date") },
+    { value: "Last modified date", label: t("public__dashboard__qr_table__controls__sort_updated_date") },
+    { value: "Status", label: t("public__dashboard__qr_table__controls__sort_status") },
   ];
 
-  const statusOptions = ["Active", "Paused"];
+  const statusOptions = [
+    { value: "Active", label: t("public__dashboard__qr_table__controls__status_active") },
+    { value: "Paused", label: t("public__dashboard__qr_table__controls__status_paused") },
+  ];
 
   const typeOptions = [
-    "Website URL",
-    "vCard",
-    "PDF",
-    "Images",
-    "Social Media",
-    "Video",
-    "Simple Text",
-    "Business Page",
-    "Facebook",
-    "Wi-Fi",
-    "App",
-    "Menu",
+    { value: "Website URL", label: t("generator__step_1__qr_type_cards__url__title") },
+    { value: "vCard", label: t("generator__step_1__qr_type_cards__vcard__title") },
+    { value: "PDF", label: t("generator__step_1__qr_type_cards__pdf__title") },
+    { value: "Images", label: t("generator__step_1__qr_type_cards__images__title") },
+    { value: "Social Media", label: t("public__api__messages__qr-categories__socialMedia__title") },
+    { value: "Video", label: t("generator__step_1__qr_type_cards__video__title") },
+    { value: "Simple Text", label: t("public__api__messages__qr-categories__plainText__title") },
+    { value: "Business Page", label: t("generator__step_1__qr_type_cards__business_page__title") },
+    { value: "Facebook", label: t("generator__step_1__qr_type_cards__facebook__title") },
+    { value: "Wi-Fi", label: t("generator__step_1__qr_type_cards__wifi__title") },
+    { value: "App", label: t("generator__step_1__qr_type_cards__app__title") },
+    { value: "Menu", label: t("generator__step_1__qr_type_cards__menu__title") },
   ];
 
-  // Toggle selection logic
-  const toggleTypeOption = (option: string) => {
-    if (selectedTypes.includes(option)) {
-      setSelectedTypes(selectedTypes.filter((item) => item !== option));
+  const toggleTypeOption = (value: string) => {
+    if (selectedTypes.includes(value)) {
+      setSelectedTypes(selectedTypes.filter((item) => item !== value));
     } else {
-      setSelectedTypes([...selectedTypes, option]);
+      setSelectedTypes([...selectedTypes, value]);
     }
   };
 
@@ -80,7 +85,7 @@ export default function MobileFilter({
       >
         <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
           <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-            Filters
+            {t("public__dashboard__qr_table__controls__filters")}
           </h4>
 
           <button
@@ -95,19 +100,19 @@ export default function MobileFilter({
           {/* Sort By */}
           <div className="flex flex-col items-start gap-4 tablet:px-8 px-5 self-stretch">
             <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
-              Sort by
+              {t("public__dashboard__qr_table__controls__sort_placeholder")}
             </p>
 
             <div className="flex flex-col items-start self-stretch">
               {sortOptions.map((item, index) => (
                 <div
                   key={index}
-                  onClick={() => setSelectedSortBy(item)}
+                  onClick={() => setSelectedSortBy(item.value)}
                   className="flex h-10 p-2 items-center gap-2 self-stretch"
                 >
-                  <RadioButton checked={item === selectedSortBy} />
+                  <RadioButton checked={item.value === selectedSortBy} />
                   <p className="text-[var(--Dark-Gray)] text-[14px] leading-[22px]">
-                    {item}
+                    {item.label}
                   </p>
                 </div>
               ))}
@@ -118,7 +123,7 @@ export default function MobileFilter({
           <div className="flex flex-col items-start gap-4 tablet:px-8 px-5 self-stretch">
             <div className="flex items-center gap-2 self-stretch">
               <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
-                QR code status
+                {t("public__dashboard__qr_table__controls__status_placeholder")}
               </p>
               {selectedStatus && (
                 <div className="flex w-4 h-4 p-0.5 flex-col justify-center items-center gap-2 bg-[var(--Blue)] rounded-full text-white text-[10px] leading-[10px]">
@@ -131,10 +136,10 @@ export default function MobileFilter({
               {statusOptions.map((item, index) => (
                 <div
                   key={index}
-                  onClick={() => setSelectedStatus(item)}
-                  className={`flex py-2 px-4 items-center gap-2 rounded-full text-[14px] leading-[22px] border ${item === selectedStatus ? "text-[var(--Blue)] border-[var(--Blue)] " : "text-[var(--Dark-Gray)] border-[var(--Boarder-Grey)]"}`}
+                  onClick={() => setSelectedStatus(item.value)}
+                  className={`flex py-2 px-4 items-center gap-2 rounded-full text-[14px] leading-[22px] border ${item.value === selectedStatus ? "text-[var(--Blue)] border-[var(--Blue)] " : "text-[var(--Dark-Gray)] border-[var(--Boarder-Grey)]"}`}
                 >
-                  {item}
+                  {item.label}
                 </div>
               ))}
             </div>
@@ -144,7 +149,7 @@ export default function MobileFilter({
           <div className="flex flex-col items-start gap-4 tablet:px-8 px-5 self-stretch">
             <div className="flex items-center gap-2 self-stretch">
               <p className="text-[var(--Black)] text-[16px] leading-[24px] font-semibold">
-                QR code type
+                {t("public__dashboard__qr_table__controls__type_placeholder")}
               </p>
               {selectedTypes.length > 0 && (
                 <div className="flex w-4 h-4 p-0.5 flex-col justify-center items-center gap-2 bg-[var(--Blue)] rounded-full text-white text-[10px] leading-[10px]">
@@ -157,10 +162,10 @@ export default function MobileFilter({
               {typeOptions.map((item, index) => (
                 <div
                   key={index}
-                  onClick={() => toggleTypeOption(item)}
-                  className={`flex py-2 px-4 items-center gap-2 rounded-full text-[14px] leading-[22px] border ${selectedTypes.includes(item) ? "text-[var(--Blue)] border-[var(--Blue)] " : "text-[var(--Dark-Gray)] border-[var(--Boarder-Grey)]"}`}
+                  onClick={() => toggleTypeOption(item.value)}
+                  className={`flex py-2 px-4 items-center gap-2 rounded-full text-[14px] leading-[22px] border ${selectedTypes.includes(item.value) ? "text-[var(--Blue)] border-[var(--Blue)] " : "text-[var(--Dark-Gray)] border-[var(--Boarder-Grey)]"}`}
                 >
-                  {item}
+                  {item.label}
                 </div>
               ))}
             </div>
@@ -173,10 +178,10 @@ export default function MobileFilter({
             variant="outline"
             className="flex h-10 px-4 py-2 justify-center items-center gap-2 flex-1 rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)] text-[var(--Blue)] text-[14px] leading-[22px]"
           >
-            Clear all
+            {t("public__dashboard__qr_table__controls__clear_all")}
           </Button>
           <Button className="flex h-10 px-4 py-2 justify-center items-center gap-2 flex-1 rounded-[var(--Corner-Radius-10)]  bg-[var(--Blue)] text-white text-[14px] leading-[22px]">
-            See results
+            {t("public__dashboard__qr_table__controls__see_results")}
           </Button>
         </div>
       </div>

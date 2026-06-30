@@ -6,15 +6,6 @@ import { useT } from "@/utils/t";
 import { useGetAnalyticsBatchQuery } from "@/store/api/analyticsApi";
 import { useAnalyticsParams } from "@/utils/useAnalyticsParams";
 
-const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
 
 const hours = Array.from({ length: 24 }, (_, i) => {
   const hour24 = (i + 1) % 24;
@@ -32,6 +23,16 @@ const hourToLabel = (h: number): string => {
 export default function ScanHeatmap() {
   const t = useT();
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
+
+  const days = [
+    { value: "Monday", label: t("generator__content_form_section__opening__hours_section__daynames__monday") },
+    { value: "Tuesday", label: t("generator__content_form_section__opening__hours_section__daynames__tuesday") },
+    { value: "Wednesday", label: t("generator__content_form_section__opening__hours_section__daynames__wednesday") },
+    { value: "Thursday", label: t("generator__content_form_section__opening__hours_section__daynames__thursday") },
+    { value: "Friday", label: t("generator__content_form_section__opening__hours_section__daynames__friday") },
+    { value: "Saturday", label: t("generator__content_form_section__opening__hours_section__daynames__saturday") },
+    { value: "Sunday", label: t("generator__content_form_section__opening__hours_section__daynames__sunday") },
+  ];
   const params = useAnalyticsParams();
   const { data } = useGetAnalyticsBatchQuery(params);
 
@@ -62,10 +63,10 @@ export default function ScanHeatmap() {
         <div className="flex-1 relative desktopDashboard:ml-[22.6px] desktopDashboard:mr-[27.74px] tablet:ml-[18px] tablet:mr-[20px] ml-[15.01px] mr-[15px]">
           <div className="grid grid-cols-7 gap-1">
             {days.map((day) => (
-              <div key={day} className="flex flex-col gap-1">
+              <div key={day.value} className="flex flex-col gap-1">
                 {hours.map((hour) => {
-                  const count = heatData[`${day}-${hour}`] || 0;
-                  const cellId = `${day}-${hour}`;
+                  const count = heatData[`${day.value}-${hour}`] || 0;
+                  const cellId = `${day.value}-${hour}`;
                   const isHovered = hoveredCell === cellId;
 
                   return (
@@ -85,7 +86,7 @@ export default function ScanHeatmap() {
                         <div className="absolute z-50 bottom-full mb-1 pointer-events-none">
                           <CustomTooltip
                             active={true}
-                            label={`${day} ${hour}`}
+                            label={`${day.label} ${hour}`}
                             isHeatmap={true}
                             payload={[
                               {
@@ -108,11 +109,11 @@ export default function ScanHeatmap() {
           <div className="grid grid-cols-7 gap-1 mt-4">
             {days.map((day) => (
               <span
-                key={day}
+                key={day.value}
                 className="text-center text-[12px] leading-[20px] text-[var(--placeholder-grey)] flex-shrink-0"
               >
-                <span className="hidden desktopDashboard:inline">{day}</span>
-                <span className="desktopDashboard:hidden">{day.charAt(0)}</span>
+                <span className="hidden desktopDashboard:inline">{day.label}</span>
+                <span className="desktopDashboard:hidden">{day.label.charAt(0)}</span>
               </span>
             ))}
           </div>

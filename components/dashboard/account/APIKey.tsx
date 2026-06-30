@@ -1,11 +1,15 @@
+"use client";
+
 import Copy from "@/components/icons/copy";
 import Ellipse266 from "@/components/icons/ellipse-266";
 import Eye from "@/components/icons/eye";
 import EyeOff from "@/components/icons/eye-off";
 import TrashAlt from "@/components/icons/trash-alt";
 import { useState } from "react";
+import { useT } from "@/utils/t";
 
 export default function APIKey() {
+  const t = useT();
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -47,7 +51,7 @@ export default function APIKey() {
       </div>
       <button className="flex h-10 px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] border border-[var(--Boarder-Grey)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] text-[14px] leading-[22px]">
         <TrashAlt className="text-[var(--error)]" />
-        <span className="text-[var(--error)]">Delete</span>
+        <span className="text-[var(--error)]">{t("ui__file_upload__delete_button")}</span>
       </button>
     </div>
   );

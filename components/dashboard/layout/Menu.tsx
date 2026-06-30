@@ -14,33 +14,35 @@ import DashboardMenuIcon from "@/components/icons/menu";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { toggleCollapsed } from "@/store/slices/sidebarSlice";
 import { useLogoutUserMutation } from "@/store/api/accountApi";
+import { useT } from "@/utils/t";
 
 export default function Menu() {
   const dispatch = useAppDispatch();
   const collapsed = useAppSelector((state) => state.sidebar.collapsed);
   const [logoutUser, { isLoading }] = useLogoutUserMutation();
+  const t = useT();
 
   const toggleCollapse = () => {
     dispatch(toggleCollapsed());
   };
 
   const navItems = [
-    { icon: ChartBarSquare, label: "Analytics", href: "/cabinet/analytics" },
-    { icon: QrCode5, label: "QR Codes", href: "/cabinet/qr-codes" },
-    { icon: User, label: "Account", href: "/cabinet/account" },
-    { icon: CreditCards, label: "Billing", href: "/cabinet/billing" },
+    { icon: ChartBarSquare, label: t("public__dashboard__sidebar__link_groups__analytics"), href: "/cabinet/analytics" },
+    { icon: QrCode5, label: t("public__dashboard__sidebar__link_groups__qr_codes"), href: "/cabinet/qr-codes" },
+    { icon: User, label: t("public__dashboard__sidebar__link_groups__account"), href: "/cabinet/account" },
+    { icon: CreditCards, label: t("public__dashboard__sidebar__link_groups__billing"), href: "/cabinet/billing" },
   ];
 
   const utilityLinks = [
     {
       icon: Support,
-      label: "Help",
+      label: t("public__dashboard__sidebar__link_groups__help"),
       href: "/cabinet/contact-us",
       onClick: () => {},
     },
-    { icon: LogOut, 
-      label: "Log out",
-       href: "/", 
+    { icon: LogOut,
+      label: t("public__dashboard__sidebar__link_groups__logout"),
+       href: "/",
        onClick: async () => {
         await logoutUser().unwrap();
         window.location.href = "/";

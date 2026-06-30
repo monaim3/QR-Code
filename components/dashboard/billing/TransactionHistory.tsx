@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useT } from "@/utils/t";
 import MethodDropdown from "./MethodDropdown";
 import ClearFilter from "../qr-codes/filters/ClearFilter";
 import TransactionTable from "./TransactionTable";
@@ -9,6 +10,7 @@ import MobileTransactionHistory from "./MobileTransactionHistory";
 import MobileBillingFilter from "./MobileBillingFilter";
 
 export default function TransactionHistory() {
+  const t = useT();
   const [selectedMethod, setSelectedMethod] = useState<string[]>([]);
   const [selectedSortBy, setSelectedSortBy] = useState<string>("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -24,7 +26,7 @@ export default function TransactionHistory() {
     <div className="flex flex-col items-start gap-4 self-stretch">
       <div className="flex items-center desktopDashboard:gap-6 gap-4 self-stretch p-4 desktopDashboard:p-0 bg-white desktopDashboard:bg-transparent rounded-[var(--Corner-Radius-10)]">
         <p className="text-[var(--Black)] text-[18px] leading-[26px] font-bold flex-1">
-          Transaction History
+          {t("public__dashboard__billing__transaction_history__title")}
         </p>
 
         <div className="flex items-center gap-4">

@@ -1,9 +1,17 @@
+"use client";
 import Circle from "@/components/icons/circle";
 import Download from "@/components/icons/download";
 import { invoices } from "@/lib/data";
 import { getStatusStyles } from "@/lib/utils";
+import { useT } from "@/utils/t";
 
 export default function MobileTransactionHistory() {
+  const t = useT();
+  const statusLabel = (status: string) => {
+    if (status === "Paid") return t("public__dashboard__billing__table__status_paid");
+    if (status === "Failed") return t("public__dashboard__billing__table__status_failed");
+    return status;
+  };
   return (
     <div className="flex flex-col items-start gap-2 self-stretch desktopDashboard:hidden">
       {invoices?.map((invoice, index) => (
@@ -32,7 +40,7 @@ export default function MobileTransactionHistory() {
                 <span
                   className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(invoice.status)}`}
                 >
-                  {invoice.status}
+                  {statusLabel(invoice.status)}
                 </span>
               </div>
             </div>
@@ -50,7 +58,7 @@ export default function MobileTransactionHistory() {
           {invoice.status === "Paid" && (
             <button className="flex h-10 px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] bg-white border border-[var(--Boarder-Grey)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] text-[var(--Dark-gray)] text-[14px] leading-[22px] w-full">
               <Download className="text-[var(--Dark-gray)]" />
-              Download invoice
+              {t("public__dashboard__billing__table__download_invoice")}
             </button>
           )}
         </div>

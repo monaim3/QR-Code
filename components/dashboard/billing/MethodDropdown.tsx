@@ -1,4 +1,6 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
+import { useT } from "@/utils/t";
 import ChevronDownSmall from "@/components/icons/chevron-down-small";
 import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import CloseCircle from "@/components/icons/close-circle";
@@ -11,17 +13,23 @@ interface Props {
 }
 
 export default function MethodDropdown({ selected, setSelected }: Props) {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const options = ["Credit or debit card", "Paypal", "Google Pay", "Apple Pay"];
+  const options = [
+    { value: "Credit or debit card", label: t("public__dashboard__billing__payment_method__credit_card") },
+    { value: "Paypal", label: t("public__dashboard__billing__payment_method__paypal") },
+    { value: "Google Pay", label: t("public__dashboard__billing__payment_method__google_pay") },
+    { value: "Apple Pay", label: t("public__dashboard__billing__payment_method__apple_pay") },
+  ];
 
   // Toggle selection logic
-  const toggleOption = (option: string) => {
-    if (selected.includes(option)) {
-      setSelected(selected.filter((item) => item !== option));
+  const toggleOption = (value: string) => {
+    if (selected.includes(value)) {
+      setSelected(selected.filter((item) => item !== value));
     } else {
-      setSelected([...selected, option]);
+      setSelected([...selected, value]);
     }
   };
 
@@ -39,11 +47,14 @@ export default function MethodDropdown({ selected, setSelected }: Props) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const selectedLabels = options
+    .filter((o) => selected.includes(o.value))
+    .map((o) => o.label);
   const displayLabel =
-    selected.length > 0
-      ? selected.length > 2
-        ? selected.slice(0, 2).join(" / ") + " + " + (selected.length - 2)
-        : selected.join(" / ")
+    selectedLabels.length > 0
+      ? selectedLabels.length > 2
+        ? selectedLabels.slice(0, 2).join(" / ") + " + " + (selectedLabels.length - 2)
+        : selectedLabels.join(" / ")
       : "";
 
   return (
@@ -67,7 +78,7 @@ export default function MethodDropdown({ selected, setSelected }: Props) {
 
           <div className="flex items-center gap-1 min-w-0">
             <span className="text-[var(--Grey)] text-[14px] leading-[22px] whitespace-nowrap shrink-0">
-              Payment method{selected.length > 0 && ":"}
+              {t("public__dashboard__billing__subscription__payment_method")}{selected.length > 0 && ":"}
             </span>
             {selected.length > 0 && (
               <span className="text-[var(--Blue)] font-semibold text-[14px] leading-[22px] truncate">
@@ -88,11 +99,11 @@ export default function MethodDropdown({ selected, setSelected }: Props) {
         <div className="absolute z-10 flex flex-col items-start gap-1 w-full p-2 mt-[6px] bg-white rounded-[var(--Corner-Radius-8)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] animate-in fade-in zoom-in duration-150">
           <div className="max-h-[280px] overflow-y-auto custom-scrollbar pr-1 w-full">
             {options.map((option) => {
-              const isSelected = selected.includes(option);
+              const isSelected = selected.includes(option.value);
               return (
                 <div
-                  key={option}
-                  onClick={() => toggleOption(option)}
+                  key={option.value}
+                  onClick={() => toggleOption(option.value)}
                   className={`flex items-center self-stretch h-10 p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors ${
                     isSelected
                       ? "bg-[var(--Light-blue)]"
@@ -105,7 +116,7 @@ export default function MethodDropdown({ selected, setSelected }: Props) {
                   </div>
 
                   <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                    {option}
+                    {option.label}
                   </span>
                 </div>
               );

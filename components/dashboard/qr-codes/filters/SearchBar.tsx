@@ -30,7 +30,7 @@ export default function SearchBar({ query, setQuery }: Props) {
           <Search />
           <input
             type="text"
-            placeholder="Search by QR code name..."
+            placeholder={t("public__dashboard__qr_table__controls__search_placeholder")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setIsFocused(true)}

@@ -6,6 +6,7 @@ import LinkAlt01 from "@/components/icons/link-alt-01";
 import PauseCircle from "@/components/icons/pause-circle";
 import { getStatusStyles, normalizeUrl } from "@/lib/utils";
 import { QrCode as qrData } from "@/types/generatedQr";
+import { useT } from "@/utils/t";
 
 interface Props {
   item: qrData;
@@ -20,9 +21,15 @@ export default function QrInfo({
   onEditUrl,
   onQrPreviewModal,
 }: Props) {
+  const t = useT();
+
   const handleCopy = async () => {
     await navigator.clipboard.writeText(item.content.url);
   };
+
+  const statusLabel = item.disabled === false
+    ? t("public__dashboard__qr_table__controls__status_active")
+    : t("public__dashboard__qr_table__controls__status_paused");
 
   return (
     <div className="inline-flex flex-col items-start desktopDashboard:gap-1 gap-2">
@@ -52,7 +59,8 @@ export default function QrInfo({
       <div className="flex items-center gap-4">
         {/* Type */}
         <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-          Type <span className="text-[var(--Black)]">{item.content.type}</span>
+          {t("public__dashboard__qr_table__controls__sort_type")}{" "}
+          <span className="text-[var(--Black)]">{item.content.type}</span>
         </p>
 
         {/* Line */}
@@ -63,7 +71,7 @@ export default function QrInfo({
           <span className="text-[var(--Black)] font-semibold">
             {item.scansAmount}
           </span>{" "}
-          scans
+          {t("public__dashboard__qr_table__qr__card__scans").toLowerCase()}
         </p>
 
         {/* Line */}
@@ -75,7 +83,7 @@ export default function QrInfo({
             <>
               <PauseCircle className="text-[var(--Grey)]" />
               <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
-                Paused
+                {t("public__dashboard__qr_table__controls__status_paused")}
               </span>
             </>
           ) : (
@@ -84,7 +92,7 @@ export default function QrInfo({
               <span
                 className={`text-[14px] leading-[22px] font-medium ${getStatusStyles(item.disabled === false ? "Active" : "Paused")}`}
               >
-                {item.disabled === false ? "Active" : "Paused"}
+                {statusLabel}
               </span>
             </>
           )}
@@ -95,7 +103,7 @@ export default function QrInfo({
 
         {/* Info */}
         <p className="text-[var(--Black)] text-[14px] leading-[22px] desktopDashboard:hidden">
-          Created: {item.createdAt}
+          {t("public__dashboard__qr_table__qr_card__creation_date").replace("{date}", item.createdAt)}
         </p>
       </div>
 

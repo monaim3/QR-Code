@@ -11,11 +11,12 @@ import Close from "@/components/icons/close";
 import ShareAndroid from "@/components/icons/share-android";
 import Download from "@/components/icons/download";
 import { useRouter } from "next/navigation";
-import { useDeleteQrCodesMutation, 
+import { useDeleteQrCodesMutation,
   useDuplicateQrCodeMutation,
-  useResetQrScansMutation, 
-  useDeactivateQrCodesMutation, 
+  useResetQrScansMutation,
+  useDeactivateQrCodesMutation,
   useActivateQrCodesMutation } from "@/store/api/qrCodesApi";
+import { useT } from "@/utils/t";
 
 interface Props {
    id: string;
@@ -30,6 +31,7 @@ export default function MoreAction({
   onCustomDownloadModal,
   onShareModal,
 }: Props) {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
   const [showAbove, setShowAbove] = useState(false);
@@ -44,37 +46,46 @@ export default function MoreAction({
 
   const options = [
     {
+      value: "Edit",
+      label: t("public__dashboard__qr_table__qr_card__download_option__edit"),
       icon: <Edit className="text-[var(--Dark-gray)] w-4 h-4" />,
-      label: "Edit",
     },
     {
+      value: "Analytics",
+      label: t("public__dashboard__qr_table__qr_card__download_option__analytics"),
       icon: <ChartBarSquare className="text-[var(--Dark-gray)] w-4 h-4" />,
-      label: "Analytics",
     },
     {
+      value: active ? "Pause" : "Resume",
+      label: active
+        ? t("public__dashboard__qr_table__qr_card__download_option__pause")
+        : "Resume",
       icon: <PauseCircle className="text-[var(--Dark-gray)] w-4 h-4" />,
-      label: active ? "Pause" : "Resume",
     },
     {
+      value: "Duplicate",
+      label: t("public__dashboard__qr_table__qr_card__download_option__duplicate"),
       icon: <Copy className="text-[var(--Dark-gray)] w-4 h-4" />,
-      label: "Duplicate",
     },
     {
+      value: "Reset scans",
+      label: t("public__dashboard__qr_table__qr_card__download_option__reset_scans"),
       icon: <RefreshCw className="text-[var(--Dark-gray)] w-4 h-4" />,
-      label: "Reset scans",
     },
     {
+      value: "Change QR type",
+      label: t("public__dashboard__qr_table__qr_card__download_option__change_qr_type"),
       icon: <QrCode5 className="text-[var(--Dark-gray)] w-4 h-4" />,
-      label: "Change QR type",
     },
     {
+      value: "Delete",
+      label: t("public__dashboard__qr_table__qr_card__download_option__delete"),
       icon: <TrashAlt className="text-[var(--error)] w-4 h-4" />,
-      label: "Delete",
     },
   ];
 
-  const handleSelect = (option: string) => {
-    switch (option) {
+  const handleSelect = (value: string) => {
+    switch (value) {
       case "Download":
         setIsDownloadOpen(true);
         break;
@@ -84,21 +95,21 @@ export default function MoreAction({
       case "Edit":
         router.push("/qr-codes/edit");
         break;
-        case "Delete":
-          handleDelete(id);
-          break;
-        case "Duplicate":
-          handleDuplicate(id);
-          break;
-        case "Reset scans":
-          handleResetScans(id);
-          break;
-        case "Pause":
-          handleDeactivate(id);
-          break;
-        case "Resume":
-          handleActivate(id);
-          break;
+      case "Delete":
+        handleDelete(id);
+        break;
+      case "Duplicate":
+        handleDuplicate(id);
+        break;
+      case "Reset scans":
+        handleResetScans(id);
+        break;
+      case "Pause":
+        handleDeactivate(id);
+        break;
+      case "Resume":
+        handleActivate(id);
+        break;
       default:
         break;
     }
@@ -106,17 +117,17 @@ export default function MoreAction({
   };
 
   const downLoadOptions = [
-    "SVG",
-    "PNG",
-    "JPG",
-    "SVG Tiny (Illustrator)",
-    "PDF",
-    "EPS",
-    "Custom download",
+    { value: "SVG", label: t("public__dashboard__qr_table__qr_card__download_option__svg") },
+    { value: "PNG", label: t("public__dashboard__qr_table__qr_card__download_option__png") },
+    { value: "JPG", label: t("public__dashboard__qr_table__qr_card__download_option__jpg") },
+    { value: "SVG Tiny (Illustrator)", label: t("public__dashboard__qr_table__qr_card__download_option__svg__tiny_illustrator") },
+    { value: "PDF", label: t("public__dashboard__qr_table__qr_card__download_option__pdf") },
+    { value: "EPS", label: t("public__dashboard__qr_table__qr_card__download_option__eps") },
+    { value: "Custom download", label: t("public__dashboard__qr_table__qr_card__download_option__custom") },
   ];
 
-  const handleDownloadSelect = (option: string) => {
-    if (option === "Custom download") {
+  const handleDownloadSelect = (value: string) => {
+    if (value === "Custom download") {
       onCustomDownloadModal();
     }
     setIsOpen(false);
@@ -124,13 +135,11 @@ export default function MoreAction({
 
   const handleToggleDropdown = () => {
     if (!isOpen && buttonRef.current) {
-      // Check position before opening
       const rect = buttonRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const spaceBelow = viewportHeight - rect.bottom;
-      const dropdownHeight = 350; // Approximate height of dropdown (7 options + padding)
+      const dropdownHeight = 350;
 
-      // If not enough space below, show above
       setShowAbove(spaceBelow < dropdownHeight);
     }
     setIsOpen(!isOpen);
@@ -151,7 +160,6 @@ export default function MoreAction({
   const handleDuplicate = async (id: string) => {
   try {
     await duplicateQrCode({ id }).unwrap();
-    // No need to manually refetch
   } catch (err) {
     console.error(err);
   }
@@ -186,7 +194,7 @@ export default function MoreAction({
     console.error(err);
   }
   };
-  // Close dropdown when clicking outside
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -217,26 +225,24 @@ export default function MoreAction({
             showAbove ? "bottom-full mb-[22px]" : "top-full mt-[22px]"
           }`}
         >
-          {options.map((option, i) => {
-            return (
-              <div
-                key={i}
-                onClick={() => handleSelect(option.label)}
-                className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
+          {options.map((option, i) => (
+            <div
+              key={i}
+              onClick={() => handleSelect(option.value)}
+              className="flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]"
+            >
+              {option.icon}
+              <span
+                className={`text-[14px] leading-[16px] ${
+                  option.value === "Delete"
+                    ? "text-[var(--error)]"
+                    : "text-[var(--Dark-gray)]"
+                }`}
               >
-                {option.icon}
-                <span
-                  className={`text-[14px] leading-[16px] ${
-                    option.label === "Delete"
-                      ? "text-[var(--error)]"
-                      : "text-[var(--Dark-gray)]"
-                  }`}
-                >
-                  {option.label}
-                </span>
-              </div>
-            );
-          })}
+                {option.label}
+              </span>
+            </div>
+          ))}
         </div>
       )}
 
@@ -260,7 +266,7 @@ export default function MoreAction({
         >
           <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
             <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-              Actions
+              {t("public__dashboard__qr_table__qr_card__actions")}
             </h4>
 
             <button onClick={() => setIsOpen(false)} aria-label="Close menu">
@@ -269,66 +275,60 @@ export default function MoreAction({
           </div>
 
           <div className="flex flex-col items-start gap-1 tablet:px-8 px-5 py-4">
-            {options.slice(0, options.length - 1).map((option, i) => {
-              return (
-                <div
-                  key={i}
-                  onClick={() => handleSelect(option.label)}
-                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
+            {options.slice(0, options.length - 1).map((option, i) => (
+              <div
+                key={i}
+                onClick={() => handleSelect(option.value)}
+                className="flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white"
+              >
+                {option.icon}
+                <span
+                  className={`text-[14px] leading-[16px] ${
+                    option.value === "Delete"
+                      ? "text-[var(--error)]"
+                      : "text-[var(--Dark-gray)]"
+                  }`}
                 >
-                  {option.icon}
-                  <span
-                    className={`text-[14px] leading-[16px] ${
-                      option.label === "Delete"
-                        ? "text-[var(--error)]"
-                        : "text-[var(--Dark-gray)]"
-                    }`}
-                  >
-                    {option.label}
-                  </span>
-                </div>
-              );
-            })}
+                  {option.label}
+                </span>
+              </div>
+            ))}
             <div
               onClick={() => handleSelect("Share")}
-              className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
+              className="flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white"
             >
               <ShareAndroid className="text-[var(--Dark-gray)] w-4 h-4" />
               <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
-                Share
+                {t("public__dashboard__qr_table__qr_card__download_option__share")}
               </span>
             </div>
             <div
-              onClick={() => {
-                handleSelect("Download");
-              }}
-              className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
+              onClick={() => handleSelect("Download")}
+              className="flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white"
             >
               <Download className="text-[var(--Dark-gray)] w-4 h-4" />
               <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
-                Download
+                {t("public__dashboard__qr_table__qr_card__download_option__download")}
               </span>
             </div>
-            {options.slice(options.length - 1).map((option, i) => {
-              return (
-                <div
-                  key={i}
-                  onClick={() => handleSelect(option.label)}
-                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
+            {options.slice(options.length - 1).map((option, i) => (
+              <div
+                key={i}
+                onClick={() => handleSelect(option.value)}
+                className="flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white"
+              >
+                {option.icon}
+                <span
+                  className={`text-[14px] leading-[16px] ${
+                    option.value === "Delete"
+                      ? "text-[var(--error)]"
+                      : "text-[var(--Dark-gray)]"
+                  }`}
                 >
-                  {option.icon}
-                  <span
-                    className={`text-[14px] leading-[16px] ${
-                      option.label === "Delete"
-                        ? "text-[var(--error)]"
-                        : "text-[var(--Dark-gray)]"
-                    }`}
-                  >
-                    {option.label}
-                  </span>
-                </div>
-              );
-            })}
+                  {option.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -353,7 +353,7 @@ export default function MoreAction({
         >
           <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
             <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-              Download
+              {t("public__dashboard__qr_table__qr_card__download_option__download")}
             </h4>
 
             <button
@@ -365,19 +365,17 @@ export default function MoreAction({
           </div>
 
           <div className="flex flex-col items-start gap-1 tablet:px-8 px-5 py-4">
-            {downLoadOptions.map((option, i) => {
-              return (
-                <div
-                  key={i}
-                  onClick={() => handleDownloadSelect(option)}
-                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white`}
-                >
-                  <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
-                    {option}
-                  </span>
-                </div>
-              );
-            })}
+            {downLoadOptions.map((option, i) => (
+              <div
+                key={i}
+                onClick={() => handleDownloadSelect(option.value)}
+                className="flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] bg-white"
+              >
+                <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
+                  {option.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -145,7 +145,7 @@ export default function FooterBreadcrumb() {
                 onClick={handleExits}
                 className="flex h-12 py-0 px-4 justify-center items-center gap-1 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]"
               >
-                <span className="hidden desktop:inline">Exit</span>
+                <span className="hidden desktop:inline">{t("generator__footer__edit_mode__exit_button")}</span>
                 <span className="desktop:hidden">
                   <Close className="w-4 h-4 text-[var(--Grey)]" />
                 </span>
