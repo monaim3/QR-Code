@@ -29,6 +29,7 @@ export default function Actions({
         {/* Download */}
         <DownloadAction
           onCustomDownloadModal={() => onCustomDownloadModal(item)}
+          item={item}
         />
       </div>
 

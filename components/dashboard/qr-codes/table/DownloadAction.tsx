@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Download from "@/components/icons/download";
 import { QrCode as qrData } from "@/types/generatedQr";
-import { downloadQrCode, ExportFormat } from "@/lib/qr/qrExportService";
-import QrCodePreview, { QrCodePreviewHandle } from "./QrCodePreview";
+import { downloadQrCodeFromContainer, ExportFormat } from "@/lib/qr/qrExportService";
+import QrCodePreview from "./QrCodePreview";
 
 interface Props {
   onCustomDownloadModal: () => void;
@@ -15,7 +15,7 @@ export default function DownloadAction({ onCustomDownloadModal, item }: Props) {
   const [loadingOption, setLoadingOption] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const qrRef = useRef<QrCodePreviewHandle>(null);
+  const containerRef = useRef<HTMLDivElement>(null); // wraps the hidden QrCodePreview
 
   const options = [
     "SVG",
@@ -34,12 +34,12 @@ export default function DownloadAction({ onCustomDownloadModal, item }: Props) {
       onCustomDownloadModal();
       return;
     }
-
     setLoadingOption(option);
     try {
-      // Same as QrPreviewModal — qrRef is already mounted and painted, just call directly
-      await downloadQrCode(
-        qrRef,
+      if (!containerRef.current) throw new Error("QR preview container not mounted");
+      // Same working pattern as the other page — capture directly from the rendered SVG container
+      await downloadQrCodeFromContainer(
+        containerRef.current,
         option as ExportFormat,
         1024,
         1024
@@ -111,11 +111,11 @@ export default function DownloadAction({ onCustomDownloadModal, item }: Props) {
       )}
 
       {/*
-        Mounted exactly like QrPreviewModal — always in DOM, always painted.
-        QrPreviewModal attaches ref to the visible preview.
-        Here we use a hidden copy at -9999px (same idea, just not visible).
+        Hidden container that wraps the rendered QR SVG — captureQrAsBlob reads
+        directly from this DOM node, same approach used on the working page.
       */}
       <div
+        ref={containerRef}
         style={{
           position: "fixed",
           top: "-9999px",
@@ -126,7 +126,7 @@ export default function DownloadAction({ onCustomDownloadModal, item }: Props) {
           height: "200px",
         }}
       >
-        <QrCodePreview ref={qrRef} qrCodeData={item} />
+        <QrCodePreview qrCodeData={item} />
       </div>
     </div>
   );

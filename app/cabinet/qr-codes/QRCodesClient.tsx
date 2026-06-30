@@ -14,9 +14,10 @@ import { useSearchParams } from "next/navigation";
 import { useT } from "@/utils/t";
 import { useGetQrCodesQuery } from "@/store/api/qrCodesApi";
 import { QrCode as qrData } from "@/types/generatedQr";
+import { useEffect } from "react";
 
 export default function QrCodesClient() {
-  const { data, isLoading, isError } = useGetQrCodesQuery();
+  const { data, isLoading, isError, refetch } = useGetQrCodesQuery(undefined, {refetchOnMountOrArgChange: true,});
   const t = useT();
   const [qrData, setQrData] = useState<qrData[]>(data || []);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -31,6 +32,11 @@ export default function QrCodesClient() {
     types: [],
     sortBy: "",
   });
+
+  // ── pagination state ──────────────────────────────────────────────
+  const [perPage, setPerPage] = useState<string>("10"); // "10" | "25" | "50" | "All"
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   const searchParams = useSearchParams();
   const banner = searchParams.get("banner");
   const noData = searchParams.get("nodata");
@@ -40,7 +46,6 @@ export default function QrCodesClient() {
   const filteredQrData = useMemo(() => {
     let filtered = [...qrData];
 
-    // Filter by search query (search in title)
     if (filters.query.trim()) {
       const queryLower = filters.query.toLowerCase().trim();
       filtered = filtered.filter((item) =>
@@ -48,20 +53,17 @@ export default function QrCodesClient() {
       );
     }
 
-    // Filter by status
     if (filters.status) {
-      filtered = filtered.filter((item)=>{
+      filtered = filtered.filter((item) => {
         const itemStatus = item.disabled === false ? "Active" : "Paused";
         return itemStatus === filters.status;
       });
     }
 
-    // Filter by types
     if (filters.types.length > 0) {
       filtered = filtered.filter((item) => filters.types.includes(item.content.type));
     }
 
-    // Sort data
     if (filters.sortBy) {
       switch (filters.sortBy) {
         case "name-asc":
@@ -98,6 +100,19 @@ export default function QrCodesClient() {
     return filtered;
   }, [qrData, filters]);
 
+  // ── derive page size & slice ──────────────────────────────────────
+  const pageSize = perPage === "All" ? filteredQrData.length || 1 : Number(perPage);
+  const totalEntries = filteredQrData.length;
+  const totalPages = Math.max(1, Math.ceil(totalEntries / pageSize));
+
+  // clamp current page if filters/page-size shrink the result set
+  const safePage = Math.min(currentPage, totalPages);
+
+  const paginatedQrData = useMemo(() => {
+    const start = (safePage - 1) * pageSize;
+    return filteredQrData.slice(start, start + pageSize);
+  }, [filteredQrData, safePage, pageSize]);
+
   const handleToggleSelection = useCallback((id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
@@ -116,11 +131,9 @@ export default function QrCodesClient() {
 
   const handleSelectAll = useCallback(() => {
     setSelectedIds((prev) => {
-      // If all items are selected, deselect all
       if (prev.size === filteredQrData.length) {
         return new Set();
       }
-      // Otherwise, select all
       return new Set(filteredQrData.map((item) => item.id));
     });
   }, [filteredQrData]);
@@ -146,9 +159,29 @@ export default function QrCodesClient() {
     [],
   );
 
+  // ── pagination handlers ─────────────────────────────────────────
+  const handlePerPageChange = useCallback((value: string) => {
+    setPerPage(value);
+    setCurrentPage(1); // reset to page 1 whenever page size changes
+  }, []);
+
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page);
+  }, []);
+
   const selectedCount = selectedIds.size;
   const hasSelection = selectedCount > 0;
   const allSelected = selectedCount === filteredQrData.length && filteredQrData.length > 0;
+
+  useEffect(() => {
+    if (data) {
+      setQrData(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return (
     <>
@@ -179,18 +212,24 @@ export default function QrCodesClient() {
           onFilterChange={setFilters}
         />
 
-        {/* filteredQrData.length > 0 */}
         {noData !== "true" ? (
           <>
-            {/* Table */}
+            {/* Table — now fed the paginated slice, not raw data */}
             <QrCodesTable
-              qrData={data || []}
+              qrData={paginatedQrData}
               selectedIds={selectedIds}
               onToggleSelection={handleToggleSelection}
               onUpdateQrCode={handleUpdateQrCode}
             />
             {/* Pagination */}
-            <Pagination />
+            <Pagination
+              totalEntries={totalEntries}
+              currentPage={safePage}
+              totalPages={totalPages}
+              perPage={perPage}
+              onPerPageChange={handlePerPageChange}
+              onPageChange={handlePageChange}
+            />
           </>
         ) : (
           <NoResults filter={filter || ""} />
@@ -201,6 +240,7 @@ export default function QrCodesClient() {
         <CheckboxBar
           selectedCount={selectedCount}
           ids={Array.from(selectedIds)}
+          selectedItems={filteredQrData.filter((item) => selectedIds.has(item.id))}
           onClose={handleClearSelection}
         />
       )}
