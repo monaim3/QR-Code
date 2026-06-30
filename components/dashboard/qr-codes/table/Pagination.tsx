@@ -8,19 +8,19 @@ import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import Close from "@/components/icons/close";
 
 interface Props {
-  totalEntries: number;
-  currentPage: number;
-  totalPages: number;
-  perPage: string; // "10" | "25" | "50" | "All"
-  onPerPageChange: (value: string) => void;
-  onPageChange: (page: number) => void;
+  totalEntries?: number;
+  currentPage?: number;
+  totalPages?: number;
+  perPage?: string; // "10" | "25" | "50" | "All"
+  onPerPageChange?: (value: string) => void;
+  onPageChange?: (page: number) => void;
 }
 
 export default function Pagination({
-  totalEntries,
-  currentPage,
-  totalPages,
-  perPage,
+  totalEntries = 0,
+  currentPage = 1,
+  totalPages = 1,
+  perPage = "10",
   onPerPageChange,
   onPageChange,
 }: Props) {
@@ -32,7 +32,7 @@ export default function Pagination({
   const options = ["10", "25", "50", "All"];
 
   const handleSelect = (option: string) => {
-    onPerPageChange(option);
+    onPerPageChange?.(option);
     setIsOpen(false);
   };
 
@@ -60,8 +60,8 @@ export default function Pagination({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const goPrev = () => onPageChange(Math.max(1, currentPage - 1));
-  const goNext = () => onPageChange(Math.min(totalPages, currentPage + 1));
+  const goPrev = () => onPageChange?.(Math.max(1, currentPage - 1));
+  const goNext = () => onPageChange?.(Math.min(totalPages, currentPage + 1));
 
   // build a compact page list: 1, 2, 3, 4, ..., last — same visual slots as the original markup
   const getPageList = (): (number | "...")[] => {
@@ -82,8 +82,12 @@ export default function Pagination({
 
   const pageList = getPageList();
 
-  const rangeStart = totalEntries === 0 ? 0 : (currentPage - 1) * (perPage === "All" ? totalEntries : Number(perPage)) + 1;
-  const rangeEnd = perPage === "All" ? totalEntries : Math.min(currentPage * Number(perPage), totalEntries);
+  const rangeStart =
+    totalEntries === 0
+      ? 0
+      : (currentPage - 1) * (perPage === "All" ? totalEntries : Number(perPage)) + 1;
+  const rangeEnd =
+    perPage === "All" ? totalEntries : Math.min(currentPage * Number(perPage), totalEntries);
 
   return (
     <div className="flex justify-center items-center content-center desktopDashboard:gap-x-10 gap-x-2 flex-wrap w-full pt-2 desktopDashboard:pt-0">
@@ -97,20 +101,32 @@ export default function Pagination({
 
       {/* Mobile Numbers */}
       <div className="flex items-center justify-center desktopDashboard:hidden gap-2 flex-1">
-        <button className="w-8 h-8 flex items-center justify-center" onClick={goPrev} disabled={currentPage === 1}>
+        <button
+          className="w-8 h-8 flex items-center justify-center"
+          onClick={goPrev}
+          disabled={currentPage === 1}
+        >
           <ChevronLeftSmall />
         </button>
         <button className="w-8 h-8 flex items-center justify-center text-[var(--Dark-gray)] text-[14px] leading-[22px] bg-[var(--Blue)] text-white rounded-[var(--Corner-Radius-4)]">
           {currentPage}
         </button>
-        <button className="w-8 h-8 flex items-center justify-center" onClick={goNext} disabled={currentPage === totalPages}>
+        <button
+          className="w-8 h-8 flex items-center justify-center"
+          onClick={goNext}
+          disabled={currentPage === totalPages}
+        >
           <ChevronRightSmall />
         </button>
       </div>
 
       {/* Desktop Numbers */}
       <div className="desktopDashboard:flex hidden items-center justify-center gap-4 flex-1">
-        <button className="w-8 h-8 flex items-center justify-center" onClick={goPrev} disabled={currentPage === 1}>
+        <button
+          className="w-8 h-8 flex items-center justify-center"
+          onClick={goPrev}
+          disabled={currentPage === 1}
+        >
           <ChevronLeftSmall />
         </button>
         {pageList.map((p, i) =>
@@ -125,7 +141,7 @@ export default function Pagination({
           ) : (
             <button
               key={p}
-              onClick={() => onPageChange(p)}
+              onClick={() => onPageChange?.(p)}
               className={
                 p === currentPage
                   ? "w-8 h-6 flex items-center justify-center text-[var(--Dark-gray)] text-[14px] leading-[22px] bg-[var(--Blue)] text-white rounded-[var(--Corner-Radius-4)]"
@@ -136,7 +152,11 @@ export default function Pagination({
             </button>
           ),
         )}
-        <button className="w-8 h-8 flex items-center justify-center" onClick={goNext} disabled={currentPage === totalPages}>
+        <button
+          className="w-8 h-8 flex items-center justify-center"
+          onClick={goNext}
+          disabled={currentPage === totalPages}
+        >
           <ChevronRightSmall />
         </button>
       </div>
@@ -170,7 +190,7 @@ export default function Pagination({
               <div
                 key={option}
                 onClick={() => handleSelect(option)}
-                className={`flex items-center self-stretch p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
+                className="flex items-center self-stretch p-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]"
               >
                 <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
                   {option}
@@ -183,9 +203,7 @@ export default function Pagination({
         {/* Drawer */}
         <div
           className={`fixed inset-0 desktopDashboard:hidden transition-all duration-300 ease-in-out z-50 ${
-            isOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
+            isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
           }`}
         >
           {/* Backdrop */}
@@ -196,7 +214,9 @@ export default function Pagination({
 
           {/* Drawer Content */}
           <div
-            className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out max-h-[90vh] overflow-y-auto ${isOpen ? "translate-y-0" : "translate-y-full"}`}
+            className={`absolute z-50 bottom-0 left-0 w-full bg-white rounded-t-[10px] transition-transform duration-500 ease-in-out max-h-[90vh] overflow-y-auto ${
+              isOpen ? "translate-y-0" : "translate-y-full"
+            }`}
           >
             <div className="flex items-center gap-4 py-4 tablet:px-8 px-5 border-b border-[var(--boarder-grey-50)]">
               <h4 className="flex-1 text-[var(--Black)] text-[18px] leading-[26px] font-bold">
@@ -213,7 +233,9 @@ export default function Pagination({
                 <div
                   key={i}
                   onClick={() => handleSelect(option)}
-                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] ${perPage === option ? "bg-[var(--Generator-Background)]" : "bg-white"}`}
+                  className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] ${
+                    perPage === option ? "bg-[var(--Generator-Background)]" : "bg-white"
+                  }`}
                 >
                   <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
                     {option}
