@@ -6,6 +6,7 @@ import Container from "@/components/common/parent-container";
 import CurrenctSelector from "@/components/common/currency_dropdown";
 import CheckIcon from "@/components/icons/check-icon";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useGetProductsQuery } from "../../store/api/productApi";
 
 interface PricingFeature {
   text: string;
@@ -33,6 +34,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
   selected,
   onCheckedChange,
 }) => {
+
   return (
     <div
       key={plan.id}
@@ -130,6 +132,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
 };
 
 const PricingPage: React.FC = () => {
+   const { data: products, isLoading } = useGetProductsQuery('');
   const [selectedPlan, setSelectedPlan] = useState(2);
 
   const plans: PricingPlan[] = [

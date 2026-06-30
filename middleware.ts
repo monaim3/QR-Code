@@ -6,9 +6,7 @@ export function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  //const isCabinetRoute = pathname.startsWith("/cabinet");
-
-  const protectedRoutes = ["/cabinet", "/prices", "/pricing"];
+  const protectedRoutes = ["/cabinet"];
 
    const isProtectedRoute = protectedRoutes.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
@@ -36,5 +34,5 @@ export function middleware(req: NextRequest) {
 
 // 👇 THIS GOES IN SAME FILE (BOTTOM)
 export const config = {
-  matcher: ["/", "/login", "/sign-up", "/cabinet/:path*", "/prices", "/pricing"],
+  matcher: ["/", "/login", "/sign-up", "/cabinet/:path*"],
 };

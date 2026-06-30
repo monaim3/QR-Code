@@ -4,7 +4,7 @@ export const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<any, string>({
       query: (fromPage = '') => ({
-        url: `clients/products?fromPage=${fromPage}`,
+        url: `common/products`,
         method: "GET",
       }),
       providesTags: ["QrCodes"],

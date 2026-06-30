@@ -24,7 +24,7 @@ const getPlanPriceTitleKey = (trialDuration?: number) =>
 
 export default function SmartQRPlanSelection() {
 
-  const { data: products, isLoading } = useGetProductsQuery('checkout');
+  const { data: products, isLoading } = useGetProductsQuery('');
   const dispatch = useAppDispatch();
 
   const t = useT();
