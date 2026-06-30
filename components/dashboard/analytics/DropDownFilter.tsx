@@ -4,6 +4,7 @@ import ChevronUpSmall from "@/components/icons/chevron-up-small";
 import CloseCircle from "@/components/icons/close-circle";
 import CheckBox from "../qr-codes/filters/CheckBox";
 import Tooltip from "@/components/dashboard/Tooltip";
+import { useT } from "@/utils/t";
 
 type DropDownOption = string | { label: string; value: string };
 
@@ -24,6 +25,7 @@ export default function DropDownFilter({
   selected,
   setSelected,
 }: Props) {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -124,7 +126,7 @@ export default function DropDownFilter({
             })
           ) : (
             <div className="h-10 flex items-center justify-center text-[14px] leading-[22px] text-[var(--Grey)]">
-              No options available
+              {t("public__select_dropdown__no_options_available")}
             </div>
           )}
         </div>

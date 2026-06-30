@@ -1,26 +1,25 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import FormSelect from "./FormSelect";
-import SaveButton from "./SaveButton";
 import TrashAlt from "@/components/icons/trash-alt";
-import { useRouter } from "next/navigation";
+import { useT } from "@/utils/t";
 
 interface Props {
   onDeleteClick: () => void;
 }
 
 export default function DeleteAccount({ onDeleteClick }: Props) {
+  const t = useT();
 
   return (
     <div className="flex flex-col items-start gap-6 p-6 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
       <div className="flex flex-col gap-2">
         <h4 className="text-[var(--Black)] text-[18px] leading-[26px] font-bold">
-          Delete account
+          {t("public__dashboard__account__settings__delete_account__title")}
         </h4>
         <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
-          If you proceed, all your created QR codes will become inactive and
-          will be deleted! Anyone who scans them will not see the content. Your
-          subscription will be immediately cancelled. It will not be possible to
-          restore the deleted QR codes.
+          {t("public__dashboard__account__settings__delete_account__description")}
         </p>
       </div>
 
@@ -28,7 +27,7 @@ export default function DeleteAccount({ onDeleteClick }: Props) {
 
       <div className="flex flex-col items-start gap-4 desktopDashboard:w-[600px] w-full">
         <FormSelect
-          label="Reason for account deletion"
+          label={t("public__dashboard__account__settings__delete_account__label")}
           options={[
             "My QR campaign is over",
             "I don't want to use QR codes",
@@ -36,11 +35,11 @@ export default function DeleteAccount({ onDeleteClick }: Props) {
           ]}
         />
 
-        <Button 
-        onClick={onDeleteClick}
-        className="flex w-full h-[38px] px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] bg-[var(--error)] text-white text-[14px] leading-[22px] desktopDashboard:w-[120px] tablet:w-[120px]">
+        <Button
+          onClick={onDeleteClick}
+          className="flex w-full h-[38px] px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] bg-[var(--error)] text-white text-[14px] leading-[22px] desktopDashboard:w-[120px] tablet:w-[120px]">
           <TrashAlt />
-          Delete
+          {t("ui__file_upload__delete_button")}
         </Button>
       </div>
     </div>

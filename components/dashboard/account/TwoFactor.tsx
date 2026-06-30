@@ -6,8 +6,10 @@ import { useState } from "react";
 import Circle from "@/components/icons/circle";
 import DisableTwoFactorModal from "./DisableTwoFactorModal";
 import SuccessTwoFactorModal from "./SuccessTwoFactorModal";
+import { useT } from "@/utils/t";
 
 export default function TwoFactor() {
+  const t = useT();
   const [isActiveModalOpen, setIsActiveModalOpen] = useState(false);
   const [isDisableModalOpen, setIsDisableModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -36,7 +38,7 @@ export default function TwoFactor() {
   return (
     <div className="flex flex-col desktopDashboard:flex-row items-center justify-between gap-6 p-6 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
       <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
-        Enhance account security: add an extra layer of protection. <br />
+        {t("public__dashboard__account__2fa__description")} <br />
         Simply enter your password and a verification code from your mobile
         device to log in.
       </p>
@@ -60,7 +62,7 @@ export default function TwoFactor() {
         onClick={handleOpenModal}
         className="flex h-10 px-4 py-2 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] w-full desktopDashboard:w-auto tablet:w-auto"
       >
-        {isActive ? "Disable 2FA" : "Activate 2FA"}
+        {isActive ? "Disable 2FA" : t("public__dashboard__account__2fa__activate_button")}
       </Button>
 
       <ActiveTwoFactorModal

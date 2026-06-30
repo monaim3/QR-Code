@@ -8,8 +8,10 @@ import TwoFactor from "@/components/dashboard/account/TwoFactor";
 import APIKeys from "@/components/dashboard/account/APIKeys";
 import Settings from "@/components/dashboard/account/Settings";
 import TrialExpiredBanner from "@/components/dashboard/account/TrialExpiredBanner";
+import { useT } from "@/utils/t";
 
 export default function Account() {
+  const t = useT();
   const [activeTab, setActiveTab] = useState("billing");
 
   return (
@@ -17,7 +19,7 @@ export default function Account() {
       {/* Header */}
       <div className="flex items-center justify-between gap-8 self-stretch">
         <h2 className="font-bold text-[var(--Black)] text-[24px] leading-[var(--Typeface-Line-height-Heading-3)]">
-          Account
+          {t("public__dashboard__sidebar__link_groups__account")}
         </h2>
       </div>
 
@@ -29,27 +31,27 @@ export default function Account() {
       <div className="flex flex-col items-start desktopDashboard:gap-6 gap-4 self-stretch">
         <div className="flex items-center gap-2 self-stretch overflow-x-auto">
           <TabChip
-            label="Billing Information"
+            label={t("public__dashboard__account__tabs__billing_info")}
             isActive={activeTab === "billing"}
             onClick={() => setActiveTab("billing")}
           />
           <TabChip
-            label="Password"
+            label={t("public__dashboard__account__tabs__password")}
             isActive={activeTab === "password"}
             onClick={() => setActiveTab("password")}
           />
           <TabChip
-            label="Two-Factor Authentication (2FA)"
+            label={t("public__dashboard__account__tabs__two_factor_auth")}
             isActive={activeTab === "2fa"}
             onClick={() => setActiveTab("2fa")}
           />
           <TabChip
-            label="API Keys"
+            label={t("public__dashboard__account__tabs__api_keys")}
             isActive={activeTab === "api-keys"}
             onClick={() => setActiveTab("api-keys")}
           />
           <TabChip
-            label="Settings"
+            label={t("public__dashboard__account__tabs__settings")}
             isActive={activeTab === "settings"}
             onClick={() => setActiveTab("settings")}
           />

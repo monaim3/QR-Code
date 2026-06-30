@@ -7,10 +7,12 @@ import { useUpdatePasswordMutation } from "@/store/api/accountApi";
 import { toast } from "sonner";
 import SuccessToast from "./SuccessToast";
 import { getStrongPasswordError } from "@/lib/utils/getStrongPasswordError";
+import { useT } from "@/utils/t";
 
 const REQUIRED_MSG = "This field is required and cannot be left blank.";
 
 export default function Password() {
+  const t = useT();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [submitAttempted, setSubmitAttempted] = useState(false);
@@ -57,12 +59,12 @@ export default function Password() {
   return (
     <div className="flex flex-col items-start gap-6 p-6 self-stretch bg-white rounded-[var(--Corner-Radius-10)] shadow-[0_1px_8px_0_rgba(63,72,103,0.16)]">
       <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
-        Enter a new password into both fields below.
+        {t("public__dashboard__account__password__title")}
       </p>
 
       <div className="flex flex-col items-start gap-4 desktopDashboard:w-[600px] w-full">
         <FormInput
-          label="Password"
+          label={t("public__dashboard__account__tabs__password")}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +73,7 @@ export default function Password() {
           autoComplete="new-password"
         />
         <FormInput
-          label="Confirm password"
+          label={t("public__dashboard__account__password__input_confirm_password_label")}
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}

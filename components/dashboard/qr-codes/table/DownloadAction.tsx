@@ -1,28 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import Download from "@/components/icons/download";
+import { useT } from "@/utils/t";
 
 interface Props {
   onCustomDownloadModal: () => void;
 }
 
 export default function DownloadAction({ onCustomDownloadModal }: Props) {
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const [showAbove, setShowAbove] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const options = [
-    "SVG",
-    "PNG",
-    "JPG",
-    "SVG Tiny (Illustrator)",
-    "PDF",
-    "EPS",
-    "Custom download",
+    { value: "SVG", label: t("public__dashboard__qr_table__qr_card__download_option__svg") },
+    { value: "PNG", label: t("public__dashboard__qr_table__qr_card__download_option__png") },
+    { value: "JPG", label: t("public__dashboard__qr_table__qr_card__download_option__jpg") },
+    { value: "SVG Tiny (Illustrator)", label: t("public__dashboard__qr_table__qr_card__download_option__svg__tiny_illustrator") },
+    { value: "PDF", label: t("public__dashboard__qr_table__qr_card__download_option__pdf") },
+    { value: "EPS", label: t("public__dashboard__qr_table__qr_card__download_option__eps") },
+    { value: "Custom download", label: t("public__dashboard__qr_table__qr_card__download_option__custom") },
   ];
 
-  const handleSelect = (option: string) => {
-    if (option === "Custom download") {
+  const handleSelect = (value: string) => {
+    if (value === "Custom download") {
       onCustomDownloadModal();
     }
     setIsOpen(false);
@@ -30,19 +32,16 @@ export default function DownloadAction({ onCustomDownloadModal }: Props) {
 
   const handleToggleDropdown = () => {
     if (!isOpen && buttonRef.current) {
-      // Check position before opening
       const rect = buttonRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const spaceBelow = viewportHeight - rect.bottom;
-      const dropdownHeight = 350; // Approximate height of dropdown (7 options + padding)
+      const dropdownHeight = 350;
 
-      // If not enough space below, show above
       setShowAbove(spaceBelow < dropdownHeight);
     }
     setIsOpen(!isOpen);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -73,19 +72,17 @@ export default function DownloadAction({ onCustomDownloadModal }: Props) {
             showAbove ? "bottom-full mb-[13px]" : "top-full mt-[13px]"
           }`}
         >
-          {options.map((option) => {
-            return (
-              <div
-                key={option}
-                onClick={() => handleSelect(option)}
-                className={`flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]`}
-              >
-                <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
-                  {option}
-                </span>
-              </div>
-            );
-          })}
+          {options.map((option) => (
+            <div
+              key={option.value}
+              onClick={() => handleSelect(option.value)}
+              className="flex items-center self-stretch py-4 px-2 gap-2 cursor-pointer rounded-[var(--Corner-Radius-8)] transition-colors bg-white hover:bg-[var(--Generator-Background)]"
+            >
+              <span className="text-[var(--Dark-gray)] text-[14px] leading-[16px]">
+                {option.label}
+              </span>
+            </div>
+          ))}
         </div>
       )}
     </div>

@@ -12,6 +12,7 @@ import Download from "@/components/icons/download";
 import Image from "next/image";
 import ShareAndroid from "@/components/icons/share-android";
 import Copy from "@/components/icons/copy";
+import { useT } from "@/utils/t";
 
 interface Props {
   open: boolean;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default function DownloadQrCodeModal({ open, onClose }: Props) {
+  const t = useT();
   const [selectedFileFormat, setSelectedFileFormat] = useState<string>("SVG");
   const [message, setMessage] = useState<string>("");
 
@@ -63,10 +65,10 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
         <div className="flex flex-col items-center gap-6 tablet:p-8 desktopDashboard:p-8 p-6 self-stretch relative w-full min-w-0">
           <DialogHeader className="flex flex-col justify-center items-center gap-2">
             <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px]">
-              Download your QR Code
+              {t("public__dashboard__qr_table__qr_card__download_qr_code_title")}
             </DialogTitle>
             <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px]">
-              Select the type of file to download
+              {t("public__dashboard__qr_table__qr_card__download_qr_code_description")}
             </p>
           </DialogHeader>
 
@@ -78,12 +80,12 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
               </Label>
               <CustomDropDown
                 options={[
-                  "SVG",
-                  "PNG",
-                  "JPG",
-                  "SVG Tiny (Illustrator)",
-                  "PDF",
-                  "EPS",
+                  t("public__dashboard__qr_table__qr_card__download_option__svg"),
+                  t("public__dashboard__qr_table__qr_card__download_option__png"),
+                  t("public__dashboard__qr_table__qr_card__download_option__jpg"),
+                  t("public__dashboard__qr_table__qr_card__download_option__svg__tiny_illustrator"),
+                  t("public__dashboard__qr_table__qr_card__download_option__pdf"),
+                  t("public__dashboard__qr_table__qr_card__download_option__eps"),
                 ]}
                 selectedOption={selectedFileFormat}
                 onSelect={handleSelectFileFormat}
@@ -93,7 +95,7 @@ export default function DownloadQrCodeModal({ open, onClose }: Props) {
             <div className="flex h-10 items-start gap-4 self-stretch">
               <Button className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear self-stretch">
                 <Download className="text-white" />
-                Download
+                {t("public__dashboard__qr_table__qr_card__download_option__download")}
               </Button>
 
               <button className="flex w-10 p-2 justify-center items-center gap-2 self-stretch rounded-[var(--Corner-Radius-10)] border border-[var(--Blue)]">

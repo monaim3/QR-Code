@@ -1,6 +1,8 @@
+"use client";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { clearFieldError } from "@/store/slices/validationSlice";
+import { useT } from "@/utils/t";
 
 type RequiredTextInputProps = {
   label: string;
@@ -21,10 +23,11 @@ export const RequiredTextInput = ({
   placeholder,
   maxLength = 31,
   id,
-  errorMessage = "This field is required and cannot be left blank.",
+  errorMessage,
   required = true,
   validationKey,
 }: RequiredTextInputProps) => {
+  const t = useT();
   const dispatch = useAppDispatch();
   const [touched, setTouched] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -56,7 +59,6 @@ export const RequiredTextInput = ({
         className="block mb-2 text-[16px] leading-[24px] font-medium text-[#000000]"
       >
         {label}
-        {/* {required && <span className="text-black">*</span>} */}
       </label>
 
       <input
@@ -90,7 +92,7 @@ export const RequiredTextInput = ({
           className="mt-2 text-sm text-red-500"
           role="alert"
         >
-          {validationError || errorMessage}
+          {validationError || errorMessage || t("ui__field_validation_errors__generic__required")}
         </p>
       )}
     </div>
