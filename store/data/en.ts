@@ -1923,7 +1923,7 @@ const enTranslations = {
   public__contact_us__fields__message__label: "Message",
   public__contact_us__fields__surname__label: "Surname",
   public__contact_us__fields__surname__placeholder: "e.g. Doe",
-  public__contact_us__info__address_label: "Address:",
+  public__contact_us__info__address_label: "Address",
   public__contact_us__info__locations_label: "Locations:",
   public__contact_us__subject__label: "Subject",
   public__contact_us__subject__options__billing: "Billing question",
