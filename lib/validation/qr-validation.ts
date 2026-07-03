@@ -104,22 +104,46 @@ function validateWebsiteUrl(
   }
 }
 
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
 function validateVCard(
   state: RootState,
   errors: ValidationError[],
   fieldErrors: { [key: string]: string },
   t: (key: string) => string,
 ) {
-  const { personalInfo } = state.vCard;
+  const { personalInfo, contactDetails } = state.vCard;
 
   if (!personalInfo.fullName || !personalInfo.fullName.trim()) {
     const message = t("ui__field_validation_errors__generic__required");
-    errors.push({
-      field: "Full Name",
-      message,
-    });
+    errors.push({ field: "Full Name", message });
     fieldErrors["fullName"] = message;
   }
+
+  const invalidEmailMsg = t("ui__field_validation_errors__email__generic");
+  const invalidUrlMsg = t("ui__field_validation_errors__url__generic");
+
+  if (contactDetails.website?.trim()) {
+    const result = urlValidationSchema.safeParse(contactDetails.website);
+    if (!result.success) {
+      errors.push({ field: "Website", message: invalidUrlMsg });
+      fieldErrors["contactWebsite"] = invalidUrlMsg;
+    }
+  }
+
+  if (contactDetails.email?.trim() && !isValidEmail(contactDetails.email)) {
+    errors.push({ field: "Email", message: invalidEmailMsg });
+    fieldErrors["contactEmail"] = invalidEmailMsg;
+  }
+
+  contactDetails.altEmails?.forEach((email, index) => {
+    if (email?.trim() && !isValidEmail(email)) {
+      errors.push({ field: "Email", message: invalidEmailMsg });
+      fieldErrors[`contactAltEmail_${index}`] = invalidEmailMsg;
+    }
+  });
 }
 
 function validatePdf(
