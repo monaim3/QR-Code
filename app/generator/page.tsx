@@ -17,8 +17,10 @@ import WebsiteUrlQr from "@/components/icons/website-url-qr";
 import Breadcrumb from "../../components/generator/Breadcrumb";
 import WifiQr from "@/components/icons/wifi-qr";
 import CreateArrow from "@/components/icons/create_arrow";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useT } from "@/utils/t";
+import { useAppDispatch } from "@/store/hooks";
+import { resetPreview } from "@/store/slices/previewSlice";
 import WebsiteUrlPreview from "@/components/generator/Website_Url_Preview";
 import PdfInitialPreview from "@/components/generator/pdf/PdfInitialPreview";
 import ImagesInitialPreview from "@/components/generator/Images/ImagesInitialPreview";
@@ -63,6 +65,11 @@ export default function GeneratorPage({
   title,
 }: GeneratorProps) {
   const t = useT();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(resetPreview());
+  }, [dispatch]);
 
   const qrTypes = [
     {
