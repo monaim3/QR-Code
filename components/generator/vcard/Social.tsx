@@ -126,7 +126,7 @@ export default function Social() {
   return (
     <div className="w-full">
       <Accordion
-        title={t("generator__content_form_section__social__title_required")}
+        title={t("generator__content_form_section__social__title")}
         description={t("generator__content_form_section__social__description")}
         defaultOpen={true}
       >

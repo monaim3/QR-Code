@@ -243,6 +243,17 @@ const menuSlice = createSlice({
         channel.url = action.payload.url;
       }
     },
+    updateSocialChannel: (
+      state,
+      action: PayloadAction<{ id: string; changes: Partial<SocialChannel> }>,
+    ) => {
+      const channel = state.socialChannels.find(
+        (channel) => channel.id === action.payload.id,
+      );
+      if (channel) {
+        Object.assign(channel, action.payload.changes);
+      }
+    },
     setWeeklyOpeningHours: (
       state,
       action: PayloadAction<[TimeSlot, TimeSlot]>,
@@ -384,6 +395,7 @@ export const {
   addSocialChannel,
   removeSocialChannel,
   updateSocialChannelUrl,
+  updateSocialChannel,
   setWeeklyOpeningHours,
   setWeeklyOpenTime,
   setWeeklyCloseTime,

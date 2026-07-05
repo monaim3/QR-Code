@@ -60,9 +60,16 @@ export default function SocialMediaPreview() {
                 </div>
               </div>
             )}
-            <p className="text-[var(--Black)] text-[12px] leading-[20px] flex-1">
-              {channel.name}
-            </p>
+            <div className="flex flex-col flex-1 min-w-0">
+              <p className="text-[var(--Black)] text-[12px] leading-[20px]">
+                {channel.name}
+              </p>
+              {channel.description && (
+                <p className="text-[var(--Dark-gray)] text-[10px] leading-[16px] truncate">
+                  {channel.description}
+                </p>
+              )}
+            </div>
 
             <ChevronRightSmall />
           </div>
