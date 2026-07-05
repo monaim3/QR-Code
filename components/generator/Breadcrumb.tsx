@@ -100,7 +100,7 @@ export default function Breadcrumb({
 
   const handleStepClick = (step: BreadcrumbStep) => {
     if (!isGeneratorFlow && step.number <= currentStep) {
-      router.push(step.path);
+      //router.push(step.path);
     }
   };
 

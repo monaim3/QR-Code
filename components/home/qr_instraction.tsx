@@ -28,7 +28,7 @@ export default function QrInstruction() {
           <StepCard
             imagePath="/images/steps/personalized.svg"
             title="Personalize the design"
-            subtitle1="Easily customize your QR code with logos, colors, frames, patterns, and styles at QReate.com™."
+            subtitle1="Easily customize your QR code with logos, colors, frames, patterns, and styles at QRCenter.com™."
           />
           <StepCard
             imagePath="/images/steps/download.svg"
