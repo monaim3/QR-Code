@@ -20,7 +20,7 @@ export default function Logo({ noLink }: Props) {
   const pathname = usePathname();
   const isDisabledPath =
     noLink ||
-    pathname.startsWith("/pricing") ||
+    //pathname.startsWith("/pricing") ||
     pathname.startsWith("/checkout");
 
   const isDashboardPath = DASHBOARD_PATHS.some((p) => pathname.startsWith(p));

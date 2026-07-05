@@ -153,7 +153,6 @@ export default function BreadcrumbFooter() {
           },
         });
       }
-
       router.push("/sign-up?onboarding-flow=true");
     }
   };

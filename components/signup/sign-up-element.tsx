@@ -93,7 +93,7 @@ export default function SignUpElements({
         if (isOnboardingFlow) {
            router.push("/pricing");
         } else {
-         router.push("/prices");
+         router.push("/generator");
         }
       }
 
