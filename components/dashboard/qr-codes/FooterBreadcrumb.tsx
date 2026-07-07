@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setActiveTab } from "@/store/slices/previewSlice";
@@ -19,12 +19,28 @@ import BusinessPreview from "@/components/generator/businessPage/BusinessPreview
 import Breadcrumb from "@/components/generator/Breadcrumb";
 import Save from "@/components/icons/save";
 import Close from "@/components/icons/close";
+import AppPreView from "@/components/generator/app/app-preview";
+import FacebookPreview from "@/components/generator/Facebook/FacebookPreview";
+import ImagesPreview from "@/components/generator/Images/ImagesPreview";
+import PdfPreView from "@/components/generator/pdf/pdf-preview";
+import SimpleTextPreview from "@/components/generator/SimpleText/SimpleTextPreview";
+import SocialPreView from "@/components/generator/socialMedia/social-preview";
+import VideoPreView from "@/components/generator/video/video-preview";
+import WifiPreview from "@/components/generator/Wifi/WifiPreview";
+import {
+  usePublishGuestQrCodeMutation,
+  useUpdateQrCodeMutation,
+} from "@/store/api/qrApi";
+import { buildGuestQrStep2Payload } from "@/lib/generator/buildGuestQrStep2Payload";
+import { buildGuestQrDesign } from "@/lib/generator/buildGuestQrDesign";
+import { setHydratedEditId } from "@/store/slices/qrSlice";
 import { useT } from "@/utils/t";
 
 export default function FooterBreadcrumb() {
   const t = useT();
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -32,6 +48,24 @@ export default function FooterBreadcrumb() {
   const websiteUrl = useAppSelector((state) => state.preview.websiteUrl);
   const collapsed = useAppSelector((state) => state.sidebar.collapsed);
   const reduxState = useAppSelector((state) => state);
+  const qrName = useAppSelector((state) => state.preview.qrCodeName);
+  const qrCode = useAppSelector((state) => state.qr);
+  const simpleText = useAppSelector((state) => state.simpleText.Text);
+  const vCard = useAppSelector((state) => state.vCard);
+  const pdf = useAppSelector((state) => state.pdf);
+  const images = useAppSelector((state) => state.images);
+  const wifi = useAppSelector((state) => state.wifi);
+  const social = useAppSelector((state) => state.social);
+  const facebook = useAppSelector((state) => state.facebook);
+  const video = useAppSelector((state) => state.video);
+  const app = useAppSelector((state) => state.app);
+  const business = useAppSelector((state) => state.business);
+  const menu = useAppSelector((state) => state.menu);
+
+  const editId = searchParams.get("id") ?? qrCode.qrId ?? "";
+
+  const [updateQrCode] = useUpdateQrCodeMutation();
+  const [publishGuestQrCode] = usePublishGuestQrCodeMutation();
 
   const desktopPositionClasses = collapsed
     ? "desktopDashboard:left-[72px] left-0 desktopDashboard:max-w-[calc(100vw-72px)] max-w-full"
@@ -46,39 +80,107 @@ export default function FooterBreadcrumb() {
   const currentStep = getCurrentStep();
   const showNavigation = currentStep > 0;
 
+  const withEditId = (path: string) =>
+    editId ? `${path}?id=${editId}` : path;
+
+  // Persist the edited content + design, publish, then return to the list.
+  const persistQr = async (qrType: string) => {
+    const contentPayload = buildGuestQrStep2Payload(qrType, {
+      qrName,
+      websiteUrl,
+      simpleText,
+      vCard,
+      pdf,
+      images,
+      wifi,
+      social,
+      facebook,
+      video,
+      app,
+      business,
+      menu,
+    });
+
+    if (editId && contentPayload) {
+      const qrDesign = buildGuestQrDesign(qrCode);
+
+      await updateQrCode({
+        id: editId,
+        payload: {
+          qrDesign,
+          name: contentPayload.name,
+          content: contentPayload.content,
+        },
+      });
+
+      await publishGuestQrCode(editId);
+    }
+
+    // Reset so re-editing this QR later re-hydrates fresh server data.
+    dispatch(setHydratedEditId(null));
+    router.push("/cabinet/qr-codes");
+  };
+
+  // Save icon (step 1): validate, then save the current values and exit.
+  const handleSave = async () => {
+    const pathParts = pathname.split("/");
+    const qrType = pathParts[pathParts.length - 1];
+
+    const validationResult = validateQRData(reduxState, qrType);
+    if (!validationResult.isValid) {
+      dispatch(setErrors(validationResult.fieldErrors));
+      dispatch(setShowErrors(true));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    dispatch(clearAllErrors());
+    localStorage.setItem("qrType", qrType);
+    await persistQr(qrType);
+  };
+
   const handleBack = () => {
     if (currentStep === 2) {
-      router.push("/qr-codes/edit");
+      const qrType =
+        (typeof window !== "undefined" && localStorage.getItem("qrType")) || "";
+      router.push(withEditId(`/cabinet/qr-codes/generator/${qrType}`));
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === 1) {
-      // Get QR type from pathname - in dashboard it's /qr-codes/edit/{type}
+      // Get QR type from the content page pathname (/generator/{type})
       const pathParts = pathname.split("/");
       const qrType = pathParts[pathParts.length - 1];
-      
+
       // Validate the form data
       const validationResult = validateQRData(reduxState, qrType);
-      
+
       if (!validationResult.isValid) {
         // Dispatch errors to Redux
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
-        
+
         // Scroll to top to show error
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
-      
+
       // Clear any previous errors
       dispatch(clearAllErrors());
-      router.push("/qr-codes/edit/customize");
+      localStorage.setItem("qrType", qrType);
+      router.push(withEditId("/cabinet/qr-codes/generator/customize"));
+    } else if (currentStep === 2) {
+      // Complete: persist the edited content + design, then publish.
+      const qrType =
+        (typeof window !== "undefined" && localStorage.getItem("qrType")) || "";
+      await persistQr(qrType);
     }
   };
 
   const handleExits = () => {
-    router.push("/qr-codes");
+    dispatch(setHydratedEditId(null));
+    router.push("/cabinet/qr-codes");
   };
 
   const handleTabChange = (tab: "preview" | "qrcode") => {
@@ -86,39 +188,37 @@ export default function FooterBreadcrumb() {
   };
 
   const getPreviewContent = () => {
-    if (pathname.includes("/vcard")) {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <VCardPreview />
-          </div>
-        );
-      }
-    }
-
-    if (pathname.includes("/menu")) {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <MenuPreview />
-          </div>
-        );
-      }
-    }
-
-    if (pathname.includes("/business-page")) {
-      if (activeTab === "preview") {
-        return (
-          <div className="w-full h-full flex items-center justify-center rounded-[32px] overflow-hidden">
-            <BusinessPreview />
-          </div>
-        );
-      }
-    }
-
     if (activeTab === "preview") {
-      return <WebsiteUrlPreview url={websiteUrl} />;
+      switch (true) {
+        case pathname.includes("/app"):
+          return <AppPreView />;
+        case pathname.includes("/business-page"):
+          return <BusinessPreview />;
+        case pathname.includes("/facebook"):
+          return <FacebookPreview />;
+        case pathname.includes("/images"):
+          return <ImagesPreview />;
+        case pathname.includes("/menu"):
+          return <MenuPreview />;
+        case pathname.includes("/pdf"):
+          return <PdfPreView />;
+        case pathname.includes("/simple-text"):
+          return <SimpleTextPreview />;
+        case pathname.includes("/social-media"):
+          return <SocialPreView />;
+        case pathname.includes("/vcard"):
+          return <VCardPreview />;
+        case pathname.includes("/video"):
+          return <VideoPreView />;
+        case pathname.includes("/website-url"):
+          return <WebsiteUrlPreview url={websiteUrl} />;
+        case pathname.includes("/wifi"):
+          return <WifiPreview />;
+        default:
+          return;
+      }
     }
+
     if (pathname.includes("/customize")) {
       return <CustomizeQRDisplay />;
     }
@@ -164,7 +264,10 @@ export default function FooterBreadcrumb() {
 
             <div className="flex items-center gap-4">
               {currentStep === 1 && (
-                <button className="flex w-12 h-12 p-2 justify-center items-center flex-shrink-0 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]">
+                <button
+                  onClick={handleSave}
+                  className="flex w-12 h-12 p-2 justify-center items-center flex-shrink-0 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]"
+                >
                   <Save className="text-[var(--Dark-gray)]" />
                 </button>
               )}
@@ -191,7 +294,7 @@ export default function FooterBreadcrumb() {
               )}
               {currentStep === 2 && (
                 <button
-                  // onClick={handleNext}
+                  onClick={handleNext}
                   className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
                 >
                   Complete

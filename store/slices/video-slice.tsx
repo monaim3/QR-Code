@@ -43,6 +43,9 @@ const videoSlice = createSlice({
   name: "socialSlice",
   initialState,
   reducers: {
+    hydrateVideo: (state, action: PayloadAction<Partial<VideoSlice>>) => {
+      Object.assign(state, action.payload);
+    },
     /** 🎨 Colors */
     setColorPalette: (
       state,
@@ -204,6 +207,7 @@ const videoSlice = createSlice({
 });
 
 export const {
+  hydrateVideo,
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,

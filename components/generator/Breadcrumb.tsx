@@ -67,6 +67,7 @@ export default function Breadcrumb({
   };
 
   const getDashboardStep = (): number => {
+    if (pathname.includes("/customize")) return 2;
     if (pathname.includes("/edit/customize")) return 2;
     if (pathname.includes("/edit")) return 1;
     return 1;

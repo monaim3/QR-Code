@@ -94,6 +94,9 @@ const appSlice = createSlice({
   name: "appSlice",
   initialState: initialState,
   reducers: {
+    hydrateApp: (state, action: PayloadAction<Partial<AppSlice>>) => {
+      Object.assign(state, action.payload);
+    },
     setColorPalette: (
       state,
       action: PayloadAction<{ index: number; color: ColorPalette }>,
@@ -171,6 +174,7 @@ const appSlice = createSlice({
 });
 
 export const {
+  hydrateApp,
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,

@@ -18,6 +18,9 @@ const wifiSlice = createSlice({
   name: "wifi",
   initialState,
   reducers: {
+    hydrateWifi: (state, action) => {
+      Object.assign(state, action.payload);
+    },
     setNetworkName: (state, action) => {
       state.NetworkName = action.payload;
     },
@@ -34,6 +37,7 @@ const wifiSlice = createSlice({
 });
 
 export const {
+  hydrateWifi,
   setNetworkName,
   setPassword,
   setEncryptionType,

@@ -17,10 +17,12 @@ import { useDeleteQrCodesMutation,
   useDeactivateQrCodesMutation,
   useActivateQrCodesMutation } from "@/store/api/qrCodesApi";
 import { useT } from "@/utils/t";
+import { slugFromContentType } from "@/lib/generator/qrTypeSlug";
 
 interface Props {
    id: string;
    active?: boolean;
+   type?: string;
   onCustomDownloadModal: () => void;
   onShareModal: () => void;
 }
@@ -28,6 +30,7 @@ interface Props {
 export default function MoreAction({
   id,
   active,
+  type,
   onCustomDownloadModal,
   onShareModal,
 }: Props) {
@@ -92,9 +95,15 @@ export default function MoreAction({
       case "Share":
         onShareModal();
         break;
-      case "Edit":
-        router.push("/qr-codes/edit");
+      case "Edit": {
+        const slug = slugFromContentType(type);
+        router.push(
+          slug
+            ? `/cabinet/qr-codes/generator/${slug}?id=${id}`
+            : "/cabinet/qr-codes",
+        );
         break;
+      }
       case "Delete":
         handleDelete(id);
         break;

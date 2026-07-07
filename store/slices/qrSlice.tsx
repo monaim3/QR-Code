@@ -35,6 +35,7 @@ interface QRState {
   qrId?: string; // Optional field to store QR code ID from backend
   qrUri?: string; // Optional field to store QR code URI from backend
   uploadedLogo: UploadLogoResponse | null;
+  hydratedEditId: string | null; // Tracks which QR id has been hydrated for editing
 }
 
 const initialState: QRState = {
@@ -62,6 +63,7 @@ const initialState: QRState = {
   qrId: "",
   qrUri: "",
   uploadedLogo: null,
+  hydratedEditId: null,
 };
 
 const qrSlice = createSlice({
@@ -151,6 +153,13 @@ const qrSlice = createSlice({
     ) => {
       state.uploadedLogo = action.payload;
     },
+    setHydratedEditId: (state, action: PayloadAction<string | null>) => {
+      state.hydratedEditId = action.payload;
+    },
+    // Bulk-set the QR design fields (used when loading a QR for editing).
+    hydrateQrDesign: (state, action: PayloadAction<Partial<QRState>>) => {
+      Object.assign(state, action.payload);
+    },
   },
 });
 
@@ -179,6 +188,8 @@ export const {
   setQrId,
   setQrUri,
   setUploadedLogo,
+  setHydratedEditId,
+  hydrateQrDesign,
 } = qrSlice.actions;
 
 export default qrSlice.reducer;

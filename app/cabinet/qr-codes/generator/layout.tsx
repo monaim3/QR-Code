@@ -1,4 +1,5 @@
-import CreateFooterBreadcrumb from "@/components/dashboard/qr-codes/CreateFooterBreadcrumb";
+import FooterBreadcrumbSwitcher from "@/components/dashboard/qr-codes/FooterBreadcrumbSwitcher";
+import EditQrHydrator from "@/components/dashboard/qr-codes/EditQrHydrator";
 
 export default function DashboardGeneratorLayout({
   children,
@@ -7,8 +8,9 @@ export default function DashboardGeneratorLayout({
 }) {
   return (
     <>
+      <EditQrHydrator />
       <div className="w-full">{children}</div>
-      <CreateFooterBreadcrumb />
+      <FooterBreadcrumbSwitcher />
     </>
   );
 }
