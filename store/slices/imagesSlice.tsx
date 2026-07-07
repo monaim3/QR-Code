@@ -55,6 +55,9 @@ const imagesSlice = createSlice({
   name: "images",
   initialState,
   reducers: {
+    hydrateImages: (state, action: PayloadAction<Partial<imageState>>) => {
+      Object.assign(state, action.payload);
+    },
     setFacebookUrl: (state, action) => {
       state.FacebookUrl = action.payload;
     },
@@ -186,6 +189,7 @@ const imagesSlice = createSlice({
 });
 
 export const {
+  hydrateImages,
   setFacebookUrl,
   setName,
   setError,

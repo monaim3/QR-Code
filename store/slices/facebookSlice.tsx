@@ -53,6 +53,9 @@ const facebookSlice = createSlice({
   name: "facebook",
   initialState,
   reducers: {
+    hydrateFacebook: (state, action: PayloadAction<Partial<facebookState>>) => {
+      Object.assign(state, action.payload);
+    },
     setFacebookUrl: (state, action: PayloadAction<string>) => {
       state.FacebookUrl = action.payload;
     },
@@ -182,6 +185,7 @@ const facebookSlice = createSlice({
 });
 
 export const {
+  hydrateFacebook,
   setFacebookUrl,
   setName,
   setError,

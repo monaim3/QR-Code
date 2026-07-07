@@ -37,6 +37,7 @@ export default function Actions({
       <MoreAction
         key={item.id}
         id={item.id}
+        type={item.content.type}
         onCustomDownloadModal={() => onCustomDownloadModal(item)}
         onShareModal={() => onShareModal(item)}
       />

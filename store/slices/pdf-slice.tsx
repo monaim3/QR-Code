@@ -66,6 +66,9 @@ const pdfSlice = createSlice({
   name: "appSlice",
   initialState: initialState,
   reducers: {
+    hydratePdf: (state, action: PayloadAction<Partial<PdfSlice>>) => {
+      Object.assign(state, action.payload);
+    },
     setColorPalette: (
       state,
       action: PayloadAction<{ index: number; color: ColorPalette }>,
@@ -122,6 +125,7 @@ const pdfSlice = createSlice({
 });
 
 export const {
+  hydratePdf,
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,

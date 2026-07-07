@@ -12,11 +12,14 @@ const simpleTextSlice = createSlice({
   name: "simpleText",
   initialState,
   reducers: {
+    hydrateSimpleText: (state, action) => {
+      Object.assign(state, action.payload);
+    },
     setSimpleText: (state, action) => {
       state.Text = action.payload;
     },
   },
 });
 
-export const { setSimpleText } = simpleTextSlice.actions;
+export const { hydrateSimpleText, setSimpleText } = simpleTextSlice.actions;
 export default simpleTextSlice.reducer;

@@ -113,6 +113,9 @@ const vCardSlice = createSlice({
   name: "vCard",
   initialState,
   reducers: {
+    hydrateVCard: (state, action: PayloadAction<Partial<VCardSlice>>) => {
+      Object.assign(state, action.payload);
+    },
     setColorPalette: (
       state,
       action: PayloadAction<{ index: number; color: ColorPalette }>,
@@ -265,6 +268,7 @@ const vCardSlice = createSlice({
 });
 
 export const {
+  hydrateVCard,
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,

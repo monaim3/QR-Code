@@ -47,9 +47,10 @@ export default function QrCodesTableItem({
     });
   };
 
-  const statusLabel = item.disabled === false
-    ? t("public__dashboard__qr_table__controls__status_active")
-    : t("public__dashboard__qr_table__controls__status_paused");
+  const statusLabel =
+    item.disabled === false
+      ? t("public__dashboard__qr_table__controls__status_active")
+      : t("public__dashboard__qr_table__controls__status_paused");
 
   return (
     <>
@@ -57,7 +58,7 @@ export default function QrCodesTableItem({
       <div className="desktopDashboard:flex hidden items-center desktopXl:gap-[64px] desktopLg:gap-6 desktopMd:gap-4 justify-between p-4 rounded-[var(--Corner-Radius-10)] bg-white shadow-[0_1px_8px_0_rgba(63,72,103,0.16)] w-full">
         {/* Qr Code */}
         <div className="flex items-center gap-4 flex-1">
-          <div className="shrink-0 relative z-[9999]">
+          <div className="shrink-0 relative z-10">
             <CheckBox checked={isSelected} onChange={handleCheckboxChange} />
           </div>
           <Tooltip text="Click to scan">
@@ -94,11 +95,17 @@ export default function QrCodesTableItem({
         {/* Info */}
         <div className="flex flex-col justify-center items-start font-roboto gap-1 shrink-0 w-[180px]">
           <p className="text-[var(--Black)] text-[14px] leading-[22px]">
-            {t("public__dashboard__qr_table__qr_card__creation_date").replace("{date}", formattedDate(item.createdAt))}
+            {t("public__dashboard__qr_table__qr_card__creation_date").replace(
+              "{date}",
+              formattedDate(item.createdAt),
+            )}
           </p>
           {item.updatedAt && (
             <p className="text-[var(--Grey)] text-[14px] leading-[22px]">
-              {t("public__dashboard__qr_table__qr_card__edit_date").replace("{date}", formattedDate(item.updatedAt))}
+              {t("public__dashboard__qr_table__qr_card__edit_date").replace(
+                "{date}",
+                formattedDate(item.updatedAt),
+              )}
             </p>
           )}
           {item.updatedAt && (
@@ -171,6 +178,7 @@ export default function QrCodesTableItem({
           key={item.id}
           id={item.id}
           active={item.disabled === false}
+          type={item.content.type}
           onCustomDownloadModal={() => onCustomDownloadModal(item)}
           onShareModal={() => onShareModal(item)}
         />
@@ -194,6 +202,7 @@ export default function QrCodesTableItem({
           <MoreAction
             key={item.id}
             id={item.id}
+            type={item.content.type}
             onCustomDownloadModal={() => onCustomDownloadModal(item)}
             onShareModal={() => onShareModal(item)}
           />
@@ -219,7 +228,9 @@ export default function QrCodesTableItem({
                 <span className="text-[var(--Black)] font-semibold">
                   {item.scansAmount}
                 </span>{" "}
-                {t("public__dashboard__qr_table__qr__card__scans").toLowerCase()}
+                {t(
+                  "public__dashboard__qr_table__qr__card__scans",
+                ).toLowerCase()}
               </p>
 
               {/* Line */}
@@ -231,7 +242,9 @@ export default function QrCodesTableItem({
                   <>
                     <PauseCircle className="text-[var(--Grey)]" />
                     <span className="text-[var(--Grey)] text-[14px] leading-[22px] font-medium">
-                      {t("public__dashboard__qr_table__controls__status_paused")}
+                      {t(
+                        "public__dashboard__qr_table__controls__status_paused",
+                      )}
                     </span>
                   </>
                 ) : (
@@ -253,7 +266,10 @@ export default function QrCodesTableItem({
 
             {/* Info */}
             <p className="text-[var(--Black)] text-[14px] leading-[22px]">
-              {t("public__dashboard__qr_table__qr_card__creation_date").replace("{date}", item.createdAt)}
+              {t("public__dashboard__qr_table__qr_card__creation_date").replace(
+                "{date}",
+                item.createdAt,
+              )}
             </p>
           </div>
         </div>

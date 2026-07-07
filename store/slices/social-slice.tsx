@@ -303,6 +303,9 @@ const pdfSlice = createSlice({
   name: "socialSlice",
   initialState: initialState,
   reducers: {
+    hydrateSocial: (state, action: PayloadAction<Partial<SocialSlice>>) => {
+      Object.assign(state, action.payload);
+    },
     setColorPalette: (
       state,
       action: PayloadAction<{ index: number; color: ColorPalette }>,
@@ -448,6 +451,7 @@ const pdfSlice = createSlice({
 });
 
 export const {
+  hydrateSocial,
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,

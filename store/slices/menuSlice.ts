@@ -114,6 +114,9 @@ const menuSlice = createSlice({
   name: "menu",
   initialState: initialState,
   reducers: {
+    hydrateMenu: (state, action: PayloadAction<Partial<MenuSlice>>) => {
+      Object.assign(state, action.payload);
+    },
     setColorPalette: (
       state,
       action: PayloadAction<{ index: number; color: ColorPalette }>,
@@ -296,6 +299,7 @@ const menuSlice = createSlice({
 });
 
 export const {
+  hydrateMenu,
   setColorPalette,
   setPrimaryColor,
   setSecondaryColor,
