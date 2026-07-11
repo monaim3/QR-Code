@@ -40,6 +40,8 @@ export default function Wifi() {
   const wifiPassword = useAppSelector((state) => state.wifi.Password);
   const wifiEncryption = useAppSelector((state) => state.wifi.EncryptionType);
   const wifiHidden = useAppSelector((state) => state.wifi.HiddenNetwork);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
 
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
@@ -136,6 +138,7 @@ export default function Wifi() {
               title={t("generator__step_1__qr_type_cards__wifi__title")}
               description={t("generator__step_1__qr_type_cards__wifi__subtitle")}
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.networkName}
             >
               <div className="flex flex-col gap-6">
                 <div>
@@ -145,6 +148,7 @@ export default function Wifi() {
                     onChange={handleChange}
                     placeholder={t("generator__step_1__qr_type__wifi_ssid__placeholder")}
                     maxLength={100}
+                    validationKey="networkName"
                   />
                 </div>
                 <div className="flex gap-12 items-center justify-center">

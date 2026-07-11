@@ -13,6 +13,7 @@ import {
 } from "@/store/slices/validationSlice";
 
 import ErrorToast from "../common/ErrorToast";
+import ButtonSpinner from "../common/ButtonSpinner";
 import MobilePreviewModal from "./Mobile_Preview_Modal";
 import Container from "../common/parent-container";
 import WebsiteUrlPreview from "./Website_Url_Preview";
@@ -48,6 +49,7 @@ export default function BreadcrumbFooter() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.preview.activeTab);
@@ -94,7 +96,7 @@ export default function BreadcrumbFooter() {
     }
   };
 
-  const handleNext = async () => {
+  const doNext = async () => {
     if (currentStep === 2) {
       const qrType = pathname.split("/")[2];
       const validationResult = validateQRData(reduxState, qrType);
@@ -154,6 +156,16 @@ export default function BreadcrumbFooter() {
         });
       }
       router.push("/sign-up?onboarding-flow=true");
+    }
+  };
+
+  const handleNext = async () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+    try {
+      await doNext();
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -311,10 +323,15 @@ export default function BreadcrumbFooter() {
             {(currentStep === 2 || currentStep === 3) && (
               <button
                 onClick={handleNext}
-                className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300 animate-pulse-cta"
+                disabled={isProcessing}
+                className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300 animate-pulse-cta disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 <span>{t("generator__footer__next_button")}</span>
-                <ArrowRight className="size-5" />
+                {isProcessing ? (
+                  <ButtonSpinner />
+                ) : (
+                  <ArrowRight className="size-5" />
+                )}
               </button>
             )}
           </div>

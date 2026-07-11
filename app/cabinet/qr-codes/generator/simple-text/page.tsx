@@ -28,6 +28,8 @@ export default function SimpleText() {
   const activeTab = useAppSelector((state) => state.preview.activeTab);
   const [qrNameError, setQrNameError] = useState("");
   const simpleText = useAppSelector((state) => state.simpleText.Text);
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
   const handleQrNameChange = (value: string) => {
     dispatch(setQrCodeName(value));
   };
@@ -86,6 +88,7 @@ export default function SimpleText() {
               title={t("generator__step_1__qr_type__plain_text__title")}
               description={t("generator__step_1__qr_type__plain_text__description")}
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.simpleText}
             >
               <div>
                 <Textarea
@@ -95,6 +98,8 @@ export default function SimpleText() {
                   value={simpleText}
                   onChange={handleChange}
                   maxLength={500}
+                  validationKey="simpleText"
+                  required={true}
                 />
               </div>
             </Accordion>

@@ -34,6 +34,10 @@ import {
 import { buildGuestQrStep2Payload } from "@/lib/generator/buildGuestQrStep2Payload";
 import { buildGuestQrDesign } from "@/lib/generator/buildGuestQrDesign";
 import { setHydratedEditId } from "@/store/slices/qrSlice";
+import { getStep2ValidationToastMessage } from "@/lib/utils/getStep2ValidationToastMessage";
+import { scheduleScrollToFirstValidationError } from "@/lib/utils/scheduleScrollToFirstValidationError";
+import ErrorToast from "@/components/common/ErrorToast";
+import ButtonSpinner from "@/components/common/ButtonSpinner";
 import { useT } from "@/utils/t";
 
 export default function FooterBreadcrumb() {
@@ -42,6 +46,8 @@ export default function FooterBreadcrumb() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.preview.activeTab);
@@ -122,7 +128,7 @@ export default function FooterBreadcrumb() {
   };
 
   // Save icon (step 1): validate, then save the current values and exit.
-  const handleSave = async () => {
+  const doSave = async () => {
     const pathParts = pathname.split("/");
     const qrType = pathParts[pathParts.length - 1];
 
@@ -130,7 +136,14 @@ export default function FooterBreadcrumb() {
     if (!validationResult.isValid) {
       dispatch(setErrors(validationResult.fieldErrors));
       dispatch(setShowErrors(true));
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      const toast = getStep2ValidationToastMessage(
+        pathname,
+        validationResult.fieldErrors,
+      );
+      if (toast) setToastMessage(toast);
+
+      scheduleScrollToFirstValidationError();
       return;
     }
 
@@ -147,7 +160,7 @@ export default function FooterBreadcrumb() {
     }
   };
 
-  const handleNext = async () => {
+  const doNext = async () => {
     if (currentStep === 1) {
       // Get QR type from the content page pathname (/generator/{type})
       const pathParts = pathname.split("/");
@@ -161,8 +174,15 @@ export default function FooterBreadcrumb() {
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
 
-        // Scroll to top to show error
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        // Show a toast for collection-level errors (social-media/video/menu)
+        const toast = getStep2ValidationToastMessage(
+          pathname,
+          validationResult.fieldErrors,
+        );
+        if (toast) setToastMessage(toast);
+
+        // Scroll to the first invalid field
+        scheduleScrollToFirstValidationError();
         return;
       }
 
@@ -175,6 +195,26 @@ export default function FooterBreadcrumb() {
       const qrType =
         (typeof window !== "undefined" && localStorage.getItem("qrType")) || "";
       await persistQr(qrType);
+    }
+  };
+
+  const handleNext = async () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+    try {
+      await doNext();
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+    try {
+      await doSave();
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -230,6 +270,12 @@ export default function FooterBreadcrumb() {
 
   return (
     <>
+      {toastMessage && (
+        <ErrorToast
+          message={toastMessage}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
       <footer
         className={`
         fixed bottom-0 w-full flex items-center justify-center gap-10 py-4 px-5
@@ -266,9 +312,14 @@ export default function FooterBreadcrumb() {
               {currentStep === 1 && (
                 <button
                   onClick={handleSave}
-                  className="flex w-12 h-12 p-2 justify-center items-center flex-shrink-0 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)]"
+                  disabled={isProcessing}
+                  className="flex w-12 h-12 p-2 justify-center items-center flex-shrink-0 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Save className="text-[var(--Dark-gray)]" />
+                  {isProcessing ? (
+                    <ButtonSpinner className="h-5 w-5 text-[var(--Dark-gray)]" />
+                  ) : (
+                    <Save className="text-[var(--Dark-gray)]" />
+                  )}
                 </button>
               )}
 
@@ -286,18 +337,25 @@ export default function FooterBreadcrumb() {
               {currentStep === 1 && (
                 <button
                   onClick={handleNext}
-                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
+                  disabled={isProcessing}
+                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   <span>{t("generator__footer__next_button")}</span>
-                  <ArrowRight className="size-5" />
+                  {isProcessing ? (
+                    <ButtonSpinner />
+                  ) : (
+                    <ArrowRight className="size-5" />
+                  )}
                 </button>
               )}
               {currentStep === 2 && (
                 <button
                   onClick={handleNext}
-                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
+                  disabled={isProcessing}
+                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Complete
+                  <span>Complete</span>
+                  {isProcessing && <ButtonSpinner />}
                 </button>
               )}
             </div>

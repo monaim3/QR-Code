@@ -55,19 +55,19 @@ import SocialPreView from "@/components/generator/socialMedia/social-preview";
 import VideoPreView from "@/components/generator/video/video-preview";
 import WifiPreview from "@/components/generator/Wifi/WifiPreview";
 
-const QR_TYPE_LABELS: Record<string, string> = {
-  "app": "App",
-  "business-page": "Business Page",
-  "facebook": "Facebook",
-  "images": "Images",
-  "menu": "Menu",
-  "pdf": "PDF",
-  "simple-text": "Simple Text",
-  "social-media": "Social Media",
-  "vcard": "vCard",
-  "video": "Video",
-  "website-url": "Website URL",
-  "wifi": "Wi-Fi",
+const QR_TYPE_LABEL_KEYS: Record<string, string> = {
+  "app": "generator__step_1__qr_type_cards__app__title",
+  "business-page": "generator__step_1__qr_type_cards__business_page__title",
+  "facebook": "generator__step_1__qr_type_cards__facebook__title",
+  "images": "generator__step_1__qr_type_cards__images__title",
+  "menu": "generator__step_1__qr_type_cards__menu__title",
+  "pdf": "generator__step_1__qr_type_cards__pdf__title",
+  "simple-text": "generator__step_1__qr_type_cards__plain_text__title",
+  "social-media": "generator__step_1__qr_type_cards__social_media__title",
+  "vcard": "generator__step_1__qr_type_cards__vcard__title",
+  "video": "generator__step_1__qr_type_cards__video__title",
+  "website-url": "generator__step_1__qr_type_cards__url__title",
+  "wifi": "generator__step_1__qr_type_cards__wifi__title",
 };
 
 export default function QRCodeCustomize() {
@@ -201,8 +201,9 @@ export default function QRCodeCustomize() {
 
   useEffect(() => {
     const slug = localStorage.getItem("qrType") ?? "";
-    setQrTypeLabel(QR_TYPE_LABELS[slug] ?? slug);
-  }, []);
+    const labelKey = QR_TYPE_LABEL_KEYS[slug];
+    setQrTypeLabel(labelKey ? t(labelKey) : slug);
+  }, [t]);
 
   // Desktop preview QR code update - EXACT SAME AS REFERENCE
   useEffect(() => {
@@ -371,8 +372,10 @@ export default function QRCodeCustomize() {
             </h1>
             <div className="flex-1 flex flex-col gap-4">
               <Accordion
-                title="QR code frame"
-                description="Frames improve your QR code visibility, leading to more scans"
+                title={t("generator__design_form__frame_section__title")}
+                description={t(
+                  "generator__design_form__frame_section__description__changed",
+                )}
                 defaultOpen={true}
               >
                 <QRFrameGallery
@@ -409,13 +412,15 @@ export default function QRCodeCustomize() {
               </Accordion>
 
               <Accordion
-                title="QR code pattern"
-                description="Select a pattern for your QR code and choose colors"
+                title={t("generator__design_form__pattern_section__title")}
+                description={t(
+                  "generator__design_form__pattern_section__description__changed",
+                )}
                 defaultOpen={true}
               >
                 <div className="w-full">
                   <label className="block text-lg font-bold leading-[26px] text-[#0A0909]">
-                    Pattern style
+                    {t("generator__design_form__pattern_section__heading")}
                   </label>
                   <div className="flex gap-4 p-0.5 pt-4 overflow-x-auto desktop:overflow-visible flex-wrap">
                     {patternOptions.map((pattern) => (
@@ -432,7 +437,7 @@ export default function QRCodeCustomize() {
                 <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
                   <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
                     <ColorInput
-                      label="Dot color"
+                      label={t("generator__design_form__pattern_section__dot_label")}
                       value={dotColor}
                       onChange={(color: string) => dispatch(setDotColor(color))}
                       showColorIndicator
@@ -458,13 +463,13 @@ export default function QRCodeCustomize() {
                     >
                       <p className="flex gap-2">
                         <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                          Swap the colours
+                          {t("generator__content_form_section__design__swap_button")}
                         </span>
                         <Swap />
                       </p>
                     </button>
                     <ColorInput
-                      label="Background color"
+                      label={t("generator__design_form__pattern_section__background_label")}
                       value={
                         patternTransparentBg ? "Transparent" : backgroundColor
                       }
@@ -480,7 +485,7 @@ export default function QRCodeCustomize() {
                   </div>
                   <div className="flex items-center gap-2 px-6 pb-4">
                     <CheckboxInput
-                      label="Transparent background"
+                      label={t("generator__design_form__pattern_section__transparent_background")}
                       checked={patternTransparentBg}
                       onChange={handleTransparentChange}
                       id="pattern-transparent-bg"
@@ -490,14 +495,16 @@ export default function QRCodeCustomize() {
               </Accordion>
 
               <Accordion
-                title="QR code corners"
-                description="Choose your QR code corner style"
+                title={t("generator__design_form__corner_section__title")}
+                description={t(
+                  "generator__design_form__corner_section__description__changed",
+                )}
                 defaultOpen={true}
               >
                 <div className="flex flex-col lg:flex-row gap-6 desktop:gap-[72px]">
                   <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
                     <label className="block text-base font-medium ">
-                      Corner frames style
+                      {t("generator__design_form__corner_section__frame_label")}
                     </label>
                     <div className="flex flex-row gap-4">
                       {cornerFrameOptions.map((style) => {
@@ -518,7 +525,7 @@ export default function QRCodeCustomize() {
 
                   <div className="flex flex-col gap-2 width-full w-full desktop:w-1/2">
                     <label className="block  text-base font-medium ">
-                      Corner dots type
+                      {t("generator__design_form__corner_section__dot_label")}
                     </label>
                     <div className="flex flex-row gap-4">
                       {cornerDotOptions.map((style) => (
@@ -536,7 +543,7 @@ export default function QRCodeCustomize() {
                 <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
                   <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
                     <ColorInput
-                      label="Corner frames color"
+                      label={t("generator__design_form__corner_section__frame_color")}
                       value={cornerFrameColor}
                       onChange={(color: string) =>
                         dispatch(setCornerFrameColor(color))
@@ -565,13 +572,13 @@ export default function QRCodeCustomize() {
                     >
                       <p className="flex gap-2">
                         <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                          Swap the colours
+                          {t("generator__content_form_section__design__swap_button")}
                         </span>
                         <Swap className="text-2xl" />
                       </p>
                     </button>
                     <ColorInput
-                      label="Corner dots color"
+                      label={t("generator__design_form__corner_section__dot_color")}
                       value={cornerDotColor}
                       onChange={(color: string) =>
                         dispatch(setCornerDotColor(color))
@@ -585,7 +592,9 @@ export default function QRCodeCustomize() {
 
               <Accordion
                 title="Logo"
-                description="Personalize your QR code by adding a logo or image"
+                description={t(
+                  "generator__design_form__logo_section__description__changed",
+                )}
                 defaultOpen={true}
               >
                 <LogoSelector
@@ -615,7 +624,7 @@ export default function QRCodeCustomize() {
                   }`}
                 >
                   <span className="text-sm leading-[22px] font-medium font-roboto">
-                    Preview
+                    {t("generator__preview_switch__preview")}
                   </span>
                 </button>
                 <button
@@ -627,7 +636,7 @@ export default function QRCodeCustomize() {
                   }`}
                 >
                   <span className="text-sm leading-[22px] font-medium font-roboto">
-                    QR code
+                    {t("generator__preview_switch__qr")}
                   </span>
                 </button>
               </div>
