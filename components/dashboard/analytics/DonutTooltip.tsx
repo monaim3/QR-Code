@@ -1,3 +1,6 @@
+"use client";
+import { useT } from "@/utils/t";
+
 interface TooltipCoordinate {
   x: number;
   y: number;
@@ -29,9 +32,11 @@ export default function DonutTooltip({
   isHeatmap,
   coordinate,
 }: Props) {
+  const t = useT();
   if (active && payload && payload.length) {
     const data = payload[0] as TooltipPayload;
     const scanCount = data.payload.scans || 0;
+    const scansLabel = t("public__dashboard__qr_table__qr__card__scans").toLowerCase();
 
     return (
       <div
@@ -49,10 +54,10 @@ export default function DonutTooltip({
         </p>
         <p className="text-[var(--Dark-gray)] text-center text-[14px] leading-[22px] font-semibold">
           {isHeatmap
-            ? `${scanCount} scans`
+            ? `${scanCount} ${scansLabel}`
             : label
-              ? `${payload[0].value} total scans`
-              : `${scanCount} scans (${data.value}%)`}
+              ? t("public__dashboard__analytics__activity_card__total_scans", { count: payload[0].value })
+              : `${scanCount} ${scansLabel} (${data.value}%)`}
         </p>
 
         <div className="w-3 h-3 rotate-45 absolute right-[51.515px] bottom-[-5.971px] bg-white left-1/2 -translate-x-1/2"></div>
