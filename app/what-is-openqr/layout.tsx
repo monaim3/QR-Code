@@ -5,7 +5,7 @@ import Container from "@/components/common/parent-container";
 
 function SimpleHeader() {
   return (
-    <header className="w-full bg-[#F5F6FA] border-b border-[#CDD0DB]/50 desktop:border-black">
+    <header className="w-full bg-white border-b border-[#D3D8EB] desktop:bg-transparent desktop:border-none">
       <Container>
         <div className="flex items-center h-16 desktop:h-[72px]">
           <Logo />
@@ -17,11 +17,11 @@ function SimpleHeader() {
 
 function SimpleFooter() {
   return (
-    <footer className="w-full border-t border-[#CDD0DB]/50 desktop:border-black">
+    <footer className="w-full bg-white border-t border-[#D3D8EB]">
       <Container>
         {/* Desktop: links left + copyright right | Mobile: stacked centered */}
         <div className="flex flex-col desktop:flex-row desktop:items-center desktop:justify-between gap-8 desktop:gap-3 py-8 desktop:py-5 items-center text-center desktop:text-left">
-          <nav className="flex flex-col desktop:flex-row desktop:items-center gap-4 desktop:gap-0">
+          <nav className="flex flex-col desktop:flex-row desktop:items-center gap-4 desktop:gap-10">
             <Link
               href="/about-us"
               className="text-[14px] leading-[22px] text-[#3F3E3E] desktop:px-4 desktop:pl-0 hover:underline"
@@ -43,7 +43,7 @@ function SimpleFooter() {
               Privacy policy
             </Link>
           </nav>
-          <p className="text-[13px] leading-[20px] text-[#3F3E3E] opacity-70 whitespace-nowrap">
+          <p className="text-[13px] leading-[20px] text-[#3F3E3E] whitespace-nowrap">
             © {new Date().getFullYear()} QRcenter.com™. All rights reserved
           </p>
         </div>
@@ -58,7 +58,7 @@ export default function WhatIsOpenQrLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#F5F6FA]">
       <SimpleHeader />
       <main className="flex-1 flex flex-col">{children}</main>
       <SimpleFooter />

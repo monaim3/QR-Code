@@ -48,7 +48,7 @@ export default function ContactUsInputForm({
       name: "",
       surName: "",
       message: "",
-      subject: "GENERAL",
+      subject: "",
     },
   });
 
@@ -159,7 +159,7 @@ export default function ContactUsInputForm({
             />
           </div>
         </div>
-        <div className="flex flex-col desktop:flex-row gap-4 desktop:gap-6">
+        <div className="flex flex-col desktop:flex-row gap-4 desktop:gap-6 relative z-10">
           <div className="flex flex-col flex-1 gap-2">
             <label
               htmlFor="email"

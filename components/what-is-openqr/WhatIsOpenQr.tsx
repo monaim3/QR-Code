@@ -4,7 +4,7 @@ import Container from "../common/parent-container";
 
 export default function WhatIsOpenQr() {
   return (
-    <section className="flex-1 flex items-center w-full py-[56px] desktop:py-[120px] bg-[#F5F6FA] desktop:bg-white">
+    <section className="flex-1 flex items-center w-full py-[56px] desktop:py-[120px] bg-[rgb(245,246,250)]">
       <Container>
         <div className="flex flex-col desktop:flex-row items-center desktop:gap-[128px] gap-[56px]">
           {/* Left: Text Content */}
@@ -37,13 +37,13 @@ export default function WhatIsOpenQr() {
                 href="/generator"
                 className="bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] rounded-[10px] text-white text-[18px] leading-[26px] font-medium py-[11px] px-8 block w-full text-center desktop:w-auto desktop:inline-block transition-all duration-300 ease-linear"
               >
-                Create my QR code
+                Create QR code
               </Link>
             </div>
           </div>
 
           {/* Right: Illustration */}
-          <div className="flex justify-center items-center desktop:flex-1">
+          <div className="flex justify-center items-center desktop:w-[600px] desktop:flex-none">
             <Image
               src="/images/generator_img/qrlink2.svg"
               alt="QR Code Scan Illustration"
