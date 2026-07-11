@@ -42,6 +42,7 @@ import { buildGuestQrDesign } from "@/lib/generator/buildGuestQrDesign";
 import { getStep2ValidationToastMessage } from "@/lib/utils/getStep2ValidationToastMessage";
 import { scheduleScrollToFirstValidationError } from "@/lib/utils/scheduleScrollToFirstValidationError";
 import ErrorToast from "@/components/common/ErrorToast";
+import ButtonSpinner from "@/components/common/ButtonSpinner";
 import { useT } from "@/utils/t";
 
 export default function CreateFooterBreadcrumb() {
@@ -50,6 +51,7 @@ export default function CreateFooterBreadcrumb() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.preview.activeTab);
@@ -103,7 +105,7 @@ export default function CreateFooterBreadcrumb() {
     }
   };
 
-  const handleNext = async () => {
+  const doNext = async () => {
     if (currentStep === 2) {
       // Get QR type from pathname
       const qrType = pathname.split("/")[4];
@@ -173,6 +175,16 @@ export default function CreateFooterBreadcrumb() {
       }
 
       router.push("/cabinet/qr-codes");
+    }
+  };
+
+  const handleNext = async () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+    try {
+      await doNext();
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -282,18 +294,25 @@ export default function CreateFooterBreadcrumb() {
               {currentStep === 2 && (
                 <button
                   onClick={handleNext}
-                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
+                  disabled={isProcessing}
+                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   <span>{t("generator__footer__next_button")}</span>
-                  <ArrowRight className="size-5" />
+                  {isProcessing ? (
+                    <ButtonSpinner />
+                  ) : (
+                    <ArrowRight className="size-5" />
+                  )}
                 </button>
               )}
               {currentStep === 3 && (
                 <button
                   onClick={handleNext}
-                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300"
+                  disabled={isProcessing}
+                  className="text-center w-full desktop:w-[222px] flex-1 desktop:flex-none flex items-center justify-center gap-2 px-6 py-2.5 font-roboto bg-[var(--Blue)] hover:bg-[var(--Blue-hover)] text-white rounded-lg text-[18px] leading-[28px] font-medium transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Complete
+                  <span>Complete</span>
+                  {isProcessing && <ButtonSpinner />}
                 </button>
               )}
             </div>
