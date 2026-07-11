@@ -191,13 +191,32 @@ export default function ContactUsInputForm({
               )}
             />
           </div>
-          <Controller
+          {/* <Controller
             name="subject"
             control={control}
             render={({ field }) => (
               <SimpleDropdown value={field.value} onChange={field.onChange} />
             )}
-          />
+          /> */}
+          <Controller
+  name="subject"
+  control={control}
+  render={({ field, fieldState }) => (
+    <div className="flex flex-col flex-1 gap-1">
+      <SimpleDropdown
+        value={field.value}
+        onChange={field.onChange}
+        error={!!fieldState.error}
+      />
+
+      {fieldState.error && (
+        <span className="text-[var(--error)] text-[12px] leading-[20px]">
+          {fieldState.error.message}
+        </span>
+      )}
+    </div>
+  )}
+/>
         </div>
         <div className="flex flex-col flex-1 gap-2">
           <label
