@@ -30,6 +30,8 @@ import QRCodeNameAccordion from "@/components/generator/QRCode_Name_Accordion";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Accordion from "@/components/common/Accordion";
 import { TextInput } from "@/components/common/TextInput";
+import { RequiredTextInput } from "@/components/common/RequiredInput";
+import { clearFieldError } from "@/store/slices/validationSlice";
 import InputUrl from "@/components/common/InputUrl";
 import { Plus } from "lucide-react";
 import ButtonInput from "@/components/common/ButtonInput";
@@ -70,6 +72,14 @@ export default function Facebook() {
   );
   const buttonTextError = lastButton?.buttonTextError || "";
   const buttonUrlError = lastButton?.urlError || "";
+  const validationErrors = useAppSelector((state) => state.validation.errors);
+  const showErrors = useAppSelector((state) => state.validation.showErrors);
+
+  useEffect(() => {
+    if (images.length > 0 && validationErrors.facebookImages) {
+      dispatch(clearFieldError("facebookImages"));
+    }
+  }, [images.length]);
 
   const handleAddButton = () => {
     dispatch(addButton());
@@ -220,6 +230,11 @@ export default function Facebook() {
                 "generator__content_form_section__design__description",
               )}
               defaultOpen={true}
+              forceOpen={
+                showErrors &&
+                images.length === 0 &&
+                !!validationErrors.facebookImages
+              }
             >
               <div className="space-y-8">
                 {/* Color palette */}
@@ -281,6 +296,11 @@ export default function Facebook() {
                   onUpdateImage={(id, image) =>
                     dispatch(updateImage({ id, image }))
                   }
+                  validationError={
+                    showErrors && images.length === 0
+                      ? validationErrors.facebookImages
+                      : undefined
+                  }
                 />
               </div>
             </Accordion>
@@ -294,6 +314,7 @@ export default function Facebook() {
                 "generator__content_form_section__facebook__description",
               )}
               defaultOpen={true}
+              forceOpen={showErrors && !!validationErrors.facebookUrl}
             >
               <div>
                 <div className="flex gap-12 items-start justify-center ">
@@ -359,7 +380,7 @@ export default function Facebook() {
                   </div>
 
                   <div className="space-y-4 mt-6">
-                    {buttons.map((button) => (
+                    {buttons.map((button, index) => (
                       <ButtonInput
                         key={button.id}
                         id={button.id}
@@ -367,6 +388,8 @@ export default function Facebook() {
                         url={button.url}
                         buttonTextError={button.buttonTextError}
                         urlError={button.urlError}
+                        buttonTextValidationKey={`facebookButtonText_${index}`}
+                        urlValidationKey={`facebookButtonUrl_${index}`}
                         onRemove={() => handleRemoveButton(button.id)}
                         onButtonTextChange={(value) =>
                           handleButtonTextChange(button.id, value)

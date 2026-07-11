@@ -34,6 +34,9 @@ import {
 import { buildGuestQrStep2Payload } from "@/lib/generator/buildGuestQrStep2Payload";
 import { buildGuestQrDesign } from "@/lib/generator/buildGuestQrDesign";
 import { setHydratedEditId } from "@/store/slices/qrSlice";
+import { getStep2ValidationToastMessage } from "@/lib/utils/getStep2ValidationToastMessage";
+import { scheduleScrollToFirstValidationError } from "@/lib/utils/scheduleScrollToFirstValidationError";
+import ErrorToast from "@/components/common/ErrorToast";
 import { useT } from "@/utils/t";
 
 export default function FooterBreadcrumb() {
@@ -42,6 +45,7 @@ export default function FooterBreadcrumb() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector((state) => state.preview.activeTab);
@@ -130,7 +134,14 @@ export default function FooterBreadcrumb() {
     if (!validationResult.isValid) {
       dispatch(setErrors(validationResult.fieldErrors));
       dispatch(setShowErrors(true));
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      const toast = getStep2ValidationToastMessage(
+        pathname,
+        validationResult.fieldErrors,
+      );
+      if (toast) setToastMessage(toast);
+
+      scheduleScrollToFirstValidationError();
       return;
     }
 
@@ -161,8 +172,15 @@ export default function FooterBreadcrumb() {
         dispatch(setErrors(validationResult.fieldErrors));
         dispatch(setShowErrors(true));
 
-        // Scroll to top to show error
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        // Show a toast for collection-level errors (social-media/video/menu)
+        const toast = getStep2ValidationToastMessage(
+          pathname,
+          validationResult.fieldErrors,
+        );
+        if (toast) setToastMessage(toast);
+
+        // Scroll to the first invalid field
+        scheduleScrollToFirstValidationError();
         return;
       }
 
@@ -230,6 +248,12 @@ export default function FooterBreadcrumb() {
 
   return (
     <>
+      {toastMessage && (
+        <ErrorToast
+          message={toastMessage}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
       <footer
         className={`
         fixed bottom-0 w-full flex items-center justify-center gap-10 py-4 px-5
