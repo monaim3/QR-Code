@@ -41,7 +41,7 @@ export default function CustomTooltip({
           {isHeatmap
             ? `${scanCount} ${scansLabel}`
             : label
-              ? t("public__dashboard__analytics__activity_card__total_scans", { count: payload[0].value })
+              ? t("public__dashboard__analytics__activity_card__total_scans", { count: String(payload[0].value) })
               : `${scanCount} ${scansLabel} (${data.value}%)`}
         </p>
 
