@@ -38,7 +38,7 @@ const SimpleInputField: FC<InputFieldProps> = ({
       text-gray-900
       placeholder:text-[var(--placeholder-grey)]
       focus:outline-none
-      ${isFocused ? "border-[var(--Blue)] ring-2 ring-[var(--Blue)]" : error ? "border-[var(--error)] ring-2 ring-[var(--error)]" : "border-[var(--Boarder-Grey)]"}
+      ${isFocused ? "border-2 border-[var(--Blue)]" : error ? "border-2 border-[var(--error)]" : "border border-[var(--Boarder-Grey)]"}
     `;
   
     return (

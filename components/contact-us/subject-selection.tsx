@@ -63,7 +63,7 @@ export default function SimpleDropdown({
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="flex flex-col p-4 gap-2 absolute top-full left-0 w-full mt-1 border border-[var(--Boarder-Grey)] rounded-[8px] bg-white z-50">
+        <div className="flex flex-col p-4 gap-2 absolute top-full left-0 w-full mt-1 border border-[var(--Boarder-Grey)] rounded-[8px] bg-white z-50 ring-2 ring-white">
           {options.map((option) => {
             const isSelected = selected?.value === option.value;
 
