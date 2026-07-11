@@ -211,7 +211,7 @@ export default function ImageCarousel({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={`border-2 border-dashed rounded-lg p-4 lg:p-6 transition-colors ${
-          uploadError
+          uploadError || (validationError && images.length === 0)
             ? "border-red-500 bg-red-50"
             : isDragging
               ? "border-[var(--Blue)] bg-blue-50"
