@@ -472,7 +472,7 @@ export default function QRCodeCustomize() {
                       <p className="flex gap-2">
                         <span className="text-[#79809A] text-sm leading-[22px] font-normal">
                           {t(
-                            "generator__content_form_section__customize__swap_button",
+                            "generator__content_form_section__design__swap_button",
                           )}
                         </span>
                         <Swap />
@@ -586,7 +586,7 @@ export default function QRCodeCustomize() {
                       <p className="flex gap-2">
                         <span className="text-[#79809A] text-sm leading-[22px] font-normal">
                           {t(
-                            "generator__content_form_section__customize__swap_button",
+                            "generator__content_form_section__design__swap_button",
                           )}
                         </span>
                         <Swap className="text-2xl" />

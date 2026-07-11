@@ -48,7 +48,7 @@ export default function ContactUsInputForm({
       name: "",
       surName: "",
       message: "",
-      subject: "GENERAL",
+      subject: "",
     },
   });
 
