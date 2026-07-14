@@ -28,13 +28,13 @@ export default function QRCodeNameAccordion({
     <div className="w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_14px_0_rgba(54,66,140,0.16)]">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-4 md:px-8 py-4"
+        className="w-full flex items-center justify-between px-4 md:px-8 py-4 text-left"
       >
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col flex-1 min-w-0">
           <h3 className="text-lg leading-[26px] font-bold text-[var(--Black)] font-Poppins">
             {title}
           </h3>
-          <p className="text-[14px] leading-[22px] text-[var(--Dark-gray)] font-roboto">
+          <p className="text-[14px] leading-[22px] text-[var(--Dark-gray)] font-roboto text-left">
             {description}
           </p>
         </div>

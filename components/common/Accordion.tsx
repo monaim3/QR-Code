@@ -40,10 +40,10 @@ export default function Accordion({
                 <button
                   onClick={() => !disabled && setIsOpen(!isOpen)}
                   disabled={disabled}
-                  className="w-full flex items-start justify-between px-4 md:px-8 py-4"
+                  className="w-full flex items-start justify-between px-4 md:px-8 py-4 text-left"
                 >
-                  <div className="flex flex-col items-start">
-                    <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)]">
+                  <div className="flex flex-col flex-1 min-w-0">
+                    <h3 className="text-lg leading-[26px] font-bold var(--font-poppins) text-[var(--Black)] text-left">
                       {title}{required && <span className="text-[var(--Black)] ml-0.5">*</span>}
                     </h3>
                     <p className="text-sm leading-[22px] text-[var(--Dark-gray)] text-left">
