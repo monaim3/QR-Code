@@ -428,7 +428,7 @@ export default function QRCodeCustomize() {
                   <label className="block text-lg font-bold leading-[26px] text-[#0A0909]">
                     {t("generator__design_form__pattern_section__heading")}
                   </label>
-                  <div className="flex gap-4 p-0.5 pt-4 overflow-x-auto desktop:overflow-visible flex-wrap">
+                  <div className="flex gap-4 p-0.5 pt-4 overflow-x-auto desktop:overflow-visible desktop:flex-wrap">
                     {patternOptions.map((pattern) => (
                       <PatternPreview
                         key={pattern}
