@@ -519,7 +519,7 @@ export default function QRCodeCustomize() {
                     <label className="block text-base font-semibold ">
                       {t("generator__design_form__corner_section__heading")}
                     </label>
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-4 overflow-x-auto">
                       {cornerFrameOptions.map((style) => {
                         return (
                           <CornerStylePreview
@@ -540,7 +540,7 @@ export default function QRCodeCustomize() {
                     <label className="block  text-base font-semibold ">
                       {t("generator__design_form__corner_section__dot_label")}
                     </label>
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-4 overflow-x-auto">
                       {cornerDotOptions.map((style) => (
                         <CornerStylePreview
                           key={style}
