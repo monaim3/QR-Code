@@ -870,6 +870,10 @@ const enTranslations = {
     "Google Pay",
   public__dashboard__billing__transaction_history__payment_method__paypal:
     "PayPal",
+  public__dashboard__billing__payment_method__credit_card: "Credit or debit card",
+  public__dashboard__billing__payment_method__paypal: "PayPal",
+  public__dashboard__billing__payment_method__google_pay: "Google Pay",
+  public__dashboard__billing__payment_method__apple_pay: "Apple Pay",
   public__dashboard__billing__transaction_history__title: "Transaction History",
   public__dashboard__billing_title: "Billing",
   public__dashboard__bulk__delete__qr_code__modal_description:
