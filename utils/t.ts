@@ -13,8 +13,9 @@ export const useT = () => {
 
     if (params) {
       // Handle ICU plural: {varName, plural, one {text} other {text}}
+      // (?:[^{}]|\{[^{}]*\})* allows one level of nested {var} inside arms
       str = str.replace(
-        /\{(\w+),\s*plural,\s*one\s*\{([^}]*)\}\s*other\s*\{([^}]*)\}\}/g,
+        /\{(\w+),\s*plural,\s*one\s*\{((?:[^{}]|\{[^{}]*\})*)\}\s*other\s*\{((?:[^{}]|\{[^{}]*\})*)\}\}/g,
         (_match: string, varName: string, oneText: string, otherText: string) => {
           const val = params[varName];
           const num = typeof val === "number" ? val : parseInt(String(val), 10);
