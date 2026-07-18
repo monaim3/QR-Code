@@ -48,13 +48,13 @@ export default function SimpleDropdown({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full h-[48px] rounded-[10px] px-4 py-2 flex justify-between items-center bg-white ring-1 ${
+        className={`w-full h-[48px] rounded-[10px] px-4 py-2 flex justify-between items-center bg-white ring-1 ring-inset ${
   error
     ? "ring-2 ring-[var(--error)]"
     : "ring-[var(--Boarder-Grey)] hover:ring-2"
 }`}
       >
-        <span className="text-4 leading-6 font-regular text-[var(--Dark-gray)] whitespace-nowrap overflow-hidden text-ellipsis">
+        <span className={`text-4 leading-6 font-medium whitespace-nowrap overflow-hidden text-ellipsis ${selected ? "text-[var(--Dark-gray)]" : "text-[var(--placeholder-grey)]"}`}>
           {selected ? t(selected.label) : "Select a subject..."}
         </span>
 
