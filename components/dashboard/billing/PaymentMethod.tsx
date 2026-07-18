@@ -24,7 +24,9 @@ export default function PaymentMethod() {
     <>
       <div className="flex flex-col items-start gap-4 self-stretch">
         <p className="text-[var(--Black)] font-bold text-[18px] leading-[26px]">
-          {t("public__dashboard__billing__subscription__plan__and__payment_method")}
+          {t(
+            "public__dashboard__billing__subscription__plan__and__payment_method",
+          )}
         </p>
 
         <div className="flex flex-col desktopDashboard:flex-row items-start desktopDashboard:gap-6 gap-2 self-stretch">
@@ -40,13 +42,17 @@ export default function PaymentMethod() {
                   <span
                     className={`text-[14px] leading-[22px] font-medium ${getStatusStyles("Active")}`}
                   >
-                    {t("public__dashboard__billing__subscription_status_active")}
+                    {t(
+                      "public__dashboard__billing__subscription_status_active",
+                    )}
                   </span>
                 </div>
               </div>
 
               <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                {t("public__dashboard__billing__active_period__with_no_difference").replace("{date}", "Sep 18, 2024")}{" "}
+                {t(
+                  "public__dashboard__billing__active_period__with_no_difference",
+                ).replace("{date}", "Sep 18, 2024")}{" "}
                 <span className="text-[var(--Grey)]">(179 days left)</span>
               </p>
             </div>
@@ -67,7 +73,7 @@ export default function PaymentMethod() {
               </p>
 
               <p className="text-[var(--Dark-gray)] text-[14px] leading-[22px]">
-                {t("public__dashboard__billing__change_payment_method_description")}
+                Change how you pay for your plan
               </p>
             </div>
 

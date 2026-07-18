@@ -17,7 +17,7 @@ const CornerStylePreview = ({
   const strokeWidth = 2.5;
 
   const baseClass =
-    "w-[60px] h-[60px] flex items-center justify-center rounded-[10px] border transition-all p-4 border-2";
+    "shrink-0 w-[60px] h-[60px] flex items-center justify-center rounded-[10px] border transition-all p-4 border-2";
 
   const stateClass = isSelected
     ? "border-[var(--Blue)] bg-[#F3FBF8]"

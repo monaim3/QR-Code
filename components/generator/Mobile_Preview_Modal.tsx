@@ -38,10 +38,10 @@ export default function MobilePreviewModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
       <div className="fixed inset-0 bg-black/60" onClick={onClose} />
 
-      <div className="relative w-[350px] mt-12 mb-8">
+      <div className="relative w-[350px] my-8">
         <button
           onClick={onClose}
           className="absolute -top-8 right-0 flex items-center gap-2 z-10"

@@ -25,11 +25,10 @@ export default function CancelSubscriptionModal({ open, onClose }: Props) {
       >
         <DialogHeader className="flex flex-col justify-start items-center gap-2">
           <DialogTitle className="text-[var(--Black)] text-[24px] font-semibold desktopDashboard:leading-[var(--Typeface-Line-height-Heading-3)] leading-[28px] w-full text-left">
-            Do you really want to cancel your subscription?
+            {t("public__dashboard__billing__cancel_subscription_title")}
           </DialogTitle>
           <p className="text-[var(--Dark-gray)] text-[16px] leading-[24px] w-full text-left">
-            If you choose to cancel your subscription, all of your QR codes will
-            be deactivated once your current subscription period expires.
+            {t("public__dashboard__billing__cancel_subscription_description")}
           </p>
         </DialogHeader>
 
@@ -42,7 +41,7 @@ export default function CancelSubscriptionModal({ open, onClose }: Props) {
             {t("auth__common__back")}
           </Button>
           <Button className="h-10 flex items-center justify-center gap-2 py-2 px-4 flex-1 rounded-[var(--Corner-Radius-10)] bg-[var(--Blue)] text-white text-[14px] leading-[22px] hover:bg-[var(--Blue-hover)] transition-all duration-300 ease-linear">
-            Confirm
+            {t("public__dashboard__delete__qr_code__modal_confirm")}
           </Button>
         </div>
       </DialogContent>

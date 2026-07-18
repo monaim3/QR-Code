@@ -155,12 +155,12 @@ export default function OpeningHours() {
       >
         <div className="desktop:space-y-8 space-y-6">
           {/* Formats */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 desktop:gap-4 w-full">
             {formats.map((format, i) => (
               <button
                 key={i}
                 onClick={() => handleChangeFormat(format.value)}
-                className={`flex h-10 py-1 px-6 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] border text-[16px] leading-[24px] transition-all duration-300 ease-in-out hover:bg-[var(--Blue-hover)] hover:text-white ${timeFormat === format.value ? "text-white bg-[var(--Blue)] border-[var(--Blue)]" : "text-[var(--Blue)] bg-white border-[var(--Blue)]"}`}
+                className={`flex flex-1 h-10 py-1 px-2 desktop:px-6 justify-center items-center gap-2 rounded-[var(--Corner-Radius-10)] border text-[14px] desktop:text-[16px] leading-[24px] transition-all duration-300 ease-in-out hover:bg-[var(--Blue-hover)] hover:text-white ${timeFormat === format.value ? "text-white bg-[var(--Blue)] border-[var(--Blue)]" : "text-[var(--Blue)] bg-white border-[var(--Blue)]"}`}
               >
                 {format.title}
               </button>
@@ -186,13 +186,14 @@ export default function OpeningHours() {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 w-full">
                     <TimeDropdown
                       format={timeFormat}
                       activeTime={business.weeklyOpeningHours[0].open}
                       onChange={(time) =>
                         handleWeeklyTimeChange("open", 0, time)
                       }
+                      className="flex-1 min-w-0"
                     />
                     <TimeDropdown
                       format={timeFormat}
@@ -200,12 +201,13 @@ export default function OpeningHours() {
                       onChange={(time) =>
                         handleWeeklyTimeChange("close", 0, time)
                       }
+                      className="flex-1 min-w-0"
                     />
                     <button
                       type="button"
                       disabled={!!business.weeklyOpeningHours[1]}
                       onClick={() => dispatch(addWeeklySecondSlot())}
-                      className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+                      className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent shrink-0"
                       aria-label="Add second time slot"
                     >
                       <Plus className="text-[var(--Dark-gray)]" />
@@ -217,13 +219,14 @@ export default function OpeningHours() {
                   <div
                     className={`flex flex-col desktop:flex-row items-center justify-end desktop:gap-8 gap-4 self-stretch ${business.useWeekdaysTemplate ? "opacity-100" : "opacity-50"}`}
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-full">
                       <TimeDropdown
                         format={timeFormat}
                         activeTime={business.weeklyOpeningHours[1].open}
                         onChange={(time) =>
                           handleWeeklyTimeChange("open", 1, time)
                         }
+                        className="flex-1 min-w-0"
                       />
                       <TimeDropdown
                         format={timeFormat}
@@ -231,11 +234,12 @@ export default function OpeningHours() {
                         onChange={(time) =>
                           handleWeeklyTimeChange("close", 1, time)
                         }
+                        className="flex-1 min-w-0"
                       />
                       <button
                         type="button"
                         onClick={() => dispatch(removeWeeklySecondSlot())}
-                        className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)]"
+                        className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)] shrink-0"
                         aria-label="Remove second time slot"
                       >
                         <TrashAlt className="text-[var(--Dark-gray)]" />

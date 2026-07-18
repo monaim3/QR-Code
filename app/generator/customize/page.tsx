@@ -428,7 +428,7 @@ export default function QRCodeCustomize() {
                   <label className="block text-lg font-bold leading-[26px] text-[#0A0909]">
                     {t("generator__design_form__pattern_section__heading")}
                   </label>
-                  <div className="flex gap-4 p-0.5 pt-4 overflow-x-auto desktop:overflow-visible flex-wrap">
+                  <div className="flex gap-4 p-0.5 pt-4 overflow-x-auto desktop:overflow-visible desktop:flex-wrap">
                     {patternOptions.map((pattern) => (
                       <PatternPreview
                         key={pattern}
@@ -441,7 +441,7 @@ export default function QRCodeCustomize() {
                 </div>
 
                 <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0 relative">
-                  <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 px-6 pt-6 pb-8 relative z-10">
+                  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-center gap-4 lg:gap-6 px-4 pt-4 pb-4 lg:px-6 lg:pt-6 lg:pb-8 relative z-10">
                     <ColorInput
                       label={t(
                         "generator__design_form__pattern_section__dot_label",
@@ -463,20 +463,18 @@ export default function QRCodeCustomize() {
                     </button>
                     <button
                       type="button"
-                      className="flex lg:hidden p-2 text-gray-500"
+                      className="flex lg:hidden items-center justify-center gap-2 py-1 text-gray-500 self-center"
                       onClick={() => {
                         dispatch(setDotColor(backgroundColor));
                         dispatch(setBackgroundColor(dotColor));
                       }}
                     >
-                      <p className="flex gap-2">
-                        <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                          {t(
-                            "generator__content_form_section__design__swap_button",
-                          )}
-                        </span>
-                        <Swap />
-                      </p>
+                      <span className="text-[#79809A] text-sm leading-[22px] font-normal">
+                        {t(
+                          "generator__content_form_section__design__swap_button",
+                        )}
+                      </span>
+                      <Swap />
                     </button>
                     <ColorInput
                       label={t(
@@ -493,7 +491,7 @@ export default function QRCodeCustomize() {
                       }
                     />
                   </div>
-                  <div className="flex items-center gap-2 px-6 pb-4">
+                  <div className="flex items-center gap-2 px-4 pb-4 lg:px-6">
                     <CheckboxInput
                       label={t(
                         "generator__design_form__pattern_section__transparent_background",
@@ -519,7 +517,7 @@ export default function QRCodeCustomize() {
                     <label className="block text-base font-semibold ">
                       {t("generator__design_form__corner_section__heading")}
                     </label>
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-4 overflow-x-auto">
                       {cornerFrameOptions.map((style) => {
                         return (
                           <CornerStylePreview
@@ -540,7 +538,7 @@ export default function QRCodeCustomize() {
                     <label className="block  text-base font-semibold ">
                       {t("generator__design_form__corner_section__dot_label")}
                     </label>
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-4 overflow-x-auto">
                       {cornerDotOptions.map((style) => (
                         <CornerStylePreview
                           key={style}
@@ -554,7 +552,7 @@ export default function QRCodeCustomize() {
                   </div>
                 </div>
                 <div className="bg-[#F8F9FC] rounded-xl !space-y-0 !m-0 !p-0">
-                  <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
+                  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-center gap-4 lg:gap-6 px-4 lg:px-6 pt-4 lg:pt-6 pb-4 lg:pb-8">
                     <ColorInput
                       label={t(
                         "generator__design_form__corner_section__frame_label",
@@ -577,20 +575,18 @@ export default function QRCodeCustomize() {
                     </button>
                     <button
                       type="button"
-                      className="flex lg:hidden p-2 text-gray-500"
+                      className="flex lg:hidden items-center justify-center gap-2 py-1 text-gray-500 self-center"
                       onClick={() => {
                         dispatch(setCornerFrameColor(cornerDotColor));
                         dispatch(setCornerDotColor(cornerFrameColor));
                       }}
                     >
-                      <p className="flex gap-2">
-                        <span className="text-[#79809A] text-sm leading-[22px] font-normal">
-                          {t(
-                            "generator__content_form_section__design__swap_button",
-                          )}
-                        </span>
-                        <Swap className="text-2xl" />
-                      </p>
+                      <span className="text-[#79809A] text-sm leading-[22px] font-normal">
+                        {t(
+                          "generator__content_form_section__design__swap_button",
+                        )}
+                      </span>
+                      <Swap className="text-2xl" />
                     </button>
                     <ColorInput
                       label={t(

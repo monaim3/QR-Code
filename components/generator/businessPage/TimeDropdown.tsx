@@ -7,6 +7,8 @@ interface Props {
   format: string;
   activeTime: Time;
   onChange: (time: Time) => void;
+  className?: string;
+  disabled?: boolean;
 }
 
 /** Convert 12h (hour 01-12 + amPm) to 24h hour (00-23) for display */
@@ -25,7 +27,7 @@ function formatTimeDisplay(time: Time, format: string): string {
   return `${time.hour}:${time.minute} ${time.amPm ?? ""}`.trim();
 }
 
-export default function TimeDropdown({ format, activeTime, onChange }: Props) {
+export default function TimeDropdown({ format, activeTime, onChange, className, disabled }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeHour, setActiveHour] = useState(activeTime.hour);
   const [activeMinutes, setActiveMinutes] = useState(activeTime.minute);
@@ -83,11 +85,12 @@ export default function TimeDropdown({ format, activeTime, onChange }: Props) {
   };
 
   return (
-    <div className="relative w-[160px]" ref={dropdownRef}>
+    <div className={`relative w-[160px] ${className ?? ""}`} ref={dropdownRef}>
       {/* Trigger Button */}
       <button
-        onClick={() => (isOpen ? closeDropdown() : openDropdown())}
-        className="flex items-center gap-2 justify-between w-full self-stretch h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] bg-white"
+        onClick={() => !disabled && (isOpen ? closeDropdown() : openDropdown())}
+        disabled={disabled}
+        className="flex items-center gap-2 justify-between w-full self-stretch h-10 py-2 px-4 rounded-[var(--Corner-Radius-8)] border border-[var(--Boarder-Grey)] bg-white disabled:cursor-not-allowed"
       >
         <span className="text-[var(--Dark-gray)] text-[14px] leading-[22px] font-medium flex-1 text-left">
           {formatTimeDisplay(activeTime, format)}

@@ -48,22 +48,26 @@ export default function TimeSlotCard({
           <p>{day}</p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full">
           <TimeDropdown
             format={timeFormat}
             activeTime={slot0.open}
             onChange={(time) => onOpenChange(0, time)}
+            className="flex-1 min-w-0"
+            disabled={!isChecked}
           />
           <TimeDropdown
             format={timeFormat}
             activeTime={slot0.close}
             onChange={(time) => onCloseChange(0, time)}
+            className="flex-1 min-w-0"
+            disabled={!isChecked}
           />
           <button
             type="button"
-            disabled={hasSecondSlot}
+            disabled={hasSecondSlot || !isChecked}
             onClick={onAddSecondSlot}
-            className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+            className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent shrink-0"
             aria-label="Add second time slot"
           >
             <Plus className="text-[var(--Dark-gray)]" />
@@ -75,21 +79,26 @@ export default function TimeSlotCard({
         <div
           className={`flex flex-col desktop:flex-row items-center justify-end desktop:gap-8 gap-4 self-stretch ${isChecked ? "opacity-100" : "opacity-50"}`}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full">
             <TimeDropdown
               format={timeFormat}
               activeTime={slot1.open}
               onChange={(time) => onOpenChange(1, time)}
+              className="flex-1 min-w-0"
+              disabled={!isChecked}
             />
             <TimeDropdown
               format={timeFormat}
               activeTime={slot1.close}
               onChange={(time) => onCloseChange(1, time)}
+              className="flex-1 min-w-0"
+              disabled={!isChecked}
             />
             <button
               type="button"
+              disabled={!isChecked}
               onClick={onRemoveSecondSlot}
-              className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)]"
+              className="flex w-10 h-10 p-2 justify-center items-center rounded-[var(--Corner-Radius-10)] border border-[var(--Border-color)] hover:bg-[var(--light-grey-70)] disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
               aria-label="Remove second time slot"
             >
               <TrashAlt className="text-[var(--Dark-gray)]" />

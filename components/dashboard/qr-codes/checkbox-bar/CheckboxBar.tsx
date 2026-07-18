@@ -9,6 +9,7 @@ import RefreshCw from "@/components/icons/refresh-cw";
 import TrashAlt from "@/components/icons/trash-alt";
 import Close from "@/components/icons/close";
 import { useAppSelector } from "@/store/hooks";
+import { useT } from "@/utils/t";
 import {
   useDeleteQrCodesMutation,
   useResetQrScansMutation,
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export default function CheckboxBar({ selectedCount, ids, selectedItems, onClose }: Props) {
+  const t = useT();
   const collapsed = useAppSelector((state) => state.sidebar.collapsed);
 
   const [deleteQrCodes, { isLoading }] = useDeleteQrCodesMutation();
@@ -140,22 +142,21 @@ export default function CheckboxBar({ selectedCount, ids, selectedItems, onClose
         {selectedCount}
       </p>
       <p className="text-[var(--Grey)] text-[14px] leading-[22px] desktopDashboard:block hidden">
-        <span className="text-[var(--Dark-gray)]">{selectedCount}</span> items
-        selected
+        <span className="text-[var(--Dark-gray)]">{selectedCount}</span> items selected
       </p>
 
       {/* Buttons */}
       <div className="flex items-center justify-center gap-2 flex-1">
         <IconButton
           icon={<Download className="text-[var(--Dark-gray)]" />}
-          text={isZipping ? "Zipping..." : "Download"}
+          text={isZipping ? t("public__dashboard__qr_table__qr_card__download") : t("public__dashboard__qr_table__qr_card__download")}
           onClick={handleDownloadZip}
         />
-        <IconButton icon={<PauseCircle />} text="Pause" onClick={handleDeactivate} />
-        <IconButton icon={<RefreshCw />} text="Reset scans" onClick={handleResetScans} />
+        <IconButton icon={<PauseCircle />} text={t("public__dashboard__qr_table__qr_card__download_option__pause")} onClick={handleDeactivate} />
+        <IconButton icon={<RefreshCw />} text={t("public__dashboard__reset_scans__qr_code__modal_title")} onClick={handleResetScans} />
         <IconButton
           icon={<TrashAlt className="text-[var(--error)]" />}
-          text="Delete"
+          text={t("public__dashboard__account__settings__delete_account__button")}
           variant="error"
           onClick={handleDelete}
         />
