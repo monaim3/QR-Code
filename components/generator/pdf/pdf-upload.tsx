@@ -3,6 +3,7 @@ import { useState, useRef, useCallback } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuPencil } from "react-icons/lu";
 import UploadIcon from "@/components/icons/upload-icon";
+import PdfIcon from "@/components/icons/pdf";
 import Eye from "@/components/icons/eye";
 import { useT } from "@/utils/t";
 
@@ -124,7 +125,7 @@ export default function PdfUpload({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white">
-                <UploadIcon />
+                { pdfUrl ? <PdfIcon /> : <UploadIcon /> }
               </div>
               <span className="text-[16px] leading-[24px] font-medium text-[var(--Black)] hidden desktop:block">
                 {fileName}
@@ -168,7 +169,7 @@ export default function PdfUpload({
           >
             <div className="w-20 h-20 p-2 border border-[var(--boarder-grey-50)] flex justify-center items-center rounded-full bg-white">
               <div className="w-full h-full flex items-center justify-center rounded-full bg-[#F7F9FC] p-4">
-                <UploadIcon />
+                { pdfUrl ? <PdfIcon /> : <UploadIcon /> }
               </div>
             </div>
 
